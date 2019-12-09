@@ -93,7 +93,6 @@
                 <%--<tr>
                     <td>
                         <telerik:RadCheckBox ID="cb_use_serial_number" runat="server" Text="Use Serial Number" Checked='<%#Eval("tSN") %>' Skin="Telerik">
-
                         </telerik:RadCheckBox>
                     </td>
                 </tr>--%>
