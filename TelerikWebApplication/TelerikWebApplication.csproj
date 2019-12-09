@@ -247,6 +247,13 @@
     <Compile Include="Form\Security\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Security\Master_menu\master_menu.aspx.cs">
+      <DependentUpon>master_menu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Security\Master_menu\master_menu.aspx.designer.cs">
+      <DependentUpon>master_menu.aspx</DependentUpon>
+    </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -329,6 +336,7 @@
     <Content Include="Form\Reports\Default.aspx" />
     <Content Include="Form\Sales\Default.aspx" />
     <Content Include="Form\Security\Default.aspx" />
+    <Content Include="Form\Security\Master_menu\master_menu.aspx" />
     <Content Include="Images\backgrounds\header_about.gif" />
     <Content Include="Images\backgrounds\header_calendar.gif" />
     <Content Include="Images\backgrounds\header_contacts.gif" />
@@ -419,7 +427,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
