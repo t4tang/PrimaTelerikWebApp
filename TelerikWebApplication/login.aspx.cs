@@ -49,7 +49,6 @@ namespace PrimaWebApp
                 //{
                 //    throw new Exception();
                 //}
-
                 if (dr.Read())
                 {
                     public_str.user_id = txt_uid.Text;
