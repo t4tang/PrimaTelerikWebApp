@@ -90,33 +90,33 @@
         </td>
         <td>
             <table>
-                <tr>
+                <%--<tr>
                     <td>
-                        <telerik:RadCheckBox ID="cb_use_serial_number" runat="server" Text="Use Serial Number" Checked='<%#Convert.ToBoolean(DataBinder.Eval(Container,"tSN")) %>' Skin="Telerik">
+                        <telerik:RadCheckBox ID="cb_use_serial_number" runat="server" Text="Use Serial Number" Checked='<%#Eval("tSN") %>' Skin="Telerik">
 
                         </telerik:RadCheckBox>
                     </td>
-                </tr>
+                </tr>--%>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_active" runat="server" Text="Active" Skin="Telerik" Checked='<%#Convert.ToBoolean(DataBinder.Eval(Container,"tActive")) %>'></telerik:RadCheckBox>
+                        <telerik:RadCheckBox ID="cb_active" runat="server" Text="Active" Skin="Telerik" Checked='<%#DataBinder.GetPropertyValue(Container,"DataItem.tActive").ToString()=="0"%>'></telerik:RadCheckBox>
+                    </td>
+                </tr>
+                <%--<tr>
+                    <td colspan="2">
+                        <telerik:RadCheckBox ID="cb_warranty" runat="server" Text="Warranty" Skin="Telerik" Checked='<%#Eval("tWarranty") %>'></telerik:RadCheckBox>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_warranty" runat="server" Text="Warranty" Skin="Telerik" Checked='<%#Convert.ToBoolean(DataBinder.Eval(Container,"tWarranty")) %>'></telerik:RadCheckBox>
+                        <telerik:RadCheckBox ID="cb_monitoring_stock" runat="server" Text="Monitoring Stock" Checked='<%#Eval("tMonitor") %>' Skin="Telerik"></telerik:RadCheckBox>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_monitoring_stock" runat="server" Text="Monitoring Stock" Checked='<%#Convert.ToBoolean(DataBinder.Eval(Container,"tMonitor")) %>' Skin="Telerik"></telerik:RadCheckBox>
+                        <telerik:RadCheckBox ID="cb_consignment" runat="server" Text="Consignment" Checked='<%#Eval("tConsig") %>' Skin="Telerik" ></telerik:RadCheckBox>
                     </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_consignment" runat="server" Text="Consignment" Checked='<%#Convert.ToBoolean(DataBinder.Eval(Container,"tConsig")) %>' Skin="Telerik" ></telerik:RadCheckBox>
-                    </td>
-                </tr>
+                </tr>--%>
                 <tr>
                     <td class="title" style="font-weight: bold;" colspan="2">Purchase:</td>
                 </tr>
