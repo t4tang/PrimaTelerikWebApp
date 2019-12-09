@@ -38,14 +38,8 @@ namespace TelerikWebApplication
                 DataSet links = new DataSet();
 
                 sda.Fill(links);
-                //RadPanelBar1.DataTextField = "menu_description";
-                //RadPanelBar1.DataNavigateUrlField = "menu_url";
-                //RadPanelBar1.DataFieldID = "menu_id";
-                //RadPanelBar1.DataFieldParentID = "Parent_menu_id";
 
-
-                //RadPanelBar1.DataSource = links;
-                //RadPanelBar1.DataBind();
+                NavNode1.Text = public_str.user_name;
 
             }
         }

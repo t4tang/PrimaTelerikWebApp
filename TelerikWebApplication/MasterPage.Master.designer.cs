@@ -67,6 +67,15 @@ namespace TelerikWebApplication {
         protected global::Telerik.Web.UI.RadNavigation mainNavigation;
         
         /// <summary>
+        /// NavNode1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.NavigationNode NavNode1;
+        
+        /// <summary>
         /// FolderContent control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace TelerikWebApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadToolTip UserProfile;
+        
+        /// <summary>
+        /// hl1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hl1;
         
         /// <summary>
         /// nav control.
