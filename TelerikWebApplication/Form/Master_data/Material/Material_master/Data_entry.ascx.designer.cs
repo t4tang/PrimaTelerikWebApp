@@ -67,13 +67,13 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master {
         protected global::Telerik.Web.UI.RadComboBox cb_group;
         
         /// <summary>
-        /// ddl_st_main control.
+        /// cb_use_serial_number control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_st_main;
+        protected global::Telerik.Web.UI.RadCheckBox cb_use_serial_number;
         
         /// <summary>
         /// cb_active control.
@@ -83,6 +83,33 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadCheckBox cb_active;
+        
+        /// <summary>
+        /// cb_warranty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadCheckBox cb_warranty;
+        
+        /// <summary>
+        /// cb_monitoring_stock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadCheckBox cb_monitoring_stock;
+        
+        /// <summary>
+        /// cb_consignment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadCheckBox cb_consignment;
         
         /// <summary>
         /// txt_min_stock control.

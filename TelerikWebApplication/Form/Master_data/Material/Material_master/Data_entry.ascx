@@ -1,7 +1,8 @@
 ﻿<%@ Control Language="C#" CodeBehind="Data_entry.ascx.cs" Inherits="TelerikWebApplication.Form.Master_data.Material.Material_master.Data_entry" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<div>
-    <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
+<link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
+<div class="dataEntry">
+    <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none" 
     style="border-collapse: collapse;">
     <tr class="EditFormHeader">
         <td colspan="2">
@@ -10,10 +11,7 @@
     </tr>
     <tr>        
         <td>
-            <table id="Table3" width="650px" border="0" class="module">
-                <%--<tr>
-                    <td class="title" style="font-weight: bold;" colspan="2">Company Info:</td>
-                </tr>--%>
+            <table id="Table3" border="0" class="module">                
                 <tr>
                     <td>Material Code:
                     </td>
@@ -74,7 +72,7 @@
                         </telerik:RadComboBox>
                     </td>
                 </tr>  
-                <tr>
+                <%--<tr>
                     <td>Stock Maintenance:
                     </td>
                     <td>                        
@@ -84,38 +82,47 @@
                             </asp:ListItem>
                         </asp:DropDownList>
                     </td>
-                </tr>               
+                </tr>      --%>         
                 
             </table>
         </td>
-        <td>
+        <td >
             <table>
-                <%--<tr>
+                <tr>
                     <td>
-                        <telerik:RadCheckBox ID="cb_use_serial_number" runat="server" Text="Use Serial Number" Checked='<%#Eval("tSN") %>' Skin="Telerik">
+                        <telerik:RadCheckBox ID="cb_use_serial_number" runat="server" Text="Use Serial Number" Skin="Telerik"
+                            Checked='<%# DataBinder.Eval (Container, "DataItem.tSN").ToString()!="0"?true:false %>'>
                         </telerik:RadCheckBox>
                     </td>
-                </tr>--%>
+                </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_active" runat="server" Text="Active" Skin="Telerik" Checked='<%#DataBinder.GetPropertyValue(Container,"DataItem.tActive").ToString()=="0"%>'></telerik:RadCheckBox>
-                    </td>
-                </tr>
-                <%--<tr>
-                    <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_warranty" runat="server" Text="Warranty" Skin="Telerik" Checked='<%#Eval("tWarranty") %>'></telerik:RadCheckBox>
+                        <telerik:RadCheckBox ID="cb_active" runat="server" Text="Active" Skin="Telerik" 
+                            Checked='<%# DataBinder.Eval (Container, "DataItem.tActive").ToString()!="0"?true:false %>'>
+                        </telerik:RadCheckBox>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_monitoring_stock" runat="server" Text="Monitoring Stock" Checked='<%#Eval("tMonitor") %>' Skin="Telerik"></telerik:RadCheckBox>
+                        <telerik:RadCheckBox ID="cb_warranty" runat="server" Text="Warranty" Skin="Telerik" 
+                            Checked='<%# DataBinder.Eval (Container, "DataItem.warranty").ToString()!="0"?true:false %>'>
+                        </telerik:RadCheckBox>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_consignment" runat="server" Text="Consignment" Checked='<%#Eval("tConsig") %>' Skin="Telerik" ></telerik:RadCheckBox>
+                        <telerik:RadCheckBox ID="cb_monitoring_stock" runat="server" Text="Monitoring Stock" 
+                            Checked='<%# DataBinder.Eval (Container, "DataItem.tMonitor").ToString()!="0"?true:false %>'>
+                        </telerik:RadCheckBox>
                     </td>
-                </tr>--%>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <telerik:RadCheckBox ID="cb_consignment" runat="server" Text="Consignment" Skin="Telerik"  
+                            Checked='<%# DataBinder.Eval (Container, "DataItem.tConsig").ToString()!="0"?true:false %>'>
+                        </telerik:RadCheckBox>
+                    </td>
+                </tr>
                 <tr>
                     <td class="title" style="font-weight: bold;" colspan="2">Purchase:</td>
                 </tr>
@@ -157,11 +164,11 @@
         <td colspan="2"></td>
     </tr>
     <tr>
-        <td></td>
+        <td class="auto-style1"></td>
         <td></td>
     </tr>
     <tr>
-        <td align="right" colspan="2">
+        <td align="left" colspan="2">
             <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                 runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>&nbsp;
             <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
