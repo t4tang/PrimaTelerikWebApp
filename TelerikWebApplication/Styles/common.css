@@ -421,7 +421,7 @@ html .RadNavigation {
     margin-left: 10px; }
   html .RadNavigation .user .rnvLink {
     padding-right: 90px;
-    background: url("../Images/photo-profile-s.png") 150px 4px no-repeat; }
+    background: url("~/Images/user-s.png") 150px 4px no-repeat; }
   html .RadNavigation .user .rnvText {
     margin: 0; }
   html .RadNavigation .user .rwzSprite {
