@@ -84,8 +84,8 @@
                 <div class="content">
                     <%--<span>moroni@telerik.com</span>--%>
                     <span class="addBtn">
-                        <span class="icon icon-Add-Circle"></span>
-                        <span class="text">New</span>
+                        <span class="icon icon-Close"></span>
+                        <span class="text">Log out</span>
                     </span>
                     <%--<telerik:RadButton runat="server" ID="SignOut" ButtonType="LinkButton" Text="Sign Out"></telerik:RadButton>--%>
                 </div>
