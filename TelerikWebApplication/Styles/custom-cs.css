@@ -142,3 +142,8 @@ html .RadMultiPage .rmpView {
 .rfdSelectBoxDropDown {
     z-index: 100011;
 }
+
+.dataEntry{
+   padding-left:15px;
+   vertical-align:top;
+}
