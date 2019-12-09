@@ -1,0 +1,36 @@
+﻿html .main-header {
+  background-image: url("../Images/backgrounds/header_notes.gif"); }
+
+html .sidebar .btn-new-node,
+html .help-menu .rmRootGroup {
+  color: #f77312; }
+
+html body .RadInput_MetroTouch input.riFocused,
+html body .RadInput_Focused_MetroTouch {
+  border-color: #ff811b; }
+
+html .container .RadNavigation .rnvHovered .rnvRootLink {
+  border-color: #ff811b;
+  background: #ff811b; }
+
+html .container .RadNavigation .rnvSelected .rnvRootLink,
+html .container .RadNavigation .rnvExpanded .rnvRootLink {
+  border-color: #ec6807;
+  background: #ec6807; }
+
+html .radSkin_BlackMetroTouch .rnvPopup .rnvHovered > .rnvLink {
+  background-color: #ff811b; }
+
+html .radSkin_BlackMetroTouch .rnvPopup .rnvSelected > .rnvLink {
+  background-color: #ec6807; }
+
+html .mobile .breadcrumb {
+  color: #f77312; }
+  html .mobile .breadcrumb .item.expanded {
+    background-color: #f77312; }
+
+html .mobile .RadMenuPopup_MetroTouch .rmItem.rmSelected {
+  color: #ec6807; }
+
+.mobile .scroller {
+  overflow: auto; }

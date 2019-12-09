@@ -1,0 +1,642 @@
+﻿.icon:before {
+  font-family: 'OutlookSampleApp' !important;
+  speak: none;
+  vertical-align: top;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon.icon-Home:before {
+  content: "\e600"; }
+
+.icon.icon-Menu:before {
+  content: "\e601"; }
+
+.icon.icon-Product-Mail:before {
+  content: "\e602"; }
+
+.icon.icon-Product-Calendar:before {
+  content: "\e603"; }
+
+.icon.icon-Product-Contacts:before {
+  content: "\e604"; }
+
+.icon.icon-Product-Notes:before {
+  content: "\e605"; }
+
+.icon.icon-Info:before {
+  content: "\e606"; }
+
+.icon.icon-Download:before {
+  content: "\e607"; }
+
+.icon.icon-Search:before {
+  content: "\e608"; }
+
+.icon.icon-Chevron-West:before {
+  content: "\e609"; }
+
+.icon.icon-Chevron-East:before {
+  content: "\e60a"; }
+
+.icon.icon-Chevron-North:before {
+  content: "\e60b"; }
+
+.icon.icon-Chevron-South:before {
+  content: "\e60c"; }
+
+.icon.icon-DoubleChevron-West:before {
+  content: "\e60d"; }
+
+.icon.icon-DoubleChevron-East:before {
+  content: "\e60e"; }
+
+.icon.icon-DoubleChevron-North:before {
+  content: "\e60f"; }
+
+.icon.icon-DoubleChevron-South:before {
+  content: "\e610"; }
+
+.icon.icon-Arrow-West:before {
+  content: "\e611"; }
+
+.icon.icon-Arrow-East:before {
+  content: "\e612"; }
+
+.icon.icon-Arrow-North:before {
+  content: "\e613"; }
+
+.icon.icon-Arrow-South:before {
+  content: "\e614"; }
+
+.icon.icon-Priority-High:before {
+  content: "\e615"; }
+
+.icon.icon-Priority-Low:before {
+  content: "\e616"; }
+
+.icon.icon-Spam:before {
+  content: "\e617"; }
+
+.icon.icon-Add-Circle:before {
+  content: "\e618"; }
+
+.icon.icon-Mail-Circle:before {
+  content: "\e619"; }
+
+.icon.icon-Edit-Circle:before {
+  content: "\e61a"; }
+
+.icon.icon-Delete-Circle:before {
+  content: "\e61b"; }
+
+.icon.icon-Delete:before {
+  content: "\e61c"; }
+
+.icon.icon-Close:before {
+  content: "\e61d"; }
+
+.icon.icon-Ok:before {
+  content: "\e61e"; }
+
+.icon.icon-View:before {
+  content: "\e61f"; }
+
+.icon.icon-Photo:before {
+  content: "\e620"; }
+
+.icon.icon-Person:before {
+  content: "\e621"; }
+
+.icon.icon-Send:before {
+  content: "\e622"; }
+
+.icon.icon-Save:before {
+  content: "\e623"; }
+
+.icon.icon-Warning:before {
+  content: "\e624"; }
+
+.icon.icon-Bell:before {
+  content: "\e625"; }
+
+.icon.icon-Calendar:before {
+  content: "\e626"; }
+
+.icon.icon-Time:before {
+  content: "\e627"; }
+
+.icon.icon-Recurrence:before {
+  content: "\e628"; }
+
+.icon.icon-Non-Recurrence:before {
+  content: "\e629"; }
+
+.icon.icon-View-ListView:before {
+  content: "\e62a"; }
+
+.icon.icon-View-Grid:before {
+  content: "\e62b"; }
+
+.icon.icon-View-ReadingPane-Down:before {
+  content: "\e62c"; }
+
+.icon.icon-View-ReadingPane-Right:before {
+  content: "\e62d"; }
+
+.icon.icon-Folder:before {
+  content: "\e62e"; }
+
+html .RadScheduler .rsIcon {
+  font-family: OutlookSampleApp; }
+
+html .RadGrid .rgActionButton,
+html .rnvLink .radIcon {
+  font-size: 16px; }
+
+html .rnvLink .radIcon {
+  height: 22px;
+  line-height: 22px; }
+
+html .RadScheduler .rsIconArrowLeft:before {
+  content: "\e611"; }
+
+html .RadScheduler .rsIconArrowRight:before {
+  content: "\e612"; }
+
+html .RadScheduler .rsIconCalendar:before {
+  content: "\e626"; }
+
+@font-face {
+  font-family: 'OutlookSampleApp';
+  src: url("../fonts/OutlookSampleApp.eot?4e35sj");
+  src: url("../fonts/OutlookSampleApp.eot?#iefix4e35sj") format("embedded-opentype"), url("../fonts/OutlookSampleApp.woff?4e35sj") format("woff"), url("../fonts/OutlookSampleApp.ttf?4e35sj") format("truetype"), url("../fonts/OutlookSampleApp.svg?4e35sj#OutlookSampleApp") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+html,
+body,
+form {
+  height: 100%; }
+
+form {
+  overflow: hidden; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font: 100 16px "Segoe UI", Arial, Helvetica, sans-serif; }
+
+.clear:after {
+  content: "";
+  display: block;
+  clear: both; }
+
+a {
+  color: inherit;
+  text-decoration: none; }
+
+.hidden {
+  display: none !important; }
+
+html form {
+  white-space: nowrap; }
+
+html .slider,
+html .page {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top; }
+
+html .page {
+  width: 100%;
+  margin-left: -4px;
+  padding-top: 56px;
+  white-space: normal;
+  overflow: auto; }
+  html .page > div {
+    min-width: 560px;
+    box-sizing: border-box; }
+
+html .main-header {
+  margin-top: -56px; }
+
+html .container {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%; }
+
+html .sidebar {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  float: left; }
+
+html .section {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y:scroll;
+  padding-top: 54px; }
+
+html .secondaryMenu {
+  margin-top: -54px; }
+  html .secondaryMenu .rnvItem {
+    float: left; }
+
+html .scroller {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  position: relative;
+  /*overflow-y:scroll;*/
+}
+
+html .gridWrapper,
+html .mailDetails {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 49.9%; }
+
+html .rgMasterTable {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%; }
+
+html .mailDetails {
+  overflow-y: scroll; }
+
+html .RadWindow {
+  white-space: normal; }
+
+.slider {
+  width: 0;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  transition: width 0.07s 0.07s ease; }
+  .expandedSlider .slider {
+    width: 200px; }
+  .slider .logo {
+    margin: 0;
+    padding: 12px 15px;
+    background: #000; }
+  .slider .RadMenu .rmRootGroup {
+    padding: 0;
+    background: transparent;
+    border: 0; }
+    .slider .RadMenu .rmRootGroup .rmRootLink {
+      border: 0; }
+      .slider .RadMenu .rmRootGroup .rmRootLink:hover {
+        color: inherit;
+        background: #393939; }
+    .slider .RadMenu .rmRootGroup .rmSelected > .rmRootLink {
+      background: #2d2d2d; }
+    .slider .RadMenu .rmRootGroup .rmFocused > .rmLink {
+      box-shadow: none; }
+  .slider .main-menu .rmRootGroup .rmRootLink {
+    font-size: 18px;
+    font-weight: 100;
+    position: relative;
+    line-height: 52px; }
+    .slider .main-menu .rmRootGroup .rmRootLink span.rmLeftImage {
+      font-size: 28px;
+      margin: 0 10px 0 0 !important;
+      width: auto; }
+      .slider .main-menu .rmRootGroup .rmRootLink span.rmLeftImage:before {
+        font-family: OutlookSampleApp; }
+  .slider .main-menu .rmRootGroup .rmItem:hover,
+  .slider .main-menu .rmRootGroup .rmItem.rmSelected {
+    background: #393939; }
+    .slider .main-menu .rmRootGroup .rmItem:hover .rmRootLink:before,
+    .slider .main-menu .rmRootGroup .rmItem.rmSelected .rmRootLink:before {
+      content: "";
+      height: 100%;
+      width: 3px;
+      position: absolute;
+      left: 0;
+      top: 0; }
+  .slider .mail .rmRootLink:before {
+    background: #0082cc; }
+  .slider .mail .rmLeftImage:before {
+    content: "\e602"; }
+  .slider .contacts .rmRootLink:before {
+    background: #ff3f5e; }
+  .slider .contacts .rmLeftImage:before {
+    content: "\e604"; }
+  .slider .calendar .rmRootLink:before {
+    background: #679a35; }
+  .slider .calendar .rmLeftImage:before {
+    content: "\e626"; }
+  .slider .notes .rmRootLink:before {
+    background: #ec6807; }
+  .slider .notes .rmLeftImage:before {
+    content: "\e605"; }
+  .slider .help-menu {
+    background: #000;
+    position: absolute;
+    top: 100vh;
+    margin-top: -75px;
+    left: 0;
+    text-transform: uppercase; }
+
+.main-header {
+  padding: 2px 10px;
+  color: #fff; }
+  .main-header .icon {
+    font-size: 2em;
+    line-height: 32px; }
+  .main-header .home-btn {
+    float: left;
+    padding: 8px 0;
+    cursor: pointer; }
+    .main-header .home-btn .icon {
+      margin-right: 5px; }
+    .main-header .home-btn .text {
+      vertical-align: top;
+      font-weight: 400;
+      font-size: 24px; }
+  .main-header .home-btn:before {
+    font-size: 1.08333333em; }
+  .main-header .header-info {
+    float: right; }
+    .main-header .header-info .rnvRootGroupWrapper,
+    .main-header .header-info .rnvRootLink {
+      border: 0; }
+  .main-header .header-info > span {
+    margin-right: 30px; }
+
+html .RadNavigation {
+  font-size: 16px; }
+  html .RadNavigation .rnvRootGroup {
+    display: block; }
+    html .RadNavigation .rnvRootGroup .rnvItem {
+      vertical-align: middle; }
+    html .RadNavigation .rnvRootGroup:after {
+      content: "";
+      display: block;
+      clear: both; }
+  html .RadNavigation .rnvFocused > .rnvLink {
+    box-shadow: none; }
+  html .RadNavigation .rightScndNav {
+    float: right; }
+    html .RadNavigation .rightScndNav .rnvTemplate {
+      padding: 0;
+      border: 0; }
+    html .RadNavigation .rightScndNav.rnvHovered .rnvRootLink.rnvTemplate,
+    html .RadNavigation .rightScndNav.rnvSelected .rnvRootLink.rnvTemplate,
+    html .RadNavigation .rightScndNav.rnvFocused .rnvRootLink.rnvTemplate {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none; }
+    html .RadNavigation .rightScndNav .button {
+      display: inline-block;
+      padding: 15px;
+      cursor: pointer; }
+    html .RadNavigation .rightScndNav .icon {
+      font-size: 1em; }
+    html .RadNavigation .rightScndNav .text {
+      display: inline-block;
+      text-indent: -99999px; }
+  html .RadNavigation .rwzSprite {
+    display: inline-block;
+    vertical-align: top; }
+  html .RadNavigation .icon {
+    font-size: 2em;
+    line-height: 22px; }
+  html .RadNavigation .rnvLink,
+  html .RadNavigation .rnvText {
+    cursor: pointer; }
+  html .RadNavigation .rwzSprite + .rnvText {
+    margin-left: 10px; }
+  html .RadNavigation .user .rnvLink {
+    padding-right: 90px;
+    background: url("../Images/photo-profile-s.png") 150px 4px no-repeat; }
+  html .RadNavigation .user .rnvText {
+    margin: 0; }
+  html .RadNavigation .user .rwzSprite {
+    position: absolute;
+    right: 0;
+    font-size: 1.5em; }
+  html .RadNavigation .user .icon {
+    font-size: 1.2em; }
+  html .RadNavigation .RadSearchBox + .searchBtn {
+    z-index: 1;
+    position: relative;
+    background: #222;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #4e4e4e; }
+  html .RadNavigation .RadSearchBox {
+    position: absolute;
+    right: 0;
+    min-width: 0;
+    z-index: 2;
+    transition: width 0.4s ease; }
+    html .RadNavigation .RadSearchBox.hidden {
+      display: inline-block !important;
+      width: 46px !important;
+      z-index: 0; }
+    html .RadNavigation .RadSearchBox .rsbInner {
+      height: 52px;
+      position: relative;
+      color: #fff;
+      border: 0;
+      background: #000;
+      overflow: hidden; }
+    html .RadNavigation .RadSearchBox .rsbInput {
+      height: 48px; }
+    html .RadNavigation .RadSearchBox .rsbButtonSearch {
+      width: 54px;
+      height: 54px;
+      box-shadow: none;
+      outline: none;
+      margin: -1px;
+      border-color: transparent;
+      cursor: pointer;
+      position: absolute;
+      right: 0; }
+    .rsbListItem {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+  html .RadNavigation.secondaryMenu .rnvItem.rnvFirst {
+    margin-right: 60px; }
+
+.scroller {
+  overflow: auto;
+  overflow-x: hidden; }
+
+html .RadToolTip {
+  color: #000;
+  background: #fff;
+  border-color: #cdcdcd; }
+  html .RadToolTip .rtCalloutTopCenter {
+    border-bottom-color: #cdcdcd;
+    left: auto;
+    right: 38px; }
+    html .RadToolTip .rtCalloutTopCenter:before {
+      border-bottom-color: #fff; }
+  html .RadToolTip .rtContent {
+    padding: 15px;
+    white-space: nowrap; }
+    html .RadToolTip .rtContent * {
+      vertical-align: top; }
+    html .RadToolTip .rtContent > div:after {
+      content: "";
+      display: block;
+      clear: both; }
+  html .RadToolTip img {
+    display: inline-block;
+    margin-right: 17px; }
+  html .RadToolTip .content {
+    display: inline-block; }
+    html .RadToolTip .content > span {
+      display: block; }
+  html .RadToolTip .addBtn {
+    padding: 5px 0;
+    margin: 10px 0;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #cdcdcd;
+    cursor: pointer; }
+    html .RadToolTip .addBtn * {
+      vertical-align: middle; }
+    html .RadToolTip .addBtn .icon {
+      font-size: 2em; }
+
+.rnvSlide {
+  min-width: 160px; }
+  .rnvSlide .rnvLink .rnvText {
+    cursor: pointer; }
+
+.sidebar {
+  width: 240px;
+  background-color: #f5f5f5; }
+  .sidebar .RadTreeView {
+    margin-top: 10px;
+    line-height: 1.7em; }
+    .sidebar .RadTreeView .rtIn {
+      display: block;
+      margin-left: -27px;
+      padding-left: 27px;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .sidebar .RadTreeView .rtHover .rtIn,
+    .sidebar .RadTreeView .rtSelected .rtIn,
+    .sidebar .RadTreeView .rtEdit .rtIn {
+      color: #000;
+      background: #fff;
+      border-color: #fff; }
+    .sidebar .RadTreeView .rtLines .rtLI:before,
+    .sidebar .RadTreeView .rtLines .rtTop:before,
+    .sidebar .RadTreeView .rtLines .rtMid:before,
+    .sidebar .RadTreeView .rtLines .rtBot:before {
+      display: none; }
+  .sidebar #newFolderContainer {
+    padding-left: 1.66667em; }
+  .sidebar .btn-new-node {
+    margin-top: 7px;
+    padding-left: 28px;
+    cursor: pointer; }
+  .sidebar .rtLI.last {
+    border-bottom: 1px solid #e1e1e1; }
+
+/* Tree Folders */
+.mainFolder {
+  font-weight: bold; }
+
+/* INPUTS */
+html body .RadInput_MetroTouch input.riFocused,
+html body .RadInput_Focused_MetroTouch {
+  outline: none; }
+
+.mobile .slider .main-menu {
+  display: block; }
+
+.mobile .container {
+  padding-top: 54px; }
+
+.mobile .sidebar {
+  width: 100%;
+  height: auto;
+  float: none;
+  margin-top: -54px; }
+
+.mobile .RadMenu {
+  font-size: 13px; }
+
+.mobile .main-header .rnvText {
+  display: none; }
+
+.mobile .RadNavigation .user .rnvLink {
+  height: 22px;
+  padding-right: 70px;
+  background: url("../Images/photo-profile-s.png") 15px 4px no-repeat; }
+
+.mobile .sidebar {
+  font-weight: normal; }
+
+.mobile .RadMenuPopup .rmItem.rmSelected {
+  background: transparent; }
+
+.mobile .RadMenuPopup .rmItem {
+  border: 0; }
+
+.mobile .breadcrumb {
+  overflow: hidden; }
+  .mobile .breadcrumb .item {
+    position: relative;
+    display: inline-block;
+    padding: 7px 10px; }
+    .mobile .breadcrumb .item.selected {
+      color: #000; }
+    .mobile .breadcrumb .item.expanded {
+      color: #fff; }
+    .mobile .breadcrumb .item + .item {
+      margin-left: 20px; }
+      .mobile .breadcrumb .item + .item:before {
+        content: "\e60e";
+        font-family: 'OutlookSampleApp';
+        position: absolute;
+        left: -20px;
+        top: 10px;
+        color: #bfbfbf; }
+    .mobile .breadcrumb .item.menu {
+      display: inline-block; }
+  .mobile .breadcrumb .RadMenu {
+    vertical-align: middle; }
+    .mobile .breadcrumb .RadMenu .rmRootToggle {
+      border: 0;
+      color: inherit;
+      background: transparent !important;
+      box-shadow: none; }
+      .mobile .breadcrumb .RadMenu .rmRootToggle:before {
+        font-family: OutlookSampleApp;
+        content: "\e62e"; }
+
+.mobile .RadNavigation.secondaryMenu .rnvItem.rnvFirst {
+  margin-right: 0; }
+
+.mobile .header-info {
+  width: 210px; }
+
+.mobile .page > div {
+  min-width: 600px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.mobile .RadNavigation .rightScndNav .horizontalBtn,
+.mobile .RadNavigation .rightScndNav .verticalBtn {
+  display: none; }

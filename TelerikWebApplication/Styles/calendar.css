@@ -1,0 +1,106 @@
+﻿html .main-header {
+  background-image: url("../Images/backgrounds/header_calendar.gif"); }
+
+html .sidebar .btn-new-node,
+html .help-menu .rmRootGroup {
+  color: #77aa45; }
+
+html body .RadInput_MetroTouch input.riFocused,
+html body .RadInput_Focused_MetroTouch {
+  border-color: #77aa45; }
+
+html .RadToolTip .addBtn {
+  color: #77aa45; }
+
+html .container .RadNavigation .rnvHovered .rnvRootLink {
+  border-color: #77aa45;
+  background: #77aa45; }
+
+html .container .RadNavigation .rnvSelected .rnvRootLink,
+html .container .RadNavigation .rnvExpanded .rnvRootLink {
+  border-color: #77aa45;
+  background: #77aa45; }
+
+html .radSkin_BlackMetroTouch .rnvPopup .rnvHovered > .rnvLink {
+  background-color: #77aa45; }
+
+html .radSkin_BlackMetroTouch .rnvPopup .rnvSelected > .rnvLink {
+  background-color: #77aa45; }
+
+html .rightScndNav .RadSearchBox .rsbButtonSearch:hover {
+  background: #77aa45; }
+
+html .rightScndNav .button:hover {
+  color: #77aa45; }
+
+html .rightScndNav .RadSearchBox .rsbButtonSearch:focus,
+html .rightScndNav .RadSearchBox .rsbButtonSearch:hover {
+  background-color: #77aa45; }
+
+html .sidebar .RadCalendar .rcRow .rcSelected {
+  background: #77aa45; }
+
+html .RadScheduler .rsSelected > .rsButton,
+html .RadScheduler .rsPressed > .rsButton,
+html .RadScheduler .rsButton.rsPressed {
+  border-color: #77aa45;
+  background-color: #77aa45; }
+
+html .RadScheduler .rsSelectedSlot {
+  background: #77aa45; }
+
+html .RadPicker .rcCalPopup:hover,
+html .RadPicker .rcCalPopup:focus,
+html .RadPicker .rcTimePopup:hover,
+html .RadPicker .rcTimePopup:focus {
+  background-color: #77aa45; }
+
+html .RadCalendarTimeView td.rcSelected a,
+html .RadCalendar .rcMain .rcRow .rcSelected a,
+html .RadCalendarMonthView #rcMView_Today,
+html .RadCalendarMonthView .rcSelected a {
+  background-color: #77aa45;
+  border-color: #77aa45; }
+
+html .RadCalendar .rcFastPrev:hover,
+html .RadCalendar .rcPrev:hover,
+html .RadCalendar .rcNext:hover,
+html .RadCalendar .rcFastNext:hover {
+  border-color: #77aa45; }
+  html .RadCalendar .rcFastPrev:hover:before,
+  html .RadCalendar .rcPrev:hover:before,
+  html .RadCalendar .rcNext:hover:before,
+  html .RadCalendar .rcFastNext:hover:before {
+    color: #77aa45; }
+
+html .RadDropDownList .rddlFocused {
+  border-color: #77aa45;
+  background-color: #77aa45; }
+
+html .rddlPopup .rddlItemSelected {
+  background-color: #77aa45; }
+
+html .RadButton_MetroTouch.rbButton.rbSelected {
+  background: #77aa45;
+  border-color: #77aa45; }
+
+html .RadWindow .rwTitleBar {
+  background: #77aa45; }
+
+html .mobile .breadcrumb {
+  color: #77aa45; }
+  html .mobile .breadcrumb .item.expanded {
+    background-color: #77aa45; }
+
+html .mobile .RadMenuPopup_MetroTouch .rmItem.rmSelected {
+  color: #77aa45; }
+
+html .RadCalendar .rcTitlebar,
+html .RadCalendar .rcMain {
+  border: 0; }
+
+html .RadCalendar .rcTitlebar {
+  border-bottom: 1px solid #cdcdcd; }
+
+html .RadCalendar .rcWeek th {
+  border-bottom: 1px solid #e5e5e5; }

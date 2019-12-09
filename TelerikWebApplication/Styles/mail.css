@@ -1,0 +1,111 @@
+﻿html .main-header {
+  background-image: url("../Images/backgrounds/header_mail.gif"); }
+
+html .sidebar .btn-new-node,
+html .help-menu .rmRootGroup {
+  color: #25a0da; }
+
+html .RadToolTip .addBtn {
+  color: #25a0da; }
+
+html .scroller {
+  overflow: hidden; }
+
+html .rightScndNav .RadSearchBox .rsbButtonSearch:hover {
+  background: #25a0da; }
+
+html .rightScndNav .button:hover {
+  color: #25a0da; }
+
+html .rightScndNav .RadSearchBox .rsbButtonSearch:focus,
+html .rightScndNav .RadSearchBox .rsbButtonSearch:hover {
+  background-color: #25a0da; }
+
+html .RadGrid .rgActionButton.rgExpand:hover,
+html .RadGrid .rgActionButton.rgCollapse {
+  color: #0082cc; }
+
+html .RadTreeView .rtMinus {
+  color: #0082cc; }
+
+html .mobile .breadcrumb {
+  color: #25a0da; }
+  html .mobile .breadcrumb .item.expanded {
+    background-color: #25a0da; }
+
+html .mobile .RadMenuPopup_MetroTouch .rmItem.rmSelected {
+  color: #0082cc; }
+
+.bottom .horizontalBtn,
+.right .verticalBtn {
+  color: #0082cc; }
+
+.right .RadGrid {
+  height: 100% !important; }
+
+.right .gridWrapper,
+.right .mailDetails {
+  width: 30%;
+  height: 100%;
+  float: left; }
+
+.right .mailDetails {
+  width: 70%; }
+
+.RadMenu .rmGroup.rmVertical > li.rmSeparator {
+  border-bottom: 0; }
+
+html .RadGrid {
+  border: 0; }
+  html .RadGrid,
+  html .RadGrid * {
+    cursor: pointer; }
+  html .RadGrid .rgMasterTable td {
+    padding: 0; }
+  html .RadGrid .rgRow,
+  html .RadGrid .rgAltRow {
+    height: 36px; }
+  html .RadGrid .mobile-column .from,
+  html .RadGrid .mobile-column .received,
+  html .RadGrid .mobile-column .subject {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  html .RadGrid .mobile-column .from {
+    width: 58%;
+    float: left;
+    overflow: hidden; }
+  html .RadGrid .mobile-column .received {
+    width: 40%;
+    float: right; }
+  html .RadGrid .mobile-column .subject {
+    clear: both;
+    display: block; }
+
+.gridWrapper {
+  position: relative;
+  border-bottom: 1px solid #fff; }
+
+.mailDetails {
+  border-top: 1px solid #cdcdcd;
+  background: #fff; }
+  .mailDetails .header {
+    padding: 0 30px;
+    color: #000;
+    background: #e8e8e8; }
+    .mailDetails .header:after {
+      content: "";
+      display: block;
+      clear: both; }
+  .mailDetails #subject {
+    padding: 15px 0;
+    font-size: 22px;
+    border-bottom: 1px solid #fff; }
+  .mailDetails #from {
+    float: left;
+    padding: 10px 0; }
+  .mailDetails #recieved {
+    float: right;
+    padding: 10px 0; }
+  .mailDetails #body {
+    padding: 30px; }

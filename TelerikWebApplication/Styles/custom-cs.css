@@ -1,0 +1,144 @@
+﻿.center 
+{
+    text-align:center;
+}
+.center-page
+{
+    width:300px;
+    height:300px;
+    position:absolute;
+
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+
+    margin:auto;
+}
+
+.space-vert
+{
+    margin-top:20px;
+}
+
+.footer-pos
+{
+    width:auto;
+    height:auto;
+    position:absolute;
+
+    top:600px;
+    bottom:0;
+    left:0;
+    right:0;
+
+    margin:auto;
+}
+
+body
+{
+    /*padding-top: 50px;*/
+}
+
+
+.demo-container .RadPanelBar,
+.demo-container .RadPanelBar .rpSlide,
+.demo-container .RadPanelBar .rpGroup,
+.demo-container .RadPanelBar .rpItem,
+.demo-container .RadPanelBar .rpTemplate {
+    overflow: visible !important;
+}
+.demo-container .RadPanelBar .rpLevel1 .rpItem {
+    padding: 0;
+}
+ 
+
+/** Customize the menu */
+.demo-container .RadMenu ul.rmRootGroup {
+    border: 0;
+    *zoom: 1;
+}
+.demo-container .RadMenu .rmLink {
+    float: none;
+}
+ 
+.rmRootGroup {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.navbar-side{float:left;height:inherit;width:200px;padding:15px 15px;font-size:12px;line-height:20px; background-color:transparent}
+.navbar-side:focus,.navbar-side:hover{text-decoration:none}
+
+/** End */
+
+html .demo-container .radHtmlChartWrapper {
+    float: left;
+    width: 450px;
+    height: 430px;
+}
+ 
+.RadMultiPage {
+    border: 1px solid #cdcdcd;
+     
+}
+ 
+.contentWrapper2 {
+    width: 1100px;
+    margin: 0 auto;
+}
+ 
+    .contentWrapper2:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+ 
+html .RadGrid .RadGrid_MetroTouch,
+html .RadMultiPage .rmpView {
+    height: 430px;
+}
+
+/*.dock {
+    position:relative;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    height: auto;
+    line-height: 100px;
+    width:80%;
+    float:right;
+}*/
+
+/* Edit Form */
+  div.qsf-right-content .qsf-col-wrap 
+{
+    position: static;
+}
+ 
+.rgEditForm {
+    width: auto !important;
+}
+ 
+* + html .rgEditForm.popUpEditForm {
+    width: 800px !important;
+}
+ 
+.rgEditForm > div + div,
+.RadGrid .rgEditForm {
+    height: auto !important;
+}
+ 
+.rgEditForm > div > table{
+    height: 100%;
+     
+}
+ 
+.rgEditForm > div > table > tbody > tr > td {
+    padding: 4px 10px;
+}
+ 
+.rfdSelectBoxDropDown {
+    z-index: 100011;
+}

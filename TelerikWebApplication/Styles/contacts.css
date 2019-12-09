@@ -1,0 +1,48 @@
+﻿html .main-header {
+  background-image: url("../Images/backgrounds/header_contacts.gif"); }
+
+html .sidebar .btn-new-node,
+html .help-menu .rmRootGroup {
+  color: #ff4d6b; }
+
+html body .RadInput_MetroTouch input.riFocused,
+html body .RadInput_Focused_MetroTouch {
+  border-color: #ff5d78; }
+
+html .RadToolTip .addBtn {
+  color: #ff4d6b; }
+
+html .container .RadNavigation .rnvHovered .rnvRootLink {
+  border-color: #ff5d78;
+  background: #ff5d78; }
+
+html .container .RadNavigation .rnvSelected .rnvRootLink,
+html .container .RadNavigation .rnvExpanded .rnvRootLink {
+  border-color: #ff3f5e;
+  background: #ff3f5e; }
+
+html .radSkin_BlackMetroTouch .rnvPopup .rnvHovered > .rnvLink {
+  background-color: #ff5d78; }
+
+html .radSkin_BlackMetroTouch .rnvPopup .rnvSelected > .rnvLink {
+  background-color: #ff3f5e; }
+
+html .rightScndNav .button:hover,
+html .rightScndNav .button.selected {
+  color: #ff5d78; }
+
+html .rightScndNav .RadSearchBox .rsbButtonSearch:hover {
+  background: #ff5d78; }
+
+html .rightScndNav .RadSearchBox .rsbButtonSearch:focus,
+html .rightScndNav .RadSearchBox .rsbButtonSearch:hover {
+  background-color: #ff5d78; }
+
+html .mobile .breadcrumb {
+  color: #ff4d6b; }
+  html .mobile .breadcrumb .item.expanded {
+    background-color: #ff4d6b; }
+
+html .mobile .RadMenuPopup_MetroTouch .rmItem.rmSelected {
+  color: #ff3f5e; }
+

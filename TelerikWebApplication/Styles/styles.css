@@ -1,0 +1,318 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #F7F7F7;
+}
+
+.header {
+    padding: 10px 20px;
+    color: #fff;
+    font-family: "Segoe UI";
+}
+
+.header * {
+    vertical-align: middle;
+}
+
+.clear:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+form {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 15%;
+    float: left;
+}
+
+.section {
+    width: 85%;
+    float: right;
+}
+
+.slider,
+.page {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.page {
+    margin-left: -4px;
+}
+
+.page {
+    width: 100%;
+}
+
+/*slider*/
+.slider {
+    width: 0;
+    transition: width 0.07s ease;
+}
+.slider.expanded {
+    width: 300px;
+}
+
+/* Tree Folders */
+.mainFolder {
+    font-weight: bold;
+}
+
+.btn-new-node {
+    padding-left: 35px;
+    font: 100 16px "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+/*.GridRowOver_MetroTouch {
+    background-color: orange;
+    cursor: hand;
+}*/
+
+
+/* INPUTS */
+html body .RadInput_MetroTouch input.riFocused, 
+html body .RadInput_Focused_MetroTouch {
+    outline: none;
+}
+
+/* HEADER START*/
+
+.home-btn {
+    font-size: 1.2em;
+    float: left;
+}
+
+.icon-header:before {
+    font-size: 1.3em;
+    margin-right: 20px;
+}
+
+.home-btn:before {
+    font-size: 1.3/1.2*1em;
+}
+
+.header-info {
+    float: right;
+}
+
+.header-info > span {
+    margin-right: 30px;
+}
+
+#user {
+    display: inline-block;
+}
+
+.circular {
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+    border-radius: 21px;
+    -webkit-border-radius: 21px;
+    -moz-border-radius: 21px;
+    background: url('../Images/contacts/fissa.jpg') no-repeat;
+}
+
+    .circular img {
+        display: none;
+    }
+/* HEADER END*/
+
+
+/* FONT START */
+
+@font-face {
+    font-family: 'OutlookSampleApp';
+    src: url('../fonts/OutlookSampleApp.eot?4e35sj');
+    src: url('../fonts/OutlookSampleApp.eot?#iefix4e35sj') format('embedded-opentype'), url('../fonts/OutlookSampleApp.woff?4e35sj') format('woff'), url('../fonts/OutlookSampleApp.ttf?4e35sj') format('truetype'), url('../fonts/OutlookSampleApp.svg?4e35sj#OutlookSampleApp') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'OutlookSampleApp';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Menu:before {
+    content: "\e600";
+}
+
+.icon-Product-Mail:before {
+    content: "\e601";
+}
+
+.icon-Product-Calendar:before {
+    content: "\e602";
+}
+
+.icon-Product-Contacts:before {
+    content: "\e603";
+}
+
+.icon-Product-Notes:before {
+    content: "\e604";
+}
+
+.icon-Info:before {
+    content: "\e605";
+}
+
+.icon-Download:before {
+    content: "\e606";
+}
+
+.icon-Search:before {
+    content: "\e607";
+}
+
+.icon-Chevron-East:before {
+    content: "\e608";
+}
+
+.icon-Chevron-West:before {
+    content: "\e609";
+}
+
+.icon-Chevron-North:before {
+    content: "\e60a";
+}
+
+.icon-Chevron-South:before {
+    content: "\e60b";
+}
+
+.icon-Arrow-East:before {
+    content: "\e60c";
+}
+
+.icon-Arrow-West:before {
+    content: "\e60d";
+}
+
+.icon-Arrow-North:before {
+    content: "\e60e";
+}
+
+.icon-Arrow-South:before {
+    content: "\e60f";
+}
+
+.icon-Priority-High:before {
+    content: "\e610";
+}
+
+.icon-Priority-Low:before {
+    content: "\e611";
+}
+
+.icon-Spam:before {
+    content: "\e612";
+}
+
+.icon-Add:before {
+    content: "\e613";
+}
+
+.icon-Mail-Circle:before {
+    content: "\e614";
+}
+
+.icon-Edit-Circle:before {
+    content: "\e615";
+}
+
+.icon-Delete-Circle:before {
+    content: "\e616";
+}
+
+.icon-Delete:before {
+    content: "\e617";
+}
+
+.icon-Close:before {
+    content: "\e618";
+}
+
+.icon-ะะบ:before {
+    content: "\e619";
+}
+
+.icon-View:before {
+    content: "\e61a";
+}
+
+.icon-Photo:before {
+    content: "\e61b";
+}
+
+.icon-Person:before {
+    content: "\e61c";
+}
+
+.icon-Send:before {
+    content: "\e61d";
+}
+
+.icon-Save:before {
+    content: "\e61e";
+}
+
+.icon-Warning:before {
+    content: "\e61f";
+}
+
+.icon-Bell:before {
+    content: "\e620";
+}
+
+.icon-Calendar:before {
+    content: "\e621";
+}
+
+.icon-Time:before {
+    content: "\e622";
+}
+
+.icon-Recurrence:before {
+    content: "\e623";
+}
+
+.icon-Non-Recurrence:before {
+    content: "\e624";
+}
+
+.icon-View-ListView:before {
+    content: "\e625";
+}
+
+.icon-View-Grid:before {
+    content: "\e626";
+}
+
+.icon-View-ReadingPane-Down:before {
+    content: "\e627";
+}
+
+.icon-View-ReadingPane-Right:before {
+    content: "\e628";
+}
+
+/* FONT END */
