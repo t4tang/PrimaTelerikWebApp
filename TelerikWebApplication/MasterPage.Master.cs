@@ -40,6 +40,7 @@ namespace TelerikWebApplication
                 sda.Fill(links);
 
                 NavNode1.Text = public_str.user_name;
+                NavNode2.Text = public_str.selected_menu;
 
             }
         }

@@ -70,8 +70,8 @@
                 <div class="section bottom">
                     <telerik:RadNavigation runat="server" ID="contactNavigation" Skin="BlackMetroTouch" CssClass="secondaryMenu">
                         <Nodes>
-                            <%--<telerik:NavigationNode Text="New" SpriteCssClass="icon icon-Add-Circle">
-                            </telerik:NavigationNode>      --%>                    
+                            <telerik:NavigationNode ID="NavNode2" Text="MenuName" >
+                            </telerik:NavigationNode>
                         </Nodes>
                     </telerik:RadNavigation>
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
