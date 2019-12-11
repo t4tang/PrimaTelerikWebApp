@@ -35,7 +35,7 @@
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_uom" runat="server" Width="300" 
                             Text='<%# DataBinder.Eval(Container, "DataItem.unit") %>'
                             EmptyMessage="Select the UoM" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_uom_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_uom_ItemsRequested" DataValueField="unit">
                         </telerik:RadComboBox>
                     </td>
                 </tr> 
@@ -72,17 +72,18 @@
                         </telerik:RadComboBox>
                     </td>
                 </tr>  
-                <%--<tr>
+                <tr>
                     <td>Stock Maintenance:
                     </td>
                     <td>                        
                         <asp:DropDownList ID="ddl_st_main" runat="server" SelectedValue='<%# DataBinder.Eval(Container, "DataItem.stMain") %>'
-                            DataSource='<%# (new string[] { "Stock and value", "Non Stock" }) %>' AppendDataBoundItems="True">
+                            DataSource='<%# (new string[] { "Stock and Value", "Only Stock", "Non Stock" }) %>' AppendDataBoundItems="True"
+                            Enabled="False">
                             <asp:ListItem Selected="True" Text="Select" Value="">
                             </asp:ListItem>
                         </asp:DropDownList>
                     </td>
-                </tr>      --%>         
+                </tr>               
                 
             </table>
         </td>

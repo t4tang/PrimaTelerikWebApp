@@ -67,6 +67,15 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master {
         protected global::Telerik.Web.UI.RadComboBox cb_group;
         
         /// <summary>
+        /// ddl_st_main control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_st_main;
+        
+        /// <summary>
         /// cb_use_serial_number control.
         /// </summary>
         /// <remarks>
