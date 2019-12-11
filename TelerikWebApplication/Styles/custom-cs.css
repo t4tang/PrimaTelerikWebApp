@@ -122,12 +122,12 @@ html .RadMultiPage .rmpView {
 }
  
 * + html .rgEditForm.popUpEditForm {
-    width: 800px !important;
+    width: 1200px !important;
 }
  
 .rgEditForm > div + div,
 .RadGrid .rgEditForm {
-    height: auto !important;
+    height: 500px !important;
 }
  
 .rgEditForm > div > table{
