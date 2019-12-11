@@ -31,5 +31,10 @@ namespace TelerikWebApplication.Controls
             RadPanelBar1.DataSource = links;
             RadPanelBar1.DataBind();
         }
+
+        protected void RadPanelBar1_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
+        {
+            public_str.selected_menu = RadPanelBar1.SelectedItem.Items.ToString();
+        }
     }
 }

@@ -20,5 +20,5 @@
 
 
  <telerik:RadPanelBar RenderMode="Lightweight" runat="server" CssClass="RadMenu" ID="RadPanelBar1" 
-    Height="550px" Width="240px" ExpandMode="FullExpandedItem">
+    Height="550px" Width="240px" ExpandMode="FullExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick">
 </telerik:RadPanelBar>
