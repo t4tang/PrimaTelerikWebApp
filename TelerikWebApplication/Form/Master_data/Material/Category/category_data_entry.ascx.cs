@@ -79,19 +79,18 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
 
         protected void cb_type_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            //con.Open();
-            //SqlCommand cmd = new SqlCommand();
-            //cmd.Connection = con;
-            //cmd.CommandType = CommandType.Text;
-            //cmd.CommandText = "SELECT prod_type_code from ms_product_type where prod_type_name = '" + cb_type.Text + "'";
-            //SqlDataReader dr;
-            //dr = cmd.ExecuteReader();
-            //while (dr.Read())
-            //    cb_type.SelectedValue = dr[0].ToString();
-            //dr.Close();
-            //con.Close();
-
-            Response.Write("Hello");
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT prod_type_code from ms_product_type where prod_type_name = '" + cb_type.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_type.SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+            
         }
     }
 }
