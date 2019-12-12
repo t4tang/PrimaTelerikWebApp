@@ -208,7 +208,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "update ms_brand set stEdit = 4 where brand_code = @brand_code";
-                cmd.Parameters.AddWithValue("@brand_code", (RadGrid1.SelectedItems[0] as GridDataItem).GetDataKeyValue("brand_code").ToString());
+                cmd.Parameters.AddWithValue("@brand_code", RadGrid1.MasterTableView.Items[0].GetDataKeyValue("brand_code").ToString());
                 cmd.ExecuteNonQuery();
                 con.Close();                    
 
