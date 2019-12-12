@@ -18,7 +18,8 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
         private const int ItemsPerRequest = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            cb_type_SelectedIndexChanged(cb_type, null);
+            //get_category_value();
         }
         public object DataItem
 
@@ -45,7 +46,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
-        private static DataTable GetType(string text)
+        private static DataTable GetCategory(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT prod_type_code, prod_type_name FROM ms_product_type WHERE stEdit != '4' AND prod_type_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -58,7 +59,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
         }
         protected void cb_type_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = GetType(e.Text);
+            DataTable data = GetCategory(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -89,8 +90,8 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             while (dr.Read())
                 cb_type.SelectedValue = dr[0].ToString();
             dr.Close();
-            con.Close();
-            
+            con.Close();            
         }
+               
     }
 }

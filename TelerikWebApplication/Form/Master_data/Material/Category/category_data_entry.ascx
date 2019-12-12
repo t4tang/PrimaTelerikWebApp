@@ -42,8 +42,9 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_type" runat="server" Width="300" 
-                            Text='<%# DataBinder.Eval(Container, "DataItem.prod_type_name") %>' 
-                            DataValueField="prod_type_code" DataTextField="prod_type_name" AutoPostBack="true"
+                            Text='<%# DataBinder.Eval(Container, "DataItem.prod_type_name") %>'
+                            DataValueField='<%# DataBinder.Eval(Container, "DataItem.prod_type_code") %>' 
+                            DataTextField="prod_type_name" AutoPostBack="true"
                             EmptyMessage="Select the product type" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                             EnableVirtualScrolling="true" OnItemsRequested="cb_type_ItemsRequested" OnSelectedIndexChanged="cb_type_SelectedIndexChanged">
                         </telerik:RadComboBox>
