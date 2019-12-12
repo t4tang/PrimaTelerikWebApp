@@ -157,7 +157,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
             {
                 con.Close();
                 Label lblError = new Label();
-                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
+                lblError.Text = "Unable to insert data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
                 RadGrid1.Controls.Add(lblError);
                 e.Canceled = true;
