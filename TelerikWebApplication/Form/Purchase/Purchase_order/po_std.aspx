@@ -1,8 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="po_std.aspx.cs" Inherits="TelerikWebApplication.Forms.Purchase.Purchase_order.po_std" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <%--<link href="../../../Styles/notes.css" rel="stylesheet" />--%>
     <link href="../../../Styles/custom-cs.css" rel="stylesheet" />
-    <link href="../../../../Styles/mail.css" rel="stylesheet" />
+    <link href="../../../Styles/mail.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="Server">
     <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
@@ -68,7 +67,7 @@
                         <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete">
                         </telerik:GridButtonColumn>
                     </Columns>
-                    <EditFormSettings UserControlName="Data_entry.ascx" EditFormType="WebUserControl">
+                    <EditFormSettings UserControlName="po_std_data_entry.ascx" EditFormType="WebUserControl">
                         <EditColumn UniqueName="EditCommandColumn1">
                         </EditColumn>
                     </EditFormSettings>

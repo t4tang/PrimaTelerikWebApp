@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" CodeBehind="Data_entry.ascx.cs" Inherits="PrimaWebApp.Forms.Purchase.Purchase_order.Data_entry" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="po_std_data_entry.ascx.cs" Inherits="TelerikWebApplication.Form.Purchase.Purchase_order.po_std_data_entry" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <div class="dataEntry">
     <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
@@ -11,9 +11,7 @@
     <tr>
         <td>
             <table id="Table3" width="650px" border="0" class="module">
-                <%--<tr>
-                    <td class="title" style="font-weight: bold;" colspan="2">Company Info:</td>
-                </tr>--%>
+                
                 <tr>
                     <td>PO Number:
                     </td>
@@ -52,15 +50,6 @@
                     <td>Tipe:
                     </td>
                     <td>
-                        <%--<asp:DropDownList ID="ddl_po_type" runat="server" SelectedValue='<%# DataBinder.Eval(Container, "DataItem.doc_type") %>'
-                            DataSource='<%# (new string[] { "Inventory", "Other Cost" }) %>' TabIndex="7"
-                            AppendDataBoundItems="True">
-                            <asp:ListItem Selected="True" Text="Select" Value="">
-                            </asp:ListItem>
-                        </asp:DropDownList>--%>
-                        
-
-
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_po_type" runat="server" Width="300"
                             EmptyMessage="Select the purchase type" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                             EnableVirtualScrolling="true" OnItemsRequested="cb_po_type_ItemsRequested" >
@@ -155,7 +144,7 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax2" runat="server" Width="150"
-                            EmptyMessage="Select tax 2" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
+                            EmptyMessage="Select tax 2" EnableLoadOnDemand="false" ShowMoreResultsBox="true"
                             EnableVirtualScrolling="true" OnItemsRequested="cb_tax2_ItemsRequested" >
                         </telerik:RadComboBox>                       
                     </td>
@@ -165,7 +154,7 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax3" runat="server" Width="150"
-                            EmptyMessage="Select tax 3" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
+                            EmptyMessage="Select tax 3" EnableLoadOnDemand="false" ShowMoreResultsBox="true"
                             EnableVirtualScrolling="true" OnItemsRequested="cb_tax3_ItemsRequested" >
                         </telerik:RadComboBox>                       
                     </td>
@@ -209,4 +198,3 @@
     </tr>
 </table>
 </div>
-

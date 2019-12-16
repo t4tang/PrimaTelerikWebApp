@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PrimaWebApp.Forms.Purchase.Purchase_order {
+namespace TelerikWebApplication.Form.Purchase.Purchase_order {
     
     
-    public partial class Data_entry {
+    public partial class po_std_data_entry {
         
         /// <summary>
         /// txt_po_number control.
