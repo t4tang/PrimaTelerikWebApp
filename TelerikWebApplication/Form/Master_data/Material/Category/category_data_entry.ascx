@@ -1,15 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="category_data_entry.ascx.cs" Inherits="TelerikWebApplication.Form.Master_data.Material.Category.category_data_entry" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
-<%--<telerik:RadAjaxManager runat="server">
-    <AjaxSettings>
-        <telerik:AjaxSetting AjaxControlID="cb_type">
-            <UpdatedControls>
-                <telerik:AjaxUpdatedControl ControlID
-            </UpdatedControls>
-        </telerik:AjaxSetting>
-    </AjaxSettings>
-</telerik:RadAjaxManager>--%>
 <div class="dataEntry">
     <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none" 
     style="border-collapse: collapse;">
@@ -82,7 +73,7 @@
         <td></td>
     </tr>
     <tr>
-        <td align="left" colspan="2" style="height:30px">
+        <td align="right" colspan="2" style="height:30px">
             <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                 runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>&nbsp;
             <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
