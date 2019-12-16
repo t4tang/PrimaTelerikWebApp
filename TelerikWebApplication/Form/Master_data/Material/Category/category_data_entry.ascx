@@ -46,20 +46,22 @@
                             DataValueField='<%# DataBinder.Eval(Container, "DataItem.prod_type_code") %>' 
                             DataTextField="prod_type_name" AutoPostBack="true"
                             EmptyMessage="Select the product type" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_type_ItemsRequested" OnSelectedIndexChanged="cb_type_SelectedIndexChanged">
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_type_ItemsRequested" 
+                            OnSelectedIndexChanged="cb_type_SelectedIndexChanged">
                         </telerik:RadComboBox>
                     </td>
-                </tr> 
-                 <tr>
-                    <td>Status Maintenance:
+                </tr>                  
+                <tr>
+                    <td>
+                        Status Maintenance:
                     </td>
-                    <td>                       
-                        <asp:DropDownList ID="ddl_st_main" runat="server" SelectedValue='<%# DataBinder.Eval(Container, "DataItem.status_main") %>'
-                            DataSource='<%# (new string[] { "Stock and Value", "Only Stock", "Non Stock" }) %>' AppendDataBoundItems="True"
-                            Enabled="True" Width="300px" OnSelectedIndexChanged="ddl_st_main_SelectedIndexChanged">
-                            <asp:ListItem Selected="True" Text="Select" Value="">
-                            </asp:ListItem>
-                        </asp:DropDownList>
+                    <td>
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_st_main" runat="server" 
+                          Text='<%# DataBinder.Eval(Container, "DataItem.status_main") %>' 
+                          AutoPostBack="true" Width="300px" 
+                            EmptyMessage="Select the status maintenance" EnableLoadOnDemand="True" ShowMoreResultsBox="false"
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_st_main_ItemsRequested" >
+                        </telerik:RadComboBox>
                     </td>
                 </tr>
                 <tr>

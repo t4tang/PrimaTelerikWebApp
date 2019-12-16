@@ -67,58 +67,58 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master {
         protected global::Telerik.Web.UI.RadComboBox cb_group;
         
         /// <summary>
-        /// ddl_st_main control.
+        /// cb_st_main control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_st_main;
+        protected global::Telerik.Web.UI.RadComboBox cb_st_main;
         
         /// <summary>
-        /// cb_use_serial_number control.
+        /// chk_use_serial_number control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_use_serial_number;
+        protected global::Telerik.Web.UI.RadCheckBox chk_use_serial_number;
         
         /// <summary>
-        /// cb_active control.
+        /// chk_active control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_active;
+        protected global::Telerik.Web.UI.RadCheckBox chk_active;
         
         /// <summary>
-        /// cb_warranty control.
+        /// chk_warranty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_warranty;
+        protected global::Telerik.Web.UI.RadCheckBox chk_warranty;
         
         /// <summary>
-        /// cb_monitoring_stock control.
+        /// chk_monitoring_stock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_monitoring_stock;
+        protected global::Telerik.Web.UI.RadCheckBox chk_monitoring_stock;
         
         /// <summary>
-        /// cb_consignment control.
+        /// chk_consignment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_consignment;
+        protected global::Telerik.Web.UI.RadCheckBox chk_consignment;
         
         /// <summary>
         /// txt_min_stock control.

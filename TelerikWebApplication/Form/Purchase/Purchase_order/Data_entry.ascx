@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="Data_entry.ascx.cs" Inherits="PrimaWebApp.Forms.Purchase.Purchase_order.Data_entry" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<div>
+<div class="dataEntry">
     <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
     style="border-collapse: collapse;">
     <tr class="EditFormHeader">
@@ -151,10 +151,30 @@
                 </tr>
 
                 <tr>
+                    <td>Tax 2:
+                    </td>
+                    <td>
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax2" runat="server" Width="150"
+                            EmptyMessage="Select tax 2" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_tax2_ItemsRequested" >
+                        </telerik:RadComboBox>                       
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tax 3:
+                    </td>
+                    <td>
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax3" runat="server" Width="150"
+                            EmptyMessage="Select tax 3" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_tax3_ItemsRequested" >
+                        </telerik:RadComboBox>                       
+                    </td>
+                </tr>
+                <tr>
                     <td>PR Number:
                     </td>
                     <td>
-                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.no_ref") %>'>
+                        <asp:TextBox ID="txt_no_ref" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.no_ref") %>'>
                         </asp:TextBox>
                     </td>
                 </tr>
@@ -163,7 +183,7 @@
                     <td>Remark:
                     </td>                
                     <td>
-                        <asp:TextBox ID="TextBox1" Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>' runat="server" TextMode="MultiLine"
+                        <asp:TextBox ID="txt_remark" Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>' runat="server" TextMode="MultiLine"
                             Rows="5" Columns="40" TabIndex="5">
                         </asp:TextBox>
                     </td>

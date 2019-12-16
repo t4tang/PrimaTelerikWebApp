@@ -40,13 +40,13 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category {
         protected global::Telerik.Web.UI.RadComboBox cb_type;
         
         /// <summary>
-        /// ddl_st_main control.
+        /// cb_st_main control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_st_main;
+        protected global::Telerik.Web.UI.RadComboBox cb_st_main;
         
         /// <summary>
         /// btn_gl_account control.

@@ -20,6 +20,8 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
         {
             cb_type_SelectedIndexChanged(cb_type, null);
             //get_category_value();
+
+            
         }
         public object DataItem
 
@@ -73,10 +75,6 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
 
-        protected void ddl_st_main_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
 
         protected void cb_type_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
@@ -92,6 +90,13 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             dr.Close();
             con.Close();            
         }
-               
+
+        protected void cb_st_main_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            // Load cb_st_main items
+            cb_st_main.Items.Add("Stock and Value");
+            cb_st_main.Items.Add("Only Stock");
+            cb_st_main.Items.Add("Non Stock");
+        }
     }
 }

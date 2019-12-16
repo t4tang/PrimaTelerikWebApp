@@ -73,7 +73,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                 cmd.Parameters.AddWithValue("@kind_code", (userControl.FindControl("txt_kind_code") as TextBox).Text);
                 cmd.Parameters.AddWithValue("@kind_name", (userControl.FindControl("txt_kind_name") as TextBox).Text);
                 cmd.Parameters.AddWithValue("@prod_type_code", (userControl.FindControl("cb_type") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("ddl_st_main") as DropDownList).Text);
+                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("cb_st_main") as RadComboBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -106,7 +106,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                 cmd.Parameters.AddWithValue("@kind_code", (userControl.FindControl("txt_kind_code") as TextBox).Text);
                 cmd.Parameters.AddWithValue("@kind_name", (userControl.FindControl("txt_kind_name") as TextBox).Text);
                 cmd.Parameters.AddWithValue("@prod_type_code", (userControl.FindControl("cb_type") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("ddl_st_main") as DropDownList).Text);
+                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("cb_st_main") as RadComboBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -138,7 +138,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "update ms_product_kind set stEdit = '4' where kind_code = @kind_code";
-                cmd.Parameters.AddWithValue("@kind_code", (RadGrid1.SelectedItems[0] as GridDataItem).GetDataKeyValue("kind_code").ToString());
+                cmd.Parameters.AddWithValue("@kind_code", RadGrid1.MasterTableView.Items[0].GetDataKeyValue("kind_code").ToString());
                 cmd.ExecuteNonQuery();
                 con.Close();
 

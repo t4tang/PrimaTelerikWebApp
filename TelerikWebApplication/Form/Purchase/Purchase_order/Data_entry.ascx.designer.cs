@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
+namespace PrimaWebApp.Forms.Purchase.Purchase_order {
     
     
     public partial class Data_entry {
@@ -130,22 +130,40 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadCheckBox chk_ppn_incl;
         
         /// <summary>
-        /// TextBox2 control.
+        /// cb_tax2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::Telerik.Web.UI.RadComboBox cb_tax2;
         
         /// <summary>
-        /// TextBox1 control.
+        /// cb_tax3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::Telerik.Web.UI.RadComboBox cb_tax3;
+        
+        /// <summary>
+        /// txt_no_ref control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_no_ref;
+        
+        /// <summary>
+        /// txt_remark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_remark;
         
         /// <summary>
         /// btnUpdate control.

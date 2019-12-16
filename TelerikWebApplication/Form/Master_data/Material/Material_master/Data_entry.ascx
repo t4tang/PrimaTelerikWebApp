@@ -35,7 +35,7 @@
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_uom" runat="server" Width="300" 
                             Text='<%# DataBinder.Eval(Container, "DataItem.unit") %>'
                             EmptyMessage="Select the UoM" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_uom_ItemsRequested" DataValueField="unit">
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_uom_ItemsRequested" DataValueField="unit" OnSelectedIndexChanged="cb_uom_SelectedIndexChanged">
                         </telerik:RadComboBox>
                     </td>
                 </tr> 
@@ -46,7 +46,7 @@
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_brand" Width="300" runat="server"
                             Text='<%# DataBinder.Eval(Container, "DataItem.brand_name") %>'
                             EmptyMessage="Select the brand" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_brand_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_brand_ItemsRequested" OnSelectedIndexChanged="cb_brand_SelectedIndexChanged" >
                         </telerik:RadComboBox>
                     </td>
                 </tr>
@@ -57,7 +57,7 @@
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_category" runat="server" Width="300"
                             Text='<%# DataBinder.Eval(Container, "DataItem.kind_name") %>'
                             EmptyMessage="Select the category" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_category_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_category_ItemsRequested" OnSelectedIndexChanged="cb_category_SelectedIndexChanged" >
                         </telerik:RadComboBox>
                     </td>
                 </tr>  
@@ -68,58 +68,60 @@
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_group" runat="server" Width="300"
                             Text='<%# DataBinder.Eval(Container, "DataItem.group_name") %>'
                             EmptyMessage="Select the group" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_group_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_group_ItemsRequested" OnSelectedIndexChanged="cb_group_SelectedIndexChanged" >
                         </telerik:RadComboBox>
                     </td>
                 </tr>  
+               
                 <tr>
-                    <td>Stock Maintenance:
+                    <td>
+                        Status Maintenance:
                     </td>
-                    <td>                        
-                        <asp:DropDownList ID="ddl_st_main" runat="server" SelectedValue='<%# DataBinder.Eval(Container, "DataItem.stMain") %>'
-                            DataSource='<%# (new string[] { "Stock and Value", "Only Stock", "Non Stock" }) %>' AppendDataBoundItems="True"
-                            Enabled="False">
-                            <asp:ListItem Selected="True" Text="Select" Value="">
-                            </asp:ListItem>
-                        </asp:DropDownList>
+                    <td>
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_st_main" runat="server" 
+                          Text='<%# DataBinder.Eval(Container, "DataItem.stMain") %>' 
+                          AutoPostBack="false" Width="300px" AllowCustomText="false"
+                            EmptyMessage="Select the status maintenance" EnableLoadOnDemand="True" ShowMoreResultsBox="True"
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_st_main_ItemsRequested" >
+
+                        </telerik:RadComboBox>
                     </td>
-                </tr>               
-                
+                </tr>
             </table>
         </td>
         <td >
             <table>
                 <tr>
                     <td>
-                        <telerik:RadCheckBox ID="cb_use_serial_number" runat="server" Text="Use Serial Number" Skin="Telerik"
+                        <telerik:RadCheckBox ID="chk_use_serial_number" runat="server" Text="Use Serial Number" Skin="Telerik" AutoPostback="false"
                             Checked='<%# DataBinder.Eval (Container, "DataItem.tSN").ToString()!="0"?true:false %>'>
                         </telerik:RadCheckBox>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_active" runat="server" Text="Active" Skin="Telerik" 
+                        <telerik:RadCheckBox ID="chk_active" runat="server" Text="Active" Skin="Telerik" AutoPostback="false"
                             Checked='<%# DataBinder.Eval (Container, "DataItem.tActive").ToString()!="0"?true:false %>'>
                         </telerik:RadCheckBox>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_warranty" runat="server" Text="Warranty" Skin="Telerik" 
-                            Checked='<%# DataBinder.Eval (Container, "DataItem.warranty").ToString()!="0"?true:false %>'>
+                        <telerik:RadCheckBox ID="chk_warranty" runat="server" Text="Warranty" Skin="Telerik" AutoPostback="false"
+                            Checked='<%# DataBinder.Eval (Container, "DataItem.tWarranty").ToString()!="0"?true:false %>'>
                         </telerik:RadCheckBox>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_monitoring_stock" runat="server" Text="Monitoring Stock" 
+                        <telerik:RadCheckBox ID="chk_monitoring_stock" runat="server" Text="Monitoring Stock" AutoPostback="false"
                             Checked='<%# DataBinder.Eval (Container, "DataItem.tMonitor").ToString()!="0"?true:false %>'>
                         </telerik:RadCheckBox>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <telerik:RadCheckBox ID="cb_consignment" runat="server" Text="Consignment" Skin="Telerik"  
+                        <telerik:RadCheckBox ID="chk_consignment" runat="server" Text="Consignment" Skin="Telerik" AutoPostback="false" 
                             Checked='<%# DataBinder.Eval (Container, "DataItem.tConsig").ToString()!="0"?true:false %>'>
                         </telerik:RadCheckBox>
                     </td>
@@ -130,7 +132,7 @@
                 <tr>
                     <td>Min Stock:</td>
                     <td>
-                        <asp:TextBox ID="txt_min_stock" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.QtyMin") %>'>
+                        <asp:TextBox ID="txt_min_stock" runat="server"  Text='<%# DataBinder.Eval(Container, "DataItem.QtyMin") %>'>
                         </asp:TextBox>
                     </td>
                 </tr>
@@ -169,7 +171,7 @@
         <td></td>
     </tr>
     <tr>
-        <td align="left" colspan="2">
+        <td align="right" colspan="2">
             <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                 runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>&nbsp;
             <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
