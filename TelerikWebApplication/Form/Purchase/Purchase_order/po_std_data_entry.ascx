@@ -24,7 +24,7 @@
                     <td>PO Date:
                     </td>
                     <td>
-                        <telerik:RadDatePicker ID="dtp_po" runat="server" MinDate="1/1/1900" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.Po_date") %>'
+                        <telerik:RadDatePicker ID="dtp_po" runat="server" MinDate="1/1/1900" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.po_date") %>'
                             TabIndex="4" Skin="Silk"> 
                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
                             <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
@@ -37,7 +37,7 @@
                     <td>Expired:
                     </td>
                     <td>
-                        <telerik:RadDatePicker ID="dtp_exp" runat="server" MinDate="1/1/1900" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.Po_date") %>'
+                        <telerik:RadDatePicker ID="dtp_exp" runat="server" MinDate="1/1/1900" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.exp_date") %>'
                             TabIndex="4" Skin="Silk">
                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
                             <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
@@ -50,9 +50,11 @@
                     <td>Tipe:
                     </td>
                     <td>
-                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_po_type" runat="server" Width="300"
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_po_type" runat="server" Width="300" 
+                            Text='<%# DataBinder.Eval(Container, "DataItem.TransName") %>'
                             EmptyMessage="Select the purchase type" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_po_type_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_po_type_ItemsRequested"  
+                            OnSelectedIndexChanged="cb_po_type_SelectedIndexChanged">
                         </telerik:RadComboBox>
                     </td>
                 </tr>
@@ -61,8 +63,10 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_priority" runat="server" Width="300"
+                            Text='<%# DataBinder.Eval(Container, "DataItem.prio_desc") %>'
                             EmptyMessage="Select the priority" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_priority_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_priority_ItemsRequested" 
+                            OnSelectedIndexChanged="cb_priority_SelectedIndexChanged">
                         </telerik:RadComboBox>
                     </td>
                 </tr>
@@ -72,7 +76,8 @@
                     <td>
                         <telerik:RadDatePicker ID="dtp_etd" runat="server" MinDate="1/1/1900" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.etd") %>'
                             TabIndex="4" Skin="Silk">
-                            <Calendar runat="server"  UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
+                            <Calendar runat="server"  UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" 
+                                FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
                             <DateInput  runat="server"  TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
                             </DateInput>
                             <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4"></DatePopupButton>
@@ -84,8 +89,10 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ship_mode" runat="server" Width="300"
+                            Text='<%# DataBinder.Eval(Container, "DataItem.ShipMode") %>'
                             EmptyMessage="Select the ship mode" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_ship_mode_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_ship_mode_ItemsRequested" 
+                            OnSelectedIndexChanged="cb_ship_mode_SelectedIndexChanged">
                         </telerik:RadComboBox>
                     </td>
                 </tr>
@@ -107,8 +114,10 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="300"
+                            Text='<%# DataBinder.Eval(Container, "DataItem.vendor_name") %>'
                             EmptyMessage="Select the supplier" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_supplier_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_supplier_ItemsRequested" 
+                            OnSelectedIndexChanged="cb_supplier_SelectedIndexChanged">
                         </telerik:RadComboBox>
                     </td>
                 </tr>
@@ -131,8 +140,10 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax1" runat="server" Width="150"
+                            Text='<%# DataBinder.Eval(Container, "DataItem.tax1") %>'
                             EmptyMessage="Select tax 1" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_tax1_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_tax1_ItemsRequested" 
+                            OnSelectedIndexChanged="cb_tax1_SelectedIndexChanged">
                         </telerik:RadComboBox>
                         &nbsp
                         <telerik:RadCheckBox ID="chk_ppn_incl" runat="server" Text="Include"></telerik:RadCheckBox>
@@ -144,8 +155,10 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax2" runat="server" Width="150"
+                            Text='<%# DataBinder.Eval(Container, "DataItem.tax2") %>'
                             EmptyMessage="Select tax 2" EnableLoadOnDemand="false" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_tax2_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_tax2_ItemsRequested" 
+                            OnSelectedIndexChanged="cb_tax2_SelectedIndexChanged">
                         </telerik:RadComboBox>                       
                     </td>
                 </tr>
@@ -154,8 +167,22 @@
                     </td>
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax3" runat="server" Width="150"
+                            Text='<%# DataBinder.Eval(Container, "DataItem.tax3") %>'
                             EmptyMessage="Select tax 3" EnableLoadOnDemand="false" ShowMoreResultsBox="true"
-                            EnableVirtualScrolling="true" OnItemsRequested="cb_tax3_ItemsRequested" >
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_tax3_ItemsRequested" 
+                            OnSelectedIndexChanged="cb_tax3_SelectedIndexChanged">
+                        </telerik:RadComboBox>                       
+                    </td>
+                </tr>
+                <tr>
+                    <td>Project:
+                    </td>
+                    <td>
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="150"
+                            Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>'
+                            EmptyMessage="Select project" EnableLoadOnDemand="false" ShowMoreResultsBox="true"
+                            EnableVirtualScrolling="true" OnItemsRequested="cb_project_ItemsRequested" 
+                            OnSelectedIndexChanged="cb_project_SelectedIndexChanged">
                         </telerik:RadComboBox>                       
                     </td>
                 </tr>
@@ -163,8 +190,41 @@
                     <td>PR Number:
                     </td>
                     <td>
-                        <asp:TextBox ID="txt_no_ref" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.no_ref") %>'>
-                        </asp:TextBox>
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_reff" runat="server" Height="200" Width="315" 
+                        DropDownWidth="315" EmptyMessage="Select the refference" HighlightTemplatedItems="true"
+                        EnableLoadOnDemand="true" Filter="StartsWith" OnItemsRequested="cb_reff_ItemsRequested"
+                        Skin="Office2010Silver">
+                        <HeaderTemplate>
+                            <table style="width: 275px" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td style="width: 175px;">
+                                        PR Number
+                                    </td>
+                                    <td style="width: 60px;">
+                                        Date
+                                    </td>
+                                    <td style="width: 40px;">
+                                        Remark
+                                    </td>
+                                </tr>
+                            </table>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <table style="width: 275px" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td style="width: 105px;">
+                                        <%# DataBinder.Eval(Container, "DataItem.pr_code")%>
+                                    </td>
+                                    <td style="width: 60px;">
+                                        <%# DataBinder.Eval(Container, "DataItem.pr_date")%>
+                                    </td>
+                                    <td style="width: 140px;">
+                                        <%# DataBinder.Eval(Container, "DataItem.remark")%>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ItemTemplate>
+                    </telerik:RadComboBox>
                     </td>
                 </tr>
               

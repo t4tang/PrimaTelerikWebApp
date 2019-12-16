@@ -148,13 +148,22 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadComboBox cb_tax3;
         
         /// <summary>
-        /// txt_no_ref control.
+        /// cb_project control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_no_ref;
+        protected global::Telerik.Web.UI.RadComboBox cb_project;
+        
+        /// <summary>
+        /// cb_reff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_reff;
         
         /// <summary>
         /// txt_remark control.
