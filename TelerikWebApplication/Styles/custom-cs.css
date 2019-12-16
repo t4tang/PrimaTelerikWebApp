@@ -122,12 +122,12 @@ html .RadMultiPage .rmpView {
 }
  
 * + html .rgEditForm.popUpEditForm {
-    width: 1200px !important;
+    width: 800px !important;
 }
  
 .rgEditForm > div + div,
 .RadGrid .rgEditForm {
-    height: 500px !important;
+    height: auto !important;
 }
  
 .rgEditForm > div > table{
@@ -136,14 +136,14 @@ html .RadMultiPage .rmpView {
 }
  
 .rgEditForm > div > table > tbody > tr > td {
-    padding: 4px 10px;
+    padding: 20px 10px 10px 10px;
+    padding-left:15px;
 }
  
 .rfdSelectBoxDropDown {
     z-index: 100011;
 }
 
-.dataEntry{
-   padding-left:15px;
-   vertical-align:top;
+.dataEntry{   
+   padding: 20px 10px 10px 10px;
 }
