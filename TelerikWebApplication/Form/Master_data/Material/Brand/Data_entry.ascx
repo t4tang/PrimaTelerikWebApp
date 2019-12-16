@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="Data_entry.ascx.cs" Inherits="TelerikWebApplication.Form.Master_data.Material.Brand.Data_entry" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<div>
+<div class="dataEntry">
     <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
     style="border-collapse: collapse;">
     <tr class="EditFormHeader">
