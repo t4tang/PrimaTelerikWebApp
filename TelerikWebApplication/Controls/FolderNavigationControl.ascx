@@ -19,6 +19,6 @@
 <div class="btn-new-node">Add New</div>--%>
 
 
- <telerik:RadPanelBar RenderMode="Lightweight" runat="server" CssClass="RadMenu" ID="RadPanelBar1" 
+ <telerik:RadPanelBar RenderMode="Lightweight" runat="server" CssClass="RadMenu" ID="RadPanelBar1" AutoPostBack="false"
     Height="550px" Width="240px" ExpandMode="FullExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick">
 </telerik:RadPanelBar>
