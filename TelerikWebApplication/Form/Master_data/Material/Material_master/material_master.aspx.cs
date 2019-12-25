@@ -76,27 +76,28 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                 con.Open();
                 cmd.Parameters.AddWithValue("@prod_code", (userControl.FindControl("txt_material_code") as TextBox).Text);
                 cmd.Parameters.AddWithValue("@spec", (userControl.FindControl("txt_specification") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@unit", (userControl.FindControl("cb_uom") as RadComboBox).DataValueField);
-                cmd.Parameters.AddWithValue("@brand_code", (userControl.FindControl("cb_brand") as RadComboBox).DataValueField);
-                cmd.Parameters.AddWithValue("@group_code", (userControl.FindControl("cb_group") as RadComboBox).DataValueField);
-                cmd.Parameters.AddWithValue("@kind_code", (userControl.FindControl("cb_category") as RadComboBox).DataValueField);
-                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("cb_uom") as DropDownList).Text);
+                cmd.Parameters.AddWithValue("@unit", (userControl.FindControl("cb_uom") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@brand_code", (userControl.FindControl("cb_brand") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@group_code", (userControl.FindControl("cb_group") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@kind_code", (userControl.FindControl("cb_category") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("cb_st_main") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@QtyMin", Convert.ToDouble((userControl.FindControl("txt_min_stock") as TextBox).Text));
                 cmd.Parameters.AddWithValue("@qtyminpur", Convert.ToDouble((userControl.FindControl("txt_min_purchase") as TextBox).Text));
                 cmd.Parameters.AddWithValue("@SalesFore", Convert.ToDouble((userControl.FindControl("txt_sales_forecast") as TextBox).Text));
                 cmd.Parameters.AddWithValue("@price_sale", Convert.ToDouble((userControl.FindControl("txt_selling_price") as TextBox).Text));
-                //cmd.Parameters.AddWithValue("@tSN", tSN);
-                //cmd.Parameters.AddWithValue("@tActive", tActive);
-                //cmd.Parameters.AddWithValue("@tWarranty", tWarranty);
-                //cmd.Parameters.AddWithValue("@tMonitor", tMonitor);
-                //cmd.Parameters.AddWithValue("@tConsig", tConsig);
-                //cmd.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("@tSN", (userControl.FindControl("chk_use_serial_number") as RadCheckBox).Checked);
+                cmd.Parameters.AddWithValue("@tActive", (userControl.FindControl("chk_active") as RadCheckBox).Checked);
+                cmd.Parameters.AddWithValue("@tWarranty", (userControl.FindControl("chk_warranty") as RadCheckBox).Checked);
+                cmd.Parameters.AddWithValue("@tMonitor", (userControl.FindControl("chk_monitoring_stock") as RadCheckBox).Checked);
+                cmd.Parameters.AddWithValue("@tConsig", (userControl.FindControl("chk_consignment") as RadCheckBox).Checked);
+                cmd.ExecuteNonQuery();
                 con.Close();
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data updated successfully";
                 lblsuccess.ForeColor = System.Drawing.Color.Blue;
                 RadGrid1.Controls.Add(lblsuccess);
+                
             }
             catch (Exception ex)
             {
@@ -106,6 +107,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                 lblError.ForeColor = System.Drawing.Color.Red;
                 RadGrid1.Controls.Add(lblError);
                 e.Canceled = true;
+                
             }
             
         }
@@ -116,13 +118,28 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
 
             try
             {
-                cmd = new SqlCommand("insert into ms_brand (brand_code, brand_name, lastupdate, userid, stEdit) values " +
-                    "(@brand_code, @brand_name, @lastupdate, @uid, '0')", con);
+                cmd = new SqlCommand("insert into ms_product (prod_code, spec, unit, QtyMin, brand_code, group_code, kind_code, " +
+                        "stMain, qtyminpur, SalesFore, price_sale, tSN, tActive, tWarranty, tMonitor, tConsig, stEdit) values " +
+                        "(@prod_code, @spec, @unit, @Qtymin, @brand_code, @group_code,@kind_code, " +
+                        "CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' ELSE '2' END, @qtyminpur, " +
+                        "@SalesFore, @price_sale, @tSN, @tActive, @tWarranty, @tMonitor, @tConsig, '0')", con);
                 con.Open();
-                cmd.Parameters.AddWithValue("@brand_code", (userControl.FindControl("txt_brand_code") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@brand_name", (userControl.FindControl("txt_brand_name") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                cmd.Parameters.AddWithValue("@lastupdate", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
+                cmd.Parameters.AddWithValue("@prod_code", (userControl.FindControl("txt_material_code") as TextBox).Text);
+                cmd.Parameters.AddWithValue("@spec", (userControl.FindControl("txt_specification") as TextBox).Text);
+                cmd.Parameters.AddWithValue("@unit", (userControl.FindControl("cb_uom") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@brand_code", (userControl.FindControl("cb_brand") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@group_code", (userControl.FindControl("cb_group") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@kind_code", (userControl.FindControl("cb_category") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("cb_st_main") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@QtyMin", Convert.ToDouble((userControl.FindControl("txt_min_stock") as TextBox).Text));
+                cmd.Parameters.AddWithValue("@qtyminpur", Convert.ToDouble((userControl.FindControl("txt_min_purchase") as TextBox).Text));
+                cmd.Parameters.AddWithValue("@SalesFore", Convert.ToDouble((userControl.FindControl("txt_sales_forecast") as TextBox).Text));
+                cmd.Parameters.AddWithValue("@price_sale", Convert.ToDouble((userControl.FindControl("txt_selling_price") as TextBox).Text));
+                cmd.Parameters.AddWithValue("@tSN", (userControl.FindControl("chk_use_serial_number") as RadCheckBox).Checked);
+                cmd.Parameters.AddWithValue("@tActive", (userControl.FindControl("chk_active") as RadCheckBox).Checked);
+                cmd.Parameters.AddWithValue("@tWarranty", (userControl.FindControl("chk_warranty") as RadCheckBox).Checked);
+                cmd.Parameters.AddWithValue("@tMonitor", (userControl.FindControl("chk_monitoring_stock") as RadCheckBox).Checked);
+                cmd.Parameters.AddWithValue("@tConsig", (userControl.FindControl("chk_consignment") as RadCheckBox).Checked);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -130,6 +147,8 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                 lblsuccess.Text = "Data inserted successfully";
                 lblsuccess.ForeColor = System.Drawing.Color.Blue;
                 RadGrid1.Controls.Add(lblsuccess);
+            
+               
             }
             catch (Exception ex)
             {
@@ -138,6 +157,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                 lblError.Text = "Unable to delete data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
                 RadGrid1.Controls.Add(lblError);
+               
                 e.Canceled = true;
             }
 
@@ -154,8 +174,8 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update ms_brand set stEdit = 4 where brand_code = @brand_code";
-                cmd.Parameters.AddWithValue("@brand_code", (RadGrid1.SelectedItems[0] as GridDataItem).GetDataKeyValue("brand_code").ToString());
+                cmd.CommandText = "update ms_product set stEdit = 4 where prod_code = @prod_code";
+                cmd.Parameters.AddWithValue("@prod_code", RadGrid1.MasterTableView.Items[0].GetDataKeyValue("prod_code").ToString());
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -172,5 +192,39 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
 
         }
 
+        //protected void ConfigureNotification(object sender, System.EventArgs args)
+        //{
+        //    //String
+        //    RadNotification1.Title = this.Title.Text;
+        //    RadNotification1.Text = this.Text.Text;
+        //    RadNotification1.TitleIcon = this.titleIcon.SelectedValue;
+        //    RadNotification1.ContentIcon = this.contentIcon.SelectedValue;
+        //    RadNotification1.ShowSound = this.showSound.SelectedValue;
+
+        //    //Enum
+        //    RadNotification1.Position = (NotificationPosition)Enum.Parse(typeof(Telerik.Web.UI.NotificationPosition), this.Position.SelectedValue);
+        //    RadNotification1.Animation = (NotificationAnimation)Enum.Parse(typeof(Telerik.Web.UI.NotificationAnimation), this.Animation.SelectedValue);
+        //    RadNotification1.ContentScrolling = (NotificationScrolling)Enum.Parse(typeof(Telerik.Web.UI.NotificationScrolling), this.ContentScrolling.SelectedValue);
+
+        //    //Unit
+        //    RadNotification1.Width = this.Width.Text != string.Empty ? Unit.Parse(this.Width.Text) : RadNotification1.Width;
+        //    RadNotification1.Height = this.Height.Text != string.Empty ? Unit.Parse(this.Height.Text) : RadNotification1.Height;
+
+        //    //Integer
+        //    RadNotification1.OffsetX = !Object.Equals(this.OffsetX.Value, null) ? int.Parse(this.OffsetX.Value.ToString()) : RadNotification1.OffsetX;
+        //    RadNotification1.OffsetY = !Object.Equals(this.OffsetY.Value, null) ? int.Parse(this.OffsetY.Value.ToString()) : RadNotification1.OffsetY;
+        //    RadNotification1.AutoCloseDelay = !Object.Equals(this.AutoCloseDelay.Value, null) ? int.Parse(this.AutoCloseDelay.Value.ToString()) : RadNotification1.AutoCloseDelay;
+        //    RadNotification1.AnimationDuration = !Object.Equals(this.AnimationDuration.Value, null) ? int.Parse(this.AnimationDuration.Value.ToString()) : RadNotification1.AnimationDuration;
+        //    RadNotification1.Opacity = int.Parse(this.opacity.Value.ToString());
+
+        //    //Boolean
+        //    RadNotification1.Pinned = this.Pinned.Checked;
+        //    RadNotification1.EnableRoundedCorners = this.corners.Checked;
+        //    RadNotification1.EnableShadow = this.shadow.Checked;
+        //    RadNotification1.KeepOnMouseOver = this.keepMouse.Checked;
+        //    RadNotification1.VisibleTitlebar = this.titlebar.Checked;
+        //    RadNotification1.ShowCloseButton = this.closeBtn.Checked;
+        //}
+
     }
-}
+}        

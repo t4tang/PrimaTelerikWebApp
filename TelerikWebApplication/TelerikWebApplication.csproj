@@ -128,13 +128,6 @@
     <Compile Include="Controls\MobileNavigation.ascx.designer.cs">
       <DependentUpon>MobileNavigation.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Data_entry.ascx.cs">
-      <DependentUpon>Data_entry.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Data_entry.ascx.designer.cs">
-      <DependentUpon>Data_entry.ascx</DependentUpon>
-    </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -177,6 +170,20 @@
     <Compile Include="Form\Master_data\Material\Brand\material_brand.aspx.designer.cs">
       <DependentUpon>material_brand.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Master_data\Material\Category\category.aspx.cs">
+      <DependentUpon>category.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Master_data\Material\Category\category.aspx.designer.cs">
+      <DependentUpon>category.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Master_data\Material\Category\category_data_entry.ascx.cs">
+      <DependentUpon>category_data_entry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Master_data\Material\Category\category_data_entry.ascx.designer.cs">
+      <DependentUpon>category_data_entry.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Master_data\Material\Material_master\Data_entry.ascx.cs">
       <DependentUpon>Data_entry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -212,19 +219,19 @@
     <Compile Include="Form\Purchase\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Purchase\Purchase_order\Data_entry.ascx.cs">
-      <DependentUpon>Data_entry.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\Purchase\Purchase_order\Data_entry.ascx.designer.cs">
-      <DependentUpon>Data_entry.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Form\Purchase\Purchase_order\po_std.aspx.cs">
       <DependentUpon>po_std.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\Purchase\Purchase_order\po_std.aspx.designer.cs">
       <DependentUpon>po_std.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx.cs">
+      <DependentUpon>po_std_data_entry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx.designer.cs">
+      <DependentUpon>po_std_data_entry.ascx</DependentUpon>
     </Compile>
     <Compile Include="Form\Reports\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -318,7 +325,6 @@
     <Content Include="contacts.aspx" />
     <Content Include="Controls\FolderNavigationControl.ascx" />
     <Content Include="Controls\MobileNavigation.ascx" />
-    <Content Include="Data_entry.ascx" />
     <Content Include="default.aspx" />
     <Content Include="Fonts\OutlookSampleApp.svg" />
     <Content Include="Form\Fico\Default.aspx" />
@@ -326,13 +332,15 @@
     <Content Include="Form\Master_data\Material\Brand\Data_entry.ascx" />
     <Content Include="Form\Master_data\Default.aspx" />
     <Content Include="Form\Master_data\Material\Brand\material_brand.aspx" />
+    <Content Include="Form\Master_data\Material\Category\category.aspx" />
+    <Content Include="Form\Master_data\Material\Category\category_data_entry.ascx" />
     <Content Include="Form\Master_data\Material\Material_master\Data_entry.ascx" />
     <Content Include="Form\Master_data\Material\Material_master\material_master.aspx" />
     <Content Include="Form\Preventive_maintenance\Default.aspx" />
     <Content Include="Form\Production\Default.aspx" />
     <Content Include="Form\Purchase\Default.aspx" />
-    <Content Include="Form\Purchase\Purchase_order\Data_entry.ascx" />
     <Content Include="Form\Purchase\Purchase_order\po_std.aspx" />
+    <Content Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx" />
     <Content Include="Form\Reports\Default.aspx" />
     <Content Include="Form\Sales\Default.aspx" />
     <Content Include="Form\Security\Default.aspx" />
@@ -427,7 +435,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
