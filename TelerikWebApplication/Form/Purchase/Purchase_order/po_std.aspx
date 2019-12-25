@@ -43,11 +43,12 @@
 
     <div class="scroller">
         <!-- Page Content -->
-
-         <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true"
+             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" OnPreRender="RadGrid1_PreRender"
-                OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="false"
-                OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri">
+                OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_SaveCommand" AllowFilteringByColumn="false"
+                OnInsertCommand="RadGrid1_SaveCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri"
+                 CssClass="RadGrid_ModernBrowsers">
+                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                     <Columns>
