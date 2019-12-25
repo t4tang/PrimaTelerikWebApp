@@ -44,9 +44,13 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            cb_project_SelectedIndexChanged(cb_project, null);
+            //cb_project_SelectedIndexChanged(cb_project, null);
+            //if (!Page.IsPostBack)
+
+            //LoadProjects();
         }
 
+        
         private static DataTable GetTrans(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT TransName, trans_code FROM ms_po_transaction WHERE stEdit <> '4' AND TransName LIKE @text + '%'",
@@ -206,15 +210,52 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_code FROM ms_supplier WHERE supplier_name = '" + cb_supplier.Text + "'";
+            cmd.CommandText = "SELECT supplier_code  FROM ms_supplier WHERE supplier_name = '" + cb_supplier.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_supplier.SelectedValue = dr[0].ToString();
+                cb_supplier.SelectedValue = dr["supplier_code"].ToString();
             dr.Close();
             con.Close();
+
+            get_supp_info(cb_supplier.SelectedValue);
         }
 
+        //private void get_supp_info1(string supp_code)
+        //{
+        //    con.Open();
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.Connection = con;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.CommandText = "SELECT cur_code, JTempo, case ms_supplier.pay_code when '01' then 'Cash' when '02' then 'Credit' Else 'COD' end as pay_name  FROM ms_supplier WHERE supplier_code = '" + supp_code + "'";
+        //    SqlDataReader dr;
+        //    dr = cmd.ExecuteReader();
+        //    //while (dr.Read())            
+        //    txt_curr.Text = dr["cur_code"].ToString();
+        //    cb_term.Text = dr["pay_name"].ToString();
+        //    txt_term_days.Text = dr["JTempo"].ToString();
+        //    dr.Close();
+        //    con.Close();
+        //}
+
+        protected void get_supp_info(string supp_code)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT cur_code, JTempo, case ms_supplier.pay_code when '01' then 'Cash' when '02' then 'Credit' Else 'COD' end as pay_name  FROM ms_supplier WHERE supplier_code = @supplier_code", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@supplier_code", supp_code);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach(DataRow dr in dt.Rows)
+            {
+                txt_curr.Text = dr["cur_code"].ToString();
+                cb_term.Text = dr["pay_name"].ToString();
+                txt_term_days.Text = dr["JTempo"].ToString();
+            }
+            
+        }
         private static DataTable GetTax(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT TAX_NAME FROM MS_TAX WHERE stEdit != 4 AND TAX_NAME LIKE @text + '%' UNION SELECT 'NON'",
@@ -240,19 +281,23 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             }
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
-        }
 
+
+
+        }
+        
         protected void cb_tax1_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE FROM  MS_TAX WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM  MS_TAX WHERE TAX_NAME = '" + cb_tax1.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
                 cb_tax1.SelectedValue = dr[0].ToString();
+                txt_pppn.Text = dr["TAX_PERC"].ToString();
             dr.Close();
             con.Close();
         }
@@ -272,17 +317,19 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
 
+       
         protected void cb_tax2_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE FROM MS_TAX WHERE TAX_NAME = '" + cb_tax2.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM MS_TAX WHERE TAX_NAME = '" + cb_tax2.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
                 cb_tax2.SelectedValue = dr[0].ToString();
+                txt_po_tax.Text = dr["TAX_PERC"].ToString();
             dr.Close();
             con.Close();
         }
@@ -302,25 +349,26 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
-
+                
         protected void cb_tax3_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE FROM MS_TAX WHERE TAX_NAME = '" + cb_tax3.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM MS_TAX WHERE TAX_NAME = '" + cb_tax3.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
                 cb_tax3.SelectedValue = dr[0].ToString();
+                txt_ppph.Text = dr["TAX_PERC"].ToString();
             dr.Close();
             con.Close();
         }
 
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -341,8 +389,38 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 cb_project.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
             }
+        }
 
-            e.Message = GetStatusMessage(endOffset, data.Rows.Count);
+        //protected void LoadProjects()
+        //{
+        //    SqlConnection connection = new SqlConnection(
+        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 ORDER By region_name", connection);
+        //    DataTable dt = new DataTable();
+        //    adapter.Fill(dt);
+
+        //    cb_project.DataTextField = "region_name";
+        //    cb_project.DataValueField = "region_code";
+        //    cb_project.DataSource = dt;
+        //    cb_project.DataBind();
+        //}
+
+        protected void LoadReff(string projectID)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, pr_date, remark FROM v_purchase_request WHERE region_code = @project", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cb_reff.DataTextField = "pr_code";
+            cb_reff.DataValueField = "pr_code";
+            cb_reff.DataSource = dt;
+            cb_reff.DataBind();
         }
 
         protected void cb_project_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -358,14 +436,18 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cb_project.SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
+
+            LoadReff(cb_project.SelectedValue);
         }
 
-        private static DataTable GetReff(string pr_code, string proj)
+        
+
+        private static DataTable GetReff(string pr_code, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, pr_date, remark FROM v_purchase_request WHERE region_code = @project AND pr_code LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, pr_date, remark FROM v_purchase_request WHERE region_code = region_code  AND pr_code LIKE '%' + @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", pr_code);
-            adapter.SelectCommand.Parameters.AddWithValue("@project", proj);
+            adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
 
             DataTable data = new DataTable();
             adapter.Fill(data);
@@ -374,7 +456,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         }
         protected void cb_reff_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = GetReff(e.Text, cb_project.SelectedValue);
+            DataTable data = GetReff(e.Text,cb_project.SelectedValue);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -385,7 +467,52 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cb_reff.Items.Add(new RadComboBoxItem(data.Rows[i]["pr_code"].ToString(), data.Rows[i]["pr_code"].ToString()));
             }
 
-            e.Message = GetStatusMessage(endOffset, data.Rows.Count);
+            e.Message = GetStatusMessage(endOffset, data.Rows.Count);            
         }
+
+        protected void cb_reff_DataBound(object sender, EventArgs e)
+        {
+            //set the initial footer label
+            ((Literal)cb_reff.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString(cb_reff.Items.Count);
+        }
+        protected void cb_reff_ItemDataBound(object sender, RadComboBoxItemEventArgs e)
+        {
+            e.Item.Text = ((DataRowView)e.Item.DataItem)["pr_code"].ToString();
+            e.Item.Value = ((DataRowView)e.Item.DataItem)["pr_code"].ToString();
+        }
+
+        protected void cb_reff_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from v_purchase_request where pr_code = '" + cb_reff.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_cost_center.Text = dr["dept_code"].ToString();
+                txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Pr_date"].ToString());
+                txt_remark.Text = dr["remark"].ToString();
+
+            dr.Close();
+            con.Close();
+        }
+
+        protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
+
     }
 }
