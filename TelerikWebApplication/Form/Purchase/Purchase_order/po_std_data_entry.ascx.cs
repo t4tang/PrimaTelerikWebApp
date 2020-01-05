@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -48,9 +49,40 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             //if (!Page.IsPostBack)
 
             //LoadProjects();
+            //RadGrid2.DataBind();
+        }
+                
+        public DataTable get_po_det(string po_no)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as tfactor, jumlah, tTax, tOtax, tpph, " +
+                "dept_code, Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM tr_purchaseD WHERE po_code = '" + po_no + "'";            
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
         }
 
-        
+        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            (sender as RadGrid).DataSource = get_po_det("PO0318020003");
+        }
+
         private static DataTable GetTrans(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT TransName, trans_code FROM ms_po_transaction WHERE stEdit <> '4' AND TransName LIKE @text + '%'",
@@ -282,10 +314,25 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
 
-
+            //get_tax_perc(cb_tax1.SelectedValue);
 
         }
-        
+
+        private void get_tax_perc(string tax_code, RadNumericTextBox text_box)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT TAX_PERC FROM  MS_TAX WHERE TAX_CODE = '" + tax_code + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                text_box.Text = dr["TAX_PERC"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
         protected void cb_tax1_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
@@ -296,11 +343,14 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_tax1.SelectedValue = dr[0].ToString();
-                txt_pppn.Text = dr["TAX_PERC"].ToString();
+                cb_tax1.SelectedValue = dr["TAX_CODE"].ToString();
+                //txt_pppn.Text = dr["TAX_PERC"].ToString();
             dr.Close();
             con.Close();
+
+            get_tax_perc(cb_tax1.SelectedValue, txt_pppn);
         }
+        
         protected void cb_tax2_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable data = GetTax(e.Text);
@@ -329,9 +379,10 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             dr = cmd.ExecuteReader();
             while (dr.Read())
                 cb_tax2.SelectedValue = dr[0].ToString();
-                txt_po_tax.Text = dr["TAX_PERC"].ToString();
             dr.Close();
             con.Close();
+
+            get_tax_perc(cb_tax2.SelectedValue, txt_po_tax);
         }
 
         protected void cb_tax3_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -361,9 +412,11 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             dr = cmd.ExecuteReader();
             while (dr.Read())
                 cb_tax3.SelectedValue = dr[0].ToString();
-                txt_ppph.Text = dr["TAX_PERC"].ToString();
+                //txt_ppph.Text = dr["TAX_PERC"].ToString();
             dr.Close();
             con.Close();
+
+            get_tax_perc(cb_tax3.SelectedValue, txt_ppph);
         }
 
         private static DataTable GetProject(string text)
@@ -492,13 +545,30 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             dr = cmd.ExecuteReader();
             while (dr.Read())
                 cb_cost_center.Text = dr["dept_code"].ToString();
-                txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Pr_date"].ToString());
-                txt_remark.Text = dr["remark"].ToString();
-
             dr.Close();
             con.Close();
+
+            LoadReffInfo(cb_reff.Text);
+
         }
 
+        protected void LoadReffInfo(string code)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenterName, pr_date, remark FROM v_purchase_request WHERE pr_code = @pr_code", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@pr_code", code);
+                       
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Pr_date"].ToString());
+                txt_remark.Text = dr["remark"].ToString();
+                cb_cost_center.Text = dr["CostCenterName"].ToString();
+            }
+        }
         protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
         {
 
