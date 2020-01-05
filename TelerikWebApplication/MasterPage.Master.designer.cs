@@ -94,15 +94,6 @@ namespace TelerikWebApplication {
         protected global::Telerik.Web.UI.RadNavigation contactNavigation;
         
         /// <summary>
-        /// NavNode2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.NavigationNode NavNode2;
-        
-        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>
