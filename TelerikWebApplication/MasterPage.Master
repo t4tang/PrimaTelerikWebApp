@@ -62,7 +62,8 @@
                 </telerik:RadNavigation>
             </div>
             <div class="container clear">
-                <div class="sidebar" id="sidebar">
+                <%--<div class="sidebar" id="sidebar">--%>
+                <div class="sidebar">
                     <asp:ContentPlaceHolder ID="FolderContent" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
@@ -70,8 +71,8 @@
                 <div class="section bottom">
                     <telerik:RadNavigation runat="server" ID="contactNavigation" Skin="BlackMetroTouch" CssClass="secondaryMenu">
                         <Nodes>
-                            <telerik:NavigationNode ID="NavNode2" Text="MenuName" >
-                            </telerik:NavigationNode>
+                            <%--<telerik:NavigationNode ID="NavNode2" Text="MenuName" >
+                            </telerik:NavigationNode>--%>
                         </Nodes>
                     </telerik:RadNavigation>
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
