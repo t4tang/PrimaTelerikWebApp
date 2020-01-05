@@ -17,8 +17,8 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         {
             if (!IsPostBack)
             {
-                RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "EditForms");
-
+                //RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "EditForms");
+                RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "PopUp");
             }
         }
 

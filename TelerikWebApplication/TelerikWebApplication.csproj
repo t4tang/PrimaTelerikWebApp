@@ -345,6 +345,9 @@
     <Content Include="Form\Sales\Default.aspx" />
     <Content Include="Form\Security\Default.aspx" />
     <Content Include="Form\Security\Master_menu\master_menu.aspx" />
+    <Content Include="Images\back.png" />
+    <Content Include="Images\save.gif" />
+    <Content Include="Images\save.png" />
     <Content Include="Images\backgrounds\header_about.gif" />
     <Content Include="Images\backgrounds\header_calendar.gif" />
     <Content Include="Images\backgrounds\header_contacts.gif" />
@@ -435,7 +438,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
