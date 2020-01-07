@@ -42,8 +42,8 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             cmd.Connection = con;
             cmd.CommandText = "sp_get_purchase_order";
             cmd.Parameters.AddWithValue("@date", "01/02/2018");
-            cmd.Parameters.AddWithValue("@todate", "02/02/2018");
-            cmd.Parameters.AddWithValue("@project", "SMB");
+            cmd.Parameters.AddWithValue("@todate", "02/06/2018");
+            cmd.Parameters.AddWithValue("@project", public_str.site);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
