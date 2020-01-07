@@ -50,6 +50,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             //LoadProjects();
             //RadGrid2.DataBind();
+            //RadGrid2.DataSource = get_po_det(txt_po_number.Text);
         }
                 
         public DataTable get_po_det(string po_no)
@@ -80,7 +81,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = get_po_det("PO0318020003");
+            (sender as RadGrid).DataSource = get_po_det("PO0318020006");
         }
 
         private static DataTable GetTrans(string text)

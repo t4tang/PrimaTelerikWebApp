@@ -1,30 +1,30 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="po_std_data_entry.ascx.cs" Inherits="TelerikWebApplication.Form.Purchase.Purchase_order.po_std_data_entry" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+<div class="demo-container wrapper">
 <div class="rgEditForm">
-   
-    <table id="Table1" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
-    style="border-collapse: collapse; padding-top:10px; padding-left:15px; padding-right:15px; padding-bottom:10px ">
-    <tr>
-        <td align="left" colspan="3">
-            <asp:Button ID="btnUpdate" runat="server"
+    <table id="tbl_button" style="border-collapse: collapse; padding-top:10px; padding-left:15px; padding-right:15px; padding-bottom:10px " >
+        <tr>
+            <td >
+                <asp:Button ID="btnUpdate" runat="server"
                 Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                 CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>&nbsp;
-            <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
-                CommandName="Cancel"></asp:Button>
-            <%--<telerik:RadButton ID="btn_ok" runat="server" RenderMode="Lightweight" Width="60px" Height="25px" Text="Save"         
-            ForeColor="Black" HoveredCssClass="goButtonClassHov" Style="font-size:12px;">
-            </telerik:RadButton>
-            
-            <telerik:RadButton ID="btn_cancel" runat="server" RenderMode="Lightweight" Width="60px" Height="25px" Text="Cancel"
-             ForeColor="Black" HoveredCssClass="goButtonClassHov" Style=" font-size:12px;">
-             
-            </telerik:RadButton>--%>
-        </td>
-    </tr>
+                     
+            </td>
+            <td>
+                 <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                CommandName="Cancel"></asp:Button>  
+            </td>
+        </tr>
+    </table>            
+
+    <table id="Table1" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none" 
+    style="border-collapse: collapse; padding-top:10px; padding-left:15px; padding-right:15px; padding-bottom:10px ">
+    
     <tr>
         <td colspan="3">
-            <b>PO Information</b>
+            <%--<b></b>
+             <telerik:RadLabel runat="server" ID="RadLabel1" Text="PO Information"></telerik:RadLabel>--%>
         </td>
     </tr>
     <tr style="vertical-align: top">
@@ -32,10 +32,12 @@
             <table id="Table1" width="Auto" border="0" class="module">
                 
                 <tr>
-                    <td>PO Number:
+                    <td>
+                        PO Number:
+                        <%--<telerik:RadLabel runat="server" ID="RadLabel2" AssociatedControlID="txt_po_number" Text="PO Number:"></telerik:RadLabel>--%>
                     </td>
                     <td>
-                        <telerik:RadTextBox ID="txt_po_number" runat="server" Width="150px" Enabled="false"
+                        <telerik:RadTextBox ID="txt_po_number" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
                             Text='<%# DataBinder.Eval(Container, "DataItem.po_code") %>'>
                         </telerik:RadTextBox>
                     </td>
@@ -44,7 +46,7 @@
                     <td>PO Date:
                     </td>
                     <td>
-                        <telerik:RadDatePicker ID="dtp_po" runat="server" MinDate="1/1/1900" Width="150px"
+                        <telerik:RadDatePicker ID="dtp_po" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
                             DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.po_date") %>' TabIndex="4" Skin="Silk"> 
                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
                                 EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
@@ -58,7 +60,7 @@
                     <td>Expired:
                     </td>
                     <td>
-                        <telerik:RadDatePicker ID="dtp_exp" runat="server" MinDate="1/1/1900" Width="150px" 
+                        <telerik:RadDatePicker ID="dtp_exp" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
                             DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.exp_date") %>'
                             TabIndex="4" Skin="Silk">
                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
@@ -72,7 +74,7 @@
                     <td>Tipe:
                     </td>
                     <td>
-                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_po_type" runat="server" Width="150" 
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_po_type" runat="server" Width="150"
                             Text='<%# DataBinder.Eval(Container, "DataItem.TransName") %>'
                             EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                             EnableVirtualScrolling="true" OnItemsRequested="cb_po_type_ItemsRequested"  
@@ -490,86 +492,90 @@
            </table>
        </td>
    </tr>
-  
-</table>
-
-     <div style=" width:1000px; height:auto; position:absolute; padding-left:15px;">
-        <table>
-            <tr>
-                <td>         
-                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" runat="server" AllowAutomaticDeletes="True"
-                        AllowAutomaticInserts="True" PageSize="5" AllowAutomaticUpdates="True" AllowPaging="True" Height="260px"
-                            OnNeedDataSource="RadGrid2_NeedDataSource">
-                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px"
-                            EditMode="Batch"  HorizontalAlign="Justify"  AutoGenerateColumns="False">
-                            <BatchEditingSettings EditType="Row" HighlightDeletedRows="true" />  
-                            <ItemStyle CssClass="Row10" />                      
-                            <Columns>
-                                <telerik:GridBoundColumn DataField="prod_type" HeaderStyle-Width="15px" HeaderText="Type" SortExpression="prod_type"
-                                    UniqueName="prod_type" ItemStyle-HorizontalAlign="Center">
-                                    <ColumnValidationSettings EnableRequiredFieldValidation="true">
-                                        <RequiredFieldValidator ForeColor="Red" Text="*This field is required" Display="Dynamic">
-                                        </RequiredFieldValidator>
-                                    </ColumnValidationSettings>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridTemplateColumn HeaderText="Material Code" HeaderStyle-Width="100px" UniqueName="Prod_code" 
-                                    DataField="Prod_code" ItemStyle-HorizontalAlign="Left">
-                                    <ItemTemplate>
-                                        <%# Eval("Prod_code") %>
-                                    </ItemTemplate>
-                                    <EditItemTemplate>
-                                        <telerik:RadDropDownList RenderMode="Lightweight" runat="server" ID="CategoryIDDropDown" DataValueField="prod_code"
-                                            DataTextField="prod_code" DataSourceID="SqlDataSource2">
-                                        </telerik:RadDropDownList>
-                                    </EditItemTemplate>
-                                </telerik:GridTemplateColumn>
-                                <telerik:GridNumericColumn DataField="qty" HeaderStyle-Width="40px" HeaderText="Qty" ItemStyle-HorizontalAlign="Right"
-                                    SortExpression="qty" UniqueName="qty" DataFormatString="{0:#,###0.00;(#,###0.00);0}">
-                                </telerik:GridNumericColumn>
-                                <telerik:GridNumericColumn DataField="SatQty" HeaderStyle-Width="40px" HeaderText="UoM" ItemStyle-HorizontalAlign="Left"
-                                    SortExpression="SatQty" UniqueName="SatQty" ItemStyle-Width="30">
-                                </telerik:GridNumericColumn>
-                     
-                                <telerik:GridTemplateColumn HeaderText="UnitPrice" HeaderStyle-Width="55px" SortExpression="harga" UniqueName="harga"
-                                    DataField="harga" ItemStyle-HorizontalAlign="Right">
-                                    <ItemTemplate>
-                                        <asp:Label runat="server" ID="lblUnitPrice" Text='<%# Eval("harga", "{0:#,###0.00;(#,###0.00);0}") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <EditItemTemplate>
-                                        <span>
-                                            <telerik:RadNumericTextBox RenderMode="Lightweight" Width="55px" runat="server" ID="tbUnitPrice">
-                                            </telerik:RadNumericTextBox>
-                                            <span style="color: Red">
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
-                                                    ControlToValidate="tbUnitPrice" ErrorMessage="*Required" runat="server" Display="Dynamic">
-                                                </asp:RequiredFieldValidator>
-                                            </span>
-                                        </span>
-                                    </EditItemTemplate>
-                                </telerik:GridTemplateColumn>
-                                <telerik:GridButtonColumn ConfirmText="Delete this product?" ConfirmDialogType="RadWindow"
-                                    ConfirmTitle="Delete" HeaderText="Delete" HeaderStyle-Width="20px" 
-                                    CommandName="Delete" Text="Delete" UniqueName="DeleteColumn">
-                                </telerik:GridButtonColumn>
-                            </Columns>
-                        </MasterTableView>
-                        <ClientSettings AllowKeyboardNavigation="true"></ClientSettings>
-                    </telerik:RadGrid>
-                </td>
-            </tr>    
-            <tr>
-                <td>
-                    <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
-                        SelectCommand="SELECT prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as tfactor, jumlah,tTax, tOtax,  
-                        tpph, dept_code,Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM tr_purchaseD WHERE po_code = 'PO0318020026'">
-               
-                    </asp:SqlDataSource>--%>
-                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
-                        ProviderName="System.Data.SqlClient" SelectCommand="SELECT [prod_code], [spec] FROM [ms_product] WHERE stEdit != 4">
-                    </asp:SqlDataSource>
+   
+</table> 
     
-                </td>
-            </tr>
-        </table>
-    </div>
+</div>
+<div class="detailTransaction" >
+    <table>
+        <tr>
+            <td>         
+                <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" runat="server" AllowAutomaticDeletes="True"
+                    AllowAutomaticInserts="True" PageSize="5" AllowPaging="True" Height="260px" BorderStyle="Solid" Font-Names="Calibri"
+                 CssClass="RadGrid_ModernBrowsers" ShowFooter="true"
+                    AutoGenerateColumns="False" OnNeedDataSource="RadGrid2_NeedDataSource">
+                    <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
+                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px"                            
+                        EditMode="Batch" AutoGenerateColumns="False">
+                        <BatchEditingSettings EditType="Row" HighlightDeletedRows="true" />  
+                        <HeaderStyle Height="10px" />
+                        <CommandItemStyle Height="10px" />                                            
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="prod_type" HeaderStyle-Width="15px" HeaderText="Type" SortExpression="prod_type"
+                                UniqueName="prod_type" ItemStyle-HorizontalAlign="Center">
+                                <ColumnValidationSettings EnableRequiredFieldValidation="true">
+                                    <RequiredFieldValidator ForeColor="Red" Text="*This field is required" Display="Dynamic">
+                                    </RequiredFieldValidator>
+                                </ColumnValidationSettings>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn HeaderText="Material Code" HeaderStyle-Width="100px" UniqueName="Prod_code" 
+                                DataField="Prod_code" ItemStyle-HorizontalAlign="Left">
+                                <ItemTemplate>
+                                    <%# Eval("Prod_code") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <telerik:RadDropDownList RenderMode="Lightweight" runat="server" ID="CategoryIDDropDown" DataValueField="prod_code"
+                                        DataTextField="prod_code" DataSourceID="SqlDataSource2">
+                                    </telerik:RadDropDownList>
+                                </EditItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridNumericColumn DataField="qty" HeaderStyle-Width="40px" HeaderText="Qty" ItemStyle-HorizontalAlign="Right"
+                                SortExpression="qty" UniqueName="qty" DataFormatString="{0:#,###0.00;(#,###0.00);0}">
+                            </telerik:GridNumericColumn>
+                            <telerik:GridNumericColumn DataField="SatQty" HeaderStyle-Width="40px" HeaderText="UoM" ItemStyle-HorizontalAlign="Left"
+                                SortExpression="SatQty" UniqueName="SatQty" ItemStyle-Width="30">
+                            </telerik:GridNumericColumn>
+                     
+                            <telerik:GridTemplateColumn HeaderText="UnitPrice" HeaderStyle-Width="55px" SortExpression="harga" UniqueName="harga"
+                                DataField="harga" ItemStyle-HorizontalAlign="Right">
+                                <ItemTemplate>
+                                    <asp:Label runat="server" ID="lblUnitPrice" Text='<%# Eval("harga", "{0:#,###0.00;(#,###0.00);0}") %>'></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <span>
+                                        <telerik:RadNumericTextBox RenderMode="Lightweight" Width="55px" runat="server" ID="tbUnitPrice">
+                                        </telerik:RadNumericTextBox>
+                                        <span style="color: Red">
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                                ControlToValidate="tbUnitPrice" ErrorMessage="*Required" runat="server" Display="Dynamic">
+                                            </asp:RequiredFieldValidator>
+                                        </span>
+                                    </span>
+                                </EditItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridButtonColumn ConfirmText="Delete this product?" ConfirmDialogType="RadWindow"
+                                ConfirmTitle="Delete" HeaderText="Delete" HeaderStyle-Width="20px" 
+                                CommandName="Delete" Text="Delete" UniqueName="DeleteColumn">
+                            </telerik:GridButtonColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings AllowKeyboardNavigation="true"></ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>    
+        <tr>
+            <td>
+                <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
+                    SelectCommand="SELECT prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as tfactor, jumlah,tTax, tOtax,  
+                    tpph, dept_code,Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM tr_purchaseD WHERE po_code = 'PO0318020026'">
+               
+                </asp:SqlDataSource>--%>
+                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
+                    ProviderName="System.Data.SqlClient" SelectCommand="SELECT [prod_code], [spec] FROM [ms_product] WHERE stEdit != 4">
+                </asp:SqlDataSource>
+    
+            </td>
+        </tr>
+    </table>
+</div>
 </div>
