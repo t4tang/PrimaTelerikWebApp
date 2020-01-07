@@ -502,7 +502,7 @@
             <td>         
                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" runat="server" AllowAutomaticDeletes="True"
                     AllowAutomaticInserts="True" PageSize="5" AllowPaging="True" Height="260px" BorderStyle="Solid" Font-Names="Calibri"
-                 CssClass="RadGrid_ModernBrowsers" ShowFooter="true"
+                 CssClass="RadGrid_ModernBrowsers" ShowFooter="true" 
                     AutoGenerateColumns="False" OnNeedDataSource="RadGrid2_NeedDataSource">
                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px"                            
