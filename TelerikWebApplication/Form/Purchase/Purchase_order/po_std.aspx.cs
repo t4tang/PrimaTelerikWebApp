@@ -41,8 +41,8 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_purchase_order";
-            cmd.Parameters.AddWithValue("@date", "01/02/2018");
-            cmd.Parameters.AddWithValue("@todate", "02/06/2018");
+            cmd.Parameters.AddWithValue("@date", string.Format("{0:dd/MM/yyyy}", DateTime.Now));
+            cmd.Parameters.AddWithValue("@todate", string.Format("{0:dd/MM/yyyy}", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)));
             cmd.Parameters.AddWithValue("@project", public_str.site);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
