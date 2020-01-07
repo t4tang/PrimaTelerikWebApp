@@ -374,3 +374,154 @@ a.RadButton_MetroTouch.rbImageButton:focus {
     font-style: italic;
     font-size: 11px;
 }
+
+/*common*/
+body {
+    margin: 0;
+}
+ 
+.pageLayout {
+    font: 14px 'Segoe UI', Arial, sans-serif;
+}
+ 
+.pageLayout h1,
+.pageLayout h2 {
+    font-weight: normal;
+    color: #c03234;
+}
+ 
+.pageLayout h1 {
+    margin: 0;
+    font-size: 2.3em;
+}
+ 
+.pageLayout h2 {
+    font-size: 1.23em;
+}
+ 
+ 
+/*header*/
+.pageLayout .header {
+    background-color: #e2e2dc;
+}
+ 
+.pageLayout .header p {
+    font-size: 1.43em;
+}
+ 
+.pageLayout .header img {
+    width: 100%;
+    display: block;
+}
+ 
+/*content*/
+.content {
+    text-align: center;
+}
+ 
+.content .t-container {
+    padding: 0;
+}
+ 
+.content img {
+    display: inline-block;
+}
+ 
+.content .description {
+    height: 230px;
+    background-color: #f3f3f1;
+    margin: 0 -15px;
+    padding: 5px 20px;
+}
+ 
+.deviceImage {
+    padding-top: 20px;
+}
+ 
+.deviceIcon  {
+    padding: 15px 0;
+}
+ 
+@media only screen and (min-width: 769px) {
+ 
+    .pageLayout .header {
+        padding: 4% 4% 0;
+    }
+}
+ 
+@media only screen and (max-width: 768px) {
+ 
+    .pageLayout .header {
+        text-align: center;
+    }
+}
+ 
+@media only screen and (min-width: 568px) and (max-width: 768px) {
+ 
+    .content .description {
+        height: 170px;
+    }
+}
+ 
+@media only screen and (max-width: 360px) {
+ 
+    .content .description {
+        height: auto;
+    }
+}
+
+/*Page Layout*/
+
+.demo-container {
+    width: 760px;
+    height: 410px;
+    position: relative;
+}
+ 
+.demo-container .device {
+    position: absolute;
+}
+ 
+.RadWindow {
+    z-index: 99999;
+}
+ 
+.device img {
+    border: 1px solid transparent;
+}
+ 
+.device img:hover {
+    border-color: #489ecb;
+    box-shadow: 0 0 20px #489ecb;
+    cursor: pointer;
+}
+ 
+.desktop {
+    left: 245px;
+}
+ 
+.tablet {
+    left: 0;
+    top: 90px;
+    padding: 0 30px 59px;
+    background: url('Images/tabletShadow.png') no-repeat left bottom;
+}
+ 
+.phone {
+    right: 0;
+    top: 165px;
+    padding: 0 10px 32px;
+    background: url('Images/phoneShadow.png') no-repeat left bottom;
+}
+ 
+.desktop img {
+    border-radius: 16px;
+}
+ 
+.tablet img {
+    border-radius: 13px;
+}
+ 
+.phone img {
+    border-radius: 18px;
+}
