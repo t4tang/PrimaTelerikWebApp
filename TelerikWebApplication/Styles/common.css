@@ -267,7 +267,7 @@ html .scroller {
   box-sizing: border-box;
   height: 100%;
   position:inherit;
-  overflow-y:scroll;
+  overflow-y:auto;
 }
 
 html .gridWrapper,
