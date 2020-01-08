@@ -12,13 +12,17 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
 {
     public partial class po_std : System.Web.UI.Page
     {
-        
+        private const int ItemsPerRequest = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 //RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "EditForms");
                 RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "PopUp");
+                dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                dtp_to.SelectedDate = DateTime.Now;
+                //cb_project.Text = public_str.sitename;
+                cb_project.SelectedValue = public_str.site;
             }
         }
 
@@ -34,16 +38,16 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
-        public DataTable GetDataTable()
+        public DataTable GetDataTable(string fromDate, string toDate, string project)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_purchase_order";
-            cmd.Parameters.AddWithValue("@date", string.Format("{0:dd/MM/yyyy}", DateTime.Now));
-            cmd.Parameters.AddWithValue("@todate", string.Format("{0:dd/MM/yyyy}", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)));
-            cmd.Parameters.AddWithValue("@project", public_str.site);
+            cmd.Parameters.AddWithValue("@date", fromDate);
+            cmd.Parameters.AddWithValue("@todate", toDate);
+            cmd.Parameters.AddWithValue("@project", project);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -64,9 +68,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
       
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            //this.RadGrid1.DataSource = this.Purchase_H;
-            //this.Purchase_H.PrimaryKey = new DataColumn[] { this.Purchase_H.Columns["po_code"] };
-            (sender as RadGrid).DataSource = GetDataTable();
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project.SelectedValue);
         }
 
        
@@ -405,21 +407,49 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         //        e.Canceled = true;
         //    }
         //}
+       
         protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
         {
-            //string ID = (e.Item as GridDataItem).OwnerTableView.DataKeyValues[e.Item.ItemIndex]["po_code"].ToString();
-            //DataTable employeeTable = this.Purchase_H;
-            //if (employeeTable.Rows.Find(ID) != null)
-            //{
-            //    employeeTable.Rows.Find(ID).Delete();
-            //    employeeTable.AcceptChanges();
-            //}
-        }
 
-        //protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), RadioButtonList1.SelectedValue);
-        //    RadGrid1.Rebind();
-        //}
+        }
+        private static DataTable GetProject(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_project_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetProject(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                cb_project.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+            }
+        }
+        protected void cb_project_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_project.SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+            
+        }
     }
 }

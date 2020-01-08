@@ -67,6 +67,15 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadFormDecorator RadFormDecorator1;
         
         /// <summary>
+        /// searchParam control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl searchParam;
+        
+        /// <summary>
         /// dtp_from control.
         /// </summary>
         /// <remarks>
@@ -92,15 +101,6 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_project;
-        
-        /// <summary>
-        /// btnRetrieve control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btnRetrieve;
         
         /// <summary>
         /// RadGrid1 control.

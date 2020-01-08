@@ -40,25 +40,18 @@
 
     <telerik:RadFormDecorator RenderMode="Native" ID="RadFormDecorator1" runat="server" DecorationZoneID="demo" DecoratedControls="All" 
         EnableRoundedCorners="false" Visible="false" />
-    <div class="pageLayout">
-        <div class="scroller">
+    <%--<div class="pageLayout">--%>
+    <div class="scroller">
             <!-- Page Content -->
-            <div class="demo-container">
-                <table style="width:80%">
-                    <tr>
-                        <td>Date :</td>
-                        <td><telerik:RadDatePicker ID="dtp_from" runat="server"></telerik:RadDatePicker></td>
-                        <td>To :</td>
-                        <td><telerik:RadDatePicker ID="dtp_to" runat="server"></telerik:RadDatePicker></td>
-                        <td></td>
-                        <td>
-                            <telerik:RadComboBox ID="cb_project" runat="server"></telerik:RadComboBox>
-                        </td>
-                        <td>
-                            <telerik:RadButton ID="btnRetrieve" runat="server" Text="Retrieve"></telerik:RadButton>
-                        </td>
-                    </tr>
-                </table>                
+            <div runat="server" style="padding:10px 10px 10px 10px;" id="searchParam">                
+                <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="Date From " Height="26px"></telerik:RadDatePicker>                
+                <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="To Date " Height="26px"></telerik:RadDatePicker>
+                <telerik:RadComboBox ID="cb_project" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project"
+                  EnableLoadOnDemand="True" Skin="Office2010Silver"  OnItemsRequested="cb_project_ItemsRequested" EnableVirtualScrolling="true" 
+                    Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
+                  OnSelectedIndexChanged="cb_project_SelectedIndexChanged"></telerik:RadComboBox>
+                <%--<telerik:RadButton ID="btnRetrieve" runat="server" RenderMode="Lightweight" Text="Search" Width="90px"
+                 ButtonType="LinkButton" CssClass="css3Shadows" Height="28px" OnClick="btnRetrieve_Click"></telerik:RadButton>--%>
             </div>
                  <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true"
                     AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" OnPreRender="RadGrid1_PreRender"
@@ -96,6 +89,6 @@
                     </ClientSettings>
             </telerik:RadGrid>
 
-        </div>    
+        <%--</div>--%>    
     </div>
 </asp:Content>
