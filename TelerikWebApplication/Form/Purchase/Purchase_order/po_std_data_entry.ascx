@@ -171,7 +171,8 @@
                             Text='<%# DataBinder.Eval(Container, "DataItem.kurs_tax") %>'>
                         </telerik:RadTextBox>
                          &nbsp
-                        <telerik:RadCheckBox ID="chk_ppn_incl" runat="server" Text="PPN Include"></telerik:RadCheckBox>
+                        <telerik:RadCheckBox ID="chk_ppn_incl" runat="server" Text="PPN Include"  Skin="Telerik" AutoPostback="false"
+                             Checked='<%# DataBinder.Eval(Container, "DataItem.PPNIncl").ToString()!="0"?true:false %>'></telerik:RadCheckBox>
                     </td>
                 </tr>
 
@@ -365,15 +366,7 @@
                     </td>
 
                 </tr>
-                 <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <telerik:RadCheckBox ID="cb_full_supply" runat="server" Text="Full Supply"></telerik:RadCheckBox>
-                        &nbsp
-                        <telerik:RadCheckBox ID="cb_monitor_order" runat="server" Text="Monitoring Order"></telerik:RadCheckBox>
-                    </td>
-                </tr>
+                 
                  <tr>
                     <td >
                         PO Status
@@ -404,6 +397,16 @@
                         </telerik:RadDatePicker>
                      </td>
                  </tr>
+                 <tr>
+                    <td colspan="2">
+                         <telerik:RadCheckBox ID="cb_full_supply" runat="server" Text="Full Supply" Skin="Telerik" AutoPostback="false"
+                             Checked='<%# DataBinder.Eval(Container, "DataItem.tFullSupply").ToString()!="0"?true:false %>'></telerik:RadCheckBox>
+                   </td>
+                     <td>                     
+                        <telerik:RadCheckBox ID="cb_monitor_order" runat="server" Text="Monitoring Order" Skin="Telerik" AutoPostback="false"
+                            Checked='<%# DataBinder.Eval(Container, "DataItem.tMonOrder").ToString()!="0"?true:false %>'></telerik:RadCheckBox>
+                    </td>
+                </tr>
             </table>
         </td>
     </tr>

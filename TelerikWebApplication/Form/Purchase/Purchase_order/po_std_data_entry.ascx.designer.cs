@@ -301,24 +301,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadComboBox cb_approved;
         
         /// <summary>
-        /// cb_full_supply control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_full_supply;
-        
-        /// <summary>
-        /// cb_monitor_order control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_monitor_order;
-        
-        /// <summary>
         /// cb_po_status control.
         /// </summary>
         /// <remarks>
@@ -335,6 +317,24 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker dtp_share_date;
+        
+        /// <summary>
+        /// cb_full_supply control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadCheckBox cb_full_supply;
+        
+        /// <summary>
+        /// cb_monitor_order control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadCheckBox cb_monitor_order;
         
         /// <summary>
         /// txt_uid control.
