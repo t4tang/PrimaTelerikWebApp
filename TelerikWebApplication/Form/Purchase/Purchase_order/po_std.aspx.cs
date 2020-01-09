@@ -412,6 +412,11 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         {
 
         }
+
+        protected void ColumnClick(object source, GridViewEditEventArgs e)
+        {
+            UserControl UControl = (UserControl)Page.FindControl("po_std_data_entry.ascx");
+        }
         private static DataTable GetProject(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",

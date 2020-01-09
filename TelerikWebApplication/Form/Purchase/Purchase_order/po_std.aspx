@@ -12,6 +12,7 @@
         <script type="text/javascript">
             function RowDblClick(sender, eventArgs) {
                 sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
+                
             }
  
             function onPopUpShowing(sender, args) {
@@ -85,7 +86,7 @@
                         </EditFormSettings>
                     </MasterTableView>
                     <ClientSettings>
-                        <ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" />
+                        <ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" OnColumnClick="ColumnClick" />
                     </ClientSettings>
             </telerik:RadGrid>
 
