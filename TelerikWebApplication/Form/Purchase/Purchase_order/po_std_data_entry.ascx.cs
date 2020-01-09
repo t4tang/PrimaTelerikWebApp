@@ -22,6 +22,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
 
+        public string selected_po;
         public object DataItem
 
         {
@@ -80,8 +81,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         }
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-        {
-            (sender as RadGrid).DataSource = get_po_det("PO0318020006");
+        {            
+            (sender as RadGrid).DataSource = get_po_det(txt_po_number.Text);
         }
 
         private static DataTable GetTrans(string text)
