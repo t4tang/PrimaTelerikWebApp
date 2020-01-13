@@ -86,7 +86,7 @@
                         </EditFormSettings>
                     </MasterTableView>
                     <ClientSettings>
-                        <ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" OnColumnClick="ColumnClick" />
+                        <ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" />
                     </ClientSettings>
             </telerik:RadGrid>
 
