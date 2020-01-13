@@ -13,6 +13,15 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
     public partial class po_std_data_entry {
         
         /// <summary>
+        /// RadPanelBar1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadPanelBar RadPanelBar1;
+        
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>
@@ -145,7 +154,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox chk_ppn_incl;
+        protected global::System.Web.UI.WebControls.CheckBox chk_ppn_incl;
         
         /// <summary>
         /// cb_tax1 control.
@@ -319,22 +328,22 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadDatePicker dtp_share_date;
         
         /// <summary>
-        /// cb_full_supply control.
+        /// cb_fullSupply control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_full_supply;
+        protected global::System.Web.UI.WebControls.CheckBox cb_fullSupply;
         
         /// <summary>
-        /// cb_monitor_order control.
+        /// cb_mon_order control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCheckBox cb_monitor_order;
+        protected global::System.Web.UI.WebControls.CheckBox cb_mon_order;
         
         /// <summary>
         /// txt_uid control.

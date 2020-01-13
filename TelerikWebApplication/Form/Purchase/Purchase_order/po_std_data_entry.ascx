@@ -3,42 +3,30 @@
 
 <div class="demo-container wrapper">
 <div class="rgEditForm">
-    <table id="tbl_button" style="border-collapse: collapse; padding-top:10px; padding-left:15px; padding-right:15px; padding-bottom:10px " >
-        <tr>
-            <td >
-                <asp:Button ID="btnUpdate" runat="server"
-                Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>&nbsp;
-                     
-            </td>
-            <td>
-                 <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
-                CommandName="Cancel"></asp:Button>  
-            </td>
-        </tr>
-    </table>            
-
-    <table id="Table1" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none" 
-    style="border-collapse: collapse; padding-top:10px; padding-left:15px; padding-right:15px; padding-bottom:10px ">
+    <div runat="server" style="position:fixed; width:1100px; padding-top:10px; padding-left:15px; padding-right:15px; padding-bottom:10px; border-collapse: collapse;">    
+        <telerik:RadPanelBar ID="RadPanelBar1" runat="server">           
+            <asp:Button ID="btnUpdate" runat="server"
+            Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+            CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>
+            &nbsp
+            <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+            CommandName="Cancel"></asp:Button>                  
+        </telerik:RadPanelBar>
+                    
+    </div>
+<table id="Table1" border="0" style="border-collapse: collapse; padding-top:45px; padding-left:15px; padding-right:15px; padding-bottom:10px ">
     
-    <tr>
-        <td colspan="3">
-            <%--<b></b>
-             <telerik:RadLabel runat="server" ID="RadLabel1" Text="PO Information"></telerik:RadLabel>--%>
-        </td>
-    </tr>
-    <tr style="vertical-align: top">
+   <tr style="vertical-align: top">
         <td style="vertical-align: top">
-            <table id="Table1" width="Auto" border="0" class="module">
+            <table id="Table2" width="Auto" border="0" class="module">
                 
                 <tr>
                     <td>
                         PO Number:
-                        <%--<telerik:RadLabel runat="server" ID="RadLabel2" AssociatedControlID="txt_po_number" Text="PO Number:"></telerik:RadLabel>--%>
                     </td>
                     <td>
                         <telerik:RadTextBox ID="txt_po_number" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                            Text='<%# DataBinder.Eval(Container, "DataItem.po_code") %>'>
+                          Text='<%# DataBinder.Eval(Container, "DataItem.po_code") %>'>
                         </telerik:RadTextBox>
                     </td>
                 </tr>             
@@ -46,11 +34,18 @@
                     <td>PO Date:
                     </td>
                     <td>
-                        <telerik:RadDatePicker ID="dtp_po" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                            DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.po_date") %>' TabIndex="4" Skin="Silk"> 
+                        <telerik:RadDatePicker ID="dtp_po"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                            DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.po_date") %>' TabIndex="4" Skin="Metro"> 
                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
-                                EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
+                                EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Metro"></Calendar>
                             <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
+                            <EmptyMessageStyle Resize="Both"></EmptyMessageStyle>
+                            <ReadOnlyStyle Resize="None"></ReadOnlyStyle>
+                            <FocusedStyle Resize="None"></FocusedStyle>
+                            <DisabledStyle Resize="None"></DisabledStyle>
+                            <InvalidStyle Resize="None"></InvalidStyle>
+                            <HoveredStyle Resize="None"></HoveredStyle>
+                            <EnabledStyle Resize="None"></EnabledStyle>
                             </DateInput>
                             <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4"></DatePopupButton>                            
                         </telerik:RadDatePicker>
@@ -61,7 +56,7 @@
                     </td>
                     <td>
                         <telerik:RadDatePicker ID="dtp_exp" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                            DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.exp_date") %>'
+                            DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.exp_date") %>' 
                             TabIndex="4" Skin="Silk">
                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
                             <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
@@ -78,7 +73,7 @@
                             Text='<%# DataBinder.Eval(Container, "DataItem.TransName") %>'
                             EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                             EnableVirtualScrolling="true" OnItemsRequested="cb_po_type_ItemsRequested"  
-                            OnSelectedIndexChanged="cb_po_type_SelectedIndexChanged">
+                            OnSelectedIndexChanged="cb_po_type_SelectedIndexChanged" >
                         </telerik:RadComboBox>
                     </td>
                 </tr>
@@ -90,7 +85,7 @@
                             Text='<%# DataBinder.Eval(Container, "DataItem.prio_desc") %>'
                             EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                             EnableVirtualScrolling="true" OnItemsRequested="cb_priority_ItemsRequested" 
-                            OnSelectedIndexChanged="cb_priority_SelectedIndexChanged">
+                            OnSelectedIndexChanged="cb_priority_SelectedIndexChanged" >
                         </telerik:RadComboBox>
                     </td>
                 </tr>
@@ -100,7 +95,7 @@
                     <td>
                         <telerik:RadDatePicker ID="dtp_etd" runat="server" MinDate="1/1/1900" Width="150px"
                             DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.etd") %>'
-                            TabIndex="4" Skin="Silk">
+                            TabIndex="4" Skin="Silk" >
                             <Calendar runat="server"  UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" 
                                 FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
                             <DateInput  runat="server"  TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
@@ -117,13 +112,13 @@
                             Text='<%# DataBinder.Eval(Container, "DataItem.ShipMode") %>'
                             EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                             EnableVirtualScrolling="true" OnItemsRequested="cb_ship_mode_ItemsRequested" 
-                            OnSelectedIndexChanged="cb_ship_mode_SelectedIndexChanged">
+                            OnSelectedIndexChanged="cb_ship_mode_SelectedIndexChanged" >
                         </telerik:RadComboBox>
                     </td>
                 </tr>
                 <tr>
                     <td>Validation value:
-                    </td>
+                    </td> 
                     <td>
                         <telerik:RadTextBox ID="txt_validity" runat="server" Width="59px" Text='<%# DataBinder.Eval(Container, "DataItem.validity_period") %>'>
                         </telerik:RadTextBox>
@@ -132,7 +127,7 @@
             </table>
         </td>
         <td style="vertical-align: top;">
-            <table id="Table3" cellspacing="1" cellpadding="1" width="100%" border="0" class="module">
+            <table id="Table3" border="0" class="module">
 
                 <tr>
                     <td >Supplier:
@@ -171,8 +166,11 @@
                             Text='<%# DataBinder.Eval(Container, "DataItem.kurs_tax") %>'>
                         </telerik:RadTextBox>
                          &nbsp
-                        <telerik:RadCheckBox ID="chk_ppn_incl" runat="server" Text="PPN Include"  Skin="Telerik" AutoPostback="false"
-                             Checked='<%# DataBinder.Eval(Container, "DataItem.PPNIncl").ToString()!="0"?true:false %>'></telerik:RadCheckBox>
+                        <%--<telerik:RadCheckBox ID="chk_ppn_incl" runat="server" Text="PPN Include"  Skin="Telerik" AutoPostback="false"
+                             Checked='<%# DataBinder.Eval(Container, "DataItem.PPNIncl").ToString()!="0"?true:false %>'>
+                        </telerik:RadCheckBox>    --%>                   
+                        <asp:CheckBox ID="chk_ppn_incl" runat="server" AutoPostBack="false" Text="PPN Include" 
+                            Checked='<%# DataBinder.Eval(Container, "DataItem.PPNIncl").ToString()!="0"?true:false %>' />
                     </td>
                 </tr>
 
@@ -290,7 +288,7 @@
             </table>           
         </td>
         <td >
-             <table id="Table4" cellspacing="1" cellpadding="1" width="100%" border="0" class="module">
+             <table id="Table4" border="0" class="module">
                  <tr>
                     <td>Term:
                     </td>
@@ -399,13 +397,15 @@
                  </tr>
                  <tr>
                     <td colspan="2">
-                         <telerik:RadCheckBox ID="cb_full_supply" runat="server" Text="Full Supply" Skin="Telerik" AutoPostback="false"
-                             Checked='<%# DataBinder.Eval(Container, "DataItem.tFullSupply").ToString()!="0"?true:false %>'></telerik:RadCheckBox>
+                         <%--<telerik:RadCheckBox ID="cb_full_supply" runat="server" Text="Full Supply" Skin="Telerik" AutoPostback="false"
+                             Checked='<%# DataBinder.Eval(Container, "DataItem.tFullSupply").ToString()!="0"?true:false %>'></telerik:RadCheckBox>--%>
+                        <asp:CheckBox ID="cb_fullSupply" runat="server" AutoPostBack="false" Text="Full Supply"
+                            Checked='<%# DataBinder.Eval(Container, "DataItem.tFullSupply").ToString()!="0"?true:false %>' />
+                        &nbsp
+                        <asp:CheckBox ID="cb_mon_order" runat="server" AutoPostBack="false" Text="Monitoring Order"
+                            Checked='<%# DataBinder.Eval(Container, "DataItem.tMonOrder").ToString()!="0"?true:false %>' />
                    </td>
-                     <td>                     
-                        <telerik:RadCheckBox ID="cb_monitor_order" runat="server" Text="Monitoring Order" Skin="Telerik" AutoPostback="false"
-                            Checked='<%# DataBinder.Eval(Container, "DataItem.tMonOrder").ToString()!="0"?true:false %>'></telerik:RadCheckBox>
-                    </td>
+                     
                 </tr>
             </table>
         </td>
