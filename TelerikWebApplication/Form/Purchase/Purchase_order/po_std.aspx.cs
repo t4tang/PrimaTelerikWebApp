@@ -22,7 +22,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 //cb_project.Text = public_str.sitename;
-                cb_project.SelectedValue = public_str.site;
+                cb_project_prm.SelectedValue = public_str.site;
             }
         }
 
@@ -68,7 +68,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
       
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project.SelectedValue);
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
         }
 
        
@@ -438,7 +438,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_project.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+                cb_project_prm.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
             }
         }
         protected void cb_project_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -447,11 +447,11 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project_prm.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_project.SelectedValue = dr[0].ToString();
+                cb_project_prm.SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
             

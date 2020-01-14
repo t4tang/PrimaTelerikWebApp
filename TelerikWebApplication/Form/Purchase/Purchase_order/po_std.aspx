@@ -28,17 +28,17 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
+            
+            <%--<telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
-            </telerik:AjaxSetting>
+            </telerik:AjaxSetting>--%>
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
-
     <telerik:RadFormDecorator RenderMode="Native" ID="RadFormDecorator1" runat="server" DecorationZoneID="demo" DecoratedControls="All" 
         EnableRoundedCorners="false" Visible="false" />
     <%--<div class="pageLayout">--%>
@@ -47,7 +47,7 @@
             <div runat="server" style="padding:10px 10px 10px 10px;" id="searchParam">                
                 <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="Date From " Height="26px"></telerik:RadDatePicker>                
                 <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="To Date " Height="26px"></telerik:RadDatePicker>
-                <telerik:RadComboBox ID="cb_project" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project"
+                <telerik:RadComboBox ID="cb_project_prm" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project"
                   EnableLoadOnDemand="True" Skin="Office2010Silver"  OnItemsRequested="cb_project_ItemsRequested" EnableVirtualScrolling="true" 
                     Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
                   OnSelectedIndexChanged="cb_project_SelectedIndexChanged"></telerik:RadComboBox>
@@ -59,9 +59,9 @@
                     OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_SaveCommand" AllowFilteringByColumn="true"
                     OnInsertCommand="RadGrid1_SaveCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri"
                      CssClass="RadGrid_ModernBrowsers">
-                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                        <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px"
-                        EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true">
+                    <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
+                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px"
+                    EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true">
                         <Columns>
                             <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                             </telerik:GridEditCommandColumn>
@@ -81,7 +81,7 @@
                             </telerik:GridButtonColumn>
                         </Columns>
                         <EditFormSettings UserControlName="po_std_data_entry.ascx" EditFormType="WebUserControl">
-                            <EditColumn UniqueName="EditCommandColumn1">
+                            <EditColumn UniqueName="EditCommandColumn">
                             </EditColumn>
                         </EditFormSettings>
                     </MasterTableView>
