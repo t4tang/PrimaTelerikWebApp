@@ -48,8 +48,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         {
             //cb_project_SelectedIndexChanged(cb_project, null);
             //if (!Page.IsPostBack)
-
-            //LoadProjects();
+            //    LoadProjects();
             //RadGrid2.DataBind();
             //RadGrid2.DataSource = get_po_det(txt_po_number.Text);
         }
@@ -492,6 +491,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             dr.Close();
             con.Close();
 
+            cb_reff.Text = "";
             LoadReff(cb_project.SelectedValue);
         }
 
@@ -569,7 +569,35 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Pr_date"].ToString());
                 txt_remark.Text = dr["remark"].ToString();
                 cb_cost_center.Text = dr["CostCenterName"].ToString();
+                RadGrid2.DataSource = addPoDet(cb_reff.Text);
             }
+        }
+
+        public DataTable addPoDet(string pr_no)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, dept_code, Prod_code_ori, twarranty, " +
+                "nomer as nomor, no_ref FROM tr_purchase_reqD WHERE pr_code = '" + pr_no + "'";
+            
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
         }
         protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
         {
@@ -586,5 +614,9 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
         }
 
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

@@ -1,19 +1,34 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="po_std_data_entry.ascx.cs" Inherits="TelerikWebApplication.Form.Purchase.Purchase_order.po_std_data_entry" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+<%--<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" >
+    <AjaxSettings>
+       
+        <telerik:AjaxSetting AjaxControlID="cb_project">
+            <UpdatedControls>
+                <telerik:AjaxUpdatedControl ControlID="cb_reff" LoadingPanelID="RadAjaxLoadingPanel1" />
+            </UpdatedControls>
+        </telerik:AjaxSetting>
+       
+    </AjaxSettings>
+</telerik:RadAjaxManager>
+<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
+</telerik:RadAjaxLoadingPanel>--%>
+
 <div class="demo-container wrapper">
+    
+<div runat="server" style="position:fixed; width:1100px; padding-top:10px; float:right; padding-left:15px; padding-right:15px; padding-bottom:10px; border-collapse: collapse;">    
+   
+    <asp:Button ID="btnUpdate" runat="server"
+        Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+        CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+    </asp:Button>&nbsp
+     <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+    CommandName="Cancel" OnClick="btnCancel_Click"></asp:Button>
+    
+</div>
 <div class="rgEditForm">
-    <div runat="server" style="position:fixed; width:1100px; padding-top:10px; padding-left:15px; padding-right:15px; padding-bottom:10px; border-collapse: collapse;">    
-        <telerik:RadPanelBar ID="RadPanelBar1" runat="server">           
-            <asp:Button ID="btnUpdate" runat="server"
-            Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-            CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>
-            &nbsp
-            <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
-            CommandName="Cancel"></asp:Button>                  
-        </telerik:RadPanelBar>
-                    
-    </div>
+    
 <table id="Table1" border="0" style="border-collapse: collapse; padding-top:45px; padding-left:15px; padding-right:15px; padding-bottom:10px ">
     
    <tr style="vertical-align: top">
@@ -26,7 +41,7 @@
                     </td>
                     <td>
                         <telerik:RadTextBox ID="txt_po_number" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                          Text='<%# DataBinder.Eval(Container, "DataItem.po_code") %>'>
+                          Text='<%# DataBinder.Eval(Container, "DataItem.po_code") %>' AutoPostBack="false">
                         </telerik:RadTextBox>
                     </td>
                 </tr>             
@@ -126,7 +141,7 @@
                 </tr>
             </table>
         </td>
-        <td style="vertical-align: top;">
+        <td style="vertical-align: top; padding-left:15px">
             <table id="Table3" border="0" class="module">
 
                 <tr>
@@ -229,10 +244,9 @@
                     </td>
                     <td>                       
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="300" DropDownWidth="300px"
-                            Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>' 
-                            AutoPostBack="true" EnableLoadOnDemand="true"
-                            OnSelectedIndexChanged="cb_project_SelectedIndexChanged" OnItemsRequested="cb_project_ItemsRequested"
-                            Skin="Metro">
+                            Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>' OnItemsRequested="cb_project_ItemsRequested"
+                            AutoPostBack="True" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" EnableLoadOnDemand="true"
+                            Skin="Metro" >
                         </telerik:RadComboBox>               
                     </td>
                 </tr>
@@ -242,8 +256,7 @@
                     <td>
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_reff" runat="server" Width="300px" DropDownWidth="600px"
                             Text='<%# DataBinder.Eval(Container, "DataItem.refNo") %>'
-                            AutoPostBack="true"
-                            EnableLoadOnDemand="true" OnItemsRequested="cb_reff_ItemsRequested"
+                            EnableLoadOnDemand="true" OnItemsRequested="cb_reff_ItemsRequested" AutoPostBack="true"
                             HighlightTemplatedItems="true" MarkFirstMatch="true" DropDownCssClass="customRadComboBox"
                             OnItemDataBound="cb_reff_ItemDataBound" OnDataBound="cb_reff_DataBound" Skin="Metro" 
                             OnSelectedIndexChanged="cb_reff_SelectedIndexChanged">
@@ -505,11 +518,11 @@
             <td>         
                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" runat="server" AllowAutomaticDeletes="True"
                     AllowAutomaticInserts="True" PageSize="5" AllowPaging="True" Height="260px" BorderStyle="Solid" Font-Names="Calibri"
-                 CssClass="RadGrid_ModernBrowsers" ShowFooter="true" 
+                 CssClass="RadGrid_ModernBrowsers" ShowFooter="true" Width="1120px"
                     AutoGenerateColumns="False" OnNeedDataSource="RadGrid2_NeedDataSource">
                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px"                            
-                        EditMode="Batch" AutoGenerateColumns="False">
+                        AutoGenerateColumns="False">
                         <BatchEditingSettings EditType="Row" HighlightDeletedRows="true" />  
                         <HeaderStyle Height="10px" />
                         <CommandItemStyle Height="10px" />                                            
@@ -528,7 +541,7 @@
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <telerik:RadDropDownList RenderMode="Lightweight" runat="server" ID="CategoryIDDropDown" DataValueField="prod_code"
-                                        DataTextField="prod_code" DataSourceID="SqlDataSource2">
+                                        DataTextField="prod_code" DataSourceID="SqlDataSource1">
                                     </telerik:RadDropDownList>
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
@@ -567,18 +580,14 @@
             </td>
         </tr>    
         <tr>
-            <td>
-                <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
-                    SelectCommand="SELECT prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as tfactor, jumlah,tTax, tOtax,  
-                    tpph, dept_code,Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM tr_purchaseD WHERE po_code = 'PO0318020026'">
-               
-                </asp:SqlDataSource>--%>
-                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
+            <td>               
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
                     ProviderName="System.Data.SqlClient" SelectCommand="SELECT [prod_code], [spec] FROM [ms_product] WHERE stEdit != 4">
                 </asp:SqlDataSource>
     
             </td>
         </tr>
     </table>
+    
 </div>
 </div>
