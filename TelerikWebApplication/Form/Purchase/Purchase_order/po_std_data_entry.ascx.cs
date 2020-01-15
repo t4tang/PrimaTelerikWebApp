@@ -51,16 +51,26 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             //    LoadProjects();
             //RadGrid2.DataBind();
             //RadGrid2.DataSource = get_po_det(txt_po_number.Text);
+            txt_uid.Text = public_str.uid;
         }
                 
-        public DataTable get_po_det(string po_no)
+        public DataTable get_po_det(string kode)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as tfactor, jumlah, tTax, tOtax, tpph, " +
-                "dept_code, Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM tr_purchaseD WHERE po_code = '" + po_no + "'";            
+            if (txt_po_number.Text != "")
+            {
+                cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as tfactor, jumlah, tTax, tOtax, tpph, " +
+                "dept_code, Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM tr_purchaseD WHERE po_code = '" + kode + "'";
+            }
+            else
+            {
+            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, dept_code, Prod_code_ori, twarranty, " +
+               "nomer as nomor, no_ref FROM tr_purchase_reqD WHERE pr_code = '" + kode + "'";
+            }
+
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -80,8 +90,16 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         }
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-        {            
-            (sender as RadGrid).DataSource = get_po_det(txt_po_number.Text);
+        {
+            if(txt_po_number.Text != "")
+            {
+                (sender as RadGrid).DataSource = get_po_det(txt_po_number.Text);
+            }            
+            else
+            {
+                (sender as RadGrid).DataSource = get_po_det(cb_reff.Text);
+            }
+            
         }
 
         private static DataTable GetTrans(string text)
@@ -551,7 +569,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             con.Close();
 
             LoadReffInfo(cb_reff.Text);
-
+            RadGrid2.DataSource = addPoDet(cb_reff.Text);
         }
 
         protected void LoadReffInfo(string code)
@@ -569,7 +587,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Pr_date"].ToString());
                 txt_remark.Text = dr["remark"].ToString();
                 cb_cost_center.Text = dr["CostCenterName"].ToString();
-                RadGrid2.DataSource = addPoDet(cb_reff.Text);
+               
             }
         }
 
@@ -618,5 +636,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         {
             
         }
+
     }
 }
