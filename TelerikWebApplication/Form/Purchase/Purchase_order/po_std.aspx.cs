@@ -71,7 +71,22 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
         }
 
-       
+        protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
+        {
+            if (e.Argument == "Rebind")
+            {
+                RadGrid1.MasterTableView.SortExpressions.Clear();
+                RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                RadGrid1.Rebind();
+            }
+            else if (e.Argument == "RebindAndNavigate")
+            {
+                RadGrid1.MasterTableView.SortExpressions.Clear();
+                RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
+                RadGrid1.Rebind();
+            }
+        }
         protected void RadGrid1_SaveCommand(object source, GridCommandEventArgs e)
         {           
             UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
