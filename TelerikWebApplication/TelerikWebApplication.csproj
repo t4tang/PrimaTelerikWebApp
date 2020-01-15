@@ -219,6 +219,13 @@
     <Compile Include="Form\Purchase\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Purchase\Purchase_order\edit_form.aspx.cs">
+      <DependentUpon>edit_form.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_order\edit_form.aspx.designer.cs">
+      <DependentUpon>edit_form.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Purchase\Purchase_order\po_std.aspx.cs">
       <DependentUpon>po_std.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -339,6 +346,7 @@
     <Content Include="Form\Preventive_maintenance\Default.aspx" />
     <Content Include="Form\Production\Default.aspx" />
     <Content Include="Form\Purchase\Default.aspx" />
+    <Content Include="Form\Purchase\Purchase_order\edit_form.aspx" />
     <Content Include="Form\Purchase\Purchase_order\po_std.aspx" />
     <Content Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx" />
     <Content Include="Form\Reports\Default.aspx" />
@@ -438,7 +446,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
