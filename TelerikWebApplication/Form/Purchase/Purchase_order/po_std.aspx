@@ -21,19 +21,18 @@
         </script>
     </telerik:RadCodeBlock>
 
-    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" DefaultLoadingPanelID="RadAjaxLoadingPanel1">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadGrid1">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
-                </UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>                
             </telerik:AjaxSetting>
-            
-            <%--<telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
+            <telerik:AjaxSetting AjaxControlID="cb_project_prm">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
-                </UpdatedControls>
-            </telerik:AjaxSetting>--%>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>                
+            </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
@@ -58,7 +57,7 @@
                     AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" OnPreRender="RadGrid1_PreRender"
                     OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_SaveCommand" AllowFilteringByColumn="true"
                     OnInsertCommand="RadGrid1_SaveCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri"
-                     CssClass="RadGrid_ModernBrowsers">
+                     CssClass="RadGrid_ModernBrowsers" Skin="Metro">
                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true">
@@ -84,9 +83,11 @@
                             <EditColumn UniqueName="EditCommandColumn">
                             </EditColumn>
                         </EditFormSettings>
+                        
                     </MasterTableView>
                     <ClientSettings>
                         <ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" />
+                        
                     </ClientSettings>
             </telerik:RadGrid>
 
