@@ -35,10 +35,10 @@
     margin:auto;
 }
 
-body
+/*body
 {
-    /*padding-top: 50px;*/
-}
+    padding-top: 50px;
+}*/
 
 
 .demo-container .RadPanelBar,
@@ -121,16 +121,16 @@ html .RadMultiPage .rmpView {
     width: auto !important;
     font-size:13px;
     font-family:Calibri;
+    position:inherit;
 }
  
 * + html .rgEditForm.popUpEditForm {
-    width: 800px !important;
+    width: 1000px !important;
 }
  
 .rgEditForm > div + div,
 .RadGrid .rgEditForm {
     height: auto !important;
-    
 }
  
 .rgEditForm > div > table{
@@ -152,7 +152,7 @@ html .RadMultiPage .rmpView {
        position:absolute;
 }
 .detailTransaction{
-    width:1160px; padding-left:15px; padding-bottom:15px; max-height:260px; overflow:auto;
+    width:1050px; padding-left:15px; padding-bottom:15px; max-height:260px; overflow:auto;
 }
 
 
@@ -277,10 +277,6 @@ div.RadGrid_MetroTouch td.rgPagerCell
 }
 
 /*Rad Grid Batch Editing*/
-.RadGrid tr.Row50 
-{ 
-    /*background:yellow;*/ 
-} 
  
 .RadGrid .Row10 td 
 { 
