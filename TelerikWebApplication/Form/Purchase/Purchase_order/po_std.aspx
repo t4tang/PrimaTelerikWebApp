@@ -71,7 +71,7 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="cb_project_prm">
+            <telerik:AjaxSetting AjaxControlID="btnSearch">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
@@ -92,9 +92,10 @@
                 <telerik:RadComboBox ID="cb_project_prm" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project" AutoPostBack="true"
                   EnableLoadOnDemand="True" Skin="Office2010Silver"  OnItemsRequested="cb_project_ItemsRequested" EnableVirtualScrolling="true" 
                     Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
-                  OnSelectedIndexChanged="cb_project_SelectedIndexChanged"></telerik:RadComboBox>
-                <%--<telerik:RadButton ID="btnRetrieve" runat="server" RenderMode="Lightweight" Text="Search" Width="90px"
-                 ButtonType="LinkButton" CssClass="css3Shadows" Height="28px" OnClick="btnRetrieve_Click"></telerik:RadButton>--%>
+                  OnSelectedIndexChanged="cb_project_SelectedIndexChanged"></telerik:RadComboBox>&nbsp
+                <telerik:RadButton ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"
+                SingleClick="true" SingleClickText="Searching..." Style="clear: both; margin: 5px 0;">
+                </telerik:RadButton>
             </div>
                  <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true"
                     AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" OnItemCreated="RadGrid1_ItemCreated"
@@ -146,8 +147,8 @@
             </telerik:RadGrid>
             <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
                 <Windows>
-                    <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="Editing record" Height="380px"
-                        Width="393px" Left="150px" ReloadOnShow="true" ShowContentDuringLoad="false"
+                    <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="Editing record" Height="620px"
+                        Width="1120px" Left="150px" ReloadOnShow="true" ShowContentDuringLoad="false"
                         Modal="true">
                     </telerik:RadWindow>
                 </Windows>

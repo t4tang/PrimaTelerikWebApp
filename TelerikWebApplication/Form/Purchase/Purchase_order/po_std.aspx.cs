@@ -25,7 +25,11 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 cb_project_prm.SelectedValue = public_str.site;
             }
         }
-
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
+            //if (Page.IsPostBack) System.Threading.Thread.Sleep(3000);
+        }
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
