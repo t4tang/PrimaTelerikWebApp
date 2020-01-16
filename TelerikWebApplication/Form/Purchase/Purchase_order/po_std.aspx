@@ -37,7 +37,7 @@
                 var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
                 grid.get_masterTableView().selectItem(rowControl, true);
  
-                window.radopen("edit_form.aspx?EmployeeID=" + id, "UserListDialog");
+                window.radopen("edit_form.aspx?po_code=" + id, "UserListDialog");
                 return false;
             }
             function ShowInsertForm() {
@@ -97,17 +97,18 @@
                  ButtonType="LinkButton" CssClass="css3Shadows" Height="28px" OnClick="btnRetrieve_Click"></telerik:RadButton>--%>
             </div>
                  <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true"
-                    AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" 
+                    AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" OnItemCreated="RadGrid1_ItemCreated"
                     OnNeedDataSource="RadGrid1_NeedDataSource" OnPreRender="RadGrid1_PreRender" 
-                     OnUpdateCommand="RadGrid1_SaveCommand" OnInsertCommand="RadGrid1_SaveCommand" OnDeleteCommand="RadGrid1_DeleteCommand" 
+                     OnUpdateCommand="RadGrid1_SaveCommand" OnInsertCommand="RadGrid1_SaveCommand" 
+                     OnDeleteCommand="RadGrid1_DeleteCommand" 
                      BorderStyle="Solid" Font-Names="Calibri" AllowFilteringByColumn="true"
                      CssClass="RadGrid_ModernBrowsers" Skin="Metro">
                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true">
                         <Columns>
-                            <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
-                            </telerik:GridEditCommandColumn>
+                            <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
+                            </telerik:GridEditCommandColumn>--%>
                             <telerik:GridBoundColumn UniqueName="po_code" HeaderText="PO Number" DataField="po_code">
                                 <HeaderStyle Width="120px"></HeaderStyle>
                             </telerik:GridBoundColumn>
@@ -122,11 +123,17 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete">
                             </telerik:GridButtonColumn>
+                            <telerik:GridTemplateColumn UniqueName="TemplateEditColumn">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="EditLink" runat="server" Text="Edit"></asp:HyperLink>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                         </Columns>
-                        <EditFormSettings UserControlName="po_std_data_entry.ascx" EditFormType="WebUserControl">
+                       <%-- <EditFormSettings UserControlName="po_std_data_entry.ascx" EditFormType="WebUserControl">
                             <EditColumn UniqueName="EditCommandColumn">
                             </EditColumn>
-                        </EditFormSettings>
+                        </EditFormSettings>--%>
+
                         <CommandItemTemplate>
                             <a href="#" onclick="return ShowInsertForm();">Add New Record</a>
                         </CommandItemTemplate>

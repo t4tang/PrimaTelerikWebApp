@@ -17,7 +17,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         {
             if (!IsPostBack)
             {
-                RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "EditForms");
+                //RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "EditForms");
                 //RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "PopUp");
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
@@ -26,6 +26,15 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             }
         }
 
+        protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                HyperLink editLink = (HyperLink)e.Item.FindControl("EditLink");
+                editLink.Attributes["href"] = "javascript:void(0);";
+                editLink.Attributes["onclick"] = String.Format("return ShowEditForm('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["po_code"], e.Item.ItemIndex);
+            }
+        }
         protected void RadGrid1_PreRender(object sender, System.EventArgs e)
         {
             if (!this.IsPostBack && this.RadGrid1.MasterTableView.Items.Count > 1)
