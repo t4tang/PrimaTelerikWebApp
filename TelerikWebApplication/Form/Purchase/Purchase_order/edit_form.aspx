@@ -518,11 +518,12 @@
                                      CssClass="RadGrid_ModernBrowsers" ShowFooter="true" Width="1050px" 
                                         AutoGenerateColumns="False">
                                         <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px"                            
-                                            AutoGenerateColumns="False">
+                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px"
+                                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False">
                                             <BatchEditingSettings EditType="Row" HighlightDeletedRows="true" />  
-                                            <HeaderStyle Height="10px" />
-                                            <CommandItemStyle Height="10px" />                                            
+                                            <%--<DetailTables>
+                                                <telerik:GridTableView ShowHeadersWhenNoRecords="true" NoDetailRecordsText="" />
+                                            </DetailTables> --%>                                         
                                             <Columns>
                                                 <telerik:GridBoundColumn DataField="prod_type" HeaderStyle-Width="15px" HeaderText="Type" SortExpression="prod_type"
                                                     UniqueName="prod_type" ItemStyle-HorizontalAlign="Center">
