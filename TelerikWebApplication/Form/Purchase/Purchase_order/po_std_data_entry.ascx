@@ -11,9 +11,9 @@
                     CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                 </asp:Button>&nbsp
                  <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
-                CommandName="Cancel" OnClick="btnCancel_Click"></asp:Button>    
+                CommandName="Cancel" OnClick="btnCancel_Click"></asp:Button> 
             </div>
-            <table id="Table1" border="0" style="border-collapse: collapse; padding-top:10px; padding-left:15px; 
+            <%--<table id="Table1" border="0" style="border-collapse: collapse; padding-top:10px; padding-left:15px; 
                 padding-right:15px; padding-bottom:10px ">    
                <tr style="vertical-align: top">
                     <td style="vertical-align: top">
@@ -164,10 +164,7 @@
                                     <telerik:RadTextBox ID="txt_tax_kurs" runat="server" Width="111px" Enabled="false" 
                                         Text='<%# DataBinder.Eval(Container, "DataItem.kurs_tax") %>'>
                                     </telerik:RadTextBox>
-                                     &nbsp
-                                    <%--<telerik:RadCheckBox ID="chk_ppn_incl" runat="server" Text="PPN Include"  Skin="Telerik" AutoPostback="false"
-                                         Checked='<%# DataBinder.Eval(Container, "DataItem.PPNIncl").ToString()!="0"?true:false %>'>
-                                    </telerik:RadCheckBox>    --%>                   
+                                     &nbsp                                                 
                                     <asp:CheckBox ID="chk_ppn_incl" runat="server" AutoPostBack="false" Text="PPN Include" 
                                         Checked='<%# DataBinder.Eval(Container, "DataItem.PPNIncl").ToString()!="0"?true:false %>' />
                                 </td>
@@ -394,8 +391,7 @@
                              </tr>
                              <tr>
                                 <td colspan="2">
-                                     <%--<telerik:RadCheckBox ID="cb_full_supply" runat="server" Text="Full Supply" Skin="Telerik" AutoPostback="false"
-                                         Checked='<%# DataBinder.Eval(Container, "DataItem.tFullSupply").ToString()!="0"?true:false %>'></telerik:RadCheckBox>--%>
+                                    
                                     <asp:CheckBox ID="cb_fullSupply" runat="server" AutoPostBack="false" Text="Full Supply"
                                         Checked='<%# DataBinder.Eval(Container, "DataItem.tFullSupply").ToString()!="0"?true:false %>' />
                                     &nbsp
@@ -490,9 +486,9 @@
                        </table>
                    </td>
                </tr>   
-            </table>
+            </table>--%>
         </div>
-        <div class="detailTransaction" >
+        <%--<div class="detailTransaction" >
             <table>
                 <tr>
                     <td>         
@@ -567,6 +563,6 @@
                     </td>
                 </tr>
             </table>     
-        </div>
+        </div>--%>
     </asp:Panel>  
 </div>
