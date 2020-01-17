@@ -27,14 +27,16 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
-            //if (Page.IsPostBack) System.Threading.Thread.Sleep(3000);
+            //ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "refreshGrid();", false);
+            //RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
+            //if (Page.IsPostBack) System.Threading.Thread.Sleep(1000);
         }
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
             {
-                HyperLink editLink = (HyperLink)e.Item.FindControl("EditLink");
+                //HyperLink editLink = (HyperLink)e.Item.FindControl("EditLink");
+                ImageButton editLink = (ImageButton)e.Item.FindControl("EditLink");
                 editLink.Attributes["href"] = "javascript:void(0);";
                 editLink.Attributes["onclick"] = String.Format("return ShowEditForm('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["po_code"], e.Item.ItemIndex);
             }

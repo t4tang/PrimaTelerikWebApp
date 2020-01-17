@@ -30,7 +30,7 @@
                 args.get_popUp().className += " popUpEditForm";
             }
         </script>--%>
-        <script type="text/javascript">
+        <script type="text/javascript">            
             function ShowEditForm(id, rowIndex) {
                 var grid = $find("<%= RadGrid1.ClientID %>");
  
@@ -53,7 +53,7 @@
                 }
             }
             function RowDblClick(sender, eventArgs) {
-                window.radopen("edit_form.aspx?EmployeeID=" + eventArgs.getDataKeyValue("EmployeeID"), "UserListDialog");
+                window.radopen("edit_form.aspx?po_code=" + eventArgs.getDataKeyValue("po_code"), "UserListDialog");
             }
         </script>
         
@@ -71,7 +71,7 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="btnSearch">
+            <telerik:AjaxSetting AjaxControlID="cb_project_prm">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
@@ -93,9 +93,9 @@
                   EnableLoadOnDemand="True" Skin="Office2010Silver"  OnItemsRequested="cb_project_ItemsRequested" EnableVirtualScrolling="true" 
                     Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
                   OnSelectedIndexChanged="cb_project_SelectedIndexChanged"></telerik:RadComboBox>&nbsp
-                <telerik:RadButton ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"
-                SingleClick="true" SingleClickText="Searching..." Style="clear: both; margin: 5px 0;">
-                </telerik:RadButton>
+                <%--<telerik:RadButton ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" AutoPostBack="true"
+                SingleClick="false" SingleClickText="Searching..." Style="clear: both; margin: 5px 0; height:25px; width:90px">
+                </telerik:RadButton>--%>
             </div>
                  <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true"
                     AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" OnItemCreated="RadGrid1_ItemCreated"
@@ -105,11 +105,17 @@
                      BorderStyle="Solid" Font-Names="Calibri" AllowFilteringByColumn="true"
                      CssClass="RadGrid_ModernBrowsers" Skin="Metro">
                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px"
+                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px" CellPadding="10"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true">
                         <Columns>
-                            <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
-                            </telerik:GridEditCommandColumn>--%>
+                            <%--<telerik:GridEditCommandColumn UniqueName="EditLink">                                                             
+                            </telerik:GridEditCommandColumn>--%>   
+                            <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" AllowFiltering="False" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="EditLink" runat="server" Text="Edit" ImageUrl="~/Images/Edit.png" 
+                                      Width="15px" Height="15px" ImageAlign="Middle" />
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn UniqueName="po_code" HeaderText="PO Number" DataField="po_code">
                                 <HeaderStyle Width="120px"></HeaderStyle>
                             </telerik:GridBoundColumn>
@@ -124,11 +130,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete">
                             </telerik:GridButtonColumn>
-                            <telerik:GridTemplateColumn UniqueName="TemplateEditColumn">
-                                <ItemTemplate>
-                                    <asp:HyperLink ID="EditLink" runat="server" Text="Edit"></asp:HyperLink>
-                                </ItemTemplate>
-                            </telerik:GridTemplateColumn>
+                            
                         </Columns>
                        <%-- <EditFormSettings UserControlName="po_std_data_entry.ascx" EditFormType="WebUserControl">
                             <EditColumn UniqueName="EditCommandColumn">
@@ -136,19 +138,23 @@
                         </EditFormSettings>--%>
 
                         <CommandItemTemplate>
-                            <a href="#" onclick="return ShowInsertForm();">Add New Record</a>
+                            <%--<a href="#" onclick="return ShowInsertForm();">Add New Record</a>--%>
+                            <telerik:RadLinkButton runat="server" ID="btnNew" Text="New Record" Height="35px" Width="100px"
+                              BorderStyle="None"  onClick="return ShowInsertForm();"></telerik:RadLinkButton>
+                            
                         </CommandItemTemplate>
+                        
                     </MasterTableView>
                     <ClientSettings>
                         <%--<ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" />--%>
                         <Selecting AllowRowSelect="true"></Selecting>
-                        <ClientEvents OnRowDblClick="RowDblClick"></ClientEvents>
+                        <%--<ClientEvents OnRowDblClick="RowDblClick"></ClientEvents>--%>
                     </ClientSettings>
             </telerik:RadGrid>
             <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
                 <Windows>
-                    <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="Editing record" Height="620px"
-                        Width="1120px" Left="150px" ReloadOnShow="true" ShowContentDuringLoad="false"
+                    <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="Editing record" Height="650px"
+                        Width="1150px" Left="150px" ReloadOnShow="true" ShowContentDuringLoad="false"
                         Modal="true">
                     </telerik:RadWindow>
                 </Windows>
