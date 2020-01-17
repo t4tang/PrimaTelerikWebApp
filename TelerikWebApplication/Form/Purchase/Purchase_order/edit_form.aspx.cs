@@ -30,12 +30,17 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["po_code"] != null)
+            if (!Page.IsPostBack)
             {
-                get_po_head(Request.QueryString["po_code"]);
+                if (Request.QueryString["po_code"] != null)
+                {
+                    get_po_head(Request.QueryString["po_code"]);
+                }
+
                 get_po_det(Request.QueryString["po_code"]);
+                
             }
-            
+
         }
 
         private void get_po_head(string po_no)
@@ -661,6 +666,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
         protected void btnStandard_Click(object sender, EventArgs e)
         {
+           
             if (Page.IsPostBack) System.Threading.Thread.Sleep(3000);
         }
         
