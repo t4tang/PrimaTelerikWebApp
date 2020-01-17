@@ -28,10 +28,28 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
         }
+        protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
+        {
+            if (e.Argument == "Rebind")
+            {
+                RadGrid2.MasterTableView.SortExpressions.Clear();
+                RadGrid2.MasterTableView.GroupByExpressions.Clear();
+                RadGrid2.Rebind();
+            }
+            else if (e.Argument == "RebindAndNavigate")
+            {
+                RadGrid2.MasterTableView.SortExpressions.Clear();
+                RadGrid2.MasterTableView.GroupByExpressions.Clear();
+                RadGrid2.MasterTableView.CurrentPageIndex = RadGrid2.MasterTableView.PageCount - 1;
+                RadGrid2.Rebind();
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
+                //LoadProject();
+
                 if (Request.QueryString["po_code"] != null)
                 {
                     get_po_head(Request.QueryString["po_code"]);
@@ -57,7 +75,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 txt_po_number.Text = sdr["po_code"].ToString();
                 dtp_po.SelectedDate = Convert.ToDateTime(sdr["Po_date"].ToString());
-                dtp_exp.SelectedDate = Convert.ToDateTime(sdr["exp_date"].ToString());
+                dtp_exp.SelectedDate = Convert.ToDateTime(sdr["exp_date"].ToString());                
                 cb_reff.Text = sdr["no_ref"].ToString();
                 cb_po_type.Text = sdr["TransName"].ToString(); 
                 cb_priority.Text = sdr["prio_desc"].ToString();
@@ -110,13 +128,13 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             }
             con.Close();            
         }
-        public DataTable addPoDet(string pr_no)
+        private void addPoDet(string pr_no)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, dept_code, Prod_code_ori, twarranty, " +
+            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, 0 as harga, SatQty, dept_code, Prod_code_ori, twarranty, " +
                 "nomer as nomor, no_ref FROM tr_purchase_reqD WHERE pr_code = '" + pr_no + "'";
 
             cmd.CommandTimeout = 0;
@@ -128,13 +146,14 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             try
             {
                 sda.Fill(DT);
+                RadGrid2.DataSource = DT;
             }
             finally
             {
                 con.Close();
             }
 
-            return DT;
+            //return DT;
         }
 
         private void get_doc_status(string obj_value)
@@ -185,6 +204,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 con.Close();
             }
         }
+
 
         #region Purchase Type
 
@@ -548,7 +568,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 cb_project.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
             }
-        }
+        }        
         protected void cb_project_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
@@ -565,6 +585,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             cb_reff.Text = "";
             LoadReff(cb_project.SelectedValue);
+            //LoadReff(e.Value);
         }
         protected void LoadProjects()
         {
@@ -625,7 +646,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             con.Close();
 
             LoadReffInfo(cb_reff.Text);
-            RadGrid2.DataSource = addPoDet(cb_reff.Text);
+            addPoDet(cb_reff.Text);
         }
 
         protected void LoadReffInfo(string code)
@@ -643,7 +664,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Pr_date"].ToString());
                 txt_remark.Text = dr["remark"].ToString();
                 cb_cost_center.Text = dr["CostCenterName"].ToString();
-
             }
         }
         protected void LoadReff(string projectID)
@@ -661,6 +681,18 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             cb_reff.DataValueField = "pr_code";
             cb_reff.DataSource = dt;
             cb_reff.DataBind();
+        }
+
+        protected void cb_reff_ItemDataBound(object sender, RadComboBoxItemEventArgs e)
+        {
+            e.Item.Text = ((DataRowView)e.Item.DataItem)["pr_code"].ToString();
+            e.Item.Value = ((DataRowView)e.Item.DataItem)["pr_code"].ToString();
+        }
+
+        protected void cb_reff_DataBound(object sender, EventArgs e)
+        {
+            //set the initial footer label
+            ((Literal)cb_reff.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString(cb_reff.Items.Count);
         }
         #endregion
 

@@ -42,6 +42,28 @@
                     GetRadWindow().close();
                 }
             </script>
+            <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
+                <AjaxSettings>
+                    <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
+                        <UpdatedControls>
+                            <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                        </UpdatedControls>
+                    </telerik:AjaxSetting>
+                    <telerik:AjaxSetting AjaxControlID="cb_reff">
+                        <UpdatedControls>
+                            <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                        </UpdatedControls>
+                    </telerik:AjaxSetting>
+                    <telerik:AjaxSetting AjaxControlID="cb_reff">
+                        <UpdatedControls>
+                            <telerik:AjaxUpdatedControl ControlID="cb_cost_center" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                        </UpdatedControls>
+                    </telerik:AjaxSetting>                    
+                </AjaxSettings>
+            </telerik:RadAjaxManager>
+            <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server">
+            </telerik:RadAjaxLoadingPanel>
+
             <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
                 <Scripts>
                     <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
@@ -50,16 +72,15 @@
                 </Scripts>
             </telerik:RadScriptManager>
             
-            <div>
-                <asp:Panel ID="Panel1" runat="server">                     
-                    <div>
+            <div>                  
+                <asp:Panel ID="Panel1" runat="server">  
+                    <div style="position:fixed; width:1100px">
                         <telerik:RadButton ID="btnStandard" runat="server" Text="Save" OnClick="btnStandard_Click"
                         SingleClick="true" SingleClickText="Saving..." Style="clear: both; float: left; margin: 5px 0;">
-                        </telerik:RadButton>&nbsp
-                        <telerik:RadButton ID="btnCancel" runat="server" Text="Cancel" 
-                                SingleClick="true" Style="clear: both; margin: 5px 0;">
-                        </telerik:RadButton>            
-                        <table id="Table1" border="0" style="border-collapse: collapse; padding-top:10px; padding-left:15px; 
+                        </telerik:RadButton>
+                    </div>                    
+                    <div style="padding-top:34px">                               
+                        <table id="Table1" border="0" style="border-collapse: collapse; padding-top:5px; padding-left:15px; 
                             padding-right:15px; padding-bottom:10px; font-size:smaller ">    
                            <tr style="vertical-align: top">
                                 <td style="vertical-align: top">
@@ -258,7 +279,7 @@
                                             <td>                       
                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="300" DropDownWidth="300px"
                                                     AutoPostBack="True" EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
-                                                    OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
+                                                     OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
                                                     EnableVirtualScrolling="true" >
                                                 </telerik:RadComboBox>               
                                             </td>
@@ -267,31 +288,42 @@
                                             <td>PR Number:
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_reff" runat="server" Width="300px" DropDownWidth="600px"
+                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_reff" runat="server" Width="300px" 
+                                                    DropDownWidth="650px" AutoPostBack="true"
                                                     HighlightTemplatedItems="true" MarkFirstMatch="true" 
                                                     OnItemsRequested="cb_reff_ItemsRequested" OnSelectedIndexChanged="cb_reff_SelectedIndexChanged"
-                                                    DropDownCssClass="customRadComboBox"
-                                                    Skin="Metro" >
-                                                <HeaderTemplate>
-                                                    <ul>
-                                                        <li class="col1" style="width:120px">PR Number</li>
-                                                        <li class="col2" style="width:450px">Remark</li>
-                                                    </ul>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <ul>
-                                                        <li class="col1" style="width:120px">
-                                                            <%# DataBinder.Eval(Container, "DataItem.pr_code") %></li>
-                                                        <li class="col2" style="width:450px;text-wrap:normal">
-                                                            <%# DataBinder.Eval(Container, "DataItem.remark") %></li>
-                                                    </ul>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    A total of
-                                                    <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                    items
-                                                </FooterTemplate>
-                                            </telerik:RadComboBox>
+                                                    OnDataBound="cb_reff_DataBound" Skin="Metro" >
+                                                    <HeaderTemplate>
+                                                        <table style="width: 600px">
+                                                            <tr>
+                                                                <td style="width: 140px;">
+                                                                    PR Number
+                                                                </td>
+                                                                <td style="width: 460px;">
+                                                                    Remark
+                                                                </td>                                                                
+                                                            </tr>
+                                                        </table>                                                       
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <table style="width: 600px">
+                                                            <tr>
+                                                                <td style="width: 140px;">
+                                                                    <%# DataBinder.Eval(Container, "DataItem.pr_code")%>
+                                                                </td>
+                                                                <td style="width: 460px;">
+                                                                    <%# DataBinder.Eval(Container, "DataItem.remark")%>
+                                                                </td>                                                                
+                                                            </tr>
+                                                        </table>
+
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        A total of
+                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                        items
+                                                    </FooterTemplate>
+                                                </telerik:RadComboBox>
                                             </td>
                                         </tr>
                                         <tr >

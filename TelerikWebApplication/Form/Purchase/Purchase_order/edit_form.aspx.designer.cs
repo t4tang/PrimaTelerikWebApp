@@ -22,6 +22,24 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// RadAjaxManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
+        
+        /// <summary>
+        /// gridLoadingPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxLoadingPanel gridLoadingPanel;
+        
+        /// <summary>
         /// RadScriptManager1 control.
         /// </summary>
         /// <remarks>
@@ -47,15 +65,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadButton btnStandard;
-        
-        /// <summary>
-        /// btnCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btnCancel;
         
         /// <summary>
         /// txt_po_number control.
