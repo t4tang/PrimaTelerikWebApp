@@ -61,11 +61,11 @@
 
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
         <AjaxSettings>
-            <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
+            <%--<telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
-            </telerik:AjaxSetting>
+            </telerik:AjaxSetting>--%>
             <telerik:AjaxSetting AjaxControlID="RadGrid1">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
@@ -81,9 +81,7 @@
 
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server">
     </telerik:RadAjaxLoadingPanel>
-    <%--<telerik:RadFormDecorator RenderMode="Native" ID="RadFormDecorator1" runat="server" DecorationZoneID="demo" DecoratedControls="All" 
-        EnableRoundedCorners="false" Visible="false" />--%>
-    <%--<div class="pageLayout">--%>
+    
     <div class="scroller">
             <!-- Page Content -->
             <div runat="server" style="padding:10px 10px 10px 10px;" id="searchParam">                
@@ -97,6 +95,8 @@
                 SingleClick="false" SingleClickText="Searching..." Style="clear: both; margin: 5px 0; height:25px; width:90px">
                 </telerik:RadButton>--%>
             </div>
+               <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>--%>
                  <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true"
                     AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" OnItemCreated="RadGrid1_ItemCreated"
                     OnNeedDataSource="RadGrid1_NeedDataSource" OnPreRender="RadGrid1_PreRender" 
@@ -151,6 +151,12 @@
                         <%--<ClientEvents OnRowDblClick="RowDblClick"></ClientEvents>--%>
                     </ClientSettings>
             </telerik:RadGrid>
+            <%--</ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="cb_project_prm" EventName="SelectedIndexChanged">
+                </asp:AsyncPostBackTrigger>
+            </Triggers>
+            </asp:UpdatePanel>--%>
             <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
                 <Windows>
                     <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="Editing record" Height="650px"

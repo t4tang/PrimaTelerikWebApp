@@ -485,6 +485,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             dr.Close();
             con.Close();
             
+            //RadAjaxManager1.AjaxSettings.AddAjaxSetting()
         }
     }
 }
