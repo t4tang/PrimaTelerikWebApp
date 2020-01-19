@@ -42,28 +42,38 @@
                     GetRadWindow().close();
                 }
             </script>
+            
             <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
                 <AjaxSettings>
                     <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
                         <UpdatedControls>
-                            <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                            <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                         </UpdatedControls>
                     </telerik:AjaxSetting>
+                    <telerik:AjaxSetting AjaxControlID="cb_project">
+                        <UpdatedControls>
+                            <telerik:AjaxUpdatedControl ControlID="cb_reff" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                            <telerik:AjaxUpdatedControl ControlID="cb_prepared" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                            <telerik:AjaxUpdatedControl ControlID="cb_verified" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                            <telerik:AjaxUpdatedControl ControlID="cb_approved" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                        </UpdatedControls>
+                    </telerik:AjaxSetting>  
                     <telerik:AjaxSetting AjaxControlID="cb_reff">
                         <UpdatedControls>
-                            <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                            <telerik:AjaxUpdatedControl ControlID="cb_cost_center" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                            <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                         </UpdatedControls>
-                    </telerik:AjaxSetting>
-                    <telerik:AjaxSetting AjaxControlID="cb_reff">
+                    </telerik:AjaxSetting> 
+                    <telerik:AjaxSetting AjaxControlID="RadGrid2">
                         <UpdatedControls>
-                            <telerik:AjaxUpdatedControl ControlID="cb_cost_center" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                            <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                         </UpdatedControls>
-                    </telerik:AjaxSetting>                    
+                    </telerik:AjaxSetting>                 
                 </AjaxSettings>
             </telerik:RadAjaxManager>
-            <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server">
+            <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
             </telerik:RadAjaxLoadingPanel>
-
+            
             <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
                 <Scripts>
                     <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
@@ -194,7 +204,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="300"
-                                                    EnableLoadOnDemand="True" ShowMoreResultsBox="true" 
+                                                    EnableLoadOnDemand="True" ShowMoreResultsBox="true" AutoPostBack="true"
                                                     OnItemsRequested="cb_supplier_ItemsRequested" OnSelectedIndexChanged="cb_supplier_SelectedIndexChanged"
                                                     EnableVirtualScrolling="true" >
                                                 </telerik:RadComboBox>
@@ -206,12 +216,19 @@
                                             <td>Currency:
                                             </td>
                                             <td style="vertical-align:top">
-                                                <telerik:RadTextBox ID="txt_curr" runat="server" Width="111px" Enabled="false">
-                                                </telerik:RadTextBox>
-                                                &nbsp
-                                                Kurs 
-                                                <telerik:RadTextBox ID="txt_kurs" runat="server" Width="130px" Enabled="false" >
-                                                </telerik:RadTextBox>
+                                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadTextBox ID="txt_curr" runat="server" Enabled="false" Width="111px">
+                                                        </telerik:RadTextBox>&nbsp
+                                                        Kurs 
+                                                        <telerik:RadTextBox ID="txt_kurs" runat="server" Enabled="false" Width="130px">
+                                                        </telerik:RadTextBox>
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>                                                
                                             </td>
                                         </tr>
 
@@ -219,10 +236,18 @@
                                             <td>Tax Kurs:
                                             </td>
                                             <td style="vertical-align:top">
-                                                <telerik:RadTextBox ID="txt_tax_kurs" runat="server" Width="111px" Enabled="false" >
-                                                </telerik:RadTextBox>
-                                                 &nbsp                                                 
-                                                <asp:CheckBox ID="chk_ppn_incl" runat="server" AutoPostBack="false" Text="PPN Include" />
+                                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadTextBox ID="txt_tax_kurs" runat="server" Width="111px" Enabled="false" >
+                                                        </telerik:RadTextBox>
+                                                         &nbsp                                                 
+                                                        <asp:CheckBox ID="chk_ppn_incl" runat="server" AutoPostBack="false" Text="PPN Include" />
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>
                                             </td>
                                         </tr>
 
@@ -230,15 +255,23 @@
                                             <td>Tax 1:
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax1" runat="server" Width="150"
-                                                    EnableLoadOnDemand="True" ShowMoreResultsBox="true" 
-                                                    OnItemsRequested="cb_tax1_ItemsRequested" OnSelectedIndexChanged="cb_tax1_SelectedIndexChanged"
-                                                    EnableVirtualScrolling="true" >
-                                                </telerik:RadComboBox>
-                                               &nbsp Tax1 %                         
-                                                <telerik:RadNumericTextBox ID="txt_pppn" runat="server" Width="75px" Enabled="false" Type="Percent" 
-                                                  EnabledStyle-HorizontalAlign="Right" >
-                                                </telerik:RadNumericTextBox>
+                                                <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax1" runat="server" Width="150"
+                                                            EnableLoadOnDemand="True" ShowMoreResultsBox="true" 
+                                                            OnItemsRequested="cb_tax1_ItemsRequested" OnSelectedIndexChanged="cb_tax1_SelectedIndexChanged"
+                                                            EnableVirtualScrolling="true" >
+                                                        </telerik:RadComboBox>
+                                                        &nbsp Tax1 %                         
+                                                        <telerik:RadNumericTextBox ID="txt_pppn" runat="server" Width="75px" Enabled="false" Type="Percent" 
+                                                            EnabledStyle-HorizontalAlign="Right" >
+                                                        </telerik:RadNumericTextBox>
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>                                                
                                             </td>
                                         </tr>
 
@@ -246,31 +279,46 @@
                                             <td>Tax 2:
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax2" runat="server" Width="150" AutoPostBack="true"
-                                                    EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
-                                                    OnItemsRequested="cb_tax2_ItemsRequested" OnSelectedIndexChanged="cb_tax2_SelectedIndexChanged"
-                                                    EnableVirtualScrolling="true">
-                                                </telerik:RadComboBox>
-                                                &nbsp Tax2 % 
-                                                <telerik:RadNumericTextBox ID="txt_po_tax" runat="server" Width="75px" Enabled="false" Type="Percent"
-                                                  EnabledStyle-HorizontalAlign="Right" >
-                                                </telerik:RadNumericTextBox>                       
+                                                <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax2" runat="server" Width="150" AutoPostBack="true"
+                                                            EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
+                                                            OnItemsRequested="cb_tax2_ItemsRequested" OnSelectedIndexChanged="cb_tax2_SelectedIndexChanged"
+                                                            EnableVirtualScrolling="true">
+                                                        </telerik:RadComboBox>
+                                                        &nbsp Tax2 % 
+                                                        <telerik:RadNumericTextBox ID="txt_po_tax" runat="server" Width="75px" Enabled="false" Type="Percent"
+                                                          EnabledStyle-HorizontalAlign="Right" >
+                                                        </telerik:RadNumericTextBox>
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>                                                                       
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Tax 3:
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax3" runat="server" Width="150" AutoPostBack="true"
-                                                    EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
-                                                    OnItemsRequested="cb_tax3_ItemsRequested" OnSelectedIndexChanged="cb_tax3_SelectedIndexChanged"
-                                                    EnableVirtualScrolling="true" >
-                                                </telerik:RadComboBox>  
-                                                &nbsp Tax3 % 
-                                                <telerik:RadNumericTextBox ID="txt_ppph" runat="server" Width="75px" Enabled="false" Type="Percent"
-                                                 EnabledStyle-HorizontalAlign="Right">
-                                                </telerik:RadNumericTextBox>  
-                       
+                                                <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax3" runat="server" Width="150" AutoPostBack="true"
+                                                            EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
+                                                            OnItemsRequested="cb_tax3_ItemsRequested" OnSelectedIndexChanged="cb_tax3_SelectedIndexChanged"
+                                                            EnableVirtualScrolling="true" >
+                                                        </telerik:RadComboBox>  
+                                                        &nbsp Tax3 % 
+                                                        <telerik:RadNumericTextBox ID="txt_ppph" runat="server" Width="75px" Enabled="false" Type="Percent"
+                                                         EnabledStyle-HorizontalAlign="Right">
+                                                        </telerik:RadNumericTextBox>
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel> 
                                             </td>
                                         </tr>
                                         <tr>
@@ -278,7 +326,7 @@
                                             </td>
                                             <td>                       
                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="300" DropDownWidth="300px"
-                                                    AutoPostBack="True" EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
+                                                    AutoPostBack="true" EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
                                                      OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
                                                     EnableVirtualScrolling="true" >
                                                 </telerik:RadComboBox>               
@@ -288,55 +336,71 @@
                                             <td>PR Number:
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_reff" runat="server" Width="300px" 
-                                                    DropDownWidth="650px" AutoPostBack="true"
-                                                    HighlightTemplatedItems="true" MarkFirstMatch="true" 
-                                                    OnItemsRequested="cb_reff_ItemsRequested" OnSelectedIndexChanged="cb_reff_SelectedIndexChanged"
-                                                    OnDataBound="cb_reff_DataBound" Skin="Metro" >
-                                                    <HeaderTemplate>
-                                                        <table style="width: 600px">
-                                                            <tr>
-                                                                <td style="width: 140px;">
-                                                                    PR Number
-                                                                </td>
-                                                                <td style="width: 460px;">
-                                                                    Remark
-                                                                </td>                                                                
-                                                            </tr>
-                                                        </table>                                                       
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <table style="width: 600px">
-                                                            <tr>
-                                                                <td style="width: 140px;">
-                                                                    <%# DataBinder.Eval(Container, "DataItem.pr_code")%>
-                                                                </td>
-                                                                <td style="width: 460px;">
-                                                                    <%# DataBinder.Eval(Container, "DataItem.remark")%>
-                                                                </td>                                                                
-                                                            </tr>
-                                                        </table>
+                                                <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_reff" runat="server" Width="300px" 
+                                                        DropDownWidth="650px" AutoPostBack="true"
+                                                        HighlightTemplatedItems="true" MarkFirstMatch="true" 
+                                                        OnItemsRequested="cb_reff_ItemsRequested" OnSelectedIndexChanged="cb_reff_SelectedIndexChanged"
+                                                        OnDataBound="cb_reff_DataBound" Skin="Metro" >
+                                                        <HeaderTemplate>
+                                                            <table style="width: 600px">
+                                                                <tr>
+                                                                    <td style="width: 140px;">
+                                                                        PR Number
+                                                                    </td>
+                                                                    <td style="width: 460px;">
+                                                                        Remark
+                                                                    </td>                                                                
+                                                                </tr>
+                                                            </table>                                                       
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <table style="width: 600px">
+                                                                <tr>
+                                                                    <td style="width: 140px;">
+                                                                        <%# DataBinder.Eval(Container, "DataItem.pr_code")%>
+                                                                    </td>
+                                                                    <td style="width: 460px;">
+                                                                        <%# DataBinder.Eval(Container, "DataItem.remark")%>
+                                                                    </td>                                                                
+                                                                </tr>
+                                                            </table>
 
-                                                    </ItemTemplate>
-                                                    <FooterTemplate>
-                                                        A total of
-                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                        items
-                                                    </FooterTemplate>
-                                                </telerik:RadComboBox>
+                                                        </ItemTemplate>
+                                                        <FooterTemplate>
+                                                            A total of
+                                                            <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                            items
+                                                        </FooterTemplate>
+                                                    </telerik:RadComboBox>
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_project" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>
+                                                
                                             </td>
                                         </tr>
                                         <tr >
                                             <td>Cost Ctr:
                                             </td>
-                                            <td style="vertical-align:top">                       
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_cost_center" runat="server" Width="120px" DropDownWidth="300px"
-                                                     EnableLoadOnDemand="true" ShowMoreResultsBox="true" EnableVirtualScrolling="true">
-                                                </telerik:RadComboBox>               
-                                            &nbsp PR Date 
-                                                <telerik:RadTextBox ID="txt_pr_date" runat="server" Width="100px" Enabled="false" >
-                                                   
-                                                </telerik:RadTextBox>
+                                            <td style="vertical-align:top"> 
+                                                <asp:UpdatePanel ID="UpdatePanel9" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_cost_center" runat="server" Width="120px" DropDownWidth="300px"
+                                                                EnableLoadOnDemand="true" ShowMoreResultsBox="true" EnableVirtualScrolling="true">
+                                                        </telerik:RadComboBox>               
+                                                        &nbsp PR Date 
+                                                        <telerik:RadTextBox ID="txt_pr_date" runat="server" Width="100px" Enabled="false" >                                                   
+                                                        </telerik:RadTextBox>
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>
                                             </td>
                                         </tr>
                                     </table>           
@@ -344,16 +408,26 @@
                                 <td >
                                      <table id="Table4" border="0" class="module">
                                          <tr>
-                                            <td class="auto-style1">Term:
+                                            <td>
+                                                Term:
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_term" runat="server" Width="120" ShowMoreResultsBox="true"
-                                                    EnableVirtualScrolling="true" EnableLoadOnDemand="true" >
-                                                </telerik:RadComboBox>                       
-                                                &nbsp Days:
-                                                <telerik:RadTextBox ID="txt_term_days" Width="60px" 
-                                                   runat="server" >
-                                                </telerik:RadTextBox>                       
+                                                <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                                    <ContentTemplate>
+                                                       <telerik:RadComboBox RenderMode="Lightweight" ID="cb_term" runat="server" Width="120" ShowMoreResultsBox="true"
+                                                        EnableVirtualScrolling="true" EnableLoadOnDemand="true" >
+                                                        </telerik:RadComboBox>                       
+                                                        &nbsp Days:
+                                                        <telerik:RadTextBox ID="txt_term_days" Width="60px" 
+                                                            runat="server" >
+                                                        </telerik:RadTextBox>  
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>  
+                                                                     
                                             </td>
                                         </tr>
                                          <tr>
@@ -361,19 +435,36 @@
                                                 ATT Name
                                             </td>
                                             <td>
-                                                <telerik:RadTextBox ID="txt_att_name" Width="250px" 
-                                                   runat="server" ></telerik:RadTextBox>
+                                                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadTextBox ID="txt_att_name" Width="250px" 
+                                                           runat="server" ></telerik:RadTextBox>
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>                                                
                                             </td>
-
                                         </tr>
                                         <tr>
-                                            <td style="vertical-align: top" class="auto-style1">Remark:
+                                            <td style="vertical-align: top">
+                                                Remark:
                                             </td>                
                                             <td>
-                                                <telerik:RadTextBox ID="txt_remark" 
-                                                   runat="server" TextMode="MultiLine"
-                                                    Width="250px" Rows="0" Columns="100" TabIndex="5" Resize="Both">
-                                                </telerik:RadTextBox>
+                                                <asp:UpdatePanel ID="UpdatePanel10" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadTextBox ID="txt_remark" 
+                                                           runat="server" TextMode="MultiLine"
+                                                            Width="250px" Rows="0" Columns="100" TabIndex="5" Resize="Both">
+                                                        </telerik:RadTextBox>
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged">
+                                                        </asp:AsyncPostBackTrigger>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>
+                                                
                                             </td>
                                         </tr>
                                         <tr>
@@ -381,10 +472,51 @@
                                                 Prepare By
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_prepared" runat="server" Width="250"   
-                                                    ShowMoreResultsBox="true" EnableLoadOnDemand="true"
-                                                    EnableVirtualScrolling="true">
-                                                </telerik:RadComboBox>
+                                                <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_prepared" runat="server" Width="250"
+                                                            DropDownWidth="400px" Height="250" AutoPostBack="true" EnableLoadOnDemand="true"
+                                                            HighlightTemplatedItems="true" MarkFirstMatch="true" 
+                                                            OnItemsRequested="cb_prepared_ItemsRequested" 
+                                                            OnSelectedIndexChanged="cb_prepared_SelectedIndexChanged"
+                                                            OnDataBound="cb_prepared_DataBound" Skin="Metro">
+                                                            <HeaderTemplate>
+                                                                <table style="width: 400px">
+                                                                    <tr>
+                                                                        <td style="width: 80px;">
+                                                                            NIK
+                                                                        </td>
+                                                                        <td style="width: 300px;">
+                                                                            Position
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                </table>                                                       
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <table style="width: 400px">
+                                                                    <tr>
+                                                                        <td style="width: 80px;">
+                                                                            <%# DataBinder.Eval(Container, "DataItem.nik")%>
+                                                                        </td>
+                                                                        <td style="width: 300px;">
+                                                                            <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                </table>
+
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                A total of
+                                                                <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                                items
+                                                            </FooterTemplate>                                                        
+                                                        </telerik:RadComboBox>
+                                                    </ContentTemplate>
+                                                        <Triggers>
+                                                            <asp:AsyncPostBackTrigger ControlID="cb_project" EventName="SelectedIndexChanged">
+                                                            </asp:AsyncPostBackTrigger>
+                                                        </Triggers>
+                                                </asp:UpdatePanel>
                                             </td>
 
                                         </tr>
@@ -393,10 +525,53 @@
                                                 Verified By
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_verified" runat="server" Width="250" 
-                                                    ShowMoreResultsBox="true" EnableLoadOnDemand="true"
-                                                    EnableVirtualScrolling="true">
-                                                </telerik:RadComboBox>
+                                                 <asp:UpdatePanel ID="UpdatePanel12" runat="server">
+                                                    <ContentTemplate>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_verified" runat="server" Width="250" 
+                                                            ShowMoreResultsBox="true" EnableLoadOnDemand="true"
+                                                            EnableVirtualScrolling="true"
+                                                            DropDownWidth="400px" AutoPostBack="false"
+                                                            HighlightTemplatedItems="true" MarkFirstMatch="true" 
+                                                            OnItemsRequested="cb_verified_ItemsRequested" 
+                                                            OnSelectedIndexChanged="cb_verified_SelectedIndexChanged"
+                                                            Skin="Metro">
+                                                            <HeaderTemplate>
+                                                                    <table style="width: 400px">
+                                                                        <tr>
+                                                                            <td style="width: 80px;">
+                                                                                NIK
+                                                                            </td>
+                                                                            <td style="width: 300px;">
+                                                                                Position
+                                                                            </td>                                                                
+                                                                        </tr>
+                                                                    </table>                                                       
+                                                                </HeaderTemplate>
+                                                                <ItemTemplate>
+                                                                    <table style="width: 400px">
+                                                                        <tr>
+                                                                            <td style="width: 80px;">
+                                                                                <%# DataBinder.Eval(Container, "DataItem.nik")%>
+                                                                            </td>
+                                                                            <td style="width: 300px;">
+                                                                                <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
+                                                                            </td>                                                                
+                                                                        </tr>
+                                                                    </table>
+
+                                                                </ItemTemplate>
+                                                                <FooterTemplate>
+                                                                    A total of
+                                                                    <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                                    items
+                                                                </FooterTemplate>  
+                                                        </telerik:RadComboBox>
+                                                    </ContentTemplate>
+                                                        <Triggers>
+                                                            <asp:AsyncPostBackTrigger ControlID="cb_project" EventName="SelectedIndexChanged">
+                                                            </asp:AsyncPostBackTrigger>
+                                                        </Triggers>
+                                                </asp:UpdatePanel>
                                             </td>
 
                                         </tr>
@@ -405,10 +580,53 @@
                                                 Approved By
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250"
-                                                    ShowMoreResultsBox="true" EnableLoadOnDemand="true"
-                                                    EnableVirtualScrolling="true">
-                                                </telerik:RadComboBox>
+                                                <asp:UpdatePanel ID="UpdatePanel13" runat="server">
+                                                    <ContentTemplate>                                                        
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250"
+                                                            ShowMoreResultsBox="true" EnableLoadOnDemand="true"
+                                                            EnableVirtualScrolling="true"
+                                                            DropDownWidth="400px" AutoPostBack="false"
+                                                            HighlightTemplatedItems="true" MarkFirstMatch="true" 
+                                                            OnItemsRequested="cb_approved_ItemsRequested" 
+                                                            OnSelectedIndexChanged="cb_approved_SelectedIndexChanged"
+                                                            Skin="Metro">
+                                                            <HeaderTemplate>
+                                                                    <table style="width: 400px">
+                                                                        <tr>
+                                                                            <td style="width: 80px;">
+                                                                                Nik
+                                                                            </td>
+                                                                            <td style="width: 300px;">
+                                                                                Position
+                                                                            </td>                                                                
+                                                                        </tr>
+                                                                    </table>                                                       
+                                                                </HeaderTemplate>
+                                                                <ItemTemplate>
+                                                                    <table style="width: 400px">
+                                                                        <tr>
+                                                                            <td style="width: 80px;">
+                                                                                <%# DataBinder.Eval(Container, "DataItem.nik")%>
+                                                                            </td>
+                                                                            <td style="width: 300px;">
+                                                                                <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
+                                                                            </td>                                                                
+                                                                        </tr>
+                                                                    </table>
+
+                                                                </ItemTemplate>
+                                                                <FooterTemplate>
+                                                                    A total of
+                                                                    <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                                    items
+                                                                </FooterTemplate>  
+                                                        </telerik:RadComboBox>
+                                                    </ContentTemplate>
+                                                        <Triggers>
+                                                            <asp:AsyncPostBackTrigger ControlID="cb_project" EventName="SelectedIndexChanged">
+                                                            </asp:AsyncPostBackTrigger>
+                                                        </Triggers>
+                                                </asp:UpdatePanel>
                                             </td>
 
                                         </tr>
@@ -420,7 +638,8 @@
                                             <td>
                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_po_status" runat="server" Width="160px"
                                                     ShowMoreResultsBox="true" EnableLoadOnDemand="true"
-                                                    EnableVirtualScrolling="true" OnSelectedIndexChanged="cb_po_status_SelectedIndexChanged">
+                                                    EnableVirtualScrolling="true" OnSelectedIndexChanged="cb_po_status_SelectedIndexChanged" 
+                                                    OnItemsRequested="cb_po_status_ItemsRequested">
                                                 </telerik:RadComboBox>
                        
                                             </td>
@@ -550,7 +769,7 @@
                                      CssClass="RadGrid_ModernBrowsers" ShowFooter="true" Width="1050px" 
                                         AutoGenerateColumns="False">
                                         <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px"
+                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px" AllowFilteringByColumn="false"
                                             ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False">
                                             <BatchEditingSettings EditType="Row" HighlightDeletedRows="true" />  
                                             <%--<DetailTables>
@@ -564,8 +783,8 @@
                                                         </RequiredFieldValidator>
                                                     </ColumnValidationSettings>
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridTemplateColumn HeaderText="Material Code" HeaderStyle-Width="100px" UniqueName="Prod_code" 
-                                                    DataField="Prod_code" ItemStyle-HorizontalAlign="Left">
+                                                <telerik:GridTemplateColumn DataField="Prod_code" HeaderText="Material Code" HeaderStyle-Width="100px" UniqueName="Prod_code" 
+                                                    ItemStyle-HorizontalAlign="Left">
                                                     <ItemTemplate>
                                                         <%# Eval("Prod_code") %>
                                                     </ItemTemplate>
@@ -582,8 +801,8 @@
                                                     SortExpression="SatQty" UniqueName="SatQty" ItemStyle-Width="30">
                                                 </telerik:GridNumericColumn>
                      
-                                                <telerik:GridTemplateColumn HeaderText="UnitPrice" HeaderStyle-Width="55px" SortExpression="harga" UniqueName="harga"
-                                                    DataField="harga" ItemStyle-HorizontalAlign="Right">
+                                                <telerik:GridTemplateColumn DataField="harga" HeaderText="UnitPrice" HeaderStyle-Width="55px" SortExpression="harga" UniqueName="harga"
+                                                    ItemStyle-HorizontalAlign="Right">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblUnitPrice" Text='<%# Eval("harga", "{0:#,###0.00;(#,###0.00);0}") %>'></asp:Label>
                                                     </ItemTemplate>

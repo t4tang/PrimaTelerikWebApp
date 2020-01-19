@@ -48,17 +48,30 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         {
             if (!Page.IsPostBack)
             {
-                //LoadProject();
-
                 if (Request.QueryString["po_code"] != null)
                 {
                     get_po_head(Request.QueryString["po_code"]);
                 }
-
+                else
+                {
+                    txt_uid.Text = public_str.uid;
+                    txt_owner.Text = public_str.uid;
+                    txt_printed.Text = "0";
+                    txt_edited.Text = "0";
+                    txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Today);
+                    txt_sub_total.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
+                    txt_tax1_value.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
+                    txt_tax2_value.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
+                    txt_tax3_value.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
+                    txt_other_value.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
+                    txt_total.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
+                }
                 get_po_det(Request.QueryString["po_code"]);
-                
             }
-
+            else
+            {
+                addPoDet(cb_reff.SelectedValue);
+            }
         }
 
         private void get_po_head(string po_no)
@@ -109,7 +122,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 txt_edited.Text = sdr["Edited"].ToString();
                 txt_uid.Text = sdr["userid"].ToString();
                 txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
-                //cb_po_status.Text = sdr["doc_status"].ToString();
                 txt_validity.Text = sdr["validity_period"].ToString();
                 cb_term.Text = sdr["payTerm"].ToString();
                 txt_pppn.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", sdr["PPPN"].ToString());
@@ -124,62 +136,30 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 txt_tax3_value.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", sdr["jtax3"].ToString());
                 txt_total.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", sdr["Net"].ToString());
                 txt_other_value.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", sdr["Othercost"].ToString());
-                get_doc_status(sdr["doc_status"].ToString());
+                cb_po_status.SelectedValue = sdr["doc_status"].ToString();
+                if (sdr["doc_status"].ToString() == "0")
+                {
+                    cb_po_status.Text = "OPEN";
+                }
+                else if(sdr["doc_status"].ToString() == "1")
+                {
+                    cb_po_status.Text = "SHARED";
+                }
+                else if (sdr["doc_status"].ToString() == "2")
+                {
+                    cb_po_status.Text = "HOLD";
+                }
             }
             con.Close();            
         }
-        private void addPoDet(string pr_no)
+        
+        protected void btnStandard_Click(object sender, EventArgs e)
         {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, 0 as harga, SatQty, dept_code, Prod_code_ori, twarranty, " +
-                "nomer as nomor, no_ref FROM tr_purchase_reqD WHERE pr_code = '" + pr_no + "'";
 
-            cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
-            sda = new SqlDataAdapter(cmd);
-
-            DataTable DT = new DataTable();
-
-            try
-            {
-                sda.Fill(DT);
-                RadGrid2.DataSource = DT;
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            //return DT;
+            if (Page.IsPostBack) System.Threading.Thread.Sleep(3000);
         }
 
-        private void get_doc_status(string obj_value)
-        {
-            if (obj_value == "OPEN")
-            {
-                doc_status = 0;
-            }
-            else if (obj_value == "SHARED")
-            {
-                doc_status = 1;
-            }
-            else if (obj_value == "HOLD")
-            {
-                doc_status = 2;
-            }
-            else
-            {
-                doc_status = 3;
-            }
-        }
-        protected void cb_po_status_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            get_doc_status(cb_po_status.Text);
-        }
-
+        
         private void get_po_det(string po_no)
         {           
             con.Open();
@@ -205,6 +185,32 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             }
         }
 
+        private void addPoDet(string pr_no)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, 0 as harga,  dept_code, Prod_code_ori, twarranty, " +
+                "nomer as nomor, no_ref FROM tr_purchase_reqD WHERE pr_code = '" + pr_no + "'";
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+                RadGrid2.DataSource = DT;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            //return DT;
+        }
 
         #region Purchase Type
 
@@ -404,7 +410,15 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT cur_code, JTempo, case ms_supplier.pay_code when '01' then 'Cash' when '02' then 'Credit' Else 'COD' end as pay_name  FROM ms_supplier WHERE supplier_code = @supplier_code", con);
+            //SqlDataAdapter adapter = new SqlDataAdapter("SELECT cur_code, JTempo, case ms_supplier.pay_code when '01' then 'Cash' when '02' then 'Credit' Else 'COD' end as pay_name  FROM ms_supplier WHERE supplier_code = @supplier_code", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT ms_supplier.supplier_name, ms_supplier.supplier_code, ms_supplier.KoGSup, ms_supplier.contact1, ms_supplier.contact2, ISNULL(MS_TAX.TAX_NAME,'NON') AS tax1, " +
+            "ISNULL(MS_TAX_1.TAX_NAME, 'NON') AS tax2, ISNULL(MS_TAX_2.TAX_NAME, 'NON') AS tax3, ms_supplier.cur_code, ms_supplier.pay_code, " +
+            "CASE ms_supplier.pay_code WHEN '01' THEN 'Cash' WHEN '02' THEN 'Credit' ELSE 'COD' END AS pay_term, ms_supplier.JTempo, ms_kurs.KursRun, " +
+            "ms_kurs.KursTax, ms_supplier.ppn AS tax1_code, ms_supplier.OTax AS tax2_code, ms_supplier.pph AS tax3_code, " +
+            "ISNULL(MS_TAX.TAX_PERC, 0) AS p_tax1, ISNULL(MS_TAX_1.TAX_PERC, 0) AS p_tax2, ISNULL(MS_TAX_2.TAX_PERC, 0) AS p_tax3 " +
+            "FROM ms_supplier LEFT OUTER JOIN MS_TAX ON ms_supplier.ppn = MS_TAX.TAX_CODE LEFT OUTER JOIN MS_TAX AS MS_TAX_1 ON ms_supplier.OTax = MS_TAX_1.TAX_CODE LEFT OUTER JOIN " +
+            "MS_TAX AS MS_TAX_2 ON ms_supplier.pph = MS_TAX_2.TAX_CODE LEFT OUTER JOIN ms_kurs ON ms_supplier.cur_code = ms_kurs.cur_code " +
+            "WHERE(ms_supplier.stEdit <> 4) AND(ms_kurs.tglKurs = (SELECT MAX(tglKurs) AS Expr1 FROM ms_kurs AS ms_kurs_1)) AND ms_supplier.supplier_code = @supplier_code", con);
             adapter.SelectCommand.Parameters.AddWithValue("@supplier_code", supp_code);
 
             DataTable dt = new DataTable();
@@ -412,8 +426,17 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             foreach (DataRow dr in dt.Rows)
             {
                 txt_curr.Text = dr["cur_code"].ToString();
-                cb_term.Text = dr["pay_name"].ToString();
+                txt_kurs.Text = string.Format("{0:#,###0.00;-#,###0.00;0}",dr["KursRun"].ToString());
+                txt_tax_kurs.Text= string.Format("{0:#,###0.00;-#,###0.00;0}", dr["KursTax"].ToString());
+                cb_tax1.Text= dr["tax1"].ToString();
+                txt_pppn.Text= dr["p_tax1"].ToString();
+                cb_tax2.Text = dr["tax2"].ToString();
+                txt_po_tax.Text= dr["p_tax2"].ToString();
+                cb_tax3.Text = dr["tax3"].ToString();
+                txt_ppph.Text= dr["p_tax3"].ToString();
+                cb_term.Text = dr["pay_term"].ToString();
                 txt_term_days.Text = dr["JTempo"].ToString();
+                txt_att_name.Text = dr["contact1"].ToString();                
             }
 
         }
@@ -585,7 +608,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             cb_reff.Text = "";
             LoadReff(cb_project.SelectedValue);
-            //LoadReff(e.Value);
         }
         protected void LoadProjects()
         {
@@ -641,20 +663,20 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_cost_center.Text = dr["dept_code"].ToString();
+                cb_reff.SelectedValue = dr["pr_code"].ToString();
             dr.Close();
             con.Close();
 
-            LoadReffInfo(cb_reff.Text);
-            addPoDet(cb_reff.Text);
+            LoadReffInfo(cb_reff.SelectedValue);
+            addPoDet(cb_reff.SelectedValue);
         }
-
+       
         protected void LoadReffInfo(string code)
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenterName, pr_date, remark FROM v_purchase_request WHERE pr_code = @pr_code", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenterName,dept_code, pr_date, remark FROM v_purchase_request WHERE pr_code = @pr_code", con);
             adapter.SelectCommand.Parameters.AddWithValue("@pr_code", code);
 
             DataTable dt = new DataTable();
@@ -663,7 +685,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Pr_date"].ToString());
                 txt_remark.Text = dr["remark"].ToString();
-                cb_cost_center.Text = dr["CostCenterName"].ToString();
+                cb_cost_center.Text = dr["dept_code"].ToString();
             }
         }
         protected void LoadReff(string projectID)
@@ -696,11 +718,144 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         }
         #endregion
 
-        protected void btnStandard_Click(object sender, EventArgs e)
+        #region Approval Man Power
+        private static DataTable GetManPower(string name, string project)
         {
-           
-            if (Page.IsPostBack) System.Threading.Thread.Sleep(3000);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan " +
+                "FROM ms_manpower WHERE stedit <> '4' AND region_code = '" + project + "' AND name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
         }
+        protected void cb_prepared_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetManPower(e.Text, cb_project.SelectedValue);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                cb_prepared.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["jabatan"].ToString()));
+            }
+        }
+        protected void cb_prepared_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_prepared.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_prepared.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();            
+        }
+        protected void cb_prepared_DataBound(object sender, EventArgs e)
+        {
+            ((Literal)cb_prepared.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString(cb_prepared.Items.Count);
+        }
+
+        protected void cb_verified_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetManPower(e.Text, cb_project.SelectedValue);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                cb_verified.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["jabatan"].ToString()));
+            }
+        }
+        protected void cb_verified_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_verified.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_verified.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
+        protected void cb_verified_DataBound(object sender, EventArgs e)
+        {
+            ((Literal)cb_verified.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString(cb_verified.Items.Count);
+        }
+        protected void cb_approved_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetManPower(e.Text, cb_project.SelectedValue);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                cb_approved.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["jabatan"].ToString()));
+            }
+        }
+        protected void cb_approved_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
+        #endregion
         
+        #region Doc. Status 
+        
+        private void get_doc_status(string obj_value)
+        {
+            if (obj_value == "OPEN")
+            {
+                cb_po_status.SelectedValue = "0";
+            }
+            else if (obj_value == "SHARED")
+            {
+                cb_po_status.SelectedValue = "1";
+            }
+            else if (obj_value == "HOLD")
+            {
+                cb_po_status.SelectedValue = "2";
+            }
+            else
+            {
+                cb_po_status.SelectedValue = "3";
+            }
+        }
+        protected void cb_po_status_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            get_doc_status(cb_po_status.Text);
+        }
+                
+        protected void cb_po_status_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            cb_po_status.Items.Add("OPEN");
+            cb_po_status.Items.Add("SHARED");
+            cb_po_status.Items.Add("HOLD");
+        }
+        #endregion
+
     }
 }
