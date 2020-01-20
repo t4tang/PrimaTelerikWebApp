@@ -12,6 +12,10 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
 {
     public partial class po_std : System.Web.UI.Page
     {
+        SqlConnection con = new SqlConnection(db_connection.koneksi);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        SqlCommand cmd = new SqlCommand();
+
         private const int ItemsPerRequest = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,6 +33,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         {
             //ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "refreshGrid();", false);
             //RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
+            get_po(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
             //if (Page.IsPostBack) System.Threading.Thread.Sleep(1000);
         }
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
@@ -50,9 +55,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             }
         }
 
-        SqlConnection con = new SqlConnection(db_connection.koneksi);
-        SqlDataAdapter sda = new SqlDataAdapter();
-        SqlCommand cmd = new SqlCommand();
+       
         public DataTable GetDataTable(string fromDate, string toDate, string project)
         {
             con.Open();
@@ -86,6 +89,34 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
         }
 
+        private void get_po(string fromDate, string toDate, string project)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_purchase_order";
+            cmd.Parameters.AddWithValue("@date", fromDate);
+            cmd.Parameters.AddWithValue("@todate", toDate);
+            cmd.Parameters.AddWithValue("@project", project);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+                RadGrid1.DataSource = DT;
+                RadGrid1.DataBind();
+            }
+            finally
+            {
+                con.Close();
+            }
+            
+        }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
         {
             if (e.Argument == "Rebind")
@@ -484,8 +515,9 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 cb_project_prm.SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
-            
-            //RadAjaxManager1.AjaxSettings.AddAjaxSetting()
+
+            //get_po(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
+
         }
     }
 }
