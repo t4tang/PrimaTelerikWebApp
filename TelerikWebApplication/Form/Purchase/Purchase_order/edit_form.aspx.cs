@@ -65,13 +65,15 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     txt_tax3_value.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
                     txt_other_value.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
                     txt_total.Text = string.Format("{0:#,###0.00;-#,###0.00;0}", 0.ToString());
+                    cb_po_status.Text = "OPEN";
+                    cb_po_status.SelectedValue = "0";
                 }
                 get_po_det(Request.QueryString["po_code"]);
             }
-            else
-            {
-                addPoDet(cb_reff.SelectedValue);
-            }
+            //else
+            //{
+            //    addPoDet(cb_reff.SelectedValue);
+            //}
         }
 
         private void get_po_head(string po_no)
