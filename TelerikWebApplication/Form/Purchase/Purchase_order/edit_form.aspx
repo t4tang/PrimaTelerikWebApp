@@ -342,7 +342,7 @@
                                                         DropDownWidth="650px" AutoPostBack="true"
                                                         HighlightTemplatedItems="true" MarkFirstMatch="true" 
                                                         OnItemsRequested="cb_reff_ItemsRequested" OnSelectedIndexChanged="cb_reff_SelectedIndexChanged"
-                                                        OnDataBound="cb_reff_DataBound" Skin="Metro" >
+                                                        OnDataBound="cb_reff_DataBound" >
                                                         <HeaderTemplate>
                                                             <table style="width: 600px">
                                                                 <tr>
@@ -770,7 +770,7 @@
                                         AutoGenerateColumns="False">
                                         <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                                         <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px" AllowFilteringByColumn="false"
-                                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False">
+                                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-RefreshText="Show Detail">
                                             <BatchEditingSettings EditType="Row" HighlightDeletedRows="true" />  
                                             <%--<DetailTables>
                                                 <telerik:GridTableView ShowHeadersWhenNoRecords="true" NoDetailRecordsText="" />
