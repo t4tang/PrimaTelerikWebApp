@@ -158,8 +158,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             if (Page.IsPostBack) System.Threading.Thread.Sleep(3000);
         }
-
-        
+                
         private void get_po_det(string po_no)
         {           
             con.Open();
