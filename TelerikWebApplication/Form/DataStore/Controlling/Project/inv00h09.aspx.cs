@@ -103,5 +103,18 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.Project
             cmd.ExecuteNonQuery();
             con.Close();
         }
+
+        protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditableItem & e.Item.IsInEditMode)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+                RadTextBox txt = (item.FindControl("txt_region_code") as RadTextBox);
+                if (e.Item.OwnerTableView.IsItemInserted)
+                    txt.Enabled = true;
+                else
+                    txt.Enabled = false;
+            }
+        }
     }
 }
