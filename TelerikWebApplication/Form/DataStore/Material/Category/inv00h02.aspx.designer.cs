@@ -49,15 +49,6 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category {
         protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
         
         /// <summary>
-        /// RadFormDecorator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadFormDecorator RadFormDecorator1;
-        
-        /// <summary>
         /// RadGrid1 control.
         /// </summary>
         /// <remarks>
