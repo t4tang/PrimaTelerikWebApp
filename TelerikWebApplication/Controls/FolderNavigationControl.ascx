@@ -19,6 +19,6 @@
 <div class="btn-new-node">Add New</div>--%>
 
 
- <telerik:RadPanelBar RenderMode="Lightweight" runat="server" ID="RadPanelBar1" AutoPostBack="false" BackColor=" #f5f5f5" BorderWidth="0"
-    Height="100%" Width="240px" ExpandMode="FullExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick">
+ <telerik:RadPanelBar RenderMode="Lightweight" runat="server" ID="RadPanelBar1" AutoPostBack="false" BackColor="White" BorderWidth="0"
+    Height="99.5%" Width="238px" ExpandMode="FullExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick" ForeColor="#003366">
 </telerik:RadPanelBar>
