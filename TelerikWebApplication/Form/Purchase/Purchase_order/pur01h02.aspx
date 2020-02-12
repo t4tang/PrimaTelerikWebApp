@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="po_std.aspx.cs" Inherits="TelerikWebApplication.Forms.Purchase.Purchase_order.po_std" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pur01h02.aspx.cs" Inherits="TelerikWebApplication.Forms.Purchase.Purchase_order.po_std" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="../../../Styles/custom-cs.css" rel="stylesheet" />
     <link href="../../../Styles/mail.css" rel="stylesheet" />
@@ -97,50 +97,48 @@
                         Style="clear: both; margin: 0px 0; height:28px">
                         </telerik:RadButton>    
                     </div>
-                        <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true"
-                        AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" OnItemCreated="RadGrid1_ItemCreated"
-                        OnNeedDataSource="RadGrid1_NeedDataSource" OnPreRender="RadGrid1_PreRender" 
-                            OnUpdateCommand="RadGrid1_SaveCommand" OnInsertCommand="RadGrid1_SaveCommand" 
-                            OnDeleteCommand="RadGrid1_DeleteCommand" 
-                            BorderStyle="Solid" Font-Names="Calibri" AllowFilteringByColumn="true"
-                            CssClass="RadGrid_ModernBrowsers" Skin="Metro">
+                        <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="MetroTouch"
+                        AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="10"
+                        OnNeedDataSource="RadGrid1_NeedDataSource" OnPreRender="RadGrid1_PreRender" OnItemCreated="RadGrid1_ItemCreated"
+                        OnDeleteCommand="RadGrid1_DeleteCommand">
                         <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                        <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px" CellPadding="10"
+                        <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px" 
                         EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true">
                             <Columns>
-                                <%--<telerik:GridEditCommandColumn UniqueName="EditLink">                                                             
-                                </telerik:GridEditCommandColumn>--%>   
+                               <%--<telerik:GridEditCommandColumn UniqueName="EditLink1"><HeaderStyle Width="20px"></HeaderStyle>
+                                </telerik:GridEditCommandColumn>   --%>
                                 <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" AllowFiltering="False" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="EditLink" runat="server" Text="Edit" ImageUrl="~/Images/Edit.png" 
+                                        <asp:ImageButton ID="EditLink" runat="server" Text="Edit" ImageUrl="~/Images/modify.png" 
                                             Width="15px" Height="15px" ImageAlign="Middle" />
                                     </ItemTemplate>
+                                    <HeaderStyle Width="30px"></HeaderStyle>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridBoundColumn UniqueName="po_code" HeaderText="PO Number" DataField="po_code">
                                     <HeaderStyle Width="120px"></HeaderStyle>
                                 </telerik:GridBoundColumn>
-                                <telerik:GridDateTimeColumn UniqueName="Po_date" HeaderText="Date" DataField="Po_date" 
-                                        EnableRangeFiltering="true" FilterControlWidth="110px" PickerType="DatePicker" 
+                                <telerik:GridDateTimeColumn UniqueName="Po_date" HeaderText="Date" DataField="Po_date" ItemStyle-Width="80px" 
+                                        EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
                                     DataFormatString="{0:d}" >
+                                    <HeaderStyle Width="80px"></HeaderStyle>
                                 </telerik:GridDateTimeColumn>
-                                <telerik:GridBoundColumn UniqueName="vendor_name" HeaderText="Vendor Name" DataField="vendor_name">
+                                <telerik:GridBoundColumn UniqueName="vendor_name" HeaderText="Vendor Name" DataField="vendor_name" 
+                                    FilterControlWidth="220px" >
                                     <HeaderStyle Width="250px"></HeaderStyle>
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark">
+                                <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true"
+                                     ItemStyle-Width="250px" FilterControlWidth="480px">
+                                    <HeaderStyle Width="500px"></HeaderStyle>
                                 </telerik:GridBoundColumn>
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete">
                                 </telerik:GridButtonColumn>
                             
                             </Columns>
-                            <%-- <EditFormSettings UserControlName="po_std_data_entry.ascx" EditFormType="WebUserControl">
-                                <EditColumn UniqueName="EditCommandColumn">
-                                </EditColumn>
-                            </EditFormSettings>--%>
-
+                           
                             <CommandItemTemplate>
-                                <%--<a href="#" onclick="return ShowInsertForm();">Add New Record</a>--%>
-                                <telerik:RadLinkButton runat="server" ID="btnNew" Text="New Record" Height="35px" Width="100px"
-                                    BorderStyle="None"  onClick="return ShowInsertForm();"></telerik:RadLinkButton>
+                                <a href="#" onclick="return ShowInsertForm();">Add New</a>
+                               <%-- <telerik:RadLinkButton runat="server" ID="btnNew" Text="New Record" Height="25px" Width="100px"
+                                    BorderStyle="None"  onClick="return ShowInsertForm();"></telerik:RadLinkButton>--%>
                             
                             </CommandItemTemplate>
                         
@@ -161,8 +159,8 @@
             <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
                 <Windows>
                     <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="Editing record" Height="650px"
-                        Width="1150px" Left="150px" ReloadOnShow="true" ShowContentDuringLoad="false"
-                        Modal="true">
+                        Width="1150px" Left="150px" ReloadOnShow="false" ShowContentDuringLoad="false"
+                        Modal="false">
                     </telerik:RadWindow>
                 </Windows>
             </telerik:RadWindowManager>         
