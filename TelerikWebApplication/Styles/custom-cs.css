@@ -578,3 +578,13 @@ body {
    border: 0;
    flood-color:#53ee26;
 }
+
+/*RadGrid Form Template*/
+.formTemplate_Table{
+    border-collapse: collapse; 
+    padding-left:35px; 
+    padding-top:7px; 
+    padding-bottom:5px; 
+    background-color: #F0FFFE;
+    
+}
