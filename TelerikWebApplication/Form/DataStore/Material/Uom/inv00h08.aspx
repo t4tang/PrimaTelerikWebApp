@@ -4,7 +4,7 @@
         <link href="../../../../Styles/mail.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
-    <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
+    <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl"/>
     <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
