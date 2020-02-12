@@ -32,7 +32,8 @@
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true" Skin="MetroTouch"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="true"
-                OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri">
+                OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" OnItemCreated="RadGrid1_ItemCreated" 
+                 BorderStyle="Solid" Font-Names="Calibri">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="kind_code" Font-Size="13px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true">                        
