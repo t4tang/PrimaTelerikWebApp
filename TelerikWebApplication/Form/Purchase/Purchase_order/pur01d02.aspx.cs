@@ -48,6 +48,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         {
             if (!Page.IsPostBack)
             {
+                LoadProjects();
                 if (Request.QueryString["po_code"] != null)
                 {
                     get_po_head(Request.QueryString["po_code"]);
@@ -202,8 +203,9 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             try
             {
-                sda.Fill(DT);
+                sda.Fill(DT);                
                 RadGrid2.DataSource = DT;
+                RadGrid2.DataBind();
             }
             finally
             {
@@ -608,7 +610,14 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             con.Close();
 
             cb_reff.Text = "";
-            LoadReff(cb_project.SelectedValue);
+            LoadReff(e.Value);
+            cb_prepared.Text = "";
+            LoadManPower(e.Value, cb_prepared);
+            cb_verified.Text = "";
+            LoadManPower(e.Value, cb_verified);
+            cb_approved.Text = "";
+            LoadManPower(e.Value, cb_approved);
+            
         }
         protected void LoadProjects()
         {
@@ -629,7 +638,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         #region PO_Refference
         private static DataTable GetReff(string pr_code, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, pr_date, remark FROM v_purchase_request WHERE region_code = region_code  AND pr_code LIKE '%' + @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, pr_date, remark FROM v_purchase_request WHERE region_code = region_code "+
+                "AND pr_code LIKE @text + '%' ORDER BY pr_code",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", pr_code);
             adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
@@ -705,7 +715,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             cb_reff.DataSource = dt;
             cb_reff.DataBind();
         }
-
+        
         protected void cb_reff_ItemDataBound(object sender, RadComboBoxItemEventArgs e)
         {
             e.Item.Text = ((DataRowView)e.Item.DataItem)["pr_code"].ToString();
@@ -720,12 +730,31 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         #endregion
 
         #region Approval Man Power
+
+        protected void LoadManPower(string projectID, RadComboBox cb)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
+                "WHERE stedit <> '4' AND region_code = @project", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cb.DataTextField = "name";
+            cb.DataValueField = "nik";
+            cb.DataSource = dt;
+            cb.DataBind();
+        }
         private static DataTable GetManPower(string name, string project)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan " +
-                "FROM ms_manpower WHERE stedit <> '4' AND region_code = '" + project + "' AND name LIKE @text + '%'",
+                "FROM ms_manpower WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", project);
 
             DataTable data = new DataTable();
             adapter.Fill(data);
@@ -742,7 +771,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_prepared.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["jabatan"].ToString()));
+                cb_prepared.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["Name"].ToString()));
             }
         }
         protected void cb_prepared_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -774,7 +803,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_verified.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["jabatan"].ToString()));
+                cb_verified.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["Name"].ToString()));
             }
         }
         protected void cb_verified_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -857,6 +886,14 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             cb_po_status.Items.Add("HOLD");
         }
         #endregion
+
+        protected void chk_lock_detail_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_lock_detail.Checked)
+            {
+                RadGrid2.Enabled = false;
+            }
+        }
 
     }
 }

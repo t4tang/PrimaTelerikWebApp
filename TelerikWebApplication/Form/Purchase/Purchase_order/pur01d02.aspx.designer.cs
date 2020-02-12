@@ -589,6 +589,24 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadNumericTextBox txt_total;
         
         /// <summary>
+        /// UpdatePanel14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel14;
+        
+        /// <summary>
+        /// chk_lock_detail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk_lock_detail;
+        
+        /// <summary>
         /// RadGrid2 control.
         /// </summary>
         /// <remarks>
