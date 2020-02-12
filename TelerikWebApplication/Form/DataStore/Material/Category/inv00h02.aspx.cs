@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,17 +14,23 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
 {
     public partial class category : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!Page.IsPostBack)
-            {
-                RadGrid1.MasterTableView.EditMode = (GridEditMode)Enum.Parse(typeof(GridEditMode), "EditForms");
-            }
-        }
-
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
+        private const int ItemsPerRequest = 10;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private static string GetStatusMessage(int offset, int total)
+        {
+            if (total <= 0)
+                return "No matches";
+
+            return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
+        }
+
         public DataTable GetDataTable()
         {
             con.Open();
@@ -35,7 +42,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                               "ms_product_type.prod_type_name " +
                               "FROM inv00h02 INNER JOIN " +
                               "ms_product_type ON inv00h02.prod_type_code = ms_product_type.prod_type_code " +
-                              "WHERE(inv00h02.stEdit <> '4') "; 
+                              "WHERE(inv00h02.stEdit <> '4') ";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -58,22 +65,75 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
         {
             (sender as RadGrid).DataSource = GetDataTable();
         }
-             
+
+        private static DataTable GetCategory(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT prod_type_code, prod_type_name FROM ms_product_type WHERE stEdit != '4' AND prod_type_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_type_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetCategory(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["prod_type_name"].ToString(), data.Rows[i]["prod_type_name"].ToString()));
+            }
+
+            e.Message = GetStatusMessage(endOffset, data.Rows.Count);
+        }
+
+
+        protected void cb_type_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT prod_type_code from ms_product_type where prod_type_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_st_main_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            // Load cb_st_main items
+            (sender as RadComboBox).Items.Add("Stock and Value");
+            (sender as RadComboBox).Items.Add("Only Stock");
+            (sender as RadComboBox).Items.Add("Non Stock");
+        }
 
         protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
         {
-            UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
-
             try
             {
-                cmd = new SqlCommand("insert into inv00h02 (kind_code, kind_name, prod_type_code, StMain, stEdit) values " +
-                        "(@kind_code, @kind_name,@prod_type_code, CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' " +
-                        "ELSE '2' END, '0')", con);
+                GridEditableItem item = (GridEditableItem)e.Item;
                 con.Open();
-                cmd.Parameters.AddWithValue("@kind_code", (userControl.FindControl("txt_kind_code") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@kind_name", (userControl.FindControl("txt_kind_name") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@prod_type_code", (userControl.FindControl("cb_type") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("cb_st_main") as RadComboBox).Text);
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "insert into inv00h02(kind_code, kind_name, prod_type_code, StMain, stEdit, lastupdate, userid) values " +
+                        "(@kind_code, @kind_name,@prod_type_code, CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' " +
+                        "ELSE '2' END, '0', getdate(),@userid)";
+                cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("txt_kind_code") as TextBox).Text);
+                cmd.Parameters.AddWithValue("@kind_name", (item.FindControl("txt_kind_name") as TextBox).Text);
+                cmd.Parameters.AddWithValue("@prod_type_code", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@stMain", (item.FindControl("cb_st_main") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -96,25 +156,33 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
         }
         protected void RadGrid1_UpdateCommand(object source, GridCommandEventArgs e)
         {
-            UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
             try
             {
-                cmd = new SqlCommand("update inv00h02 set kind_name = @kind_name, prod_type_code = @prod_type_code, " +
-                    "StMain = CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' " +
-                    "ELSE '2' END where kind_code = @kind_code", con);
-                con.Open();
-                cmd.Parameters.AddWithValue("@kind_code", (userControl.FindControl("txt_kind_code") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@kind_name", (userControl.FindControl("txt_kind_name") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@prod_type_code", (userControl.FindControl("cb_type") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@stMain", (userControl.FindControl("cb_st_main") as RadComboBox).Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
+                if (e.CommandName == RadGrid.UpdateCommandName)
+                {
+                    if (e.Item is GridEditFormItem)
+                    {
+                        GridEditFormItem item = (GridEditFormItem)e.Item;
 
+                        cmd = new SqlCommand("update inv00h02 set kind_name = @kind_name, prod_type_code = @prod_type_code, " +
+                                "StMain = CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' " +
+                                "ELSE '2' END, LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code", con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("txt_kind_code") as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@kind_name", (item.FindControl("txt_kind_name") as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@prod_type_code", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
+                        cmd.Parameters.AddWithValue("@stMain", (item.FindControl("cb_st_main") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data updated successfully";
                 lblsuccess.ForeColor = System.Drawing.Color.Blue;
                 RadGrid1.Controls.Add(lblsuccess);
             }
+
             catch (Exception ex)
             {
                 con.Close();
@@ -124,12 +192,11 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                 RadGrid1.Controls.Add(lblError);
                 e.Canceled = true;
             }
-
-        }
+        }      
 
         protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
           {
-            UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
+            var kind_code = ((GridDataItem)e.Item).GetDataKeyValue("kind_code");
 
             try
             {
@@ -137,8 +204,9 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update inv00h02 set stEdit = '4' where kind_code = @kind_code";
-                cmd.Parameters.AddWithValue("@kind_code", RadGrid1.MasterTableView.Items[0].GetDataKeyValue("kind_code").ToString());
+                cmd.CommandText = "update inv00h02 set stEdit = '4', LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code";
+                cmd.Parameters.AddWithValue("@kind_code", kind_code);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -155,6 +223,52 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
 
         }
 
+        protected void cb_st_main_PreRender(object sender, EventArgs e)
+        {
+            if((sender as RadComboBox).Text== "Stock and Value")
+            {
+                (sender as RadComboBox).SelectedValue = "0";
+            }
+            else if ((sender as RadComboBox).Text == "Only Stock")
+            {
+                (sender as RadComboBox).SelectedValue = "1";
+            }
+            else
+            {
+                (sender as RadComboBox).SelectedValue = "2";
+            }
+        }
+
+        protected void cb_st_main_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Stock and Value")
+            {
+                (sender as RadComboBox).SelectedValue = "0";
+            }
+            else if ((sender as RadComboBox).Text == "Only Stock")
+            {
+                (sender as RadComboBox).SelectedValue = "1";
+            }
+            else
+            {
+                (sender as RadComboBox).SelectedValue = "2";
+            }
+        }
+
+        protected void cb_type_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT prod_type_code from ms_product_type where prod_type_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
     }
 
 }

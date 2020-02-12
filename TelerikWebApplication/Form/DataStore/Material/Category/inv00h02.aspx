@@ -8,18 +8,7 @@
     <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
-        <script type="text/javascript">
-            function RowDblClick(sender, eventArgs) {
-                sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
-            }
- 
-            function onPopUpShowing(sender, args) {
-                args.get_popUp().className += " popUpEditForm";
-            }
-        </script>
-    </telerik:RadCodeBlock>
-
+   
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadGrid1">
@@ -70,9 +59,93 @@
                              <HeaderStyle Width="20px"></HeaderStyle>
                         </telerik:GridButtonColumn>
                     </Columns>
-                    <EditFormSettings UserControlName="category_data_entry.ascx" EditFormType="WebUserControl">
+                    <%--<EditFormSettings UserControlName="category_data_entry.ascx" EditFormType="WebUserControl">
                         <EditColumn UniqueName="EditCommandColumn1">
                         </EditColumn>
+                    </EditFormSettings>--%>
+                    <EditFormSettings EditFormType="Template">
+                        <FormTemplate>
+                            <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" style="border-collapse: collapse; padding-left:35px; 
+                                    padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
+                                <tr class="EditFormHeader">
+                                    <td colspan="2">
+                                        <b>Material Data</b>
+                                    </td>
+                                </tr>
+                                <tr>        
+                                    <td>
+                                        <table id="Table3" border="0" class="module">                
+                                            <tr>
+                                                <td>Category Code:
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="txt_kind_code" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.kind_code") %>'>
+                                                    </asp:TextBox>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                </td>
+                                            </tr>             
+                                            <tr>
+                                                <td>Category Name:
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="txt_kind_name" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.kind_name") %>'>
+                                                    </asp:TextBox>
+                                                </td>
+                                            </tr> 
+                                           <tr>
+                                                <td>Product Type:
+                                                </td>
+                                                <td>
+                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_type" runat="server" Width="300" 
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.prod_type_name") %>'
+                                                        DataValueField='<%# DataBinder.Eval(Container, "DataItem.prod_type_code") %>' 
+                                                        DataTextField="prod_type_name" AutoPostBack="false" OnPreRender="cb_type_PreRender"
+                                                        EmptyMessage="Select the product type" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
+                                                        EnableVirtualScrolling="true" OnItemsRequested="cb_type_ItemsRequested" 
+                                                        OnSelectedIndexChanged="cb_type_SelectedIndexChanged">
+                                                    </telerik:RadComboBox>
+                                                </td>
+                                            </tr>                  
+                                            <tr>
+                                                <td>
+                                                    Status Maintenance:
+                                                </td>
+                                                <td>
+                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_st_main" runat="server" 
+                                                      Text='<%# DataBinder.Eval(Container, "DataItem.status_main") %>' 
+                                                      AutoPostBack="false" Width="300px" OnPreRender="cb_st_main_PreRender" 
+                                                        OnSelectedIndexChanged="cb_st_main_SelectedIndexChanged" 
+                                                        EmptyMessage="Select the status maintenance" EnableLoadOnDemand="True" ShowMoreResultsBox="false"
+                                                        EnableVirtualScrolling="true" OnItemsRequested="cb_st_main_ItemsRequested" >
+                                                    </telerik:RadComboBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="height:30px">
+                                                    <asp:Button ID="btn_gl_account" Text="GL Account Setting" runat="server" CausesValidation="False"></asp:Button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+        
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td ></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="2" style="height:30px">
+                                        <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>&nbsp;
+                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                            CommandName="Cancel"></asp:Button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </FormTemplate>
                     </EditFormSettings>
                 </MasterTableView>
                 <ClientSettings>
