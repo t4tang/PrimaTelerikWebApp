@@ -44,7 +44,7 @@
         ShowFooter ="true" 
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
          OnNeedDataSource ="RadGrid1_NeedDataSource"   OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
-        OnDeleteCommand="RadGrid1_DeleteCommand" MetroTouch="Office2010Blue" 
+        OnDeleteCommand="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
          MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="region_code" MasterTableView-ClientDataKeyNames="region_code" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
         <MasterTableView>
