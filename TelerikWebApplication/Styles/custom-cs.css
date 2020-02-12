@@ -155,6 +155,14 @@ html .RadMultiPage .rmpView {
     width:1050px; padding-left:15px; padding-bottom:15px; max-height:260px; overflow:auto;
 }
 
+.tdLabel{
+    vertical-align:top; 
+    text-align:right
+}
+.tdInput{
+    vertical-align:top; 
+    text-align:left
+}
 
 /** Combo Box */
 /** Customize the demo canvas */
@@ -525,7 +533,7 @@ body {
 }
 
  
-/* Simple Button with rounded corners and shadows */
+/* Simple Button with rounded corners and shadows 
 .RadButton.rbButton.css3Shadows {
     border: 0;
     border-radius: 5px;
@@ -536,7 +544,7 @@ body {
 .RadButton.rbButton.css3Shadows:hover {
     border: 0;
     box-shadow: 1px 2px 5px #489ecb;
-}
+}*/
 
 /* ComboBox */
 .combo 
