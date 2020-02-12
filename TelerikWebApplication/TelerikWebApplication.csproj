@@ -135,6 +135,34 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\DataStore\Controlling\Project\inv00h09.aspx.cs">
+      <DependentUpon>inv00h09.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Controlling\Project\inv00h09.aspx.designer.cs">
+      <DependentUpon>inv00h09.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Group\inv00h03.aspx.cs">
+      <DependentUpon>inv00h03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Group\inv00h03.aspx.designer.cs">
+      <DependentUpon>inv00h03.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Uom\inv00h08.aspx.cs">
+      <DependentUpon>inv00h08.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Uom\inv00h08.aspx.designer.cs">
+      <DependentUpon>inv00h08.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Warehouse\inv00h05.aspx.cs">
+      <DependentUpon>inv00h05.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Warehouse\inv00h05.aspx.designer.cs">
+      <DependentUpon>inv00h05.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Fico\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -149,54 +177,54 @@
     <Compile Include="Form\Inventory\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Brand\Data_entry.ascx.cs">
+    <Compile Include="Form\DataStore\Material\Brand\Data_entry.ascx.cs">
       <DependentUpon>Data_entry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Brand\Data_entry.ascx.designer.cs">
+    <Compile Include="Form\DataStore\Material\Brand\Data_entry.ascx.designer.cs">
       <DependentUpon>Data_entry.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Master_data\Default.aspx.cs">
+    <Compile Include="Form\DataStore\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Master_data\Default.aspx.designer.cs">
+    <Compile Include="Form\DataStore\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Brand\material_brand.aspx.cs">
-      <DependentUpon>material_brand.aspx</DependentUpon>
+    <Compile Include="Form\DataStore\Material\Brand\inv00h04.aspx.cs">
+      <DependentUpon>inv00h04.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Brand\material_brand.aspx.designer.cs">
-      <DependentUpon>material_brand.aspx</DependentUpon>
+    <Compile Include="Form\DataStore\Material\Brand\inv00h04.aspx.designer.cs">
+      <DependentUpon>inv00h04.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Category\category.aspx.cs">
-      <DependentUpon>category.aspx</DependentUpon>
+    <Compile Include="Form\DataStore\Material\Category\inv00h02.aspx.cs">
+      <DependentUpon>inv00h02.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Category\category.aspx.designer.cs">
-      <DependentUpon>category.aspx</DependentUpon>
+    <Compile Include="Form\DataStore\Material\Category\inv00h02.aspx.designer.cs">
+      <DependentUpon>inv00h02.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Category\category_data_entry.ascx.cs">
+    <Compile Include="Form\DataStore\Material\Category\category_data_entry.ascx.cs">
       <DependentUpon>category_data_entry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Category\category_data_entry.ascx.designer.cs">
+    <Compile Include="Form\DataStore\Material\Category\category_data_entry.ascx.designer.cs">
       <DependentUpon>category_data_entry.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Material_master\Data_entry.ascx.cs">
+    <Compile Include="Form\DataStore\Material\MaterialMaster\Data_entry.ascx.cs">
       <DependentUpon>Data_entry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Material_master\Data_entry.ascx.designer.cs">
+    <Compile Include="Form\DataStore\Material\MaterialMaster\Data_entry.ascx.designer.cs">
       <DependentUpon>Data_entry.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Material_master\material_master.aspx.cs">
-      <DependentUpon>material_master.aspx</DependentUpon>
+    <Compile Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx.cs">
+      <DependentUpon>inv00h01.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Master_data\Material\Material_master\material_master.aspx.designer.cs">
-      <DependentUpon>material_master.aspx</DependentUpon>
+    <Compile Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx.designer.cs">
+      <DependentUpon>inv00h01.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Preventive_maintenance\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -219,26 +247,19 @@
     <Compile Include="Form\Purchase\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Purchase\Purchase_order\edit_form.aspx.cs">
-      <DependentUpon>edit_form.aspx</DependentUpon>
+    <Compile Include="Form\Purchase\Purchase_order\pur01d02.aspx.cs">
+      <DependentUpon>pur01d02.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Purchase\Purchase_order\edit_form.aspx.designer.cs">
-      <DependentUpon>edit_form.aspx</DependentUpon>
+    <Compile Include="Form\Purchase\Purchase_order\pur01d02.aspx.designer.cs">
+      <DependentUpon>pur01d02.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\Purchase\Purchase_order\po_std.aspx.cs">
-      <DependentUpon>po_std.aspx</DependentUpon>
+    <Compile Include="Form\Purchase\Purchase_order\pur01h02.aspx.cs">
+      <DependentUpon>pur01h02.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\Purchase\Purchase_order\po_std.aspx.designer.cs">
-      <DependentUpon>po_std.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx.cs">
-      <DependentUpon>po_std_data_entry.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx.designer.cs">
-      <DependentUpon>po_std_data_entry.ascx</DependentUpon>
+    <Compile Include="Form\Purchase\Purchase_order\pur01h02.aspx.designer.cs">
+      <DependentUpon>pur01h02.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Reports\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -334,26 +355,35 @@
     <Content Include="Controls\MobileNavigation.ascx" />
     <Content Include="default.aspx" />
     <Content Include="Fonts\OutlookSampleApp.svg" />
+    <Content Include="Form\DataStore\Controlling\Project\inv00h09.aspx" />
+    <Content Include="Form\DataStore\Material\Group\inv00h03.aspx" />
+    <Content Include="Form\DataStore\Material\Uom\inv00h08.aspx" />
+    <Content Include="Form\DataStore\Material\Warehouse\inv00h05.aspx" />
     <Content Include="Form\Fico\Default.aspx" />
     <Content Include="Form\Inventory\Default.aspx" />
-    <Content Include="Form\Master_data\Material\Brand\Data_entry.ascx" />
-    <Content Include="Form\Master_data\Default.aspx" />
-    <Content Include="Form\Master_data\Material\Brand\material_brand.aspx" />
-    <Content Include="Form\Master_data\Material\Category\category.aspx" />
-    <Content Include="Form\Master_data\Material\Category\category_data_entry.ascx" />
-    <Content Include="Form\Master_data\Material\Material_master\Data_entry.ascx" />
-    <Content Include="Form\Master_data\Material\Material_master\material_master.aspx" />
+    <Content Include="Form\DataStore\Material\Brand\Data_entry.ascx" />
+    <Content Include="Form\DataStore\Default.aspx" />
+    <Content Include="Form\DataStore\Material\Brand\inv00h04.aspx" />
+    <Content Include="Form\DataStore\Material\Category\inv00h02.aspx" />
+    <Content Include="Form\DataStore\Material\Category\category_data_entry.ascx" />
+    <Content Include="Form\DataStore\Material\MaterialMaster\Data_entry.ascx" />
+    <Content Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx" />
     <Content Include="Form\Preventive_maintenance\Default.aspx" />
     <Content Include="Form\Production\Default.aspx" />
     <Content Include="Form\Purchase\Default.aspx" />
-    <Content Include="Form\Purchase\Purchase_order\edit_form.aspx" />
-    <Content Include="Form\Purchase\Purchase_order\po_std.aspx" />
-    <Content Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx" />
+    <Content Include="Form\Purchase\Purchase_order\pur01d02.aspx" />
+    <Content Include="Form\Purchase\Purchase_order\pur01h02.aspx" />
     <Content Include="Form\Reports\Default.aspx" />
     <Content Include="Form\Sales\Default.aspx" />
     <Content Include="Form\Security\Default.aspx" />
     <Content Include="Form\Security\Master_menu\master_menu.aspx" />
+    <Content Include="Images\add.png" />
     <Content Include="Images\back.png" />
+    <Content Include="Images\edit.png" />
+    <Content Include="Images\list-icon.png" />
+    <Content Include="Images\list.png" />
+    <Content Include="Images\modify.png" />
+    <Content Include="Images\prima-logo.jpg" />
     <Content Include="Images\save.gif" />
     <Content Include="Images\save.png" />
     <Content Include="Images\backgrounds\header_about.gif" />
@@ -375,6 +405,7 @@
     <Content Include="Images\photo-profile.png" />
     <Content Include="Images\product-icons.png" />
     <Content Include="Images\telerik-logo.png" />
+    <Content Include="Images\telerik_logo.png" />
     <Content Include="Images\user-s.png" />
     <Content Include="login.aspx" />
     <Content Include="notes.aspx" />
@@ -407,13 +438,13 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Form\Master_data\Asset\" />
-    <Folder Include="Form\Master_data\Controlling\" />
-    <Folder Include="Form\Master_data\Customer\" />
-    <Folder Include="Form\Master_data\Ledger\" />
-    <Folder Include="Form\Master_data\Supplier\" />
-    <Folder Include="Form\Master_data\Support\" />
-    <Folder Include="Form\Master_data\Vehicle\" />
+    <Folder Include="Form\DataStore\Asset\" />
+    <Folder Include="Form\DataStore\Customer\" />
+    <Folder Include="Form\DataStore\Ledger\" />
+    <Folder Include="Form\DataStore\Material\LocationProduct\" />
+    <Folder Include="Form\DataStore\Supplier\" />
+    <Folder Include="Form\DataStore\Support\Departemen\" />
+    <Folder Include="Form\DataStore\Vehicle\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

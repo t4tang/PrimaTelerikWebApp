@@ -40,9 +40,9 @@ namespace PrimaWebApp
 
                 con.Open();
                 //SqlCommand cmd = new SqlCommand("SELECT USER_NAME, REGION_CODE, [LEVEL], sec_group FROM SEC_USER WHERE user_id='" + txt_uid.Text + "'", con);
-                SqlCommand cmd = new SqlCommand("SELECT A.USER_NAME, E.REGION_CODE, B.REGION_NAME, C.Lvl, A.sec_group, CONVERT(varchar, D.perstart, 103) perstart, " +
-                    "CONVERT(varchar, D.perend, 103) perend, UPPER(D.company_name) as company, D.company_code, A.def_modul FROM SEC_USER A, MS_JOBSITE B, MS_USERS C, MS_COMPANY D, " +
-                    "ms_manpower E WHERE A.user_id='" + txt_uid.Text + "' AND E.REGION_CODE=B.REGION_CODE AND A.user_id=KdUser AND A.user_id=E.NIK", con);
+                SqlCommand cmd = new SqlCommand("SELECT A.USER_NAME, E.REGION_CODE, B.REGION_NAME, A.Level, A.sec_group, CONVERT(varchar, D.perstart, 103) perstart, " +
+                    "CONVERT(varchar, D.perend, 103) perend, UPPER(D.company_name) as company, D.company_code, A.def_modul FROM SEC_USER A, MS_JOBSITE B, MS_COMPANY D, " +
+                    "ms_manpower E WHERE A.user_id='" + txt_uid.Text + "' AND E.REGION_CODE=B.REGION_CODE AND A.user_id=E.NIK", con);
 
                 dr = cmd.ExecuteReader();
                 //if (dr.HasRows == false)
@@ -68,7 +68,7 @@ namespace PrimaWebApp
                 }
                 else
                 {
-                    lbl_error.Text = "Invalid userid or password";
+                    lbl_error.Text = "Something wrong with your login";
                 }
                 con.Close();
                                 
