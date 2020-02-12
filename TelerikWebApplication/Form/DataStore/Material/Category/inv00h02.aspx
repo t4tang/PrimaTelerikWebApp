@@ -26,10 +26,7 @@
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
-
-    <telerik:RadFormDecorator RenderMode="Native" ID="RadFormDecorator1" runat="server" DecorationZoneID="demo" DecoratedControls="All" 
-        EnableRoundedCorners="false" Visible="false" />
-
+    
     <div class="scroller">        
         <!-- Page Content -->
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true" Skin="MetroTouch"
