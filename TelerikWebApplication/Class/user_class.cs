@@ -38,7 +38,7 @@ namespace TelerikWebApplication.Class
                 catch (Exception ex)
                 {
                     error_koneksi();
-                    throw new ApplicationException("Something wrong with your login module", ex);
+                    throw new ApplicationException("Invalid userid or password", ex);
                 }
                 return is_valid;
             }
