@@ -12,6 +12,20 @@
     </asp:ContentPlaceHolder>
     <meta http-equiv="Pragma" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <style>
+        body {
+            font: 14px/1.4 Helvetica, Arial, sans-serif;
+        }
+ 
+        button.RadButton span.rbIcon {
+            vertical-align: sub;
+        }
+ 
+        .rdfLabel.rdfBlock {
+            margin-top: 6px;
+        }
+        
+    </style>
 </head>
 <body>
     <form id="form1" class="clear" runat="server" >
@@ -26,12 +40,11 @@
         <div id="about" class="slider">
             <header class="tm-header" id="logo"></header>
             <h2 class="logo">
-                <img src="Images/telerik-logo.png" alt="Telerik WEB.UI for ASP.NET AJAX" />
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/telerik_logo.png" Width="170px" Height="55px"/>
             </h2>
-
             <telerik:RadMenu runat="server" ID="verticalMenu" Skin="BlackMetroTouch" Flow="Vertical" CssClass="main-menu" EnableImageSprites="true" RenderMode="Lightweight">
                 <Items>
-                    <telerik:RadMenuItem Text="Master Data" NavigateUrl="Form/Master_data/Default.aspx" CssClass="mail" />
+                    <telerik:RadMenuItem Text="Master Data" NavigateUrl="Form/DataStore/Default.aspx" CssClass="mail" />
                     <telerik:RadMenuItem Text="Fico" NavigateUrl="Form/Fico/Default.aspx" CssClass="contacts" />
                     <telerik:RadMenuItem Text="Inventory" NavigateUrl="notes.aspx" CssClass="calendar" />
                     <telerik:RadMenuItem Text="Purchase" NavigateUrl="Form/Purchase/Default.aspx" CssClass="notes" />
@@ -65,6 +78,7 @@
                 <%--<div class="sidebar" id="sidebar">--%>
                 <div class="sidebar">
                     <asp:ContentPlaceHolder ID="FolderContent" runat="server">
+                        
                     </asp:ContentPlaceHolder>
                 </div>
 
