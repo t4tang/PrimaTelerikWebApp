@@ -95,8 +95,8 @@
                                         <td>Warehouse</td>
                                         <td>
                                             <telerik:RadComboBox ID="cb_wh" runat="server" RenderMode="Lightweight" Width="150px" EnableLoadOnDemand="true" 
-                                                ShowDropDownOnTextboxClick="true" EnableVirtualScrolling="true" ShowMoreResultsBox="true" CssClass="combo"  
-                                                Height="200" MarkFirstMatch="true" 
+                                                ShowDropDownOnTextboxClick="true" EnableVirtualScrolling="true" ShowMoreResultsBox="true"  
+                                                Height="200px" MarkFirstMatch="true" 
                                                 OnItemsRequested="cb_wh_ItemsRequested" OnSelectedIndexChanged="cb_wh_SelectedIndexChanged" 
                                                 Text='<%# DataBinder.Eval(Container, "DataItem.wh_name") %>' OnPreRender="cb_wh_PreRender">
                                             </telerik:RadComboBox>
