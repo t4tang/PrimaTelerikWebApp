@@ -101,13 +101,7 @@
                                                 Text='<%# DataBinder.Eval(Container, "DataItem.wh_name") %>' OnPreRender="cb_wh_PreRender">
                                             </telerik:RadComboBox>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td style="height:30px">
-                                            <asp:Button ID="Button1" Text="GL Account Setting" runat="server" CausesValidation="False"></asp:Button>
-                                        </td>
-                                    </tr>
+                                    </tr>                                    
                                 </table>
                             </td>
                         </tr>
