@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Controlling.Project {
+namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct {
     
     
-    public partial class inv00h09 {
+    public partial class inv00h12 {
         
         /// <summary>
         /// FolderNavigationControl control.
@@ -56,5 +56,23 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.Project {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        
+        /// <summary>
+        /// RadWindowManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
+        
+        /// <summary>
+        /// UserListDialog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindow UserListDialog;
     }
 }

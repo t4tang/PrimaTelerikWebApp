@@ -248,9 +248,10 @@ html .sidebar {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  /*height: 100%;*/
+  height:auto;
   float: left;
-  background-color:lightgray;
+  /*background-color:lightgray;*/
+  width:initial
 }
 
 html .section {
@@ -275,6 +276,9 @@ html .scroller {
   box-sizing: border-box;
   height:auto;
   overflow-y:scroll;
+  margin: 5px; 
+  overflow-y:auto; 
+  padding-left:5px
 }
 
 html .gridWrapper,
@@ -542,8 +546,10 @@ html .RadToolTip {
 
 .sidebar {
   width: 240px;
-  background-color: #f5f5f5; 
-  position:inherit}
+  background-color:white; 
+  position:inherit;
+  padding-top:5px;
+}
   .sidebar .RadTreeView {
     margin-top: 10px;
     line-height: 1.7em; }
@@ -661,3 +667,9 @@ html body .RadInput_Focused_MetroTouch {
 .mobile .RadNavigation .rightScndNav .horizontalBtn,
 .mobile .RadNavigation .rightScndNav .verticalBtn {
   display: none; }
+
+.content{
+    margin: 5px; 
+    overflow-y:auto; 
+    padding-left:5px
+}

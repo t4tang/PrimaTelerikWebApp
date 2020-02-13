@@ -22,12 +22,29 @@
     
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+   <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+        <AjaxSettings>
+            <telerik:AjaxSetting AjaxControlID="RadGrid1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+        </AjaxSettings>
+    </telerik:RadAjaxManager>
+
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
+    </telerik:RadAjaxLoadingPanel>
      <div style="overflow:auto">
     <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
         ShowFooter ="true" 
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
          OnNeedDataSource ="RadGrid1_NeedDataSource"   OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
-        OnDeleteCommand="RadGrid1_DeleteCommand" Skin="Office2010Blue" 
+        OnDeleteCommand="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
          MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="region_code" MasterTableView-ClientDataKeyNames="region_code" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
         <MasterTableView>
@@ -54,7 +71,8 @@
             </Columns>
             <EditFormSettings EditFormType="Template">
                 <FormTemplate>
-                    <table>
+                      <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" style="border-collapse: collapse; padding-left:35px; 
+                                    padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
             <tr>
                 <td>
                     Code:
