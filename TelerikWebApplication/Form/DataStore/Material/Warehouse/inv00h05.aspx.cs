@@ -19,6 +19,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         private const int ItemsPerRequest = 10;
+        int type_out;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -181,6 +182,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void RadGrid1_InsertCommand(object sender, GridCommandEventArgs e)
         {
+            UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
             GridEditableItem item = (GridEditableItem)e.Item;
             con.Open();
             cmd = new SqlCommand();
@@ -195,7 +197,14 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd.Parameters.AddWithValue("@PlantCode", (item.FindControl("cb_project") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@tClass", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@ref_prod_code", (item.FindControl("cb_material_ref") as RadComboBox).SelectedValue);
-            cmd.Parameters.AddWithValue("@type_out", (item.FindControl("txt_code") as TextBox).Text);
+            if ((userControl.FindControl("cb_consig") as CheckBox).Checked == true)
+            {
+                type_out = 1;
+            }
+            else
+            {
+                type_out = 0;
+            }
             cmd.Parameters.AddWithValue("@FluitCap", (item.FindControl("txt_cap_tanki") as TextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
         }
@@ -236,7 +245,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["prod_code"].ToString(), data.Rows[i]["prod_code"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["spec"].ToString(), data.Rows[i]["spec"].ToString()));
             }
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);

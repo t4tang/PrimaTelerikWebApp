@@ -2,10 +2,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
+    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
-    <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
-    <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
+    
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
+            <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
+        </ContentTemplate>        
+    </asp:UpdatePanel> 
+   
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
@@ -41,11 +48,11 @@
     <telerik:RadFormDecorator RenderMode="Native" ID="RadFormDecorator1" runat="server" DecorationZoneID="demo" DecoratedControls="All" 
         EnableRoundedCorners="false" Visible="false" />
 
-    <div style="overflow:auto">        
+    <div class="scroller">        
         <!-- Page Content -->
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" Skin="MetroTouch"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true"
-                OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand"
+                OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated"
                 OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri"
                  AllowFilteringByColumn="true" >
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
@@ -78,7 +85,7 @@
                    
                     <EditFormSettings EditFormType="Template">
                         <FormTemplate>
-                            <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none" 
+                            <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" rules="none" 
                                 style="border-collapse: collapse; padding-left:35px; padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
                                    
                                 <tr class="EditFormHeader">
@@ -177,15 +184,19 @@
                                             <tr>
                                                 <td>Min Stock:</td>
                                                 <td>
-                                                    <asp:TextBox ID="txt_min_stock" runat="server"  Text='<%# DataBinder.Eval(Container, "DataItem.QtyMin") %>'>
-                                                    </asp:TextBox>
+                                                    <%--<asp:TextBox ID="txt_min_stock" runat="server"  Text='<%# DataBinder.Eval(Container, "DataItem.QtyMin") %>'>
+                                                    </asp:TextBox>--%>
+                                                    <telerik:RadNumericTextBox ID="txt_min_stock" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.QtyMin") %>'>
+                                                    </telerik:RadNumericTextBox>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Min Purchase:</td>
                                                 <td>
-                                                    <asp:TextBox ID="txt_min_purchase" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.QtyMinPur") %>'>
-                                                    </asp:TextBox>
+                                                    <telerik:RadNumericTextBox ID="txt_min_purchase" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.QtyMinPur") %>'>
+                                                    </telerik:RadNumericTextBox>
+                                                    <%--<asp:TextBox ID="txt_min_purchase" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.QtyMinPur") %>'>
+                                                    </asp:TextBox>--%>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -201,15 +212,19 @@
 
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txt_selling_price" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.price_sale") %>'>
-                                                    </asp:TextBox>
+                                                    <telerik:RadNumericTextBox ID="txt_selling_price" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.price_sale") %>'>
+                                                    </telerik:RadNumericTextBox>
+                                                    <%--<asp:TextBox ID="txt_selling_price" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.price_sale") %>'>
+                                                    </asp:TextBox>--%>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Sales forecast:</td>
                                                 <td>
-                                                    <asp:TextBox ID="txt_sales_forecast" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.SalesFore") %>'>
-                                                    </asp:TextBox>
+                                                    <telerik:RadNumericTextBox ID="txt_sales_forecast" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.SalesFore") %>'>
+                                                    </telerik:RadNumericTextBox>
+                                                   <%-- <asp:TextBox ID="txt_sales_forecast" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.SalesFore") %>'>
+                                                    </asp:TextBox>--%>
                                                 </td>
                                             </tr>
                                         </table>
@@ -265,7 +280,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td align="right" colspan="2">
+                                    <td align="right" colspan="2" style="padding-bottom:5px">
                                         <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                             runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>&nbsp;
                                         <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
@@ -274,6 +289,7 @@
                                 </tr>
 
                             </table>
+                            
                         </FormTemplate>
                     </EditFormSettings>
                         </MasterTableView>
