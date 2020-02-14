@@ -159,7 +159,9 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
+
             DataTable DT = new DataTable();
+
             try
             {
                 sda.Fill(DT);
@@ -168,6 +170,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             {
                 con.Close();
             }
+
             return DT;
         }
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
@@ -182,31 +185,25 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void RadGrid1_InsertCommand(object sender, GridCommandEventArgs e)
         {
-            UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
             GridEditableItem item = (GridEditableItem)e.Item;
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h05 (@wh_code, @wh_name, @address, @accountno, @lastupdate, @userid, @stEdit, @PlantCode, @tClass, @ref_prod_code, " +
-                              "@type_out, @FluitCap) VALUES(@wh_code, @wh_name, @address, @accountno, getdate(), @userid, '0', @PlantCode, CASE @StMain " +
+            cmd.CommandText = "INSERT INTO inv00h05 (wh_code, wh_name, address, lastupdate, userid, stEdit, PlantCode, tClass, ref_prod_code, " +
+                              "type_out, FluitCap) VALUES(@wh_code, @wh_name, @address, getdate(), @userid, '0', @PlantCode, CASE @tClass " +
                               "WHEN 'General' THEN '0' WHEN 'Fuel' THEN '1' ELSE '2' END, @ref_prod_code, @type_out, @FluitCap)";
-            cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("txt_code") as TextBox).Text);
-            cmd.Parameters.AddWithValue("@wh_name", (item.FindControl("txt_storage") as TextBox).Text);
-            cmd.Parameters.AddWithValue("@address", (item.FindControl("txt_address") as TextBox).Text);
+            cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("txt_code") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@wh_name", (item.FindControl("txt_storage") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@address", (item.FindControl("txt_address") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@PlantCode", (item.FindControl("cb_project") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@tClass", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@ref_prod_code", (item.FindControl("cb_material_ref") as RadComboBox).SelectedValue);
-            if ((userControl.FindControl("cb_consig") as CheckBox).Checked == true)
-            {
-                type_out = 1;
-            }
-            else
-            {
-                type_out = 0;
-            }
-            cmd.Parameters.AddWithValue("@FluitCap", (item.FindControl("txt_cap_tanki") as TextBox).Text);
+            cmd.Parameters.AddWithValue("@type_out", (item.FindControl("cb_consig") as CheckBox).Checked ? 1 : 0) ;
+            cmd.Parameters.AddWithValue("@FluitCap", (item.FindControl("txt_cap_tanki") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
         
         protected void cb_material_ref_PreRender(object sender, EventArgs e)
