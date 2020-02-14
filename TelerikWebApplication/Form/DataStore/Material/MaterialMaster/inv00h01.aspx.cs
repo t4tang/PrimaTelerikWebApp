@@ -96,10 +96,10 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                             cmd.Parameters.AddWithValue("@group_code", (item.FindControl("cb_group") as RadComboBox).SelectedValue);
                             cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("cb_category") as RadComboBox).SelectedValue);
                             cmd.Parameters.AddWithValue("@stMain", (item.FindControl("cb_st_main") as RadComboBox).Text);
-                            cmd.Parameters.AddWithValue("@QtyMin", Convert.ToDouble((item.FindControl("txt_min_stock") as TextBox).Text));
-                            cmd.Parameters.AddWithValue("@qtyminpur", Convert.ToDouble((item.FindControl("txt_min_purchase") as TextBox).Text));
-                            cmd.Parameters.AddWithValue("@SalesFore", Convert.ToDouble((item.FindControl("txt_sales_forecast") as TextBox).Text));
-                            cmd.Parameters.AddWithValue("@price_sale", Convert.ToDouble((item.FindControl("txt_selling_price") as TextBox).Text));
+                            cmd.Parameters.AddWithValue("@QtyMin", Convert.ToDouble((item.FindControl("txt_min_stock") as RadNumericTextBox).Text));
+                            cmd.Parameters.AddWithValue("@qtyminpur", Convert.ToDouble((item.FindControl("txt_min_purchase") as RadNumericTextBox).Text));
+                            cmd.Parameters.AddWithValue("@SalesFore", Convert.ToDouble((item.FindControl("txt_sales_forecast") as RadNumericTextBox).Text));
+                            cmd.Parameters.AddWithValue("@price_sale", Convert.ToDouble((item.FindControl("txt_selling_price") as RadNumericTextBox).Text));
                             cmd.Parameters.AddWithValue("@tSN", (item.FindControl("chk_use_SN") as CheckBox).Checked ? 1 : 0);
                             cmd.Parameters.AddWithValue("@tActive", (item.FindControl("chk_active") as CheckBox).Checked? 1 : 0);
                             cmd.Parameters.AddWithValue("@tWarranty", (item.FindControl("chk_warranty") as CheckBox).Checked ? 1 : 0);
@@ -147,10 +147,10 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                 cmd.Parameters.AddWithValue("@group_code", (item.FindControl("cb_group") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("cb_category") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@stMain", (item.FindControl("cb_st_main") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@QtyMin", Convert.ToDouble((item.FindControl("txt_min_stock") as TextBox).Text));
-                cmd.Parameters.AddWithValue("@qtyminpur", Convert.ToDouble((item.FindControl("txt_min_purchase") as TextBox).Text));
-                cmd.Parameters.AddWithValue("@SalesFore", Convert.ToDouble((item.FindControl("txt_sales_forecast") as TextBox).Text));
-                cmd.Parameters.AddWithValue("@price_sale", Convert.ToDouble((item.FindControl("txt_selling_price") as TextBox).Text));
+                cmd.Parameters.AddWithValue("@QtyMin", Convert.ToDouble((item.FindControl("txt_min_stock") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@qtyminpur", Convert.ToDouble((item.FindControl("txt_min_purchase") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@SalesFore", Convert.ToDouble((item.FindControl("txt_sales_forecast") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@price_sale", Convert.ToDouble((item.FindControl("txt_selling_price") as RadNumericTextBox).Text));
                 cmd.Parameters.AddWithValue("@tSN", (item.FindControl("chk_use_SN") as CheckBox).Checked ? 1 : 0);
                 cmd.Parameters.AddWithValue("@tActive", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
                 cmd.Parameters.AddWithValue("@tWarranty", (item.FindControl("chk_warranty") as CheckBox).Checked ? 1 : 0);
@@ -375,6 +375,29 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
+        }
+
+        protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditableItem & e.Item.IsInEditMode)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+                TextBox txt = (item.FindControl("txt_material_code") as TextBox);
+                if (e.Item.OwnerTableView.IsItemInserted)
+                    txt.Enabled = true;
+                else
+                    txt.Enabled = false;
+            }
+        }
+
+        protected void RadMultiPage1_PageViewCreated(object sender, RadMultiPageEventArgs e)
+        {
+            string userControlName = e.PageView.ID + "CS.ascx";
+
+            Control userControl = Page.LoadControl(userControlName);
+            userControl.ID = e.PageView.ID + "_userControl";
+
+            e.PageView.Controls.Add(userControl);
         }
     }
 }        
