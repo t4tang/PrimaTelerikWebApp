@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter {
+namespace TelerikWebApplication.Form.DataStore.Vehicle.Manufacture {
     
     
-    public partial class inv00h11 {
+    public partial class inv00h13 {
         
         /// <summary>
         /// FolderNavigationControl control.

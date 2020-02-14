@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter {
+namespace TelerikWebApplication.Form.DataStore.Support.Province {
     
     
-    public partial class inv00h11 {
+    public partial class inv00h20 {
         
         /// <summary>
         /// FolderNavigationControl control.
