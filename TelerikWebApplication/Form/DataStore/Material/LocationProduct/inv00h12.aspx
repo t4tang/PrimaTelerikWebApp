@@ -95,19 +95,13 @@
                                         <td>Warehouse</td>
                                         <td>
                                             <telerik:RadComboBox ID="cb_wh" runat="server" RenderMode="Lightweight" Width="150px" EnableLoadOnDemand="true" 
-                                                ShowDropDownOnTextboxClick="true" EnableVirtualScrolling="true" ShowMoreResultsBox="true" CssClass="combo"  
+                                                ShowDropDownOnTextboxClick="true" EnableVirtualScrolling="true" ShowMoreResultsBox="true"  
                                                 Height="200" MarkFirstMatch="true" 
                                                 OnItemsRequested="cb_wh_ItemsRequested" OnSelectedIndexChanged="cb_wh_SelectedIndexChanged" 
                                                 Text='<%# DataBinder.Eval(Container, "DataItem.wh_name") %>' OnPreRender="cb_wh_PreRender">
                                             </telerik:RadComboBox>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td style="height:30px">
-                                            <asp:Button ID="Button1" Text="GL Account Setting" runat="server" CausesValidation="False"></asp:Button>
-                                        </td>
-                                    </tr>
+                                    </tr>                                    
                                 </table>
                             </td>
                         </tr>
