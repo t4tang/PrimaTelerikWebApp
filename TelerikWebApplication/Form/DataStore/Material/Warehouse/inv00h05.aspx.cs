@@ -152,10 +152,9 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h05.address, inv00h05.tClass, inv00h05.ref_prod_code, Case(inv00h05.type_out) when '0' then 'General' when '1' then 'Fuel' else 'Oil' End as type_out, inv00h05.FluitCap, ms_warehouse.wh_code, " +
-                              "ms_jobsite.region_code, ms_warehouse.wh_name, ms_jobsite.region_name FROM inv00h05 INNER JOIN ms_warehouse ON " +
-                              "inv00h05.wh_code = ms_warehouse.wh_code AND inv00h05.wh_name = ms_warehouse.wh_name INNER JOIN ms_jobsite ON " +
-                              "inv00h05.PlantCode = ms_jobsite.region_code where inv00h05.stEdit != 4";
+            cmd.CommandText = "SELECT inv00h05.address, inv00h05.tClass, inv00h05.ref_prod_code, CASE (inv00h05.type_out) WHEN '0' THEN 'General' WHEN '1' THEN 'Fuel' ELSE 'Oil' END AS type_out, " +
+                              "inv00h05.FluitCap, inv00h05.wh_code, ms_jobsite.region_code, ms_jobsite.region_name, inv00h05.wh_name, inv00h05.type_out AS Expr1 FROM inv00h05 INNER JOIN " +
+                              "ms_jobsite ON inv00h05.PlantCode = ms_jobsite.region_code WHERE(inv00h05.stEdit <> 4)";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -180,7 +179,25 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void RadGrid1_UpdateCommand(object sender, GridCommandEventArgs e)
         {
-
+            GridEditableItem item = (GridEditableItem)e.Item;
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "UPDATE inv00h05 set wh_name = @wh_name, address = @address, lastupdate = getdate(), userid = @userid, PlantCode = @PlantCode, " +
+                              "tClass = CASE @tClass WHEN 'General' THEN '0' WHEN 'Fuel' THEN '1' ELSE '2' END, " +
+                              "ref_prod_code = @ref_prod_code, type_out = @type_out, FluitCap = @FluitCap where wh_code = @wh_code";
+            cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("txt_code") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@wh_name", (item.FindControl("txt_storage") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@address", (item.FindControl("txt_address") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@PlantCode", (item.FindControl("cb_project") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@tClass", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@ref_prod_code", (item.FindControl("cb_material_ref") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@type_out", (item.FindControl("cb_consig") as CheckBox).Checked ? 1 : 0);
+            cmd.Parameters.AddWithValue("@FluitCap", (item.FindControl("txt_cap_tanki") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
 
         protected void RadGrid1_InsertCommand(object sender, GridCommandEventArgs e)
