@@ -67,6 +67,14 @@
                                     <telerik:RadTextBox ID="txt_code" runat="server" Width="80px" Enabled="true" RenderMode="Lightweight" Text='<%#DataBinder.Eval(Container, "DataItem.wh_code") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
+                                &nbsp;
+                                <td>
+                                    Consignment :
+                                </td>
+                                <td>
+                                    <asp:CheckBox ID="cb_consig" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.type_out") %>' AutoPostBack="false">
+                                    </asp:CheckBox>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -108,12 +116,12 @@
                                     Material Reference:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_material_ref" runat="server" RenderMode="Lightweight" Width="300px"
+                                    <telerik:RadComboBox ID="cb_material_ref" runat="server" RenderMode="Lightweight" Width="170px"
                                                          Text='<%#DataBinder.Eval(Container, "DataItem.ref_prod_code") %>'
                                                          ShowDropDownOnTextboxClick="true" EnableLoadOnDemand="True" EnableVirtualScrolling="false"
-                                                         ShowMoreResultsBox="false" MarkFirstMatch="True" DropDownWidth="650px"
+                                                         ShowMoreResultsBox="false" MarkFirstMatch="True" DropDownWidth="350px"
                                                          OnItemsRequested="cb_material_ref_ItemsRequested" OnSelectedIndexChanged="cb_material_ref_SelectedIndexChanged">
-                                        <HeaderTemplate>
+                                        <%--<HeaderTemplate>
                                             <table style="width: 275px" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td style="width: 175px;">
@@ -139,8 +147,7 @@
                                                     </td>                                                                
                                                 </tr>
                                             </table>
-
-                                        </ItemTemplate>
+                                        </ItemTemplate>--%>
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>
