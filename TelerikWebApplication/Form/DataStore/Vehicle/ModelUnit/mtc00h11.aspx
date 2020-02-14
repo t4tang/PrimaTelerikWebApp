@@ -49,7 +49,7 @@
                     <telerik:GridBoundColumn HeaderText="Model Remark" DataField="model_remark">
                         <HeaderStyle Width="350px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderText="Manufacture" DataField="manu_name" Visible="false">
+                    <telerik:GridBoundColumn HeaderText="Manufacture" DataField="manu_name" Visible="true">
                         <HeaderStyle Width="350px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName="Delete" CommandName="Delete" HeaderStyle-Width="35px" 
