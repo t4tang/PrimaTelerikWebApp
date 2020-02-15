@@ -10,8 +10,7 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div style="overflow:auto">
+    <div class="scroller">
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" AutoGenerateColumns="false"
             ShowFooter="True" MasterTableView-AllowFilteringByColumn="true" AllowSorting="True" 
             MasterTableView-DataKeyNames="unit_code" MasterTableView-ClientDataKeyNames="unit_code"
@@ -97,7 +96,6 @@
             <Windows>
                 <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="Editing Record"
                      Height="490px" Width="850px" Left="150px" ReloadOnShow="true" ShowContentDuringLoad="false" Modal="true">
-
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>

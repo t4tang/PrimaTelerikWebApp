@@ -28,7 +28,7 @@
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
-     <div style="overflow:auto">
+     <div class="scroller">
     <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
         ShowFooter ="true" 
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False" 

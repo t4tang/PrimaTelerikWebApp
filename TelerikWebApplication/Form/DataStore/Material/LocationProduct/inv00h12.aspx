@@ -29,8 +29,8 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     
-    <div style="overflow:auto">
-    <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" ShowFooter="true" AutoGenerateColumns="false" 
+    <div class="scroller">
+        <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" ShowFooter="true" AutoGenerateColumns="false" 
         MasterTableView-AllowFilteringByColumn="true" MasterTableView-DataKeyNames="KdLok" 
         MasterTableView-ClientDataKeyNames="KdLok" MasterTableView-CommandItemDisplay="Top" 
         AllowPaging="true" AllowSorting="true" OnNeedDataSource="RadGrid1_NeedDataSource" 
@@ -124,7 +124,7 @@
         </MasterTableView>
         <FilterMenu RenderMode="Lightweight"></FilterMenu>
     </telerik:RadGrid>
-    <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
+        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
         <Windows>
             <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="EditingRecord" Height="490px" 
                 Width="850px" Left="150px" ReloadOnShow="true" ShowContentDuringLoad="false" Modal="true">

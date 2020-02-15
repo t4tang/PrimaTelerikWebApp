@@ -39,9 +39,9 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             cmd.Connection = con;
             cmd.CommandText = "SELECT inv00h02.kind_code, inv00h02.kind_name, inv00h02.prod_type_code, inv00h02.stMain, inv00h02.stEdit, " +
                               "CASE stMain WHEN '0' THEN 'Stock and Value' WHEN '1' THEN 'Only Stock' WHEN '2' THEN 'Non Stock' END AS status_main, " +
-                              "ms_product_type.prod_type_name " +
+                              "inv00h07.prod_type_name " +
                               "FROM inv00h02 INNER JOIN " +
-                              "ms_product_type ON inv00h02.prod_type_code = ms_product_type.prod_type_code " +
+                              "inv00h07 ON inv00h02.prod_type_code = inv00h07.prod_type_code " +
                               "WHERE(inv00h02.stEdit <> '4') ";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -68,7 +68,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
 
         private static DataTable GetCategory(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT prod_type_code, prod_type_name FROM ms_product_type WHERE stEdit != '4' AND prod_type_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT prod_type_code, prod_type_name FROM inv00h07 WHERE stEdit != '4' AND prod_type_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -100,7 +100,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_type_code from ms_product_type where prod_type_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_type_code from inv00h07 where prod_type_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -261,7 +261,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_type_code from ms_product_type where prod_type_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_type_code from inv00h07 where prod_type_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

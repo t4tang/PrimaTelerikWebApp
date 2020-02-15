@@ -27,7 +27,7 @@
     <telerik:RadAjaxLoadingPanel runat="server" ID="GridLoadingPanel1">
     </telerik:RadAjaxLoadingPanel>
 
-    <div class="scroller" style="position:inherit">
+    <div class="scroller">
         <%--PAGE CONTENT--%>
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="true" ShowFooter="true" AllowSorting="true"
                          AutoGenerateColumns="false" OnDeleteCommand="RadGrid1_DeleteCommand" Skin="MetroTouch" OnNeedDataSource="RadGrid1_NeedDataSource"

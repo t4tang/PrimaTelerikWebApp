@@ -35,7 +35,7 @@
                 OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" OnItemCreated="RadGrid1_ItemCreated" 
                  BorderStyle="Solid" Font-Names="Calibri">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="kind_code" Font-Size="13px"
+                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="kind_code" Font-Size="13px" PageSize="10"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true">                        
                     <Columns>
                         <telerik:GridEditCommandColumn UniqueName="EditCommandColumn"><HeaderStyle Width="20px"></HeaderStyle>

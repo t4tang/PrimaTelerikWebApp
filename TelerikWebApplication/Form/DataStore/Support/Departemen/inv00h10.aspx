@@ -8,7 +8,7 @@
     <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="overflow:auto">
+    <div class="scroller">
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AutoGenerateColumns="false" 
             AllowPaging="true" AllowSorting="true" ShowFooter="true" MasterTableView-DataKeyNames="dept_code" 
             MasterTableView-ClientDataKeyNames="dept_code" MasterTableView-CommandItemDisplay="Top" 
