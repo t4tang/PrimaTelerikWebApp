@@ -32,14 +32,14 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            var productID = ((GridDataItem)e.Item).GetDataKeyValue("wh_code");
+            var wh_code = ((GridDataItem)e.Item).GetDataKeyValue("wh_code");
 
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "UPDATE inv00h05 SET stEdit = 4 where wh_code = @wh_code";
-            cmd.Parameters.AddWithValue("@wh_code", productID);
+            cmd.Parameters.AddWithValue("@wh_code", wh_code);
             cmd.ExecuteNonQuery();
             con.Close();
         }
