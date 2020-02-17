@@ -27,14 +27,14 @@
     <telerik:RadAjaxLoadingPanel runat="server" ID="GridLoadingPanel1">
     </telerik:RadAjaxLoadingPanel>
 
-    <div class="scroller" style="position:inherit">
+    <div class="scroller">
         <%--PAGE CONTENT--%>
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="true" ShowFooter="true" AllowSorting="true"
                          AutoGenerateColumns="false" OnDeleteCommand="RadGrid1_DeleteCommand" Skin="MetroTouch" OnNeedDataSource="RadGrid1_NeedDataSource"
-                         OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="true" OnInsertCommand="RadGrid1_InsertCommand" BorderStyle="Solid"
-                         Font-Names="Calibri">
+                         OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="true" OnInsertCommand="RadGrid1_InsertCommand">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" Width="100%" Font-Size="13px" EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
+            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="wh_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
+                EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
@@ -48,12 +48,16 @@
                     <telerik:GridBoundColumn HeaderText ="Type" DataField="type_out">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderText ="Material Code" DataField="ref_prod_code">
+                    <telerik:GridBoundColumn HeaderText ="Material" DataField="ref_prod_code">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText ="Capacity" DataField="FluitCap">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
+                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
+                            ConfirmText="Are you sure you want to delete this row or record?">
+                             <HeaderStyle Width="20px"></HeaderStyle>
+                        </telerik:GridButtonColumn>
                 </Columns>
                 <EditFormSettings EditFormType="Template">
                     <FormTemplate>
@@ -170,10 +174,10 @@
                                 </td>
                             </tr>
                             <tr>
-                               <td>
+                               <td colspan="2" style="padding:10px 0px 10px 0px">
                                   <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                               runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' />
-                           &nbsp; <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />
+                                        &nbsp; <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />
                                </td>
                             </tr>
                         </table>

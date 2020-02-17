@@ -37,11 +37,11 @@
                 var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
                 grid.get_masterTableView().selectItem(rowControl, true);
  
-                window.radopen("edit_form.aspx?po_code=" + id, "UserListDialog");
+                window.radopen("pur01d02.aspx?po_code=" + id, "UserListDialog");
                 return false;
             }
             function ShowInsertForm() {
-                window.radopen("edit_form.aspx", "UserListDialog");
+                window.radopen("pur01d02.aspx", "UserListDialog");
                 return false;
             }
             function refreshGrid(arg) {

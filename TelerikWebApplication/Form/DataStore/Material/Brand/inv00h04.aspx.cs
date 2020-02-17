@@ -58,49 +58,50 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
 
         protected void RadGrid1_UpdateCommand(object source, GridCommandEventArgs e)
         {
-            UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
-            try
+            if (e.Item is GridEditFormItem)
             {
-                cmd = new SqlCommand("update inv00h04 set brand_name = @brand_name, userid = @uid, lastupdate = @lastupdate " +
-                    "where brand_code = @brand_code", con);
-                con.Open();
-                cmd.Parameters.AddWithValue("@brand_code", (userControl.FindControl("txt_brand_code") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@brand_name", (userControl.FindControl("txt_brand_name") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                cmd.Parameters.AddWithValue("@lastupdate", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
-                cmd.ExecuteNonQuery();
-                con.Close();
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+                try
+                {
+                    cmd = new SqlCommand("update inv00h04 set brand_name = @brand_name, userid = @uid, lastupdate = @lastupdate " +
+                        "where brand_code = @brand_code", con);
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@brand_code", (item.FindControl("txt_brand_code") as TextBox).Text);
+                    cmd.Parameters.AddWithValue("@brand_name", (item.FindControl("txt_brand_name") as TextBox).Text);
+                    cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                    cmd.Parameters.AddWithValue("@lastupdate", string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now));
+                    cmd.ExecuteNonQuery();
+                    con.Close();
 
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data updated successfully";
-                lblsuccess.ForeColor = System.Drawing.Color.Blue;                
-                RadGrid1.Controls.Add(lblsuccess);
+                    Label lblsuccess = new Label();
+                    lblsuccess.Text = "Data updated successfully";
+                    lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                    RadGrid1.Controls.Add(lblsuccess);
+                }
+                catch (Exception ex)
+                {
+                    con.Close();
+                    Label lblError = new Label();
+                    lblError.Text = "Unable to update data. Reason: " + ex.Message;
+                    lblError.ForeColor = System.Drawing.Color.Red;
+                    RadGrid1.Controls.Add(lblError);
+                    e.Canceled = true;
+                }
             }
-            catch (Exception ex)
-            {
-                con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to update data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
-                e.Canceled = true;
-            }            
-            
         }
 
         protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
         {
-            UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
-
+            GridEditableItem item = (GridEditableItem)e.Item;
             try
             {
                 cmd = new SqlCommand("insert into inv00h04 (brand_code, brand_name, lastupdate, userid, stEdit) values " +
                     "(@brand_code, @brand_name, @lastupdate, @uid, '0')", con);
                 con.Open();
-                cmd.Parameters.AddWithValue("@brand_code", (userControl.FindControl("txt_brand_code") as TextBox).Text);
-                cmd.Parameters.AddWithValue("@brand_name", (userControl.FindControl("txt_brand_name") as TextBox).Text);
+                cmd.Parameters.AddWithValue("@brand_code", (item.FindControl("txt_brand_code") as TextBox).Text);
+                cmd.Parameters.AddWithValue("@brand_name", (item.FindControl("txt_brand_name") as TextBox).Text);
                 cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                cmd.Parameters.AddWithValue("@lastupdate", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
+                cmd.Parameters.AddWithValue("@lastupdate", string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now));
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -124,19 +125,23 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
 
         protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
         {
-            UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
-            
+            var brand_code = ((GridDataItem)e.Item).GetDataKeyValue("brand_code");
             try
             {
                 con.Open();
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update inv00h04 set stEdit = 4 where brand_code = @brand_code";
+                cmd.CommandText = "update inv00h04 set stEdit = 4,userid = @uid, lastupdate = getdate() where brand_code = @brand_code";
                 cmd.Parameters.AddWithValue("@brand_code", RadGrid1.MasterTableView.Items[0].GetDataKeyValue("brand_code").ToString());
+                cmd.Parameters.AddWithValue("@uid", public_str.user_id);
                 cmd.ExecuteNonQuery();
-                con.Close();                    
+                con.Close();
 
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data deleted successfully";
+                lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                RadGrid1.Controls.Add(lblsuccess);
             }
             catch (Exception ex)
             {

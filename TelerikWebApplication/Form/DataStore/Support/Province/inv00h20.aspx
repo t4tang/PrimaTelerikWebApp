@@ -25,8 +25,8 @@
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
-    <div style="overflow:auto">
-    <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
+    <div class="scroller">
+        <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
         ShowFooter ="true" 
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
          OnNeedDataSource ="RadGrid1_NeedDataSource" OnInsertCommand ="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
@@ -94,5 +94,5 @@
             </EditFormSettings>     
         </MasterTableView>
     </telerik:RadGrid>
-         </div>
+    </div>
 </asp:Content>

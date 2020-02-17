@@ -319,7 +319,36 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             (sender as RadComboBox).Items.Add("Only Stock");
             (sender as RadComboBox).Items.Add("Non Stock");
         }
+        protected void cb_st_main_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Stock and Value")
+            {
+                (sender as RadComboBox).SelectedValue = "0";
+            }
+            else if ((sender as RadComboBox).Text == "Only Stock")
+            {
+                (sender as RadComboBox).SelectedValue = "1";
+            }
+            else
+            {
+                (sender as RadComboBox).SelectedValue = "2";
+            }
+        }
         protected void cb_uom_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+        protected void cb_uom_PreRender(object sender, EventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -348,7 +377,36 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             dr.Close();
             con.Close();
         }
+        protected void cb_brand_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT brand_code FROM inv00h04 WHERE brand_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
         protected void cb_category_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT kind_code FROM inv00h02 WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+        protected void cb_category_PreRender(object sender, EventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -376,7 +434,20 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             dr.Close();
             con.Close();
         }
-
+        protected void cb_group_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT group_code FROM inv00h03 WHERE group_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridEditableItem & e.Item.IsInEditMode)
@@ -399,5 +470,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
 
             e.PageView.Controls.Add(userControl);
         }
+
+        
     }
 }        

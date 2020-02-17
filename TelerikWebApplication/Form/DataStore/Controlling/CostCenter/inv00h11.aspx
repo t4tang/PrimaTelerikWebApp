@@ -28,7 +28,7 @@
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
-     <div style="overflow:auto">
+     <div class="scroller">
     <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
         ShowFooter ="true" 
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False" 
@@ -36,7 +36,7 @@
         OnDeleteCommand="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
          MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="CostCenter" MasterTableView-ClientDataKeyNames="CostCenter" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-        <MasterTableView>
+        <MasterTableView Font-Names="Calibri" Font-Size="13px">
             <Columns>
            <%-- <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" AllowFiltering="False" 
                 ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
