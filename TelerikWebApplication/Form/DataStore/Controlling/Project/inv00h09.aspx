@@ -47,17 +47,17 @@
         OnDeleteCommand="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
          MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="region_code" MasterTableView-ClientDataKeyNames="region_code" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-        <MasterTableView>
+        <MasterTableView Font-Names="Calibri" Font-Size="13px">
             <Columns>
            
                 <telerik:GridEditCommandColumn UniqueName ="EditCommandColumn">
-                    <HeaderStyle Width ="20px" ></HeaderStyle>
+                    <HeaderStyle Width ="30px" ></HeaderStyle>
                 </telerik:GridEditCommandColumn>
                  <telerik:GridBoundColumn HeaderText ="Code" DataField ="region_code" >
-                    <HeaderStyle Width ="200px" > </HeaderStyle>
+                    <HeaderStyle Width ="70px" > </HeaderStyle>
                 </telerik:GridBoundColumn>
                  <telerik:GridBoundColumn HeaderText ="Project Area" DataField ="region_name" >
-                    <HeaderStyle Width ="420px" > </HeaderStyle>
+                    <HeaderStyle Width ="720px" > </HeaderStyle>
                 </telerik:GridBoundColumn>
                
                 <telerik:GridButtonColumn UniqueName ="DeleteColumn" Text ="Delete" CommandName="Delete" HeaderStyle-Width="30px"

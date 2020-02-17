@@ -35,10 +35,8 @@
         MasterTableView-ClientDataKeyNames="KdLok" MasterTableView-CommandItemDisplay="Top" 
         AllowPaging="true" AllowSorting="true" OnNeedDataSource="RadGrid1_NeedDataSource" 
         OnDeleteCommand="RadGrid1_DeleteCommand" OnInsertCommand="RadGrid1_InsertCommand" 
-        OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated"
-        >
-
-        <MasterTableView>
+        OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated" >
+        <MasterTableView Font-Size="13px" Font-Names="Calibri">
             <Columns>
                 <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                     <HeaderStyle Height="30px" />
@@ -112,7 +110,7 @@
                             <td ></td>
                             <td></td>                                                                                                                                                                                                                                                                   
                         <tr>
-                            <td align="right" colspan="2">
+                            <td colspan="2" style="padding:10px 0px 10px 0px">
                                 <asp:Button ID="btnupdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' 
                                     runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' />                                                                               
                                 <asp:Button ID="btncancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />
