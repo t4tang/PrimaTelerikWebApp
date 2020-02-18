@@ -19,7 +19,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         private const int ItemsPerRequest = 10;
-        int type_out;
+        //int type_out;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -278,6 +278,19 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 (sender as RadComboBox).SelectedValue = dr["prod_code"].ToString();
             dr.Close();
             con.Close();
+        }
+
+        protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditableItem & e.Item.IsInEditMode)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+                TextBox txt = (item.FindControl("txt_code") as TextBox);
+                if (e.Item.OwnerTableView.IsItemInserted)
+                    txt.Enabled = true;
+                else
+                    txt.Enabled = false;
+            }
         }
     }
 }
