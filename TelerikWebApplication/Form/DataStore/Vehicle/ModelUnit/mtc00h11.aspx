@@ -29,7 +29,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="overflow:auto">
+    <div class="scroller">
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" OnNeedDataSource="RadGrid1_NeedDataSource" 
             ShowFooter="true" AllowPaging="true" AllowSorting="true" 
             AutoGenerateColumns="false" MasterTableView-DataKeyNames="model_no" MasterTableView-ClientDataKeyNames="model_no" 

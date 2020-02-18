@@ -13,6 +13,15 @@ namespace TelerikWebApplication.Controls {
     public partial class FolderNavigationControl {
         
         /// <summary>
+        /// lbl_modul_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_modul_name;
+        
+        /// <summary>
         /// RadPanelBar1 control.
         /// </summary>
         /// <remarks>

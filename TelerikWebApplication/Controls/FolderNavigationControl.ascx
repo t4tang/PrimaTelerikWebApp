@@ -18,7 +18,19 @@
 </div>
 <div class="btn-new-node">Add New</div>--%>
 
-
+<telerik:RadLabel ID="lbl_modul_name" runat="server" style="font-weight: bold; font-variant: small-caps; padding-left:10px; 
+padding-bottom:5px; font-size:x-large; color:Highlight"></telerik:RadLabel>
  <telerik:RadPanelBar RenderMode="Lightweight" runat="server" ID="RadPanelBar1" AutoPostBack="false" BackColor="White" BorderWidth="0"
-    Height="99.5%" Width="238px" ExpandMode="FullExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick" ForeColor="#003366">
+    Height="100%" Width="237px" ExpandMode="FullExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick" 
+     ForeColor="#003366">
 </telerik:RadPanelBar>
+
+<%--<telerik:RadMenu RenderMode="Lightweight" runat="server" ID="RadMenu1" DataFieldID="menu_id" Height="550px"
+    DataFieldParentID="Parent_menu_id" DataTextField="menu_description" DataNavigateUrlField="menu_url" 
+    Style="z-index: 5" EnableRoundedCorners="true" Flow="Vertical" EnableShadows="true" EnableTextHTMLEncoding="true">
+</telerik:RadMenu>--%>
+
+<%--<asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString="<%$ ConnectionStrings:DbConString %>"
+    ProviderName="System.Data.SqlClient" SelectCommand="sp_get_user_menu_by_modul" SelectCommandType="StoredProcedure">
+    
+</asp:SqlDataSource>--%>

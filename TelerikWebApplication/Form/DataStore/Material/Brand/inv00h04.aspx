@@ -38,9 +38,6 @@
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
 
-    <telerik:RadFormDecorator RenderMode="Native" ID="RadFormDecorator1" runat="server" DecorationZoneID="demo" DecoratedControls="All" 
-        EnableRoundedCorners="false" Visible="false" />
-
     <div class="scroller">
         <!-- Page Content -->
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="true" Skin="MetroTouch"
@@ -48,8 +45,7 @@
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="true"
                 OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="brand_code" Font-Size="13px"
-                    EditFormSettings-PopUpSettings-KeepInScreenBounds="true">                        
+                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="brand_code" Font-Size="13px">                        
                     <Columns>
                         <telerik:GridEditCommandColumn UniqueName="EditCommandColumn"><HeaderStyle Width="20px"></HeaderStyle>
                         </telerik:GridEditCommandColumn>
@@ -64,14 +60,36 @@
                              <HeaderStyle Width="20px"></HeaderStyle>
                         </telerik:GridButtonColumn>
                     </Columns>
-                    <EditFormSettings UserControlName="Data_entry.ascx" EditFormType="WebUserControl">
-                        <EditColumn UniqueName="EditCommandColumn1">
-                        </EditColumn>
-                    </EditFormSettings>
-                </MasterTableView>
-                <ClientSettings>
-                    <ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" />
-                </ClientSettings>
+                     <EditFormSettings EditFormType="Template">
+                        <FormTemplate>
+                            <table cellspacing="4" cellpadding="5" width="100%" border="0" class="formTemplate_Table">
+                                <tr >
+                                    <td>Brand Code:
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txt_brand_code" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.brand_code") %>'>
+                                        </asp:TextBox>
+                                    </td>
+                                </tr>             
+                                <tr>
+                                    <td>Brand Name:
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txt_brand_name" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.brand_name") %>'>
+                                        </asp:TextBox>
+                                    </td>
+                                </tr> 
+                                 <tr>
+                               <td colspan="2" style="padding:10px 0px 10px 0px">
+                                  <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                              runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' />
+                                    &nbsp; <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />
+                               </td>
+                            </tr> 
+                            </table>
+                        </FormTemplate>
+                    </EditFormSettings>                    
+                </MasterTableView>                
         </telerik:RadGrid>
 
     </div>

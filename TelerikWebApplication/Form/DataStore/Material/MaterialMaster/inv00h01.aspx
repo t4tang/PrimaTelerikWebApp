@@ -53,10 +53,10 @@
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" Skin="MetroTouch"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated"
-                OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri"
+                OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" CssClass="RadGridFormTemplate" 
                  AllowFilteringByColumn="true" >
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Size="12px"
+                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Names="Calibri" Font-Size="13px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true">                        
                     <Columns>
                         <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
@@ -85,8 +85,7 @@
                    
                     <EditFormSettings EditFormType="Template">
                         <FormTemplate>
-                            <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" rules="none" 
-                                style="border-collapse: collapse; padding-left:35px; padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
+                            <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" rules="none" class="formTemplate_Table">
                                    
                                 <tr class="EditFormHeader">
                                     <td >
@@ -121,7 +120,7 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_uom" runat="server" Width="300" 
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.unit") %>'
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.unit") %>' OnPreRender="cb_uom_PreRender"
                                                         EmptyMessage="Select the UoM" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                                                         EnableVirtualScrolling="true" OnItemsRequested="cb_uom_ItemsRequested" DataValueField="unit" 
                                                         OnSelectedIndexChanged="cb_uom_SelectedIndexChanged">
@@ -133,7 +132,7 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_brand" Width="300" runat="server"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.brand_name") %>'
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.brand_name") %>' OnPreRender="cb_brand_PreRender"
                                                         EmptyMessage="Select the brand" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                                                         EnableVirtualScrolling="true" OnItemsRequested="cb_brand_ItemsRequested" OnSelectedIndexChanged="cb_brand_SelectedIndexChanged" >
                                                     </telerik:RadComboBox>
@@ -144,7 +143,7 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_category" runat="server" Width="300"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.kind_name") %>'
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.kind_name") %>' OnPreRender="cb_category_PreRender"
                                                         EmptyMessage="Select the category" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                                                         EnableVirtualScrolling="true" OnItemsRequested="cb_category_ItemsRequested" OnSelectedIndexChanged="cb_category_SelectedIndexChanged" >
                                                     </telerik:RadComboBox>
@@ -155,7 +154,7 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_group" runat="server" Width="300"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.group_name") %>'
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.group_name") %>' OnPreRender="cb_group_PreRender"
                                                         EmptyMessage="Select the group" EnableLoadOnDemand="True" ShowMoreResultsBox="true"
                                                         EnableVirtualScrolling="true" OnItemsRequested="cb_group_ItemsRequested" OnSelectedIndexChanged="cb_group_SelectedIndexChanged" >
                                                     </telerik:RadComboBox>
@@ -169,7 +168,7 @@
                                                 <td>
                                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_st_main" runat="server" 
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.stMain") %>' 
-                                                        AutoPostBack="false" Width="300px" AllowCustomText="false"
+                                                        AutoPostBack="false" Width="300px" AllowCustomText="false" OnPreRender="cb_st_main_PreRender"
                                                         EmptyMessage="Select the status maintenance" EnableLoadOnDemand="True" ShowMoreResultsBox="True"
                                                         EnableVirtualScrolling="true" OnItemsRequested="cb_st_main_ItemsRequested" >
 
@@ -274,13 +273,8 @@
                                     <td colspan="2"></td>
                                 </tr>
 
-                                <tr>
-                                    <td class="auto-style1"></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td align="right" colspan="2" style="padding-bottom:5px">
+                                <tr >
+                                    <td colspan="2" style="padding:10px 0px 10px 0px">
                                         <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                             runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'></asp:Button>&nbsp;
                                         <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"

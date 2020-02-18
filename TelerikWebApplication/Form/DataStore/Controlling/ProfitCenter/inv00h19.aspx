@@ -28,7 +28,7 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="overflow:auto">
+    <div class="scroller">
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" ShowFooter="true" AutoGenerateColumns="false" 
             MasterTableView-DataKeyNames="ProfitCtr" MasterTableView-ClientDataKeyNames="ProfitCtr" MasterTableView-CommandItemDisplay="Top" 
             AllowPaging="true" AllowSorting="true" OnNeedDataSource="RadGrid1_NeedDataSource" 

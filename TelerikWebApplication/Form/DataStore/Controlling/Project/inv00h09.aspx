@@ -39,29 +39,25 @@
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
-     <div style="overflow:auto">
-    <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
+    <div class="scroller">
+        <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
         ShowFooter ="true" 
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
          OnNeedDataSource ="RadGrid1_NeedDataSource"   OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
         OnDeleteCommand="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
          MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="region_code" MasterTableView-ClientDataKeyNames="region_code" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-        <MasterTableView>
+        <MasterTableView Font-Names="Calibri" Font-Size="13px">
             <Columns>
-           <%-- <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" AllowFiltering="False" 
-                ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
-                <ItemTemplate>
-                <asp:LinkButton ID="EditLink" runat="server" Text="Edit"></asp:LinkButton>
-                    </ItemTemplate> </telerik:GridTemplateColumn>--%>
+           
                 <telerik:GridEditCommandColumn UniqueName ="EditCommandColumn">
-                    <HeaderStyle Width ="20px" ></HeaderStyle>
+                    <HeaderStyle Width ="30px" ></HeaderStyle>
                 </telerik:GridEditCommandColumn>
                  <telerik:GridBoundColumn HeaderText ="Code" DataField ="region_code" >
-                    <HeaderStyle Width ="200px" > </HeaderStyle>
+                    <HeaderStyle Width ="70px" > </HeaderStyle>
                 </telerik:GridBoundColumn>
                  <telerik:GridBoundColumn HeaderText ="Project Area" DataField ="region_name" >
-                    <HeaderStyle Width ="420px" > </HeaderStyle>
+                    <HeaderStyle Width ="720px" > </HeaderStyle>
                 </telerik:GridBoundColumn>
                
                 <telerik:GridButtonColumn UniqueName ="DeleteColumn" Text ="Delete" CommandName="Delete" HeaderStyle-Width="30px"
@@ -121,5 +117,5 @@
             </EditFormSettings>     
         </MasterTableView>
     </telerik:RadGrid>
-         </div>
+    </div>
 </asp:Content>

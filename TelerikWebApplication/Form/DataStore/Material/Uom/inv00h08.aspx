@@ -10,8 +10,7 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div style="overflow:auto">
+    <div class="scroller">
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" AutoGenerateColumns="false"
             ShowFooter="True" MasterTableView-AllowFilteringByColumn="true" AllowSorting="True" 
             MasterTableView-DataKeyNames="unit_code" MasterTableView-ClientDataKeyNames="unit_code"
@@ -81,7 +80,7 @@
                                 </td>
                             </tr>--%>
                             <tr>
-                                 <td align="right" colspan="2">
+                                 <td colspan="2" style="padding:10px 0px 10px 0px">
                                      <asp:Button ID="btnupdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' 
                                          runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' />                                                                               
                                      <asp:Button ID="btncancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />
@@ -97,7 +96,6 @@
             <Windows>
                 <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog" runat="server" Title="Editing Record"
                      Height="490px" Width="850px" Left="150px" ReloadOnShow="true" ShowContentDuringLoad="false" Modal="true">
-
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
