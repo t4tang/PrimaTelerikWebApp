@@ -243,7 +243,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             if (e.Item is GridEditableItem & e.Item.IsInEditMode)
             {
                 GridEditFormItem item = (GridEditFormItem)e.Item;
-                TextBox txt = (item.FindControl("txt_activity") as TextBox);
+                RadTextBox txt = (item.FindControl("txt_activity") as RadTextBox);
                 if (e.Item.OwnerTableView.IsItemInserted)
                     txt.Enabled = true;
                 else

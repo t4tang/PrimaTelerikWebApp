@@ -1,7 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv00h06.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Material.ServiceMaster.inv00h06" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../../../../Styles/common.css" rel="stylesheet" />
+    <link href="../../../../Styles/mail.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
+    <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
+    <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
@@ -20,11 +24,11 @@
     </telerik:RadAjaxManager>
     <telerik:RadAjaxLoadingPanel runat="server" ID="GridLoadingPanel1">
     </telerik:RadAjaxLoadingPanel>
-    <div class="scroller" style="position:inherit">
+    <div class="scroller">
         <%--PAGE CONTENT--%>
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="true" ShowFooter="true" AllowSorting="true"
                          AutoGenerateColumns="false" OnDeleteCommand="RadGrid1_DeleteCommand" Skin="MetroTouch" AllowFilteringByColumn="true" OnNeedDataSource="RadGrid1_NeedDataSource"
-                         OnUpdateCommand="RadGrid1_UpdateCommand" BorderStyle="Solid" Font-Names="Calibri" OnInsertCommand="RadGrid1_InsertCommand" OnItemCreated="RadGrid1_ItemCreated">
+                         OnUpdateCommand="RadGrid1_UpdateCommand" Font-Names="Calibri" OnInsertCommand="RadGrid1_InsertCommand" OnItemCreated="RadGrid1_ItemCreated">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
             <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="prod_code" Width="100%" Font-Size="13px" 
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true">

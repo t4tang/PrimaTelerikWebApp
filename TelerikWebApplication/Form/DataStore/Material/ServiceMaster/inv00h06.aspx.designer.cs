@@ -13,6 +13,24 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster {
     public partial class inv00h06 {
         
         /// <summary>
+        /// FolderNavigationControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TelerikWebApplication.Controls.FolderNavigationControl FolderNavigationControl;
+        
+        /// <summary>
+        /// MobileNavigation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TelerikWebApplication.Controls.MobileNavigation MobileNavigation;
+        
+        /// <summary>
         /// RadAjaxManager1 control.
         /// </summary>
         /// <remarks>
