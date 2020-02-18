@@ -94,11 +94,12 @@ namespace TelerikWebApplication.Form.DataStore.Support.Currency
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h03 (cur_code, cur_name, lastupdate, userid, stEdit, disp_name) " +
-                                "VALUES (@cur_code, @cur_name, getdate(), @userid, @stEdit, @disp_name)";
+            cmd.CommandText = "INSERT INTO acc00h03 (cur_code, cur_name, lastupdate, userid, stEdit, disp_name, owner, stamp) " +
+                                "VALUES (@cur_code, @cur_name, getdate(), @userid, @stEdit, @disp_name, @owner, getdate())";
             cmd.Parameters.AddWithValue("@cur_code", (item.FindControl("txt_cur_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@cur_name", (item.FindControl("txt_cur_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+            cmd.Parameters.AddWithValue("@owner", public_str.user_id);
             cmd.Parameters.AddWithValue("@stEdit", "0");
             cmd.Parameters.AddWithValue("@disp_name", (item.FindControl("txt_display") as RadTextBox).Text);
             cmd.ExecuteNonQuery();
