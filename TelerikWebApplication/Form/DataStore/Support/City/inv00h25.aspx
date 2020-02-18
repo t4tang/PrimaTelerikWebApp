@@ -47,7 +47,9 @@
                      <telerik:GridBoundColumn HeaderText ="City" DataField ="city_name" >
                         <HeaderStyle Width ="420px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
-               
+                    <telerik:GridBoundColumn HeaderText ="Province" DataField ="prov_name" >
+                        <HeaderStyle Width ="420px" > </HeaderStyle>
+                    </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName ="DeleteColumn" Text ="Delete" CommandName="Delete" HeaderStyle-Width="30px"
                         ConfirmText="Delete This Product?" ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="FontIconButton">
                         <HeaderStyle Width="30px"></HeaderStyle>
