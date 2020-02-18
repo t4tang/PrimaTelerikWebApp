@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Finance.BankCode {
+namespace TelerikWebApplication.Form.DataStore.Support.ManPower {
     
     
-    public partial class acc00h01 {
+    public partial class inv00h26 {
         
         /// <summary>
         /// FolderNavigationControl control.

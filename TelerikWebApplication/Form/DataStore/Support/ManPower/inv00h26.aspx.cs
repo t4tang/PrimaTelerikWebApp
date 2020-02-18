@@ -9,9 +9,9 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
+namespace TelerikWebApplication.Form.DataStore.Support.ManPower
 {
-    public partial class acc00h01 : System.Web.UI.Page
+    public partial class inv00h26 : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
@@ -36,10 +36,15 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT acc00h01.KoBank, acc00h01.NamBank, acc00h01.NamaRek, acc00h01.NoRek, acc00h01.status, acc00h01.KoRek, acc00h01.SAwal,acc00h01.SAValas, " +
-            "acc00h01.Lvl, acc00h01.Stamp,acc00h01.Usr,acc00h01.Owner,acc00h01.LastUpdate ,acc00h01.stEdit, acc00h10.accountname, acc00h10.cur_code, " +
-            "(select region_name from inv00h09 where region_code = acc00h01.region_code ) as project_name " +
-            "FROM acc00h01, acc00h10  WHERE(acc00h01.KoRek = acc00h10.accountno) and((acc00h01.stEdit = '0'))  ";
+            cmd.CommandText = "SELECT inv00h26.Nik, inv00h26.Name, inv00h26.Jabatan, inv00h26.EmpNo, inv00h26.poh_code, inv00h26.tgl_terima, " +
+            "inv00h26.pos_price, inv00h26.region_code, inv00h26.dept_code, inv00h26.kpj_no, inv00h26.npwp, " +
+            "inv00h26.stGender, (CASE inv00h26.stGender WHEN 'M' THEN 'Male' WHEN 'F' THEN 'Female'END) AS stGenderDesc, " +
+            "inv00h26.stMarital, inv00h26.stEmployee, (CASE inv00h26.stEmployee WHEN '1' THEN 'Permanen' WHEN '2' THEN 'Percobaan' " +
+            "WHEN '3' THEN 'Harian' WHEN '4' THEN 'Kontrak'END) AS stEmployeeDesc, inv00h10.dept_name, inv00h25.city_name," +
+            "inv00h26.status,(CASE inv00h26.status WHEN '1' THEN 'Active' WHEN '2' THEN 'Resign' WHEN '3' THEN 'PHK' WHEN '4' THEN 'Mutasi' " +
+            "END) AS statusDesc, (SELECT region_name FROM inv00h09 WHERE region_code = inv00h26.region_code) AS region_name, inv00h26.remark " +
+            "FROM inv00h26, inv00h10, inv00h25 WHERE inv00h26.stEdit <> '4' AND inv00h10.dept_code = inv00h26.dept_code " +
+            " AND inv00h25.city_code = inv00h26.poh_code";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -127,74 +132,14 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
 
         }
 
-        protected void RadGrid1_UpdateCommand(object source, GridCommandEventArgs e)
+        protected void RadGrid1_UpdateCommand(object sender, GridCommandEventArgs e)
         {
-            try
-            {
-                if (e.CommandName == RadGrid.UpdateCommandName)
-                {
-                    if (e.Item is GridEditFormItem)
-                    {
-                        GridEditFormItem item = (GridEditFormItem)e.Item;
-
-                        cmd = new SqlCommand("update inv00h02 set kind_name = @kind_name, prod_type_code = @prod_type_code, " +
-                                "StMain = CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' " +
-                                "ELSE '2' END, LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code", con);
-                        con.Open();
-                        cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("txt_kind_code") as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@kind_name", (item.FindControl("txt_kind_name") as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@prod_type_code", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
-                        cmd.Parameters.AddWithValue("@stMain", (item.FindControl("cb_st_main") as RadComboBox).Text);
-                        cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                    }
-                }
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data updated successfully";
-                lblsuccess.ForeColor = System.Drawing.Color.Blue;
-                RadGrid1.Controls.Add(lblsuccess);
-            }
-
-            catch (Exception ex)
-            {
-                con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to update data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
-                e.Canceled = true;
-            }
-        }
-
-        protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
-        {
-            var kind_code = ((GridDataItem)e.Item).GetDataKeyValue("kind_code");
-
-            try
-            {
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = con;
-                cmd.CommandText = "update inv00h02 set stEdit = '4', LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code";
-                cmd.Parameters.AddWithValue("@kind_code", kind_code);
-                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
-                e.Canceled = true;
-            }
 
         }
 
+        protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
     }
 }
