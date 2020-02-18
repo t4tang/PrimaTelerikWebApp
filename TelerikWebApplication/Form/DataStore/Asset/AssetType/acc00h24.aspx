@@ -28,7 +28,7 @@
         <%--PAGE CONTENT--%>
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="true" ShowFooter="true" AllowSorting="true"
                          AutoGenerateColumns="false" Skin="MetroTouch" AllowFilteringByColumn="true" Font-Names="Calibri" OnDeleteCommand="RadGrid1_DeleteCommand"
-                         OnNeedDataSource="RadGrid1_NeedDataSource" OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand">
+                         OnNeedDataSource="RadGrid1_NeedDataSource" OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
             <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="AK_GROUP" Font-Size="13px" 
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
