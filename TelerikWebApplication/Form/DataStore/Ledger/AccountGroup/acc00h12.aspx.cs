@@ -31,9 +31,9 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT     acc00h12.accountgroup, acc00h12.groupname, acc00h12.sub_acc_cat, CASE acc00h12.balance WHEN 'D' THEN 'DEBET' ELSE 'KREDIT' END AS balance " +
+            cmd.CommandText = "SELECT     acc00h12.accountgroup, acc00h12.groupname, acc00h18.name, CASE acc00h12.balance WHEN 'D' THEN 'DEBET' ELSE 'KREDIT' END AS balance " +
                                " FROM acc00h12 INNER JOIN " +
-                                " acc00h18 ON acc00h12.groupname = acc00h18.name WHERE acc00h12.stEdit !=4";
+                                " acc00h18 ON acc00h12.sub_acc_cat = acc00h18.code WHERE acc00h12.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -63,7 +63,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update acc00h18 SET stEdit = 4 where accountgroup = @accountgroup";
+            cmd.CommandText = "Update acc00h12 SET stEdit = 4 where accountgroup = @accountgroup";
             cmd.Parameters.AddWithValue("@accountgroup", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -77,11 +77,11 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "INSERT INTO acc00h12 (accountgroup,groupname,balance,sub_acc_cat,lastupdate,userid,stEdit) " +
-                                "VALUES (@accountgroup,@groupname, CASE @balance WHEN 'Debet' THEN 'D' " +
-                                "ELSE 'Kredit' END, @sub_acc_cat, getdate(),@userid,'0')";
+                                "VALUES (@accountgroup,@groupname, CASE @balance WHEN 'D' THEN 'Debet' " +
+                                "ELSE 'K' END, @sub_acc_cat, getdate(),@userid,'0')";
             cmd.Parameters.AddWithValue("@accountgroup", (item.FindControl("txt_account") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@groupname", (item.FindControl("txt_gp_name") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@balance", (item.FindControl("cb_balance") as RadComboBox).Text);
+            cmd.Parameters.AddWithValue("@balance", (item.FindControl("cb_balance") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@sub_acc_cat", (item.FindControl("cb_sub") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -96,7 +96,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "UPDATE acc00h12 SET groupname = @groupname, balance = CASE @balance " +
-                                " WHEN 'Debet' THEN 'D' ELSE 'kREDIT' END, sub_acc_cat = @sub_acc_cat, LastUpdate = getdate(), userid = @userid WHERE accountgroup = @accountgroup";
+                                " WHEN 'D' THEN 'Debet' ELSE 'K' END, sub_acc_cat = @sub_acc_cat, LastUpdate = getdate(), userid = @userid WHERE accountgroup = @accountgroup";
             cmd.Parameters.AddWithValue("@accountgroup", (item.FindControl("txt_account") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@groupname", (item.FindControl("txt_gp_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@balance", (item.FindControl("cb_balance") as RadComboBox).Text);
@@ -121,7 +121,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
 
         private static DataTable Getacc00h18(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT code, name FROM inv00h18 where name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT code, name FROM acc00h18 where name LIKE @text + '%'",
              ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -150,7 +150,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT code FROM inv00h18 WHERE name = '" + (sender as RadComboBox).SelectedValue + "'";
+            cmd.CommandText = "SELECT code FROM acc00h18 WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
