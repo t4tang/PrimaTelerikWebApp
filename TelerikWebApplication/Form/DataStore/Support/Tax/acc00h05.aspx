@@ -53,7 +53,7 @@
                      <telerik:GridBoundColumn HeaderText ="Account No" DataField ="REK_LEDG" >
                         <HeaderStyle Width ="420px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn HeaderText ="Account Name" DataField ="accountname" >
+                     <telerik:GridBoundColumn HeaderText ="Account Name" DataField ="REK_LEDGname" >
                         <HeaderStyle Width ="420px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName ="DeleteColumn" Text ="Delete" CommandName="Delete" HeaderStyle-Width="30px"
@@ -97,8 +97,8 @@
                                     Prepaid:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_prepaid" runat="server" RenderMode="Lightweight" Width ="200px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.REK_LEDG") %>' 
+                                    <telerik:RadComboBox ID="cb_prepaid" runat="server" RenderMode="Lightweight" Width ="400px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.REK_LEDGname") %>' 
                                          OnItemsRequested ="cb_prepaid_ItemsRequested" OnSelectedIndexChanged ="cb_prepaid_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_prepaid_PreRender"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
@@ -112,8 +112,8 @@
                                     Payable:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_payable" runat="server" RenderMode="Lightweight" Width ="200px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.REK_OUT") %>' 
+                                    <telerik:RadComboBox ID="cb_payable" runat="server" RenderMode="Lightweight" Width ="400px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.REK_OUTname") %>' 
                                          OnItemsRequested ="cb_payable_ItemsRequested" OnSelectedIndexChanged ="cb_payable_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_payable_PreRender"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
