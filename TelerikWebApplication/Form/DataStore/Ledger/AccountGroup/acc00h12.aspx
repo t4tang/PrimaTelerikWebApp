@@ -52,7 +52,7 @@
                      <telerik:GridBoundColumn HeaderText="Balance" DataField="balance">
                         <HeaderStyle Width="150px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderText="Sub Category" DataField="sub_acc_cat">
+                    <telerik:GridBoundColumn HeaderText="Sub Category" DataField="name">
                         <HeaderStyle Width="300px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText="Sub Category Name" DataField="sub_cat" Visible="false">
@@ -112,8 +112,8 @@
                                             <td>
                                                 <telerik:RadComboBox ID="cb_sub" runat="server" RenderMode="Lightweight" Width="200px" EnableLoadOnDemand="true" 
                                                     ShowDropDownOnTextboxClick="true" EnableVirtualScrolling="true" ShowMoreResultsBox="true" Height="200" MarkFirstMatch="true" 
-                                                    OnItemsRequested="cb_sub_ItemsRequested" OnSelectedIndexChanged="cb_sub_SelectedIndexChanged"
-                                                    Text='<%# DataBinder.Eval(Container, "DataItem.sub_acc_cat") %>' OnPreRender="cb_sub_PreRender" >
+                                                    OnItemsRequested="cb_sub_ItemsRequested" OnSelectedIndexChanged="cb_sub_SelectedIndexChanged" AutoPostBack="false"
+                                                    Text='<%# DataBinder.Eval(Container, "DataItem.name") %>' OnPreRender="cb_sub_PreRender" >
                                                 </telerik:RadComboBox> 
                                             </td>
                                         </tr>
