@@ -35,7 +35,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select acc00h10.accountgroup, acc00h10.accountno, acc00h10.accountname, acc00h03.cur_name, acc00h10.Budged, case acc00h12.balance when 'D' Then 'Debet' else 'Kredit' End as balance from acc00h10 INNER JOIN acc00h12 ON acc00h12.accountgroup = acc00h10.accountgroup " +
+            cmd.CommandText = "select acc00h10.accountgroup + ' ' + acc00h12.groupname as groupname, acc00h10.accountno, acc00h10.accountname, acc00h03.cur_name, acc00h10.Budged, case acc00h12.balance when 'D' Then 'Debet' else 'Kredit' End as balance from acc00h10 INNER JOIN acc00h12 ON acc00h12.accountgroup = acc00h10.accountgroup " +
                " INNER JOIN acc00h03 ON acc00h03.cur_code = acc00h10.cur_code where acc00h10.stedit != 4";
 
             cmd.CommandTimeout = 0;
@@ -57,7 +57,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
 
         private static DataTable Getacc00h12(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountgroup, groupname from acc00h12 where accountgroup like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountgroup, acc00h10.accountgroup + ' ' + acc00h12.groupname as groupname from acc00h12 where accountgroup like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -159,13 +159,14 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["accountgroup"].ToString(), data.Rows[i]["accountgroup"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["groupname"].ToString(), data.Rows[i]["groupname"].ToString()));
             }
         }
 
         private static DataTable Getaccountgroup(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountgroup, groupname from acc00h12 where accountgroup like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountgroup +' '+ groupname as groupname from acc00h12 where stEdit != 4 " +
+                " AND accountgroup +' '+ groupname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -181,7 +182,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountgroup from acc00h12 where accountgroup = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountgroup from acc00h12 WHERE accountgroup +' '+ groupname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -196,7 +197,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountgroup from acc00h12 where accountgroup = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountgroup from acc00h12 WHERE accountgroup +' '+ groupname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
