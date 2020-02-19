@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -37,8 +38,8 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "SELECT acc00h01.KoBank, acc00h01.NamBank, acc00h01.NamaRek, acc00h01.NoRek, acc00h01.status, acc00h01.KoRek, acc00h01.SAwal,acc00h01.SAValas, " +
-            "acc00h01.Lvl, acc00h01.Stamp,acc00h01.Usr,acc00h01.Owner,acc00h01.LastUpdate ,acc00h01.stEdit, acc00h10.accountname, acc00h10.cur_code, " +
-            "(select region_name from inv00h09 where region_code = acc00h01.region_code ) as project_name " +
+            "acc00h01.Lvl, acc00h01.Stamp,acc00h01.Usr,acc00h01.Owner,acc00h01.LastUpdate ,acc00h01.stEdit, acc00h10.accountname,accountno +' '+ accountname as accountComb, " +
+            "acc00h10.cur_code, (select region_name from inv00h09 where region_code = acc00h01.region_code ) as project_name, acc00h01.tLock " +
             "FROM acc00h01, acc00h10  WHERE(acc00h01.KoRek = acc00h10.accountno) and((acc00h01.stEdit = '0'))  ";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -68,11 +69,18 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             if (e.Item is GridEditableItem & e.Item.IsInEditMode)
             {
                 GridEditFormItem item = (GridEditFormItem)e.Item;
-                TextBox txt = (item.FindControl("txt_Code") as TextBox);
+                RadTextBox txt = (item.FindControl("txt_Code") as RadTextBox);
+                RadTextBox txtLvl = (item.FindControl("txt_level") as RadTextBox);
                 if (e.Item.OwnerTableView.IsItemInserted)
+                {
                     txt.Enabled = true;
+                    txtLvl.ReadOnly = true;
+                }
                 else
+                {
                     txt.Enabled = false;
+                    txtLvl.ReadOnly = false;
+                }
             }
         }
 
@@ -85,28 +93,19 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "INSERT INTO inv00h26(Nik, Name, Jabatan, EmpNo, Stamp, Usr, Owner, stEdit, poh_code, " +
-                    " dept_code, kpj_no, tgl_terima, region_code, NPWP, stGender, stEmployee, stMarital, remark, status)" +
-                    " VALUES(@Nik, @Name, @Jabatan, @EmpNo, @Stamp, @Usr, @Owner, 0, @poh_code, " +
-                    " @dept_code, @kpj_no, @tgl_terima, @region_code, @NPWP, @stGender, @stEmployee, @stMarital, @remark, @status)";
-                cmd.Parameters.AddWithValue("@Nik", (item.FindControl("txt_Code") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@Name", (item.FindControl("txt_kind_name") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@Jabatan", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@EmpNo", (item.FindControl("cb_st_main") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@Stamp", (item.FindControl("txt_kind_code") as RadTextBox).Text);
+                cmd.CommandText = "INSERT INTO acc00h01(KoBank, NamBank, NamaRek, NoRek, KoRek, Lvl, Stamp, Usr, Owner, LastUpdate, status, stEdit, region_code, tLock) " +
+                "VALUES (@KoBank,@NamBank,@NamaRek,@NoRek,@KoRek,@Lvl, GETDATE(),@Usr,@Owner, GETDATE(), @status, '0',@region_code, @tLock)";
+                cmd.Parameters.AddWithValue("@KoBank", (item.FindControl("txt_code") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@NamBank", (item.FindControl("txt_BankName") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@NamaRek", (item.FindControl("txt_nama_rek") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@NoRek", (item.FindControl("txt_account_no") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("cb_koRek") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-                cmd.Parameters.AddWithValue("@Owner", (item.FindControl("txt_kind_name") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@poh_code", (item.FindControl("txt_kind_code") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("txt_kind_name") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@kpj_no", (item.FindControl("txt_kind_code") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@tgl_terima", (item.FindControl("txt_kind_name") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("txt_kind_name") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@NPWP", (item.FindControl("txt_kind_code") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@stGender", (item.FindControl("rb_gender") as RadioButtonList).SelectedValue);
-                cmd.Parameters.AddWithValue("@stEmployee", (item.FindControl("rb_EmpSts") as RadioButtonList).SelectedValue);
-                cmd.Parameters.AddWithValue("@stMarital", (item.FindControl("cb_maritalSts") as RadioButtonList).SelectedValue);
-                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_kind_code") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@status", (item.FindControl("txt_kind_name") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                cmd.Parameters.AddWithValue("@status", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
+                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@tLock", (item.FindControl("chk_unlock") as CheckBox).Checked ? 1 : 0);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -137,15 +136,20 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
                     {
                         GridEditFormItem item = (GridEditFormItem)e.Item;
 
-                        cmd = new SqlCommand("update inv00h02 set kind_name = @kind_name, prod_type_code = @prod_type_code, " +
-                                "StMain = CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' " +
-                                "ELSE '2' END, LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code", con);
+                        cmd = new SqlCommand("UPDATE acc00h01 SET NamBank = @NamBank, NamaRek = @NamaRek, NoRek = @NoRek, KoRek = @KoRek, Lvl = @Lvl, Stamp = GETDATE(),  " +
+                                "Usr = @Usr, [Owner] = @Owner, LastUpdate = GETDATE(), [status] = @status, stEdit = '0', region_code = @region_code, tLock = @tLock WHERE KoBank = @KoBank", con);
                         con.Open();
-                        cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("txt_kind_code") as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@kind_name", (item.FindControl("txt_kind_name") as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@prod_type_code", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
-                        cmd.Parameters.AddWithValue("@stMain", (item.FindControl("cb_st_main") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@KoBank", (item.FindControl("txt_code") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@NamBank", (item.FindControl("txt_BankName") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@NamaRek", (item.FindControl("txt_nama_rek") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@NoRek", (item.FindControl("txt_account_no") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("cb_koRek") as RadComboBox).SelectedValue);
                         cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                        cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                        cmd.Parameters.AddWithValue("@status", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
+                        cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                        cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project") as RadComboBox).SelectedValue);
+                        cmd.Parameters.AddWithValue("@tLock", (item.FindControl("chk_unlock") as CheckBox).Checked ? 1 : 0);
                         cmd.ExecuteNonQuery();
                         con.Close();
                     }
@@ -169,7 +173,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
 
         protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
         {
-            var kind_code = ((GridDataItem)e.Item).GetDataKeyValue("kind_code");
+            var KoBank = ((GridDataItem)e.Item).GetDataKeyValue("KoBank");
 
             try
             {
@@ -177,8 +181,8 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update inv00h02 set stEdit = '4', LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code";
-                cmd.Parameters.AddWithValue("@kind_code", kind_code);
+                cmd.CommandText = "UPDATE acc00h01 SET Usr = @Usr, LastUpdate = GETDATE(), stEdit = '4' WHERE (KoBank = @KoBank)";
+                cmd.Parameters.AddWithValue("@KoBank", KoBank);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -195,6 +199,154 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             }
 
         }
+        public static DataTable GetProject(string Text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_name, region_code from inv00h09 where stEdit != 4 AND region_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_project_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetProject(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+
+            }
+            e.Message = GetStatusMessage(endOffset, data.Rows.Count);
+        }
+
+        protected void cb_project_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["region_code"].ToString();
+            dr.Close();
+            con.Close();
+        }
+        protected void cb_project_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["region_code"].ToString();
+            dr.Close();
+            con.Close();
+        }
+        public static DataTable GetAccount(string Text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+                " AND accountno +' '+ accountname LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_nama_rek_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetAccount(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["accountname"].ToString(), data.Rows[i]["accountname"].ToString()));
+
+            }
+            e.Message = GetStatusMessage(endOffset, data.Rows.Count);
+        }
+
+        protected void cb_nama_rek_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["accountno"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        private void getAccInfo(string accNo)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM acc00h10 WHERE accountno = @accountno", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@accountno", accNo);
+
+
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                //GridEditableItem item = RadGrid1.EditItems;
+                foreach (GridEditableItem item in RadGrid1.EditItems)
+                {
+                    RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+                    //txtCurr.Text = dr["cur_code"].ToString();
+                    txtCurr.Text = "Tess";
+                }
+                
+            }
+        }
+
+        protected void cb_koRek_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["accountno"].ToString();
+            dr.Close();
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr1 in dt.Rows)
+            {
+                RadComboBox cb = (RadComboBox)sender;
+                GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                RadTextBox txtCurr = (RadTextBox)item.FindControl("txt_cur");
+                //RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+                txtCurr.Text = dr1["cur_code"].ToString();
+            }
+            con.Close();
+        }
     }
 }
