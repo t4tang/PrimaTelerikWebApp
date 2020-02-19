@@ -16,15 +16,15 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
+            <telerik:AjaxSetting AjaxControlID="cb_koRek">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="txt_ko_rek" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
-    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" RenderMode="Lightweight">
     </telerik:RadAjaxLoadingPanel>
 
     <div class="scroller">        
@@ -42,25 +42,25 @@
                         <HeaderStyle Width ="15px" ></HeaderStyle>
                     </telerik:GridEditCommandColumn>
                      <telerik:GridBoundColumn HeaderText ="Code" DataField ="KoBank" >
-                        <HeaderStyle Width ="50px" > </HeaderStyle>
+                        <HeaderStyle Width ="30px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn HeaderText ="Bank Name" DataField ="NamBank" >
-                        <HeaderStyle Width ="250px" > </HeaderStyle>
+                        <HeaderStyle Width ="290px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn HeaderText ="Account Name" DataField ="NamaRek" >
-                        <HeaderStyle Width ="250px" > </HeaderStyle>
+                        <HeaderStyle Width ="290px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn HeaderText ="Account No" DataField ="NoRek" >
-                        <HeaderStyle Width ="180px" > </HeaderStyle>
+                        <HeaderStyle Width ="120px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText ="Account Ledger" DataField ="KoRek" >
-                        <HeaderStyle Width ="180px" > </HeaderStyle>
+                        <HeaderStyle Width ="120px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText ="Account Ledger Name" DataField ="accountname">
-                        <HeaderStyle Width ="280px" > </HeaderStyle>
+                        <HeaderStyle Width ="350px" > </HeaderStyle>
                     </telerik:GridBoundColumn> 
                     <telerik:GridBoundColumn HeaderText ="Curency" DataField ="cur_code" >
-                        <HeaderStyle Width ="80px" > </HeaderStyle>
+                        <HeaderStyle Width ="50px" > </HeaderStyle>
                     </telerik:GridBoundColumn>    
                                    
                     <telerik:GridButtonColumn UniqueName ="DeleteColumn" Text ="Delete" CommandName="Delete" HeaderStyle-Width="30px"
@@ -72,28 +72,34 @@
                     <FormTemplate>
                         <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" style="border-collapse: collapse; padding-left:35px; 
                             padding-top:12px; padding-bottom:5px; background-color: #F0FFFE; margin:5px">
-                            <tr >
-                                <td>
-                                    Project:
-                                </td>
-                                <td>
-                                    <telerik:RadComboBox ID="cb_project" runat="server" RenderMode="Lightweight" Width ="250px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.project_name") %>'                                 
-                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                                         AutoPostBack="false" Skin ="MetroTouch"
-                                        Height="200" MarkFirstMatch="true">
-
-                                    </telerik:RadComboBox>
-                                </td>
-                                
-                            </tr>
                             <tr>
                                 <td>
                                     Code:
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_code" runat="server" Width="80px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.KoBank") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.KoBank") %>'  
+                                        AutoPostBack="false"></telerik:RadTextBox>
+                                     &nbsp;&nbsp
+                                    <asp:CheckBox ID="chk_active" Text="Active" runat="server" 
+                                     Checked='True'/>
+                                    &nbsp;&nbsp
+                                    <asp:CheckBox ID="chk_unlock" Text="Ulock" runat="server" 
+                                    Checked='False'/>
+                                </td>
+                                
+                            </tr>
+                            <tr >
+                                <td>
+                                    Project:
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox ID="cb_project" runat="server" RenderMode="Lightweight" Width ="250px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.project_name") %>'
+                                        OnItemsRequested="cb_project_ItemsRequested" OnPreRender="cb_project_PreRender" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"                                 
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true" AutoPostBack="false" Skin ="MetroTouch"
+                                        Height="200" MarkFirstMatch="true" EnableLoadOnDemand="True">                                        
+                                    </telerik:RadComboBox>
                                 </td>
                                 
                             </tr>
@@ -112,14 +118,10 @@
                                     Account Name:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_nama_rek" runat="server" RenderMode="Lightweight" Width ="250px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.NamaRek") %>' 
-                                
-                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                                         AutoPostBack="false" Skin ="MetroTouch"
-                                        Height="200" MarkFirstMatch="true">
-
-                                    </telerik:RadComboBox>
+                                    <telerik:RadTextBox ID="txt_nama_rek" runat="server" Width="250px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.NamaRek") %>' AutoPostBack="false">
+                                    </telerik:RadTextBox>
+                                    
                                 </td>
                                
                             </tr>
@@ -138,47 +140,42 @@
                                     Account Ledger:
                                 </td>
                                 <td >
-                                    <telerik:RadComboBox ID="cb_koRek" runat="server" RenderMode="Lightweight" Width ="250px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.KoRek") %>' 
-                                
+                                    <telerik:RadComboBox ID="cb_koRek" runat="server" RenderMode="Lightweight" Width ="450px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.accountComb") %>'
+                                        OnItemsRequested="cb_nama_rek_ItemsRequested" OnPreRender="cb_nama_rek_PreRender" 
+                                        OnSelectedIndexChanged="cb_koRek_SelectedIndexChanged"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                                         AutoPostBack="false" Skin ="MetroTouch"
+                                         AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true"
                                         Height="200" MarkFirstMatch="true">
                                     </telerik:RadComboBox>
                                 </td>
-                                <td>
-                                    <asp:CheckBox ID="chk_active" Text="Aktive" runat="server" />
-                                </td>
-                                <td>
-                                    <asp:CheckBox ID="chk_unlock" Text="Ulock" runat="server" />
-                                </td>
+                               
                             </tr>
-                            <tr>
+                           <%-- <tr>
                                 <td>
                                     
                                 </td>
                                 <td colspan="3">
-                                    <telerik:RadTextBox ID="txt_accountName" runat="server" Width="550px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.accountname") %>' AutoPostBack="false">
-                                    </telerik:RadTextBox>
+                                    <telerik:RadTextBox ID="txt_ko_rek" runat="server" Width="450px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.KoRek") %>' AutoPostBack="false">
+                                    </telerik:RadTextBox>                                          
                                 </td>
-                            </tr>
-                            <tr>
+                            </tr>--%>
+                            <tr style="text-align:left">
                                 <td>
                                     Currency :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_cur" runat="server" Width="350px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_cur" runat="server" Width="80px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.cur_code") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
-                                </td>                            
-                                <td>
+                                &nbsp;&nbsp
                                     Level:
-                                </td>
-                                <td>
+                                 &nbsp;&nbsp
                                     <telerik:RadTextBox ID="txt_level" runat="server" Width="50px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.lvl") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
+                                
                                 </td>
                             </tr>
                            
