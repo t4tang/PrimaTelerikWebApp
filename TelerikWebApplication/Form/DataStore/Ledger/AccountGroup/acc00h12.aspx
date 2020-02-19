@@ -131,7 +131,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td align="right" colspan="2">
+                                <td  colspan="2" style="padding-top:15px;padding-bottom:15px">
                                     <asp:Button ID="btnupdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' 
                                          runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' />                                                                               
                                      <asp:Button ID="btncancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />
