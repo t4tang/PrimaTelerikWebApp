@@ -55,9 +55,6 @@
                     <telerik:GridBoundColumn HeaderText="Sub Category" DataField="name">
                         <HeaderStyle Width="300px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderText="Sub Category Name" DataField="sub_cat" Visible="false">
-                        <HeaderStyle Width="300px" />
-                    </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName="Delete" CommandName="Delete" HeaderStyle-Width="35px" 
                         ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
                         <HeaderStyle Width="35px" />
@@ -99,8 +96,8 @@
                                             <td>Balance
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox ID="cb_balance" runat="server" RenderMode="Lightweight" Width="150px" EnableLoadOnDemand="true" 
-                                                    ShowDropDownOnTextboxClick="true" EnableVirtualScrolling="true" ShowMoreResultsBox="true" Height="200" MarkFirstMatch="true" 
+                                                <telerik:RadComboBox ID="cb_balance" runat="server" RenderMode="Lightweight" Width="200px" EnableLoadOnDemand="true" 
+                                                    ShowDropDownOnTextboxClick="true" EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true" 
                                                     OnItemsRequested="cb_balance_ItemsRequested" OnSelectedIndexChanged="cb_balance_SelectedIndexChanged" 
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.balance") %>' OnPreRender="cb_balance_PreRender">
                                                 </telerik:RadComboBox>
@@ -110,9 +107,9 @@
                                             <td>Sub Category
                                             </td>
                                             <td>
-                                                <telerik:RadComboBox ID="cb_sub" runat="server" RenderMode="Lightweight" Width="200px" EnableLoadOnDemand="true" 
+                                                <telerik:RadComboBox ID="cb_sub" runat="server" RenderMode="Lightweight" Width="250px" EnableLoadOnDemand="true" 
                                                     ShowDropDownOnTextboxClick="true" EnableVirtualScrolling="true" ShowMoreResultsBox="true" Height="200" MarkFirstMatch="true" 
-                                                    OnItemsRequested="cb_sub_ItemsRequested" OnSelectedIndexChanged="cb_sub_SelectedIndexChanged" AutoPostBack="false"
+                                                    OnItemsRequested="cb_sub_ItemsRequested" OnSelectedIndexChanged="cb_sub_SelectedIndexChanged" AutoPostBack="true"
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.name") %>' OnPreRender="cb_sub_PreRender" >
                                                 </telerik:RadComboBox> 
                                             </td>
@@ -131,7 +128,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td  colspan="2" style="padding-top:15px;padding-bottom:15px">
+                                <td align="right" colspan="2"  style="padding-top:10px">
                                     <asp:Button ID="btnupdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' 
                                          runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' />                                                                               
                                      <asp:Button ID="btncancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />

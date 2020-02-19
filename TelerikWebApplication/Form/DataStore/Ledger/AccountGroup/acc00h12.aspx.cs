@@ -77,8 +77,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "INSERT INTO acc00h12 (accountgroup,groupname,balance,sub_acc_cat,lastupdate,userid,stEdit) " +
-                                "VALUES (@accountgroup,@groupname, CASE @balance WHEN 'D' THEN 'Debet' " +
-                                "ELSE 'K' END, @sub_acc_cat, getdate(),@userid,'0')";
+                                "VALUES (@accountgroup,@groupname,  @balance, @sub_acc_cat, getdate(),@userid,'0')";
             cmd.Parameters.AddWithValue("@accountgroup", (item.FindControl("txt_account") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@groupname", (item.FindControl("txt_gp_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@balance", (item.FindControl("cb_balance") as RadComboBox).SelectedValue);
@@ -95,11 +94,11 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h12 SET groupname = @groupname, balance = CASE @balance " +
-                                " WHEN 'D' THEN 'Debet' ELSE 'K' END, sub_acc_cat = @sub_acc_cat, LastUpdate = getdate(), userid = @userid WHERE accountgroup = @accountgroup";
+            cmd.CommandText = "UPDATE acc00h12 SET groupname = @groupname, balance = @balance, sub_acc_cat = @sub_acc_cat, LastUpdate = getdate(), userid = @userid " + 
+                                "WHERE accountgroup = @accountgroup";
             cmd.Parameters.AddWithValue("@accountgroup", (item.FindControl("txt_account") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@groupname", (item.FindControl("txt_gp_name") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@balance", (item.FindControl("cb_balance") as RadComboBox).Text);
+            cmd.Parameters.AddWithValue("@balance", (item.FindControl("cb_balance") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@sub_acc_cat", (item.FindControl("cb_sub") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -144,19 +143,9 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             }
         }
 
-        protected void cb_sub_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void cb_sub_SelectedIndexChanged1(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT code FROM acc00h18 WHERE name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["code"].ToString();
-            dr.Close();
-            con.Close();
+            
         }
 
         protected void cb_sub_PreRender(object sender, EventArgs e)
@@ -176,6 +165,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
 
         protected void cb_balance_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
+            (sender as RadComboBox).Items.Clear();
             (sender as RadComboBox).Items.Add("Debet");
             (sender as RadComboBox).Items.Add("Kredit");
         }
@@ -188,7 +178,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             }
             else
             {
-                (sender as RadComboBox).Text = "Kredit";
+                (sender as RadComboBox).SelectedValue = "K";
             }
         }
 
@@ -200,8 +190,23 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             }
             else
             {
-                (sender as RadComboBox).Text = "Kredit";
+                (sender as RadComboBox).SelectedValue = "K";
             }
+        }
+
+        protected void cb_sub_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT code FROM acc00h18 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["code"].ToString();
+            dr.Close();
+            con.Close();
         }
     }
 }
