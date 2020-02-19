@@ -87,7 +87,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h10(accountno, accountname, Budged, accountgroup, cur_code, Stamp,Usr,Owner,stEdit) VALUES (@accountno, @accountname, @Budged, @accountgroup, @cur_code, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO acc00h10(accountno, accountname, Budged, accountgroup, cur_code, Stamp,Usr,Owner,stEdit) VALUES (@accountno, @accountname, @Budged, @accountgroup, @cur_code, getdate(),UPPER(@Usr),UPPER (@Owner),0)";
             cmd.Parameters.AddWithValue("@accountno", (item.FindControl("txt_accountno") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@accountname", (item.FindControl("txt_accountname") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Budged", (item.FindControl("txt_Budged") as RadTextBox).Text);
@@ -107,10 +107,10 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h10 set accountname = @accountname, Budged = @Budged, accountgroup = @accountgroup, cur_code = @cur_code, LastUpdate = getdate(), Usr = @Usr where accountno = @accountno";
+            cmd.CommandText = "UPDATE acc00h10 set accountname = @accountname, Budged = @Budged, accountgroup = @accountgroup, cur_code = @cur_code, LastUpdate = getdate(), Usr = UPPER(@Usr) where accountno = @accountno";
             cmd.Parameters.AddWithValue("@accountname", (item.FindControl("txt_accountname") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@accountno", (item.FindControl("txt_accountno") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@Budged", (item.FindControl("txt_Budged") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@Budged", Convert.ToDouble((item.FindControl("txt_Budged") as RadTextBox).Text));
             cmd.Parameters.AddWithValue("@accountgroup", (item.FindControl("cb_group") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@cur_code", (item.FindControl("cb_currency") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -138,8 +138,8 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             if (e.Item is GridEditableItem & e.Item.IsInEditMode)
             {
                 GridEditFormItem item = (GridEditFormItem)e.Item;
-                RadTextBox txt_Budget = (item.FindControl("txt_Budget") as RadTextBox);
-                txt_Budget.Text = "0";
+                RadTextBox txt_Budged = (item.FindControl("txt_Budged") as RadTextBox);
+                txt_Budged.Text = "0";
 
                 RadTextBox txt = (item.FindControl("txt_accountno") as RadTextBox);
                 if (e.Item.OwnerTableView.IsItemInserted)
@@ -237,7 +237,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cur_code from acc00h03 where cur_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cur_code from acc00h03 where cur_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -252,7 +252,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cur_code from acc00h03 where cur_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cur_code from acc00h03 where cur_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

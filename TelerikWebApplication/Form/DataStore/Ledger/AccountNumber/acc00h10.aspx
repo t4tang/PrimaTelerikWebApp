@@ -93,7 +93,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Tax:
+                                    Name:
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_accountname" runat="server" Width="250px" Enabled="true"
@@ -102,7 +102,7 @@
                             </tr>
                                <tr>
                                 <td>
-                                    Payable:
+                                    Currency:
                                 </td>
                                 <td>
                                     <telerik:RadComboBox ID="cb_currency" runat="server" RenderMode="Lightweight" Width ="200px"
@@ -120,7 +120,7 @@
                                     Budget:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_Budget" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_Budged" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.Budged") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>
