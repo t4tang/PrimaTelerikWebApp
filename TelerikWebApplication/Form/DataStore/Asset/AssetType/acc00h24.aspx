@@ -28,20 +28,24 @@
         <%--PAGE CONTENT--%>
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="true" ShowFooter="true" AllowSorting="true"
                          AutoGenerateColumns="false" Skin="MetroTouch" AllowFilteringByColumn="true" Font-Names="Calibri" OnDeleteCommand="RadGrid1_DeleteCommand"
-                         OnNeedDataSource="RadGrid1_NeedDataSource" OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand">
+                         OnNeedDataSource="RadGrid1_NeedDataSource" OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="prod_code" Width="100%" Font-Size="13px" 
+            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="AK_GROUP" Font-Size="13px" 
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
                     </telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn HeaderText ="Code" DataField="AK_GROUP">
-                        <HeaderStyle Width="200px" />
+                        <HeaderStyle Width="70px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText ="Asset Type" DataField="AK_GROUP_NAME">
-                        <HeaderStyle Width="200px" />
+                        <HeaderStyle Width="150px" />
                     </telerik:GridBoundColumn>
+                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
+                            ConfirmText="Are you sure you want to delete this row or record?">
+                             <HeaderStyle Width="20px"></HeaderStyle>
+                    </telerik:GridButtonColumn>
                 </Columns>
                 <EditFormSettings EditFormType="Template">
                     <FormTemplate>
@@ -52,7 +56,7 @@
                                     Code :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_code" runat="server" Width="230px" Enabled="true" RenderMode="Lightweight" Text='<%#DataBinder.Eval(Container, "DataItem.AK_GROUP") %>' AutoPostBack="false">
+                                    <telerik:RadTextBox ID="txt_code" runat="server" Width="70px" Enabled="true" RenderMode="Lightweight" Text='<%#DataBinder.Eval(Container, "DataItem.AK_GROUP") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -61,7 +65,7 @@
                                     Asset Type :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_asset_type" runat="server" Width="230px" Enabled="true" RenderMode="Lightweight" Text='<%#DataBinder.Eval(Container, "DataItem.AK_GROUP_NAME") %>' AutoPostBack="false">
+                                    <telerik:RadTextBox ID="txt_asset_type" runat="server" Width="200px" Enabled="true" RenderMode="Lightweight" Text='<%#DataBinder.Eval(Container, "DataItem.AK_GROUP_NAME") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
