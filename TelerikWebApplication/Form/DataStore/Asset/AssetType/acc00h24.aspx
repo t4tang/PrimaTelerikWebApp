@@ -31,7 +31,7 @@
                          OnNeedDataSource="RadGrid1_NeedDataSource" OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
             <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="AK_GROUP" Font-Size="13px" 
-                EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
+                EditFormSettings-PopUpSettings-KeepInScreenBounds="true" Width="100%">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
