@@ -71,8 +71,8 @@
                                     Group:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_group" runat="server" RenderMode="Lightweight" Width ="100px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.accountgroup") %>' 
+                                    <telerik:RadComboBox ID="cb_group" runat="server" RenderMode="Lightweight" Width ="300px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.groupname") %>' 
                                          OnItemsRequested ="cb_group_ItemsRequested" OnSelectedIndexChanged ="cb_group_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_group_PreRender"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"

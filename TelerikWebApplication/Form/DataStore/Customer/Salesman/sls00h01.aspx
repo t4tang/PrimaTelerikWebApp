@@ -46,19 +46,20 @@
                     <telerik:GridBoundColumn HeaderText ="Sub Area" DataField="sar_name">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderText ="Target" DataField="ref_prod_code">
+                    <telerik:GridBoundColumn HeaderText ="Target" DataField="tJual">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderText ="Active" DataField="FluitCap">
+                    <telerik:GridCheckBoxColumn HeaderText ="Active" DataField="status">
                         <HeaderStyle Width="200px" />
-                    </telerik:GridBoundColumn>
+                    </telerik:GridCheckBoxColumn>
                     <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
                             ConfirmText="Are you sure you want to delete this row or record?">
                              <HeaderStyle Width="20px"></HeaderStyle>
                         </telerik:GridButtonColumn>
                 </Columns>
                 <EditFormSettings EditFormType="Template">
-                    <FormTemplate id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" style="border-collapse: collapse; padding-left:35px; 
+                    <FormTemplate>
+                        <table ID="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" style="border-collapse: collapse; padding-left:35px; 
                             padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
                             <tr>
                                 <td>
@@ -95,9 +96,9 @@
                                 <td>
                                     <telerik:RadComboBox ID="cb_sub_area" runat="server" Width="215px" Enabled="true" RenderMode="Lightweight"
                                                          Text='<%#DataBinder.Eval(Container, "DataItem.city_code") %>' AutoPostBack="false"
-                                                         ShowDropDownOnTextboxClick="true" OnPreRender="cb_project_PreRender" EnableLoadOnDemand="true"
+                                                         ShowDropDownOnTextboxClick="true" OnPreRender="cb_sub_area_PreRender" EnableLoadOnDemand="true"
                                                          EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
-                                                         OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged">
+                                                         OnItemsRequested="cb_sub_area_ItemsRequested" OnSelectedIndexChanged="cb_sub_area_SelectedIndexChanged">
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>
@@ -128,9 +129,9 @@
                             <td>
                                 <telerik:RadComboBox ID="txt_city" runat="server" Width="215px" Enabled="true" RenderMode="Lightweight"
                                                      Text='<%#DataBinder.Eval(Container, "DataItem.region_name") %>' AutoPostBack="false"
-                                                     ShowDropDownOnTextboxClick="true" OnPreRender="cb_project_PreRender" EnableLoadOnDemand="true"
+                                                     ShowDropDownOnTextboxClick="true" OnPreRender="txt_city_PreRender" EnableLoadOnDemand="true"
                                                      EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
-                                                     OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged">
+                                                     OnItemsRequested="txt_city_ItemsRequested" OnSelectedIndexChanged="txt_city_SelectedIndexChanged">
                                 </telerik:RadComboBox>
                             </td>
                             &nbsp;
@@ -153,6 +154,7 @@
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
+                        </table>
                     </FormTemplate>
                 </EditFormSettings>
             </MasterTableView>
