@@ -31,24 +31,6 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower {
         protected global::TelerikWebApplication.Controls.MobileNavigation MobileNavigation;
         
         /// <summary>
-        /// RadAjaxManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
-        
-        /// <summary>
-        /// RadAjaxLoadingPanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
-        
-        /// <summary>
         /// RadGrid1 control.
         /// </summary>
         /// <remarks>

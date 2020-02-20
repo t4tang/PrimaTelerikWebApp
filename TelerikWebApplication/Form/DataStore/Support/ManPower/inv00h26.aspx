@@ -9,38 +9,37 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     
-    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+    <%--<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadGrid1">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
-                </UpdatedControls>
-            </telerik:AjaxSetting>
+            
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
-    </telerik:RadAjaxLoadingPanel>
+    </telerik:RadAjaxLoadingPanel>--%>
 
     <div class="scroller">        
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
             ShowFooter ="true" 
             AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False" 
              OnNeedDataSource ="RadGrid1_NeedDataSource" OnItemCreated="RadGrid1_ItemCreated"
-             OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-            Skin ="MetroTouch"
-             MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="CostCenter"  
+             OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" 
+             OnDeleteCommand="RadGrid1_DeleteCommand" Skin ="MetroTouch"
+             MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="Nik"  
             MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-            <MasterTableView Font-Names="Calibri" Font-Size="13px" DataKeyNames="Nik">
+            <MasterTableView Font-Names="Calibri" Font-Size="13px" DataKeyNames="Nik" CommandItemSettings-ShowAddNewRecordButton="False">
                 <Columns>               
                     <telerik:GridEditCommandColumn UniqueName ="EditCommandColumn">
                         <HeaderStyle Width ="15px" ></HeaderStyle>
                     </telerik:GridEditCommandColumn>
+                    <telerik:GridBoundColumn HeaderText ="NIK" DataField ="Nik" >
+                        <HeaderStyle Width ="50px" > </HeaderStyle>
+                    </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn HeaderText ="Employee Name" DataField ="Name" >
                         <HeaderStyle Width ="350px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
@@ -50,7 +49,10 @@
                     <telerik:GridBoundColumn HeaderText ="Position" DataField ="Jabatan">
                         <HeaderStyle Width ="220px" > </HeaderStyle>
                     </telerik:GridBoundColumn>     
-                                   
+                    <telerik:GridBoundColumn HeaderText ="Poject" DataField ="region_name">
+                        <HeaderStyle Width ="280px" > </HeaderStyle>
+                    </telerik:GridBoundColumn> 
+                                      
                     <telerik:GridButtonColumn UniqueName ="DeleteColumn" Text ="Delete" CommandName="Delete" HeaderStyle-Width="30px"
                         ConfirmText="Delete This Product?" ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="FontIconButton">
                         <HeaderStyle Width="30px"></HeaderStyle>
@@ -67,14 +69,13 @@
                                 <td>
                                     <telerik:RadTextBox ID="txt_Code" runat="server" Width="80px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.Nik") %>' AutoPostBack="false"></telerik:RadTextBox>
-
                                 </td>
                                 <td style="padding-left:15px">
                                     Gender :
                                 </td>
                                 <td style="padding-left:10px">
                                     <asp:RadioButtonList ID="rb_gender" SelectedValue='<%# DataBinder.Eval(Container, "DataItem.stGender") %>' 
-                                        RepeatDirection="Horizontal" runat="server">
+                                        RepeatDirection="Horizontal" runat="server" OnDataBound="MyRadioButtonList_DataBound">
                                         <asp:ListItem Text="Male" Value="M"></asp:ListItem>
                                         <asp:ListItem Text="Female" Value="F"></asp:ListItem>
                                     </asp:RadioButtonList>
@@ -94,9 +95,9 @@
                                 <td style="padding-left:10px">
                                     <telerik:RadComboBox ID="cb_maritalSts" runat="server" RenderMode="Lightweight" Width ="75px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.stMarital") %>' 
-                                
+                                        OnItemsRequested="cb_maritalSts_ItemsRequested"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true"
-                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                          AutoPostBack="false" Skin ="MetroTouch"
                                         Height="200" MarkFirstMatch="true">
 
@@ -116,7 +117,7 @@
                                 </td>
                                 <td style="padding-left:10px">
                                     <asp:RadioButtonList ID="rb_EmpSts" SelectedValue='<%# DataBinder.Eval(Container, "DataItem.stEmployee") %>' 
-                                        RepeatDirection="Horizontal" runat="server">
+                                        RepeatDirection="Horizontal" runat="server" OnDataBound="MyRadioButtonList_DataBound">
                                         <asp:ListItem Text="Permanen" Value="1"></asp:ListItem>
                                         <asp:ListItem Text="Percobaan" Value="2"></asp:ListItem>
                                         <asp:ListItem Text="Harian" Value="3"></asp:ListItem>
@@ -126,14 +127,15 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Profit Center:
+                                    Position :
                                 </td>
                                 <td>
                                     <telerik:RadComboBox ID="cb_position" runat="server" RenderMode="Lightweight" Width ="250px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.jabatan") %>' 
-                                
+                                        OnItemsRequested="cb_position_ItemsRequested" OnPreRender="cb_position_PreRender"
+                                        OnSelectedIndexChanged="cb_position_SelectedIndexChanged"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                                         AutoPostBack="false" Skin ="MetroTouch"
+                                            AutoPostBack="false" Skin ="MetroTouch" EnableLoadOnDemand="true"
                                         Height="200" MarkFirstMatch="true">
 
                                     </telerik:RadComboBox>
@@ -143,7 +145,7 @@
                                 </td>
                                 <td style="padding-left:10px">
                                     <asp:RadioButtonList ID="rb_status" SelectedValue='<%# DataBinder.Eval(Container, "DataItem.status") %>' 
-                                        RepeatDirection="Horizontal" runat="server">
+                                        RepeatDirection="Horizontal" runat="server" OnDataBound="MyRadioButtonList_DataBound">
                                         <asp:ListItem Text="Active" Value="1"></asp:ListItem>
                                         <asp:ListItem Text="Resign" Value="2"></asp:ListItem>
                                         <asp:ListItem Text="PHK" Value="3"></asp:ListItem>
@@ -158,7 +160,8 @@
                                 <td>
                                     <telerik:RadComboBox ID="cb_region" runat="server" RenderMode="Lightweight" Width ="350px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>' 
-                                
+                                        OnPreRender="cb_project_PreRender" OnItemsRequested="cb_project_ItemsRequested" 
+                                        OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
                                          AutoPostBack="false" Skin ="MetroTouch"
@@ -174,21 +177,30 @@
                                 <td>
                                     <telerik:RadComboBox ID="cb_dept" runat="server" RenderMode="Lightweight" Width ="350px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.dept_name") %>' 
-                                
+                                        OnPreRender="cb_dept_PreRender" OnItemsRequested="cb_dept_ItemsRequested"
+                                        OnSelectedIndexChanged="cb_dept_SelectedIndexChanged"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                                         AutoPostBack="false" Skin ="MetroTouch"
+                                         AutoPostBack="false" Skin ="MetroTouch" EnableLoadOnDemand="true"
                                         Height="200" MarkFirstMatch="true">
 
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>
+                            
                             <tr>
                                 <td>
                                     Point Of Hire :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_poh" runat="server" Width="350px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.city_name") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                                    <telerik:RadComboBox ID="cb_poh" runat="server" RenderMode="Lightweight" Width ="350px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.city_name") %>' 
+                                        OnPreRender="cb_poh_PreRender" OnItemsRequested="cb_poh_ItemsRequested" 
+                                        OnSelectedIndexChanged="cb_poh_SelectedIndexChanged"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
+                                         AutoPostBack="false" Skin ="MetroTouch" EnableLoadOnDemand="true"
+                                        Height="200" MarkFirstMatch="true">
+
+                                    </telerik:RadComboBox>
                                 </td>
                             </tr>
                             <tr>
@@ -230,7 +242,7 @@
                                     Remark :
                                 </td>
                                 <td colspan="3">
-                                    <telerik:RadTextBox ID="RadTextBox2" runat="server" Width="550px" Enabled="true" TextMode="MultiLine"
+                                    <telerik:RadTextBox ID="txt_remark" runat="server" Width="550px" Enabled="true" TextMode="MultiLine"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -246,6 +258,8 @@
                     </FormTemplate>
                 </EditFormSettings>     
             </MasterTableView>
+            <FilterMenu RenderMode="Lightweight"></FilterMenu>
         </telerik:RadGrid>
+        
     </div>
 </asp:Content>
