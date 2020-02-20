@@ -104,7 +104,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.Salesman
             cmd.Parameters.AddWithValue("@sales_code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@sales_name", (item.FindControl("txt_salesman") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@sar_code", (item.FindControl("cb_sub_area") as RadComboBox).SelectedValue);
-            cmd.Parameters.AddWithValue("@status", (item.FindControl("cb_active") as CheckBox).Checked ? 1 : 0);
+            cmd.Parameters.AddWithValue("@status", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
             cmd.Parameters.AddWithValue("@address", (item.FindControl("txt_address") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@city_code", (item.FindControl("txt_city") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@phone", (item.FindControl("txt_phone") as RadTextBox).Text);
@@ -117,7 +117,26 @@ namespace TelerikWebApplication.Form.DataStore.Customer.Salesman
 
         protected void RadGrid1_UpdateCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-
+            GridEditableItem item = (GridEditableItem)e.Item;
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "UPDATE sls00h01 SET sales_name = @sales_name, sar_code = @sar_code, status = @status, address = @address, " +
+                              "city_code = @city_code, phone = @phone, email = @email, tJual = @tJual, lastupdate = getdate(), userid = @userid " +
+                              "WHERE sales_code = @sales_code";
+            cmd.Parameters.AddWithValue("@sales_code", (item.FindControl("txt_code") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@sales_name", (item.FindControl("txt_salesman") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@sar_code", (item.FindControl("cb_sub_area") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@status", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
+            cmd.Parameters.AddWithValue("@address", (item.FindControl("txt_address") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@city_code", (item.FindControl("txt_city") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@phone", (item.FindControl("txt_phone") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@email", (item.FindControl("txt_email") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@tJual", (item.FindControl("txt_target") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
 
         protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)

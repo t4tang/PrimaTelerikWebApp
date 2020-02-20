@@ -75,8 +75,8 @@
                                     Active :
                                 </td>
                                 <td>
-                                    <asp:CheckBox ID="cb_active" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.status") %>' AutoPostBack="false">
-                                    </asp:CheckBox>
+                                    <asp:CheckBox ID="chk_active" runat="server" Text="Active" Skin="Telerik" AutoPostback="false"
+                                                  Checked='<%# DataBinder.Eval (Container, "DataItem.status").ToString()!="0"?true:false %>'/>
                                 </td>
                             </tr>
                             <tr>
@@ -95,7 +95,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadComboBox ID="cb_sub_area" runat="server" Width="215px" Enabled="true" RenderMode="Lightweight"
-                                                         Text='<%#DataBinder.Eval(Container, "DataItem.city_code") %>' AutoPostBack="false"
+                                                         Text='<%#DataBinder.Eval(Container, "DataItem.sar_name") %>' AutoPostBack="false"
                                                          ShowDropDownOnTextboxClick="true" OnPreRender="cb_sub_area_PreRender" EnableLoadOnDemand="true"
                                                          EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
                                                          OnItemsRequested="cb_sub_area_ItemsRequested" OnSelectedIndexChanged="cb_sub_area_SelectedIndexChanged">
