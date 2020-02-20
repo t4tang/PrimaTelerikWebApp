@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Controls
@@ -34,7 +35,7 @@ namespace TelerikWebApplication.Controls
 
                 RadPanelBar1.DataSource = links;
                 RadPanelBar1.DataBind();
-                RadPanelBar1.ExpandMode = Telerik.Web.UI.PanelBarExpandMode.FullExpandedItem;
+                RadPanelBar1.ExpandMode = Telerik.Web.UI.PanelBarExpandMode.SingleExpandedItem;
 
                 //RadMenu1.DataTextField = "menu_description";
                 //RadMenu1.DataNavigateUrlField = "menu_url";
@@ -51,7 +52,11 @@ namespace TelerikWebApplication.Controls
 
         protected void RadPanelBar1_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
         {
-            //public_str.selected_menu = RadPanelBar1.SelectedItem.Items.ToString();
+            foreach (RadPanelItem item in RadPanelBar1.Items)
+            {
+                item.Expanded = false;
+            }
+            RadPanelBar1.Items[0].Expanded = true;
         }
     }
 }

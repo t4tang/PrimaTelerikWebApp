@@ -12,7 +12,7 @@ using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup
 {
-    public partial class acc00h08 : System.Web.UI.Page
+    public partial class pur00h08 : System.Web.UI.Page
     {
         public static string koneksi = ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString;
         SqlConnection con = new SqlConnection(koneksi);
@@ -41,9 +41,9 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select acc00h08.KoGSup, acc00h08.NmGSup, acc00h03.cur_name, acc00h08.korek + ' ' + acc00h10.accountname as korekname, acc00h08.um + ' ' + acc00h10.accountname as umname, acc00h08.Expense + ' ' + acc00h10.accountname as Expensename " +
-                "from acc00h08 INNER JOIN acc00h10 ON acc00h10.accountno = acc00h08.korek " +
-               " INNER JOIN acc00h03 ON acc00h03.cur_code = acc00h08.cur_code where acc00h08.stedit != 4  ";
+            cmd.CommandText = "select pur00h08.KoGSup, pur00h08.NmGSup, acc00h03.cur_name, pur00h08.korek + ' ' + acc00h10.accountname as korekname, pur00h08.um + ' ' + acc00h10.accountname as umname, pur00h08.Expense + ' ' + acc00h10.accountname as Expensename " +
+                "from pur00h08 INNER JOIN acc00h10 ON acc00h10.accountno = pur00h08.korek " +
+               " INNER JOIN acc00h03 ON acc00h03.cur_code = pur00h08.cur_code where pur00h08.stedit != 4  ";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -95,7 +95,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h08(KoGSup, NmGSup, korek, um, Expense, cur_code, Stamp,Usr,Owner,stEdit) VALUES (@KoGSup, @NmGSup, @korek, @um, @Expense, @cur_code, getdate(),UPPER(@Usr),UPPER (@Owner),0)";
+            cmd.CommandText = "INSERT INTO pur00h08(KoGSup, NmGSup, korek, um, Expense, cur_code, Stamp,Usr,Owner,stEdit) VALUES (@KoGSup, @NmGSup, @korek, @um, @Expense, @cur_code, getdate(),UPPER(@Usr),UPPER (@Owner),0)";
             cmd.Parameters.AddWithValue("@KoGSup", (item.FindControl("txt_KoGSup") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@NmGSup", (item.FindControl("txt_NmGSup") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@korek", (item.FindControl("cb_payable") as RadComboBox).SelectedValue);
@@ -116,7 +116,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h08 set KoGSup = @KoGSup, NmGSup = @NmGSup, korek = @korek, um = @um, Expense = @Expense, cur_code = @cur_code, LastUpdate = getdate(), Usr = UPPER(@Usr) where KoGSup = @KoGSup";
+            cmd.CommandText = "UPDATE pur00h08 set KoGSup = @KoGSup, NmGSup = @NmGSup, korek = @korek, um = @um, Expense = @Expense, cur_code = @cur_code, LastUpdate = getdate(), Usr = UPPER(@Usr) where KoGSup = @KoGSup";
             cmd.Parameters.AddWithValue("@KoGSup", (item.FindControl("txt_KoGSup") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@NmGSup", (item.FindControl("txt_NmGSup") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@korek", (item.FindControl("cb_payable") as RadComboBox).SelectedValue);
@@ -136,7 +136,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update acc00h08 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where KoGSup = @KoGSup";
+            cmd.CommandText = "update pur00h08 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where KoGSup = @KoGSup";
             cmd.Parameters.AddWithValue("@KoGSup", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
