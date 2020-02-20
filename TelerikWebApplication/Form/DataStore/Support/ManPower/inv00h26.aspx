@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     
-    <%--<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadGrid1">
                 <UpdatedControls>
@@ -21,7 +21,7 @@
     </telerik:RadAjaxManager>
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
-    </telerik:RadAjaxLoadingPanel>--%>
+    </telerik:RadAjaxLoadingPanel>
 
     <div class="scroller">        
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
