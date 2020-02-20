@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Customer.SubArea
+namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.EquipmentType
 {
 
 
-    public partial class sls00h03
+    public partial class mtc00h05
     {
     }
 }
