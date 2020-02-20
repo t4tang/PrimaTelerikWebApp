@@ -216,7 +216,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd.Parameters.AddWithValue("@PlantCode", (item.FindControl("cb_project") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@tClass", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@ref_prod_code", (item.FindControl("cb_material_ref") as RadComboBox).SelectedValue);
-            cmd.Parameters.AddWithValue("@type_out", (item.FindControl("cb_consig") as CheckBox).Checked ? 1 : 0) ;
+            cmd.Parameters.AddWithValue("@type_out", (item.FindControl("chk_consig") as CheckBox).Checked ? 1 : 0) ;
             cmd.Parameters.AddWithValue("@FluitCap", (item.FindControl("txt_cap_tanki") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -285,7 +285,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             if (e.Item is GridEditableItem & e.Item.IsInEditMode)
             {
                 GridEditFormItem item = (GridEditFormItem)e.Item;
-                TextBox txt = (item.FindControl("txt_code") as TextBox);
+                RadTextBox txt = (item.FindControl("txt_code") as RadTextBox);
                 if (e.Item.OwnerTableView.IsItemInserted)
                     txt.Enabled = true;
                 else
