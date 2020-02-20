@@ -49,9 +49,9 @@
                     <telerik:GridBoundColumn HeaderText ="Target" DataField="tJual">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridCheckBoxColumn HeaderText ="Active" DataField="status">
+                    <%--<telerik:GridCheckBoxColumn DataType="System.Boolean" HeaderText ="Active" DataField="status">
                         <HeaderStyle Width="200px" />
-                    </telerik:GridCheckBoxColumn>
+                    </telerik:GridCheckBoxColumn>--%>
                     <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
                             ConfirmText="Are you sure you want to delete this row or record?">
                              <HeaderStyle Width="20px"></HeaderStyle>
@@ -108,7 +108,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_target" runat="server" Width="230px" Enabled="true" RenderMode="Lightweight"
-                                                        Text='<%#DataBinder.Eval(Container, "DataItem.wh_name") %>' AutoPostBack="false">
+                                                        Text='<%#DataBinder.Eval(Container, "DataItem.tJual") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -118,7 +118,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_address" runat="server" Width="230px" Height="50px" Enabled="true" RenderMode="Lightweight"
-                                                        Text='<%#DataBinder.Eval(Container, "DataItem.wh_name") %>' AutoPostBack="false">
+                                                        Text='<%#DataBinder.Eval(Container, "DataItem.address") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -128,7 +128,7 @@
                                 </td>
                             <td>
                                 <telerik:RadComboBox ID="txt_city" runat="server" Width="215px" Enabled="true" RenderMode="Lightweight"
-                                                     Text='<%#DataBinder.Eval(Container, "DataItem.region_name") %>' AutoPostBack="false"
+                                                     Text='<%#DataBinder.Eval(Container, "DataItem.city_name") %>' AutoPostBack="false"
                                                      ShowDropDownOnTextboxClick="true" OnPreRender="txt_city_PreRender" EnableLoadOnDemand="true"
                                                      EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
                                                      OnItemsRequested="txt_city_ItemsRequested" OnSelectedIndexChanged="txt_city_SelectedIndexChanged">
@@ -140,7 +140,7 @@
                                 </td>
                             <td>
                                 <telerik:RadTextBox ID="txt_phone" runat="server" Width="230px" Enabled="true" RenderMode="Lightweight"
-                                                    Text='<%#DataBinder.Eval(Container, "DataItem.wh_name") %>' AutoPostBack="false">
+                                                    Text='<%#DataBinder.Eval(Container, "DataItem.phone") %>' AutoPostBack="false">
                                 </telerik:RadTextBox>
                             </td>
                         </tr>
@@ -150,9 +150,16 @@
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_email" runat="server" Width="230px" Enabled="true" RenderMode="Lightweight"
-                                                        Text='<%#DataBinder.Eval(Container, "DataItem.wh_name") %>' AutoPostBack="false">
+                                                        Text='<%#DataBinder.Eval(Container, "DataItem.email") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
+                            </tr>
+                            <tr>
+                               <td colspan="2" style="padding:10px 0px 10px 0px">
+                                  <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                              runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' />
+                                        &nbsp; <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />
+                               </td>
                             </tr>
                         </table>
                     </FormTemplate>
