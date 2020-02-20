@@ -70,16 +70,17 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             {
                 GridEditFormItem item = (GridEditFormItem)e.Item;
                 RadTextBox txt = (item.FindControl("txt_Code") as RadTextBox);
+                RadLabel lblLevel = (item.FindControl("") as RadLabel);
                 RadTextBox txtLvl = (item.FindControl("txt_level") as RadTextBox);
                 if (e.Item.OwnerTableView.IsItemInserted)
                 {
                     txt.Enabled = true;
-                    txtLvl.ReadOnly = true;
+                    txtLvl.Text = public_str.level;
+                    txtLvl.Visible = false;
                 }
                 else
                 {
                     txt.Enabled = false;
-                    txtLvl.ReadOnly = false;
                 }
             }
         }

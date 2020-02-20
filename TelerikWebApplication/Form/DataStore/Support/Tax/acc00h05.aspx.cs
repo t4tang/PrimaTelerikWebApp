@@ -35,7 +35,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select acc00h05.TAX_CODE, acc00h05.TAX_NAME, acc00h05.TAX_PERC, acc00h05.REK_LEDG, acc00h10.accountname, acc00h05.REK_OUT from acc00h05 INNER JOIN acc00h10 ON acc00h05.REK_LEDG = acc00h10.accountno " +
+            cmd.CommandText = "select acc00h05.TAX_CODE, acc00h05.TAX_NAME, acc00h05.TAX_PERC,acc00h05.REK_LEDG, acc00h05.REK_LEDG + ' ' + acc00h10.accountname as REK_LEDGname, acc00h05.REK_OUT + ' ' + acc00h10.accountname as REK_OUTname from acc00h05 INNER JOIN acc00h10 ON acc00h05.REK_LEDG = acc00h10.accountno " +
                " where acc00h05.stedit != 4";
 
             cmd.CommandTimeout = 0;
@@ -57,7 +57,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
 
         private static DataTable Getacc00h10(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountname from acc00h10 where accountno like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("accountno, accountno + ' ' + accountname as accountname from acc00h10 where accountno like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -143,13 +143,14 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["accountno"].ToString(), data.Rows[i]["accountno"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["accountname"].ToString(), data.Rows[i]["accountname"].ToString()));
             }
         }
 
         private static DataTable GetREK_LEDG(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountname from acc00h10 where accountno like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+                " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -165,7 +166,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -180,7 +181,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -199,13 +200,14 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["accountno"].ToString(), data.Rows[i]["accountno"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["accountname"].ToString(), data.Rows[i]["accountname"].ToString()));
             }
         }
 
         private static DataTable GetREK_OUT(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountname from acc00h10 where accountno like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+                " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -221,7 +223,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -236,7 +238,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup
+namespace TelerikWebApplication.Form.DataStore.Customer.Area
 {
-    public partial class acc00h08 : System.Web.UI.Page
+    public partial class inv00h24 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -169,11 +169,10 @@
                                     <telerik:RadTextBox ID="txt_cur" runat="server" Width="80px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.cur_code") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
-                                &nbsp;&nbsp
-                                    Level:
+                               
                                  &nbsp;&nbsp
-                                    <telerik:RadTextBox ID="txt_level" runat="server" Width="50px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.lvl") %>' AutoPostBack="false">
+                                    <telerik:RadTextBox ID="txt_level" runat="server" Width="100px" Enabled="true" ReadOnly="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.lvl") %>' AutoPostBack="false" Label="Level :">
                                     </telerik:RadTextBox>
                                 
                                 </td>

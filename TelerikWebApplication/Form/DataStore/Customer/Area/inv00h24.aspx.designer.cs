@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup
+namespace TelerikWebApplication.Form.DataStore.Customer.Area
 {
 
 
-    public partial class acc00h08
+    public partial class inv00h24
     {
     }
 }

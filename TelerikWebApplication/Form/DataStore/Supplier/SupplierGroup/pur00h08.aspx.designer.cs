@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense {
+namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup {
     
     
-    public partial class acc00h28 {
+    public partial class acc00h08 {
         
         /// <summary>
         /// FolderNavigationControl control.
@@ -56,23 +56,5 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
-        
-        /// <summary>
-        /// RadWindowManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
-        
-        /// <summary>
-        /// UserListDialog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow UserListDialog;
     }
 }

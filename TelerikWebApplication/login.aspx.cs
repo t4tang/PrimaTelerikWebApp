@@ -40,8 +40,8 @@ namespace PrimaWebApp
 
                 con.Open();
                 //SqlCommand cmd = new SqlCommand("SELECT USER_NAME, REGION_CODE, [LEVEL], sec_group FROM SEC_USER WHERE user_id='" + txt_uid.Text + "'", con);
-                SqlCommand cmd = new SqlCommand("SELECT A.USER_NAME, E.REGION_CODE, B.REGION_NAME, A.Level, A.sec_group, CONVERT(varchar, D.perstart, 103) perstart, " +
-                    "CONVERT(varchar, D.perend, 103) perend, UPPER(D.company_name) as company, D.company_code, A.def_modul FROM SEC_USER A, inv00h09 B, inv00h15 D, " +
+                SqlCommand cmd = new SqlCommand("SELECT  A.USER_NAME, E.REGION_CODE, B.REGION_NAME, A.Level, A.sec_group, CONVERT(varchar, D.perstart, 103) perstart, " +
+                    "CONVERT(varchar, D.perend, 103) perend, UPPER(D.company_name) as company, D.company_code, A.def_modul, UPPER(A.user_id) as user_id FROM SEC_USER A, inv00h09 B, inv00h15 D, " +
                     "inv00h26 E WHERE A.user_id='" + txt_uid.Text + "' AND E.REGION_CODE=B.REGION_CODE AND A.user_id=E.NIK", con);
 
                 dr = cmd.ExecuteReader();
@@ -51,7 +51,7 @@ namespace PrimaWebApp
                 //}
                 if (dr.Read())
                 {
-                    public_str.user_id = txt_uid.Text;
+                    public_str.user_id = dr["user_id"].ToString();
                     public_str.user_name = dr[0].ToString();
                     public_str.site = dr[1].ToString();
                     public_str.sitename = dr[2].ToString();

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc00h10.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Ledger.AccountNumber.acc00h10" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pur00h08.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup.acc00h08" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
@@ -32,7 +32,7 @@
             AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
              OnNeedDataSource ="RadGrid1_NeedDataSource" OnInsertCommand ="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
             OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
-             MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="accountno" MasterTableView-ClientDataKeyNames="accountno" 
+             MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="KoGSup" MasterTableView-ClientDataKeyNames="KoGSup" 
             MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
             <MasterTableView>
                 <Columns>
@@ -41,23 +41,16 @@
                         <HeaderStyle Width ="15px" ></HeaderStyle>
                         <ItemStyle Width = "15px" />
                     </telerik:GridEditCommandColumn>
-                     <telerik:GridBoundColumn HeaderText ="Account No" DataField ="accountno" >
+                     <telerik:GridBoundColumn HeaderText ="Code" DataField ="KoGSup" >
                         <HeaderStyle Width ="100px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn HeaderText ="Account Name" DataField ="accountname" >
+                     <telerik:GridBoundColumn HeaderText ="Supplier Group" DataField ="NmGSup" >
                         <HeaderStyle Width ="420px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn HeaderText ="Currency" DataField ="cur_name" >
                         <HeaderStyle Width ="420px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn HeaderText ="Budget" DataField ="Budged" >
-                        <HeaderStyle Width ="420px" > </HeaderStyle>
-                    </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn HeaderText ="Balance" DataField ="balance" >
-                        <HeaderStyle Width ="420px" > </HeaderStyle>
-                    </telerik:GridBoundColumn>
                     
-
                     <telerik:GridButtonColumn UniqueName ="DeleteColumn" Text ="Delete" CommandName="Delete" HeaderStyle-Width="30px"
                         ConfirmText="Delete This Product?" ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="FontIconButton">
                         <HeaderStyle Width="30px"></HeaderStyle>
@@ -66,38 +59,23 @@
                 <EditFormSettings EditFormType="Template">
                     <FormTemplate>
                           <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" rules="none" class="formTemplate_Table">
-                              <tr>
-                                <td>
-                                    Group:
-                                </td>
-                                <td>
-                                    <telerik:RadComboBox ID="cb_group" runat="server" RenderMode="Lightweight" Width ="300px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.groupname") %>' 
-                                         OnItemsRequested ="cb_group_ItemsRequested" OnSelectedIndexChanged ="cb_group_SelectedIndexChanged"
-                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_group_PreRender"
-                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                                        AutoPostBack="false" Skin ="MetroTouch"
-                                        Height="200" MarkFirstMatch="true">
-                                    </telerik:RadComboBox>
-                                </td>
-                            </tr>    
                             <tr>
                                 <td>
                                     Code:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_accountno" runat="server" Width="200px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.accountno") %>' AutoPostBack="false"></telerik:RadTextBox>
+                                    <telerik:RadTextBox ID="txt_KoGSup" runat="server" Width="50px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.KoGSup") %>' AutoPostBack="false"></telerik:RadTextBox>
 
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Name:
+                                    Supplier Group:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_accountname" runat="server" Width="250px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.accountname") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                                    <telerik:RadTextBox ID="txt_NmGSup" runat="server" Width="250px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.NmGSup") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>
                                <tr>
@@ -105,7 +83,7 @@
                                     Currency:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_currency" runat="server" RenderMode="Lightweight" Width ="200px"
+                                    <telerik:RadComboBox ID="cb_currency" runat="server" RenderMode="Lightweight" Width ="150px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.cur_name") %>' 
                                          OnItemsRequested ="cb_currency_ItemsRequested" OnSelectedIndexChanged ="cb_currency_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_currency_PreRender"
@@ -115,17 +93,51 @@
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>                  
+                              <tr>
+                                <td>
+                                    Acc. Payable:
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox ID="cb_payable" runat="server" RenderMode="Lightweight" Width ="350px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.korekname") %>' 
+                                         OnItemsRequested ="cb_payable_ItemsRequested" OnSelectedIndexChanged ="cb_payable_SelectedIndexChanged"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_payable_PreRender"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
+                                        AutoPostBack="false" Skin ="MetroTouch"
+                                        Height="200" MarkFirstMatch="true">
+                                    </telerik:RadComboBox>
+                                </td>
+                            </tr>                  
                              <tr>
                                 <td>
-                                    Budget:
+                                    AP Accrued:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_Budged" runat="server" Width="200px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.Budged") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                                    <telerik:RadComboBox ID="cb_accrued" runat="server" RenderMode="Lightweight" Width ="350px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.umname") %>' 
+                                         OnItemsRequested ="cb_accrued_ItemsRequested" OnSelectedIndexChanged ="cb_accrued_SelectedIndexChanged"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_accrued_PreRender"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
+                                        AutoPostBack="false" Skin ="MetroTouch"
+                                        Height="200" MarkFirstMatch="true">
+                                    </telerik:RadComboBox>
                                 </td>
-                            </tr>
-                            
-                                  
+                            </tr>                  
+                             <tr>
+                                <td>
+                                    DP:
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox ID="cb_dp" runat="server" RenderMode="Lightweight" Width ="350px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.Expensename") %>' 
+                                         OnItemsRequested ="cb_dp_ItemsRequested" OnSelectedIndexChanged ="cb_dp_SelectedIndexChanged"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_dp_PreRender"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
+                                        AutoPostBack="false" Skin ="MetroTouch"
+                                        Height="200" MarkFirstMatch="true">
+                                    </telerik:RadComboBox>
+                                </td>
+                            </tr>                       
                             <tr >
                                 <td align="right" colspan="2">
                                     <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
