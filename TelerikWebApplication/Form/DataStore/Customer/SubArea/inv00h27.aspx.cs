@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace TelerikWebApplication.Form.DataStore.Customer.SubArea
 {
-    public partial class sls00h03 : System.Web.UI.Page
+    public partial class inv00h27 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

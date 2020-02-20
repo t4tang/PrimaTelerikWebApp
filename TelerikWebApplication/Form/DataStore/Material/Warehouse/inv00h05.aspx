@@ -76,8 +76,8 @@
                                     Consignment :
                                 </td>
                                 <td>
-                                    <asp:CheckBox ID="cb_consig" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.type_out") %>' AutoPostBack="false">
-                                    </asp:CheckBox>
+                                    <asp:CheckBox ID="chk_consig" runat="server" Text="Active" Skin="Telerik" AutoPostback="false"
+                                                  Checked='<%# DataBinder.Eval (Container, "DataItem.type_out").ToString()!="0"?true:false %>'/>
                                 </td>
                             </tr>
                             <tr>
