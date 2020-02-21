@@ -55,7 +55,7 @@
                     <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
                             ConfirmText="Are you sure you want to delete this row or record?">
                              <HeaderStyle Width="20px"></HeaderStyle>
-                        </telerik:GridButtonColumn>
+                    </telerik:GridButtonColumn>
                 </Columns>
                 <EditFormSettings EditFormType="Template">
                     <FormTemplate>
