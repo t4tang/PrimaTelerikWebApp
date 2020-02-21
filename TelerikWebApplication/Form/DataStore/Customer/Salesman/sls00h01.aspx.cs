@@ -36,10 +36,10 @@ namespace TelerikWebApplication.Form.DataStore.Customer.Salesman
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "SELECT sls00h01.sales_code, sls00h01.sales_name, sls00h01.status, sls00h01.address, sls00h01.phone, " +
-                              "sls00h01.email, sls00h01.tJual, sls00h01.lastupdate, sls00h01.userid, sls00h01.stEdit, sls00h03.sar_code, " +
-                              "inv00h25.city_code, sls00h03.sar_name, inv00h25.city_name FROM sls00h01 INNER JOIN " +
+                              "sls00h01.email, sls00h01.tJual, sls00h01.lastupdate, sls00h01.userid, sls00h01.stEdit, inv00h27.sar_code, " +
+                              "inv00h25.city_code, inv00h27.sar_name, inv00h25.city_name FROM sls00h01 INNER JOIN " +
                               "inv00h25 ON sls00h01.city_code = inv00h25.city_code INNER JOIN " +
-                              "sls00h03 ON sls00h01.sar_code = sls00h03.sar_code " +
+                              "inv00h27 ON sls00h01.sar_code = inv00h27.sar_code " +
                               "WHERE(sls00h01.stEdit <> '4')";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -60,7 +60,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.Salesman
         }
         public DataTable GetSubArea(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select sar_code, sar_name from sls00h03 where stEdit != 4 AND sar_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select sar_code, sar_name from inv00h27 where stEdit != 4 AND sar_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -188,7 +188,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.Salesman
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT sar_code FROM sls00h03 WHERE sar_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT sar_code FROM inv00h27 WHERE sar_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -203,7 +203,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.Salesman
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT sar_code FROM sls00h03 WHERE sar_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT sar_code FROM inv00h27 WHERE sar_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
