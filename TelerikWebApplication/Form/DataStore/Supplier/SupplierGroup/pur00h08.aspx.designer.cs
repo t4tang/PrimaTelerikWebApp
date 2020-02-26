@@ -10,7 +10,7 @@
 namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup {
     
     
-    public partial class acc00h08 {
+    public partial class pur00h08 {
         
         /// <summary>
         /// FolderNavigationControl control.
