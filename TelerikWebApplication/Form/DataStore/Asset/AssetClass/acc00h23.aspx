@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
-     <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl"/>
+    <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl"/>
     <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
     
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
