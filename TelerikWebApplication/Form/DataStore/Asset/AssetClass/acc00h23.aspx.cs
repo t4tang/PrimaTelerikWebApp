@@ -145,7 +145,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
                                 "exp_life_year, exp_life_year_tax, mtd, mtdTax, mtd_per, mtd_per_tax, ak_rek, ak_cum_rek, ak_ex_rek, ak_gain, ak_disposal,  " +
                                 " auc_rek, asset_rek, IOCC, cat_code, status_class) " +
                                 "VALUES (@AK_CODE, @AK_NAME, getdate(), @userid, '0', @exp_life_year, @exp_life_year_tax, @mtd, @mtdTax, @mtd_per, @mtd_per_tax, " +
-                                        "@ak_rek, @ak_cum_rek, @ak_ex_rek, @ak_gain, @ak_disposal, @auc_rek, @asset_rek, @IOCC, @cat_code, @status_class)";
+                                        "@ak_rek,@ak_rek_name, @ak_cum_rek, @ak_ex_rek, @ak_gain, @ak_disposal, @auc_rek, @asset_rek, @IOCC, @cat_code, @status_class)";
             cmd.Parameters.AddWithValue("@AK_CODE", (item.FindControl("txt_AK_CODE") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@AK_NAME", (item.FindControl("txt_AK_NAME") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
@@ -156,6 +156,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd.Parameters.AddWithValue("@mtd_per", Convert.ToDouble((item.FindControl("txt_apre") as RadNumericTextBox).Text));
             cmd.Parameters.AddWithValue("@mtd_per_tax", Convert.ToDouble((item.FindControl("txt_apreTax") as RadNumericTextBox).Text));
             cmd.Parameters.AddWithValue("@ak_rek", (item.FindControl("cb_ak_rek") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@ak_rek_name", (item.FindControl("accountname") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@ak_cum_rek", (item.FindControl("txt_ak_cum_rek") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@ak_ex_rek", (item.FindControl("cb_ak_ex_rek") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@ak_gain", (item.FindControl("cb_ak_gain") as RadComboBox).SelectedValue);
@@ -485,13 +486,15 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             return data;
         }
 
+        String ak_rek_name = null;
+
         protected void cb_ak_rek_PreRender(object sender, EventArgs e)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno,accountname FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -505,6 +508,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
+
             cmd.Connection = con;
             cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
