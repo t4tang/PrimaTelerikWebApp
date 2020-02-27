@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pro00h07.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.MineControlProduction.TimeCategory.pro00h07" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="mtc00h28.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Vehicle.Component.ComponentDetail.mtc00h28" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
