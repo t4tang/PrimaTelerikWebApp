@@ -59,7 +59,7 @@
                                     padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
             <tr>
                 <td>
-                    Code:
+                    Problem Code:
                 </td>
                 <td>
                     <telerik:RadTextBox ID="txt_problem_code" runat="server" Width="150px" Enabled="true"
@@ -69,7 +69,7 @@
             </tr>
             <tr>
                 <td>
-                    Project Area:
+                    Problem Name:
                 </td>
                 <td>
                     <telerik:RadTextBox ID="txt_problem_name" runat="server" Width="350px" Enabled="true"
