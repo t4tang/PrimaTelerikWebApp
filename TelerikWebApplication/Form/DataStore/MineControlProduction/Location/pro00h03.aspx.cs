@@ -18,6 +18,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
         SqlConnection con = new SqlConnection(koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
+        private const int ItemsPerRequest = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -69,52 +70,183 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
 
         protected void RadGrid1_InsertCommand(object sender, GridCommandEventArgs e)
         {
-
+            GridEditableItem item = (GridEditableItem)e.Item;
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "INSERT INTO pro00h03 (Loc_code, loc_name, region_code, loc_cate_code, remark, Stamp, Usr, Owner, stEdit) " +
+                              "VALUES (@Loc_code, @loc_name, @region_code, @loc_cate_code, @remark, getdate(), @Usr, @Owner, '0')";
+            cmd.Parameters.AddWithValue("@Loc_code", (item.FindControl("txt_code") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@loc_name", (item.FindControl("txt_location") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_area") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@loc_cate_code", (item.FindControl("cb_category") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+            cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
 
         protected void RadGrid1_UpdateCommand(object sender, GridCommandEventArgs e)
         {
-
+            GridEditableItem item = (GridEditableItem)e.Item;
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "UPDATE pro00h03 SET loc_name = @loc_name, region_code = @region_code, loc_cate_code = @loc_cate_code, remark = @remark, " +
+                              "Stamp = getdate(), Usr = @Usr WHERE Loc_code = @Loc_code";
+            cmd.Parameters.AddWithValue("@Loc_code", (item.FindControl("txt_code") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@loc_name", (item.FindControl("txt_location") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_area") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@loc_cate_code", (item.FindControl("cb_category") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
 
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
         {
+            var Loc_code = ((GridDataItem)e.Item).GetDataKeyValue("Loc_code");
 
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "UPDATE pro00h03 SET stEdit = '4' where Loc_code = @Loc_code";
+            cmd.Parameters.AddWithValue("@Loc_code", Loc_code);
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
 
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
-
+            if (e.Item is GridEditableItem & e.Item.IsInEditMode)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+                RadTextBox txt = (item.FindControl("txt_code") as RadTextBox);
+                if (e.Item.OwnerTableView.IsItemInserted)
+                    txt.Enabled = true;
+                else
+                    txt.Enabled = false;
+            }
         }
 
         protected void cb_category_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT loc_cate_code FROM pro00h04 WHERE cat_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["loc_cate_code"].ToString();
+            dr.Close();
+            con.Close();
         }
 
+        public DataTable GetCategory(string Text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select loc_cate_code, cat_name from pro00h04 where stEdit != 4 AND cat_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
         protected void cb_category_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            DataTable data = GetCategory(e.Text);
 
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["cat_name"].ToString(), data.Rows[i]["cat_name"].ToString()));
+            }
+
+            e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
 
         protected void cb_category_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT loc_cate_code FROM pro00h04 WHERE cat_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["loc_cate_code"].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_area_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["region_code"].ToString();
+            dr.Close();
+            con.Close();
         }
 
+        public DataTable GetArea(string Text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code +' '+ region_name as region_name from inv00h09 where stEdit != '4' " +
+                                                        "AND region_code +' '+ region_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
         protected void cb_area_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            DataTable data = GetArea(e.Text);
 
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+            }
+
+            e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
 
         protected void cb_area_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["region_code"].ToString();
+            dr.Close();
+            con.Close();
         }
     }
 }

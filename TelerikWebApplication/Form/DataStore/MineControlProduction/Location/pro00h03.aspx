@@ -72,7 +72,7 @@
                                     Location :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_location" runat="server" Width="270px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_location" runat="server" Width="190px" Enabled="true" RenderMode="Lightweight"
                                                         Text='<%#DataBinder.Eval(Container, "DataItem.loc_name") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -82,7 +82,7 @@
                                     Category :
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_category" runat="server" Width="215px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadComboBox ID="cb_category" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
                                                      Text='<%#DataBinder.Eval(Container, "DataItem.cat_name") %>' AutoPostBack="false"
                                                      ShowDropDownOnTextboxClick="true" OnPreRender="cb_category_PreRender" EnableLoadOnDemand="true"
                                                      EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
@@ -95,17 +95,17 @@
                                     Area :
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_area" runat="server" Width="215px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadComboBox ID="cb_area" runat="server" Width="250px" Enabled="true" RenderMode="Lightweight"
                                                      Text='<%#DataBinder.Eval(Container, "DataItem.region_code") %>' AutoPostBack="false"
                                                      ShowDropDownOnTextboxClick="true" OnPreRender="cb_area_PreRender" EnableLoadOnDemand="true"
                                                      EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
                                                      OnItemsRequested="cb_area_ItemsRequested" OnSelectedIndexChanged="cb_area_SelectedIndexChanged">
                                     </telerik:RadComboBox>
-                                    &nbsp;
+                                    <%--&nbsp;
                                 <td>
                                     <telerik:RadTextBox ID="RadTextBox1" runat="server" Width="270px" Enabled="true" RenderMode="Lightweight"
                                                     Text='<%#DataBinder.Eval(Container, "DataItem.region_name") %>' AutoPostBack="false">
-                                    </telerik:RadTextBox>
+                                    </telerik:RadTextBox>--%>
                                 </td>
                              </tr>
                             <tr>
@@ -113,7 +113,7 @@
                                     Remark :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_remark" runat="server" Width="270px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_remark" runat="server" Width="270px" Height="50px" Enabled="true" RenderMode="Lightweight"
                                                         Text='<%#DataBinder.Eval(Container, "DataItem.remark") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
