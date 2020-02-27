@@ -42,7 +42,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "SELECT pro00h03.Loc_code, pro00h03.loc_name, pro00h03.remark, pro00h03.Stamp, pro00h03.Usr, pro00h03.Owner, " +
-                              "pro00h03.stEdit, pro00h04.loc_cate_code, inv00h09.region_code, pro00h04.cat_name, inv00h09.region_name " +
+                              "pro00h03.stEdit, pro00h04.loc_cate_code, inv00h09.region_code +' - '+ inv00h09.region_name AS region_code, pro00h04.cat_name, inv00h09.region_name " +
                               "FROM pro00h03 INNER JOIN pro00h04 ON pro00h03.loc_cate_code = pro00h04.loc_cate_code INNER JOIN " +
                               "inv00h09 ON pro00h03.region_code = inv00h09.region_code WHERE pro00h03.stEdit != '4'";
             cmd.CommandTimeout = 0;
@@ -197,7 +197,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_code +' - '+ region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -208,8 +208,8 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
 
         public DataTable GetArea(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code +' '+ region_name as region_name from inv00h09 where stEdit != '4' " +
-                                                        "AND region_code +' '+ region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code +' - '+ region_name as region_name from inv00h09 where stEdit != '4' " +
+                                                        "AND region_code +' - '+ region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -240,7 +240,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_code +' - '+ region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
