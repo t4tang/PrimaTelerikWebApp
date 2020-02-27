@@ -107,7 +107,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             con.Close();
         }
 
-        protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
+        protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             var Loc_code = ((GridDataItem)e.Item).GetDataKeyValue("Loc_code");
 
@@ -115,7 +115,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pro00h03 SET stEdit = '4' where Loc_code = @Loc_code";
+            cmd.CommandText = "UPDATE pro00h03 SET stEdit = 4 where Loc_code = @Loc_code";
             cmd.Parameters.AddWithValue("@Loc_code", Loc_code);
             cmd.ExecuteNonQuery();
             con.Close();
