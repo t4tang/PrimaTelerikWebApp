@@ -59,7 +59,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.SubArea
         }
         public DataTable GetArea(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select area_code, area_name from inv00h24 where stEdit != 4 AND area_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select area_code, area_name from inv00h24 where stEdit != '4' AND area_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
