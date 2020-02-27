@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace TelerikWebApplication.Form.DataStore.MineControlProduction.TimeCategory
 {
-    public partial class pro00h13 : System.Web.UI.Page
+    public partial class pro00h07 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
