@@ -381,7 +381,7 @@
                                     <telerik:RadTextBox ID="txt_korek" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.korek") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
-                                 <td>
+                                 <td colspan="4">
                                     <telerik:RadTextBox ID="txt_korekname" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.korekName") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
@@ -394,7 +394,7 @@
                                     <telerik:RadTextBox ID="txt_um" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.um") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
-                                <td>
+                                <td colspan="6">
                                     <telerik:RadTextBox ID="txt_umname" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.umName") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
@@ -407,13 +407,13 @@
                                     <telerik:RadTextBox ID="txt_expense" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.Expense") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
-                                <td>
+                                <td colspan="6">
                                     <telerik:RadTextBox ID="txt_expensename" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.expName") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>         
                             <tr >
-                                <td align="right" colspan="2">
+                                <td align="right" colspan="6">
                                     <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                     runat ="server" CommandName ='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' >
                                         </asp:Button>&nbsp;
