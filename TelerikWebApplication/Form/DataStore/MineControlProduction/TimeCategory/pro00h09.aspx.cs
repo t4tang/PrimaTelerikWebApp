@@ -34,7 +34,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.TimeCategor
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select pro00h09.time_code, pro00h09.time_name, Case pay_code When '01' Then 'Working' When '02' Then 'Standby' When '03' Then 'Breakdown' else 'Idle/Delay' End " +
+            cmd.CommandText = "select pro00h09.time_code, pro00h09.time_name, Case cat_code When '01' Then 'Working' When '02' Then 'Standby' When '03' Then 'Breakdown' else 'Idle/Delay' End " +
                 " as cat_code, pro00h09.remark from pro00h09 where pro00h09.stedit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();

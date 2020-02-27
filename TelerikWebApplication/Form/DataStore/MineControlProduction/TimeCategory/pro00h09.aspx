@@ -68,7 +68,7 @@
                     Code:
                 </td>
                 <td>
-                    <telerik:RadTextBox ID="txt_time_code" runat="server" Width="150px" Enabled="true"
+                    <telerik:RadTextBox ID="txt_time_code" runat="server" Width="100px" Enabled="true"
                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.time_code") %>' AutoPostBack="false"></telerik:RadTextBox>
 
                 </td>
@@ -88,7 +88,7 @@
                 </td>
             <td>
                     <telerik:RadComboBox ID="cb_type" runat="server" RenderMode="Lightweight" Width ="200px"
-                    Text='<%# DataBinder.Eval(Container, "DataItem.pay_code") %>' 
+                    Text='<%# DataBinder.Eval(Container, "DataItem.cat_code") %>' 
                         OnItemsRequested ="cb_type_ItemsRequested" OnSelectedIndexChanged ="cb_type_SelectedIndexChanged"
                     EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_type_PreRender"
                     EnableVirtualScrolling="false" ShowMoreResultsBox="true"
