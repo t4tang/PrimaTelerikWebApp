@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pro00h07.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.MineControlProduction.Syntom.pro00h07" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pro00h09.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.MineControlProduction.TimeCategory.pro00h09" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
     <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
-     <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
+    <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
     <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
@@ -32,7 +32,7 @@
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
          OnNeedDataSource ="RadGrid1_NeedDataSource" OnInsertCommand ="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
         OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
-         MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="problem_code" MasterTableView-ClientDataKeyNames="problem_code" 
+         MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="time_code" MasterTableView-ClientDataKeyNames="time_code" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
         <MasterTableView>
             <Columns>
@@ -41,10 +41,16 @@
                     <HeaderStyle Width ="15px" ></HeaderStyle>
                     <ItemStyle Width = "15px" />
                 </telerik:GridEditCommandColumn>
-                 <telerik:GridBoundColumn HeaderText ="Code" DataField ="problem_code" >
+                 <telerik:GridBoundColumn HeaderText ="Code" DataField ="time_code" >
                     <HeaderStyle Width ="100px" > </HeaderStyle>
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn HeaderText ="Problem" DataField ="problem_name" >
+                 <telerik:GridBoundColumn HeaderText ="Time Category" DataField ="time_name" >
+                    <HeaderStyle Width ="420px" > </HeaderStyle>
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderText ="Type" DataField ="cat_code" >
+                    <HeaderStyle Width ="420px" > </HeaderStyle>
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderText ="Remark" DataField ="remark" >
                     <HeaderStyle Width ="420px" > </HeaderStyle>
                 </telerik:GridBoundColumn>
                
@@ -59,21 +65,47 @@
                                     padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
             <tr>
                 <td>
-                    Problem Code:
+                    Code:
                 </td>
                 <td>
-                    <telerik:RadTextBox ID="txt_problem_code" runat="server" Width="150px" Enabled="true"
-                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.problem_code") %>' AutoPostBack="false"></telerik:RadTextBox>
+                    <telerik:RadTextBox ID="txt_time_code" runat="server" Width="100px" Enabled="true"
+                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.time_code") %>' AutoPostBack="false"></telerik:RadTextBox>
 
                 </td>
             </tr>
             <tr>
                 <td>
-                    Problem Name:
+                    Category:
                 </td>
                 <td>
-                    <telerik:RadTextBox ID="txt_problem_name" runat="server" Width="350px" Enabled="true"
-                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.problem_name") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                    <telerik:RadTextBox ID="txt_time_name" runat="server" Width="350px" Enabled="true"
+                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.time_name") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Type:
+                </td>
+            <td>
+                    <telerik:RadComboBox ID="cb_type" runat="server" RenderMode="Lightweight" Width ="200px"
+                    Text='<%# DataBinder.Eval(Container, "DataItem.cat_code") %>' 
+                        OnItemsRequested ="cb_type_ItemsRequested" OnSelectedIndexChanged ="cb_type_SelectedIndexChanged"
+                    EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_type_PreRender"
+                    EnableVirtualScrolling="false" ShowMoreResultsBox="true"
+                    AutoPostBack="false" Skin ="MetroTouch"
+                    Height="200" MarkFirstMatch="true">
+                </telerik:RadComboBox>
+                                   
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    Remark:
+                </td>
+                <td>
+                    <telerik:RadTextBox ID="txt_remark" runat="server" Width="420px" Enabled="true"
+                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>' AutoPostBack="false"></telerik:RadTextBox>
+
                 </td>
             </tr>
             <tr>
