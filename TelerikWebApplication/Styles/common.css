@@ -275,9 +275,8 @@ html .scroller {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   height:auto;
-  overflow-y:scroll;
+  overflow:auto;
   margin: 5px; 
-  overflow-y:auto; 
   padding-left:5px
 }
 
