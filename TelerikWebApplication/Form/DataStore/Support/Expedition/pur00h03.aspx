@@ -2,7 +2,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
-    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
     <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
@@ -64,7 +63,7 @@
                                     Code:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_city_code" runat="server" Width="75px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_code" runat="server" Width="75px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.EXP_CODE") %>' AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -91,8 +90,8 @@
                                     City:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_city" runat="server" RenderMode="Lightweight" Width ="150px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.city_code") %>' 
+                                    <telerik:RadComboBox ID="cb_city" runat="server" RenderMode="Lightweight" Width ="178px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.city_name") %>' 
                                         OnItemsRequested ="cb_city_ItemsRequested" OnSelectedIndexChanged ="cb_city_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_city_PreRender"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
