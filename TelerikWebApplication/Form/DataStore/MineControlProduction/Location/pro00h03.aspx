@@ -30,13 +30,13 @@
                          OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
                          OnItemCreated="RadGrid1_ItemCreated" AllowFilteringByColumn="true">
             <PagerStyle Mode="NextPrevNumericAndAdvanced" />
-            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="cat_name" Width="100%" Font-Names="Calibri" Font-Size="13px" 
+            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="Loc_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
                     </telerik:GridEditCommandColumn>
-                    <telerik:GridBoundColumn HeaderText ="Category" DataField="cat_name">
+                    <telerik:GridBoundColumn HeaderText ="Category" DataField="Loc_code">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText ="Location" DataField="loc_name">

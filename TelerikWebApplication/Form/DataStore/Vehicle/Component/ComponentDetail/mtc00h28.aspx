@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="mtc00h14.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Vehicle.Component.SyntomProblem.mtc00h14" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="mtc00h28.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Vehicle.Component.ComponentDetail.mtc00h28" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <link href="../../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../../Styles/mail.css" rel="stylesheet" />
@@ -30,16 +30,16 @@
                          OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
                          OnItemCreated="RadGrid1_ItemCreated" AllowFilteringByColumn="true">
             <PagerStyle Mode="NextPrevNumericAndAdvanced" />
-            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="sym_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
+            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="com_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
                     </telerik:GridEditCommandColumn>
-                    <telerik:GridBoundColumn HeaderText ="Code" DataField="sym_code">
+                    <telerik:GridBoundColumn HeaderText ="Code" DataField="com_code">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderText ="Problem" DataField="sym_name">
+                    <telerik:GridBoundColumn HeaderText ="Component" DataField="com_name">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
@@ -49,25 +49,25 @@
                 </Columns>
                 <EditFormSettings EditFormType="Template">
                     <FormTemplate>
-                    <table ID="Table2" cellspacing="4" cellpadding="5" width="70%" border="0" style="border-collapse: collapse; padding-left:35px; 
+                        <table ID="Table2" cellspacing="4" cellpadding="5" width="70%" border="0" style="border-collapse: collapse; padding-left:35px; 
                             padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
-                            <tr>
+                             <tr>
                                 <td>
-                                    Problem Code :
+                                    Code :
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_code" runat="server" Width="90px" Enabled="true" RenderMode="Lightweight"
-                                                        Text='<%#DataBinder.Eval(Container, "DataItem.sym_code") %>' AutoPostBack="false">
+                                                        Text='<%#DataBinder.Eval(Container, "DataItem.com_code") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Problem :
+                                    Component :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_name" runat="server" Width="270px" Enabled="true" RenderMode="Lightweight"
-                                                        Text='<%#DataBinder.Eval(Container, "DataItem.sym_name") %>' AutoPostBack="false">
+                                    <telerik:RadTextBox ID="txt_component" runat="server" Width="270px" Enabled="true" RenderMode="Lightweight"
+                                                        Text='<%#DataBinder.Eval(Container, "DataItem.com_name") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -79,9 +79,9 @@
                                </td>
                             </tr>
                         </table>
-                  </FormTemplate>
+                   </FormTemplate>
                 </EditFormSettings>
-             </MasterTableView>
+            </MasterTableView>
         </telerik:RadGrid>
         <telerik:RadWindowManager ID="RadWindowManager1" RenderMode="Lightweight" runat="server" EnableShadow="true">
             <Windows>
