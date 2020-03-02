@@ -26,11 +26,10 @@
     </telerik:RadAjaxLoadingPanel>
     <div class="scroller">
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
-            ShowFooter ="true" 
-            AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
-             OnNeedDataSource ="RadGrid1_NeedDataSource" OnInsertCommand ="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
+            ShowFooter ="true" AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
+            OnNeedDataSource ="RadGrid1_NeedDataSource" OnInsertCommand ="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
             OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
-             MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="EXP_CODE" MasterTableView-ClientDataKeyNames="city_code" 
+            MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="EXP_CODE" MasterTableView-ClientDataKeyNames="city_code" 
             MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
             <MasterTableView>
                 <Columns>
