@@ -36,14 +36,14 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "select acc00h29.KoGAfi, acc00h29.NmGAfi, acc00h03.cur_name, " +
-                " (select accountname from acc00h10 where acc00h10.accountno = acc00h29.korek) as korekname, "+
-                " (select accountname from acc00h10 where acc00h10.accountno = acc00h29.norek) as norekname, " +
-                " (select accountname from acc00h10 where acc00h10.accountno = acc00h29.um) as umname, " +
-                " (select accountname from acc00h10 where acc00h10.accountno = acc00h29.ar_inter) as ar_intername, " +
-                " (select accountname from acc00h10 where acc00h10.accountno = acc00h29.inc_inter) as inc_intername, " +
-                " (select accountname from acc00h10 where acc00h10.accountno = acc00h29.ap_inter) as ap_intername, " +
-                " (select accountname from acc00h10 where acc00h10.accountno = acc00h29.ap_accrued) as ap_accruedname, " +
-                " (select accountname from acc00h10 where acc00h10.accountno = acc00h29.exp_inter) as exp_intername" +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.korek) as korekname, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.norek) as norekname, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.um) as umname, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ar_inter) as ar_intername, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.inc_inter) as inc_intername, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ap_inter) as ap_intername, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ap_accrued) as ap_accruedname, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.exp_inter) as exp_intername" +
                 " from acc00h29 INNER JOIN acc00h10 ON acc00h10.accountno = acc00h29.korek " +
                " INNER JOIN acc00h03 ON acc00h03.cur_code = acc00h29.cur_code where acc00h29.stedit != 4  ";
 
