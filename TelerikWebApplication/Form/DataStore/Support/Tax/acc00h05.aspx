@@ -71,7 +71,9 @@
                                 <td>
                                     <telerik:RadTextBox ID="txt_TAX_CODE" runat="server" Width="50px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.TAX_CODE") %>' AutoPostBack="false"></telerik:RadTextBox>
-
+                                 &nbsp;&nbsp
+                                    <asp:CheckBox ID="chk_PPH" Text="PPH" runat="server" 
+                                     Checked='<%# DataBinder.Eval(Container, "DataItem.tPPH").ToString() != "0"? true:false %>'/>
                                 </td>
                             </tr>
                             <tr>

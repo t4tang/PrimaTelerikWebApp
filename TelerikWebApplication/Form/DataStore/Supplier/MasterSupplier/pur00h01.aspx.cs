@@ -48,7 +48,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
              " (select TAX_NAME from acc00h05 where pur00h01.ppn = acc00h05.TAX_CODE) as TAX1NAME ," +
              " (select TAX_NAME from acc00h05 where pur00h01.OTax = acc00h05.TAX_CODE) as OTAX1NAME ," +
              " (select TAX_NAME from acc00h05 where pur00h01.pph = acc00h05.TAX_CODE) as OTAX2NAME ," +
-             " pur00h01.rekname, pur00h01.bankname, pur00h04.ShipModeName, pur00h01.limit_ap, Case pay_code When '01' Then 'Cash' When '02' Then 'Credit' else 'COD' End as pay_code," +
+             " pur00h01.rekname, pur00h01.bankname, pur00h04.ShipModeName, pur00h01.limit_ap, Case pur00h01.pay_code When '01' Then 'Cash' When '02' Then 'Credit' else 'COD' End as pay_code," +
              " pur00h01.JTempo, pur00h01.korek, pur00h01.um, pur00h01.Expense, pur00h01.address1, pur00h01.cityName, pur00h01.phone,  pur00h01.NPWP, pur00h01.cityName, pur00h01.fax, pur00h01.email, pur00h01.website, pur00h01.contact1, pur00h01.contact2, pur00h01.hp1, pur00h01.hp2 from pur00h01 LEFT JOIN acc00h07 ON acc00h07.cust_code = pur00h01.koref" +
              " INNER JOIN pur00h08 ON pur00h08.KoGSup = pur00h01.KoGSup INNER JOIN acc00h05 ON pur00h01.ppn = acc00h05.TAX_CODE INNER JOIN pur00h04 ON pur00h04.ShipMode = pur00h01.ShipModeEtd INNER JOIN acc00h03 ON acc00h03.cur_code = pur00h01.cur_code INNER JOIN acc00h10 ON pur00h01.korek = acc00h10.accountno where pur00h01.stedit != '4' ";
 

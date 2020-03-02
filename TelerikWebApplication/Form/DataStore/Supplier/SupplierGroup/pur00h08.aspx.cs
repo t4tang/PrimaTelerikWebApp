@@ -41,7 +41,10 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.SupplierGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select pur00h08.KoGSup, pur00h08.NmGSup, acc00h03.cur_name, pur00h08.korek + ' ' + acc00h10.accountname as korekname, pur00h08.um + ' ' + acc00h10.accountname as umname, pur00h08.Expense + ' ' + acc00h10.accountname as Expensename " +
+            cmd.CommandText = "select pur00h08.KoGSup, pur00h08.NmGSup, acc00h03.cur_name, "+
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = pur00h08.korek) as korekname, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = pur00h08.Expense) as Expensename, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = pur00h08.um) as umname " +
                 "from pur00h08 INNER JOIN acc00h10 ON acc00h10.accountno = pur00h08.korek " +
                " INNER JOIN acc00h03 ON acc00h03.cur_code = pur00h08.cur_code where pur00h08.stedit != 4  ";
 
