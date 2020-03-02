@@ -29,7 +29,7 @@
 
     <div class="scroller">        
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
-            ShowFooter ="true" 
+            ShowFooter ="false" 
             AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False" 
              OnNeedDataSource ="RadGrid1_NeedDataSource" OnItemCreated="RadGrid1_ItemCreated"
              OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
