@@ -19,6 +19,8 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         private const int ItemsPerRequest = 10;
+        //private RadComboBox sender;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -37,8 +39,11 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT acc00h31.KoTrans, acc00h31.TransName, acc00h31.tStatus, acc00h31.Lvl, acc00h31.Stamp, acc00h31.Usr, " +                              "acc00h31.Owner, acc00h31.OwnStamp, acc00h31.status, acc00h31.stEdit, acc00h10.accountname, acc00h10.cur_code, " +
-                              "acc00h10.accountno FROM acc00h31 INNER JOIN acc00h10 ON acc00h31.korek = acc00h10.accountno";
+            cmd.CommandText = "SELECT acc00h31.KoTrans, acc00h31.TransName, CASE (acc00h31.tStatus) WHEN 'R' THEN 'A/R' WHEN 'P' THEN 'A/P' " +
+                              "ELSE 'Both' END AS tStatus, acc00h31.Lvl, acc00h31.Stamp, acc00h31.Usr, acc00h31.Owner, acc00h31.OwnStamp, " +
+                              "acc00h31.status, acc00h31.stEdit, acc00h10.accountname, acc00h10.cur_code, " +
+                              "acc00h10.accountno +' - '+ acc00h10.accountname as accountComb, acc00h10.accountno FROM acc00h31 INNER JOIN " +
+                              "acc00h10 ON acc00h31.korek = acc00h10.accountno WHERE acc00h31.stEdit !='4'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -87,7 +92,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h31 SET TransName = @TransName, korek = @korek, tStatus = @tStatus, Lvl = @Lvl, Stamp = getdate (), " +
+            cmd.CommandText = "UPDATE acc00h31 SET TransName = @TransName, korek = @korek, tStatus = @tStatus, Lvl = @Lvl, Stamp = getdate(), " +
                               "Usr = @Usr WHERE KoTrans = @KoTrans";
             cmd.Parameters.AddWithValue("@KoTrans", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@TransName", (item.FindControl("txt_name") as RadTextBox).Text);
@@ -107,7 +112,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update pur00h03 set stEdit = 4, LastUpdate = getdate(), userid = @userid where KoTrans = @KoTrans";
+            cmd.CommandText = "update acc00h31 set stEdit = '4', Stamp = getdate(), Usr = @Usr where KoTrans = @KoTrans";
             cmd.Parameters.AddWithValue("@KoTrans", KoTrans);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -140,7 +145,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             {
                 (sender as RadComboBox).SelectedValue = "R";
             }
-            if ((sender as RadComboBox).Text == "A/P")
+            else if ((sender as RadComboBox).Text == "A/P")
             {
                 (sender as RadComboBox).SelectedValue = "P";
             }
@@ -156,7 +161,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             {
                 (sender as RadComboBox).SelectedValue = "R";
             }
-            if ((sender as RadComboBox).Text == "A/P")
+            else if ((sender as RadComboBox).Text == "A/P")
             {
                 (sender as RadComboBox).SelectedValue = "P";
             }
@@ -200,12 +205,24 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' - '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
                 (sender as RadComboBox).SelectedValue = dr["accountno"].ToString();
             dr.Close();
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr1 in dt.Rows)
+            {
+                RadComboBox cb = (RadComboBox)sender;
+                GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                RadTextBox txt_curr = (RadTextBox)item.FindControl("txt_curr");
+                //RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+                txt_curr.Text = dr1["cur_code"].ToString();
+            }
             con.Close();
         }
 
@@ -215,7 +232,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' - '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -224,18 +241,30 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             con.Close();
         }
 
-        //protected void txt_acc_name_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        //private void getAccInfo(string accNo)
         //{
         //    con.Open();
         //    SqlCommand cmd = new SqlCommand();
         //    cmd.Connection = con;
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountname = '" + (sender as RadComboBox).Text + "'";
+        //    cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
         //    SqlDataReader dr;
         //    dr = cmd.ExecuteReader();
         //    while (dr.Read())
         //        (sender as RadComboBox).SelectedValue = dr["accountno"].ToString();
         //    dr.Close();
+
+        //    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+        //    DataTable dt = new DataTable();
+        //    adapter.Fill(dt);
+        //    foreach (DataRow dr1 in dt.Rows)
+        //    {
+        //        RadComboBox cb = (RadComboBox)sender;
+        //        GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+        //        RadTextBox txtCurr = (RadTextBox)item.FindControl("txt_curr");
+        //        //RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+        //        txtCurr.Text = dr1["cur_code"].ToString();
+        //    }
         //    con.Close();
         //}
     }
