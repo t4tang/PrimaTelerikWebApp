@@ -101,7 +101,7 @@
                                     Address:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_alamat" runat="server" Width="500px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_alamat" runat="server" Width="300px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.alamat") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -125,9 +125,9 @@
                                     Cost Center:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_CostCenter" runat="server" RenderMode="Lightweight" Width ="200px"
+                                    <telerik:RadComboBox ID="cb_CostCenter" runat="server" RenderMode="Lightweight" Width ="300px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.CostCenterName") %>' 
-                                         OnItemsRequested ="cb_CostCenter_ItemsRequested" OnSelectedIndexChanged ="cb_CostCenter_SelectedIndexChanged"
+                                        OnSelectedIndexChanged ="cb_CostCenter_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_CostCenter_PreRender"
                                         EnableVirtualScrolling="false" ShowMoreResultsBox="true"
                                         AutoPostBack="true" Skin ="MetroTouch"
@@ -141,7 +141,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadComboBox ID="cb_group" runat="server" RenderMode="Lightweight" Width ="200px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.NmGSup") %>' 
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.NmGAfi") %>' 
                                          OnItemsRequested ="cb_group_ItemsRequested" OnSelectedIndexChanged ="cb_group_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_group_PreRender"
                                         EnableVirtualScrolling="false" ShowMoreResultsBox="true"
@@ -173,11 +173,11 @@
                                     A/R:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_korek" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_norek" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.norek") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                                  <td colspan="4">
-                                    <telerik:RadTextBox ID="txt_korekname" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_norekname" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.norekname") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>      
@@ -186,11 +186,11 @@
                                     A/R Interest:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_um" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_ar_inter" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.ar_inter") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                                 <td colspan="6">
-                                    <telerik:RadTextBox ID="txt_umname" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_ar_intername" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.ar_intername") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>      
@@ -199,11 +199,11 @@
                                     A/R Accrued:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_expense" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_um" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.um") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                                 <td colspan="6">
-                                    <telerik:RadTextBox ID="txt_expensename" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_umname" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.umname") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>  
@@ -212,11 +212,11 @@
                                     Interest Income:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="RadTextBox1" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_inc_inter" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.inc_inter") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                                 <td colspan="6">
-                                    <telerik:RadTextBox ID="RadTextBox2" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_inc_intername" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.inc_intername") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr> 
@@ -230,11 +230,11 @@
                                    A/P:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="RadTextBox3" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_korek" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.korek") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                                  <td colspan="4">
-                                    <telerik:RadTextBox ID="RadTextBox4" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_korekname" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.korekName") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>      
@@ -243,11 +243,11 @@
                                      A/P Interest:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="RadTextBox5" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_ap_inter" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.ap_inter") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                                 <td colspan="6">
-                                    <telerik:RadTextBox ID="RadTextBox6" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_ap_intername" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.ap_intername") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>      
@@ -256,11 +256,11 @@
                                    A/P Accrued:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="RadTextBox7" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_ap_accrued" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.ap_accrued") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                                 <td colspan="6">
-                                    <telerik:RadTextBox ID="RadTextBox8" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_ap_accruedname" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.ap_accruedname") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>  
@@ -269,11 +269,11 @@
                                     Interest Expense:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="RadTextBox9" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_exp_inter" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.exp_inter") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                                 <td colspan="6">
-                                    <telerik:RadTextBox ID="RadTextBox10" runat="server" Width="200px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_exp_intername" runat="server" Width="200px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.exp_intername") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>                                                               
