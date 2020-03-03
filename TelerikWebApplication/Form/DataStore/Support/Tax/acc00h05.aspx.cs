@@ -35,7 +35,10 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select acc00h05.TAX_CODE, acc00h05.TAX_NAME, acc00h05.TAX_PERC,acc00h05.REK_LEDG, acc00h05.REK_LEDG + ' ' + acc00h10.accountname as REK_LEDGname, acc00h05.REK_OUT + ' ' + acc00h10.accountname as REK_OUTname from acc00h05 INNER JOIN acc00h10 ON acc00h05.REK_LEDG = acc00h10.accountno " +
+            cmd.CommandText = "select acc00h05.TAX_CODE, acc00h05.TAX_NAME, acc00h05.TAX_PERC, "+
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h05.REK_LEDG) as REK_LEDGname, " +
+                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h05.REK_OUT) as REK_OUTname, acc00h05.tPPH " + 
+                " from acc00h05 INNER JOIN acc00h10 ON acc00h05.REK_LEDG = acc00h10.accountno " +
                " where acc00h05.stedit != 4";
 
             cmd.CommandTimeout = 0;
@@ -74,8 +77,9 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h05(TAX_CODE, TAX_NAME, TAX_PERC, REK_LEDG, REK_OUT, Stamp,Usr,Owner,stEdit) VALUES (@TAX_CODE, @TAX_NAME, @TAX_PERC, @REK_LEDG, @REK_OUT, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO acc00h05(TAX_CODE, tPPH, TAX_NAME, TAX_PERC, REK_LEDG, REK_OUT, Stamp,Usr,Owner,stEdit) VALUES (@TAX_CODE,@tPPH, @TAX_NAME, @TAX_PERC, @REK_LEDG, @REK_OUT, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@TAX_CODE", (item.FindControl("txt_TAX_CODE") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@tPPH", (item.FindControl("chk_PPH") as CheckBox).Checked ? 1 : 0);
             cmd.Parameters.AddWithValue("@TAX_NAME", (item.FindControl("txt_TAX_NAME") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@TAX_PERC", (item.FindControl("txt_TAX_PERC") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@REK_LEDG", (item.FindControl("cb_prepaid") as RadComboBox).SelectedValue);
@@ -94,12 +98,13 @@ namespace TelerikWebApplication.Form.DataStore.Support.Tax
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h05 set TAX_NAME = @TAX_NAME, TAX_PERC = @TAX_PERC, REK_LEDG = @REK_LEDG, REK_OUT = @REK_OUT, LastUpdate = getdate(), Usr = @Usr where TAX_CODE = @TAX_CODE";
+            cmd.CommandText = "UPDATE acc00h05 set TAX_NAME = @TAX_NAME, TAX_PERC = @TAX_PERC, REK_LEDG = @REK_LEDG, REK_OUT = @REK_OUT, tPPH= @tPPH, LastUpdate = getdate(), Usr = @Usr where TAX_CODE = @TAX_CODE";
             cmd.Parameters.AddWithValue("@TAX_NAME", (item.FindControl("txt_TAX_NAME") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@TAX_CODE", (item.FindControl("txt_TAX_CODE") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@TAX_PERC", (item.FindControl("txt_TAX_PERC") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@REK_LEDG", (item.FindControl("cb_prepaid") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@REK_OUT", (item.FindControl("cb_payable") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@tPPH", (item.FindControl("chk_PPH") as CheckBox).Checked ? 1 : 0);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
             con.Close();

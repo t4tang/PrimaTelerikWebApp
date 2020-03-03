@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP {
+namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation {
     
     
-    public partial class acc00h31 {
+    public partial class acc00h30 {
         
         /// <summary>
         /// FolderNavigationControl control.

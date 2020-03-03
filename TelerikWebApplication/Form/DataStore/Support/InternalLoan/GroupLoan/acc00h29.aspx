@@ -86,7 +86,7 @@
                                     <telerik:RadComboBox ID="cb_currency" runat="server" RenderMode="Lightweight" Width ="150px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.cur_name") %>' 
                                          OnItemsRequested ="cb_currency_ItemsRequested" OnSelectedIndexChanged ="cb_currency_SelectedIndexChanged"
-                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_currency_PreRender"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender="cb_currency_PreRender"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
                                         AutoPostBack="false" Skin ="MetroTouch"
                                         Height="200" MarkFirstMatch="true">
@@ -106,7 +106,7 @@
                                     <telerik:RadComboBox ID="cb_ar" runat="server" RenderMode="Lightweight" Width ="350px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.norekname") %>' 
                                          OnItemsRequested ="cb_ar_ItemsRequested" OnSelectedIndexChanged ="cb_ar_SelectedIndexChanged"
-                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_ar_PreRender"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender="cb_ar_PreRender"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
                                         AutoPostBack="false" Skin ="MetroTouch"
                                         Height="200" MarkFirstMatch="true">
