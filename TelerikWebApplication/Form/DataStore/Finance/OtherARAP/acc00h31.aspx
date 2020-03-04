@@ -15,9 +15,9 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
+            <telerik:AjaxSetting AjaxControlID="txt_acc_ledger">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="txt_curr" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
         </AjaxSettings>
@@ -84,9 +84,8 @@
                                         Text='<%# DataBinder.Eval(Container, "DataItem.tStatus") %>' 
                                         OnItemsRequested ="cb_display_ItemsRequested" OnSelectedIndexChanged ="cb_display_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_display_PreRender"
-                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                                        AutoPostBack="false" Skin ="MetroTouch"
-                                        Height="200" MarkFirstMatch="true">
+                                        EnableVirtualScrolling="false" ShowMoreResultsBox="false"
+                                        AutoPostBack="false" Skin ="MetroTouch" MarkFirstMatch="true">
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>
@@ -96,11 +95,11 @@
                                 </td>
                                 <td>
                                     <telerik:RadComboBox ID="txt_acc_ledger" runat="server" RenderMode="Lightweight" Width ="500px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.accountno") %>' 
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.accountComb") %>' 
                                         OnItemsRequested ="txt_acc_ledger_ItemsRequested" OnSelectedIndexChanged ="txt_acc_ledger_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="txt_acc_ledger_PreRender"
-                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                                        AutoPostBack="false" Skin ="MetroTouch"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true" 
+                                        AutoPostBack="true" Skin ="MetroTouch"
                                         Height="200" MarkFirstMatch="true">
                                     </telerik:RadComboBox>
                                     <%--&nbsp
