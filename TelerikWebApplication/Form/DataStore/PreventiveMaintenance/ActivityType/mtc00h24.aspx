@@ -34,7 +34,7 @@
             OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
              MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="Act_type" MasterTableView-ClientDataKeyNames="Act_type" 
             MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-            <MasterTableView>
+            <MasterTableView Font-Names="Calibri" Font-Size="13px">
                 <Columns>
           
                     <telerik:GridEditCommandColumn UniqueName ="EditCommandColumn">
