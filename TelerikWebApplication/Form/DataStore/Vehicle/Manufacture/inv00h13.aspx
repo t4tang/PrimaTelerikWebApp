@@ -33,7 +33,7 @@
             OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
              MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="manu_code" MasterTableView-ClientDataKeyNames="manu_code" 
             MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-            <MasterTableView>
+            <MasterTableView Font-Names="Calibri" Font-Size="13px">
                 <Columns>
                <%-- <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" AllowFiltering="False" 
                     ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
