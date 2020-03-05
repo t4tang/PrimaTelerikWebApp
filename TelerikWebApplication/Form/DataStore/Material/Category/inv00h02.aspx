@@ -36,7 +36,7 @@
                  BorderStyle="Solid" Font-Names="Calibri">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="kind_code" Font-Size="13px" PageSize="10"
-                    EditFormSettings-PopUpSettings-KeepInScreenBounds="true">                        
+                    EditFormSettings-PopUpSettings-KeepInScreenBounds="true" Font-Names="Calibri">                        
                     <Columns>
                         <telerik:GridEditCommandColumn UniqueName="EditCommandColumn"><HeaderStyle Width="20px"></HeaderStyle>
                         </telerik:GridEditCommandColumn>
