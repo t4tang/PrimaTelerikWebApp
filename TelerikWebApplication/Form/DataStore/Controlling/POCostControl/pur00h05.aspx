@@ -1,15 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="mtc00h23.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType.mtc00h23" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pur00h05.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Controlling.POCostControl.pur00h05" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
     <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
-    <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
+     <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
     <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadGrid1">
                 <UpdatedControls>
@@ -32,7 +32,7 @@
             AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
              OnNeedDataSource ="RadGrid1_NeedDataSource" OnInsertCommand ="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
             OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
-             MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="OrderType" MasterTableView-ClientDataKeyNames="OrderType" 
+             MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="trans_code" MasterTableView-ClientDataKeyNames="trans_code" 
             MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
             <MasterTableView>
                 <Columns>
@@ -41,10 +41,13 @@
                         <HeaderStyle Width ="15px" ></HeaderStyle>
                         <ItemStyle Width = "15px" />
                     </telerik:GridEditCommandColumn>
-                     <telerik:GridBoundColumn HeaderText ="Code" DataField ="OrderType" >
+                     <telerik:GridBoundColumn HeaderText ="Code" DataField ="trans_code" >
                         <HeaderStyle Width ="100px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn HeaderText ="Order Type" DataField ="OrderName" >
+                     <telerik:GridBoundColumn HeaderText ="Category" DataField ="TransName" >
+                        <HeaderStyle Width ="420px" > </HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText ="Type" DataField ="tTypeName" >
                         <HeaderStyle Width ="420px" > </HeaderStyle>
                     </telerik:GridBoundColumn>
                     
@@ -61,44 +64,37 @@
                                     Code:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_OrderType" runat="server" Width="50px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.OrderType") %>' AutoPostBack="false"></telerik:RadTextBox>
+                                    <telerik:RadTextBox ID="txt_trans_code" runat="server" Width="50px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.trans_code") %>' AutoPostBack="false"></telerik:RadTextBox>
                                 
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Order Type:
+                                    Control Name:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_OrderName" runat="server" Width="250px" Enabled="true"
-                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.OrderName") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                                    <telerik:RadTextBox ID="txt_TransName" runat="server" Width="250px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.TransName") %>'  AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>
                              
                             <tr>
                                 <td>
-                                    Maint. Type:
+                                    Type:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_maint" runat="server" RenderMode="Lightweight" Width ="200px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.DTypename") %>' 
-                                         OnItemsRequested ="cb_maint_ItemsRequested" OnSelectedIndexChanged ="cb_maint_SelectedIndexChanged"
-                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_maint_PreRender"
+                                    <telerik:RadComboBox ID="cb_type" runat="server" RenderMode="Lightweight" Width ="200px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.tTypeName") %>' 
+                                         OnItemsRequested ="cb_type_ItemsRequested" OnSelectedIndexChanged ="cb_type_SelectedIndexChanged"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_type_PreRender"
                                         EnableVirtualScrolling="false" ShowMoreResultsBox="true"
                                         AutoPostBack="false" Skin ="MetroTouch"
                                         Height="200" MarkFirstMatch="true">
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>
-                              <tr>
-                                   <td> 
-                                    </td> 
-                              <td>       
-                            <asp:CheckBox ID="chk_Plan" Text="Planned" runat="server" 
-                                     Checked='<%# DataBinder.Eval(Container, "DataItem.IsPlan").ToString() != "0"? true:false %>'/>
-                            <td> 
-                            </tr>
+                             
                             <tr >
                                 <td align="right" colspan="2">
                                     <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'

@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType {
+namespace TelerikWebApplication.Form.DataStore.Controlling.POCostControl {
     
     
-    public partial class mtc00h23 {
+    public partial class pur00h05 {
         
         /// <summary>
         /// FolderNavigationControl control.

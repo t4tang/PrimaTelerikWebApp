@@ -10,9 +10,9 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
+namespace TelerikWebApplication.Form.DataStore.Controlling.POCostControl
 {
-    public partial class mtc00h23 : System.Web.UI.Page
+    public partial class pur00h05 : System.Web.UI.Page
     {
         public static string koneksi = ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString;
         SqlConnection con = new SqlConnection(koneksi);
@@ -21,7 +21,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
         private const int ItemsPerRequest = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -35,9 +35,9 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select mtc00h23.OrderType, mtc00h23.OrderName, mtc00h23.OrderName,mtc00h23.IsPlan, "+
-                " Case mtc00h23.Dtype_code When 'SM' Then 'Schedule Maintenance' When 'UM' Then 'Unschedule Maintenance' else 'Accident' End as DTypename " +
-                " from mtc00h23 where mtc00h23.stedit != 4";
+            cmd.CommandText = "select pur00h05.trans_code, pur00h05.TransName, " +
+                " Case pur00h05.tType When '1' Then 'Maint Cost' When '2' Then 'Production Cost' else 'Other Cost' End as tTypeName " +
+                " from pur00h05 where pur00h05.stedit != 4";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -62,11 +62,11 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO mtc00h23(OrderType, IsPlan, OrderName, Dtype_code, Stamp,Usr,Owner,stEdit) VALUES (@OrderType,@IsPlan, @OrderName, @Dtype_code, getdate(),@Usr, @Owner,0)";
-            cmd.Parameters.AddWithValue("@OrderType", (item.FindControl("txt_OrderType") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@IsPlan", (item.FindControl("chk_Plan") as CheckBox).Checked ? 1 : 0);
-            cmd.Parameters.AddWithValue("@OrderName", (item.FindControl("txt_OrderName") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@Dtype_code", (item.FindControl("cb_maint") as RadComboBox).SelectedValue);
+            cmd.CommandText = "INSERT INTO pur00h05(trans_code, TransName, tType, Stamp,Usr,Owner,stEdit) VALUES (@trans_code, @TransName, @tType, getdate(),@Usr, @Owner,0)";
+            cmd.Parameters.AddWithValue("@trans_code", (item.FindControl("txt_trans_code") as RadTextBox).Text);
+           
+            cmd.Parameters.AddWithValue("@TransName", (item.FindControl("txt_TransName") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@tType", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
             cmd.Parameters.AddWithValue("@status", "0");
@@ -81,11 +81,11 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE mtc00h23 set OrderName = @OrderName, Dtype_code = @Dtype_code, IsPlan= @IsPlan, LastUpdate = getdate(), Usr = @Usr where OrderType = @OrderType";
-            cmd.Parameters.AddWithValue("@OrderName", (item.FindControl("txt_OrderName") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@OrderType", (item.FindControl("txt_OrderType") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@Dtype_code", (item.FindControl("cb_maint") as RadComboBox).SelectedValue);
-            cmd.Parameters.AddWithValue("@IsPlan", (item.FindControl("chk_Plan") as CheckBox).Checked ? 1 : 0);
+            cmd.CommandText = "UPDATE pur00h05 set TransName = @TransName, tType = @tType,  LastUpdate = getdate(), Usr = @Usr where trans_code = @trans_code";
+            cmd.Parameters.AddWithValue("@TransName", (item.FindControl("txt_TransName") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@trans_code", (item.FindControl("txt_trans_code") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@tType", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
+           
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -93,14 +93,14 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
 
         protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            var productId = ((GridDataItem)e.Item).GetDataKeyValue("OrderType");
+            var productId = ((GridDataItem)e.Item).GetDataKeyValue("trans_code");
 
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update mtc00h23 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where OrderType = @OrderType";
-            cmd.Parameters.AddWithValue("@OrderType", productId);
+            cmd.CommandText = "update pur00h05 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where trans_code = @trans_code";
+            cmd.Parameters.AddWithValue("@trans_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -111,7 +111,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             if (e.Item is GridEditableItem & e.Item.IsInEditMode)
             {
                 GridEditFormItem item = (GridEditFormItem)e.Item;
-                RadTextBox txt = (item.FindControl("txt_OrderType") as RadTextBox);
+                RadTextBox txt = (item.FindControl("txt_trans_code") as RadTextBox);
                 if (e.Item.OwnerTableView.IsItemInserted)
                     txt.Enabled = true;
                 else
@@ -119,44 +119,44 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             }
         }
 
-        protected void cb_maint_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        protected void cb_type_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Clear();
-            (sender as RadComboBox).Items.Add("Schedule Maintenance");
-            (sender as RadComboBox).Items.Add("Unschedule Maintenance");
-            (sender as RadComboBox).Items.Add("Accident");
+            (sender as RadComboBox).Items.Add("Maint Cost");
+            (sender as RadComboBox).Items.Add("Production Cost");
+            (sender as RadComboBox).Items.Add("Other Cost");
         }
 
-        protected void cb_maint_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void cb_type_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            if ((sender as RadComboBox).Text == "Schedule Maintenance")
+            if ((sender as RadComboBox).Text == "Maint Cost")
             {
-                (sender as RadComboBox).SelectedValue = "01";
+                (sender as RadComboBox).SelectedValue = "1";
 
             }
-            else if ((sender as RadComboBox).Text == "Unschedule Maintenance")
+            else if ((sender as RadComboBox).Text == "Production Cost")
             {
-                (sender as RadComboBox).SelectedValue = "02";
+                (sender as RadComboBox).SelectedValue = "2";
             }
             else
             {
-                (sender as RadComboBox).SelectedValue = "03";
+                (sender as RadComboBox).SelectedValue = "3";
             }
         }
 
-        protected void cb_maint_PreRender(object sender, EventArgs e)
+        protected void cb_type_PreRender(object sender, EventArgs e)
         {
-            if ((sender as RadComboBox).Text == "Schedule Maintenance")
+            if ((sender as RadComboBox).Text == "Maint Cost")
             {
-                (sender as RadComboBox).SelectedValue = "01";
+                (sender as RadComboBox).SelectedValue = "1";
             }
-            else if ((sender as RadComboBox).Text == "Unschedule Maintenance")
+            else if ((sender as RadComboBox).Text == "Production Cost")
             {
-                (sender as RadComboBox).SelectedValue = "02";
+                (sender as RadComboBox).SelectedValue = "2";
             }
             else
             {
-                (sender as RadComboBox).SelectedValue = "03";
+                (sender as RadComboBox).SelectedValue = "3";
             }
         }
     }

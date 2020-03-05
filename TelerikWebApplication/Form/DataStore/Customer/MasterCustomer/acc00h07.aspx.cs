@@ -32,18 +32,20 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "select acc00h07.cust_code, acc00h07.cust_name, acc00h07.ref_code, acc00h07.con_person, acc00h07.hp_no, acc00h07.email, " +
-		                        "case acc00h07.pay_code when 'Cash' Then '01' When 'Kredit' Then '03' Else 'COD' End As pay_code, acc00h07.pay_city, acc00h07.pay_kind, acc00h07.pay_add, acc00h07.pay_phone, " + 
-                                "acc00h07.pay_sli_code, acc00h07.pay_slj_code, acc00h07.pay_phone, acc00h07.pay_postal, acc00h07.pay_fax_num, acc00h07.send_city, acc00h07.send_kind, acc00h07.send_add, " + 
-                                "acc00h07.send_sli_code, acc00h07.send_slj_code, acc00h07.send_phone, acc00h07.sen_postal, acc00h07.sen_fax_num, case acc00h07.cust_kind when 'Dalam Kota' Then '01' Else '02' End as cust_kind, " + 
+                                "(select city_name from inv00h25 where inv00h25.city_code = acc00h07.send_city) as sendName, " +
+				                "(select city_name from inv00h25 where inv00h25.city_code = acc00h07.pay_city) as payName, " +                 
+                                 "case acc00h07.pay_code when 'Cash' Then '01' When 'Kredit' Then '02' Else 'COD' End As pay_code, acc00h07.pay_kind, acc00h07.pay_add, acc00h07.pay_phone, " + 
+                                "acc00h07.pay_sli_code, acc00h07.pay_slj_code, acc00h07.pay_phone, acc00h07.pay_postal, acc00h07.pay_fax_num, acc00h07.send_kind, acc00h07.send_add, " +
+                                "acc00h07.send_sli_code, acc00h07.send_slj_code, acc00h07.send_phone, acc00h07.sen_postal, acc00h07.sen_fax_num, case acc00h07.cust_kind when 'Dalam Kota' Then '01' Else 'Luar Kota' End as cust_kind, " + 
                                 "acc00h07.cust_limit, acc00h07.limit_day, acc00h07.remark, acc00h07.tax_address, acc00h07.status, acc00h07.date_enter, acc00h07.npwp_no, acc00h07.NPPKP, acc00h07.lastupdate, acc00h07.userid, " + 
                                 "acc00h07.stEdit, acc00h07.discount, acc00h07.pay_code, acc00h07.account_no, acc00h07.account_no2, acc00h07.RekDP, acc00h07.korek, pur00h04.ShipModeName, sls00h01.sales_name, " +
-                                "acc00h03.cur_name, pur00h01.supplier_name, inv00h27.sar_name, acc00h10.accountno +' '+ accountname as accountname1, acc00h10.accountno +' '+ accountname as accountname2 " +
+                                "acc00h03.cur_name, pur00h01.supplier_name, inv00h27.sar_name, acc00h01.NoRek +' '+ NamBank as accountname1, acc00h01.NoRek +' '+ NamBank as accountname2, " +
+                                "acc00h10.accountno +' '+ accountname as ARname, acc00h10.accountno +' '+ accountname as rekDPname " +
                             "from acc00h07 LEFT JOIN pur00h01 ON pur00h01.supplier_code = acc00h07.ref_code INNER JOIN pur00h04 ON acc00h07.cust_kind = pur00h04.ShipMode INNER JOIN " +
                                 "acc00h03 ON acc00h07.cur_code = acc00h03.cur_code INNER JOIN inv00h27 ON acc00h07.sar_code = inv00h27.sar_code INNER JOIN " +
-                                "sls00h01 ON acc00h07.sales_code = sls00h01.sales_code INNER JOIN inv00h25 ON acc00h07.send_city = inv00h25.city_code AND inv00h25.city_code = acc00h07.pay_city INNER JOIN " +
-                                "acc00h10 ON acc00h07.RekDP = acc00h10.accountno LEFT JOIN acc00h01 ON acc00h07.account_no = acc00h01.KoBank where acc00h07.stedit != '4'";
+                                "sls00h01 ON acc00h07.sales_code = sls00h01.sales_code INNER JOIN acc00h10 ON acc00h07.RekDP = acc00h10.accountno LEFT JOIN acc00h01 ON acc00h07.account_no = acc00h01.KoBank where acc00h07.stedit != '4'";
             cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
+           cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
 
             DataTable DT = new DataTable();
@@ -102,7 +104,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
                                 "pay_kind = @pay_kind, sales_code = @sales_code, send_kind = @send_kind, account_no = @account_no, NPPKP = @NPPKP, account_no2 = @account_no2, " +
                                 "tax_address = @tax_address, korek = @korek, RekDP = @RekDP, pay_add = @pay_add, pay_city = @pay_city, " +
                                 "pay_postal = @pay_postal, pay_sli_code = @pay_sli_code, pay_slj_code = @pay_slj_code, pay_phone = @pay_phone,pay_fax_num = @pay_fax_num, send_add = @send_add, send_city = @send_city, " +
-                                "sen_postal = @sen_postal, send_sli_code = @send_sli_code, send_slj_code = @send_slj_code, send_phone = @send_phone,sen_fax_num = @sen_fax_num, lastupdate = getdate(), userid = @userid, stEdit = '0' ";
+                                "sen_postal = @sen_postal, send_sli_code = @send_sli_code, send_slj_code = @send_slj_code, send_phone = @send_phone,sen_fax_num = @sen_fax_num, lastupdate = getdate(), userid = @userid, stEdit = '0' where cust_code = @cust_code";
             cmd.Parameters.AddWithValue("@cust_code", (item.FindControl("txt_cust_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@ref_code", (item.FindControl("cb_reff") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@cust_name", (item.FindControl("txt_cust_name") as RadTextBox).Text);
@@ -113,7 +115,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.Parameters.AddWithValue("@cur_code", (item.FindControl("cb_currency") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@email", (item.FindControl("txt_email") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@cust_kind", (item.FindControl("cb_kind") as RadComboBox).SelectedValue);
-            cmd.Parameters.AddWithValue("@cust_limit", (item.FindControl("txt_credit") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@cust_limit", Convert.ToDouble((item.FindControl("txt_credit") as RadNumericTextBox).Text));
             cmd.Parameters.AddWithValue("@limit_day", (item.FindControl("txt_limit_day") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@pay_kind", (item.FindControl("cb_payment") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@sales_code", (item.FindControl("cb_sales") as RadComboBox).SelectedValue);
@@ -139,6 +141,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.Parameters.AddWithValue("@send_phone", (item.FindControl("txt_send_phone") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@sen_fax_num", (item.FindControl("txt_send_fax") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+            cmd.Parameters.AddWithValue("@status", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -150,16 +153,16 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "insert into acc00h07(cust_code,cust_name,sar_code,con_person,npwp_no,hp_no,cur_code,email, " +
+            cmd.CommandText = "insert into acc00h07(cust_code,ref_code,cust_name,sar_code,con_person,npwp_no,hp_no,cur_code,email, " +
                                 "cust_kind,cust_limit,limit_day,pay_kind,sales_code,send_kind,account_no,NPPKP,account_no2,tax_address,korek, " +
                                 "RekDP,pay_add,pay_city,pay_postal,pay_sli_code,pay_slj_code,pay_phone,pay_fax_num,send_add,send_city,sen_postal, " +
-                                "send_sli_code,send_slj_code,send_phone,sen_fax_num, userid, lastupdate,stEdit) " +
-                                "values(@cust_code, @cust_name, @sar_code, @con_person, @npwp_no, @hp_no, @cur_code, @email, @cust_kind, " +
+                                "send_sli_code,send_slj_code,send_phone,sen_fax_num, userid, lastupdate,stEdit,status) " +
+                                "values(@cust_code, @ref_code, @cust_name, @sar_code, @con_person, @npwp_no, @hp_no, @cur_code, @email, @cust_kind, " +
                                 "@cust_limit, @limit_day, @pay_kind, @sales_code, @send_kind, @account_no, @NPPKP, @account_no2, @tax_address, @korek, @RekDP, " +
-                                "@pay_add, @pay_city, @pay_postal, @pay_sli_code, @pay_slj_code, @pay_phone, @pay_fax_num, @send_add, @send_city, @sen_postal, @send_sli_code,  " +
-                                "@send_slj_code, @send_phone, @sen_fax_num, @userid, GETDATE(), '0')";
+                                "@pay_add, @pay_city, @pay_postal, @pay_sli_code, @pay_slj_code, @pay_phone, @pay_fax_num, @send_add, @send_city, @sen_postal,  " +
+                                "@send_sli_code,@send_slj_code, @send_phone, @sen_fax_num, @userid, GETDATE(), '0',@status)";
             cmd.Parameters.AddWithValue("@cust_code", (item.FindControl("txt_cust_code") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@supplier_name", (item.FindControl("cb_reff") as RadComboBox).SelectedValue);
+            cmd.Parameters.AddWithValue("@ref_code", (item.FindControl("cb_reff") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@cust_name", (item.FindControl("txt_cust_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@sar_code", (item.FindControl("cb_area") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@con_person", (item.FindControl("txt_con_person") as RadTextBox).Text);
@@ -168,7 +171,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.Parameters.AddWithValue("@cur_code", (item.FindControl("cb_currency") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@email", (item.FindControl("txt_email") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@cust_kind", (item.FindControl("cb_kind") as RadComboBox).SelectedValue);
-            cmd.Parameters.AddWithValue("@cust_limit", (item.FindControl("txt_credit") as RadTextBox).Text);
+            cmd.Parameters.AddWithValue("@cust_limit", Convert.ToDouble((item.FindControl("txt_credit") as RadNumericTextBox).Text));
             cmd.Parameters.AddWithValue("@limit_day", (item.FindControl("txt_limit_day") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@pay_kind", (item.FindControl("cb_payment") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@sales_code", (item.FindControl("cb_sales") as RadComboBox).SelectedValue);
@@ -194,6 +197,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.Parameters.AddWithValue("@send_phone", (item.FindControl("txt_send_phone") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@sen_fax_num", (item.FindControl("txt_send_fax") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+            cmd.Parameters.AddWithValue("@status", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -438,11 +442,11 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select(accountno + ' ' + accountname) as accountname1, (accountno + ' ' + accountname) as accountname2, acc00h03.cur_name " +
-                                   "from acc00h03 inner join acc00h10 on acc00h03.cur_code = acc00h10.cur_code where cur_name = '" + (sender as RadComboBox).Text + "'";
+                                   "from acc00h10 inner join acc00h03 on  acc00h10.cur_code = acc00h03.cur_code where accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["cur_code"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["accountno"].ToString();
             dr.Close();
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -452,10 +456,10 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             {
                 RadComboBox cb = (RadComboBox)sender;
                 GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                RadComboBox cbAccount1 = (RadComboBox)item.FindControl("cb_ar");
-                RadComboBox cbAccount2 = (RadComboBox)item.FindControl("cb_dp");
-                cbAccount1.SelectedValue = dr1["accountname1"].ToString();
-                cbAccount2.SelectedValue = dr1["accountname2"].ToString();
+                RadComboBox cbar1 = (RadComboBox)item.FindControl("cb_ar");
+                RadComboBox cbdp1 = (RadComboBox)item.FindControl("cb_dp");
+                cbar1.SelectedValue = dr1["korek"].ToString();
+                cbdp1.SelectedValue = dr1["RekDP"].ToString();
             }
             con.Close();
         }
@@ -637,7 +641,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select KoBank from acc00h01 WHERE KoBank +' '+ NamBank = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select KoBank from acc00h01 WHERE NoRek +' '+ NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -696,11 +700,11 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select KoBank from acc00h01 WHERE KoBank +' '+ NamBank = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select KoBank from acc00h01 WHERE NoRek +' '+ NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["NoRek"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["KoBank"].ToString();
             dr.Close();
             con.Close();
         }
@@ -864,6 +868,50 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             con.Close();
         }
 
+        protected void cb_send_city_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = Getcity(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["city_name"].ToString(), data.Rows[i]["city_name"].ToString()));
+            }
+        }
+
+        protected void cb_send_city_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "select city_code from inv00h25 where city_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["city_code"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_send_city_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "select city_code from inv00h25 where city_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["city_code"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
         protected void cb_payment_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Clear();
@@ -936,48 +984,6 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             }
         }
 
-        protected void cb_send_city_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-            DataTable data = Getcity(e.Text);
-
-            int itemOffset = e.NumberOfItems;
-            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
-            e.EndOfItems = endOffset == data.Rows.Count;
-
-            for (int i = itemOffset; i < endOffset; i++)
-            {
-                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["city_name"].ToString(), data.Rows[i]["city_name"].ToString()));
-            }
-        }
-
-        protected void cb_send_city_PreRender(object sender, EventArgs e)
-        {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "select city_code from inv00h25 where city_name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["city_code"].ToString();
-            dr.Close();
-            con.Close();
-        }
-
-        protected void cb_send_city_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "select city_code from inv00h25 where city_name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["city_code"].ToString();
-            dr.Close();
-            con.Close();
-        }
+       
     }
 }
