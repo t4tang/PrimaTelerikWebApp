@@ -36,7 +36,7 @@
             OnUpdateCommand="RadGrid1_UpdateCommand" OnInsertCommand="RadGrid1_InsertCommand" 
             >
 
-            <MasterTableView>
+            <MasterTableView Font-Names="Calibri" Font-Size="13px">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
@@ -183,7 +183,7 @@
                                                 <telerik:RadNumericTextBox ID="txt_life" runat="server" RenderMode="Lightweight" Width="80" Enabled="true"
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.exp_life_year") %>' AutoPostBack="false" Value="0">
                                                 </telerik:RadNumericTextBox>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Required"
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Required" ForeColor="Red"
                                                      ControlToValidate="txt_life"></asp:RequiredFieldValidator>
                                             </td>
                                             <td>Useful Life
@@ -192,7 +192,7 @@
                                                 <telerik:RadNumericTextBox ID="txt_lifeTax" runat="server" RenderMode="Lightweight" Width="80" Enabled="true"
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.exp_life_year_tax") %>' AutoPostBack="false">
                                                 </telerik:RadNumericTextBox>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Required"
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Required" ForeColor="Red"
                                                      ControlToValidate="txt_lifeTax"></asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
@@ -204,7 +204,7 @@
                                                 <telerik:RadNumericTextBox ID="txt_apre" runat="server" RenderMode="Lightweight" Width="80" Enabled="true"
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.mtd_per") %>' AutoPostBack="false">
                                                 </telerik:RadNumericTextBox>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*Required"
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*Required" ForeColor="Red"
                                                      ControlToValidate="txt_apre"></asp:RequiredFieldValidator>
                                             </td>
                                             <td>Appreciation
