@@ -145,7 +145,18 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
 
         protected void cb_sub_SelectedIndexChanged1(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "select code from acc00h18 where name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["code"].ToString();
+            dr.Close();
+            con.Close();
+
         }
 
         protected void cb_sub_PreRender(object sender, EventArgs e)
