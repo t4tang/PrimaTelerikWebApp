@@ -36,7 +36,7 @@
             OnUpdateCommand="RadGrid1_UpdateCommand" OnInsertCommand="RadGrid1_InsertCommand"    
              
             >
-            <MasterTableView>
+            <MasterTableView Font-Names="Calibri" Font-Size="13px">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
@@ -62,6 +62,9 @@
                     <telerik:GridBoundColumn HeaderText="Address" DataField="pay_add">
                         <HeaderStyle Width="30px" />
                     </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="Joint Date" DataField="date_enter" Visible="false">
+                        <HeaderStyle Width="30px" />
+                    </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName="Delete" CommandName="Delete" HeaderStyle-Width="35px" 
                         ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
                         <HeaderStyle Width="35px" />
@@ -85,7 +88,7 @@
                                              </td>
                                              <td>
                                                  <telerik:RadTextBox ID="txt_cust_code" runat="server" RenderMode="Lightweight" Width="80px" Enabled="true"
-                                                    Text='<%# DataBinder.Eval(Container, "DataItem.cust_code") %>' AutoPostBack="false" >
+                                                    Text='<%# DataBinder.Eval(Container, "DataItem.cust_code") %>' AutoPostBack="false">
                                                  </telerik:RadTextBox>
                                              </td>
                                              <td>RefF. Code
@@ -94,7 +97,8 @@
                                                  <telerik:RadComboBox ID="cb_reff" runat="server" RenderMode="Lightweight" Width="250px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.supplier_name") %>' 
                                                      OnItemsRequested="cb_reff_ItemsRequested" OnPreRender="cb_reff_PreRender" OnSelectedIndexChanged="cb_reff_SelectedIndexChanged" 
-                                                    EnableVirtualScrolling ="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                    EnableVirtualScrolling ="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true">
                                                  </telerik:RadComboBox> 
                                              </td>
                                          </tr>
@@ -213,8 +217,9 @@
                                              <td>Joint Date
                                              </td>
                                              <td>
-                                                 <telerik:RadDateTimePicker ID="dtp_date" runat="server" RenderMode="Lightweight" Width="180px">
-                                                 </telerik:RadDateTimePicker>
+                                                 <telerik:RadDatePicker ID="dtp_date" runat="server" RenderMode="Lightweight" Width="180px"
+                                                    Text='<%# DataBinder.Eval(Container, "DataItem.date_enter") %>' AutoPostBack="false" >
+                                                 </telerik:RadDatePicker>
                                              </td>
                                              <td>Send Mode
                                              </td>
