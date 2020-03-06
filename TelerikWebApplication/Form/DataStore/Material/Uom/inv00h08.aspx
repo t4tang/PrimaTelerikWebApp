@@ -15,10 +15,9 @@
             ShowFooter="True" MasterTableView-AllowFilteringByColumn="true" AllowSorting="True" 
             MasterTableView-DataKeyNames="unit_code" MasterTableView-ClientDataKeyNames="unit_code"
              OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand" 
-            MasterTableView-CommandItemDisplay="Top" OnUpdateCommand="RadGrid1_EditCommand" OnInsertCommand="RadGrid1_InsertCommand"   
-            >
+            MasterTableView-CommandItemDisplay="Top" OnUpdateCommand="RadGrid1_EditCommand" OnInsertCommand="RadGrid1_InsertCommand" >
 
-            <MasterTableView Font-Names="Calibri" Font-Size="13px">
+            <MasterTableView>
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
