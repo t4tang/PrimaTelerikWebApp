@@ -36,8 +36,8 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
 				                "(select city_name from inv00h25 where inv00h25.city_code = acc00h07.pay_city) as payName, " +                 
                                  "case acc00h07.pay_code when 'Cash' Then '01' When 'Kredit' Then '02' Else 'COD' End As pay_code, acc00h07.pay_kind, acc00h07.pay_add, acc00h07.pay_phone, " + 
                                 "acc00h07.pay_sli_code, acc00h07.pay_slj_code, acc00h07.pay_phone, acc00h07.pay_postal, acc00h07.pay_fax_num, acc00h07.send_kind, acc00h07.send_add, " +
-                                "acc00h07.send_sli_code, acc00h07.send_slj_code, acc00h07.send_phone, acc00h07.sen_postal, acc00h07.sen_fax_num, case acc00h07.cust_kind when 'Dalam Kota' Then '01' Else 'Luar Kota' End as cust_kind, " + 
-                                "acc00h07.cust_limit, acc00h07.limit_day, acc00h07.remark, acc00h07.tax_address, acc00h07.status, acc00h07.date_enter, acc00h07.npwp_no, acc00h07.NPPKP, acc00h07.lastupdate, acc00h07.userid, " + 
+                                "acc00h07.send_sli_code, acc00h07.send_slj_code, acc00h07.send_phone, acc00h07.sen_postal, acc00h07.sen_fax_num, case acc00h07.cust_kind when 'Dalam Kota' Then '01' Else 'Luar Kota' End as cust_kind, " +
+                                "acc00h07.cust_limit, acc00h07.limit_day, acc00h07.remark, acc00h07.tax_address, CASE acc00h07.status WHEN '1' THEN 'YES' ELSE 'NO' END AS status, acc00h07.date_enter, acc00h07.npwp_no, acc00h07.NPPKP, acc00h07.lastupdate, acc00h07.userid, " + 
                                 "acc00h07.stEdit, acc00h07.discount, acc00h07.pay_code, acc00h07.account_no, acc00h07.account_no2, acc00h07.RekDP, acc00h07.korek, pur00h04.ShipModeName, sls00h01.sales_name, " +
                                 "acc00h03.cur_name, pur00h01.supplier_name, inv00h27.sar_name, acc00h01.NoRek +' '+ NamBank as accountname1, acc00h01.NoRek +' '+ NamBank as accountname2, " +
                                 "acc00h10.accountno +' '+ accountname as ARname, acc00h10.accountno +' '+ accountname as rekDPname " +
