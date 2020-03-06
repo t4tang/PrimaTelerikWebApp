@@ -34,7 +34,7 @@
         OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
          MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="problem_code" MasterTableView-ClientDataKeyNames="problem_code" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-        <MasterTableView>
+        <MasterTableView Font-Size="13px" Font-Names="Calibri">
             <Columns>
           
                 <telerik:GridEditCommandColumn UniqueName ="EditCommandColumn">
@@ -42,10 +42,10 @@
                     <ItemStyle Width = "15px" />
                 </telerik:GridEditCommandColumn>
                  <telerik:GridBoundColumn HeaderText ="Code" DataField ="problem_code" >
-                    <HeaderStyle Width ="100px" > </HeaderStyle>
+                    <HeaderStyle Width ="40px" > </HeaderStyle>
                 </telerik:GridBoundColumn>
                  <telerik:GridBoundColumn HeaderText ="Problem" DataField ="problem_name" >
-                    <HeaderStyle Width ="420px" > </HeaderStyle>
+                    <HeaderStyle Width ="1020px" > </HeaderStyle>
                 </telerik:GridBoundColumn>
                
                 <telerik:GridButtonColumn UniqueName ="DeleteColumn" Text ="Delete" CommandName="Delete" HeaderStyle-Width="30px"

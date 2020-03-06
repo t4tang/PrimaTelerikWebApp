@@ -135,6 +135,27 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\DataStore\Controlling\CostCenter\inv00h11.aspx.cs">
+      <DependentUpon>inv00h11.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Controlling\CostCenter\inv00h11.aspx.designer.cs">
+      <DependentUpon>inv00h11.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Controlling\POCostControl\pur00h05.aspx.cs">
+      <DependentUpon>pur00h05.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Controlling\POCostControl\pur00h05.aspx.designer.cs">
+      <DependentUpon>pur00h05.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Controlling\ProfitCenter\inv00h19.aspx.cs">
+      <DependentUpon>inv00h19.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Controlling\ProfitCenter\inv00h19.aspx.designer.cs">
+      <DependentUpon>inv00h19.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\DataStore\Controlling\Project\inv00h09.aspx.cs">
       <DependentUpon>inv00h09.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -142,12 +163,89 @@
     <Compile Include="Form\DataStore\Controlling\Project\inv00h09.aspx.designer.cs">
       <DependentUpon>inv00h09.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\DataStore\Controlling\WorkCenter\mtc00h30.aspx.cs">
+      <DependentUpon>mtc00h30.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Controlling\WorkCenter\mtc00h30.aspx.designer.cs">
+      <DependentUpon>mtc00h30.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Customer\MasterArea\inv00h24.aspx.cs">
+      <DependentUpon>inv00h24.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Customer\MasterArea\inv00h24.aspx.designer.cs">
+      <DependentUpon>inv00h24.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Customer\MasterCustomer\acc00h07.aspx.cs">
+      <DependentUpon>acc00h07.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Customer\MasterCustomer\acc00h07.aspx.designer.cs">
+      <DependentUpon>acc00h07.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Customer\Salesman\sls00h01.aspx.cs">
+      <DependentUpon>sls00h01.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Customer\Salesman\sls00h01.aspx.designer.cs">
+      <DependentUpon>sls00h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Customer\SubArea\inv00h27.aspx.cs">
+      <DependentUpon>inv00h27.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Customer\SubArea\inv00h27.aspx.designer.cs">
+      <DependentUpon>inv00h27.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\AcountExplorer\acc00h10exp.aspx.cs">
+      <DependentUpon>acc00h10exp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\AcountExplorer\acc00h10exp.aspx.designer.cs">
+      <DependentUpon>acc00h10exp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\BankCode\acc00h01.aspx.cs">
+      <DependentUpon>acc00h01.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\BankCode\acc00h01.aspx.designer.cs">
+      <DependentUpon>acc00h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\CashCode\acc00h02.aspx.cs">
+      <DependentUpon>acc00h02.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\CashCode\acc00h02.aspx.designer.cs">
+      <DependentUpon>acc00h02.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\OtherARAP\acc00h31.aspx.cs">
+      <DependentUpon>acc00h31.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\OtherARAP\acc00h31.aspx.designer.cs">
+      <DependentUpon>acc00h31.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\OtherBankCode\acc00h08.aspx.cs">
+      <DependentUpon>acc00h08.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Finance\OtherBankCode\acc00h08.aspx.designer.cs">
+      <DependentUpon>acc00h08.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\DataStore\Material\Group\inv00h03.aspx.cs">
       <DependentUpon>inv00h03.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\DataStore\Material\Group\inv00h03.aspx.designer.cs">
       <DependentUpon>inv00h03.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\ServiceMaster\inv00h06.aspx.cs">
+      <DependentUpon>inv00h06.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\ServiceMaster\inv00h06.aspx.designer.cs">
+      <DependentUpon>inv00h06.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\DataStore\Material\Uom\inv00h08.aspx.cs">
       <DependentUpon>inv00h08.aspx</DependentUpon>
@@ -162,6 +260,160 @@
     </Compile>
     <Compile Include="Form\DataStore\Material\Warehouse\inv00h05.aspx.designer.cs">
       <DependentUpon>inv00h05.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\LocationCategory\pro00h04.aspx.cs">
+      <DependentUpon>pro00h04.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\LocationCategory\pro00h04.aspx.designer.cs">
+      <DependentUpon>pro00h04.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\Location\pro00h03.aspx.cs">
+      <DependentUpon>pro00h03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\Location\pro00h03.aspx.designer.cs">
+      <DependentUpon>pro00h03.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\MasterMaterial\pro00h05.aspx.cs">
+      <DependentUpon>pro00h05.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\MasterMaterial\pro00h05.aspx.designer.cs">
+      <DependentUpon>pro00h05.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\Syntom\pro00h07.aspx.cs">
+      <DependentUpon>pro00h07.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\Syntom\pro00h07.aspx.designer.cs">
+      <DependentUpon>pro00h07.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\TimeCategory\pro00h09.aspx.cs">
+      <DependentUpon>pro00h09.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\MineControlProduction\TimeCategory\pro00h09.aspx.designer.cs">
+      <DependentUpon>pro00h09.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\ActivityType\mtc00h24.aspx.cs">
+      <DependentUpon>mtc00h24.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\ActivityType\mtc00h24.aspx.designer.cs">
+      <DependentUpon>mtc00h24.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\EquipmentType\mtc00h05.aspx.cs">
+      <DependentUpon>mtc00h05.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\EquipmentType\mtc00h05.aspx.designer.cs">
+      <DependentUpon>mtc00h05.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\JobType\mtc00h22.aspx.cs">
+      <DependentUpon>mtc00h22.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\JobType\mtc00h22.aspx.designer.cs">
+      <DependentUpon>mtc00h22.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\MaintenanceOperation\mtc00h25.aspx.cs">
+      <DependentUpon>mtc00h25.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\MaintenanceOperation\mtc00h25.aspx.designer.cs">
+      <DependentUpon>mtc00h25.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\NotificationType\mtc00h21.aspx.cs">
+      <DependentUpon>mtc00h21.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\NotificationType\mtc00h21.aspx.designer.cs">
+      <DependentUpon>mtc00h21.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\OrderType\mtc00h23.aspx.cs">
+      <DependentUpon>mtc00h23.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\PreventiveMaintenance\OrderType\mtc00h23.aspx.designer.cs">
+      <DependentUpon>mtc00h23.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Supplier\MasterSupplier\pur00h01.aspx.cs">
+      <DependentUpon>pur00h01.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Supplier\MasterSupplier\pur00h01.aspx.designer.cs">
+      <DependentUpon>pur00h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Supplier\SupplierGroup\pur00h08.aspx.cs">
+      <DependentUpon>pur00h08.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Supplier\SupplierGroup\pur00h08.aspx.designer.cs">
+      <DependentUpon>pur00h08.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\City\inv00h25.aspx.cs">
+      <DependentUpon>inv00h25.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\City\inv00h25.aspx.designer.cs">
+      <DependentUpon>inv00h25.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Currency\acc00h03.aspx.cs">
+      <DependentUpon>acc00h03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Currency\acc00h03.aspx.designer.cs">
+      <DependentUpon>acc00h03.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Expedition\pur00h03.aspx.cs">
+      <DependentUpon>pur00h03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Expedition\pur00h03.aspx.designer.cs">
+      <DependentUpon>pur00h03.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\InternalLoan\Affiliation\acc00h30.aspx.cs">
+      <DependentUpon>acc00h30.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\InternalLoan\Affiliation\acc00h30.aspx.designer.cs">
+      <DependentUpon>acc00h30.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\InternalLoan\GroupLoan\acc00h29.aspx.cs">
+      <DependentUpon>acc00h29.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\InternalLoan\GroupLoan\acc00h29.aspx.designer.cs">
+      <DependentUpon>acc00h29.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\ManPower\inv00h26.aspx.cs">
+      <DependentUpon>inv00h26.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\ManPower\inv00h26.aspx.designer.cs">
+      <DependentUpon>inv00h26.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\OtherExpense\acc00h28.aspx.cs">
+      <DependentUpon>acc00h28.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\OtherExpense\acc00h28.aspx.designer.cs">
+      <DependentUpon>acc00h28.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Province\inv00h20.aspx.cs">
+      <DependentUpon>inv00h20.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Province\inv00h20.aspx.designer.cs">
+      <DependentUpon>inv00h20.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Tax\acc00h05.aspx.cs">
+      <DependentUpon>acc00h05.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Tax\acc00h05.aspx.designer.cs">
+      <DependentUpon>acc00h05.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Fico\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -225,6 +477,20 @@
     </Compile>
     <Compile Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx.designer.cs">
       <DependentUpon>inv00h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\UserRequest\inv01h01.aspx.cs">
+      <DependentUpon>inv01h01.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\UserRequest\inv01h01.aspx.designer.cs">
+      <DependentUpon>inv01h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\UserRequest\inv01h01list.aspx.cs">
+      <DependentUpon>inv01h01list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\UserRequest\inv01h01list.aspx.designer.cs">
+      <DependentUpon>inv01h01list.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Preventive_maintenance\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -355,10 +621,46 @@
     <Content Include="Controls\MobileNavigation.ascx" />
     <Content Include="default.aspx" />
     <Content Include="Fonts\OutlookSampleApp.svg" />
+    <Content Include="Form\DataStore\Controlling\CostCenter\inv00h11.aspx" />
+    <Content Include="Form\DataStore\Controlling\POCostControl\pur00h05.aspx" />
+    <Content Include="Form\DataStore\Controlling\ProfitCenter\inv00h19.aspx" />
     <Content Include="Form\DataStore\Controlling\Project\inv00h09.aspx" />
+    <Content Include="Form\DataStore\Controlling\WorkCenter\mtc00h30.aspx" />
+    <Content Include="Form\DataStore\Customer\MasterArea\inv00h24.aspx" />
+    <Content Include="Form\DataStore\Customer\MasterCustomer\acc00h07.aspx" />
+    <Content Include="Form\DataStore\Customer\Salesman\sls00h01.aspx" />
+    <Content Include="Form\DataStore\Customer\SubArea\inv00h27.aspx" />
+    <Content Include="Form\DataStore\Finance\AcountExplorer\acc00h10exp.aspx" />
+    <Content Include="Form\DataStore\Finance\BankCode\acc00h01.aspx" />
+    <Content Include="Form\DataStore\Finance\CashCode\acc00h02.aspx" />
+    <Content Include="Form\DataStore\Finance\OtherARAP\acc00h31.aspx" />
+    <Content Include="Form\DataStore\Finance\OtherBankCode\acc00h08.aspx" />
     <Content Include="Form\DataStore\Material\Group\inv00h03.aspx" />
+    <Content Include="Form\DataStore\Material\ServiceMaster\inv00h06.aspx" />
     <Content Include="Form\DataStore\Material\Uom\inv00h08.aspx" />
     <Content Include="Form\DataStore\Material\Warehouse\inv00h05.aspx" />
+    <Content Include="Form\DataStore\MineControlProduction\LocationCategory\pro00h04.aspx" />
+    <Content Include="Form\DataStore\MineControlProduction\Location\pro00h03.aspx" />
+    <Content Include="Form\DataStore\MineControlProduction\MasterMaterial\pro00h05.aspx" />
+    <Content Include="Form\DataStore\MineControlProduction\Syntom\pro00h07.aspx" />
+    <Content Include="Form\DataStore\MineControlProduction\TimeCategory\pro00h09.aspx" />
+    <Content Include="Form\DataStore\PreventiveMaintenance\ActivityType\mtc00h24.aspx" />
+    <Content Include="Form\DataStore\PreventiveMaintenance\EquipmentType\mtc00h05.aspx" />
+    <Content Include="Form\DataStore\PreventiveMaintenance\JobType\mtc00h22.aspx" />
+    <Content Include="Form\DataStore\PreventiveMaintenance\MaintenanceOperation\mtc00h25.aspx" />
+    <Content Include="Form\DataStore\PreventiveMaintenance\NotificationType\mtc00h21.aspx" />
+    <Content Include="Form\DataStore\PreventiveMaintenance\OrderType\mtc00h23.aspx" />
+    <Content Include="Form\DataStore\Supplier\MasterSupplier\pur00h01.aspx" />
+    <Content Include="Form\DataStore\Supplier\SupplierGroup\pur00h08.aspx" />
+    <Content Include="Form\DataStore\Support\City\inv00h25.aspx" />
+    <Content Include="Form\DataStore\Support\Currency\acc00h03.aspx" />
+    <Content Include="Form\DataStore\Support\Expedition\pur00h03.aspx" />
+    <Content Include="Form\DataStore\Support\InternalLoan\Affiliation\acc00h30.aspx" />
+    <Content Include="Form\DataStore\Support\InternalLoan\GroupLoan\acc00h29.aspx" />
+    <Content Include="Form\DataStore\Support\ManPower\inv00h26.aspx" />
+    <Content Include="Form\DataStore\Support\OtherExpense\acc00h28.aspx" />
+    <Content Include="Form\DataStore\Support\Province\inv00h20.aspx" />
+    <Content Include="Form\DataStore\Support\Tax\acc00h05.aspx" />
     <Content Include="Form\Fico\Default.aspx" />
     <Content Include="Form\Inventory\Default.aspx" />
     <Content Include="Form\DataStore\Material\Brand\Data_entry.ascx" />
@@ -368,6 +670,8 @@
     <Content Include="Form\DataStore\Material\Category\category_data_entry.ascx" />
     <Content Include="Form\DataStore\Material\MaterialMaster\Data_entry.ascx" />
     <Content Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx" />
+    <Content Include="Form\Inventory\UserRequest\inv01h01.aspx" />
+    <Content Include="Form\Inventory\UserRequest\inv01h01list.aspx" />
     <Content Include="Form\Preventive_maintenance\Default.aspx" />
     <Content Include="Form\Production\Default.aspx" />
     <Content Include="Form\Purchase\Default.aspx" />
@@ -409,6 +713,7 @@
     <Content Include="Images\user-s.png" />
     <Content Include="login.aspx" />
     <Content Include="notes.aspx" />
+    <Content Include="Script\Script.js" />
     <Content Include="Styles\bootstrap.min.css" />
     <Content Include="Styles\calendar.css" />
     <Content Include="Styles\common.css" />
@@ -439,10 +744,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Form\DataStore\Asset\" />
-    <Folder Include="Form\DataStore\Customer\" />
     <Folder Include="Form\DataStore\Ledger\" />
+    <Folder Include="Form\DataStore\Marine\" />
     <Folder Include="Form\DataStore\Material\LocationProduct\" />
-    <Folder Include="Form\DataStore\Supplier\" />
     <Folder Include="Form\DataStore\Support\Departemen\" />
     <Folder Include="Form\DataStore\Vehicle\" />
   </ItemGroup>
@@ -477,7 +781,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
