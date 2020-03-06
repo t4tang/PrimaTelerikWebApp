@@ -152,12 +152,14 @@ html .RadMultiPage .rmpView {
        position:absolute;
 }
 .detailTransaction{
-    width:1050px; padding-left:15px; padding-bottom:15px; max-height:260px; overflow:auto;
+    width:1050px; padding-left:25px; padding-bottom:15px; max-height:260px; overflow:auto;
 }
 
 .tdLabel{
     vertical-align:top; 
-    text-align:right
+    text-align:left;
+    width:100px;
+    padding-right:10px;
 }
 .tdInput{
     vertical-align:top; 
@@ -593,4 +595,14 @@ body {
     padding-bottom:5px; 
     background-color: #F0FFFE;
     
+}
+
+.table_trx
+{
+    padding-left:20px;
+    font-family:Candara;
+    font-size:13px;
+    border-collapse: collapse; 
+    padding-top:5px;
+    padding-right:15px; 
 }
