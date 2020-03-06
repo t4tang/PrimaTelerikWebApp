@@ -416,7 +416,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
                 "WHERE stedit <> '4' AND region_code = @project", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
 
@@ -431,7 +431,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         private static DataTable GetManPower(string name, string project)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan " +
-                "FROM ms_manpower WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'",
+                "FROM inv00h26 WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
             adapter.SelectCommand.Parameters.AddWithValue("@project", project);
@@ -460,7 +460,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -492,7 +492,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_approved.Text + "'";
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

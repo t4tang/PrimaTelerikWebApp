@@ -38,7 +38,7 @@
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone"
         Modal="true" Width="1110px" Height="580px">
         <ContentTemplate>
-             <div runat="server" style="padding:10px 10px 10px 10px;" id="searchParam">                
+             <div runat="server" style="padding:20px 10px 10px 10px;" id="searchParam">                
                 <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="Date From " Height="26px"></telerik:RadDatePicker>                
                 <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="To Date " Height="26px"></telerik:RadDatePicker>
                 <telerik:RadComboBox ID="cb_project_prm" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project" AutoPostBack="true"
@@ -105,7 +105,7 @@
 
     <div class="scroller"> 
         
-        <div style="text-align:right">
+        <div style=" padding-left:15px; width:100%; border-bottom-color: #FF6600; border-bottom-width: 1px; border-bottom-style: inset;">
             <table>
                 <tr>                    
                     <td  style="text-align:right;">
@@ -125,9 +125,8 @@
             </table>            
         </div>
 
-        <div>                               
-            <table id="Table1" border="0" style="border-collapse: collapse; padding-top:5px; padding-left:15px;
-                padding-right:15px; padding-bottom:10px; font-size:13px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ">    
+        <div class="table_trx">                               
+            <table id="Table1" border="0" >    
                 <tr style="vertical-align: top">
                     <td style="vertical-align: top">
                         <table id="Table2" width="Auto" border="0" class="module">                
@@ -363,28 +362,28 @@
                         <table>
                             <tr>
                                 <td style="width:50px" class="tdLabel">
-                                    User :
+                                    User 
                                 </td>
                                 <td style="width:50px">
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_uid" Width="50px" runat="server" >
                                     </telerik:RadTextBox>
                                 </td>
                                 <td style="width:80px; padding-left:15px" class="tdLabel">
-                                    Last Update :
+                                    Last Update 
                                 </td>
                                 <td style="width:70px;">
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_lastUpdate" Width="140px" runat="server" >
                                     </telerik:RadTextBox>
                                 </td>
                                 <td class="tdLabel">
-                                    Owner :
+                                    Owner 
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_owner" Width="50px" runat="server" >
                                     </telerik:RadTextBox>
                                 </td>
                                 <td style="padding-left:15px" class="tdLabel">
-                                    Printed :
+                                    Printed 
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_printed" Width="40px" runat="server" >
@@ -401,74 +400,75 @@
                     </td>
                 </tr>   
             </table>
-        </div>
-        <div id="detail">
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" AllowSorting="True"
-            AllowAutomaticInserts="true" AllowAutomaticUpdates="true" AllowAutomaticDeletes="true"
-            PageSize="7" AllowPaging="True" runat="server"  OnNeedDataSource="RadGrid2_NeedDataSource"  >   
-                <MasterTableView CommandItemDisplay="Top" DataKeyNames="part_code" Font-Size="12px"
-                    ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-ShowAddNewRecordButton="False" 
-                    CommandItemSettings-ShowCancelChangesButton="False">
-                    <BatchEditingSettings EditType="Cell" HighlightDeletedRows="true" />                                              
-                    <CommandItemSettings ShowRefreshButton="false" />                                        
-                    <Columns>
-                        <telerik:GridBoundColumn DataField="prod_type" HeaderText="Type" SortExpression="prod_type" ReadOnly="true"
-                            UniqueName="prod_type" ItemStyle-HorizontalAlign="Center">                           
-                            <HeaderStyle Width="25px" />
-                            <ItemStyle HorizontalAlign="Center" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridTemplateColumn DataField="Prod_code" HeaderText="Material Code" UniqueName="Prod_code" 
-                            ItemStyle-HorizontalAlign="Left">
-                            <ItemTemplate>
-                                <%# Eval("Part_code") %>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <telerik:RadDropDownList RenderMode="Lightweight" runat="server" ID="CategoryIDDropDown" DataValueField="prod_code"
-                                    DataTextField="prod_code" DataSourceID="SqlDataSource1">
-                                </telerik:RadDropDownList>
-                            </EditItemTemplate>
-                            <HeaderStyle Width="70px" />
-                            <ItemStyle HorizontalAlign="Left" />
-                        </telerik:GridTemplateColumn>
-                        <telerik:GridNumericColumn DataField="part_desc" HeaderText="Description" ItemStyle-HorizontalAlign="Left" ReadOnly="true"
-                            SortExpression="part_desc" UniqueName="part_desc">
-                            <HeaderStyle Width="180px" />
-                            <ItemStyle HorizontalAlign="Left" Width="180px" />
-                        </telerik:GridNumericColumn> 
-                        <telerik:GridNumericColumn DataField="part_qty" HeaderText="Qty" ItemStyle-HorizontalAlign="Right"
-                            SortExpression="part_qty" UniqueName="part_qty" DataFormatString="{0:#,###0.00;(#,###0.00);0}">
-                            <HeaderStyle Width="40px" />
-                            <ItemStyle HorizontalAlign="Right" Width="40px" />
-                        </telerik:GridNumericColumn> 
-                        <telerik:GridNumericColumn DataField="part_unit" HeaderText="UoM" ItemStyle-HorizontalAlign="Left"
-                            SortExpression="part_unit" UniqueName="part_unit">
-                            <HeaderStyle Width="40px" />
-                            <ItemStyle HorizontalAlign="Left" Width="40px" />
-                        </telerik:GridNumericColumn>                     
-                        <telerik:GridNumericColumn DataField="dept_code" HeaderText="Cost Cnter" ItemStyle-HorizontalAlign="Left"
-                            ReadOnly="true" SortExpression="dept_code" UniqueName="dept_code" ItemStyle-Width="50">
-                            <HeaderStyle Width="60px" />
-                            <ItemStyle HorizontalAlign="Left" Width="30px" />
-                        </telerik:GridNumericColumn>
-                        <telerik:GridNumericColumn DataField="remark" HeaderText="Remark" ItemStyle-HorizontalAlign="Left"
-                            SortExpression="remark" UniqueName="remark" >
-                            <HeaderStyle Width="140px" />
-                            <ItemStyle HorizontalAlign="Left" Width="140px" />
-                        </telerik:GridNumericColumn>
-                        <telerik:GridButtonColumn ConfirmText="Delete this product?" ConfirmDialogType="RadWindow"
-                            ConfirmTitle="Delete" HeaderText="Delete" ItemStyle-Width="25px" HeaderStyle-Width="25px"
-                            CommandName="Delete" Text="Delete" UniqueName="DeleteColumn">
-                        </telerik:GridButtonColumn>
-                    </Columns>
-                </MasterTableView>
-                <GroupingSettings CollapseAllTooltip="Collapse all groups" />
-                <ClientSettings AllowKeyboardNavigation="true"></ClientSettings>
-                <ItemStyle HorizontalAlign="Right" />
-                <FilterMenu RenderMode="Lightweight">
-                </FilterMenu>
-                <HeaderContextMenu RenderMode="Lightweight">
-                </HeaderContextMenu>
-            </telerik:RadGrid>
+
+            <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
+                <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" AllowSorting="True"
+                AllowAutomaticInserts="true" AllowAutomaticUpdates="true" AllowAutomaticDeletes="true"
+                PageSize="7" AllowPaging="True" runat="server"  OnNeedDataSource="RadGrid2_NeedDataSource"  >   
+                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="part_code" Font-Size="12px"
+                        ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-ShowAddNewRecordButton="False" 
+                        CommandItemSettings-ShowCancelChangesButton="False">
+                        <BatchEditingSettings EditType="Cell" HighlightDeletedRows="true" />                                              
+                        <CommandItemSettings ShowRefreshButton="false" />                                        
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="prod_type" HeaderText="Type" SortExpression="prod_type" ReadOnly="true"
+                                UniqueName="prod_type" ItemStyle-HorizontalAlign="Center">                           
+                                <HeaderStyle Width="25px" />
+                                <ItemStyle HorizontalAlign="Center" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn DataField="Prod_code" HeaderText="Material Code" UniqueName="Prod_code" 
+                                ItemStyle-HorizontalAlign="Left">
+                                <ItemTemplate>
+                                    <%# Eval("Part_code") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <telerik:RadDropDownList RenderMode="Lightweight" runat="server" ID="CategoryIDDropDown" DataValueField="prod_code"
+                                        DataTextField="prod_code" DataSourceID="SqlDataSource1">
+                                    </telerik:RadDropDownList>
+                                </EditItemTemplate>
+                                <HeaderStyle Width="70px" />
+                                <ItemStyle HorizontalAlign="Left" />
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridNumericColumn DataField="part_desc" HeaderText="Description" ItemStyle-HorizontalAlign="Left" ReadOnly="true"
+                                SortExpression="part_desc" UniqueName="part_desc">
+                                <HeaderStyle Width="180px" />
+                                <ItemStyle HorizontalAlign="Left" Width="180px" />
+                            </telerik:GridNumericColumn> 
+                            <telerik:GridNumericColumn DataField="part_qty" HeaderText="Qty" ItemStyle-HorizontalAlign="Right"
+                                SortExpression="part_qty" UniqueName="part_qty" DataFormatString="{0:#,###0.00;(#,###0.00);0}">
+                                <HeaderStyle Width="40px" />
+                                <ItemStyle HorizontalAlign="Right" Width="40px" />
+                            </telerik:GridNumericColumn> 
+                            <telerik:GridNumericColumn DataField="part_unit" HeaderText="UoM" ItemStyle-HorizontalAlign="Left"
+                                SortExpression="part_unit" UniqueName="part_unit">
+                                <HeaderStyle Width="40px" />
+                                <ItemStyle HorizontalAlign="Left" Width="40px" />
+                            </telerik:GridNumericColumn>                     
+                            <telerik:GridNumericColumn DataField="dept_code" HeaderText="Cost Cnter" ItemStyle-HorizontalAlign="Left"
+                                ReadOnly="true" SortExpression="dept_code" UniqueName="dept_code" ItemStyle-Width="50">
+                                <HeaderStyle Width="60px" />
+                                <ItemStyle HorizontalAlign="Left" Width="30px" />
+                            </telerik:GridNumericColumn>
+                            <telerik:GridNumericColumn DataField="remark" HeaderText="Remark" ItemStyle-HorizontalAlign="Left"
+                                SortExpression="remark" UniqueName="remark" >
+                                <HeaderStyle Width="140px" />
+                                <ItemStyle HorizontalAlign="Left" Width="140px" />
+                            </telerik:GridNumericColumn>
+                            <telerik:GridButtonColumn ConfirmText="Delete this product?" ConfirmDialogType="RadWindow"
+                                ConfirmTitle="Delete" HeaderText="Delete" ItemStyle-Width="25px" HeaderStyle-Width="25px"
+                                CommandName="Delete" Text="Delete" UniqueName="DeleteColumn">
+                            </telerik:GridButtonColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <GroupingSettings CollapseAllTooltip="Collapse all groups" />
+                    <ClientSettings AllowKeyboardNavigation="true"></ClientSettings>
+                    <ItemStyle HorizontalAlign="Right" />
+                    <FilterMenu RenderMode="Lightweight">
+                    </FilterMenu>
+                    <HeaderContextMenu RenderMode="Lightweight">
+                    </HeaderContextMenu>
+                </telerik:RadGrid>
+            </div>
         </div>     
     </div>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
