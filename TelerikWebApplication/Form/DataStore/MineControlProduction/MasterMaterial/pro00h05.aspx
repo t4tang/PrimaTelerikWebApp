@@ -35,7 +35,7 @@
             MasterTableView-AllowFilteringByColumn="true" MasterTableView-CommandItemDisplay="Top" 
             OnUpdateCommand="RadGrid1_UpdateCommand" OnInsertCommand="RadGrid1_InsertCommand" 
             >
-            <MasterTableView>
+            <MasterTableView Font-Size="13px" Font-Names="Calibri">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
@@ -44,11 +44,11 @@
                         <HeaderStyle Width="30px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText="Specification" DataField="spec">
-                        <HeaderStyle Width="180px" />
+                        <HeaderStyle Width="580px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderText="Reference" DataField="koref">
+                   <%-- <telerik:GridBoundColumn HeaderText="Reference" DataField="koref">
                         <HeaderStyle Width="30px" />
-                    </telerik:GridBoundColumn>
+                    </telerik:GridBoundColumn>--%>
                     <telerik:GridBoundColumn HeaderText="Active" DataField="tActive">
                         <HeaderStyle Width="30px" />
                     </telerik:GridBoundColumn>
