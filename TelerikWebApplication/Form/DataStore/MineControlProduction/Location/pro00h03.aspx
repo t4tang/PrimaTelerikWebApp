@@ -36,7 +36,7 @@
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
                     </telerik:GridEditCommandColumn>
-                    <telerik:GridBoundColumn HeaderText ="Category" DataField="Loc_code">
+                    <telerik:GridBoundColumn HeaderText ="Code" DataField="Loc_code">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText ="Location" DataField="loc_name">
