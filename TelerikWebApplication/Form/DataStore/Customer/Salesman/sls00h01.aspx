@@ -64,6 +64,11 @@
                     <FormTemplate>
                         <table ID="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" style="border-collapse: collapse; padding-left:35px; 
                             padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
+                            <tr class="EditFormHeader">
+                                <td colspan="2">
+                                    <b style="font-weight: bold; font-variant: small-caps; text-decoration: underline; color: #990000;">Salesman</b>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     Code :
@@ -101,7 +106,8 @@
                                                          Text='<%#DataBinder.Eval(Container, "DataItem.sar_name") %>' AutoPostBack="false"
                                                          ShowDropDownOnTextboxClick="true" OnPreRender="cb_sub_area_PreRender" EnableLoadOnDemand="true"
                                                          EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
-                                                         OnItemsRequested="cb_sub_area_ItemsRequested" OnSelectedIndexChanged="cb_sub_area_SelectedIndexChanged">
+                                                         OnItemsRequested="cb_sub_area_ItemsRequested" OnSelectedIndexChanged="cb_sub_area_SelectedIndexChanged" 
+                                                         EmptyMessage="Select area sales">
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>
@@ -134,7 +140,8 @@
                                                      Text='<%#DataBinder.Eval(Container, "DataItem.city_name") %>' AutoPostBack="false"
                                                      ShowDropDownOnTextboxClick="true" OnPreRender="txt_city_PreRender" EnableLoadOnDemand="true"
                                                      EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
-                                                     OnItemsRequested="txt_city_ItemsRequested" OnSelectedIndexChanged="txt_city_SelectedIndexChanged">
+                                                     OnItemsRequested="txt_city_ItemsRequested" OnSelectedIndexChanged="txt_city_SelectedIndexChanged" 
+                                                     EmptyMessage="Select City">
                                 </telerik:RadComboBox>
                             </td>
                             &nbsp;
