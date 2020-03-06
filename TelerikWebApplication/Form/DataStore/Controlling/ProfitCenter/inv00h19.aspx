@@ -49,7 +49,7 @@
                         <HeaderStyle Height="200px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText ="Project Area" DataField ="region_name" >
-                        <HeaderStyle Width ="420px" > </HeaderStyle>
+                        <HeaderStyle Width="420px" /> 
                     </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName="Delete" CommandName="Delete" HeaderStyle-Width="30px" 
                         ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ConfirmText="Are You Sure ?" 
@@ -63,7 +63,7 @@
                                     padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
                             <tr class="EditFormHeader">
                                 <td colspan="2">
-                                    <b>Controlling</b>
+                                    <b style="font-weight: bold; font-variant: small-caps; text-decoration: underline; color: #990000;">Controlling</b>
                                 </td>
                             </tr>
                             <tr>
@@ -98,7 +98,8 @@
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.company_name") %>' EnableVirtualScrolling="false" 
                                                     OnItemsRequested="cb_company_ItemsRequested" OnPreRender="cb_company_PreRender" 
                                                     OnSelectedIndexChanged="cb_company_SelectedIndexChanged" EnableLoadOnDemand="true" Enabled="true" 
-                                                    ShowMoreResultsBox="true" AutoPostBack="false" Skin ="MetroTouch" Height="200" MarkFirstMatch="true">
+                                                    ShowMoreResultsBox="true" AutoPostBack="false" Skin ="MetroTouch" Height="200" 
+                                                    MarkFirstMatch="true" EmptyMessage="Select Company">
                                                 </telerik:RadComboBox>
                                             </td>
                                         </tr>
@@ -111,7 +112,8 @@
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>' EnableVirtualScrolling="false" 
                                                     OnItemsRequested="cb_region_ItemsRequested" OnPreRender="cb_region_PreRender" 
                                                     OnSelectedIndexChanged="cb_region_SelectedIndexChanged" EnableLoadOnDemand="true" Enabled="true"
-                                                    ShowMoreResultsBox="true" AutoPostBack="false" Skin ="MetroTouch" Height="200" MarkFirstMatch="true">
+                                                    ShowMoreResultsBox="true" AutoPostBack="false" Skin ="MetroTouch" Height="200" 
+                                                    MarkFirstMatch="true" EmptyMessage="Select Area Project">
                                                 </telerik:RadComboBox>
                                             </td>
                                         </tr>
@@ -134,7 +136,8 @@
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.DivName") %>' EnableVirtualScrolling="false" 
                                                     OnItemsRequested="cb_category_ItemsRequested" OnPreRender="cb_category_PreRender" 
                                                     OnSelectedIndexChanged="cb_category_SelectedIndexChanged" EnableLoadOnDemand="true" Enabled="true"  
-                                                    ShowMoreResultsBox="true" AutoPostBack="false" Skin ="MetroTouch" Height="200" MarkFirstMatch="true">
+                                                    ShowMoreResultsBox="true" AutoPostBack="false" Skin ="MetroTouch" Height="200" 
+                                                    MarkFirstMatch="true" EmptyMessage="Select Category">
                                                 </telerik:RadComboBox>
                                             </td>
                                         </tr>

@@ -69,50 +69,57 @@
                 <FormTemplate>
                       <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" style="border-collapse: collapse; padding-left:35px; 
                                     padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
-            <tr>
-                <td>
-                    Code:
-                </td>
-                <td>
-                    <telerik:RadTextBox ID="txt_region_code" runat="server" Width="150px" Enabled="true"
-                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>' AutoPostBack="false"></telerik:RadTextBox>
+                            
+                          <tr class="EditFormHeader">
+                                <td colspan="2">
+                                    <b style="font-weight: bold; font-variant: small-caps; text-decoration: underline; color: #990000;">Project</b>
+                                </td>
+                          </tr>
+                          <tr>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Project Area:
-                </td>
-                <td>
-                    <telerik:RadTextBox ID="txt_region_name" runat="server" Width="350px" Enabled="true"
-                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>'  AutoPostBack="false"></telerik:RadTextBox>
-                </td>
-            </tr>
-            <tr>
-              <%--  <td>
-                    Satuan:
-                </td>
-                <td>
-                    <telerik:RadComboBox ID="cb_stuan" runat="server" RenderMode="Lightweight" Width ="150"
-                        Text='<%# DataBinder.Eval(Container, "DataItem.unit_name") %>' 
-                         OnItemsRequested ="cb_stuan_ItemsRequested" OnSelectedIndexChanged ="cb_stuan_SelectedIndexChanged"
-                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender="cb_stuan_PreRender"
-                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                        CssClass="combo" AutoPostBack="true" Skin="Office2010Silver"
-                        Height="200" MarkFirstMatch="true">
+                              <td>
+                                    Code:
+                              </td>
+                              <td>
+                                    <telerik:RadTextBox ID="txt_region_code" runat="server" Width="150px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>' AutoPostBack="false"></telerik:RadTextBox>
 
-                    </telerik:RadComboBox>
-                </td>
-            </tr>--%>
-            <tr >
-                <td align="right" colspan="2">
-                    <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                    runat ="server" CommandName ='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' >
-                        </asp:Button>&nbsp;
-                    <asp:Button ID ="btnCancel" Text="Cancel" runat="server" CausesValidation ="false" CommandName="Cancel"> </asp:Button>
-                </td>
-            </tr>
-        </table> 
+                                </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                    Project Area:
+                              </td>
+                              <td>
+                                    <telerik:RadTextBox ID="txt_region_name" runat="server" Width="350px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                              </td>
+                          </tr>
+                          <tr>
+                              <%--  <td>
+                                    Satuan:
+                              </td>
+                              <td>
+                                    <telerik:RadComboBox ID="cb_stuan" runat="server" RenderMode="Lightweight" Width ="150"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.unit_name") %>' 
+                                         OnItemsRequested ="cb_stuan_ItemsRequested" OnSelectedIndexChanged ="cb_stuan_SelectedIndexChanged"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender="cb_stuan_PreRender"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true"
+                                        CssClass="combo" AutoPostBack="true" Skin="Office2010Silver"
+                                        Height="200" MarkFirstMatch="true">
+
+                                    </telerik:RadComboBox>
+                              </td>
+                            </tr>--%>
+                          <tr >
+                              <td align="right" colspan="2">
+                                    <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                    runat ="server" CommandName ='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' >
+                                        </asp:Button>&nbsp;
+                                    <asp:Button ID ="btnCancel" Text="Cancel" runat="server" CausesValidation ="false" CommandName="Cancel"> </asp:Button>
+                              </td>
+                          </tr>
+                      </table> 
                 </FormTemplate>
             </EditFormSettings>     
         </MasterTableView>

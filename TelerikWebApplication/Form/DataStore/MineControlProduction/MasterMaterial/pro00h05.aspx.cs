@@ -31,8 +31,8 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.MasterMater
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT pro00h05.prod_code, pro00h05.spec, CASE pro00h05.kind_code WHEN 'CL' THEN 'CL' ELSE 'OB' END AS kind_code, pro00h05.tActive  " +
-                                "FROM pro00h05 " +
+            cmd.CommandText = "SELECT pro00h05.prod_code, pro00h05.spec, CASE pro00h05.kind_code WHEN 'CL' THEN 'CL' ELSE 'OB' END AS kind_code, " +
+                                "CASE pro00h05.tActive WHEN '1' THEN 'YES' ELSE 'NO' END AS tActive FROM pro00h05 " +
                                 " WHERE pro00h05.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();

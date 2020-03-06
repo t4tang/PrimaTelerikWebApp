@@ -77,7 +77,7 @@
                                     padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
                              <tr class="EditFormHeader">
                                  <td colspan="2">
-                                     <b>Master Customer</b>
+                                     <b style="font-weight: bold; font-variant: small-caps; text-decoration: underline; color: #990000;">Master Customer</b>
                                  </td>
                              </tr>
                              <tr>
@@ -98,7 +98,7 @@
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.supplier_name") %>' 
                                                      OnItemsRequested="cb_reff_ItemsRequested" OnPreRender="cb_reff_PreRender" OnSelectedIndexChanged="cb_reff_SelectedIndexChanged" 
                                                     EnableVirtualScrolling ="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
-                                                     MarkFirstMatch="true">
+                                                     MarkFirstMatch="true" EmptyMessage="Select Reff. Code">
                                                  </telerik:RadComboBox> 
                                              </td>
                                          </tr>
@@ -116,7 +116,8 @@
                                                  <telerik:RadComboBox ID="cb_area" runat="server" RenderMode="Lightweight" Width="180px" Enabled="true"
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.sar_name") %>' EnableVirtualScrolling="false" 
                                                      OnPreRender="cb_area_PreRender" OnItemsRequested="cb_area_ItemsRequested" OnSelectedIndexChanged="cb_area_SelectedIndexChanged"
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select Area">
                                                  </telerik:RadComboBox>
                                              </td>
                                          </tr>
@@ -150,7 +151,8 @@
                                                  <telerik:RadComboBox ID="cb_currency" runat="server" RenderMode="Lightweight" Width="100px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.cur_name") %>' EnableVirtualScrolling="false" 
                                                      OnPreRender="cb_currency_PreRender" OnItemsRequested="cb_currency_ItemsRequested" OnSelectedIndexChanged="cb_currency_SelectedIndexChanged" 
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select Currency">
                                                  </telerik:RadComboBox>
                                              </td>
                                          </tr>
@@ -168,7 +170,8 @@
                                                  <telerik:RadComboBox ID="cb_kind" runat="server" RenderMode="Lightweight" Width="180px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.cust_kind") %>' EnableVirtualScrolling="false" 
                                                      OnItemsRequested="cb_kind_ItemsRequested" OnPreRender="cb_kind_PreRender" OnSelectedIndexChanged="cb_kind_SelectedIndexChanged" 
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select cust kind">
                                                  </telerik:RadComboBox>
                                              </td>
                                          </tr>
@@ -191,7 +194,7 @@
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.pay_code") %>' 
                                                      OnItemsRequested="cb_payment_ItemsRequested" OnPreRender="cb_payment_PreRender" OnSelectedIndexChanged="cb_payment_SelectedIndexChanged" 
                                                      EnableVirtualScrolling="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" 
-                                                     EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true" Label="Payment">
+                                                     EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true" Label="Payment" EmptyMessage="Select payment">
                                                  </telerik:RadComboBox>
                                              </td>
                                             
@@ -209,7 +212,8 @@
                                                  <telerik:RadComboBox ID="cb_sales" runat="server" RenderMode="Lightweight" Width="100px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.sales_name") %>' EnableVirtualScrolling="false" 
                                                      OnItemsRequested="cb_sales_ItemsRequested" OnPreRender="cb_sales_PreRender" OnSelectedIndexChanged="cb_sales_SelectedIndexChanged"  
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select sales">
                                                  </telerik:RadComboBox>
                                              </td>
                                          </tr>
@@ -227,7 +231,8 @@
                                                  <telerik:RadComboBox ID="cb_send_mode" runat="server" RenderMode="Lightweight" Width="100px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.ShipModeName") %>' EnableVirtualScrolling="false" 
                                                      OnItemsRequested="cb_send_mode_ItemsRequested" OnPreRender="cb_send_mode_PreRender" OnSelectedIndexChanged="cb_send_mode_SelectedIndexChanged" 
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200"
+                                                     MarkFirstMatch="true" EmptyMessage="Select send mode">
                                                  </telerik:RadComboBox>
                                              </td>
                                          </tr>
@@ -238,7 +243,8 @@
                                                  <telerik:RadComboBox ID="cb_account1" runat="server" RenderMode="Lightweight" Width="300px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.accountname1") %>' 
                                                      OnItemsRequested="cb_account1_ItemsRequested" OnPreRender="cb_account1_PreRender" OnSelectedIndexChanged="cb_account1_SelectedIndexChanged" 
-                                                     EnableVirtualScrolling="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     EnableVirtualScrolling="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select Bank Account">
                                                  </telerik:RadComboBox>
                                              </td>
                                              <td>NPPKP
@@ -256,7 +262,8 @@
                                                  <telerik:RadComboBox ID="cb_account2" runat="server" RenderMode="Lightweight" Width="300px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.accountname2") %>' 
                                                      OnItemsRequested="cb_account2_ItemsRequested" OnPreRender="cb_account2_PreRender" OnSelectedIndexChanged="cb_account2_SelectedIndexChanged"  
-                                                     EnableVirtualScrolling="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     EnableVirtualScrolling="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select Bank Account">
                                                  </telerik:RadComboBox>
                                              </td>
                                          </tr>
@@ -280,7 +287,8 @@
                                                  <telerik:RadComboBox ID="cb_ar" runat="server" RenderMode="Lightweight" Width="300px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.ARname") %>' EnableVirtualScrolling="false"
                                                       OnItemsRequested="cb_ar_ItemsRequested" OnPreRender="cb_ar_PreRender" OnSelectedIndexChanged="cb_ar_SelectedIndexChanged" 
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select A/R Payment">
                                                  </telerik:RadComboBox>
                                              </td>
                                          </tr>
@@ -291,7 +299,8 @@
                                                  <telerik:RadComboBox ID="cb_dp" runat="server" RenderMode="Lightweight" Width="300px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.rekDPname") %>' EnableVirtualScrolling="false" 
                                                      OnItemsRequested="cb_dp_ItemsRequested" OnPreRender="cb_dp_PreRender" OnSelectedIndexChanged="cb_dp_SelectedIndexChanged" 
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select Down Payment">
                                                  </telerik:RadComboBox>
                                              </td>
                                          </tr>
@@ -303,7 +312,7 @@
                                              <td>Address
                                              </td>
                                              <td>
-                                                 <telerik:RadTextBox ID="txt_pay_add" runat="server" RenderMode="Lightweight" Width="300px" Enabled="true" 
+                                                 <telerik:RadTextBox ID="txt_pay_add" runat="server" RenderMode="Lightweight" Width="300px" Height="50px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.pay_add") %>' AutoPostBack="false">
                                                  </telerik:RadTextBox>
                                              </td>
@@ -315,7 +324,8 @@
                                                 <telerik:RadComboBox ID="cb_city" runat="server" RenderMode="Lightweight" Width="150px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.payName") %>' EnableVirtualScrolling="false" 
                                                      OnItemsRequested="cb_city_ItemsRequested" OnPreRender="cb_city_PreRender" OnSelectedIndexChanged="cb_city_SelectedIndexChanged" 
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                    MarkFirstMatch="true" EmptyMessage="Select City">
                                                  </telerik:RadComboBox>
                                              </td>
                                              <td>Zip Code
@@ -360,7 +370,7 @@
                                              <td>Address
                                              </td>
                                              <td>
-                                                 <telerik:RadTextBox ID="txt_send_add" runat="server" RenderMode="Lightweight" Width="300px" Enabled="true" 
+                                                 <telerik:RadTextBox ID="txt_send_add" runat="server" RenderMode="Lightweight" Width="300px" Height="50px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.send_add") %>' AutoPostBack="false">
                                                  </telerik:RadTextBox>
                                              </td>
@@ -372,7 +382,8 @@
                                                  <telerik:RadComboBox ID="cb_send_city" runat="server" RenderMode="Lightweight" Width="150px" Enabled="true" 
                                                      Text='<%# DataBinder.Eval(Container, "DataItem.sendName") %>' EnableVirtualScrolling="false" 
                                                      OnItemsRequested="cb_send_city_ItemsRequested" OnPreRender="cb_send_city_PreRender" OnSelectedIndexChanged="cb_send_city_SelectedIndexChanged" 
-                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                     ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true" Height="200" 
+                                                     MarkFirstMatch="true" EmptyMessage="Select City">
                                                  </telerik:RadComboBox>
                                              </td>
                                              <td>Zip Code
