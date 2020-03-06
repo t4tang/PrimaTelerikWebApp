@@ -54,12 +54,17 @@
                     <FormTemplate>
                         <table ID="Table2" cellspacing="4" cellpadding="5" width="70%" border="0" style="border-collapse: collapse; padding-left:35px; 
                             padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
+                            <tr class="EditFormHeader">
+                                <td colspan="2">
+                                    <b style="font-weight: bold; font-variant: small-caps; text-decoration: underline; color: #990000;">Sub Area</b>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     Kode :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_code" runat="server" Width="90px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_code" runat="server" Width="75px" Enabled="true" RenderMode="Lightweight"
                                                         Text='<%#DataBinder.Eval(Container, "DataItem.sar_code") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -69,7 +74,7 @@
                                     Sub Area :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_sub_area" runat="server" Width="170px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_sub_area" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
                                                         Text='<%#DataBinder.Eval(Container, "DataItem.sar_name") %>' AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -79,11 +84,12 @@
                                     Area :
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_area" runat="server" Width="215px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadComboBox ID="cb_area" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
                                                      Text='<%#DataBinder.Eval(Container, "DataItem.area_name") %>' AutoPostBack="false"
                                                      ShowDropDownOnTextboxClick="true" OnPreRender="cb_area_PreRender" EnableLoadOnDemand="true"
                                                      EnableVirtualScrolling="true" ShowMoreResultsBox="true" MarkFirstMatch="true"
-                                                     OnItemsRequested="cb_area_ItemsRequested" OnSelectedIndexChanged="cb_area_SelectedIndexChanged">
+                                                     OnItemsRequested="cb_area_ItemsRequested" OnSelectedIndexChanged="cb_area_SelectedIndexChanged"
+                                                     EmptyMessage="Select Area">
                                 </telerik:RadComboBox>
                                 </td>
                             </tr>
