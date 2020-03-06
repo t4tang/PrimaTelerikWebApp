@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Material.Uom {
+namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment {
     
     
-    public partial class inv00h08 {
+    public partial class mtc00h16 {
         
         /// <summary>
         /// FolderNavigationControl control.
@@ -29,6 +29,24 @@ namespace TelerikWebApplication.Form.DataStore.Material.Uom {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::TelerikWebApplication.Controls.MobileNavigation MobileNavigation;
+        
+        /// <summary>
+        /// RadAjaxManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
+        
+        /// <summary>
+        /// RadAjaxLoadingPanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
         
         /// <summary>
         /// RadGrid1 control.

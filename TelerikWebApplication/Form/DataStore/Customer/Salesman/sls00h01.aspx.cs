@@ -35,7 +35,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.Salesman
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT sls00h01.sales_code, sls00h01.sales_name, sls00h01.status, sls00h01.address, sls00h01.phone, " +
+            cmd.CommandText = "SELECT sls00h01.sales_code, sls00h01.sales_name, CASE sls00h01.status WHEN '1' THEN 'YES' ELSE 'NO' END AS status, sls00h01.address, sls00h01.phone, " +
                               "sls00h01.email, sls00h01.tJual, sls00h01.lastupdate, sls00h01.userid, sls00h01.stEdit, inv00h27.sar_code, " +
                               "inv00h25.city_code, inv00h27.sar_name, inv00h25.city_name FROM sls00h01 INNER JOIN " +
                               "inv00h25 ON sls00h01.city_code = inv00h25.city_code INNER JOIN " +

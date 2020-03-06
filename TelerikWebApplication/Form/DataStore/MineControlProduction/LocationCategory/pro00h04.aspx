@@ -37,10 +37,10 @@
                         <HeaderStyle Width="20px" />
                     </telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn HeaderText ="Code" DataField="loc_cate_code">
-                        <HeaderStyle Width="200px" />
+                        <HeaderStyle Width="60px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText ="Category" DataField="cat_name">
-                        <HeaderStyle Width="200px" />
+                        <HeaderStyle Width="800px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
                             ConfirmText="Are you sure you want to delete this row or record?">

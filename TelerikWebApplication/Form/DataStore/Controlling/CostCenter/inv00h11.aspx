@@ -81,117 +81,122 @@
                     <FormTemplate>
                           <table id="Table2" cellspacing="4" cellpadding="5" width="100%" border="0" style="border-collapse: collapse; padding-left:35px; 
                                         padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
-                <tr>
-                    <td>
-                        Code:
-                    </td>
-                    <td>
-                        <telerik:RadTextBox ID="txt_CostCenter" runat="server" Width="150px" Enabled="true"
-                            RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.CostCenter") %>' AutoPostBack="false"></telerik:RadTextBox>
+                            <tr class="EditFormHeader">
+                                <td colspan="2">
+                                    <b style="font-weight: bold; font-variant: small-caps; text-decoration: underline; color: #990000;">Cost Center</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Code:
+                                </td>
+                                <td>
+                                    <telerik:RadTextBox ID="txt_CostCenter" runat="server" Width="150px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.CostCenter") %>' AutoPostBack="false"></telerik:RadTextBox>
 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Cost Center:
-                    </td>
-                    <td>
-                        <telerik:RadTextBox ID="txt_CostCenterName" runat="server" Width="350px" Enabled="true"
-                            RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.CostCenterName") %>'  AutoPostBack="false"></telerik:RadTextBox>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        Company:
-                    </td>
-                    <td>
-                        <telerik:RadComboBox ID="cb_company" runat="server" RenderMode="Lightweight" Width ="350px"
-                            Text='<%# DataBinder.Eval(Container, "DataItem.company_name") %>' 
-                             OnItemsRequested ="cb_company_ItemsRequested" OnSelectedIndexChanged ="cb_company_SelectedIndexChanged"
-                            EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender="cb_company_PreRender"
-                            EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                            AutoPostBack="false" Skin ="MetroTouch"
-                            Height="200" MarkFirstMatch="true">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cost Center:
+                                </td>
+                                <td>
+                                    <telerik:RadTextBox ID="txt_CostCenterName" runat="server" Width="350px" Enabled="true"
+                                        RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.CostCenterName") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Company:
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox ID="cb_company" runat="server" RenderMode="Lightweight" Width ="350px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.company_name") %>' 
+                                        OnItemsRequested ="cb_company_ItemsRequested" OnSelectedIndexChanged ="cb_company_SelectedIndexChanged"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender="cb_company_PreRender"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true" EmptyMessage="Select Company"
+                                        AutoPostBack="false" Skin ="MetroTouch"
+                                        Height="200" MarkFirstMatch="true">
 
-                        </telerik:RadComboBox>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        Profit Center:
-                    </td>
-                    <td>
-                        <telerik:RadComboBox ID="cb_profitCtr" runat="server" RenderMode="Lightweight" Width ="350px"
-                            Text='<%# DataBinder.Eval(Container, "DataItem.ProfitCtrName") %>' 
-                             OnItemsRequested ="cb_profitCtr_ItemsRequested" OnSelectedIndexChanged ="cb_profitCtr_SelectedIndexChanged"
-                            EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_profitCtr_PreRender"
-                            EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                             AutoPostBack="false" Skin ="MetroTouch"
-                            Height="200" MarkFirstMatch="true">
+                                    </telerik:RadComboBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Profit Center:
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox ID="cb_profitCtr" runat="server" RenderMode="Lightweight" Width ="350px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.ProfitCtrName") %>' 
+                                        OnItemsRequested ="cb_profitCtr_ItemsRequested" OnSelectedIndexChanged ="cb_profitCtr_SelectedIndexChanged"
+                                        EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_profitCtr_PreRender"
+                                        EnableVirtualScrolling="true" ShowMoreResultsBox="true" EmptyMessage="Select Profit Center"
+                                        AutoPostBack="false" Skin ="MetroTouch"
+                                        Height="200" MarkFirstMatch="true">
 
-                        </telerik:RadComboBox>
-                    </td>
-                     </tr>
-                 <tr>
-                    <td>
-                        Project Area:
-                    </td>
-                    <td>
-                        <telerik:RadComboBox ID="cb_region" runat="server" RenderMode="Lightweight" Width ="350px"
-                            Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>' 
-                             OnItemsRequested ="cb_region_ItemsRequested" OnSelectedIndexChanged ="cb_region_SelectedIndexChanged"
-                            EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_region_PreRender"
-                            EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                             AutoPostBack="false" Skin ="MetroTouch"
-                            Height="200" MarkFirstMatch="true">
+                                    </telerik:RadComboBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Project Area:
+                                </td>
+                            <td>
+                                <telerik:RadComboBox ID="cb_region" runat="server" RenderMode="Lightweight" Width ="350px"
+                                    Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>' 
+                                    OnItemsRequested ="cb_region_ItemsRequested" OnSelectedIndexChanged ="cb_region_SelectedIndexChanged"
+                                    EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_region_PreRender"
+                                    EnableVirtualScrolling="true" ShowMoreResultsBox="true" EmptyMessage="Select Area Project"
+                                    AutoPostBack="false" Skin ="MetroTouch"
+                                    Height="200" MarkFirstMatch="true">
 
-                        </telerik:RadComboBox>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        Person In Charge:
-                    </td>
-                    <td>
-                        <telerik:RadTextBox ID="txt_PersonIC" runat="server" Width="350px" Enabled="true"
-                            RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.PersonIC") %>'  AutoPostBack="false"></telerik:RadTextBox>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        Category:
-                    </td>
-                    <td>
-                        <telerik:RadComboBox ID="cb_category" runat="server" RenderMode="Lightweight" Width ="350px"
-                            Text='<%# DataBinder.Eval(Container, "DataItem.DivName") %>' 
-                             OnItemsRequested ="cb_category_ItemsRequested" OnSelectedIndexChanged ="cb_category_SelectedIndexChanged"
-                            EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_category_PreRender"
-                            EnableVirtualScrolling="true" ShowMoreResultsBox="true"
-                             AutoPostBack="false" Skin ="MetroTouch"
-                            Height="200" MarkFirstMatch="true">
+                                </telerik:RadComboBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Person In Charge:
+                            </td>
+                            <td>
+                                <telerik:RadTextBox ID="txt_PersonIC" runat="server" Width="350px" Enabled="true"
+                                    RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.PersonIC") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Category:
+                            </td>
+                            <td>
+                                <telerik:RadComboBox ID="cb_category" runat="server" RenderMode="Lightweight" Width ="350px"
+                                    Text='<%# DataBinder.Eval(Container, "DataItem.DivName") %>' 
+                                    OnItemsRequested ="cb_category_ItemsRequested" OnSelectedIndexChanged ="cb_category_SelectedIndexChanged"
+                                    EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_category_PreRender"
+                                    EnableVirtualScrolling="true" ShowMoreResultsBox="true" EmptyMessage="Select Category"
+                                    AutoPostBack="false" Skin ="MetroTouch"
+                                    Height="200" MarkFirstMatch="true">
 
-                        </telerik:RadComboBox>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        Hirarchy:
-                    </td>
-                    <td>
-                        <telerik:RadTextBox ID="txt_Heirarchy" runat="server" Width="350px" Enabled="true"
-                            RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.Heirarchy") %>'  AutoPostBack="false"></telerik:RadTextBox>
-                    </td>
-                </tr>
+                                </telerik:RadComboBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Hirarchy:
+                            </td>
+                            <td>
+                                <telerik:RadTextBox ID="txt_Heirarchy" runat="server" Width="350px" Enabled="true"
+                                    RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.Heirarchy") %>'  AutoPostBack="false"></telerik:RadTextBox>
+                            </td>
+                        </tr>
            
-                <tr >
-                    <td align="right" colspan="2">
-                        <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                        runat ="server" CommandName ='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' >
-                            </asp:Button>&nbsp;
-                        <asp:Button ID ="btnCancel" Text="Cancel" runat="server" CausesValidation ="false" CommandName="Cancel"> </asp:Button>
-                    </td>
-                </tr>
-            </table> 
+                        <tr >
+                            <td align="right" colspan="2">
+                                <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                    runat ="server" CommandName ='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' >
+                                </asp:Button>&nbsp;
+                                <asp:Button ID ="btnCancel" Text="Cancel" runat="server" CausesValidation ="false" CommandName="Cancel"> </asp:Button>
+                            </td>
+                        </tr>
+                        </table> 
                     </FormTemplate>
                 </EditFormSettings>     
             </MasterTableView>

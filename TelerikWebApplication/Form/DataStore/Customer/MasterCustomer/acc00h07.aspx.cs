@@ -22,7 +22,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         public DataTable GetDataTable()
@@ -36,8 +36,8 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
 				                "(select city_name from inv00h25 where inv00h25.city_code = acc00h07.pay_city) as payName, " +                 
                                  "case acc00h07.pay_code when 'Cash' Then '01' When 'Kredit' Then '02' Else 'COD' End As pay_code, acc00h07.pay_kind, acc00h07.pay_add, acc00h07.pay_phone, " + 
                                 "acc00h07.pay_sli_code, acc00h07.pay_slj_code, acc00h07.pay_phone, acc00h07.pay_postal, acc00h07.pay_fax_num, acc00h07.send_kind, acc00h07.send_add, " +
-                                "acc00h07.send_sli_code, acc00h07.send_slj_code, acc00h07.send_phone, acc00h07.sen_postal, acc00h07.sen_fax_num, case acc00h07.cust_kind when 'Dalam Kota' Then '01' Else 'Luar Kota' End as cust_kind, " + 
-                                "acc00h07.cust_limit, acc00h07.limit_day, acc00h07.remark, acc00h07.tax_address, acc00h07.status, acc00h07.date_enter, acc00h07.npwp_no, acc00h07.NPPKP, acc00h07.lastupdate, acc00h07.userid, " + 
+                                "acc00h07.send_sli_code, acc00h07.send_slj_code, acc00h07.send_phone, acc00h07.sen_postal, acc00h07.sen_fax_num, case acc00h07.cust_kind when 'Dalam Kota' Then '01' Else 'Luar Kota' End as cust_kind, " +
+                                "acc00h07.cust_limit, acc00h07.limit_day, acc00h07.remark, acc00h07.tax_address, CASE acc00h07.status WHEN '1' THEN 'YES' ELSE 'NO' END AS status, acc00h07.date_enter, acc00h07.npwp_no, acc00h07.NPPKP, acc00h07.lastupdate, acc00h07.userid, " + 
                                 "acc00h07.stEdit, acc00h07.discount, acc00h07.pay_code, acc00h07.account_no, acc00h07.account_no2, acc00h07.RekDP, acc00h07.korek, pur00h04.ShipModeName, sls00h01.sales_name, " +
                                 "acc00h03.cur_name, pur00h01.supplier_name, inv00h27.sar_name, acc00h01.NoRek +' '+ NamBank as accountname1, acc00h01.NoRek +' '+ NamBank as accountname2, " +
                                 "acc00h10.accountno +' '+ accountname as ARname, acc00h10.accountno +' '+ accountname as rekDPname " +
@@ -102,7 +102,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.CommandText = "UPDATE acc00h07 set cust_code = @cust_code, ref_code = @ref_code, cust_name = @cust_name, sar_code = @sar_code, con_person = @con_person, " +
                                 "npwp_no = @npwp_no, hp_no = @hp_no, cur_code = @cur_code, email = @email, cust_kind = @cust_kind, cust_limit = @cust_limit, limit_day = @limit_day, " +
                                 "pay_kind = @pay_kind, sales_code = @sales_code, send_kind = @send_kind, account_no = @account_no, NPPKP = @NPPKP, account_no2 = @account_no2, " +
-                                "tax_address = @tax_address, korek = @korek, RekDP = @RekDP, pay_add = @pay_add, pay_city = @pay_city, " +
+                                "tax_address = @tax_address, korek = @korek, RekDP = @RekDP, pay_add = @pay_add, pay_city = @pay_city, date_enter = @date_enter, " +
                                 "pay_postal = @pay_postal, pay_sli_code = @pay_sli_code, pay_slj_code = @pay_slj_code, pay_phone = @pay_phone,pay_fax_num = @pay_fax_num, send_add = @send_add, send_city = @send_city, " +
                                 "sen_postal = @sen_postal, send_sli_code = @send_sli_code, send_slj_code = @send_slj_code, send_phone = @send_phone,sen_fax_num = @sen_fax_num, lastupdate = getdate(), userid = @userid, stEdit = '0' where cust_code = @cust_code";
             cmd.Parameters.AddWithValue("@cust_code", (item.FindControl("txt_cust_code") as RadTextBox).Text);
@@ -142,6 +142,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.Parameters.AddWithValue("@sen_fax_num", (item.FindControl("txt_send_fax") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
             cmd.Parameters.AddWithValue("@status", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
+            cmd.Parameters.AddWithValue("@date_enter", (item.FindControl("dtp_date") as RadDatePicker).SelectedDate);
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -156,11 +157,11 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.CommandText = "insert into acc00h07(cust_code,ref_code,cust_name,sar_code,con_person,npwp_no,hp_no,cur_code,email, " +
                                 "cust_kind,cust_limit,limit_day,pay_kind,sales_code,send_kind,account_no,NPPKP,account_no2,tax_address,korek, " +
                                 "RekDP,pay_add,pay_city,pay_postal,pay_sli_code,pay_slj_code,pay_phone,pay_fax_num,send_add,send_city,sen_postal, " +
-                                "send_sli_code,send_slj_code,send_phone,sen_fax_num, userid, lastupdate,stEdit,status) " +
+                                "send_sli_code,send_slj_code,send_phone,sen_fax_num, userid, lastupdate,stEdit,status,date_enter) " +
                                 "values(@cust_code, @ref_code, @cust_name, @sar_code, @con_person, @npwp_no, @hp_no, @cur_code, @email, @cust_kind, " +
                                 "@cust_limit, @limit_day, @pay_kind, @sales_code, @send_kind, @account_no, @NPPKP, @account_no2, @tax_address, @korek, @RekDP, " +
                                 "@pay_add, @pay_city, @pay_postal, @pay_sli_code, @pay_slj_code, @pay_phone, @pay_fax_num, @send_add, @send_city, @sen_postal,  " +
-                                "@send_sli_code,@send_slj_code, @send_phone, @sen_fax_num, @userid, GETDATE(), '0',@status)";
+                                "@send_sli_code,@send_slj_code, @send_phone, @sen_fax_num, @userid, GETDATE(), '0',@status,@date_enter)";
             cmd.Parameters.AddWithValue("@cust_code", (item.FindControl("txt_cust_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@ref_code", (item.FindControl("cb_reff") as RadComboBox).SelectedValue);
             cmd.Parameters.AddWithValue("@cust_name", (item.FindControl("txt_cust_name") as RadTextBox).Text);
@@ -198,6 +199,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterCustomer
             cmd.Parameters.AddWithValue("@sen_fax_num", (item.FindControl("txt_send_fax") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
             cmd.Parameters.AddWithValue("@status", (item.FindControl("chk_active") as CheckBox).Checked ? 1 : 0);
+            cmd.Parameters.AddWithValue("@date_enter", (item.FindControl("dtp_date") as RadDatePicker).SelectedDate);
             cmd.ExecuteNonQuery();
             con.Close();
         }

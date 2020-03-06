@@ -36,7 +36,7 @@
             OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand"      
             >
 
-            <MasterTableView>
+            <MasterTableView Font-Names="Calibri" Font-Size="13px">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
@@ -59,7 +59,7 @@
                                     padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
                             <tr class="EditFormHeader">
                                 <td colspan="2">
-                                    <b>Master Area</b>
+                                    <b style="font-weight: bold; font-variant: small-caps; text-decoration: underline; color: #990000;">Master Area</b>
                                 </td>
                             </tr>
                             <tr>
