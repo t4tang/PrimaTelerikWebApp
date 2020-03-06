@@ -38,7 +38,7 @@
             OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated" 
             >
 
-            <MasterTableView>
+            <MasterTableView Font-Names="Calibri" Font-Size="13px">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
