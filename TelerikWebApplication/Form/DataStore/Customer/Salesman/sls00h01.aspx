@@ -49,6 +49,9 @@
                     <telerik:GridBoundColumn HeaderText ="Target" DataField="tJual">
                         <HeaderStyle Width="200px" />
                     </telerik:GridBoundColumn>
+                     <telerik:GridBoundColumn HeaderText="Active" DataField="status">
+                        <HeaderStyle Width="30px" />
+                    </telerik:GridBoundColumn>
                     <%--<telerik:GridCheckBoxColumn DataType="System.Boolean" HeaderText ="Active" DataField="status">
                         <HeaderStyle Width="200px" />
                     </telerik:GridCheckBoxColumn>--%>
@@ -75,8 +78,8 @@
                                     Active :
                                 </td>
                                 <td>
-                                    <asp:CheckBox ID="chk_active" runat="server" Text="Active" Skin="Telerik" AutoPostback="false"
-                                                  Checked='<%# DataBinder.Eval (Container, "DataItem.status").ToString()!="0"?true:false %>'/>
+                                    <asp:CheckBox ID="chk_active" runat="server" Text="Active" Checked="true"/>
+                                                  
                                 </td>
                             </tr>
                             <tr>
