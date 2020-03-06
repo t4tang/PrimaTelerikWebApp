@@ -17,7 +17,6 @@
              OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand" 
             MasterTableView-CommandItemDisplay="Top" OnUpdateCommand="RadGrid1_EditCommand" OnInsertCommand="RadGrid1_InsertCommand"   
             >
-
             <MasterTableView Font-Names="Calibri" Font-Size="13px">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
