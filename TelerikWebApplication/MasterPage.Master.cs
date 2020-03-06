@@ -41,38 +41,39 @@ namespace TelerikWebApplication
 
                 NavNode1.Text = public_str.user_name;
                 //NavNode2.Text = public_str.selected_menu;
+
             }
         }
 
-        //protected override void OnInit(EventArgs e)
-        //{
-        //    DeviceScreenDimensions screenDimensions = Detector.GetScreenDimensions(Request.UserAgent);
-        //    LoadMobile(screenDimensions);
-        //}
+        protected override void OnInit(EventArgs e)
+        {
+            DeviceScreenDimensions screenDimensions = Detector.GetScreenDimensions(Request.UserAgent);
+            LoadMobile(screenDimensions);
+        }
 
-        //private void LoadMobile(DeviceScreenDimensions screenDimensions)
-        //{
-        //    // Desktop Browser Detected
-        //    if (screenDimensions.Height == 0 && screenDimensions.Width == 0)
-        //    {
-        //        var mobileNavigation = FolderContent.FindControl("MobileNavigation");
-        //        if (mobileNavigation != null)
-        //        {
-        //            mobileNavigation.Visible = false;
-        //            nav.Value = "desktop";
-        //        }
-        //    }
-        //    // Mobile Browser Detected
-        //    else
-        //    {
-        //        this.form1.Attributes.Add("class", "mobile clear");
-        //        var desktopNavigation = FolderContent.FindControl("FolderNavigationControl");
-        //        if (desktopNavigation != null)
-        //        {
-        //            desktopNavigation.Visible = false;
-        //            nav.Value = "mobile";
-        //        }
-        //    }
-        //}
+        private void LoadMobile(DeviceScreenDimensions screenDimensions)
+        {
+            // Desktop Browser Detected
+            if (screenDimensions.Height == 0 && screenDimensions.Width == 0)
+            {
+                var mobileNavigation = FolderContent.FindControl("MobileNavigation");
+                if (mobileNavigation != null)
+                {
+                    mobileNavigation.Visible = false;
+                    nav.Value = "desktop";
+                }
+            }
+            // Mobile Browser Detected
+            else
+            {
+                this.form1.Attributes.Add("class", "mobile clear");
+                var desktopNavigation = FolderContent.FindControl("FolderNavigationControl");
+                if (desktopNavigation != null)
+                {
+                    desktopNavigation.Visible = false;
+                    nav.Value = "mobile";
+                }
+            }
+        }
     }
 }
