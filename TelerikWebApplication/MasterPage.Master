@@ -23,8 +23,7 @@
  
         .rdfLabel.rdfBlock {
             margin-top: 6px;
-        }
-        
+        }        
 
     </style>
 </head>
