@@ -29,7 +29,7 @@
             ShowFooter ="true" AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
             OnNeedDataSource ="RadGrid1_NeedDataSource" OnInsertCommand ="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
             OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
-            MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="wkcencode" MasterTableView-ClientDataKeyNames="KoTrans" 
+            MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="wkcencode" MasterTableView-ClientDataKeyNames="wkcencode" 
             MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
             <MasterTableView>
                 <Columns>
@@ -68,7 +68,7 @@
                                     Code:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_code" runat="server" Width="75px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_code" runat="server" Width="95px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.wkcencode") %>' AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -77,7 +77,7 @@
                                     Work Center:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_work_center" runat="server" Width="75px" Enabled="true"
+                                    <telerik:RadTextBox ID="txt_work_center" runat="server" Width="175px" Enabled="true"
                                         RenderMode="Lightweight" Text='<%# DataBinder.Eval(Container, "DataItem.wkcenname") %>' AutoPostBack="false"></telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -86,7 +86,7 @@
                                     Project Area:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_project" runat="server" RenderMode="Lightweight" Width ="200px"
+                                    <telerik:RadComboBox ID="cb_project" runat="server" RenderMode="Lightweight" Width ="250px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>' 
                                         OnItemsRequested ="cb_project_ItemsRequested" OnSelectedIndexChanged ="cb_project_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_project_PreRender"
@@ -100,7 +100,7 @@
                                     Control Key:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="txt_control_key" runat="server" RenderMode="Lightweight" Width ="500px"
+                                    <telerik:RadComboBox ID="txt_control_key" runat="server" RenderMode="Lightweight" Width ="190px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.controlComb") %>' 
                                         OnItemsRequested ="txt_control_key_ItemsRequested" OnSelectedIndexChanged ="txt_control_key_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="txt_control_key_PreRender"
@@ -115,7 +115,7 @@
                                     Capacity Cat:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_capacity" runat="server" RenderMode="Lightweight" Width ="500px"
+                                    <telerik:RadComboBox ID="cb_capacity" runat="server" RenderMode="Lightweight" Width ="170px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.CapCatComb") %>' 
                                         OnItemsRequested ="cb_capacity_ItemsRequested" OnSelectedIndexChanged ="cb_capacity_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_capacity_PreRender"
@@ -130,7 +130,7 @@
                                     Category:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_category" runat="server" RenderMode="Lightweight" Width ="500px"
+                                    <telerik:RadComboBox ID="cb_category" runat="server" RenderMode="Lightweight" Width ="190px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.wkcencatComb") %>' 
                                         OnItemsRequested ="cb_category_ItemsRequested" OnSelectedIndexChanged ="cb_category_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_category_PreRender"
@@ -145,7 +145,7 @@
                                     Person Responsible:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_respon" runat="server" RenderMode="Lightweight" Width ="500px"
+                                    <telerik:RadComboBox ID="cb_respon" runat="server" RenderMode="Lightweight" Width ="400px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.PersonResponComb") %>' 
                                         OnItemsRequested ="cb_respon_ItemsRequested" OnSelectedIndexChanged ="cb_respon_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_respon_PreRender"
@@ -160,7 +160,7 @@
                                     Usage:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_usage" runat="server" RenderMode="Lightweight" Width ="500px"
+                                    <telerik:RadComboBox ID="cb_usage" runat="server" RenderMode="Lightweight" Width ="300px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.UsageComb") %>' 
                                         OnItemsRequested ="cb_usage_ItemsRequested" OnSelectedIndexChanged ="cb_usage_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_usage_PreRender"
@@ -175,14 +175,16 @@
                                     Start Validity Date
                                 </td>
                                 <td>
-                                    <telerik:RadDatePicker ID="dtp_start" runat="server" RenderMode="Lightweight" Width="180px">
+                                    <telerik:RadDatePicker ID="dtp_start" runat="server" RenderMode="Lightweight" Width="180px"
+                                        SelectedDate='<%# DataBinder.Eval(Container, "DataItem.DateValidStart") %>'>
                                     </telerik:RadDatePicker>
                                 
                                 &nbsp;
                                 
                                     End Validity Date
                                 
-                                    <telerik:RadDatePicker ID="dtp_end" runat="server" RenderMode="Lightweight" Width="180px">
+                                    <telerik:RadDatePicker ID="dtp_end" runat="server" RenderMode="Lightweight" Width="180px"
+                                       SelectedDate='<%# DataBinder.Eval(Container, "DataItem.DateValidEnd") %>' >
                                     </telerik:RadDatePicker>
                                 </td>
                             </tr>
@@ -191,7 +193,7 @@
                                     Cost Center:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_cost_center" runat="server" RenderMode="Lightweight" Width ="500px"
+                                    <telerik:RadComboBox ID="cb_cost_center" runat="server" RenderMode="Lightweight" Width ="400px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.CostCenterComb") %>' 
                                         OnItemsRequested ="cb_cost_center_ItemsRequested" OnSelectedIndexChanged ="cb_cost_center_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_cost_center_PreRender"
@@ -206,7 +208,7 @@
                                     Act Type:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_act_type" runat="server" RenderMode="Lightweight" Width ="500px"
+                                    <telerik:RadComboBox ID="cb_act_type" runat="server" RenderMode="Lightweight" Width ="240px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.Act_typeComb") %>' 
                                         OnItemsRequested ="cb_act_type_ItemsRequested" OnSelectedIndexChanged ="cb_act_type_SelectedIndexChanged"
                                         EnableLoadOnDemand="true" ShowDropDownOnTextboxClick="true" OnPreRender ="cb_act_type_PreRender"

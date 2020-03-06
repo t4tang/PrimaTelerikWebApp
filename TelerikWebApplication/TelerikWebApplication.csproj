@@ -282,12 +282,12 @@
     <Compile Include="Form\DataStore\Ledger\AccountNumber\acc00h10.aspx.designer.cs">
       <DependentUpon>acc00h10.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\DataStore\Material\Group\inv00h03.aspx.cs">
-      <DependentUpon>inv00h03.aspx</DependentUpon>
+    <Compile Include="Form\DataStore\Material\LocationProduct\inv00h12.aspx.cs">
+      <DependentUpon>inv00h12.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Form\DataStore\Material\Group\inv00h03.aspx.designer.cs">
-      <DependentUpon>inv00h03.aspx</DependentUpon>
+    <Compile Include="Form\DataStore\Material\LocationProduct\inv00h12.aspx.designer.cs">
+      <DependentUpon>inv00h12.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\DataStore\Material\ServiceMaster\inv00h06.aspx.cs">
       <DependentUpon>inv00h06.aspx</DependentUpon>
@@ -414,6 +414,13 @@
     </Compile>
     <Compile Include="Form\DataStore\Support\Currency\acc00h03.aspx.designer.cs">
       <DependentUpon>acc00h03.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Departemen\inv00h10.aspx.cs">
+      <DependentUpon>inv00h10.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Support\Departemen\inv00h10.aspx.designer.cs">
+      <DependentUpon>inv00h10.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\DataStore\Support\Expedition\pur00h03.aspx.cs">
       <DependentUpon>pur00h03.aspx</DependentUpon>
@@ -597,6 +604,13 @@
     <Compile Include="Form\Purchase\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx.cs">
+      <DependentUpon>po_std_data_entry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx.designer.cs">
+      <DependentUpon>po_std_data_entry.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Purchase\Purchase_order\pur01d02.aspx.cs">
       <DependentUpon>pur01d02.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -660,6 +674,9 @@
     <Compile Include="notes.aspx.designer.cs">
       <DependentUpon>notes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -699,6 +716,30 @@
     <Content Include="App_Data\RadCaptcha\X.wav" />
     <Content Include="App_Data\RadCaptcha\Y.wav" />
     <Content Include="App_Data\RadCaptcha\Z.wav" />
+    <Content Include="bin\EnvDTE.dll" />
+    <Content Include="bin\Microsoft.AnalysisServices.AdomdClient.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\stdole.dll" />
+    <Content Include="bin\Telerik.Web.Design.dll" />
+    <Content Include="bin\Telerik.Web.Device.Detection.dll" />
+    <Content Include="bin\Telerik.Web.Device.Detection.xml" />
+    <Content Include="bin\Telerik.Web.Spreadsheet.dll" />
+    <Content Include="bin\Telerik.Web.Spreadsheet.xml" />
+    <Content Include="bin\Telerik.Web.UI.dll" />
+    <Content Include="bin\Telerik.Web.UI.Skins.dll" />
+    <Content Include="bin\Telerik.Web.UI.xml" />
+    <Content Include="bin\Telerik.Windows.Documents.Core.dll" />
+    <Content Include="bin\Telerik.Windows.Documents.Core.xml" />
+    <Content Include="bin\Telerik.Windows.Documents.Flow.dll" />
+    <Content Include="bin\Telerik.Windows.Documents.Flow.xml" />
+    <Content Include="bin\Telerik.Windows.Documents.Spreadsheet.dll" />
+    <Content Include="bin\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll" />
+    <Content Include="bin\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.xml" />
+    <Content Include="bin\Telerik.Windows.Documents.Spreadsheet.xml" />
+    <Content Include="bin\Telerik.Windows.Zip.dll" />
+    <Content Include="bin\Telerik.Windows.Zip.xml" />
+    <Content Include="bin\TelerikWebApplication.dll" />
+    <Content Include="bin\TelerikWebApplication.pdb" />
     <Content Include="calendar.aspx" />
     <Content Include="contacts.aspx" />
     <Content Include="Controls\FolderNavigationControl.ascx" />
@@ -726,7 +767,7 @@
     <Content Include="Form\DataStore\Finance\OtherBankCode\acc00h08.aspx" />
     <Content Include="Form\DataStore\Ledger\AccountGroup\acc00h12.aspx" />
     <Content Include="Form\DataStore\Ledger\AccountNumber\acc00h10.aspx" />
-    <Content Include="Form\DataStore\Material\Group\inv00h03.aspx" />
+    <Content Include="Form\DataStore\Material\LocationProduct\inv00h12.aspx" />
     <Content Include="Form\DataStore\Material\ServiceMaster\inv00h06.aspx" />
     <Content Include="Form\DataStore\Material\Uom\inv00h08.aspx" />
     <Content Include="Form\DataStore\Material\Warehouse\inv00h05.aspx" />
@@ -745,6 +786,7 @@
     <Content Include="Form\DataStore\Supplier\SupplierGroup\pur00h08.aspx" />
     <Content Include="Form\DataStore\Support\City\inv00h25.aspx" />
     <Content Include="Form\DataStore\Support\Currency\acc00h03.aspx" />
+    <Content Include="Form\DataStore\Support\Departemen\inv00h10.aspx" />
     <Content Include="Form\DataStore\Support\Expedition\pur00h03.aspx" />
     <Content Include="Form\DataStore\Support\InternalLoan\Affiliation\acc00h30.aspx" />
     <Content Include="Form\DataStore\Support\InternalLoan\GroupLoan\acc00h29.aspx" />
@@ -771,13 +813,13 @@
     <Content Include="Form\Preventive_maintenance\Default.aspx" />
     <Content Include="Form\Production\Default.aspx" />
     <Content Include="Form\Purchase\Default.aspx" />
+    <Content Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx" />
     <Content Include="Form\Purchase\Purchase_order\pur01d02.aspx" />
     <Content Include="Form\Purchase\Purchase_order\pur01h02.aspx" />
     <Content Include="Form\Reports\Default.aspx" />
     <Content Include="Form\Sales\Default.aspx" />
     <Content Include="Form\Security\Default.aspx" />
     <Content Include="Form\Security\Master_menu\master_menu.aspx" />
-    <Content Include="Images\add-button.png" />
     <Content Include="Images\add.png" />
     <Content Include="Images\back.png" />
     <Content Include="Images\edit.png" />
@@ -810,6 +852,10 @@
     <Content Include="Images\user-s.png" />
     <Content Include="login.aspx" />
     <Content Include="notes.aspx" />
+    <Content Include="obj\Debug\TelerikWebApplication.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\TelerikWebApplication.dll" />
+    <Content Include="obj\Debug\telerikwebapplication.dll.licenses" />
+    <Content Include="obj\Debug\TelerikWebApplication.pdb" />
     <Content Include="Script\Script.js" />
     <Content Include="Styles\bootstrap.min.css" />
     <Content Include="Styles\calendar.css" />
@@ -829,6 +875,9 @@
     <Content Include="App_Data\RadSpell\de-DE.tdf" />
     <Content Include="App_Data\RadSpell\en-US.tdf" />
     <Content Include="App_Data\RadSpell\fr-FR.tdf" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\TelerikWebApplication.csprojResolveAssemblyReference.cache" />
+    <Content Include="bin\TelerikWebApplication.dll.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -841,8 +890,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Form\DataStore\Customer\Area\" />
-    <Folder Include="Form\DataStore\Material\LocationProduct\" />
-    <Folder Include="Form\DataStore\Support\Departemen\" />
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
