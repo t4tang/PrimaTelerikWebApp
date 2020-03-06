@@ -67,7 +67,7 @@
                                     padding-top:7px; padding-bottom:5px; background-color: #F0FFFE;">
                             <tr class="EditFormHeader">
                                 <td colspan="2">
-                                    <b>Material Master (Prod)</b>
+                                    <b style="font-weight: bold; font-variant: small-caps; text-decoration: underline; color: #990000;">Material Master (Prod)</b>
                                 </td>
                             </tr>
                             <tr>
@@ -99,7 +99,7 @@
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.kind_code") %>' OnPreRender="cb_cat_PreRender" 
                                                     OnItemsRequested="cb_cat_ItemsRequested" OnSelectedIndexChanged="cb_cat_SelectedIndexChanged" 
                                                     EnableVirtualScrolling="false" ShowMoreResultsBox="true" AutoPostBack="true" Skin ="MetroTouch" 
-                                                    EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true">
+                                                    EnableLoadOnDemand="true" Height="200" MarkFirstMatch="true" EmptyMessage="Select Category">
                                                 </telerik:RadComboBox>
                                                 &nbsp;&nbsp
                                                 <asp:CheckBox ID="chk_active" Text="Active" runat="server" 
