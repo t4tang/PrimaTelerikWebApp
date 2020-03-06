@@ -298,7 +298,31 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             con.Close();
         }
 
-       
+        private void getAccInfo(string accNo)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM acc00h10 WHERE accountno = @accountno", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@accountno", accNo);
+
+
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                //GridEditableItem item = RadGrid1.EditItems;
+                foreach (GridEditableItem item in RadGrid1.EditItems)
+                {
+                    RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+                    //txtCurr.Text = dr["cur_code"].ToString();
+                    txtCurr.Text = "Tess";
+                }
+                
+            }
+        }
+
         protected void cb_koRek_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
