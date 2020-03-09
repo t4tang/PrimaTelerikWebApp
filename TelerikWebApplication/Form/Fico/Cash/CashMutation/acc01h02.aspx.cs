@@ -13,5 +13,30 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
         {
 
         }
+
+        protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid1_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid1_UpdateCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid1_InsertCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+
+        }
     }
 }
