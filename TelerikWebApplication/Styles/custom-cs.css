@@ -606,3 +606,66 @@ body {
     padding-top:5px;
     padding-right:15px; 
 }
+
+** Customize the demo canvas */
+ 
+.demo-container label {
+    padding-right: 10px;
+    width: 185px;
+    display: inline-block;
+}
+ 
+.demo-container .RadButton {
+    margin-top: 20px;
+}
+ 
+ 
+/** Columns */
+.rcbHeader ul,
+.rcbFooter ul,
+.rcbItem ul,
+.rcbHovered ul,
+.rcbDisabled ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: inline-block;
+    list-style-type: none;
+}
+ 
+.exampleRadComboBox.RadComboBoxDropDown .rcbHeader {
+    padding: 5px 27px 4px 7px;
+}
+ 
+.rcbScroll {
+    overflow: scroll !important;
+    overflow-x: hidden !important;
+}
+ 
+.col1,
+.col2,
+.col3 {
+    margin: 0;
+    padding: 0 5px 0 0;
+    width: 50%;
+    line-height: 14px;
+    float: left;
+}
+ 
+ 
+/** Multiple rows and columns */
+.multipleRowsColumns .rcbItem,
+.multipleRowsColumns .rcbHovered {
+    float: left;
+    margin: 0 1px;
+    min-height: 13px;
+    overflow: hidden;
+    padding: 2px 19px 2px 6px;
+    width: 193px;
+}
+ 
+ 
+.results {
+    display: block;
+    margin-top: 20px;
+}
