@@ -69,6 +69,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             for (int i = itemOffset; i < endOffset; i++)
             {
                 cb_project_prm.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+                cb_project.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
             }
         }
         protected void cb_project_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -77,19 +78,18 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project_prm.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_project_prm.SelectedValue = dr[0].ToString();
+                cb_project.SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
-
             
-            cb_request.Text = "";
-            LoadManPower(e.Value, cb_request);
-            cb_approved.Text = "";
-            LoadManPower(e.Value, cb_approved);
+            //cb_request.Text = "";
+            //LoadManPower(cb_project.SelectedValue, cb_request);
+            //cb_approved.Text = "";
+            //LoadManPower(cb_project.SelectedValue, cb_approved);
 
         }
         protected void cb_project_PreRender(object sender, EventArgs e)
@@ -174,8 +174,6 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 e.Canceled = true;
             }
         }
-
-
 
         protected void btnOk_Click(object sender, EventArgs e)
         {
@@ -411,15 +409,15 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
         #region Approval Man Power
 
-        protected void LoadManPower(string projectID, RadComboBox cb)
+        protected void LoadManPower(string name, string projectID, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
-                "WHERE stedit <> '4' AND region_code = @project", con);
+                "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-
+            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
@@ -428,31 +426,12 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             cb.DataSource = dt;
             cb.DataBind();
         }
-        private static DataTable GetManPower(string name, string project)
-        {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan " +
-                "FROM inv00h26 WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'",
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
-            adapter.SelectCommand.Parameters.AddWithValue("@project", project);
-
-            DataTable data = new DataTable();
-            adapter.Fill(data);
-
-            return data;
-        }
+        
         protected void cb_request_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-            DataTable data = GetManPower(e.Text, cb_project.SelectedValue);
-
-            int itemOffset = e.NumberOfItems;
-            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
-            e.EndOfItems = endOffset == data.Rows.Count;
-
-            for (int i = itemOffset; i < endOffset; i++)
-            {
-                cb_request.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["Name"].ToString()));
-            }
+        {            
+            cb_request.Text = "";
+            LoadManPower(e.Text, cb_project.SelectedValue, cb_request);
+            
         }
         protected void cb_request_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
@@ -472,19 +451,24 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             ((Literal)cb_request.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString((sender as RadComboBox).Items.Count);
         }
-
+        protected void cb_request_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_request.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
         protected void cb_approved_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = GetManPower(e.Text, cb_project.SelectedValue);
-
-            int itemOffset = e.NumberOfItems;
-            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
-            e.EndOfItems = endOffset == data.Rows.Count;
-
-            for (int i = itemOffset; i < endOffset; i++)
-            {
-                cb_approved.Items.Add(new RadComboBoxItem(data.Rows[i]["Name"].ToString(), data.Rows[i]["jabatan"].ToString()));
-            }
+            cb_approved.Text = "";
+            LoadManPower(e.Text, cb_project.SelectedValue, cb_approved);
         }
         protected void cb_approved_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
@@ -501,7 +485,80 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             con.Close();
         }
 
+        protected void cb_approved_DataBound(object sender, EventArgs e)
+        {
+            ((Literal)cb_approved.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString((sender as RadComboBox).Items.Count);
+        }
+
+
+        protected void cb_approved_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
         #endregion
+
+        protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+                "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cb.DataTextField = "name";
+            cb.DataValueField = "code";
+            cb.DataSource = dt;
+            cb.DataBind();
+        }
+
+        protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Text = "";
+            LoadCostCtr(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+
+        }
+        protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+            dr.Close();
+            con.Close();
+        }
+        protected void cb_cost_center_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+            dr.Close();
+            con.Close();
+        }
 
         protected void cb_ur_type_PreRender(object sender, EventArgs e)
         {
@@ -531,6 +588,63 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
+        }
+
+        protected void cb_project_prm_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project_prm.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_project_prm.SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+            
+        }
+        protected void OnSelectedIndexChangedHandler(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            Session["prod_code"] = e.Value;
+        }
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            string sql = "SELECT TOP (100)[prod_code], [spec], [prod_code]+ ' - ' + [spec] as deskripsi FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["deskripsi"].ToString();
+                item.Value = row["prod_code"].ToString();
+                item.Attributes.Add("spec", row["spec"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void RadGrid2_PreRender(object sender, EventArgs e)
+        {
+            //RadGrid2.MasterTableView.IsItemInserted = true;
+            //RadGrid2.Rebind();
+        }
+
+        protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+            
         }
     }
 }
