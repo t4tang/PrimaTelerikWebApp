@@ -26,9 +26,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_project_prm.SelectedValue = public_str.site;
-
-                Session["Proccess"] = "SesNew";
+                
                 dtp_ur.SelectedDate = DateTime.Now;
+                ses_default();
             }
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
@@ -608,6 +608,13 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         protected void OnSelectedIndexChangedHandler(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             Session["prod_code"] = e.Value;
+
+            RadComboBox cb = (RadComboBox)sender;
+            GridDataItem item = (GridDataItem)cb.NamingContainer;
+
+            Label lbl_prodType = (Label)item.FindControl("lbl_prod_type_d");
+            lbl_prodType.Text = "M1";
+
         }
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
@@ -636,15 +643,145 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             }
         }
 
-        protected void RadGrid2_PreRender(object sender, EventArgs e)
-        {
-            //RadGrid2.MasterTableView.IsItemInserted = true;
-            //RadGrid2.Rebind();
-        }
-
         protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
         {
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_urD";
+                cmd.Parameters.AddWithValue("@doc_code", txt_ur_number.Text);
+                cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@part_qty", (item.FindControl("txt_qty") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("cb_uom_d") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark_d") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_dept_d") as RadComboBox).SelectedValue);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data inserted successfully";
+                lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                RadGrid1.Controls.Add(lblsuccess);
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to insert data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGrid1.Controls.Add(lblError);
+                e.Canceled = true;
+            }
+        }
             
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            Session["prod_code"] = e.Value;
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT unit FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dtr in dt.Rows)
+            {
+                RadComboBox cb = (RadComboBox)sender;
+                GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
+                cb_prodType.Text = dtr["unit"].ToString();
+
+            }
+            con.Close();
+
+
+            
+        }
+        #region sesi
+        private void ses_default()
+        {
+            Session["Action"] = "default";
+            control_status(Page.Controls,false);
+            btnNew.Enabled = true;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = false;
+        }
+        private void ses_detail()
+        {
+            Session["Action"] = "detail";
+            control_status(Page.Controls, false);
+            btnNew.Enabled = true;
+            btnEdit.Enabled = true;
+            btnSave.Enabled = false;
+        }
+        private void ses_new()
+        {
+            Session["Action"] = "new";
+            control_status(Page.Controls, true);
+            btnNew.Enabled = false;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = true;
+        }
+        private void ses_edit()
+        {
+            Session["Action"] = "edit";
+            control_status(Page.Controls, true);
+            btnNew.Enabled = false;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = true;
+        }
+        private void ses_save()
+        {
+            Session["Action"] = "save";
+            control_status(Page.Controls, true);
+            btnNew.Enabled = false;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = false;
+        }
+        public void control_status(ControlCollection ctrls, bool state)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is RadTextBox)
+                    ((RadTextBox)ctrl).Enabled = state;
+                if (ctrl is RadComboBox)
+                    ((RadComboBox)ctrl).Enabled = state;
+                else if (ctrl is DropDownList)
+                    ((DropDownList)ctrl).Enabled = state;
+                else if (ctrl is CheckBox)
+                    ((CheckBox)ctrl).Enabled = state;
+                else if (ctrl is RadDatePicker)
+                    ((RadDatePicker)ctrl).Enabled = state;
+
+                control_status(ctrl.Controls,state);
+            }
+        }
+       
+        private void clear_text(ControlCollection ctrls)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is RadTextBox)
+                {
+                    ((RadTextBox)ctrl).Text = string.Empty;
+
+                }
+                if (ctrl is RadComboBox)
+                    ((RadComboBox)ctrl).Text = string.Empty;
+            }
+        }
+        #endregion
+        protected void btnNew_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["Action"] = "New";
+
         }
     }
 }
