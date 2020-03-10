@@ -103,13 +103,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::Telerik.Web.UI.RadComboBox cb_project_prm;
         
         /// <summary>
-        /// btnFind control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFind;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
         /// btnOk control.
@@ -148,49 +148,49 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::System.Web.UI.WebControls.ImageButton btnSave;
         
         /// <summary>
-        /// txt_ur_number control.
+        /// txt_NoBuk control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_ur_number;
+        protected global::Telerik.Web.UI.RadTextBox txt_NoBuk;
         
         /// <summary>
-        /// dtp_ur control.
+        /// dtp_bm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker dtp_ur;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_bm;
         
         /// <summary>
-        /// RadTextBox2 control.
+        /// txt_NoCtrl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox RadTextBox2;
+        protected global::Telerik.Web.UI.RadTextBox txt_NoCtrl;
         
         /// <summary>
-        /// RadTextBox3 control.
+        /// txt_NoRef control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox RadTextBox3;
+        protected global::Telerik.Web.UI.RadTextBox txt_NoRef;
         
         /// <summary>
-        /// RadTextBox4 control.
+        /// txt_KoTransName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox RadTextBox4;
+        protected global::Telerik.Web.UI.RadTextBox txt_KoTransName;
         
         /// <summary>
         /// cb_project control.
@@ -202,49 +202,49 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::Telerik.Web.UI.RadComboBox cb_project;
         
         /// <summary>
-        /// cb_cost_center control.
+        /// cb_bank control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_cost_center;
+        protected global::Telerik.Web.UI.RadComboBox cb_bank;
         
         /// <summary>
-        /// RadTextBox5 control.
+        /// txt_cur_code control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox RadTextBox5;
+        protected global::Telerik.Web.UI.RadTextBox txt_cur_code;
         
         /// <summary>
-        /// RadTextBox6 control.
+        /// txt_kurs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox RadTextBox6;
+        protected global::Telerik.Web.UI.RadTextBox txt_kurs;
         
         /// <summary>
-        /// RadTextBox1 control.
+        /// txt_Kontak control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox RadTextBox1;
+        protected global::Telerik.Web.UI.RadTextBox txt_Kontak;
         
         /// <summary>
-        /// txt_remark control.
+        /// txt_Ket control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_remark;
+        protected global::Telerik.Web.UI.RadTextBox txt_Ket;
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -256,13 +256,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// cb_request control.
+        /// cb_prepared control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_request;
+        protected global::Telerik.Web.UI.RadComboBox cb_prepared;
         
         /// <summary>
         /// UpdatePanel3 control.
@@ -274,13 +274,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::System.Web.UI.UpdatePanel UpdatePanel3;
         
         /// <summary>
-        /// RadComboBox1 control.
+        /// cb_checked control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox RadComboBox1;
+        protected global::Telerik.Web.UI.RadComboBox cb_checked;
         
         /// <summary>
         /// UpdatePanel11 control.
