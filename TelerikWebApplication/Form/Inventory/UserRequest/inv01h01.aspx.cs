@@ -700,47 +700,49 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
             }
             con.Close();
-
-
-            
         }
+
         #region sesi
         private void ses_default()
         {
             Session["Action"] = "default";
-            control_status(Page.Controls,false);
+            //control_status(Page.Controls,false);
             btnNew.Enabled = true;
             btnEdit.Enabled = false;
             btnSave.Enabled = false;
+            RadGrid2.Enabled = false;
         }
         private void ses_detail()
         {
             Session["Action"] = "detail";
-            control_status(Page.Controls, false);
+            //control_status(Page.Controls, false);
             btnNew.Enabled = true;
             btnEdit.Enabled = true;
             btnSave.Enabled = false;
+            RadGrid2.Enabled = false;
         }
         private void ses_new()
         {
             Session["Action"] = "new";
-            control_status(Page.Controls, true);
+            //control_status(Page.Controls, true);
             btnNew.Enabled = false;
             btnEdit.Enabled = false;
             btnSave.Enabled = true;
+            RadGrid2.Enabled = false;
         }
         private void ses_edit()
         {
             Session["Action"] = "edit";
-            control_status(Page.Controls, true);
+            //control_status(Page.Controls, true);
             btnNew.Enabled = false;
             btnEdit.Enabled = false;
             btnSave.Enabled = true;
+            RadGrid2.Enabled = true;
         }
         private void ses_save()
         {
             Session["Action"] = "save";
-            control_status(Page.Controls, true);
+            //control_status(Page.Controls, true);
             btnNew.Enabled = false;
             btnEdit.Enabled = false;
             btnSave.Enabled = false;
@@ -759,6 +761,8 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                     ((CheckBox)ctrl).Enabled = state;
                 else if (ctrl is RadDatePicker)
                     ((RadDatePicker)ctrl).Enabled = state;
+                else if (ctrl is RadGrid)
+                    ((RadGrid)ctrl).Enabled = state;
 
                 control_status(ctrl.Controls,state);
             }
@@ -780,8 +784,13 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         #endregion
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            Session["Action"] = "New";
+            ses_new();
 
+        }
+
+        protected void btnEdit_Click(object sender, ImageClickEventArgs e)
+        {
+            ses_edit();
         }
     }
 }

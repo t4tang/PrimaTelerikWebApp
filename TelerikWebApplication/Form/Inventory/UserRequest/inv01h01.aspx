@@ -112,7 +112,7 @@
                         </asp:ImageButton>
                     </td>
                     <td style="vertical-align:middle; margin-left:20px">
-                        <asp:ImageButton runat="server" ID="btnEdit" AlternateText="Edit" 
+                        <asp:ImageButton runat="server" ID="btnEdit" AlternateText="Edit" OnClick="btnEdit_Click"
                             Height="25px" Width="30px" ImageUrl="~/Images/edit.png">
                         </asp:ImageButton>
                     </td>
@@ -236,8 +236,8 @@
                                 </td>
                                 <td style="vertical-align:top; text-align:left">                                   
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_cost_center" runat="server" Width="250px" DropDownWidth="300px"
-                                      EnableLoadOnDemand="True" Skin="MetroTouch" ShowMoreResultsBox="true" EnableVirtualScrolling="true" 
-                                        EmptyMessage="- Select a cost Center -" OnItemsRequested="cb_cost_center_ItemsRequested" OnSelectedIndexChanged="cb_cost_center_SelectedIndexChanged"
+                                      EnableLoadOnDemand="True" Skin="MetroTouch" ShowMoreResultsBox="false" EnableVirtualScrolling="false" 
+                                       EmptyMessage="- Select a cost Center -" OnItemsRequested="cb_cost_center_ItemsRequested" OnSelectedIndexChanged="cb_cost_center_SelectedIndexChanged"
                                          OnPreRender="cb_cost_center_PreRender" >
                                     </telerik:RadComboBox>                
                                 </td>
