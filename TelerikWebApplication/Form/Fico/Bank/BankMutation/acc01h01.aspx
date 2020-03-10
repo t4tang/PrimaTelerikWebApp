@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc01h01.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Bank.BankMutation.acc01h01" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <link href="../../../Styles/common.css" rel="stylesheet" />
-    <link href="../../../Styles/mail.css" rel="stylesheet" />
-    <link href="../../../Styles/custom-cs.css" rel="stylesheet" />
-    
-    <script type="text/javascript" src="../../../Script/Script.js" ></script>
+     <link href="../../../../Styles/common.css" rel="stylesheet" />
+    <link href="../../../../Styles/mail.css" rel="stylesheet" />
+    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
+
+    <script src="../../../../Script/Script.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
      <asp:UpdatePanel ID="UpdatePanel2" runat="server">
@@ -40,9 +40,9 @@
                 <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="Date From " Height="26px"></telerik:RadDatePicker>                
                 <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="To Date " Height="26px"></telerik:RadDatePicker>
                 <telerik:RadComboBox ID="cb_project_prm" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project" AutoPostBack="true"
-                    EnableLoadOnDemand="True" Skin="MetroTouch"  OnItemsRequested="cb_project_ItemsRequest" EnableVirtualScrolling="true" 
+                    EnableLoadOnDemand="True" Skin="MetroTouch"  OnItemsRequested="cb_project_ItemsRequested" EnableVirtualScrolling="true" 
                     Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
-                    OnSelectedIndexChanged="cb_project_SelectedIndexChanged"></telerik:RadComboBox>&nbsp
+                    OnSelectedIndexChanged="cb_project_prm_SelectedIndexChanged"></telerik:RadComboBox>&nbsp
                 &nbsp
                 <%--<telerik:RadButton ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"
                 Style="clear: both; margin: 0px 0; height:35px">
@@ -189,7 +189,7 @@
                                     No Ctrl:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_NoCtrl" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_NoCtrl" runat="server" Width="200px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -199,7 +199,7 @@
                                     No Ref:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_NoRef" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_NoRef" runat="server" Width="200px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -209,9 +209,12 @@
                                     Transaction:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_KoTransName" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                                        AutoPostBack="false">
-                                    </telerik:RadTextBox>
+                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_KoTrans" runat="server" Width="200"
+                                        EnableLoadOnDemand="True" ShowMoreResultsBox="false" Skin="Metro"
+                                        OnItemsRequested="cb_KoTrans_ItemsRequested" OnPreRender="cb_KoTrans_PreRender"
+                                        OnSelectedIndexChanged="cb_KoTrans_SelectedIndexChanged"
+                                        EnableVirtualScrolling="true" >
+                                    </telerik:RadComboBox>
                                 </td>
                             </tr>             
                             
@@ -249,12 +252,11 @@
                                     <telerik:RadTextBox ID="txt_cur_code" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
-                                </td>
+                                
                             &nbsp
-                                <td class="tdLabel">
+                                
                                     Kurs:
-                                </td>
-                                <td>
+                               &nbsp
                                     <telerik:RadTextBox ID="txt_kurs" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
@@ -295,8 +297,8 @@
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_prepared" runat="server" Width="250px" 
                                             DropDownWidth="450px" AutoPostBack="false" EmptyMessage="- Select -" EnableLoadOnDemand="false"                                                       
-                                               Skin="Metro" OnItemsRequested="cb_request_ItemsRequested" OnSelectedIndexChanged="cb_request_SelectedIndexChanged"
-                                                OnDataBound="cb_request_DataBound">
+                                               Skin="Metro"  OnItemsRequested="cb_prepared_ItemsRequested" OnSelectedIndexChanged="cb_prepared_SelectedIndexChanged"
+                                                OnPreRender="cb_prepared_PreRender">
                                                 <HeaderTemplate>
                                                     <table style="width: 400px; font-size:smaller">
                                                         <tr>
@@ -336,8 +338,7 @@
                                     </asp:UpdatePanel>
                                 </td>
 
-                            </tr>
-                            <tr>
+                                
                                 <td class="tdLabel">
                                     Checked By:
                                 </td>
@@ -346,8 +347,7 @@
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_checked" runat="server" Width="250px" 
                                             DropDownWidth="450px" AutoPostBack="false" EmptyMessage="- Select -" EnableLoadOnDemand="false"                                                       
-                                               Skin="Metro" OnItemsRequested="cb_request_ItemsRequested" OnSelectedIndexChanged="cb_request_SelectedIndexChanged"
-                                                OnDataBound="cb_request_DataBound">
+                                               Skin="Metro" >
                                                 <HeaderTemplate>
                                                     <table style="width: 400px; font-size:smaller">
                                                         <tr>
@@ -387,8 +387,7 @@
                                     </asp:UpdatePanel>
                                 </td>
 
-                            </tr>
-                            <tr>
+                          
                                 <td class="tdLabel">
                                     Approved By:
                                 </td>
@@ -396,9 +395,9 @@
                                     <asp:UpdatePanel ID="UpdatePanel11" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250px" 
-                                            DropDownWidth="450px" AutoPostBack="false" EmptyMessage="- Select -" EnableLoadOnDemand="false"
-                                                Skin="Metro" >                                                      
-                                               
+                                            DropDownWidth="650px" EmptyMessage="- Select -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
+                                             MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" 
+                                               >  
                                                 <HeaderTemplate>
                                                     <table style="width: 400px; font-size:smaller">
                                                         <tr>
@@ -457,7 +456,7 @@
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_lastUpdate" Width="140px" runat="server" >
                                     </telerik:RadTextBox>
                                 </td>
-                                <td class="tdLabel">
+                                <td >
                                     Owner 
                                 </td>
                                 <td>
@@ -494,7 +493,6 @@
                         <CommandItemSettings ShowRefreshButton="false" />                                        
                         <Columns>
                            
-                            </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn DataField="KoRek" HeaderText="Account No" UniqueName="KoRek" 
                                 ItemStyle-HorizontalAlign="Left">
                                 <ItemTemplate>

@@ -184,13 +184,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::Telerik.Web.UI.RadTextBox txt_NoRef;
         
         /// <summary>
-        /// txt_KoTransName control.
+        /// cb_KoTrans control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_KoTransName;
+        protected global::Telerik.Web.UI.RadComboBox cb_KoTrans;
         
         /// <summary>
         /// cb_project control.
