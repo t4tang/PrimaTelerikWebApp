@@ -94,13 +94,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::Telerik.Web.UI.RadDatePicker dtp_to;
         
         /// <summary>
-        /// cb_project_prm control.
+        /// cb_bank_prm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_project_prm;
+        protected global::Telerik.Web.UI.RadComboBox cb_bank_prm;
         
         /// <summary>
         /// btnSearch control.
