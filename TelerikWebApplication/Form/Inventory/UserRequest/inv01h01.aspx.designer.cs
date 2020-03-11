@@ -130,6 +130,15 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest {
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
         
         /// <summary>
+        /// lbl_form_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_form_name;
+        
+        /// <summary>
         /// btnList control.
         /// </summary>
         /// <remarks>
@@ -146,15 +155,6 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnNew;
-        
-        /// <summary>
-        /// btnEdit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnEdit;
         
         /// <summary>
         /// btnSave control.
