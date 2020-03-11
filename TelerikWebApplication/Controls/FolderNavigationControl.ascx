@@ -21,7 +21,7 @@
 <telerik:RadLabel ID="lbl_modul_name" runat="server" style="font-weight: bold; font-variant: small-caps; padding-left:10px; 
 padding-bottom:13px; font-size:x-large; color:Highlight"></telerik:RadLabel>
  <telerik:RadPanelBar RenderMode="Lightweight" runat="server" ID="RadPanelBar1" AutoPostBack="false" BackColor="White" BorderWidth="0"
-    Height="100%" Width="237px" ExpandMode="SingleExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick"
+    Height="100%" Width="237px" ExpandMode="SingleExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick" 
      ForeColor="#003366">
 </telerik:RadPanelBar>
 

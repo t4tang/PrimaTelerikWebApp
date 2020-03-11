@@ -31,6 +31,7 @@ namespace TelerikWebApplication.Controls
                 RadPanelBar1.DataNavigateUrlField = "menu_url";
                 RadPanelBar1.DataFieldID = "menu_id";
                 RadPanelBar1.DataFieldParentID = "Parent_menu_id";
+                
 
 
                 RadPanelBar1.DataSource = links;
@@ -57,6 +58,8 @@ namespace TelerikWebApplication.Controls
                 item.Expanded = false;
             }
             RadPanelBar1.Items[0].Expanded = true;
+
+            //public_str.selected_menu = RadPanelBar1.SelectedItem.Value;
         }
     }
 }

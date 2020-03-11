@@ -23,7 +23,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if (!IsPostBack)
             {
-                lbl_form_name.Text = public_str.selected_menu;
+                //lbl_form_name.Text = public_str.selected_menu;
 
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
@@ -44,16 +44,16 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if (e.Argument == "Rebind")
             {
-                RadGrid1.MasterTableView.SortExpressions.Clear();
-                RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                RadGrid1.Rebind();
+                RadGrid2.MasterTableView.SortExpressions.Clear();
+                RadGrid2.MasterTableView.GroupByExpressions.Clear();
+                RadGrid2.Rebind();
             }
             else if (e.Argument == "RebindAndNavigate")
             {
-                RadGrid1.MasterTableView.SortExpressions.Clear();
-                RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
-                RadGrid1.Rebind();
+                RadGrid2.MasterTableView.SortExpressions.Clear();
+                RadGrid2.MasterTableView.GroupByExpressions.Clear();
+                RadGrid2.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
+                RadGrid2.Rebind();
             }
         }
         private static DataTable GetProject(string text)
@@ -107,11 +107,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project_prm.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_project_prm.SelectedValue = dr[0].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
         }
@@ -631,7 +631,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         }
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec], [prod_code]+ ' - ' + [spec] as deskripsi FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            string sql = "SELECT TOP (100)[prod_code], [spec] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
@@ -646,7 +646,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             foreach (DataRow row in dt.Rows)
             {
                 RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = row["deskripsi"].ToString();
+                item.Text = row["prod_code"].ToString();
                 item.Value = row["prod_code"].ToString();
                 item.Attributes.Add("spec", row["spec"].ToString());
 
@@ -668,15 +668,16 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.CommandText = "sp_save_urD";
                 cmd.Parameters.AddWithValue("@doc_code", txt_ur_number.Text);
                 cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@part_qty", (item.FindControl("txt_qty") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Text));
                 cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("cb_uom_d") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark_d") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_dept_d") as RadComboBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
+                RadGrid2.DataBind();
 
                 Label lblsuccess = new Label();
-                lblsuccess.Text = "Data inserted successfully";
+                lblsuccess.Text = "Data saved";
                 lblsuccess.ForeColor = System.Drawing.Color.Blue;
                 RadGrid2.Controls.Add(lblsuccess);
             }
@@ -785,6 +786,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             con.Close();
         }
 
-        
+        protected void cb_dept_d_PreRender(object sender, EventArgs e)
+        {
+
+        }
     }
 }
