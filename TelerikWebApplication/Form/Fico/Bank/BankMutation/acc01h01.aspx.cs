@@ -127,7 +127,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_bank_prm.SelectedValue);
         }
 
-        public DataTable GetDataTable(string fromDate, string toDate, string bank)
+        public DataTable GetDataTable(string fromDate, string toDate, string Bank)
         {
             con.Open();
             cmd = new SqlCommand();
@@ -136,7 +136,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             cmd.CommandText = "sp_get_BankMutationH";
             cmd.Parameters.AddWithValue("@date", fromDate);
             cmd.Parameters.AddWithValue("@todate", toDate);
-            cmd.Parameters.AddWithValue("@bank", bank);
+            cmd.Parameters.AddWithValue("@bank", Bank);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -196,7 +196,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
                 con.Open();
                 SqlDataReader sdr;
-                SqlCommand cmd = new SqlCommand("SELECT * FROM sp_get_BankMutationH WHERE NoBuk = '" + item["NoBuk"].Text + "'", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM v_bankmutation_list WHERE NoBuk = '" + item["NoBuk"].Text + "'", con);
                 sdr = cmd.ExecuteReader();
                 if (sdr.Read())
                 {
@@ -204,18 +204,18 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                     dtp_bm.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
                     txt_NoCtrl.Text = sdr["NoCtrl"].ToString();
                     txt_NoRef.Text = sdr["NoRef"].ToString();
-                    cb_bank.Text = sdr["KoBank"].ToString();
+                    cb_bank.Text = sdr["NamBank"].ToString();
                     cb_project.Text = sdr["region_name"].ToString();
                     //cb_cost_center.Text = sdr["CostCenterName"].ToString();
                     cb_prepared.Text = sdr["PreparedBy"].ToString();
                     cb_checked.Text = sdr["CheckedBy"].ToString();
-                    cb_approved.Text = sdr["ApproveBy"].ToString();
+                    cb_approved.Text = sdr["ApprovalBy"].ToString();
                     txt_Ket.Text = sdr["Ket"].ToString();
                     txt_Kontak.Text = sdr["Kontak"].ToString();
                     txt_cur_code.Text = sdr["cur_code"].ToString();
                     txt_kurs.Text = sdr["kurs"].ToString();
-                    txt_uid.Text = sdr["userid"].ToString();
-                    txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
+                    txt_uid.Text = sdr["Usr"].ToString();
+                    txt_LastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["LastUpdate"].ToString());
                     txt_owner.Text = sdr["Owner"].ToString();
                     txt_printed.Text = sdr["Printed"].ToString();
                     txt_edited.Text = sdr["Edited"].ToString();
@@ -579,7 +579,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
         protected void cb_bank_prm_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = GetProject(e.Text);
+            DataTable data = GetBank(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -588,7 +588,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             for (int i = itemOffset; i < endOffset; i++)
             {
                 cb_bank_prm.Items.Add(new RadComboBoxItem(data.Rows[i]["NamBank"].ToString(), data.Rows[i]["NamBank"].ToString()));
-                cb_bank.Items.Add(new RadComboBoxItem(data.Rows[i]["NamBank"].ToString(), data.Rows[i]["NamBank"].ToString()));
+                //cb_bank.Items.Add(new RadComboBoxItem(data.Rows[i]["NamBank"].ToString(), data.Rows[i]["NamBank"].ToString()));
             }
         }
 
@@ -598,11 +598,11 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoBank FROM FROM acc00h01 WHERE NamBank = '" + cb_bank_prm.Text + "'";
+            cmd.CommandText = "SELECT KoBank FROM acc00h01 WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_bank_prm.SelectedValue = dr[0].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
         }
