@@ -14,7 +14,7 @@
     </asp:UpdatePanel> 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>            
             <telerik:AjaxSetting AjaxControlID="btnFind">
                 <UpdatedControls>
@@ -118,167 +118,187 @@
             </tr>
         </table>
     </div>
-    <div class="table_trx">
-        <table id="Table1" border="0">
-            <tr style="vertical-align: top">
-                <td style="vertical-align: top">
-                    <table id="Table2" width="Auto" border="0" class="module">
-                        <tr>
-                            <td class="tdLabel">
-                                Reg No :
-                            </td>
-                            <td>
-                                <telerik:RadTextBox ID="txt_slip_number" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false">
-                                </telerik:RadTextBox>
-                            &nbsp;
-                            Posting :
-                               <asp:CheckBox ID="chk_posting" runat="server" Checked="true"/>
-                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-                            Giro No :
-                            &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                <telerik:RadTextBox ID="txt_giro" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false">
-                                </telerik:RadTextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdLabel">
-                                Supplier:
-                            </td>
-                            <td style="vertical-align:top; text-align:left">                      
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select a Project -" EnableLoadOnDemand="True" Skin="MetroTouch"  
-                                        >
-                                </telerik:RadComboBox>
-                                 &nbsp;
-                                Prepared by : &nbsp;
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="txt_pre" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"  
-                                        >
-                                </telerik:RadComboBox>          
-                            </td>
-                           
-                            <%--<td>
-                                Remark :
-                                <telerik:RadTextBox ID="txt_remark" runat="server" Width="250px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false" TextMode="MultiLine">
-                                </telerik:RadTextBox>
-                            </td>--%>
-                        </tr>
-                        <tr>
-                            <td class="tdLabel">
-                                Currency :
-                            </td>
-                            <td>
-                                <telerik:RadTextBox ID="txt_currency" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false">
-                                </telerik:RadTextBox>
-                            &nbsp;
-                            Kurs :
-                               <telerik:RadTextBox ID="txt_kurs" runat="server" Width="108px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false">
-                                </telerik:RadTextBox>
-                            &nbsp;
-                            Checked by :
-                                &nbsp;&nbsp;&nbsp;<telerik:RadComboBox RenderMode="Lightweight" ID="txt_check" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"  
-                                        >
-                                </telerik:RadComboBox>
-                            </td>
-                        </tr>
-                        <tr>
-                        <td class="tdLabel">
-                             Reference:
-                            </td>
-                            <td>
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="NoRef" runat="server" Width="150"
-                                    EnableLoadOnDemand="True" ShowMoreResultsBox="false" Skin="Metro"
+    <div class="table_trx">       
+        <table id="Table2" width="Auto" border="0" class="module">
+            <tr>
+                <td style="vertical-align:top">
+                        <table>
+                            <tr>
+                                <td class="tdLabel">
+                                    Reg No :
+                                </td>
+                                <td>
+                                    <telerik:RadTextBox ID="txt_slip_number" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox>
+                                        &nbsp;
+                                        Posting :
+                                    <asp:CheckBox ID="chk_posting" runat="server" Checked="true"/>
+                                </td>                                           
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Supplier:
+                                </td>
+                                <td style="vertical-align:top; text-align:left">                      
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="200" DropDownWidth="300px"
+                                        AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select a Project -" EnableLoadOnDemand="True" Skin="MetroTouch"  
+                                            >
+                                    </telerik:RadComboBox>
+                                                        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Currency :
+                                </td>
+                                <td>
+                                    <telerik:RadTextBox ID="txt_currency" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox>
+                                    Kurs :
+                                    <telerik:RadTextBox ID="txt_kurs" runat="server" Width="108px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Reference:
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="NoRef" runat="server" Width="150"
+                                        EnableLoadOnDemand="True" ShowMoreResultsBox="false" Skin="Metro"
                                    
-                                    EnableVirtualScrolling="true" >
-                                </telerik:RadComboBox>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                Approve by :
-                                &nbsp;&nbsp
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="txt_approve" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"  
-                                        >
-                                </telerik:RadComboBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdLabel">
-                                Bank :
-                            </td>
-                            <td style="vertical-align:top; text-align:left">                      
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_bank" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select a Bank -" EnableLoadOnDemand="True" Skin="MetroTouch"  
-                                        >
-                                </telerik:RadComboBox>
-                                &nbsp;
-                                User :
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <telerik:RadTextBox ID="txt_user" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false">
-                                </telerik:RadTextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdLabel">
-                                Doc Date:
-                            </td>
-                            <td>
-                                <telerik:RadDatePicker ID="dtp_ur"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                    TabIndex="4" Skin="Metro"> 
-                                    <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
-                                        EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Metro"></Calendar>
-                                    <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
-                                    <EmptyMessageStyle Resize="Both"></EmptyMessageStyle>
-                                    <ReadOnlyStyle Resize="None"></ReadOnlyStyle>
-                                    <FocusedStyle Resize="None"></FocusedStyle>
-                                    <DisabledStyle Resize="None"></DisabledStyle>
-                                    <InvalidStyle Resize="None"></InvalidStyle>
-                                    <HoveredStyle Resize="None"></HoveredStyle>
-                                    <EnabledStyle Resize="None"></EnabledStyle>
-                                    </DateInput>
-                                    <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4"></DatePopupButton>                            
-                                </telerik:RadDatePicker>
-                                &nbsp;
-                                Ctrl No :
-                                <telerik:RadTextBox ID="txt_ctrl" runat="server" Width="95px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false">
-                                </telerik:RadTextBox>
-                                &nbsp;
-                                Last Update :
-                          &nbsp;<telerik:RadTextBox ID="txt_lastupdate" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false">
-                                </telerik:RadTextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdLabel">
-                                Cashed Date:
-                            </td>
-                            <td>
-                            <telerik:RadDatePicker ID="dtp_cashed" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                TabIndex="4" Skin="Silk">
-                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
-                                <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
-                                </DateInput>
-                                <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4"></DatePopupButton>
-                            </telerik:RadDatePicker>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                Remark :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <telerik:RadTextBox ID="txt_remark" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                                    AutoPostBack="false" TextMode="MultiLine">
-                                </telerik:RadTextBox>
-                            </td>
-                        </tr>
-                    </table>
+                                        EnableVirtualScrolling="true" >
+                                    </telerik:RadComboBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Bank :
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_bank" runat="server" Width="300" DropDownWidth="300px"
+                                        AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select a Bank -" EnableLoadOnDemand="True" Skin="MetroTouch"  
+                                            >
+                                    </telerik:RadComboBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Doc Date:
+                                </td>
+                                <td>
+                                    <telerik:RadDatePicker ID="dtp_ur"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                        TabIndex="4" Skin="Metro"> 
+                                        <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
+                                            EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Metro"></Calendar>
+                                        <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
+                                        <EmptyMessageStyle Resize="Both"></EmptyMessageStyle>                                                    
+                                        </DateInput>                         
+                                    </telerik:RadDatePicker>
+                                    &nbsp;
+                                    Ctrl No :
+                                    <telerik:RadTextBox ID="txt_ctrl" runat="server" Width="95px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Cashed Date:
+                                </td>
+                                <td>
+                                    <telerik:RadDatePicker ID="dtp_cashed" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                        TabIndex="4" Skin="Silk">
+                                        <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk"></Calendar>
+                                        <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
+                                        </DateInput>
+                                        <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4"></DatePopupButton>
+                                    </telerik:RadDatePicker>
+                                </td>
+                            </tr>
+                        </table>
+                </td>
+                <td>
+                        <table>
+                            <tr>
+                                <td class="tdLabel">
+                                    Giro No :
+                                </td>
+                                <td>
+                                    <telerik:RadTextBox ID="txt_giro" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox>
+                                </td>                                           
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Prepared by : 
+                                </td>
+                                <td >                      
+                                        <telerik:RadComboBox RenderMode="Lightweight" ID="txt_pre" runat="server" Width="300" DropDownWidth="300px"
+                                        AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch" >
+                                    </telerik:RadComboBox> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Checked by :
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="txt_check" runat="server" Width="300" DropDownWidth="300px"
+                                        AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"  
+                                            >
+                                    </telerik:RadComboBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Approve by :
+                                </td>
+                                <td>
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="txt_approve" runat="server" Width="300" DropDownWidth="300px"
+                                        AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"  
+                                            >
+                                    </telerik:RadComboBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    User :                                                
+                                </td>
+                                <td>
+                                    <telerik:RadTextBox ID="txt_user" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Last Update :                          
+                                </td>
+                                <td>
+                                    <telerik:RadTextBox ID="txt_lastupdate" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLabel">
+                                    Remark :
+                                </td>
+                                <td>                                                
+                                    <telerik:RadTextBox ID="txt_remark" runat="server" Width="250px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false" TextMode="MultiLine">
+                                    </telerik:RadTextBox>
+                                </td>
+                            </tr>
+                        </table>
                 </td>
             </tr>
         </table>
     </div>
+
 </asp:Content>
