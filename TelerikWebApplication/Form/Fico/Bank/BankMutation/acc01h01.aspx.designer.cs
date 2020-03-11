@@ -310,13 +310,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::Telerik.Web.UI.RadTextBox txt_uid;
         
         /// <summary>
-        /// txt_lastUpdate control.
+        /// txt_LastUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_lastUpdate;
+        protected global::Telerik.Web.UI.RadTextBox txt_LastUpdate;
         
         /// <summary>
         /// txt_owner control.
