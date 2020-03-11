@@ -39,10 +39,10 @@
              <div runat="server" style="padding:20px 10px 10px 10px;" id="searchParam">                
                 <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="Date From " Height="26px"></telerik:RadDatePicker>                
                 <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="To Date " Height="26px"></telerik:RadDatePicker>
-                <telerik:RadComboBox ID="cb_project_prm" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project" AutoPostBack="true"
+                <telerik:RadComboBox ID="cb_bank_prm" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project" AutoPostBack="true"
                     EnableLoadOnDemand="True" Skin="MetroTouch"  OnItemsRequested="cb_project_ItemsRequested" EnableVirtualScrolling="true" 
                     Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
-                    OnSelectedIndexChanged="cb_project_prm_SelectedIndexChanged"></telerik:RadComboBox>&nbsp
+                    OnSelectedIndexChanged="cb_bank_prm_SelectedIndexChanged"></telerik:RadComboBox>&nbsp
                 &nbsp
                 <%--<telerik:RadButton ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"
                 Style="clear: both; margin: 0px 0; height:35px">
@@ -239,8 +239,10 @@
                                     Bank:
                                 </td>
                                 <td style="vertical-align:top; text-align:left">                                   
-                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_bank" runat="server" Width="120px" DropDownWidth="300px"
-                                            EnableLoadOnDemand="true" ShowMoreResultsBox="true" EnableVirtualScrolling="true" Skin="Metro" >
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_bank" runat="server" Width="300" DropDownWidth="300px"
+                                        AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select a Bank -" Skin="Metro" 
+                                         OnItemsRequested="cb_bank_ItemsRequested" OnSelectedIndexChanged="cb_bank_SelectedIndexChanged"
+                                         OnPreRender="cb_bank_PreRender" >
                                     </telerik:RadComboBox>                
                                 </td>
                             </tr>
@@ -296,7 +298,7 @@
                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_prepared" runat="server" Width="250px" 
-                                            DropDownWidth="450px" AutoPostBack="false" EmptyMessage="- Select -" EnableLoadOnDemand="false"                                                       
+                                            DropDownWidth="450px" AutoPostBack="false" EmptyMessage="- Select -" EnableLoadOnDemand="false"  EnableVirtualScrolling="true"                                                      
                                                Skin="Metro"  OnItemsRequested="cb_prepared_ItemsRequested" OnSelectedIndexChanged="cb_prepared_SelectedIndexChanged"
                                                 OnPreRender="cb_prepared_PreRender">
                                                 <HeaderTemplate>
@@ -347,7 +349,8 @@
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_checked" runat="server" Width="250px" 
                                             DropDownWidth="450px" AutoPostBack="false" EmptyMessage="- Select -" EnableLoadOnDemand="false"                                                       
-                                               Skin="Metro" >
+                                               Skin="Metro" EnableVirtualScrolling="true" OnItemsRequested="cb_checked_ItemsRequested" OnSelectedIndexChanged="cb_checked_SelectedIndexChanged"
+                                                OnPreRender="cb_checked_PreRender" >
                                                 <HeaderTemplate>
                                                     <table style="width: 400px; font-size:smaller">
                                                         <tr>
@@ -397,7 +400,8 @@
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250px" 
                                             DropDownWidth="650px" EmptyMessage="- Select -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
                                              MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" 
-                                               >  
+                                               OnItemsRequested="cb_approved_ItemsRequested" OnSelectedIndexChanged="cb_approved_SelectedIndexChanged"
+                                                OnPreRender="cb_approved_PreRender">  
                                                 <HeaderTemplate>
                                                     <table style="width: 400px; font-size:smaller">
                                                         <tr>
