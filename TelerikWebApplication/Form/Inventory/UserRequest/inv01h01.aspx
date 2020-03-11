@@ -423,7 +423,7 @@
                             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"
                                 AllowPaging="true" AllowSorting="true" runat="server"  OnNeedDataSource="RadGrid2_NeedDataSource" 
                                 AllowAutomaticUpdates="true" AllowAutomaticInserts="True" ShowStatusBar="true" OnInsertCommand="RadGrid2_save_handler"
-                                 OnUpdateCommand="RadGrid2_save_handler" ClientSettings-Selecting-AllowRowSelect="true">   
+                                 OnUpdateCommand="RadGrid2_save_handler" OnDeleteCommand="RadGrid2_DeleteCommand" ClientSettings-Selecting-AllowRowSelect="true">   
                                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="part_code" Font-Size="12px" EditMode="InPlace"
                                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >                                             
                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
@@ -518,17 +518,22 @@
                                     </telerik:RadTextBox>
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn> 
-                            <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ItemStyle-Width="40px" HeaderStyle-Width="40px">
+                            <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" 
+                                ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px">
                             </telerik:GridButtonColumn>
+                                        <%--<telerik:GridButtonColumn UniqueName="Delete" CommandName="Delete" HeaderStyle-Width="35px" 
+                        ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
+                        <HeaderStyle Width="35px" />
+                    </telerik:GridButtonColumn>--%>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
-                        <ClientEvents OnRowDblClick="rowDblClick" />
+                        <ClientEvents OnRowDblClick="rowDblClick"/>
                     </ClientSettings>
                  </telerik:RadGrid>
                       </ContentTemplate>
                     <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="RadGrid2" EventName="UpdateCommand">
+                        <asp:AsyncPostBackTrigger ControlID="RadGrid2">
                         </asp:AsyncPostBackTrigger>
                     </Triggers>
                 </asp:UpdatePanel>

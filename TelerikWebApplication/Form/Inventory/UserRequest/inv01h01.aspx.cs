@@ -678,7 +678,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data saved";
-                lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
                 RadGrid2.Controls.Add(lblsuccess);
             }
             catch (Exception ex)
@@ -789,6 +789,40 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         protected void cb_dept_d_PreRender(object sender, EventArgs e)
         {
 
+        }
+
+        protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            var partCode = ((GridDataItem)e.Item).GetDataKeyValue("part_code");
+
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "delete from inv01d01 where part_code = @part_code and doc_code = @doc_code";
+                cmd.Parameters.AddWithValue("@doc_code", txt_ur_number.Text);
+                cmd.Parameters.AddWithValue("@part_code", partCode);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                RadGrid2.DataBind();
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data deleted";
+                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
+                RadGrid2.Controls.Add(lblsuccess);
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGrid2.Controls.Add(lblError);
+                e.Canceled = true;
+            }
         }
     }
 }
