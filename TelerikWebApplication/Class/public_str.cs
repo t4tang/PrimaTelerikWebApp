@@ -29,7 +29,8 @@ namespace TelerikWebApplication.Class
         public static string company_code;
         public static string company_name;
         public static string modul;
-        public static string selected_menu;
+        public static string selected_menu="";
+
         //public static string str_type_code = "";
         //public static string str_category = "";
         //public static string str_run_group_code = "";

@@ -17,16 +17,12 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
      <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
         <AjaxSettings>            
-            <telerik:AjaxSetting AjaxControlID="btnFind">
+            <telerik:AjaxSetting AjaxControlID="btnSearch">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
-             <telerik:AjaxSetting AjaxControlID="cb_project_prm">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
-                </UpdatedControls>                
-            </telerik:AjaxSetting>
+           
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
@@ -39,8 +35,8 @@
              <div runat="server" style="padding:20px 10px 10px 10px;" id="searchParam">                
                 <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="Date From " Height="26px"></telerik:RadDatePicker>                
                 <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="To Date " Height="26px"></telerik:RadDatePicker>
-                <telerik:RadComboBox ID="cb_bank_prm" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Project" AutoPostBack="true"
-                    EnableLoadOnDemand="True" Skin="MetroTouch"  OnItemsRequested="cb_project_ItemsRequested" EnableVirtualScrolling="true" 
+                <telerik:RadComboBox ID="cb_bank_prm" runat="server" RenderMode="Lightweight" CssClass="combo" Label="Bank" AutoPostBack="false"
+                    EnableLoadOnDemand="True" Skin="MetroTouch"  OnItemsRequested="cb_bank_prm_ItemsRequested" EnableVirtualScrolling="true" 
                     Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
                     OnSelectedIndexChanged="cb_bank_prm_SelectedIndexChanged"></telerik:RadComboBox>&nbsp
                 &nbsp
@@ -268,11 +264,9 @@
                                 <td class="tdLabel">
                                     From / To:
                                 </td>                
-                                <td style="vertical-align:top; text-align:left">                               
-                                    <telerik:RadTextBox ID="txt_Kontak" 
-                                        runat="server" TextMode="MultiLine"
-                                        Width="450px" Rows="0" Columns="100" TabIndex="5" Resize="Both">
-                                    </telerik:RadTextBox>                                  
+                                <td>   <telerik:RadTextBox ID="txt_Kontak" runat="server" Width="345px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox>                                 
                                 </td>
                             </tr>
                             <tr>
@@ -450,7 +444,7 @@
                                 </td>
                                 <td style="padding-left:15px"> Last Update: </td>
                                 <td style="width:50px">
-                                    <telerik:RadTextBox ReadOnly="true" ID="txt_lastUpdate" Width="140px" runat="server" >
+                                    <telerik:RadTextBox ReadOnly="true" ID="txt_LastUpdate" Width="140px" runat="server" >
                                     </telerik:RadTextBox>
                                 </td>
                                 <td style="padding-left:15px"> Owner: </td>
@@ -480,7 +474,7 @@
                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" AllowSorting="True"
                 AllowAutomaticInserts="true" AllowAutomaticUpdates="true" AllowAutomaticDeletes="true"
                 PageSize="7" AllowPaging="True" runat="server"  OnNeedDataSource="RadGrid2_NeedDataSource"  >   
-                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="accountno" Font-Size="12px"
+                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="KoRek" Font-Size="12px"
                         ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-ShowAddNewRecordButton="False" 
                         CommandItemSettings-ShowCancelChangesButton="False">
                         <BatchEditingSettings EditType="Cell" HighlightDeletedRows="true" />                                              
@@ -490,7 +484,7 @@
                             <telerik:GridTemplateColumn DataField="KoRek" HeaderText="Account No" UniqueName="KoRek" 
                                 ItemStyle-HorizontalAlign="Left">
                                 <ItemTemplate>
-                                    <%# Eval("accountno") %>
+                                    <%# Eval("KoRek") %>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <telerik:RadDropDownList RenderMode="Lightweight" runat="server" ID="CategoryIDDropDown" DataValueField="KoRek"
@@ -500,18 +494,14 @@
                                 <HeaderStyle Width="70px" />
                                 <ItemStyle HorizontalAlign="Left" />
                             </telerik:GridTemplateColumn>
-                            <telerik:GridNumericColumn DataField="accountname" HeaderText="Account Name" ItemStyle-HorizontalAlign="Left" ReadOnly="true"
-                                SortExpression="accountname" UniqueName="accountname">
+                            <telerik:GridNumericColumn DataField="Ket" HeaderText="Remark" ItemStyle-HorizontalAlign="Left" ReadOnly="true"
+                                SortExpression="accountname" UniqueName="Ket">
                                 <HeaderStyle Width="180px" />
                                 <ItemStyle HorizontalAlign="Left" Width="180px" />
                             </telerik:GridNumericColumn>
-                             <telerik:GridNumericColumn DataField="remark" HeaderText="Remark" ItemStyle-HorizontalAlign="Left"
-                                SortExpression="remark" UniqueName="remark" >
-                                <HeaderStyle Width="140px" />
-                                <ItemStyle HorizontalAlign="Left" Width="140px" />
-                            </telerik:GridNumericColumn> 
-                            <telerik:GridNumericColumn DataField="Mutasi" HeaderText="D/C" ItemStyle-HorizontalAlign="Left"
-                                SortExpression="Mutasi" UniqueName="Mutasi">
+                            
+                            <telerik:GridNumericColumn DataField="MutasiName" HeaderText="D/C" ItemStyle-HorizontalAlign="Left"
+                                SortExpression="Mutasi" UniqueName="MutasiName">
                                 <HeaderStyle Width="40px" />
                                 <ItemStyle HorizontalAlign="Left" Width="40px" />
                             </telerik:GridNumericColumn> 
