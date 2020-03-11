@@ -23,12 +23,21 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if (!IsPostBack)
             {
+                lbl_form_name.Text = public_str.selected_menu;
+
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_project_prm.SelectedValue = public_str.site;
+
+                txt_uid.Text = public_str.uid;
+                txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+                txt_owner.Text = public_str.uid;
+                txt_printed.Text = "0";
+                txt_edited.Text = "0";
                 
                 dtp_ur.SelectedDate = DateTime.Now;
-                ses_default();
+                Session["action"] = "new";
+                RadGrid2.Enabled = false;
             }
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
@@ -49,7 +58,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         }
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -78,7 +87,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_project.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -209,13 +218,15 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
                 RadGrid2.DataSource = GetDataDetailTable(txt_ur_number.Text);
                 RadGrid2.DataBind();
-                Session["Proccess"] = "SesEdit";
+                Session["action"] = "edit";
+                RadGrid2.Enabled = true;
             }
 
         }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            RadGrid2.DataSource = GetDataDetailTable("");
+
+            RadGrid2.DataSource = GetDataDetailTable(txt_ur_number.Text);
         }
         public DataTable GetDataDetailTable(string doc_code)
         {
@@ -251,7 +262,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
             try
             {
-                if(Session["Proccess"].ToString() == "SesEdit")
+                if(Session["action"].ToString() == "edit")
                 {
                     run = txt_ur_number.Text;                   
                 }
@@ -309,6 +320,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 lblsuccess.ForeColor = System.Drawing.Color.Blue;
                 //RadGrid1.Controls.Add(lblsuccess);
                 con.Close();
+
+                txt_ur_number.Text = run;
+                RadGrid2.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -316,8 +330,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 Label lblError = new Label();
                 lblError.Text = "Unable to save data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
-                //RadGrid1.Controls.Add(lblError);
-                throw;
+                RadGrid1.Controls.Add(lblError);
             }
         }
 
@@ -332,15 +345,15 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if ((sender as RadComboBox).Text == "Open")
             {
-                (sender as RadComboBox).SelectedValue = "0";
+                (sender as RadComboBox).SelectedValue = "00";
             }
             else if ((sender as RadComboBox).Text == "Realease")
             {
-                (sender as RadComboBox).SelectedValue = "1";
+                (sender as RadComboBox).SelectedValue = "01";
             }
             else if ((sender as RadComboBox).Text == "Closed")
             {
-                (sender as RadComboBox).SelectedValue = "2";
+                (sender as RadComboBox).SelectedValue = "02";
             }
         }
 
@@ -348,15 +361,15 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if ((sender as RadComboBox).Text == "Open")
             {
-                (sender as RadComboBox).SelectedValue = "0";
+                (sender as RadComboBox).SelectedValue = "01";
             }
             else if ((sender as RadComboBox).Text == "Realease")
             {
-                (sender as RadComboBox).SelectedValue = "1";
+                (sender as RadComboBox).SelectedValue = "01";
             }
             else if ((sender as RadComboBox).Text == "Closed")
             {
-                (sender as RadComboBox).SelectedValue = "2";
+                (sender as RadComboBox).SelectedValue = "02";
             }
         }
 
@@ -643,7 +656,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             }
         }
 
-        protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
+        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
         {
             try
             {
@@ -654,18 +667,18 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_urD";
                 cmd.Parameters.AddWithValue("@doc_code", txt_ur_number.Text);
-                cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@part_qty", (item.FindControl("txt_qty") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("cb_uom_d") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@part_qty", (item.FindControl("txt_qty") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("cb_uom_d") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark_d") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_dept_d") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_dept_d") as RadComboBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data inserted successfully";
                 lblsuccess.ForeColor = System.Drawing.Color.Blue;
-                RadGrid1.Controls.Add(lblsuccess);
+                RadGrid2.Controls.Add(lblsuccess);
             }
             catch (Exception ex)
             {
@@ -673,7 +686,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 Label lblError = new Label();
                 lblError.Text = "Unable to insert data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
+                RadGrid2.Controls.Add(lblError);
                 e.Canceled = true;
             }
         }
@@ -682,71 +695,41 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             Session["prod_code"] = e.Value;
 
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
-
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            foreach (DataRow dtr in dt.Rows)
+            try
             {
-                RadComboBox cb = (RadComboBox)sender;
-                GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
-                cb_prodType.Text = dtr["unit"].ToString();
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT spec,unit FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox t_spec = (RadTextBox)item.FindControl("txt_prod_name");
+                    RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
+
+                    t_spec.Text= dtr["spec"].ToString();
+                    cb_prodType.Text = dtr["unit"].ToString();
+
+                }
+                
             }
-            con.Close();
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {   
+                con.Close();
+            }
+            
         }
 
-        #region sesi
-        private void ses_default()
-        {
-            Session["Action"] = "default";
-            //control_status(Page.Controls,false);
-            btnNew.Enabled = true;
-            btnEdit.Enabled = false;
-            btnSave.Enabled = false;
-            RadGrid2.Enabled = false;
-        }
-        private void ses_detail()
-        {
-            Session["Action"] = "detail";
-            //control_status(Page.Controls, false);
-            btnNew.Enabled = true;
-            btnEdit.Enabled = true;
-            btnSave.Enabled = false;
-            RadGrid2.Enabled = false;
-        }
-        private void ses_new()
-        {
-            Session["Action"] = "new";
-            //control_status(Page.Controls, true);
-            btnNew.Enabled = false;
-            btnEdit.Enabled = false;
-            btnSave.Enabled = true;
-            RadGrid2.Enabled = false;
-        }
-        private void ses_edit()
-        {
-            Session["Action"] = "edit";
-            //control_status(Page.Controls, true);
-            btnNew.Enabled = false;
-            btnEdit.Enabled = false;
-            btnSave.Enabled = true;
-            RadGrid2.Enabled = true;
-        }
-        private void ses_save()
-        {
-            Session["Action"] = "save";
-            //control_status(Page.Controls, true);
-            btnNew.Enabled = false;
-            btnEdit.Enabled = false;
-            btnSave.Enabled = false;
-        }
         public void control_status(ControlCollection ctrls, bool state)
         {
             foreach (Control ctrl in ctrls)
@@ -764,10 +747,10 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 else if (ctrl is RadGrid)
                     ((RadGrid)ctrl).Enabled = state;
 
-                control_status(ctrl.Controls,state);
+                control_status(ctrl.Controls, state);
             }
         }
-       
+
         private void clear_text(ControlCollection ctrls)
         {
             foreach (Control ctrl in ctrls)
@@ -781,16 +764,27 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                     ((RadComboBox)ctrl).Text = string.Empty;
             }
         }
-        #endregion
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            ses_new();
-
+            Session["act"] = "new";
+            RadGrid2.Enabled = false;
         }
 
-        protected void btnEdit_Click(object sender, ImageClickEventArgs e)
+        protected void cb_prod_code_PreRender(object sender, EventArgs e)
         {
-            ses_edit();
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
         }
+
+        
     }
 }
