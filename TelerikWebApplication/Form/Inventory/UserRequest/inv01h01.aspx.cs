@@ -163,7 +163,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "UPDATE inv01h01 SET userid = @Usr, lastupdate = GETDATE(), stEdit = '4' WHERE (doc_code = @doc_code)";
-                cmd.Parameters.AddWithValue("@KoBank", doc_code);
+                cmd.Parameters.AddWithValue("@doc_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -209,7 +209,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                     cb_approved.Text = sdr["ApproveBy"].ToString();
                     txt_remark.Text = sdr["doc_remark"].ToString();
                     txt_uid.Text = sdr["userid"].ToString();
-                    txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
+                    txt_lastUpdate.Text = string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
                     txt_owner.Text = sdr["Owner"].ToString();
                     txt_printed.Text = sdr["Printed"].ToString();
                     txt_edited.Text = sdr["Edited"].ToString();
@@ -668,13 +668,14 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.CommandText = "sp_save_urD";
                 cmd.Parameters.AddWithValue("@doc_code", txt_ur_number.Text);
                 cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDecimal((item.FindControl("txt_qty") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("cb_uom_d") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark_d") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_dept_d") as RadComboBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid2.DataBind();
+                RadGrid2.Rebind();
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data saved";
