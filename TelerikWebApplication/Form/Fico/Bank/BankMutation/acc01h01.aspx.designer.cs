@@ -13,6 +13,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
     public partial class acc01h01 {
         
         /// <summary>
+        /// RadCodeBlock1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadCodeBlock RadCodeBlock1;
+        
+        /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::System.Web.UI.WebControls.ImageButton btnList;
         
         /// <summary>
+        /// btnNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnNew;
+        
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>
@@ -146,6 +164,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnSave;
+        
+        /// <summary>
+        /// lbl_form_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_form_name;
         
         /// <summary>
         /// txt_NoBuk control.
@@ -346,6 +373,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::Telerik.Web.UI.RadTextBox txt_edited;
         
         /// <summary>
+        /// UpdatePanel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+        
+        /// <summary>
         /// RadGrid2 control.
         /// </summary>
         /// <remarks>
@@ -355,12 +391,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
         protected global::Telerik.Web.UI.RadGrid RadGrid2;
         
         /// <summary>
-        /// SqlDataSource1 control.
+        /// SqlDataSource2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
     }
 }
