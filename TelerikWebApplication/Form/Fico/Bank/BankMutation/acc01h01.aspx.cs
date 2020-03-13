@@ -225,6 +225,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
                 RadGrid2.DataSource = GetDataDetailTable(txt_NoBuk.Text);
                 RadGrid2.DataBind();
+                RadGrid2.Enabled = true;
                 Session["Proccess"] = "SesEdit";
             }
 
@@ -296,7 +297,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                     }
                     con.Close();
                 }
-                txt_NoBuk.Text = run;
 
                 con.Open();
                 cmd = new SqlCommand();
@@ -314,24 +314,29 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd.Parameters.AddWithValue("@appby", cb_approved.SelectedValue);
                 cmd.Parameters.AddWithValue("@Ket", txt_Ket.Text);
                 cmd.Parameters.AddWithValue("@Kontak", txt_Kontak.Text);
+                cmd.Parameters.AddWithValue("@Kode", "DB");
+                cmd.Parameters.AddWithValue("@Batal", 0);
+                cmd.Parameters.AddWithValue("@TValas", 0.0000);
+                cmd.Parameters.AddWithValue("@Total", 0.0000);
+                cmd.Parameters.AddWithValue("@TSub", 0.0000);
                 cmd.Parameters.AddWithValue("@cur_code", txt_cur_code.Text);
                 cmd.Parameters.AddWithValue("@kurs", txt_kurs.Text);
-                cmd.Parameters.AddWithValue("@userid", txt_uid.Text);
-                cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                //cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@region_code", public_str.site);
-                //cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);    
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
-                cmd.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
-                cmd.Parameters.AddWithValue("@Printed", txt_printed.Text);
-                cmd.Parameters.AddWithValue("@Edited", txt_edited.Text);
+                cmd.Parameters.AddWithValue("@Printed", 0.0000);
+                cmd.Parameters.AddWithValue("@Edited", 0);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
                 cmd.ExecuteNonQuery();
-
+                
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data saved successfully";
                 lblsuccess.ForeColor = System.Drawing.Color.Blue;
                 //RadGrid1.Controls.Add(lblsuccess);
                 con.Close();
+                txt_NoBuk.Text = run;
             }
             catch (Exception ex)
             {
@@ -612,9 +617,38 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
             Session["act"] = "new";
+            btnSave.Enabled = true;
+            clear_text(Page.Controls);
+            RadGrid2.DataSource = new string[] { };
+            RadGrid2.DataBind();
             RadGrid2.Enabled = false;
+            set_info();
         }
 
+        private void set_info()
+        {
+            txt_uid.Text = public_str.uid;
+            txt_LastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+            txt_owner.Text = public_str.uid;
+            txt_printed.Text = "0";
+            txt_edited.Text = "0";
+        }
+
+        private void clear_text(ControlCollection ctrls)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is RadTextBox)
+                {
+                    ((RadTextBox)ctrl).Text = "";
+                }
+                else if (ctrl is RadComboBox)
+                    ((RadComboBox)ctrl).Text = "";
+
+                clear_text(ctrl.Controls);
+
+            }
+        }
         protected void cb_korek_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             string sql = "SELECT TOP (100)[prod_code], [spec] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
@@ -808,7 +842,37 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 e.Canceled = true;
             }
         }
-    }
+
+        protected void cb_mutasi_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Items.Add("D");
+            (sender as RadComboBox).Items.Add("K");
+        }
+
+        protected void cb_mutasi_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "D")
+            {
+                (sender as RadComboBox).SelectedValue = "D";
+            }
+            else if ((sender as RadComboBox).Text == "K")
+            {
+                (sender as RadComboBox).SelectedValue = "K";
+            }
+        }
+
+        protected void cb_mutasi_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "D")
+            {
+                (sender as RadComboBox).SelectedValue = "D";
+            }
+            else if ((sender as RadComboBox).Text == "K")
+            {
+                (sender as RadComboBox).SelectedValue = "K";
+            }
+        }
+    
     }
 
 }

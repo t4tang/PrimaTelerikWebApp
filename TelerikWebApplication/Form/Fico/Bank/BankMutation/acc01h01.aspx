@@ -203,7 +203,7 @@
                                     No Ctrl:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_NoCtrl" runat="server" Width="200px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_NoCtrl" runat="server" Width="200px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -213,7 +213,7 @@
                                     No Ref:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_NoRef" runat="server" Width="200px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_NoRef" runat="server" Width="200px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -273,7 +273,7 @@
                                 
                                     Kurs:
                                &nbsp
-                                    <telerik:RadTextBox ID="txt_kurs" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_kurs" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -282,7 +282,7 @@
                                 <td class="tdLabel">
                                     From / To:
                                 </td>                
-                                <td>   <telerik:RadTextBox ID="txt_Kontak" runat="server" Width="345px" Enabled="false" RenderMode="Lightweight"
+                                <td>   <telerik:RadTextBox ID="txt_Kontak" runat="server" Width="345px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>                                 
                                 </td>
@@ -479,13 +479,11 @@
                                  <td>
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_edited" Width="40px" runat="server" >
                                     </telerik:RadTextBox>
-                                 </td>   
-                                </td>                                
+                                 </td>                        
                             </tr>
-                            
                         </table>
                     </td>
-                </tr>   
+                </tr>
             </table>
 
            <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
@@ -493,7 +491,7 @@
                       <ContentTemplate>
                              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"
                                 AllowPaging="true" AllowSorting="true" runat="server"  OnNeedDataSource="RadGrid2_NeedDataSource" 
-                                AllowAutomaticUpdates="true" AllowAutomaticInserts="True" ShowStatusBar="true" OnInsertCommand="RadGrid2_save_handler"
+                               ShowStatusBar="true" OnInsertCommand="RadGrid2_save_handler"
                                  OnUpdateCommand="RadGrid2_save_handler" OnDeleteCommand="RadGrid2_DeleteCommand" ClientSettings-Selecting-AllowRowSelect="true">   
                                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="KoRek" Font-Size="12px" EditMode="InPlace"
                                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >                                             
@@ -512,7 +510,7 @@
                                             <EditItemTemplate>
                                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_korek" EnableLoadOnDemand="True" DataTextField="accountname"
                                                     OnItemsRequested="cb_korek_ItemsRequested" DataValueField="KoRek" AutoPostBack="true"
-                                                    Text='<%# DataBinder.Eval(Container, "DataItem.part_code") %>'
+                                                    Text='<%# DataBinder.Eval(Container, "DataItem.KoRek") %>'
                                                     HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="450px"
                                                     OnSelectedIndexChanged="cb_korek_SelectedIndexChanged" OnPreRender="cb_korek_PreRender">
                                                     <HeaderTemplate>
@@ -564,20 +562,42 @@
                                     </telerik:RadTextBox>
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn> 
-                                        <telerik:GridTemplateColumn HeaderText="D/C" ItemStyle-Width="100px">
+                                <telerik:GridTemplateColumn HeaderText="D/C" ItemStyle-Width="220px">
                                 <ItemTemplate>  
-                                    <%#DataBinder.Eval(Container.DataItem, "MutasiName")%>
+                                    <%#DataBinder.Eval(Container.DataItem, "Mutasi")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                   <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_MutasiName" Width="50px"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.MutasiName") %>'>
+                                    <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="220px" runat="server" ID="cb_mutasi"
+                                        EnableLoadOnDemand="True" Skin="MetroTouch" DataTextField="name" DataValueField="Mutasi"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.Mutasi") %>'
+                                        OnItemsRequested="cb_mutasi_ItemsRequested" OnPreRender="cb_mutasi_PreRender"
+                                         OnSelectedIndexChanged="cb_mutasi_SelectedIndexChanged" >
+                                    </telerik:RadComboBox>
+                                </EditItemTemplate>
+                            </telerik:GridTemplateColumn>    
+                              <telerik:GridTemplateColumn HeaderText="Kurs" ItemStyle-Width="100px">
+                                <ItemTemplate>  
+                                    <%#DataBinder.Eval(Container.DataItem, "kurs")%>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                   <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_kurs" Width="50px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.kurs") %>'>
                                     </telerik:RadTextBox>
                                 </EditItemTemplate>
-                                
+                            </telerik:GridTemplateColumn>
+                             <telerik:GridTemplateColumn HeaderText="Ammount" ItemStyle-Width="100px">
+                                <ItemTemplate>  
+                                    <%#DataBinder.Eval(Container.DataItem, "Jumlah")%>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                   <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Jumlah" Width="50px"
+                                        Text='<%# DataBinder.Eval(Container, "DataItem.Jumlah") %>'>
+                                    </telerik:RadTextBox>
+                                </EditItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn HeaderText="Project Area" ItemStyle-Width="220px">
                                 <ItemTemplate>  
-                                    <%#DataBinder.Eval(Container.DataItem, "dept_code")%>
+                                    <%#DataBinder.Eval(Container.DataItem, "region_code")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="220px" runat="server" ID="cb_project"
@@ -640,20 +660,5 @@
 </asp:Content>
 
                              
-                             <%--<telerik:GridNumericColumn DataField="Valas" HeaderText="Kurs" ItemStyle-HorizontalAlign="Right"
-                                SortExpression="Valas" UniqueName="Valas" DataFormatString="{0:#,###0.000000000;(#,###0.000000000);0}">
-                                <HeaderStyle Width="40px" />
-                                <ItemStyle HorizontalAlign="Right" Width="40px" />
-                            </telerik:GridNumericColumn>                     
-                            <telerik:GridNumericColumn DataField="Jumlah" HeaderText="Ammount" ItemStyle-HorizontalAlign="Right"
-                                SortExpression="Jumlah" UniqueName="Jumlah" DataFormatString="{0:#,###0.00;(#,###0.00);0}">
-                                <HeaderStyle Width="40px" />
-                                <ItemStyle HorizontalAlign="Right" Width="40px" />
-                            </telerik:GridNumericColumn> 
-                            
-                            <telerik:GridNumericColumn DataField="region_code" HeaderText="Project Area" ItemStyle-HorizontalAlign="Left"
-                                ReadOnly="true" SortExpression="region_code" UniqueName="region_code" ItemStyle-Width="50">
-                                <HeaderStyle Width="60px" />
-                                <ItemStyle HorizontalAlign="Left" Width="30px" />
-                            </telerik:GridNumericColumn>--%>
+                             
                            
