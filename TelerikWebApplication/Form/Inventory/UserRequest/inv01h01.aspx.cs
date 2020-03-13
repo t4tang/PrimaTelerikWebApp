@@ -23,18 +23,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if (!IsPostBack)
             {
-                //lbl_form_name.Text = public_str.selected_menu;
-
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_project_prm.SelectedValue = public_str.site;
 
-                txt_uid.Text = public_str.uid;
-                txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
-                txt_owner.Text = public_str.uid;
-                txt_printed.Text = "0";
-                txt_edited.Text = "0";
-                
+                set_info();
                 dtp_ur.SelectedDate = DateTime.Now;
                 Session["action"] = "new";
                 RadGrid2.Enabled = false;
@@ -163,7 +156,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "UPDATE inv01h01 SET userid = @Usr, lastupdate = GETDATE(), stEdit = '4' WHERE (doc_code = @doc_code)";
-                cmd.Parameters.AddWithValue("@KoBank", doc_code);
+                cmd.Parameters.AddWithValue("@doc_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -209,7 +202,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                     cb_approved.Text = sdr["ApproveBy"].ToString();
                     txt_remark.Text = sdr["doc_remark"].ToString();
                     txt_uid.Text = sdr["userid"].ToString();
-                    txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
+                    txt_lastUpdate.Text = string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
                     txt_owner.Text = sdr["Owner"].ToString();
                     txt_printed.Text = sdr["Printed"].ToString();
                     txt_edited.Text = sdr["Edited"].ToString();
@@ -220,6 +213,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
                 RadGrid2.Enabled = true;
+                btnSave.Enabled = false;
             }
 
         }
@@ -361,7 +355,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if ((sender as RadComboBox).Text == "Open")
             {
-                (sender as RadComboBox).SelectedValue = "01";
+                (sender as RadComboBox).SelectedValue = "00";
             }
             else if ((sender as RadComboBox).Text == "Realease")
             {
@@ -668,13 +662,14 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.CommandText = "sp_save_urD";
                 cmd.Parameters.AddWithValue("@doc_code", txt_ur_number.Text);
                 cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDecimal((item.FindControl("txt_qty") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("cb_uom_d") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark_d") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_dept_d") as RadComboBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid2.DataBind();
+                RadGrid2.Rebind();
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data saved";
@@ -758,19 +753,33 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             {
                 if (ctrl is RadTextBox)
                 {
-                    ((RadTextBox)ctrl).Text = string.Empty;
-
+                    ((RadTextBox)ctrl).Text = "";
                 }
-                if (ctrl is RadComboBox)
-                    ((RadComboBox)ctrl).Text = string.Empty;
+                else if (ctrl is RadComboBox)
+                    ((RadComboBox)ctrl).Text = "";
+
+                clear_text(ctrl.Controls);
+
             }
         }
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
             Session["act"] = "new";
+            btnSave.Enabled = false;
+            clear_text(Page.Controls);
+            RadGrid2.DataSource = new string[] { };
+            RadGrid2.DataBind();
             RadGrid2.Enabled = false;
+            set_info();
         }
-
+        private void set_info()
+        {
+            txt_uid.Text = public_str.uid;
+            txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+            txt_owner.Text = public_str.uid;
+            txt_printed.Text = "0";
+            txt_edited.Text = "0";
+        }
         protected void cb_prod_code_PreRender(object sender, EventArgs e)
         {
             con.Open();
