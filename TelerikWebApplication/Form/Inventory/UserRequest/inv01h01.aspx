@@ -31,7 +31,7 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
-            <%--<telerik:AjaxSetting AjaxControlID="RadGrid2">
+            <%--<telerik:AjaxSetting AjaxControlID="btnOk">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
@@ -54,7 +54,7 @@
                     OnSelectedIndexChanged="cb_project_prm_SelectedIndexChanged"></telerik:RadComboBox>&nbsp
                 &nbsp
                 
-                <asp:Button ID="btnFind" runat="server" Text="Search" OnClick="btnSearch_Click" />
+                <asp:Button ID="btnFind" runat="server" OnClick="btnSearch_Click" Text="Search" />
                  &nbsp
                 <asp:Button ID="btnOk" runat="server" OnClick="btnOk_Click" Text="Select & Close"/>
                 
@@ -104,7 +104,7 @@
         </ContentTemplate>
     </telerik:RadWindow>
 
-    <div class="scroller"> 
+    <div id="div1" class="scroller" runat="server"> 
         
         <div style=" padding-left:15px; width:100%; border-bottom-color: #FF9933; border-bottom-width: 1px; border-bottom-style: inset;">
             <table id="tbl_control">
@@ -531,17 +531,18 @@
                     </Triggers>
                 </asp:UpdatePanel>
             </div>
-        </div>     
+        </div>    
+         <script type="text/javascript">
+        //<![CDATA[
+            Sys.Application.add_load(function() {
+                $windowContentDemo.contentTemplateID = "<%=RadWindow_ContentTemplate.ClientID%>";
+                $windowContentDemo.templateWindowID = "<%=RadWindow_ContentTemplate.ClientID %>";
+            });
+        //]]>
+        </script>  
+ 
     </div>
    
-     <script type="text/javascript">
-    //<![CDATA[
-        Sys.Application.add_load(function() {
-            $windowContentDemo.contentTemplateID = "<%=RadWindow_ContentTemplate.ClientID%>";
-            $windowContentDemo.templateWindowID = "<%=RadWindow_ContentTemplate.ClientID %>";
-        });
-    //]]>
-    </script>  
-
+    
     
 </asp:Content>

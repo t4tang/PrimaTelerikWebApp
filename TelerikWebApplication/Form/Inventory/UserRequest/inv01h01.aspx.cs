@@ -23,18 +23,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if (!IsPostBack)
             {
-                //lbl_form_name.Text = public_str.selected_menu;
-
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_project_prm.SelectedValue = public_str.site;
 
-                txt_uid.Text = public_str.uid;
-                txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
-                txt_owner.Text = public_str.uid;
-                txt_printed.Text = "0";
-                txt_edited.Text = "0";
-                
+                set_info();
                 dtp_ur.SelectedDate = DateTime.Now;
                 Session["action"] = "new";
                 RadGrid2.Enabled = false;
@@ -220,6 +213,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
                 RadGrid2.Enabled = true;
+                btnSave.Enabled = false;
             }
 
         }
@@ -361,7 +355,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if ((sender as RadComboBox).Text == "Open")
             {
-                (sender as RadComboBox).SelectedValue = "01";
+                (sender as RadComboBox).SelectedValue = "00";
             }
             else if ((sender as RadComboBox).Text == "Realease")
             {
@@ -759,19 +753,33 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             {
                 if (ctrl is RadTextBox)
                 {
-                    ((RadTextBox)ctrl).Text = string.Empty;
-
+                    ((RadTextBox)ctrl).Text = "";
                 }
-                if (ctrl is RadComboBox)
-                    ((RadComboBox)ctrl).Text = string.Empty;
+                else if (ctrl is RadComboBox)
+                    ((RadComboBox)ctrl).Text = "";
+
+                clear_text(ctrl.Controls);
+
             }
         }
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
             Session["act"] = "new";
+            btnSave.Enabled = false;
+            clear_text(Page.Controls);
+            RadGrid2.DataSource = new string[] { };
+            RadGrid2.DataBind();
             RadGrid2.Enabled = false;
+            set_info();
         }
-
+        private void set_info()
+        {
+            txt_uid.Text = public_str.uid;
+            txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+            txt_owner.Text = public_str.uid;
+            txt_printed.Text = "0";
+            txt_edited.Text = "0";
+        }
         protected void cb_prod_code_PreRender(object sender, EventArgs e)
         {
             con.Open();
