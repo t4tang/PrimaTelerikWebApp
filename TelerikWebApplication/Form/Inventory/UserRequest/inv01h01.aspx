@@ -125,6 +125,11 @@
                             Height="37px" Width="38px" ImageUrl="~/Images/save.png">
                         </asp:ImageButton>
                     </td>
+                    <td style="vertical-align:middle; margin-left:10px;padding-left:3px">
+                        <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" 
+                            Height="35px" Width="35px" ImageUrl="~/Images/printer.png">
+                        </asp:ImageButton>
+                    </td>
                     <td style="width:89%; text-align:right">
                         <telerik:RadLabel ID="lbl_form_name" Text="User Request" runat="server" style="font-weight:lighter; 
                             font-size:10px; font-variant: small-caps; padding-left:10px; 
