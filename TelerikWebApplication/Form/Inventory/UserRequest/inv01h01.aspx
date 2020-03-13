@@ -365,39 +365,41 @@
                     
                 </tr>    
                 <tr>
-                    <td colspan="3" style="padding-top:20px; padding-bottom:20px;">
+                    <td colspan="3" style="padding-top:40px; padding-bottom:20px;">
                         <table>
                             <tr>
-                                <td style="width:50px" class="tdLabel">
+                                <td style="padding:0px 10px 0px 10px">
                                     User 
                                 </td>
                                 <td style="width:50px">
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_uid" Width="50px" runat="server" >
                                     </telerik:RadTextBox>
                                 </td>
-                                <td style="width:80px; padding-left:15px" class="tdLabel">
+                                <td style="width:80px; padding-left:15px">
                                     Last Update 
                                 </td>
                                 <td style="width:70px;">
-                                    <telerik:RadTextBox ReadOnly="true" ID="txt_lastUpdate" Width="140px" runat="server" Skin="MetroTouch">
+                                    <telerik:RadTextBox ReadOnly="true" ID="txt_lastUpdate" Width="160px" runat="server" Skin="MetroTouch">
                                     </telerik:RadTextBox>
                                 </td>
-                                <td style="padding-right:5px">
+                                <td style="padding:0px 10px 0px 10px">
                                     Owner 
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_owner" Width="50px" runat="server" >
                                     </telerik:RadTextBox>
                                 </td>
-                                <td style="padding-left:15px" class="tdLabel">
+                                <td style="padding:0px 10px 0px 10px">
                                     Printed 
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_printed" Width="40px" runat="server" >
                                     </telerik:RadTextBox>
-                                    &nbsp
+                                </td>
+                                <td style="padding:0px 10px 0px 10px">
                                     Edited
-                                    &nbsp
+                                </td>
+                                <td>
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_edited" Width="40px" runat="server" >
                                     </telerik:RadTextBox>
                                 </td>                                
