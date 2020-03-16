@@ -137,7 +137,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             cmd.CommandText = "sp_get_BankMutationH";
             cmd.Parameters.AddWithValue("@date", fromDate);
             cmd.Parameters.AddWithValue("@todate", toDate);
-            cmd.Parameters.AddWithValue("@bank", Bank);
+            cmd.Parameters.AddWithValue("@Bank", Bank);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -651,10 +651,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
         }
         protected void cb_korek_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            string sql = "SELECT TOP (100)[accountno], [accountname] FROM [acc00h10]  WHERE stEdit != '4' AND accountname LIKE @accountname + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@accountname", e.Text);
 
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -666,9 +666,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             foreach (DataRow row in dt.Rows)
             {
                 RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = row["prod_code"].ToString();
-                item.Value = row["prod_code"].ToString();
-                item.Attributes.Add("spec", row["spec"].ToString());
+                item.Text = row["accountno"].ToString();
+                item.Value = row["accountno"].ToString();
+                item.Attributes.Add("accountname", row["accountname"].ToString());
 
                 comboBox.Items.Add(item);
 
@@ -678,7 +678,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
         protected void cb_korek_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            Session["prod_code"] = e.Value;
+            Session["accountno"] = e.Value;
 
             try
             {
@@ -686,7 +686,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT spec,unit FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT accountname,cur_code FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -695,11 +695,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox t_spec = (RadTextBox)item.FindControl("txt_prod_name");
-                    RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
+                    RadTextBox t_accountname = (RadTextBox)item.FindControl("txt_accountname");
+                    RadTextBox t_cur_code= (RadTextBox)item.FindControl("txt_cur_code");
+                    //RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
 
-                    t_spec.Text = dtr["spec"].ToString();
-                    cb_prodType.Text = dtr["unit"].ToString();
+                    t_accountname.Text = dtr["accountname"].ToString();
+                    t_cur_code.Text = dtr["cur_code"].ToString();
 
                 }
 
@@ -720,7 +721,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -783,8 +784,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd.CommandText = "sp_save_BankMutationD";
                 cmd.Parameters.AddWithValue("@NoBuk", txt_NoBuk.Text);
                 cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("cb_korek") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadNumericTextBox).Text));
-                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_Jumlah") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_Jumlah") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@mutasi", (item.FindControl("cb_mutasi") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_Ket") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
