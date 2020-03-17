@@ -742,7 +742,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            cb.DataTextField = "name";
+            cb.DataTextField = "code";
             cb.DataValueField = "code";
             cb.DataSource = dt;
             cb.DataBind();
@@ -755,7 +755,17 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
         protected void cb_cost_center_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -790,6 +800,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_Ket") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                //cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid2.DataBind();
