@@ -251,19 +251,19 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h02.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h02 WHERE LEFT(acc01h02.NoBuk, 4) = 'UR01' " +
+                        "FROM acc01h02 WHERE LEFT(acc01h02.NoBuk, 4) = '" + cb_cash.SelectedValue + "' + '" + cb_trans.SelectedValue + "' " +
                         "AND SUBSTRING(acc01h02.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                         "AND SUBSTRING(acc01h02.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "UR01" + dtp_exe.SelectedDate.Value.Year + dtp_exe.SelectedDate.Value.Month + "0001";
+                        run = cb_cash.SelectedValue + cb_trans.SelectedValue + dtp_exe.SelectedDate.Value.Year + dtp_exe.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "UR01" + (dtp_exe.SelectedDate.Value.Year.ToString()).Substring(dtp_exe.SelectedDate.Value.Year.ToString().Length - 2) +
+                        run = cb_cash.SelectedValue + cb_trans.SelectedValue + (dtp_exe.SelectedDate.Value.Year.ToString()).Substring(dtp_exe.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_exe.SelectedDate.Value.Month).Substring(("0000" + dtp_exe.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
@@ -418,13 +418,26 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoKas FROM acc00h02 WHERE NamKas = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT acc00h02.*, acc00h04.cur_code,acc00h04.KursRun FROM acc00h02 CROSS JOIN acc00h04 where " +
+            " acc00h04.tglKurs = (select MAX(acc00h04.tglKurs) from acc00h04) and NamkAS = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
                 (sender as RadComboBox).SelectedValue = dr["KoKas"].ToString();
             dr.Close();
             con.Close();
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr1 in dt.Rows)
+            {
+                txt_cur_code.Text = dr1["cur_code"].ToString();
+                nu_kurs.Text = dr1["KursRun"].ToString();
+            }
+               
+            
+
         }
 
         protected void cb_cash_PreRender(object sender, EventArgs e)
