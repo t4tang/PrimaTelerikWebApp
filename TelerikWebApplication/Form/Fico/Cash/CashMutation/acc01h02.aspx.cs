@@ -28,7 +28,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_cashmutation_prm.SelectedValue = public_str.site;
 
-                Session["Proccess"] = "SesNew";
+                Session["action"] = "new";
+                RadGrid2.Enabled = false;
                 dtp_exe.SelectedDate = DateTime.Now;
             }
         }
@@ -185,7 +186,15 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     dtp_exe.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
                     txt_NoCtrl.Text = sdr["NoCtrl"].ToString();
                     txt_NoRef.Text = sdr["NoRef"].ToString();
-                    cb_trans.Text = sdr["KoTrans"].ToString();
+                    
+                    if (sdr["KoTrans"].ToString() == "Penerimaan")
+                    {
+                        cb_trans.Text = "PENERIMAAN KAS";
+                    }
+                    else
+                    {
+                        cb_trans.Text = "PENGELUARAN KAS";
+                    }
                     cb_project.Text = sdr["region_name"].ToString();
                     cb_cash.Text = sdr["KoKas"].ToString();
                     txt_cur_code.Text = sdr["cur_name"].ToString();
@@ -274,7 +283,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_cash_mutasiH";
+                cmd.CommandText = "sp_save_cashmutasiH";
+                cmd.Parameters.AddWithValue("@Kode", "DB");
                 cmd.Parameters.AddWithValue("@NoBuk", run);
                 cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_exe.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@NoCtrl", txt_NoCtrl.Text);
@@ -292,6 +302,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd.Parameters.AddWithValue("@ordby", cb_checked.SelectedValue);
                 cmd.Parameters.AddWithValue("@appby", cb_aproval.SelectedValue);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
 
                 Label lblsuccess = new Label();
@@ -316,11 +327,11 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
         protected void cb_trans_PreRender(object sender, EventArgs e)
         {
-            if ((sender as RadComboBox).Text == "Penerimaan Kas")
+            if ((sender as RadComboBox).Text == "PENERIMAAN KAS")
             {
                 (sender as RadComboBox).SelectedValue = "D";
             }
-            else if ((sender as RadComboBox).Text == "Pengeluaran Kas")
+            else if ((sender as RadComboBox).Text == "PENGELUARAN KAS")
             {
                 (sender as RadComboBox).SelectedValue = "K";
             }
@@ -328,17 +339,17 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
         protected void cb_trans_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
-            (sender as RadComboBox).Items.Add("Penerimaan Kas");
-            (sender as RadComboBox).Items.Add("Pengeluaran Kas");
+            (sender as RadComboBox).Items.Add("PENERIMAAN KAS");
+            (sender as RadComboBox).Items.Add("PENGELUARAN KAS");
         }
 
         protected void cb_trans_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            if ((sender as RadComboBox).Text == "Penerimaan Kas")
+            if ((sender as RadComboBox).Text == "PENERIMAAN KAS")
             {
                 (sender as RadComboBox).SelectedValue = "D";
             }
-            else if ((sender as RadComboBox).Text == "Pengeluaran Kas")
+            else if ((sender as RadComboBox).Text == "PENGELUARAN KAS")
             {
                 (sender as RadComboBox).SelectedValue = "K";
             }
@@ -425,7 +436,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             while (dr.Read())
                 (sender as RadComboBox).SelectedValue = dr["KoKas"].ToString();
             dr.Close();
-            con.Close();
+
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -435,9 +446,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 txt_cur_code.Text = dr1["cur_code"].ToString();
                 nu_kurs.Text = dr1["KursRun"].ToString();
             }
-               
-            
 
+            con.Close();
         }
 
         protected void cb_cash_PreRender(object sender, EventArgs e)
@@ -598,7 +608,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
         protected void cb_korek_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[accountno], [accountname] FROM [acc00h10]  WHERE stEdit != '4' AND accountname LIKE @accountname + '%'";
+            string sql = "SELECT [accountno], [accountname] FROM [acc00h10]  WHERE stEdit != '4' AND accountname LIKE @accountname + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@accountname", e.Text);
@@ -657,13 +667,13 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox t_accountname = (RadTextBox)item.FindControl("txt_accountname");
-                    RadTextBox t_cur_code = (RadTextBox)item.FindControl("txt_cur_code");
-                    //RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
+                    RadComboBox c_Mutasi = (RadComboBox)item.FindControl("cb_mutasi");
+                    RadNumericTextBox t_KURS = (RadNumericTextBox)item.FindControl("txt_kurs");                    
+                    RadComboBox c_Project = (RadComboBox)item.FindControl("cb_project1");
 
-                    t_accountname.Text = dtr["accountname"].ToString();
-                    t_cur_code.Text = dtr["cur_code"].ToString();
-
+                    c_Mutasi.Text = cb_trans.SelectedValue; 
+                    t_KURS.Text = nu_kurs.Text;                    
+                    c_Project.Text = cb_project.SelectedValue;
                 }
 
             }
@@ -698,7 +708,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
         protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[CostCenter], [CostCenterName] FROM [inv00h11]  WHERE stEdit != '4' AND CostCenterName LIKE @CostCenterName + '%'";
+            string sql = "SELECT [CostCenter], [CostCenterName] FROM [inv00h11]  WHERE stEdit != '4' AND CostCenterName LIKE @CostCenterName + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@CostCenterName", e.Text);
@@ -721,9 +731,51 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
                 item.DataBind();
             }
+
+            //(sender as RadComboBox).Text = "";
+            LoadCostCtr(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
         }
 
         protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            Session["CostCenter"] = e.Value;
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox t_AccountName = (RadTextBox)item.FindControl("txt_CostCenterName");
+
+                    t_AccountName.Text = dtr["CostCenterName"].ToString();
+
+
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+
+
+        }
+
+        protected void cb_cost_center_PreRender(object sender, EventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -733,14 +785,10 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
-        }
 
-        protected void cb_cost_center_PreRender(object sender, EventArgs e)
-        {
-           
         }
 
         protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
@@ -756,16 +804,17 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd.Parameters.AddWithValue("@NoBuk", txt_reg_no.Text);
                 cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("cb_korek") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_remark") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@mutasi", (item.FindControl("txt_dc") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@Mutasi", (item.FindControl("cb_Mutasi") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadNumericTextBox).Text));
                 cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_amount") as RadNumericTextBox).Text));
-                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project1") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid2.DataBind();
+                RadGrid2.Rebind();
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data saved";
@@ -855,17 +904,37 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
         protected void cb_project1_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr[0].ToString();
-            dr.Close();
-            con.Close();
+            Session["region_code"] = e.Value;
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT region_name FROM inv00h09 WHERE region_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox t_AccountName = (RadTextBox)item.FindControl("txt_region_name");
+
+                    t_AccountName.Text = dtr["region_name"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+            
         }
 
         protected void cb_project1_PreRender(object sender, EventArgs e)
@@ -885,7 +954,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
         protected void cb_project1_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[region_code], [region_name] FROM [inv00h09]  WHERE stEdit != '4' AND region_name LIKE @region_name + '%'";
+            string sql = "SELECT [region_code], [region_name] FROM [inv00h09]  WHERE stEdit != '4' AND region_name LIKE @region_name + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@region_name", e.Text);
@@ -907,6 +976,36 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 comboBox.Items.Add(item);
 
                 item.DataBind();
+            }
+        }
+
+        protected void cb_mutasi_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Items.Add("D");
+            (sender as RadComboBox).Items.Add("K");
+        }
+
+        protected void cb_mutasi_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "D")
+            {
+                (sender as RadComboBox).SelectedValue = "D";
+            }
+            else if ((sender as RadComboBox).Text == "K")
+            {
+                (sender as RadComboBox).SelectedValue = "K";
+            }
+        }
+
+        protected void cb_mutasi_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "D")
+            {
+                (sender as RadComboBox).SelectedValue = "D";
+            }
+            else if ((sender as RadComboBox).Text == "K")
+            {
+                (sender as RadComboBox).SelectedValue = "K";
             }
         }
     }

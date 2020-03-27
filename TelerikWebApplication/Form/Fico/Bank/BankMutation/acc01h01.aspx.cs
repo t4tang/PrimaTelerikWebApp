@@ -741,23 +741,23 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             con.Close();
         }
 
-        //protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
-        //{
-        //    SqlConnection con = new SqlConnection(
-        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+        protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
-        //        "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
-        //    adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-        //    adapter.SelectCommand.Parameters.AddWithValue("@text", name);
-        //    DataTable dt = new DataTable();
-        //    adapter.Fill(dt);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+                "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
 
-        //    cb.DataTextField = "code";
-        //    cb.DataValueField = "code";
-        //    cb.DataSource = dt;
-        //    cb.DataBind();
-        //}
+            cb.DataTextField = "code";
+            cb.DataValueField = "code";
+            cb.DataSource = dt;
+            cb.DataBind();
+        }
         protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             string sql = "SELECT [CostCenter], [CostCenterName] FROM [inv00h11]  WHERE stEdit != '4' AND CostCenterName LIKE @CostCenterName + '%'";
@@ -783,6 +783,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
                 item.DataBind();
             }
+
+            //LoadCostCtr((sender as RadComboBox).TextChanged,
         }
 
         protected void cb_cost_center_PreRender(object sender, EventArgs e)
