@@ -2,7 +2,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
-    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
 
     <script type="text/javascript" src="../../../../Script/Script.js"></script>
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server" >
@@ -15,6 +14,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
+    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
         <ContentTemplate>
             <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
@@ -493,46 +493,65 @@
                                             <ItemTemplate>  
                                                 <%#DataBinder.Eval(Container.DataItem, "KoRek")%>
                                             </ItemTemplate>
-                                            <EditItemTemplate>
-                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_korek" EnableLoadOnDemand="True" AutoPostBack="true" 
-                                                    OnItemsRequested="cb_korek_ItemsRequested" DataValueField="KoRek" DataTextField="accountname"
-                                                    Text='<%# DataBinder.Eval(Container, "DataItem.KoRek") %>'
-                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="450px" 
-                                                    OnPreRender="cb_korek_PreRender" OnSelectedIndexChanged="cb_korek_SelectedIndexChanged">
-                                                    <HeaderTemplate>
-                                                        <ul>
-                                                            <li class="col1">Account Code</li>
-                                                            <li class="col2">Account Name</li>
-                                                        </ul>
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <ul>
-                                                            <li class="col1" >
-                                                                <%# DataBinder.Eval(Container, "Value")%>
-                                                            </li>
-                                                            <li class="col2">
-                                                                <%# DataBinder.Eval(Container, "Attributes['accountname']")%></li>
-                                                        </ul>
-                                                    </ItemTemplate>
-                                                </telerik:RadComboBox>
+                                            <EditItemTemplate>                                       
+                                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_korek" EnableLoadOnDemand="True" AutoPostBack="true" 
+                                                            OnItemsRequested="cb_korek_ItemsRequested" DataValueField="KoRek" DataTextField="accountname"
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.KoRek") %>'
+                                                            HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="500px" 
+                                                            OnPreRender="cb_korek_PreRender" OnSelectedIndexChanged="cb_korek_SelectedIndexChanged">
+                                                    
+                                                            <HeaderTemplate>
+                                                                <table style="width: 500px; font-size:smaller">
+                                                                    <tr>
+                                                                        <td style="width: 150px;">
+                                                                            Code
+                                                                        </td>
+                                                                        <td style="width: 350px;">
+                                                                            Name
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                </table>
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <table style="width: 500px; font-size:smaller">
+                                                                    <tr>
+                                                                        <td style="width: 150px;">
+                                                                            <%# DataBinder.Eval(Container, "Value")%>
+                                                                        </td>
+                                                                        <td style="width: 350px;">
+                                                                            <%# DataBinder.Eval(Container, "Attributes['accountname']")%>
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                </table>
+                                                                
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                A total of
+                                                            <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                                items
+                                                            </FooterTemplate>
+                                                        </telerik:RadComboBox>                                   
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="200px">
+                                        <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="350px">
                                             <ItemTemplate>  
                                                 <%#DataBinder.Eval(Container.DataItem, "Ket")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark" Width="200px">
+                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark" Width="350px">
                                                 </telerik:RadTextBox>                                                 
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn HeaderText="D/C" ItemStyle-Width="50px">
                                             <ItemTemplate>  
-                                                <%#DataBinder.Eval(Container.DataItem, "Mutasi")%>
+                                                <%#DataBinder.Eval(Container.DataItem, "MutasiName")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_dc" Width="50px">
-                                                </telerik:RadTextBox>
+                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_mutasi" DropDownWidth="50px"   
+                                                    EnableLoadOnDemand="true" Skin="MetroTouch" DataValueField="MutasiName" DataTextField="name" 
+                                                    Text='<%# DataBinder.Eval(Container, "DataItem.MutasiName") %>' 
+                                                    OnItemsRequested="cb_mutasi_ItemsRequested" OnSelectedIndexChanged="cb_mutasi_SelectedIndexChanged" OnPreRender="cb_mutasi_PreRender">
+                                                </telerik:RadComboBox>
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn HeaderText="Kurs" ItemStyle-Width="100px">
@@ -553,59 +572,91 @@
                                                 </telerik:RadNumericTextBox>
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridTemplateColumn HeaderText="Project Area" ItemStyle-Width="120px">
+                                        
+                                        <telerik:GridTemplateColumn HeaderText="Project Area" ItemStyle-Width="100px">
                                             <ItemTemplate>  
                                                 <%#DataBinder.Eval(Container.DataItem, "region_code")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_project1" DropDownWidth="200px" 
-                                                    EnableLoadOnDemand="True" Skin="MetroTouch" DataValueField="region_code" DataTextField="region_name" 
-                                                    Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>' OnItemsRequested="cb_project1_ItemsRequested" 
-                                                    OnSelectedIndexChanged="cb_project1_SelectedIndexChanged" OnPreRender="cb_project1_PreRender" 
-                                                    >
-                                                    <HeaderTemplate>
-                                                        <ul>
-                                                            <li class="col1">Region Code</li>
-                                                            <li class="col2">Region Name</li>
-                                                        </ul>
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <ul>
-                                                            <li class="col1" >
-                                                                <%# DataBinder.Eval(Container, "Value")%>
-                                                            </li>
-                                                            <li class="col2">
-                                                                <%# DataBinder.Eval(Container, "Attributes['region_name']")%></li>
-                                                        </ul>
-                                                    </ItemTemplate>                                                    
-                                                </telerik:RadComboBox>
+                                                
+                                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_project1" DropDownWidth="350px" 
+                                                            EnableLoadOnDemand="True" Skin="MetroTouch" DataValueField="region_code" DataTextField="region_name" 
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>' OnItemsRequested="cb_project1_ItemsRequested" 
+                                                            OnSelectedIndexChanged="cb_project1_SelectedIndexChanged" OnPreRender="cb_project1_PreRender" Height="190px" Width="100px" 
+                                                            >
+                                                            <HeaderTemplate>
+                                                                <table style="width: 350px; font-size:smaller">
+                                                                    <tr>
+                                                                        <td style="width: 100px;">
+                                                                            Code
+                                                                        </td>
+                                                                        <td style="width: 250px;">
+                                                                            Name
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                </table>
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <table style="width: 350px; font-size:smaller">
+                                                                    <tr>
+                                                                        <td style="width: 100px;">
+                                                                            <%# DataBinder.Eval(Container, "Value")%>
+                                                                        </td>
+                                                                        <td style="width: 250px;">
+                                                                            <%# DataBinder.Eval(Container, "Attributes['region_name']")%>
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                </table>
+                                                                
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                A total of
+                                                            <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                                items
+                                                            </FooterTemplate>                                                    
+                                                        </telerik:RadComboBox>                                   
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridTemplateColumn HeaderText="Cost Center" ItemStyle-Width="120px">
+                                        <telerik:GridTemplateColumn HeaderText="Cost Center" ItemStyle-Width="100px">
                                             <ItemTemplate>  
                                                 <%#DataBinder.Eval(Container.DataItem, "dept_code")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_cost_center" DropDownWidth="280px" 
-                                                    EnableLoadOnDemand="True" Skin="MetroTouch" DataValueField="CostCenter" DataTextField="CostCenterName" 
-                                                    Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>' OnItemsRequested="cb_cost_center_ItemsRequested" 
-                                                    OnSelectedIndexChanged="cb_cost_center_SelectedIndexChanged" OnPreRender="cb_cost_center_PreRender" >
-                                                    <HeaderTemplate>
-                                                        <ul>
-                                                            <li class="col1">Cost Center Code</li>
-                                                            <li class="col2">Cost Center Name</li>
-                                                        </ul>
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <ul>
-                                                            <li class="col1" >
-                                                                <%# DataBinder.Eval(Container, "Value")%>
-                                                            </li>
-                                                            <li class="col2">
-                                                                <%# DataBinder.Eval(Container, "Attributes['CostCenterName']")%></li>
-                                                        </ul>
-                                                    </ItemTemplate>
-                                                </telerik:RadComboBox>
+                                                
+                                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_cost_center" DropDownWidth="350px" 
+                                                            EnableLoadOnDemand="True" Skin="MetroTouch" DataValueField="CostCenter" DataTextField="CostCenterName" 
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>' OnItemsRequested="cb_cost_center_ItemsRequested" 
+                                                            OnSelectedIndexChanged="cb_cost_center_SelectedIndexChanged" OnPreRender="cb_cost_center_PreRender" Height="190px" Width="100px" >
+                                                            <HeaderTemplate>
+                                                                <table style="width: 350px; font-size:smaller">
+                                                                    <tr>
+                                                                        <td style="width: 100px;">
+                                                                            Code
+                                                                        </td>
+                                                                        <td style="width: 250px;">
+                                                                            Name
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                </table>
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <table style="width: 350px; font-size:smaller">
+                                                                    <tr>
+                                                                        <td style="width: 100px;">
+                                                                            <%# DataBinder.Eval(Container, "Value")%>
+                                                                        </td>
+                                                                        <td style="width: 250px;">
+                                                                            <%# DataBinder.Eval(Container, "Attributes['CostCenterName']")%>
+                                                                        </td>                                                                
+                                                                    </tr>
+                                                                </table>
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                A total of
+                                                            <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                                items
+                                                            </FooterTemplate>
+                                                        </telerik:RadComboBox>                                   
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" 
