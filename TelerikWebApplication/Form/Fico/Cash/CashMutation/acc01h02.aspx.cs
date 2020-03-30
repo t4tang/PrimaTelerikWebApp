@@ -299,7 +299,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd.Parameters.AddWithValue("@KoTrans", cb_trans.SelectedValue);
                 cmd.Parameters.AddWithValue("@KoKas", cb_cash.SelectedValue);
                 cmd.Parameters.AddWithValue("@cur_code", txt_cur_code.Text);
-                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(nu_kurs.Text);
+                cmd.Parameters.AddWithValue("@kurs", nu_kurs.Text);
                 cmd.Parameters.AddWithValue("@Kontak", txt_fromto.Text);
                 cmd.Parameters.AddWithValue("@region_code", public_str.site);
                 //cmd.Parameters.AddWithValue("@dept_code", public_str.site);
