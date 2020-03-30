@@ -161,7 +161,7 @@
                                     Reg No:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_reg_no" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_NoBuk" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -250,10 +250,9 @@
                                     <telerik:RadTextBox ID="txt_cur_code" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
-                                    &nbsp
+                                    &nbsp 
                                     <telerik:RadNumericTextBox ID="nu_kurs" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
-                                        AutoPostBack="false" Label="Kurs">
-                                    </telerik:RadNumericTextBox>
+                                        AutoPostBack="false" Label="Kurs"></telerik:RadNumericTextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -544,12 +543,12 @@
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn HeaderText="D/C" ItemStyle-Width="50px">
                                             <ItemTemplate>  
-                                                <%#DataBinder.Eval(Container.DataItem, "MutasiName")%>
+                                                <%#DataBinder.Eval(Container.DataItem, "Mutasi")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
                                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_mutasi" DropDownWidth="50px"   
                                                     EnableLoadOnDemand="true" Skin="MetroTouch" DataValueField="MutasiName" DataTextField="name" 
-                                                    Text='<%# DataBinder.Eval(Container, "DataItem.MutasiName") %>' 
+                                                    Text='<%# DataBinder.Eval(Container, "DataItem.Mutasi") %>' 
                                                     OnItemsRequested="cb_mutasi_ItemsRequested" OnSelectedIndexChanged="cb_mutasi_SelectedIndexChanged" OnPreRender="cb_mutasi_PreRender">
                                                 </telerik:RadComboBox>
                                             </EditItemTemplate>

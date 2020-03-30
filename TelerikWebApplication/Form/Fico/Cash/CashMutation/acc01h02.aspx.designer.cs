@@ -193,13 +193,13 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation {
         protected global::Telerik.Web.UI.RadLabel lbl_form_name;
         
         /// <summary>
-        /// txt_reg_no control.
+        /// txt_NoBuk control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_reg_no;
+        protected global::Telerik.Web.UI.RadTextBox txt_NoBuk;
         
         /// <summary>
         /// dtp_exe control.
