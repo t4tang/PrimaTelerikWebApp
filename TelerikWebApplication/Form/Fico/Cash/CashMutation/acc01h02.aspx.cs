@@ -325,24 +325,6 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             con.Close();
         }
 
-        protected void LoadCash(string name, string projectID, RadComboBox cb)
-        {
-            SqlConnection con = new SqlConnection(
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(KoKas) as code,upper(NamKas) as name FROM acc00h02 " +
-                "WHERE stEdit <> '4' AND region_code = @project AND NamKas LIKE @text + '%'", con);
-            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
-            cb.DataTextField = "name";
-            cb.DataValueField = "code";
-            cb.DataSource = dt;
-            cb.DataBind();
-        }
-
         protected void Loadcash(string name, string projectID, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
@@ -770,7 +752,6 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             adapter.Fill(dt);
 
             RadComboBox comboBox = (RadComboBox)sender;
-            // Clear the default Item that has been re-created from ViewState at this point.
             comboBox.Items.Clear();
 
             foreach (DataRow row in dt.Rows)
@@ -784,6 +765,9 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
                 item.DataBind();
             }
+
+            (sender as RadComboBox).Text = "";
+            LoadCostCtr(e.Text, cb_Project.SelectedValue, (sender as RadComboBox));
 
         }
 
