@@ -107,8 +107,10 @@
         <div style="padding-left:15px;width:100%;border-bottom-color:#FF6600;border-bottom-width:1px;border-bottom-style:inset;">
             <table>
                 <tr>
-                    <td style="text-align:right;vertical-align:middle;">
-                        <asp:ImageButton runat="server" ID="btnList" OnClientClick="OpenWinContentTemplate(); return false;" Height="30px" Width="35px" ImageUrl="~/Images/list.png" />
+                    <td  style="text-align:right;">
+                        <asp:ImageButton runat="server" ID="btnList" OnClientClick="openWinContentTemplate(); return false;"
+                            Height="30px" Width="35px" ImageUrl="~/Images/list.png">
+                        </asp:ImageButton>                        
                     </td>
                     <td style="vertical-align:middle; margin-left:10px">
                         <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
@@ -240,10 +242,10 @@
                                     <telerik:RadTextBox ID="txt_cur_code" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
-                                    &nbsp 
-                                    <telerik:RadNumericTextBox ID="nu_kurs" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
-                                        AutoPostBack="false" Label="Kurs">
-                                    </telerik:RadNumericTextBox>
+                                    &nbsp
+                                    <telerik:RadTextBox ID="txt_kurs" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
+                                        AutoPostBack="false">
+                                    </telerik:RadTextBox> 
                                 </td>
                             </tr>
                             <tr>
@@ -549,8 +551,9 @@
                                                 <%#DataBinder.Eval(Container.DataItem, "kurs")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_kurs" Width="90px">
-                                                </telerik:RadNumericTextBox>
+                                                <telerik:RadTextBox ID="txt_kurs" runat="server" Width="100px" Enabled="true" RenderMode="Lightweight"
+                                                    AutoPostBack="false">
+                                                </telerik:RadTextBox>
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn HeaderText="Amount" ItemStyle-Width="120px">
@@ -558,8 +561,8 @@
                                                 <%#DataBinder.Eval(Container.DataItem, "Jumlah")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_amount" Width="110px">
-                                                </telerik:RadNumericTextBox>
+                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_amount" Width="120px">
+                                                </telerik:RadTextBox>
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         

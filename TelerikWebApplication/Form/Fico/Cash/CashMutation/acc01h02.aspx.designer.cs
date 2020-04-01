@@ -265,13 +265,13 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation {
         protected global::Telerik.Web.UI.RadTextBox txt_cur_code;
         
         /// <summary>
-        /// nu_kurs control.
+        /// txt_kurs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox nu_kurs;
+        protected global::Telerik.Web.UI.RadTextBox txt_kurs;
         
         /// <summary>
         /// txt_fromto control.

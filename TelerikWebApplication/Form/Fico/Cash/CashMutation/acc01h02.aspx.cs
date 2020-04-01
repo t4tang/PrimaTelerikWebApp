@@ -154,7 +154,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     cb_Project.Text = sdr["region_name"].ToString();
                     cb_Cash.Text = sdr["KoKas"].ToString();
                     txt_cur_code.Text = sdr["cur_code"].ToString();
-                    nu_kurs.Text = sdr["kurs"].ToString();
+                    txt_kurs.Text = sdr["kurs"].ToString();
                     txt_remark.Text = sdr["Ket"].ToString();
                     txt_fromto.Text = sdr["Kontak"].ToString();
                     cb_Prepared.Text = sdr["freby"].ToString();
@@ -173,7 +173,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 RadGrid2.Enabled = true;
                 Session["Proccess"] = "SesEdit";
             }
-                
+
         }
 
         public DataTable GetDataDetailTable(string NoBuk)
@@ -388,7 +388,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             foreach (DataRow dr1 in dt.Rows)
             {
                 txt_cur_code.Text = dr1["cur_code"].ToString();
-                nu_kurs.Text = dr1["KursRun"].ToString();
+                txt_kurs.Text = dr1["KursRun"].ToString();
             }
 
             con.Close();
@@ -601,7 +601,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     RadComboBox C_Mutasi = (RadComboBox)item.FindControl("cb_Mutasi");
                     RadComboBox C_Project = (RadComboBox)item.FindControl("cb_Project_Detail");
 
-                    T_Kurs.Text = nu_kurs.Text;
+                    T_Kurs.Text = txt_kurs.Text;
                     C_Mutasi.Text = cb_KoTrans.SelectedValue;
                     C_Project.Text = cb_Project.SelectedValue;
                 }
@@ -785,9 +785,6 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 item.DataBind();
             }
 
-            //(sender as RadComboBox).Text = "";
-            LoadCostCtr(e.Text, cb_Project.SelectedValue, (sender as RadComboBox));
-
         }
 
         protected void cb_Cost_Center_PreRender(object sender, EventArgs e)
@@ -815,7 +812,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT CostCenterName FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -847,7 +844,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             RadGrid2.DataSource = GetDataDetailTable("");
         }
 
-        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
+        protected void RadGrid2_Save_Handler(object sender, GridCommandEventArgs e)
         {
             try
             {
@@ -861,10 +858,10 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("cb_korek") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_remark") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@Mutasi", (item.FindControl("cb_Mutasi") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadNumericTextBox).Text));
-                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_amount") as RadNumericTextBox).Text));
-                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project1") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDecimal((item.FindControl("txt_kurs") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_amount") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_Project_Detail") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_Cost_Center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -956,6 +953,91 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             txt_Owner.Text = public_str.uid;
             txt_Printed.Text = "0";
             txt_Edited.Text = "0";
+        }
+
+        protected void btnSave_Click(object sender, ImageClickEventArgs e)
+        {
+            long maxNo;
+            string run = null;
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_bm.SelectedDate);
+
+            try
+            {
+                if (Session["action"].ToString() == "edit")
+                {
+                    run = txt_NoBuk.Text;
+                }
+                else
+                {
+                    con.Open();
+                    SqlDataReader sdr;
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h02.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM acc01h02 WHERE LEFT(acc01h02.NoBuk, 4) = '" + cb_Cash.SelectedValue + "' + '" + cb_KoTrans.SelectedValue + "' " +
+                        "AND SUBSTRING(acc01h02.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(acc01h02.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.HasRows == false)
+                    {
+                        //throw new Exception();
+                        run = cb_Cash.SelectedValue + cb_KoTrans.SelectedValue + dtp_bm.SelectedDate.Value.Year + dtp_bm.SelectedDate.Value.Month + "0001";
+                    }
+                    else if (sdr.Read())
+                    {
+                        maxNo = Convert.ToInt32(sdr[0].ToString());
+                        run = cb_Cash.SelectedValue + cb_KoTrans.SelectedValue + (dtp_bm.SelectedDate.Value.Year.ToString()).Substring(dtp_bm.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_bm.SelectedDate.Value.Month).Substring(("0000" + dtp_bm.SelectedDate.Value.Month).Length - 2, 2) +
+                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
+                    }
+                    con.Close();
+                }
+
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_cashmutasiH";
+                cmd.Parameters.AddWithValue("@Kode", "DB");
+                cmd.Parameters.AddWithValue("@NoBuk", run);
+                cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_bm.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@NoCtrl", txt_NoCtrl.Text);
+                cmd.Parameters.AddWithValue("@NoRef", txt_NoRef.Text);
+                cmd.Parameters.AddWithValue("@KoTrans", cb_KoTrans.SelectedValue);
+                cmd.Parameters.AddWithValue("@KoKas", cb_Cash.SelectedValue);
+                cmd.Parameters.AddWithValue("@cur_code", txt_cur_code.Text);
+                decimal kurs = decimal.Parse(txt_kurs.Text);
+                cmd.Parameters.AddWithValue("@kurs", kurs);
+                cmd.Parameters.AddWithValue("@Kontak", txt_fromto.Text);
+                cmd.Parameters.AddWithValue("@region_code", public_str.site);
+                cmd.Parameters.AddWithValue("@Ket", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@freby", cb_Prepared.SelectedValue);
+                cmd.Parameters.AddWithValue("@ordby", cb_Checked.SelectedValue);
+                cmd.Parameters.AddWithValue("@appby", cb_Approval.SelectedValue);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                cmd.Parameters.AddWithValue("@Total", 0.0000);
+                cmd.Parameters.AddWithValue("@Printed", 0.0000);
+                cmd.Parameters.AddWithValue("@Batal", 0);
+                cmd.Parameters.AddWithValue("@Edited", 0);
+                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
+                cmd.ExecuteNonQuery();
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data saved successfully";
+                lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                //RadGrid1.Controls.Add(lblsuccess);
+                con.Close();
+
+                txt_NoBuk.Text = run;
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to save data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGrid1.Controls.Add(lblError);
+            }
         }
     }
 }
