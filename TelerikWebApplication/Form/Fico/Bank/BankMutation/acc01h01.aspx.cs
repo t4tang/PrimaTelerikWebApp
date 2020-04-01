@@ -324,16 +324,16 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd.Parameters.AddWithValue("@Kontak", txt_Kontak.Text);
                 cmd.Parameters.AddWithValue("@Kode", "DB");
                 cmd.Parameters.AddWithValue("@Batal", 0);
-                cmd.Parameters.AddWithValue("@TValas", 0.0000);
-                cmd.Parameters.AddWithValue("@Total", 0.0000);
-                cmd.Parameters.AddWithValue("@TSub", 0.0000);
+                cmd.Parameters.AddWithValue("@TValas", 0);
+                cmd.Parameters.AddWithValue("@Total", 0);
+                cmd.Parameters.AddWithValue("@TSub", 0);
                 cmd.Parameters.AddWithValue("@cur_code", txt_cur_code.Text);
-                cmd.Parameters.AddWithValue("@kurs", txt_kurs.Text);
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 //cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@region_code", public_str.site);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
-                cmd.Parameters.AddWithValue("@Printed", 0.0000);
+                cmd.Parameters.AddWithValue("@Printed", 0);
                 cmd.Parameters.AddWithValue("@Edited", 0);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
                 cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
@@ -741,103 +741,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             con.Close();
         }
 
-        protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
-        {
-            SqlConnection con = new SqlConnection(
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
-                "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
-            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
-            cb.DataTextField = "code";
-            cb.DataValueField = "code";
-            cb.DataSource = dt;
-            cb.DataBind();
-        }
-        protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-            string sql = "SELECT [CostCenter], [CostCenterName] FROM [inv00h11]  WHERE stEdit != '4' AND CostCenterName LIKE @CostCenterName + '%'";
-            SqlDataAdapter adapter = new SqlDataAdapter(sql,
-                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@CostCenterName", e.Text);
-
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
-            RadComboBox comboBox = (RadComboBox)sender;
-            // Clear the default Item that has been re-created from ViewState at this point.
-            comboBox.Items.Clear();
-
-            foreach (DataRow row in dt.Rows)
-            {
-                RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = row["CostCenter"].ToString();
-                item.Value = row["CostCenter"].ToString();
-                item.Attributes.Add("CostCenterName", row["CostCenterName"].ToString());
-
-                comboBox.Items.Add(item);
-
-                item.DataBind();
-            }
-
-            //LoadCostCtr((sender as RadComboBox).TextChanged,
-        }
-
-        protected void cb_cost_center_PreRender(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr[0].ToString();
-            dr.Close();
-            con.Close();
-        }
-
-        protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            Session["CostCenter"] = e.Value;
-
-            try
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT CostCenterName FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).SelectedValue + "'";
-
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                foreach (DataRow dtr in dt.Rows)
-                {
-                    RadComboBox cb = (RadComboBox)sender;
-                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox t_accountname = (RadTextBox)item.FindControl("txt_CostCenterName");
-
-                    t_accountname.Text = dtr["CostCenterName"].ToString();
-
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
         protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
         {
             try
@@ -856,6 +759,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_Ket") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project_detail") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@Valas", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 //cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
@@ -977,25 +881,28 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
             try
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT region_name FROM inv00h09 WHERE region_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                //con.Open();
+                //SqlCommand cmd = new SqlCommand();
+                //cmd.Connection = con;
+                //cmd.CommandType = CommandType.Text;
+                //cmd.CommandText = "SELECT region_name FROM inv00h09 WHERE region_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                foreach (DataRow dtr in dt.Rows)
-                {
-                    RadComboBox cb = (RadComboBox)sender;
-                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox t_accountname = (RadTextBox)item.FindControl("txt_region_name");
-                    
-                    t_accountname.Text = dtr["region_name"].ToString();
-        
+                //SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                //DataTable dt = new DataTable();
+                //adapter.Fill(dt);
+                //foreach (DataRow dtr in dt.Rows)
+                //{
+                RadComboBox cb = (RadComboBox)sender;
+                GridEditableItem item = (GridEditableItem)cb.NamingContainer;
 
-                }
+                //    //RadTextBox t_regionname = (RadTextBox)item.FindControl("txt_region_name");
+
+                //    //t_regionname.Text = dtr["region_name"].ToString();
+
+                RadComboBox cb_costCtr = (RadComboBox)item.FindControl("cb_cost_center");
+                LoadCostCtr(cb_costCtr.Text, (sender as RadComboBox).SelectedValue, cb_costCtr);
+
+                //}
 
             }
             catch (Exception ex)
@@ -1022,6 +929,126 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             dr.Close();
             con.Close();
         }
+
+        protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+                "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            //cb.DataTextField = "name";
+            //cb.DataValueField = "code";
+            //cb.DataSource = dt;
+            //cb.DataBind();
+                        
+            // Clear the default Item that has been re-created from ViewState at this point.
+            cb.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["code"].ToString();
+                item.Value = row["code"].ToString();
+                item.Attributes.Add("name", row["name"].ToString());
+
+                cb.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+        protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem itm = (GridEditableItem)cb.NamingContainer;
+            RadComboBox c_project = (RadComboBox)itm.FindControl("cb_project_detail");
+
+            string sql = "SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM [inv00h11]  WHERE stEdit != '4' AND CostCenterName LIKE @CostCenterName + '%' AND region_code = @project";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@CostCenterName", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", c_project.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["code"].ToString();
+                item.Value = row["code"].ToString();
+                item.Attributes.Add("name", row["name"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+
+            //RadComboBox cb = (RadComboBox)sender;
+            //GridEditableItem itm = (GridEditableItem)cb.NamingContainer;
+            //RadComboBox c_project = (RadComboBox)itm.FindControl("cb_project_detail");
+            //LoadCostCtr((sender as RadComboBox).Text, c_project.Text, (sender as RadComboBox));
+        }
+        protected void cb_cost_center_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        //protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        //{
+        //    Session["CostCenter"] = e.Value;
+
+        //    try
+        //    {
+        //        con.Open();
+        //        SqlCommand cmd = new SqlCommand();
+        //        cmd.Connection = con;
+        //        cmd.CommandType = CommandType.Text;
+        //        cmd.CommandText = "SELECT CostCenterName FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).SelectedValue + "'";
+
+        //        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+        //        DataTable dt = new DataTable();
+        //        adapter.Fill(dt);
+        //        foreach (DataRow dtr in dt.Rows)
+        //        {
+        //            RadComboBox cb = (RadComboBox)sender;
+        //            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+        //            RadTextBox t_accountname = (RadTextBox)item.FindControl("txt_CostCenterName");
+
+        //            t_accountname.Text = dtr["CostCenterName"].ToString();
+
+
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //}
     }
 
 }
