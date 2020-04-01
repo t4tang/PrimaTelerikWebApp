@@ -500,8 +500,8 @@
                                         <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
                                             HeaderText="Edit" HeaderStyle-Width="60px" UpdateText="Update">
                                         </telerik:GridEditCommandColumn>                        
-                                        <telerik:GridTemplateColumn UniqueName="KoRek" HeaderText="Account No" HeaderStyle-Width="120px"
-                                            SortExpression="KoRek" ItemStyle-Width="320px">
+                                        <telerik:GridTemplateColumn UniqueName="KoRek" HeaderText="Account No." HeaderStyle-Width="110px"
+                                            SortExpression="KoRek" ItemStyle-Width="110px">
                                             <FooterTemplate>Template footer</FooterTemplate>
                                             <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
@@ -511,7 +511,7 @@
                                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_korek" EnableLoadOnDemand="True" DataTextField="accountname"
                                                     OnItemsRequested="cb_korek_ItemsRequested" DataValueField="KoRek" AutoPostBack="true"
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.KoRek") %>'
-                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="450px"
+                                                    HighlightTemplatedItems="true" Height="190px" Width="110px" DropDownWidth="450px"
                                                     OnSelectedIndexChanged="cb_korek_SelectedIndexChanged" OnPreRender="cb_korek_PreRender">
                                                     <HeaderTemplate>
                                                        <%-- <ul>
@@ -553,17 +553,17 @@
                                         </telerik:GridTemplateColumn>
                             
                                    
-                                        <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="400px">
+                               <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="750px" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>  
                                     <%#DataBinder.Eval(Container.DataItem, "Ket")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Ket" Width="400px"
+                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Ket" Width="750px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.Ket") %>'>
                                     </telerik:RadTextBox>
                                 </EditItemTemplate>
-                            </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText="D/C" ItemStyle-Width="50px">
+                                </telerik:GridTemplateColumn> 
+                                <telerik:GridTemplateColumn HeaderText="D/C" ItemStyle-Width="50px" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>  
                                     <%#DataBinder.Eval(Container.DataItem, "Mutasi")%>
                                 </ItemTemplate>
@@ -576,7 +576,7 @@
                                     </telerik:RadComboBox>
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>    
-                              <telerik:GridTemplateColumn HeaderText="Kurs" ItemStyle-Width="100px">
+                              <telerik:GridTemplateColumn HeaderText="Kurs" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>  
                                     <%#DataBinder.Eval(Container.DataItem, "kurs")%>
                                 </ItemTemplate>
@@ -586,7 +586,8 @@
                                     </telerik:RadTextBox>
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
-                             <telerik:GridTemplateColumn HeaderText="Ammount" ItemStyle-Width="200px">
+                             <telerik:GridTemplateColumn HeaderText="Ammount" ItemStyle-Width="200px"
+                                 ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>  
                                     <%#DataBinder.Eval(Container.DataItem, "Jumlah")%>
                                 </ItemTemplate>
@@ -597,8 +598,8 @@
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
                            
-                             <telerik:GridTemplateColumn UniqueName="region_code" HeaderText="Project Area" HeaderStyle-Width="120px"
-                                            SortExpression="region_code" ItemStyle-Width="320px">
+                             <telerik:GridTemplateColumn UniqueName="region_code" HeaderText="Project" HeaderStyle-Width="100px"
+                                            SortExpression="region_code" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center">
                                             <FooterTemplate>Template footer</FooterTemplate>
                                             <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
@@ -608,7 +609,7 @@
                                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_project_detail" EnableLoadOnDemand="True" DataTextField="region_name"
                                                     OnItemsRequested="cb_project_detail_ItemsRequested" DataValueField="region_code" AutoPostBack="true"
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>'
-                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="450px"
+                                                    HighlightTemplatedItems="true" Height="190px" Width="100px" DropDownWidth="450px"
                                                     OnSelectedIndexChanged="cb_project_detail_SelectedIndexChanged" OnPreRender="cb_project_detail_PreRender">
                                                     <HeaderTemplate>
                                                        <%-- <ul>
@@ -649,19 +650,19 @@
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>    
                          
-                             <telerik:GridTemplateColumn UniqueName="dept_code" HeaderText="Cost Center" HeaderStyle-Width="120px"
-                                            SortExpression="dept_code" ItemStyle-Width="320px">
+                             <telerik:GridTemplateColumn UniqueName="dept_code" HeaderText="Cost Center" HeaderStyle-Width="100px"
+                                            SortExpression="dept_code" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center">
                                             <FooterTemplate>Template footer</FooterTemplate>
                                             <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
                                                 <%#DataBinder.Eval(Container.DataItem, "dept_code")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_cost_center" EnableLoadOnDemand="True" DataTextField="code"
-                                                    OnItemsRequested="cb_cost_center_ItemsRequested" DataValueField="code" AutoPostBack="true"
+                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_cost_center" EnableLoadOnDemand="True" DataTextField="name"
+                                                    OnItemsRequested="cb_cost_center_ItemsRequested" DataValueField="code" AutoPostBack="false"
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>'
-                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="300px"
-                                                    OnSelectedIndexChanged="cb_cost_center_SelectedIndexChanged" OnPreRender="cb_cost_center_PreRender">
+                                                    HighlightTemplatedItems="true" Height="190px" Width="100px" DropDownWidth="300px"
+                                                     OnPreRender="cb_cost_center_PreRender">
                                                    <HeaderTemplate>
                                                     <%--     <ul>
                                                             <li class="col1">Code</li>
@@ -694,7 +695,7 @@
                                                                 <%# DataBinder.Eval(Container, "Value")%>
                                                             </td>                   
                                                             <td style="width: 200px;">
-                                                                <%# DataBinder.Eval(Container, "Attributes['CostCenterName']")%>
+                                                                <%# DataBinder.Eval(Container, "Attributes['name']")%>
                                                             </td>                                             
                                                         </tr>
                                                     </table>
