@@ -558,7 +558,7 @@
                                     <%#DataBinder.Eval(Container.DataItem, "Ket")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Ket" Width="750px"
+                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Ket" Width="550px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.Ket") %>'>
                                     </telerik:RadTextBox>
                                 </EditItemTemplate>
