@@ -759,7 +759,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_Ket") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project_detail") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@Valas", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
+                //cmd.Parameters.AddWithValue("@Valas", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 //cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
