@@ -105,7 +105,7 @@
         
     <div id="div1" class="scroller" runat="server">
         <div style="padding-left:15px;width:100%;border-bottom-color:#FF6600;border-bottom-width:1px;border-bottom-style:inset;">
-            <table>
+            <table id="tbl_control">
                 <tr>
                     <td  style="text-align:right;">
                         <asp:ImageButton runat="server" ID="btnList" OnClientClick="openWinContentTemplate(); return false;"
@@ -566,8 +566,11 @@
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         
-                                        <telerik:GridTemplateColumn HeaderText="Project Area" ItemStyle-Width="100px">
-                                            <ItemTemplate>  
+                                        <telerik:GridTemplateColumn UniqueName="region_code" HeaderText="Project" HeaderStyle-Width="100px"
+                                            SortExpression="region_code" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center">
+                                            <FooterTemplate>Template footer</FooterTemplate>
+                                            <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate>
                                                 <%#DataBinder.Eval(Container.DataItem, "region_code")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
@@ -601,25 +604,23 @@
                                                                     </tr>
                                                                 </table>
                                                                 
-                                                            </ItemTemplate>
-                                                            <FooterTemplate>
-                                                                A total of
-                                                            <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                                items
-                                                            </FooterTemplate>                                                    
+                                                            </ItemTemplate>                                                    
                                                         </telerik:RadComboBox>                                   
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridTemplateColumn HeaderText="Cost Center" ItemStyle-Width="100px">
+                                        <telerik:GridTemplateColumn UniqueName="dept_code" HeaderText="Cost Center" HeaderStyle-Width="100px"
+                                            SortExpression="dept_code" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center">
+                                            <FooterTemplate>Template footer</FooterTemplate>
+                                            <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>  
                                                 <%#DataBinder.Eval(Container.DataItem, "dept_code")%>
                                             </ItemTemplate>
                                             <EditItemTemplate>
                                                 
-                                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_Cost_Center" DropDownWidth="350px" 
-                                                            EnableLoadOnDemand="True" Skin="MetroTouch" DataValueField="CostCenter" DataTextField="CostCenterName" 
+                                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_Cost_Center" DropDownWidth="350px" AutoPostBack="false"  
+                                                            EnableLoadOnDemand="True" Skin="MetroTouch" DataValueField="code" DataTextField="name" 
                                                             Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>' OnItemsRequested="cb_Cost_Center_ItemsRequested" 
-                                                            OnSelectedIndexChanged="cb_Cost_Center_SelectedIndexChanged" OnPreRender="cb_Cost_Center_PreRender" Height="190px" Width="100px" >
+                                                            OnPreRender="cb_Cost_Center_PreRender" Height="190px" Width="100px" >
                                                             <HeaderTemplate>
                                                                 <table style="width: 350px; font-size:smaller">
                                                                     <tr>
@@ -639,16 +640,11 @@
                                                                             <%# DataBinder.Eval(Container, "Value")%>
                                                                         </td>
                                                                         <td style="width: 250px;">
-                                                                            <%# DataBinder.Eval(Container, "Attributes['CostCenterName']")%>
+                                                                            <%# DataBinder.Eval(Container, "Attributes['name']")%>
                                                                         </td>                                                                
                                                                     </tr>
                                                                 </table>
                                                             </ItemTemplate>
-                                                            <FooterTemplate>
-                                                                A total of
-                                                            <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                                items
-                                                            </FooterTemplate>
                                                         </telerik:RadComboBox>                                   
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>
@@ -670,10 +666,7 @@
                 
             </div>
         </div>
-    </div>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
-        ProviderName="System.Data.SqlClient" SelectCommand="WHERE stEdit != 4">
-    </asp:SqlDataSource>  
+    </div> 
      <script type="text/javascript">
     //<![CDATA[
         Sys.Application.add_load(function() {

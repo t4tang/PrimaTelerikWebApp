@@ -548,19 +548,19 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                     cb_supplier.Text = sdr["supplier_name"].ToString();
                     txt_currency.Text = sdr["cur_code"].ToString();
                     txt_kurs.Text = sdr["kurs"].ToString();
-                    dtp_from.SelectedDate = Convert.ToDateTime(sdr["slip_date"].ToString());
-                    dtp_to.SelectedDate = Convert.ToDateTime(sdr["date_exec"].ToString());
-
                     cb_bank.Text = sdr["NamBank"].ToString();
-                    //cb_cost_center.Text = sdr["CostCenterName"].ToString();
-                    //cb_request.Text = sdr["RequestBy"].ToString();
-                    //cb_approved.Text = sdr["ApproveBy"].ToString();
-                    //txt_remark.Text = sdr["Remark"].ToString();
-                    //txt_uid.Text = sdr["userid"].ToString();
-                    //txt_lastUpdate.Text = string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
-                    //txt_owner.Text = sdr["Owner"].ToString();
-                    //txt_printed.Text = sdr["Printed"].ToString();
-                    //txt_edited.Text = sdr["Edited"].ToString();
+                    txt_curr2.Text = sdr["cur_code_acc"].ToString();
+                    txt_kurs2.Text = sdr["kurs_acc"].ToString();
+                    txt_ctrl.Text = sdr["noctrl"].ToString();
+                    dtp_from.SelectedDate = Convert.ToDateTime(sdr["slip_date"].ToString());
+                    dtp_to.SelectedDate = Convert.ToDateTime(sdr["tgl_cair"].ToString());
+                    //txt_giro.Text = sdr["doc_remark"].ToString();
+                    txt_remark.Text = sdr["Remark"].ToString();
+                    txt_user.Text = sdr["userid"].ToString();
+                    txt_lastupdate.Text = string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
+                    cb_pre.Text = sdr["RequestBy"].ToString();
+                    cb_check.Text = sdr["Checkby"].ToString();
+                    cb_approve.Text = sdr["Approveby"].ToString();
                 }
                 con.Close();
 
