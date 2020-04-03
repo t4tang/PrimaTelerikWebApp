@@ -207,7 +207,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                     txt_NoRef.Text = sdr["NoRef"].ToString();
                     cb_bank.Text = sdr["NamBank"].ToString();
                     cb_project.Text = sdr["region_name"].ToString();
-                    if(sdr["KoTransName"].ToString()=="Penerimaan")
+                    if(sdr["KoTransName"].ToString()== "PENERIMAAN BANK")
                     {
                         cb_KoTrans.Text = "PENERIMAAN BANK";
                     }
