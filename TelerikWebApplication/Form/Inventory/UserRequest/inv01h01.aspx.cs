@@ -19,6 +19,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         SqlCommand cmd = new SqlCommand();
 
         private const int ItemsPerRequest = 10;
+                
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -29,9 +30,14 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
                 set_info();
                 dtp_ur.SelectedDate = DateTime.Now;
-                Session["action"] = "new";
+                Session["action"] = "firstLoad";
                 RadGrid2.Enabled = false;
-            }
+                btnSave.Enabled = false;
+                btnSave.ImageUrl = "~/Images/simpan-gray.png";
+                btnPrint.Enabled = false;
+                btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+            }           
+
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
         {
@@ -47,6 +53,30 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 RadGrid2.MasterTableView.GroupByExpressions.Clear();
                 RadGrid2.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
                 RadGrid2.Rebind();
+            }
+        }
+        private static DataTable GetProjectPrm(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_project_prm_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetProjectPrm(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
             }
         }
         private static DataTable GetProject(string text)
@@ -70,8 +100,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_project_prm.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
-                cb_project.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
             }
         }
         protected void cb_project_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -80,11 +109,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_project.SelectedValue = dr[0].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
             
@@ -94,6 +123,21 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             //LoadManPower(cb_project.SelectedValue, cb_approved);
 
         }
+        //protected void cb_project_prm_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        //{
+        //    con.Open();
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.Connection = con;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project_prm.Text + "'";
+        //    SqlDataReader dr;
+        //    dr = cmd.ExecuteReader();
+        //    while (dr.Read())
+        //        cb_project_prm.SelectedValue = dr[0].ToString();
+        //    dr.Close();
+        //    con.Close();
+
+        //}
         protected void cb_project_PreRender(object sender, EventArgs e)
         {
             con.Open();
@@ -213,7 +257,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
                 RadGrid2.Enabled = true;
-                btnSave.Enabled = false;
+                btnSave.Enabled = true;
+                btnSave.ImageUrl = "~/Images/simpan.png";
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_ur_number.Text);
             }
 
         }
@@ -309,22 +357,26 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
                 cmd.ExecuteNonQuery();
 
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data saved successfully";
-                lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                //Label lblsuccess = new Label();
+                //lbl_result.Text = "Data saved successfully";
+                //lbl_result.ForeColor = System.Drawing.Color.Blue;
                 //RadGrid1.Controls.Add(lblsuccess);
                 con.Close();
 
                 txt_ur_number.Text = run;
                 RadGrid2.Enabled = true;
+                btnSave.Enabled = false;
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_ur_number.Text);
             }
             catch (Exception ex)
             {
                 con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to save data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
+                //Label lblError = new Label();
+                lbl_result.Text = "Unable to save data. Reason: " + ex.Message;
+                lbl_result.ForeColor = System.Drawing.Color.Red;
+                //RadGrid1.Controls.Add(lblError);
             }
         }
 
@@ -597,21 +649,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             }
         }
 
-        protected void cb_project_prm_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project_prm.Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                cb_project_prm.SelectedValue = dr[0].ToString();
-            dr.Close();
-            con.Close();
-            
-        }
+        
         protected void OnSelectedIndexChangedHandler(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             Session["prod_code"] = e.Value;
@@ -708,10 +746,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
                     RadTextBox t_spec = (RadTextBox)item.FindControl("txt_prod_name");
                     RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
+                    RadComboBox cbDept_d = (RadComboBox)item.FindControl("cb_dept_d");
 
                     t_spec.Text= dtr["spec"].ToString();
                     cb_prodType.Text = dtr["unit"].ToString();
-
+                    cbDept_d.Text = cb_cost_center.SelectedValue;
                 }
                 
             }
@@ -764,18 +803,24 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         }
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            Session["act"] = "new";
-            btnSave.Enabled = false;
-            clear_text(Page.Controls);
+            Session["action"] = "new";            
+            btnSave.Enabled = true;
+            btnSave.ImageUrl = "~/Images/simpan.png";
+            RadGrid2.Enabled = false;
+            btnPrint.Enabled = false;
+            btnPrint.ImageUrl = "~/Images/cetak-gray.png";
             RadGrid2.DataSource = new string[] { };
             RadGrid2.DataBind();
-            RadGrid2.Enabled = false;
+            if(Session["action"].ToString() != "firstLoad")
+            {
+                clear_text(Page.Controls);
+            }
             set_info();
         }
         private void set_info()
         {
             txt_uid.Text = public_str.uid;
-            txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+            txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy hh:mm:ss}", DateTime.Now);
             txt_owner.Text = public_str.uid;
             txt_printed.Text = "0";
             txt_edited.Text = "0";
@@ -833,5 +878,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 e.Canceled = true;
             }
         }
+
+        protected void btnPrint_Click(object sender, ImageClickEventArgs e)
+        {
+            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_ur_number.Text);
+        }        
+        
     }
 }

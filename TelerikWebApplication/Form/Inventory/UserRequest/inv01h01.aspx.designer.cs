@@ -112,13 +112,13 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest {
         protected global::Telerik.Web.UI.RadComboBox cb_project_prm;
         
         /// <summary>
-        /// btnFind control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFind;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
         /// btnOk control.
@@ -137,15 +137,6 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
-        
-        /// <summary>
-        /// div1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
         
         /// <summary>
         /// btnList control.
@@ -355,6 +346,15 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest {
         protected global::Telerik.Web.UI.RadTextBox txt_edited;
         
         /// <summary>
+        /// lbl_result control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_result;
+        
+        /// <summary>
         /// UpdatePanel4 control.
         /// </summary>
         /// <remarks>
@@ -371,5 +371,23 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid2;
+        
+        /// <summary>
+        /// RadWindowManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
+        
+        /// <summary>
+        /// PreviewDialog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindow PreviewDialog;
     }
 }
