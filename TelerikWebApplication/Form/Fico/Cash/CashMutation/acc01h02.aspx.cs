@@ -28,8 +28,13 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_CashMutation_prm.SelectedValue = public_str.site;
 
-                Session["action"] = "new";
+                set_info();
+                Session["action"] = "FirstLoad";
                 RadGrid2.Enabled = false;
+                btnSave.Enabled = false;
+                btnSave.ImageUrl = "~/Images/simpan-gray.png";
+                btnPrint.Enabled = false;
+                btnPrint.ImageUrl = "~/Images/cetak-gray.png";
                 dtp_bm.SelectedDate = DateTime.Now;
             }
         }
@@ -170,9 +175,13 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
                 RadGrid2.DataSource = GetDataDetailTable(txt_NoBuk.Text);
                 RadGrid2.DataBind();
-                RadGrid2.Enabled = true;
-                btnSave.Enabled = false;
                 Session["action"] = "edit";
+                RadGrid2.Enabled = true;
+                btnSave.Enabled = true;
+                btnSave.ImageUrl = "~/Images/simpan.png";
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
             }
 
         }
@@ -794,7 +803,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenterName FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -938,12 +947,18 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            Session["act"] = "new";
-            btnSave.Enabled = false;
-            clear_text(Page.Controls);
+            Session["action"] = "new";
+            btnSave.Enabled = true;
+            btnSave.ImageUrl = "~/Images/simpan.png";
             RadGrid2.DataSource = new string[] { };
             RadGrid2.DataBind();
             RadGrid2.Enabled = false;
+            btnPrint.Enabled = false;
+            btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+            if (Session["action"].ToString() != "FirstLoad")
+            {
+                clear_text(Page.Controls);
+            }
             set_info();
         }
 
@@ -1023,13 +1038,18 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
                 cmd.ExecuteNonQuery();
 
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data saved successfully";
-                lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                //Label lblsuccess = new Label();
+                //lblsuccess.Text = "Data saved successfully";
+                //lblsuccess.ForeColor = System.Drawing.Color.Blue;
                 //RadGrid1.Controls.Add(lblsuccess);
                 con.Close();
 
                 txt_NoBuk.Text = run;
+                RadGrid2.Enabled = true;
+                btnSave.Enabled = false;
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
             }
             catch (Exception ex)
             {
@@ -1037,8 +1057,13 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 Label lblError = new Label();
                 lblError.Text = "Unable to save data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
+                //RadGrid1.Controls.Add(lblError);
             }
+        }
+
+        protected void btnPrint_Click(object sender, ImageClickEventArgs e)
+        {
+            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
         }
     }
 }

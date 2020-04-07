@@ -234,7 +234,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 RadGrid2.DataSource = GetDataDetailTable(txt_NoBuk.Text);
                 RadGrid2.DataBind();
                 RadGrid2.Enabled = true;
-                Session["Proccess"] = "SesEdit";
+                //Session["Proccess"] = "SesEdit";
+                Session["action"] = "edit";
             }
 
         }
