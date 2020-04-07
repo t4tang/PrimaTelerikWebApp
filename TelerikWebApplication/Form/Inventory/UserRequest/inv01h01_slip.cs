@@ -13,9 +13,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
     /// </summary>
     public partial class inv01h01_slip : Telerik.Reporting.Report
     {
-        SqlConnection con = new SqlConnection(db_connection.koneksi);
-        SqlDataAdapter sda = new SqlDataAdapter();
-        SqlCommand cmd = new SqlCommand();
+        //SqlConnection con = new SqlConnection(db_connection.koneksi);
+        //SqlDataAdapter sda = new SqlDataAdapter();
+        //SqlCommand cmd = new SqlCommand();
         public static string _tr_code;
 
         public inv01h01_slip()
