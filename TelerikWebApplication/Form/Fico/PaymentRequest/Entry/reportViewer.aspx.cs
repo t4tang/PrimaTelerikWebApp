@@ -1,5 +1,6 @@
 ﻿namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
 {
+    using ReportLibrary;
     using System;
     using Telerik.ReportViewer.Html5.WebForms;
 
@@ -9,6 +10,9 @@
         {
             if (!IsPostBack)
             {
+                this.Title = Request.QueryString["doc_no"];
+                this.reportViewer1.ViewMode = ViewMode.PrintPreview;
+                acc01h05_slip._tr_code = Request.QueryString["doc_no"];
             }
         }
     }

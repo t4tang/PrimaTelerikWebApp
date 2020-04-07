@@ -611,6 +611,13 @@
     <Compile Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx.designer.cs">
       <DependentUpon>acc01h05.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx.cs">
+      <DependentUpon>reportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx.designer.cs">
+      <DependentUpon>reportViewer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Inventory\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -912,6 +919,7 @@
     <Content Include="Form\Fico\Cash\CashMutation\acc01h02.aspx" />
     <Content Include="Form\Fico\Default.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx" />
+    <Content Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx" />
     <Content Include="Form\Inventory\Default.aspx" />
     <Content Include="Form\DataStore\Material\Brand\Data_entry.ascx" />
     <Content Include="Form\DataStore\Default.aspx" />
@@ -1034,6 +1042,12 @@
     <Folder Include="Form\Fico\PaymentRequest\Payment\" />
     <Folder Include="Form\Fico\PaymentRequest\Register\" />
     <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReportLibrary\ReportLibrary.csproj">
+      <Project>{F5D481A8-CFD2-4C86-BA47-E3ED91EE8D3A}</Project>
+      <Name>ReportLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
