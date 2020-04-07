@@ -44,11 +44,11 @@
             </h2>
             <telerik:RadMenu runat="server" ID="verticalMenu" Skin="BlackMetroTouch" Flow="Vertical" CssClass="main-menu" EnableImageSprites="true" RenderMode="Lightweight">
                 <Items>
-                    <telerik:RadMenuItem Text="Master Data" NavigateUrl="Form/DataStore/Default.aspx" CssClass="mail" />
-                    <telerik:RadMenuItem Text="Fico" NavigateUrl="Form/Fico/Default.aspx" CssClass="contacts" />
-                    <telerik:RadMenuItem Text="Inventory" NavigateUrl="Form/Inventory/Default.aspx" CssClass="calendar" />
+                    <telerik:RadMenuItem Text="Master Data" NavigateUrl="Form/DataStore/Default.aspx" CssClass="notes" />
+                    <telerik:RadMenuItem Text="Fico" NavigateUrl="Form/Fico/Default.aspx" CssClass="notes" />
+                    <telerik:RadMenuItem Text="Inventory" NavigateUrl="Form/Inventory/Default.aspx" CssClass="notes" />
                     <telerik:RadMenuItem Text="Purchase" NavigateUrl="Form/Purchase/Default.aspx" CssClass="notes" />
-                    <telerik:RadMenuItem Text="Security" NavigateUrl="Form/Security/Default.aspx" CssClass="contacts" />
+                    <telerik:RadMenuItem Text="Security" NavigateUrl="Form/Inventory/UserRequest/inv01h01_rv.aspx" CssClass="notes" />
                 </Items>
             </telerik:RadMenu>
 
