@@ -10,6 +10,10 @@
             function rowDblClick(sender, eventArgs) {
                 sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
             }
+            function ShowPreview(id) {
+                window.radopen("ReportVieweracc01h01.aspx?NoBuk=" + id, "PreviewDialog");
+                return false;
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -115,8 +119,9 @@
                                 ItemStyle-Width="450px" FilterControlWidth="480px">
                             <HeaderStyle Width="500px"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete">
-                        </telerik:GridButtonColumn>                            
+                        <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" HeaderText="Delete"
+                            ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
+                        </telerik:GridButtonColumn>                        
                     </Columns>
                    
                 </MasterTableView>
@@ -731,6 +736,13 @@
             </div>
         </div>     
     </div>
+    <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
+            <Windows>
+                <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server"  ReloadOnShow="true" ShowContentDuringLoad="false"
+                  Width="1150px" Height="670px" Modal="true">
+                </telerik:RadWindow>
+            </Windows>
+        </telerik:RadWindowManager>
    
      <script type="text/javascript">
     //<![CDATA[
