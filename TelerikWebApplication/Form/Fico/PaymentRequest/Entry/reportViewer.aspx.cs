@@ -1,6 +1,7 @@
 ﻿namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
 {
     using ReportLibrary;
+    using ReportLibrary.slip;
     using System;
     using Telerik.ReportViewer.Html5.WebForms;
 

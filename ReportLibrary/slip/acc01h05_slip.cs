@@ -1,28 +1,25 @@
-namespace ReportLibrary
+namespace ReportLibrary.slip
 {
     using System;
     using System.ComponentModel;
-    using System.Data.SqlClient;
     using System.Drawing;
     using System.Windows.Forms;
     using Telerik.Reporting;
     using Telerik.Reporting.Drawing;
 
     /// <summary>
-    /// Summary description for payment_request_slip.
+    /// Summary description for acc01h05_slip.
     /// </summary>
     public partial class acc01h05_slip : Telerik.Reporting.Report
-	{        
-        //SqlDataAdapter sda = new SqlDataAdapter();
-        //SqlCommand cmd = new SqlCommand();
+    {
         public static string _tr_code;
 
         public acc01h05_slip()
-		{
-			//
-			// Required for telerik Reporting designer support
-			//
-			InitializeComponent();
+        {
+            //
+            // Required for telerik Reporting designer support
+            //
+            InitializeComponent();
 
             //
             // TODO: Add any constructor code after InitializeComponent call
@@ -38,5 +35,5 @@ namespace ReportLibrary
 
             sqlDataSource1.Parameters[0].Value = "=Parameters.doc_no.Value";
         }
-	}
+    }
 }
