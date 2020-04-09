@@ -207,7 +207,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                     txt_NoRef.Text = sdr["NoRef"].ToString();
                     cb_bank.Text = sdr["NamBank"].ToString();
                     cb_project.Text = sdr["region_name"].ToString();
-                    if(sdr["KoTransName"].ToString()=="Penerimaan")
+                    if(sdr["KoTransName"].ToString()== "PENERIMAAN BANK")
                     {
                         cb_KoTrans.Text = "PENERIMAAN BANK";
                     }
@@ -234,7 +234,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 RadGrid2.DataSource = GetDataDetailTable(txt_NoBuk.Text);
                 RadGrid2.DataBind();
                 RadGrid2.Enabled = true;
-                Session["Proccess"] = "SesEdit";
+                //Session["Proccess"] = "SesEdit";
+                Session["action"] = "edit";
+                btnSave.Enabled = true;
+                btnSave.ImageUrl = "~/Images/simpan.png";
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
             }
 
         }
@@ -371,7 +377,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             }
             else if ((sender as RadComboBox).Text == "PENGELUARAN BANK")
             {
-                (sender as RadComboBox).SelectedValue = "K";
+                (sender as RadComboBox).SelectedValue = "C";
             }
         }
 
@@ -383,7 +389,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             }
             else if ((sender as RadComboBox).Text == "PENGELUARAN BANK")
             {
-                (sender as RadComboBox).SelectedValue = "K";
+                (sender as RadComboBox).SelectedValue = "C";
             }
         }
         protected void LoadManPower(string name, string projectID, RadComboBox cb)
@@ -759,7 +765,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_Ket") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project_detail") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@Valas", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
+                //cmd.Parameters.AddWithValue("@Valas", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 //cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
@@ -821,7 +827,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
         protected void cb_mutasi_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("D");
-            (sender as RadComboBox).Items.Add("K");
+            (sender as RadComboBox).Items.Add("C");
         }
 
         protected void cb_mutasi_PreRender(object sender, EventArgs e)
@@ -830,9 +836,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             {
                 (sender as RadComboBox).SelectedValue = "D";
             }
-            else if ((sender as RadComboBox).Text == "K")
+            else if ((sender as RadComboBox).Text == "C")
             {
-                (sender as RadComboBox).SelectedValue = "K";
+                (sender as RadComboBox).SelectedValue = "C";
             }
         }
 
@@ -842,9 +848,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             {
                 (sender as RadComboBox).SelectedValue = "D";
             }
-            else if ((sender as RadComboBox).Text == "K")
+            else if ((sender as RadComboBox).Text == "C")
             {
-                (sender as RadComboBox).SelectedValue = "K";
+                (sender as RadComboBox).SelectedValue = "C";
             }
         }
 
@@ -1013,42 +1019,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             con.Close();
         }
 
-        //protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        //{
-        //    Session["CostCenter"] = e.Value;
+        protected void btnPrint_Click(object sender, ImageClickEventArgs e)
+        {
+            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
+        }
 
-        //    try
-        //    {
-        //        con.Open();
-        //        SqlCommand cmd = new SqlCommand();
-        //        cmd.Connection = con;
-        //        cmd.CommandType = CommandType.Text;
-        //        cmd.CommandText = "SELECT CostCenterName FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).SelectedValue + "'";
-
-        //        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-        //        DataTable dt = new DataTable();
-        //        adapter.Fill(dt);
-        //        foreach (DataRow dtr in dt.Rows)
-        //        {
-        //            RadComboBox cb = (RadComboBox)sender;
-        //            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-        //            RadTextBox t_accountname = (RadTextBox)item.FindControl("txt_CostCenterName");
-
-        //            t_accountname.Text = dtr["CostCenterName"].ToString();
-
-
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
-        //    }
-        //    finally
-        //    {
-        //        con.Close();
-        //    }
-        //}
+    
     }
 
 }

@@ -107,24 +107,24 @@
         <div style="padding-left:15px;width:100%;border-bottom-color:#FF6600;border-bottom-width:1px;border-bottom-style:inset;">
             <table id="tbl_control">
                 <tr>
-                    <td  style="text-align:right;">
+                    <td  style="text-align:right;vertical-align:middle;">
                         <asp:ImageButton runat="server" ID="btnList" OnClientClick="openWinContentTemplate(); return false;"
-                            Height="30px" Width="35px" ImageUrl="~/Images/list.png">
-                        </asp:ImageButton>                        
+                            Height="30px" Width="35px" ImageUrl="~/Images/daftar.png" >                            
+                        </asp:ImageButton>                                                 
                     </td>
-                    <td style="vertical-align:middle; margin-left:10px">
+                    <td style="vertical-align:middle; margin-left:10px;padding-left:8px">
                         <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
-                            Height="37px" Width="49px" ImageUrl="~/Images/add.png">
+                            Height="30px" Width="32px" ImageUrl="~/Images/tambah.png">
                         </asp:ImageButton>
                     </td>
-                    <td style="vertical-align:middle; margin-left:10px;padding-left:0px">
+                    <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
                         <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" OnClick="btnSave_Click"
-                            Height="37px" Width="38px" ImageUrl="~/Images/save.png">
+                            Height="30px" Width="32px" ImageUrl="~/Images/simpan-gray.png">
                         </asp:ImageButton>
                     </td>
-                    <td style="vertical-align:middle; margin-left:10px;padding-left:3px">
-                        <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" 
-                            Height="35px" Width="35px" ImageUrl="~/Images/printer.png">
+                    <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
+                        <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" OnClick="btnPrint_Click" 
+                            Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
                         </asp:ImageButton>
                     </td>
                     <td style="width:89%; text-align:right">

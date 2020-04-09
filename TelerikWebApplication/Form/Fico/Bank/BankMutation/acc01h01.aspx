@@ -149,9 +149,14 @@
                         </telerik:RadButton>--%>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:0px">
                         <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" OnClick="btnSave_Click"
-                            Height="37px" Width="38px" ImageUrl="~/Images/save.png">
+                            Height="30px" Width="32px" ImageUrl="~/Images/simpan-gray.png">
                         </asp:ImageButton>
                     </td>
+                     <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
+                        <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" OnClick="btnPrint_Click"
+                            Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
+                        </asp:ImageButton>
+                    </td>          
                     <td style="width:89%; text-align:right">
                         <telerik:RadLabel ID="lbl_form_name" Text="Bank Mutation" runat="server" style="font-weight:lighter; 
                             font-variant: small-caps; padding-left:10px; 
@@ -558,7 +563,7 @@
                                     <%#DataBinder.Eval(Container.DataItem, "Ket")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Ket" Width="750px"
+                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Ket" Width="550px"
                                         Text='<%# DataBinder.Eval(Container, "DataItem.Ket") %>'>
                                     </telerik:RadTextBox>
                                 </EditItemTemplate>
