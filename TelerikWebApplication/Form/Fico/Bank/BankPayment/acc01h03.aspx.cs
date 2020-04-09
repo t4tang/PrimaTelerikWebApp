@@ -564,12 +564,56 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 }
                 con.Close();
 
-                //RadGrid2.DataSource = GetDataDetailTable(txt_ur_number.Text);
+                RadGrid2.DataSource = GetDataDetailTable(txt_slip_number.Text);
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
                 RadGrid2.Enabled = true;
                 btnSave.Enabled = false;
             }
+        }
+
+        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            (sender as RadGrid).DataSource = GetDataDetailTable(txt_slip_number.Text);
+        }
+        public DataTable GetDataDetailTable(string slip_no)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT * FROM v_bank_paymentD where slip_no = @slipno";
+            cmd.Parameters.AddWithValue("@slipno", slip_no);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
+        protected void RadGrid3_SaveCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid3_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void cb_inv_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+
         }
     }
 }
