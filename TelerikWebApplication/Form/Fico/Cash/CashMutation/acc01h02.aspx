@@ -675,7 +675,7 @@
      <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
             <Windows>
                 <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server"  ReloadOnShow="true" ShowContentDuringLoad="false"
-                  Width="1150px" Height="670px" Modal="true">
+                  Width="1170px" Height="670px" Modal="true">
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
