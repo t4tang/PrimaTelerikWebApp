@@ -157,7 +157,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                         cb_KoTrans.Text = "PENGELUARAN KAS";
                     }
                     cb_Project.Text = sdr["region_name"].ToString();
-                    cb_Cash.Text = sdr["KoKas"].ToString();
+                    cb_Cash.Text = sdr["NamKas"].ToString();
                     txt_cur_code.Text = sdr["cur_code"].ToString();
                     txt_kurs.Text = sdr["kurs"].ToString();
                     txt_remark.Text = sdr["Ket"].ToString();
@@ -227,7 +227,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "UPDATE acc01h02 SET Usr = @Usr, Stamp = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
-                cmd.Parameters.AddWithValue("@KoKas", NoBuk);
+                cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -393,7 +393,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoKas FROM acc00h02 WHERE NamKas = '" + cb_Cash.Text + "'";
+            cmd.CommandText = "SELECT KoKas FROM acc00h02 WHERE NamKas  = '" + cb_Cash.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -669,8 +669,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
                 //    //t_regionname.Text = dtr["region_name"].ToString();
 
-                RadComboBox cb_costCtr = (RadComboBox)item.FindControl("cb_cost_center");
-                LoadCostCtr(cb_costCtr.Text, (sender as RadComboBox).SelectedValue, cb_costCtr);
+                RadComboBox cb_CostCtr = (RadComboBox)item.FindControl("cb_Cost_Center");
+                LoadCostCtr(cb_CostCtr.Text, (sender as RadComboBox).SelectedValue, cb_CostCtr);
 
                 //}
 
@@ -807,7 +807,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
         }
