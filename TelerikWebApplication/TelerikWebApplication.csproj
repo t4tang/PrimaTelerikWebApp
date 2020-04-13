@@ -590,6 +590,13 @@
     <Compile Include="Form\Fico\Bank\BankMutation\acc01h01.aspx.designer.cs">
       <DependentUpon>acc01h01.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Fico\Bank\BankMutation\ReportVieweracc01h01.aspx.cs">
+      <DependentUpon>ReportVieweracc01h01.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Bank\BankMutation\ReportVieweracc01h01.aspx.designer.cs">
+      <DependentUpon>ReportVieweracc01h01.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Fico\Cash\CashMutation\acc01h02.aspx.cs">
       <DependentUpon>acc01h02.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -916,6 +923,7 @@
     <Content Include="Form\DataStore\Vehicle\MechanicJobs\mtc00h10.aspx" />
     <Content Include="Form\DataStore\Vehicle\ModelUnit\mtc00h11.aspx" />
     <Content Include="Form\Fico\Bank\BankMutation\acc01h01.aspx" />
+    <Content Include="Form\Fico\Bank\BankMutation\ReportVieweracc01h01.aspx" />
     <Content Include="Form\Fico\Cash\CashMutation\acc01h02.aspx" />
     <Content Include="Form\Fico\Default.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx" />
@@ -1080,7 +1088,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
