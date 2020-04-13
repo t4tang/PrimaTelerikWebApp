@@ -38,7 +38,11 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
-           
+           <%--<telerik:AjaxSetting AjaxControlID="btnSave">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="txt_doc_number" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>                
+            </telerik:AjaxSetting>--%>
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
@@ -172,9 +176,10 @@
                                     Doc. Number:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_doc_number" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_doc_number" runat="server" Width="250px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
+                                       
                                 </td>
                             </tr>             
                             <tr>
@@ -258,7 +263,7 @@
                                     Payment to :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_pay_to" runat="server" Width="450px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_pay_to" runat="server" Width="450px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -482,6 +487,40 @@
                                        </ContentTemplate>
                                             <Triggers>
                                                 <asp:AsyncPostBackTrigger ControlID="cb_project" EventName="SelectedIndexChanged">
+                                                </asp:AsyncPostBackTrigger>
+                                            </Triggers>
+                                    </asp:UpdatePanel>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="vertical-align:top;padding-top:17px">Status :</td>
+                                <td style="vertical-align:top;padding-top:17px">
+                                    <asp:RadioButtonList ID="rbl_status" runat="server" OnSelectedIndexChanged="rbl_status_SelectedIndexChanged" AutoPostBack="true">
+                                        <asp:ListItem Selected="False" Value="0">Open</asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="1">Approve</asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="2">Close</asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="3">Unapprove</asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="4">Cancel</asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="5">Hold</asp:ListItem>
+                                    </asp:RadioButtonList>
+                               </td>                                
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td >
+                                    <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                        <ContentTemplate>
+                                            <telerik:RadDatePicker ID="dtp_approved_date" runat="server" MinDate="1/1/1900" DateInput-Width="130px"
+                                                Width="150px" RenderMode="Lightweight" Enabled="false" TabIndex="4" Skin="MetroTouch" DateInput-Label="Approved Date : "> 
+                                            <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="MetroTouch" 
+                                                EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;"></Calendar>
+                                            <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
+                                            </DateInput>                          
+                                            </telerik:RadDatePicker>
+                                        </ContentTemplate>
+                                            <Triggers>
+                                                <asp:AsyncPostBackTrigger ControlID="rbl_status" EventName="SelectedIndexChanged">
                                                 </asp:AsyncPostBackTrigger>
                                             </Triggers>
                                     </asp:UpdatePanel>

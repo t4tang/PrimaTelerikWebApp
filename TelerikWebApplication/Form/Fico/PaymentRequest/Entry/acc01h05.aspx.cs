@@ -26,28 +26,31 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_project_prm.SelectedValue = public_str.site;
+                cb_project_prm.Text = public_str.sitename;
 
-                set_info();
+                //set_info();
                 dtp_doc.SelectedDate = DateTime.Now;
                 Session["action"] = "firstLoad";
                 btnSave.Enabled = false;
                 btnSave.ImageUrl = "~/Images/simpan-gray.png";
                 btnPrint.Enabled = false;
-                btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+                btnPrint.ImageUrl = "~/Images/cetak-gray.png";                
             }
         }
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
+            if (Session["action"].ToString() != "firstLoad")
+            {
+                clear_text(Page.Controls);
+            }
             Session["action"] = "new";
             btnSave.Enabled = true;
             btnSave.ImageUrl = "~/Images/simpan.png";
             btnPrint.Enabled = false;
             btnPrint.ImageUrl = "~/Images/cetak-gray.png";
-            if (Session["action"].ToString() != "firstLoad")
-            {
-                clear_text(Page.Controls);
-            }
             set_info();
+            rbl_status.SelectedValue = "0";
+            dtp_doc.SelectedDate = DateTime.Now;
         }
         private void clear_text(ControlCollection ctrls)
         {
@@ -57,11 +60,23 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
                 {
                     ((RadTextBox)ctrl).Text = "";
                 }
+                else if (ctrl is RadNumericTextBox)
+                {
+                    ((RadNumericTextBox)ctrl).Text = "";
+                }                    
                 else if (ctrl is RadComboBox)
+                { 
                     ((RadComboBox)ctrl).Text = "";
+                }
+                else if (ctrl is RadDatePicker)
+                {
+                    ((RadDatePicker)ctrl).Clear();
+                }
 
                 clear_text(ctrl.Controls);
 
+                dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                dtp_to.SelectedDate = DateTime.Now;
             }
         }
         private void set_info()
@@ -73,8 +88,21 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
         }
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            //SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            //ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            //adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            string cmd;
+            if (public_str.site != "HOF")
+            {
+                cmd = "SELECT a.region_code, b.region_name FROM inv00h26 a, inv00h09 b WHERE a.region_code=b.region_code AND a.Nik = '" + public_str.user_id + "' AND b.stEdit <> 4 AND b.region_name LIKE @text + '%' ";
+            }
+            else
+            {
+                cmd = "SELECT region_code, region_name FROM inv00h09  WHERE stEdit <> 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL' ";
+            }
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd, ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
             DataTable data = new DataTable();
@@ -97,8 +125,17 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
         }
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            string cmd;
+            if(public_str.site != "HOF")
+            {
+                cmd = "SELECT a.region_code, b.region_name FROM inv00h26 a, inv00h09 b WHERE a.region_code=b.region_code AND a.Nik = '" + public_str.user_id + "' AND b.stEdit <> 4 AND b.region_name LIKE @text + '%' ";
+            }
+            else
+            {
+                cmd= "SELECT region_code, region_name FROM inv00h09  WHERE stEdit <> 4 AND region_name LIKE @text + '%'";
+            }
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd,ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
             DataTable data = new DataTable();
@@ -298,6 +335,15 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
                     txt_lastUpdate.Text = string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
                     txt_owner.Text = sdr["doc_owner"].ToString();
                     txt_edited.Text = sdr["edited"].ToString();
+                    rbl_status.SelectedValue = sdr["doc_status"].ToString();
+                    if(sdr["doc_status"].ToString() == "1")
+                    { 
+                        dtp_approved_date.SelectedDate= Convert.ToDateTime(sdr["approval_date"].ToString());
+                    }
+                    else
+                    {
+                        dtp_approved_date.Clear();
+                    }
                 }
                 con.Close();
 
@@ -313,79 +359,70 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
 
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
         {
-            long maxNo;
+            //long maxNo;
             string run = null;
             string trDate = string.Format("{0:dd/MM/yyyy}", dtp_doc.SelectedDate);
 
-            try
+            if(txt_doc_number.Text != "")
             {
-                if (Session["action"].ToString() == "edit")
-                {
-                    run = txt_doc_number.Text;
-                }
-                //else
-                //{
-                //    con.Open();
-                //    SqlDataReader sdr;
-                //    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h01.doc_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                //        "FROM inv01h01 WHERE LEFT(inv01h01.doc_code, 4) = 'UR01' " +
-                //        "AND SUBSTRING(inv01h01.doc_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                //        "AND SUBSTRING(inv01h01.doc_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
-                //    sdr = cmd.ExecuteReader();
-                //    if (sdr.HasRows == false)
-                //    {
-                //        //throw new Exception();
-                //        run = "UR01" + dtp_ur.SelectedDate.Value.Year + dtp_ur.SelectedDate.Value.Month + "0001";
-                //    }
-                //    else if (sdr.Read())
-                //    {
-                //        maxNo = Convert.ToInt32(sdr[0].ToString());
-                //        run = "UR01" + (dtp_ur.SelectedDate.Value.Year.ToString()).Substring(dtp_ur.SelectedDate.Value.Year.ToString().Length - 2) +
-                //            ("0000" + dtp_ur.SelectedDate.Value.Month).Substring(("0000" + dtp_ur.SelectedDate.Value.Month).Length - 2, 2) +
-                //            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
-                //    }
-                //    con.Close();
-                //}
+                run = txt_doc_number.Text;
+            }
+            else
+            {
+                run = "";
+            }
 
+            try
+            {               
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_payment_request";
+                cmd.Parameters.AddWithValue("@doc_no", run);
+                cmd.Parameters.AddWithValue("@objek", txt_object.Text);
+                cmd.Parameters.AddWithValue("@site_code", cb_project.SelectedValue);
+                cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
+                cmd.Parameters.AddWithValue("@pay_to", txt_pay_to.Text);
+                cmd.Parameters.AddWithValue("@description", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@amount", Convert.ToDouble(txt_amount.Text));
+                cmd.Parameters.AddWithValue("@doc_date", string.Format("{0:dd-MM-yyyy}", dtp_doc.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@exp_date", string.Format("{0:dd-MM-yyyy}", dtp_due_date.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@doc_owner", public_str.user_id);
+                cmd.Parameters.AddWithValue("@doc_status", rbl_status.SelectedValue);
+                cmd.Parameters.AddWithValue("@created_by1", cb_request.SelectedValue);
+                cmd.Parameters.AddWithValue("@created_by2", cb_request2.SelectedValue);
+                cmd.Parameters.AddWithValue("@approved_by1", cb_approved.SelectedValue);
+                cmd.Parameters.AddWithValue("@approved_by2", cb_approved2.SelectedValue);
+                cmd.Parameters.AddWithValue("@pay_metod", txt_pay_methode.Text);
+                cmd.Parameters.AddWithValue("@editBy", public_str.user_id);
+                //cmd.Parameters.AddWithValue("@sts_note", string.Format("{0:yyyy-MM-dd}", dtp_approved_date.SelectedDate.Value));
+                //cmd.Parameters.AddWithValue("@approval_date", string.Format("{0:yyyy-MM-dd}", dtp_approved_date.SelectedDate.Value));
+                cmd.ExecuteNonQuery();
+                                
+                SqlCommand cmd1 = new SqlCommand();
+                cmd1.Connection = con;
+                cmd1.CommandType = CommandType.Text;
+                cmd1.CommandText = "SELECT doc_no FROM acc01h05 WHERE objek = '" + txt_object.Text + "'";
+                SqlDataReader dr;
+                dr = cmd1.ExecuteReader();
+                while (dr.Read())
+                    txt_doc_number.Text = dr["doc_no"].ToString();
+                dr.Close();
 
-                //con.Open();
-                //cmd = new SqlCommand();
-                //cmd.CommandType = CommandType.StoredProcedure;
-                //cmd.Connection = con;
-                //cmd.CommandText = "sp_save_urH";
-                //cmd.Parameters.AddWithValue("@doc_code", run);
-                //cmd.Parameters.AddWithValue("@doc_date", string.Format("{0:yyyy-MM-dd}", dtp_ur.SelectedDate.Value));
-                //cmd.Parameters.AddWithValue("@trans_status", cb_ur_status.SelectedValue);
-                //cmd.Parameters.AddWithValue("@date_exec", string.Format("{0:yyyy-MM-dd}", dtp_exe.SelectedDate.Value));
-                //cmd.Parameters.AddWithValue("@receive_by", cb_request.SelectedValue);
-                //cmd.Parameters.AddWithValue("@aprove_by", cb_approved.SelectedValue);
-                //cmd.Parameters.AddWithValue("@doc_remark", txt_remark.Text);
-                //cmd.Parameters.AddWithValue("@userid", txt_uid.Text);
-                //cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
-                //cmd.Parameters.AddWithValue("@region_code", public_str.site);
-                //cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
-                //cmd.Parameters.AddWithValue("@priority_code", cb_priority.SelectedValue);
-                //cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
-                //cmd.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
-                //cmd.Parameters.AddWithValue("@Printed", txt_printed.Text);
-                //cmd.Parameters.AddWithValue("@Edited", txt_edited.Text);
-                //cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                //cmd.ExecuteNonQuery();
-
-                
                 con.Close();
 
-                txt_doc_number.Text = run;
+                //txt_doc_number.Text = run;
                 btnSave.Enabled = false;
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
                 btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_doc_number.Text);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Data Saved');", false);
             }
             catch (Exception ex)
             {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('" + ex + "');", true);
                 con.Close();
-                //lbl_result.Text = "Unable to save data. Reason: " + ex.Message;
-                //lbl_result.ForeColor = System.Drawing.Color.Red;
             }
         }
         protected void btnPrint_Click(object sender, ImageClickEventArgs e)
@@ -450,48 +487,19 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             dr.Close();
             con.Close();
         }
-
-
-        //protected void cb_approved_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        //{
-        //    cb_approved.Text = "";
-        //    LoadManPower(e.Text, cb_project.SelectedValue, cb_approved);
-        //}
-        //protected void cb_approved_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        //{
-        //    con.Open();
-        //    SqlCommand cmd = new SqlCommand();
-        //    cmd.Connection = con;
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
-        //    SqlDataReader dr;
-        //    dr = cmd.ExecuteReader();
-        //    while (dr.Read())
-        //        cb_approved.SelectedValue = dr["nik"].ToString();
-        //    dr.Close();
-        //    con.Close();
-        //}
-
-        //protected void cb_approved_DataBound(object sender, EventArgs e)
-        //{
-        //    ((Literal)cb_approved.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString((sender as RadComboBox).Items.Count);
-        //}
-
-
-        //protected void cb_approved_PreRender(object sender, EventArgs e)
-        //{
-        //    con.Open();
-        //    SqlCommand cmd = new SqlCommand();
-        //    cmd.Connection = con;
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
-        //    SqlDataReader dr;
-        //    dr = cmd.ExecuteReader();
-        //    while (dr.Read())
-        //        cb_approved.SelectedValue = dr["nik"].ToString();
-        //    dr.Close();
-        //    con.Close();
-        //}
+        
         #endregion
+
+        protected void rbl_status_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (rbl_status.SelectedItem.Value == "1")
+            {
+                dtp_approved_date.Enabled = true;
+            }
+            else
+            {
+                dtp_approved_date.Enabled = false;
+            }
+        }
     }
 }

@@ -346,6 +346,33 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry {
         protected global::Telerik.Web.UI.RadComboBox cb_approved2;
         
         /// <summary>
+        /// rbl_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbl_status;
+        
+        /// <summary>
+        /// UpdatePanel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+        
+        /// <summary>
+        /// dtp_approved_date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker dtp_approved_date;
+        
+        /// <summary>
         /// txt_uid control.
         /// </summary>
         /// <remarks>
