@@ -10,6 +10,10 @@
             function rowDblClick(sender, eventArgs) {
                 sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
             }
+            function ShowPreview(id) {
+                window.radopen("ReportVieweracc01h01.aspx?NoBuk=" + id, "PreviewDialog");
+                return false;
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -115,8 +119,9 @@
                                 ItemStyle-Width="450px" FilterControlWidth="480px">
                             <HeaderStyle Width="500px"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete">
-                        </telerik:GridButtonColumn>                            
+                        <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" HeaderText="Delete"
+                            ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
+                        </telerik:GridButtonColumn>                        
                     </Columns>
                    
                 </MasterTableView>
@@ -149,9 +154,14 @@
                         </telerik:RadButton>--%>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:0px">
                         <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" OnClick="btnSave_Click"
-                            Height="37px" Width="38px" ImageUrl="~/Images/save.png">
+                            Height="30px" Width="32px" ImageUrl="~/Images/simpan-gray.png">
                         </asp:ImageButton>
                     </td>
+                     <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
+                        <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" OnClick="btnPrint_Click"
+                            Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
+                        </asp:ImageButton>
+                    </td>          
                     <td style="width:89%; text-align:right">
                         <telerik:RadLabel ID="lbl_form_name" Text="Bank Mutation" runat="server" style="font-weight:lighter; 
                             font-variant: small-caps; padding-left:10px; 
@@ -726,6 +736,13 @@
             </div>
         </div>     
     </div>
+    <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
+            <Windows>
+                <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server"  ReloadOnShow="true" ShowContentDuringLoad="false"
+                  Width="1150px" Height="670px" Modal="true">
+                </telerik:RadWindow>
+            </Windows>
+        </telerik:RadWindowManager>
    
      <script type="text/javascript">
     //<![CDATA[

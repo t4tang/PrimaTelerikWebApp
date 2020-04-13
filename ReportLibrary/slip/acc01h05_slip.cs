@@ -1,24 +1,20 @@
-namespace TelerikWebApplication.Form.Inventory.UserRequest
+namespace ReportLibrary.slip
 {
-    using Class;
     using System;
     using System.ComponentModel;
-    using System.Data.SqlClient;
     using System.Drawing;
+    using System.Windows.Forms;
     using Telerik.Reporting;
     using Telerik.Reporting.Drawing;
 
     /// <summary>
-    /// Summary description for inv01h01_slip.
+    /// Summary description for acc01h05_slip.
     /// </summary>
-    public partial class inv01h01_slip : Telerik.Reporting.Report
+    public partial class acc01h05_slip : Telerik.Reporting.Report
     {
-        //SqlConnection con = new SqlConnection(db_connection.koneksi);
-        //SqlDataAdapter sda = new SqlDataAdapter();
-        //SqlCommand cmd = new SqlCommand();
         public static string _tr_code;
 
-        public inv01h01_slip()
+        public acc01h05_slip()
         {
             //
             // Required for telerik Reporting designer support
@@ -29,7 +25,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             // TODO: Add any constructor code after InitializeComponent call
             //
             Telerik.Reporting.ReportParameter param = new ReportParameter();
-            param.Name = "doc_code";
+            param.Name = "doc_no";
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
@@ -37,7 +33,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
-            sqlDataSource1.Parameters[0].Value = "=Parameters.doc_code.Value";
+            sqlDataSource1.Parameters[0].Value = "=Parameters.doc_no.Value";
         }
     }
 }

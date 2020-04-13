@@ -166,7 +166,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h01 SET userid = @Usr, LastUpdate = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
+                cmd.CommandText = "UPDATE acc01h01 SET Usr = @Usr, LastUpdate = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
                 cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -234,7 +234,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 RadGrid2.DataSource = GetDataDetailTable(txt_NoBuk.Text);
                 RadGrid2.DataBind();
                 RadGrid2.Enabled = true;
-                Session["Proccess"] = "SesEdit";
+                //Session["Proccess"] = "SesEdit";
+                Session["action"] = "edit";
+                btnSave.Enabled = true;
+                btnSave.ImageUrl = "~/Images/simpan.png";
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
             }
 
         }
@@ -1013,42 +1019,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             con.Close();
         }
 
-        //protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        //{
-        //    Session["CostCenter"] = e.Value;
+        protected void btnPrint_Click(object sender, ImageClickEventArgs e)
+        {
+            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
+        }
 
-        //    try
-        //    {
-        //        con.Open();
-        //        SqlCommand cmd = new SqlCommand();
-        //        cmd.Connection = con;
-        //        cmd.CommandType = CommandType.Text;
-        //        cmd.CommandText = "SELECT CostCenterName FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).SelectedValue + "'";
-
-        //        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-        //        DataTable dt = new DataTable();
-        //        adapter.Fill(dt);
-        //        foreach (DataRow dtr in dt.Rows)
-        //        {
-        //            RadComboBox cb = (RadComboBox)sender;
-        //            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-        //            RadTextBox t_accountname = (RadTextBox)item.FindControl("txt_CostCenterName");
-
-        //            t_accountname.Text = dtr["CostCenterName"].ToString();
-
-
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
-        //    }
-        //    finally
-        //    {
-        //        con.Close();
-        //    }
-        //}
+    
     }
 
 }
