@@ -583,12 +583,30 @@
     <Compile Include="Form\DataStore\Vehicle\ModelUnit\mtc00h11.aspx.designer.cs">
       <DependentUpon>mtc00h11.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Fico\Asset\acc00h22.aspx.cs">
+      <DependentUpon>acc00h22.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Asset\acc00h22.aspx.designer.cs">
+      <DependentUpon>acc00h22.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Fico\Bank\BankMutation\acc01h01.aspx.cs">
       <DependentUpon>acc01h01.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\Fico\Bank\BankMutation\acc01h01.aspx.designer.cs">
       <DependentUpon>acc01h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Bank\BankPayment\acc01h03.aspx.cs">
+      <DependentUpon>acc01h03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Bank\BankPayment\acc01h03.aspx.designer.cs">
+      <DependentUpon>acc01h03.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Bank\BankReceipt\acc01h04b.aspx.cs">
+      <DependentUpon>acc01h04b.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\Fico\Cash\CashMutation\acc01h02.aspx.cs">
       <DependentUpon>acc01h02.aspx</DependentUpon>
@@ -604,6 +622,13 @@
     <Compile Include="Form\Fico\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Fico\Ledger\GeneralJournal\acc01h07.aspx.cs">
+      <DependentUpon>acc01h07.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Ledger\GeneralJournal\acc01h07.aspx.designer.cs">
+      <DependentUpon>acc01h07.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx.cs">
       <DependentUpon>acc01h05.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -617,6 +642,13 @@
     </Compile>
     <Compile Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx.designer.cs">
       <DependentUpon>reportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\PaymentRequest\Submition\acc01h09.aspx.cs">
+      <DependentUpon>acc01h09.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\PaymentRequest\Submition\acc01h09.aspx.designer.cs">
+      <DependentUpon>acc01h09.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Inventory\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -915,11 +947,16 @@
     <Content Include="Form\DataStore\Vehicle\Manufacture\inv00h13.aspx" />
     <Content Include="Form\DataStore\Vehicle\MechanicJobs\mtc00h10.aspx" />
     <Content Include="Form\DataStore\Vehicle\ModelUnit\mtc00h11.aspx" />
+    <Content Include="Form\Fico\Asset\acc00h22.aspx" />
     <Content Include="Form\Fico\Bank\BankMutation\acc01h01.aspx" />
+    <Content Include="Form\Fico\Bank\BankPayment\acc01h03.aspx" />
+    <Content Include="Form\Fico\Bank\BankReceipt\acc01h04b.aspx" />
     <Content Include="Form\Fico\Cash\CashMutation\acc01h02.aspx" />
     <Content Include="Form\Fico\Default.aspx" />
+    <Content Include="Form\Fico\Ledger\GeneralJournal\acc01h07.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx" />
+    <Content Include="Form\Fico\PaymentRequest\Submition\acc01h09.aspx" />
     <Content Include="Form\Inventory\Default.aspx" />
     <Content Include="Form\DataStore\Material\Brand\Data_entry.ascx" />
     <Content Include="Form\DataStore\Default.aspx" />
@@ -1038,7 +1075,7 @@
   <ItemGroup>
     <Folder Include="Form\DataStore\Customer\Area\" />
     <Folder Include="Form\DataStore\Marine\" />
-    <Folder Include="Form\Fico\Bank\BankPayment\" />
+    <Folder Include="Form\Fico\Budget\" />
     <Folder Include="Form\Fico\PaymentRequest\Payment\" />
     <Folder Include="Form\Fico\PaymentRequest\Register\" />
     <Folder Include="obj\Debug\TempPE\" />
@@ -1080,7 +1117,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
