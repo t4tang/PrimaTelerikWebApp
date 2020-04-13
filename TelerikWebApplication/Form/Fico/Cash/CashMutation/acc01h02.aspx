@@ -133,7 +133,7 @@
                         </asp:ImageButton>
                     </td>
                     <td style="width:89%; text-align:right">
-                        <telerik:RadLabel ID="lbl_form_name" Text="User Request" runat="server" style="font-weight:lighter; 
+                        <telerik:RadLabel ID="lbl_form_name" Text="Cash Mutation" runat="server" style="font-weight:lighter; 
                             font-size:10px; font-variant: small-caps; padding-left:10px; 
                         padding-bottom:0px; font-size:x-large; color:Highlight"></telerik:RadLabel>
                     </td>
