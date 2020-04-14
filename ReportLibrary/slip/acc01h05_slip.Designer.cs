@@ -9,6 +9,7 @@ namespace ReportLibrary.slip
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(acc01h05_slip));
             Telerik.Reporting.ReportParameter reportParameter1 = new Telerik.Reporting.ReportParameter();
             Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
             this.pageHeaderSection1 = new Telerik.Reporting.PageHeaderSection();
@@ -66,6 +67,8 @@ namespace ReportLibrary.slip
             this.textBox49 = new Telerik.Reporting.TextBox();
             this.shape2 = new Telerik.Reporting.Shape();
             this.sqlDataSource1 = new Telerik.Reporting.SqlDataSource();
+            this.textBox31 = new Telerik.Reporting.TextBox();
+            this.pictureBox1 = new Telerik.Reporting.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // pageHeaderSection1
@@ -96,7 +99,8 @@ namespace ReportLibrary.slip
             this.textBox51,
             this.textBox50,
             this.textBox21,
-            this.textBox24});
+            this.textBox24,
+            this.pictureBox1});
             this.pageHeaderSection1.Name = "pageHeaderSection1";
             // 
             // textBox1
@@ -493,6 +497,7 @@ namespace ReportLibrary.slip
             this.textBox19.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox19.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox19.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox19.Style.Font.Bold = true;
             this.textBox19.Style.Font.Name = "Arial";
             this.textBox19.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox19.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
@@ -644,7 +649,7 @@ namespace ReportLibrary.slip
             // 
             // detail
             // 
-            this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(5.5000004768371582D);
+            this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(4.5999999046325684D);
             this.detail.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox20,
             this.textBox30});
@@ -655,7 +660,7 @@ namespace ReportLibrary.slip
             // 
             this.textBox20.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.60000020265579224D), Telerik.Reporting.Drawing.Unit.Cm(0.90000057220458984D));
             this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.552955627441406D), Telerik.Reporting.Drawing.Unit.Cm(4.5999999046325684D));
+            this.textBox20.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.552955627441406D), Telerik.Reporting.Drawing.Unit.Cm(3.5D));
             this.textBox20.Style.BorderColor.Bottom = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox20.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox20.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
@@ -703,7 +708,7 @@ namespace ReportLibrary.slip
             // 
             // pageFooterSection1
             // 
-            this.pageFooterSection1.Height = Telerik.Reporting.Drawing.Unit.Cm(5.6000003814697266D);
+            this.pageFooterSection1.Height = Telerik.Reporting.Drawing.Unit.Cm(9.9999980926513672D);
             this.pageFooterSection1.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox40,
             this.textBox39,
@@ -728,7 +733,8 @@ namespace ReportLibrary.slip
             this.textBox46,
             this.textBox45,
             this.textBox49,
-            this.shape2});
+            this.shape2,
+            this.textBox31});
             this.pageFooterSection1.Name = "pageFooterSection1";
             // 
             // textBox40
@@ -1301,6 +1307,36 @@ namespace ReportLibrary.slip
             this.sqlDataSource1.SelectCommand = "dbo.spr_print_fpp";
             this.sqlDataSource1.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
+            // textBox31
+            // 
+            this.textBox31.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.60000020265579224D), Telerik.Reporting.Drawing.Unit.Cm(5.899998664855957D));
+            this.textBox31.Name = "textBox31";
+            this.textBox31.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.600202560424805D), Telerik.Reporting.Drawing.Unit.Cm(3.4999988079071045D));
+            this.textBox31.Style.BorderColor.Bottom = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
+            this.textBox31.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
+            this.textBox31.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
+            this.textBox31.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
+            this.textBox31.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox31.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox31.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox31.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox31.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox31.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox31.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox31.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox31.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox31.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Top;
+            this.textBox31.Value = resources.GetString("textBox31.Value");
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.60000020265579224D), Telerik.Reporting.Drawing.Unit.Cm(0.29999992251396179D));
+            this.pictureBox1.MimeType = "image/jpeg";
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.4999997615814209D), Telerik.Reporting.Drawing.Unit.Cm(0.89999997615814209D));
+            this.pictureBox1.Sizing = Telerik.Reporting.Drawing.ImageSizeMode.Stretch;
+            this.pictureBox1.Value = ((object)(resources.GetObject("pictureBox1.Value")));
+            // 
             // acc01h05_slip
             // 
             this.DataSource = this.sqlDataSource1;
@@ -1325,7 +1361,7 @@ namespace ReportLibrary.slip
             styleRule1.Style.Padding.Right = Telerik.Reporting.Drawing.Unit.Point(2D);
             this.StyleSheet.AddRange(new Telerik.Reporting.Drawing.StyleRule[] {
             styleRule1});
-            this.Width = Telerik.Reporting.Drawing.Unit.Cm(20.399801254272461D);
+            this.Width = Telerik.Reporting.Drawing.Unit.Cm(20.69999885559082D);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -1386,5 +1422,7 @@ namespace ReportLibrary.slip
         private Telerik.Reporting.TextBox textBox21;
         private Telerik.Reporting.Shape shape2;
         private Telerik.Reporting.TextBox textBox24;
+        private Telerik.Reporting.TextBox textBox31;
+        private Telerik.Reporting.PictureBox pictureBox1;
     }
 }
