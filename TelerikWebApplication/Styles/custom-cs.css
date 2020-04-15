@@ -669,3 +669,10 @@ body {
     display: block;
     margin-top: 20px;
 }
+
+/*RadTab*/
+.RadTab{
+    vertical-align:central;
+    height:17px;
+    
+}
