@@ -140,12 +140,12 @@
                 <tr>                    
                     <td  style="text-align:right;">
                         <asp:ImageButton runat="server" ID="btnList" OnClientClick="openWinContentTemplate(); return false;"
-                            Height="30px" Width="35px" ImageUrl="~/Images/list.png">
+                            Height="30px" Width="35px" ImageUrl="~/Images/daftar.png">
                         </asp:ImageButton>                        
                     </td>
                     <td style="vertical-align:middle; margin-left:10px">
                         <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
-                            Height="37px" Width="49px" ImageUrl="~/Images/add.png">
+                            Height="37px" Width="49px" ImageUrl="~/Images/tambah.png">
                         </asp:ImageButton>
                     </td>
                     <%--<td style="vertical-align:top; margin-left:20px">--%>
