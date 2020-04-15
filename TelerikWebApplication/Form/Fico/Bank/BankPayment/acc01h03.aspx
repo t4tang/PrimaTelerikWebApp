@@ -377,22 +377,22 @@
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
                             
-                                <telerik:GridTemplateColumn HeaderText="Invoice Number" ItemStyle-Width="380px">
+                                <telerik:GridTemplateColumn HeaderText="Invoice Number" ItemStyle-Width="180px">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "fkno")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_prod_name" Width="380px" ReadOnly="true"
+                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_prod_name" Width="180px" ReadOnly="true"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.fkno") %>'>
                                         </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText="Inv Date" ItemStyle-Width="80px" ItemStyle-HorizontalAlign="Right" DefaultInsertValue="0">
+                                <telerik:GridTemplateColumn HeaderText="Inv Date" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" DefaultInsertValue="0">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "slip_date", "{0:#,###,###0.00}")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_qty" Width="80px" NumberFormat-AllowRounding="true"
+                                        <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_qty" Width="100px" NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
                                             Text='<%# DataBinder.Eval(Container.DataItem, "slip_date", "{0:#,###,###0.00}") %>'
                                             onkeydown="blurTextBox(this, event)"
@@ -401,12 +401,12 @@
                                         </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="100px">
+                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="370px">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "remark")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="100px" runat="server" ID="cb_uom_d"
+                                        <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="370px" runat="server" ID="cb_uom_d"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>'
                                             EnableLoadOnDemand="True" Skin="MetroTouch" DataTextField="remark" DataValueField="remark" >
                                         </telerik:RadComboBox>
@@ -417,10 +417,13 @@
                                         <%#DataBinder.Eval(Container.DataItem, "pay_amount")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="150px" runat="server" ID="cb_dept_d"
-                                            EnableLoadOnDemand="True" Skin="MetroTouch" DataTextField="name" DataValueField="CostCenter"
-                                            Text='<%# DataBinder.Eval(Container, "DataItem.pay_amount") %>'>
-                                        </telerik:RadComboBox>
+                                        <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_qty" Width="150px" NumberFormat-AllowRounding="true"
+                                            NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
+                                            Text='<%# DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}") %>'
+                                            onkeydown="blurTextBox(this, event)"
+                                            AutoPostBack="true" MaxLength="11" Type="Money"
+                                            >
+                                        </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>    
                                 <telerik:GridTemplateColumn HeaderText="Project" ItemStyle-Width="400px">
@@ -428,7 +431,7 @@
                                         <%#DataBinder.Eval(Container.DataItem, "region_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark_d" Width="400px"
+                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_project" Width="400px"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>'>
                                         </telerik:RadTextBox>
                                     </EditItemTemplate>
@@ -438,7 +441,7 @@
                                         <%#DataBinder.Eval(Container.DataItem, "dept_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark_d" Width="400px"
+                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_dept" Width="400px"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>'>
                                         </telerik:RadTextBox>
                                     </EditItemTemplate>
