@@ -51,6 +51,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="slip\acc01h01_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="slip\acc01h01_slip.Designer.cs">
+      <DependentUpon>acc01h01_slip.cs</DependentUpon>
+    </Compile>
     <Compile Include="slip\acc01h05_slip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -67,8 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="slip\acc01h05_slip.resx">
-      <DependentUpon>acc01h05_slip.cs</DependentUpon>
+    <EmbeddedResource Include="slip\acc01h01_slip.resx">
+      <DependentUpon>acc01h01_slip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

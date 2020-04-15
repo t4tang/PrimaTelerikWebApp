@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportViewer_acc01h02.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Cash.CashMutation.ReportViewer_acc01h02" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportVieweracc01h01.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Bank.BankMutation.ReportVieweracc01h01" %>
 
 <%@ Register TagPrefix="telerik" Assembly="Telerik.ReportViewer.Html5.WebForms" Namespace="Telerik.ReportViewer.Html5.WebForms" %>
 
@@ -25,11 +25,11 @@
     <form runat="server">
         <telerik:ReportViewer
             ID="reportViewer1" 
-			Width="1127px"
+			Width="1300px"
 			Height="900px"
 			EnableAccessibility="false"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="ReportLibrary.slip.acc01h02_slip, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="ReportLibrary.slip.acc01h01_slip, ReportLibrary">
             </ReportSource>
         </telerik:ReportViewer>
     </form>
