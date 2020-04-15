@@ -25,7 +25,7 @@
     <form runat="server">
         <telerik:ReportViewer
             ID="reportViewer1" 
-			Width="1127px"
+			Width="1300px"
 			Height="900px"
 			EnableAccessibility="false"
             runat="server">
