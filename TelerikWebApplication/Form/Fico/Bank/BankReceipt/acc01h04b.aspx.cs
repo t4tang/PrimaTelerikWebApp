@@ -35,6 +35,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 btnPrint.Enabled = false;
                 btnPrint.ImageUrl = "~/Images/cetak-gray.png";
                 dtp_bm.SelectedDate = DateTime.Now;
+                dtp_lm.SelectedDate = DateTime.Now;
             }
         }
 
@@ -150,6 +151,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 {
                     txt_NoBuk.Text = sdr["NoBuk"].ToString();
                     dtp_bm.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
+                    dtp_lm.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
                     txt_NoCtrl.Text = sdr["NoCtrl"].ToString();
                     txt_NoRef.Text = sdr["NoRef"].ToString();
                     cb_bank.Text = sdr["NamBank"].ToString();
@@ -309,6 +311,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd.CommandText = "sp_save_BankMutationH";
                 cmd.Parameters.AddWithValue("@NoBuk", run);
                 cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_bm.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_lm.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@KoBank", cb_bank.SelectedValue);
                 cmd.Parameters.AddWithValue("@NoCtrl", txt_NoCtrl.Text);
                 cmd.Parameters.AddWithValue("@NoRef", txt_NoRef.Text);
@@ -404,6 +407,16 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             while (dr.Read())
                 (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
             dr.Close();
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr1 in dt.Rows)
+            {
+                txt_cur_cod.Text = dr1["cur_code"].ToString();
+                txt_kurs.Text = dr1["kurs"].ToString();
+
+            }
             con.Close();
         }
 
@@ -422,8 +435,16 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
         protected void cb_bank_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            (sender as RadComboBox).Text = "";
-            LoadBank(e.Text, cb_cust.SelectedValue, (sender as RadComboBox));
+            DataTable data = GetBank(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["NamBank"].ToString(), data.Rows[i]["NamBank"].ToString()));
+            }
         }
 
         protected void cb_bank_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -445,10 +466,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             adapter.Fill(dt);
             foreach (DataRow dr1 in dt.Rows)
             {
-
-
-                txt_cur_code.Text = dr1["cur_code"].ToString();
-                txt_kurs.Text = dr1["KursRun"].ToString();
+                txt_cur_cod_acc.Text = dr1["cur_code_acc"].ToString();
+                txt_kurs_acc.Text = dr1["kurs_acc"].ToString();
 
             }
             con.Close();
@@ -467,6 +486,256 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 (sender as RadComboBox).SelectedValue = dr["KoBank"].ToString();
             dr.Close();
             con.Close();
+        }
+
+        private static DataTable GetManpower(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select nik,name from inv00h26 where stEdit != 4 " +
+                " AND name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_prepared_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetManpower(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["name"].ToString(), data.Rows[i]["name"].ToString()));
+            }
+        }
+
+        protected void cb_prepared_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_prepared.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_prepared.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_prepared_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_prepared.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_prepared.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_checked_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetManpower(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["name"].ToString(), data.Rows[i]["name"].ToString()));
+            }
+        }
+
+        protected void cb_checked_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_checked.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_checked.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_checked_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_checked.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_checked.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_approved_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetManpower(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["name"].ToString(), data.Rows[i]["name"].ToString()));
+            }
+        }
+
+        protected void cb_approved_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_approved_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_BankMutationD";
+                cmd.Parameters.AddWithValue("@NoBuk", txt_NoBuk.Text);
+                cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("cb_korek") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_Jumlah") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@mutasi", (item.FindControl("cb_mutasi") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_Ket") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project_detail") as RadComboBox).Text);
+                //cmd.Parameters.AddWithValue("@Valas", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                //cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                RadGrid2.DataBind();
+                RadGrid2.Rebind();
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data saved";
+                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
+                RadGrid2.Controls.Add(lblsuccess);
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to insert data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGrid2.Controls.Add(lblError);
+                e.Canceled = true;
+            }
+        }
+        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            RadGrid2.DataSource = GetDataDetailTable(txt_NoBuk.Text);
+        }
+
+        public DataTable GetDataDetailTable(string NoBuk)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_BankReceiptVoucherD";
+            cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
+        protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            var KoRek = ((GridDataItem)e.Item).GetDataKeyValue("KoRek");
+
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "delete from acc01d01 where KoRek = @KoRek and NoBuk = @NoBuk";
+                cmd.Parameters.AddWithValue("@NoBuk", txt_NoBuk.Text);
+                cmd.Parameters.AddWithValue("@KoRek", KoRek);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                RadGrid2.DataBind();
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data deleted";
+                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
+                RadGrid2.Controls.Add(lblsuccess);
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGrid2.Controls.Add(lblError);
+                e.Canceled = true;
+            }
         }
     }
 }
