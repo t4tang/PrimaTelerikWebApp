@@ -387,7 +387,7 @@
                                         </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText="Inv Date" ItemStyle-Width="250px" ItemStyle-HorizontalAlign="Right" DefaultInsertValue="0">
+                                <telerik:GridTemplateColumn HeaderText="Inv Date" ItemStyle-Width="250px" ItemStyle-HorizontalAlign="Center" DefaultInsertValue="0">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "slip_date", "{0:dd-MM-yyyy}")%>
                                     </ItemTemplate>
@@ -401,7 +401,7 @@
                                         </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="590px">
+                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="650px">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "remark")%>
                                     </ItemTemplate>
@@ -412,7 +412,7 @@
                                         </telerik:RadComboBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="Amount" ItemStyle-Width="200px">
+                                <telerik:GridTemplateColumn HeaderText="Amount" ItemStyle-Width="140px" ItemStyle-HorizontalAlign="Right">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}")%>
                                     </ItemTemplate>
@@ -420,7 +420,7 @@
                                         <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_amount" Width="150px" NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
                                             Text='<%# DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}") %>'
-                                            onkeydown="blurTextBox(this, event)"
+                                            onkeydown="blurTextBox(this, event)" EnabledStyle-HorizontalAlign="Right"
                                             AutoPostBack="true" MaxLength="11" Type="Money"
                                             >
                                         </telerik:RadTextBox>
