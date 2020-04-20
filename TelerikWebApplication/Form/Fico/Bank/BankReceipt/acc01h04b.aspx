@@ -604,12 +604,12 @@
                                 </telerik:GridTemplateColumn>    
                                 <telerik:GridTemplateColumn HeaderText="Intrst.(%)" ItemStyle-Width="200px">
                                     <ItemTemplate>  
-                                        <%#DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}")%>
+                                        <%#DataBinder.Eval(Container.DataItem, "NoPPH23", "{0:#,###,###0.00}")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_amount" Width="150px" NumberFormat-AllowRounding="true"
+                                        <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_nopph23" Width="150px" NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                            Text='<%# DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}") %>'
+                                            Text='<%# DataBinder.Eval(Container.DataItem, "NoPPH23", "{0:#,###,###0.00}") %>'
                                             onkeydown="blurTextBox(this, event)"
                                             AutoPostBack="true" MaxLength="11" Type="Money"
                                             >
@@ -618,12 +618,12 @@
                                 </telerik:GridTemplateColumn>    
                                 <telerik:GridTemplateColumn HeaderText="Amount Of Intrst" ItemStyle-Width="200px">
                                     <ItemTemplate>  
-                                        <%#DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}")%>
+                                        <%#DataBinder.Eval(Container.DataItem, "PPHAmount", "{0:#,###,###0.00}")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_amount" Width="150px" NumberFormat-AllowRounding="true"
+                                        <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_pphamount" Width="150px" NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                            Text='<%# DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}") %>'
+                                            Text='<%# DataBinder.Eval(Container.DataItem, "PPHAmount", "{0:#,###,###0.00}") %>'
                                             onkeydown="blurTextBox(this, event)"
                                             AutoPostBack="true" MaxLength="11" Type="Money"
                                             >

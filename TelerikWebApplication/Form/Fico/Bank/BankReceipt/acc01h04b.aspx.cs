@@ -127,7 +127,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoBank FROM acc00h01 WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT cashbank FROM acc00h01 WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -140,38 +140,30 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         {
             foreach (GridDataItem item in RadGrid1.SelectedItems)
             {
-                //txt_NoBuk.Text = item["NoBuk"].Text;
+                //txt_slip_no.Text = item["slip_no"].Text;
                 //dtp_bm.SelectedDate = Convert.ToDateTime(item["doc_date"].Text);
 
                 con.Open();
                 SqlDataReader sdr;
-                SqlCommand cmd = new SqlCommand("SELECT * FROM v_bankmutation_list WHERE NoBuk = '" + item["NoBuk"].Text + "'", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM v_bankreceiptvoucher_list WHERE slip_no = '" + item["slip_no"].Text + "'", con);
                 sdr = cmd.ExecuteReader();
                 if (sdr.Read())
                 {
-                    txt_NoBuk.Text = sdr["NoBuk"].ToString();
-                    dtp_bm.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
-                    dtp_lm.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
-                    txt_NoCtrl.Text = sdr["NoCtrl"].ToString();
-                    txt_NoRef.Text = sdr["NoRef"].ToString();
+                    txt_slip_no.Text = sdr["slip_no"].ToString();
+                    dtp_bm.SelectedDate = Convert.ToDateTime(sdr["slip_date"].ToString());
+                    dtp_lm.SelectedDate = Convert.ToDateTime(sdr["tgl_cair"].ToString());
+                    txt_NoCtrl.Text = sdr["noctrl"].ToString();
                     cb_bank.Text = sdr["NamBank"].ToString();
-                    cb_project.Text = sdr["cust_name"].ToString();
-                    if (sdr["KoTransName"].ToString() == "PENERIMAAN BANK")
-                    {
-                        cb_KoTrans.Text = "PENERIMAAN BANK";
-                    }
-                    else
-                    {
-                        cb_KoTrans.Text = "PENGELUARAN BANK";
-                    }
-
+                    cb_Cust.Text = sdr["cust_name"].ToString(); 
                     cb_prepared.Text = sdr["PreparedBy"].ToString();
                     cb_checked.Text = sdr["CheckedBy"].ToString();
                     cb_approved.Text = sdr["ApprovalBy"].ToString();
-                    txt_Ket.Text = sdr["Ket"].ToString();
-                    txt_Kontak.Text = sdr["Kontak"].ToString();
                     txt_cur_code.Text = sdr["cur_code"].ToString();
                     txt_kurs.Text = sdr["kurs"].ToString();
+                    txt_cur_code_acc.Text = sdr["cur_code_acc"].ToString();
+                    txt_kurs_acc.Text = sdr["kurs_acc"].ToString();
+                    txt_inf_pay_no.Text = sdr["inf_pay_no"].ToString();
+                    txt_Remark.Text = sdr["Remark"].ToString();
                     txt_uid.Text = sdr["Usr"].ToString();
                     txt_LastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["LastUpdate"].ToString());
                     txt_owner.Text = sdr["Owner"].ToString();
@@ -180,7 +172,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 }
                 con.Close();
 
-                RadGrid2.DataSource = GetDataDetailTable(txt_NoBuk.Text);
+                RadGrid2.DataSource = GetDataDetailTable(txt_slip_no.Text);
                 RadGrid2.DataBind();
                 RadGrid2.Enabled = true;
                 //Session["Proccess"] = "SesEdit";
@@ -189,13 +181,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 btnSave.ImageUrl = "~/Images/simpan.png";
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
-                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_no.Text);
             }
         }
 
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
         {
-            var NoBuk = ((GridDataItem)e.Item).GetDataKeyValue("NoBuk");
+            var slip_no = ((GridDataItem)e.Item).GetDataKeyValue("slip_no");
 
             try
             {
@@ -203,8 +195,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h01 SET Usr = @Usr, LastUpdate = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
-                cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
+                cmd.CommandText = "UPDATE acc01h01 SET Usr = @Usr, LastUpdate = GETDATE(), Batal = '1' WHERE (slip_no = @slip_no)";
+                cmd.Parameters.AddWithValue("@slip_no", slip_no);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -277,26 +269,26 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             {
                 if (Session["action"].ToString() == "edit")
                 {
-                    run = txt_NoBuk.Text;
+                    run = txt_slip_no.Text;
                 }
                 else
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h01.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h01 WHERE LEFT(acc01h01.NoBuk, 4) ='" + cb_bank.SelectedValue + "' + '" + cb_KoTrans.SelectedValue + "' " +
-                        "AND SUBSTRING(acc01h01.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(acc01h01.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h01.slip_no , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM acc01h01 WHERE LEFT(acc01h01.slip_no, 4) ='" + cb_bank.SelectedValue + "' + '" + "M" + "' " +
+                        "AND SUBSTRING(acc01h01.slip_no, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(acc01h01.slip_no, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = cb_bank.SelectedValue + cb_KoTrans.SelectedValue + dtp_bm.SelectedDate.Value.Year + dtp_bm.SelectedDate.Value.Month + "0001";
+                        run = cb_bank.SelectedValue + "M" + dtp_bm.SelectedDate.Value.Year + dtp_bm.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = cb_bank.SelectedValue + cb_KoTrans.SelectedValue +
+                        run = cb_bank.SelectedValue + "M" +
                             (dtp_bm.SelectedDate.Value.Year.ToString()).Substring(dtp_bm.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_bm.SelectedDate.Value.Month).Substring(("0000" + dtp_bm.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
@@ -308,29 +300,27 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_BankMutationH";
-                cmd.Parameters.AddWithValue("@NoBuk", run);
-                cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_bm.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_lm.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@KoBank", cb_bank.SelectedValue);
-                cmd.Parameters.AddWithValue("@NoCtrl", txt_NoCtrl.Text);
-                cmd.Parameters.AddWithValue("@NoRef", txt_NoRef.Text);
-                cmd.Parameters.AddWithValue("@KoTrans", cb_KoTrans.SelectedValue);
+                cmd.CommandText = "sp_save_BankReceiptVoucherH";
+                cmd.Parameters.AddWithValue("@slip_no", run);
+                cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_bm.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_lm.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
+                cmd.Parameters.AddWithValue("@noctrl", txt_NoCtrl.Text);
+                cmd.Parameters.AddWithValue("@cust_code", cb_Cust.SelectedValue);
+                cmd.Parameters.AddWithValue("@remark1", cb_Cust.SelectedValue);
                 cmd.Parameters.AddWithValue("@freby", cb_prepared.SelectedValue);
                 cmd.Parameters.AddWithValue("@ordby", cb_checked.SelectedValue);
                 cmd.Parameters.AddWithValue("@appby", cb_approved.SelectedValue);
-                cmd.Parameters.AddWithValue("@Ket", txt_Ket.Text);
-                cmd.Parameters.AddWithValue("@Kontak", txt_Kontak.Text);
-                cmd.Parameters.AddWithValue("@Kode", "DB");
-                cmd.Parameters.AddWithValue("@Batal", 0);
-                cmd.Parameters.AddWithValue("@TValas", 0);
-                cmd.Parameters.AddWithValue("@Total", 0);
-                cmd.Parameters.AddWithValue("@TSub", 0);
+                cmd.Parameters.AddWithValue("@Remark", txt_Remark.Text);
+                cmd.Parameters.AddWithValue("@inf_pay_no", txt_inf_pay_no.Text);
+                cmd.Parameters.AddWithValue("@status", 1);
                 cmd.Parameters.AddWithValue("@cur_code", txt_cur_code.Text);
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
+                cmd.Parameters.AddWithValue("@cur_code_acc", txt_cur_code_acc.Text);
+                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs_acc.Text));
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 //cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@cust_code", public_str.site);
+               
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Printed", 0);
                 cmd.Parameters.AddWithValue("@Edited", 0);
@@ -343,12 +333,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 //lblsuccess.ForeColor = System.Drawing.Color.Blue;
                 ////RadGrid1.Controls.Add(lblsuccess);
                 con.Close();
-                txt_NoBuk.Text = run;
+                txt_slip_no.Text = run;
                 RadGrid2.Enabled = true;
                 btnSave.Enabled = false;
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
-                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_no.Text);
 
             }
             catch (Exception ex)
@@ -364,7 +354,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
         protected void btnPrint_Click(object sender, ImageClickEventArgs e)
         {
-            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
+            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_no.Text);
+            //update status jadi 3
         }
 
         protected void cb_Cust_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -413,7 +404,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             adapter.Fill(dt);
             foreach (DataRow dr1 in dt.Rows)
             {
-                txt_cur_cod.Text = dr1["cur_code"].ToString();
+                txt_cur_code.Text = dr1["cur_code"].ToString();
                 txt_kurs.Text = dr1["kurs"].ToString();
 
             }
@@ -454,7 +445,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT acc00h01.*, acc00h04.cur_code,acc00h04.KursRun FROM acc00h01 CROSS JOIN acc00h04 where " +
-            " acc00h04.tglKurs = (select MAX(acc00h04.tglKurs) from acc00h04) and NamBank = '" + cb_bank.Text + "'";
+            " acc00h04.slip_dateKurs = (select MAX(acc00h04.slip_dateKurs) from acc00h04) and NamBank = '" + cb_bank.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -466,7 +457,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             adapter.Fill(dt);
             foreach (DataRow dr1 in dt.Rows)
             {
-                txt_cur_cod_acc.Text = dr1["cur_code_acc"].ToString();
+                txt_cur_code_acc.Text = dr1["cur_code_acc"].ToString();
                 txt_kurs_acc.Text = dr1["kurs_acc"].ToString();
 
             }
@@ -642,7 +633,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_BankMutationD";
-                cmd.Parameters.AddWithValue("@NoBuk", txt_NoBuk.Text);
+                cmd.Parameters.AddWithValue("@slip_no", txt_slip_no.Text);
                 cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("cb_korek") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_Jumlah") as RadTextBox).Text));
@@ -676,17 +667,17 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            RadGrid2.DataSource = GetDataDetailTable(txt_NoBuk.Text);
+            RadGrid2.DataSource = GetDataDetailTable(txt_slip_no.Text);
         }
 
-        public DataTable GetDataDetailTable(string NoBuk)
+        public DataTable GetDataDetailTable(string slip_no)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_BankReceiptVoucherD";
-            cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
+            cmd.Parameters.AddWithValue("@slip_no", slip_no);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -715,8 +706,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from acc01d01 where KoRek = @KoRek and NoBuk = @NoBuk";
-                cmd.Parameters.AddWithValue("@NoBuk", txt_NoBuk.Text);
+                cmd.CommandText = "delete from acc01d01 where KoRek = @KoRek and slip_no = @slip_no";
+                cmd.Parameters.AddWithValue("@slip_no", txt_slip_no.Text);
                 cmd.Parameters.AddWithValue("@KoRek", KoRek);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -736,6 +727,21 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 RadGrid2.Controls.Add(lblError);
                 e.Canceled = true;
             }
+        }
+
+        protected void cb_inv_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+
+        }
+
+        protected void cb_inv_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+
+        }
+
+        protected void cb_inv_code_PreRender(object sender, EventArgs e)
+        {
+
         }
     }
 }
