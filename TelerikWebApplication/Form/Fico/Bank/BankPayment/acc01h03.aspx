@@ -403,12 +403,12 @@
                                         </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="650px">
+                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="150px">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "remark")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox RenderMode="Lightweight" DropDownWidth="370px" runat="server" ID="txt_remark"
+                                        <telerik:RadTextBox RenderMode="Lightweight" Width="150px" runat="server" ID="txt_remark"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>'
                                             EnableLoadOnDemand="True" Skin="MetroTouch" DataTextField="remark" DataValueField="remark" >
                                         </telerik:RadTextBox>
@@ -433,7 +433,7 @@
                                         <%#DataBinder.Eval(Container.DataItem, "region_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="txt_project" Width="400px"
+                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="txt_project" Width="150px"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>'>
                                         </telerik:RadComboBox>
                                     </EditItemTemplate>
@@ -443,7 +443,7 @@
                                         <%#DataBinder.Eval(Container.DataItem, "dept_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="txt_dept" Width="400px"
+                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="txt_dept" Width="150px"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>'>
                                         </telerik:RadComboBox>
                                     </EditItemTemplate>
