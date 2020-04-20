@@ -5,17 +5,18 @@
     <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
 
     <script src="../../../../Script/Script.js"></script>
-
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
             function rowDblClick(sender, eventArgs) {
                 sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
             }
+            //function ShowPreview(id) {
+            //    window.radopen("ReportVieweracc01h01.aspx?NoBuk=" + id, "PreviewDialog");
+            //    return false;
+            //}
         </script>
     </telerik:RadCodeBlock>
-
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
         <ContentTemplate>
@@ -104,6 +105,7 @@
                 </telerik:RadGrid>
             </ContentTemplate>
     </telerik:RadWindow>
+    <div class="scroller"> 
     <%--ICONS--%>
     <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
         <table id="tbl_control">
@@ -355,9 +357,9 @@
                                         <%#DataBinder.Eval(Container.DataItem, "inv_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code" DataTextField="Reg. Number"
+                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="cb_inv_code" DataTextField="Reg. Number"
                                             OnItemsRequested="cb_inv_code_ItemsRequested" DataValueField="inv_code" Text='<%# DataBinder.Eval(Container, "DataItem.inv_code") %>'
-                                            HighlightTemplatedItems="true" Height="190px" Width="150px" DropDownWidth="450px">
+                                            HighlightTemplatedItems="true" Width="150px">
                                             <%--<HeaderTemplate>
                                                 <ul>
                                                     <li class="col1">Prod. Code</li>
@@ -373,7 +375,7 @@
                                                         <%# DataBinder.Eval(Container, "Attributes['spec']")%></li>
                                                 </ul>
                                             </ItemTemplate>--%>
-                                        </telerik:RadComboBox>
+                                        </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
                             
@@ -406,10 +408,10 @@
                                         <%#DataBinder.Eval(Container.DataItem, "remark")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="370px" runat="server" ID="txt_remark"
+                                        <telerik:RadTextBox RenderMode="Lightweight" DropDownWidth="370px" runat="server" ID="txt_remark"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>'
                                             EnableLoadOnDemand="True" Skin="MetroTouch" DataTextField="remark" DataValueField="remark" >
-                                        </telerik:RadComboBox>
+                                        </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridTemplateColumn HeaderText="Amount" ItemStyle-Width="140px" ItemStyle-HorizontalAlign="Right">
@@ -431,9 +433,9 @@
                                         <%#DataBinder.Eval(Container.DataItem, "region_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_project" Width="400px"
+                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="txt_project" Width="400px"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>'>
-                                        </telerik:RadTextBox>
+                                        </telerik:RadComboBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn> 
                                 <telerik:GridTemplateColumn HeaderText="Cost Center" ItemStyle-Width="150px">
@@ -441,9 +443,9 @@
                                         <%#DataBinder.Eval(Container.DataItem, "dept_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_dept" Width="400px"
+                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="txt_dept" Width="400px"
                                             Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>'>
-                                        </telerik:RadTextBox>
+                                        </telerik:RadComboBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn> 
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" 
@@ -457,6 +459,14 @@
                     </ClientSettings>
                  </telerik:RadGrid>
             </div>
+        </div>
+        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
+            <Windows>
+                <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server"  ReloadOnShow="true" ShowContentDuringLoad="false"
+                  Width="1150px" Height="670px" Modal="true">
+                </telerik:RadWindow>
+            </Windows>
+        </telerik:RadWindowManager>
     <script type="text/javascript">
     //<![CDATA[
         Sys.Application.add_load(function() {
