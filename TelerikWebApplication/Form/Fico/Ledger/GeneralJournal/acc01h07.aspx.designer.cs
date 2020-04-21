@@ -94,15 +94,6 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal {
         protected global::Telerik.Web.UI.RadDatePicker dtp_to;
         
         /// <summary>
-        /// cb_GeneralJournal_prm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_GeneralJournal_prm;
-        
-        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>
@@ -184,13 +175,13 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal {
         protected global::Telerik.Web.UI.RadLabel lbl_form_name;
         
         /// <summary>
-        /// txt_voucherno control.
+        /// txt_ju_code control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_voucherno;
+        protected global::Telerik.Web.UI.RadTextBox txt_ju_code;
         
         /// <summary>
         /// txt_ref control.
@@ -256,13 +247,13 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal {
         protected global::Telerik.Web.UI.RadTextBox txt_lastupdate;
         
         /// <summary>
-        /// UpdatePanel5 control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// RadGrid2 control.
