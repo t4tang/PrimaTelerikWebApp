@@ -392,22 +392,28 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cust_code from acc00h07 WHERE cust_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select top(1) b.KursRun, a.cust_code, a.cur_code from acc00h07 a cross join acc00h04 b WHERE a.cust_name = '" + (sender as RadComboBox).Text + "'" +
+                " AND a.cur_code = b.cur_code order by tglKurs desc";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
+                txt_cur_code.Text = dr["cur_code"].ToString();
+                txt_kurs.Text = dr["KursRun"].ToString();
+            }
             dr.Close();
 
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            foreach (DataRow dr1 in dt.Rows)
-            {
-                txt_cur_code.Text = dr1["cur_code"].ToString();
-                txt_kurs.Text = dr1["kurs"].ToString();
+            //SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            //DataTable dt = new DataTable();
+            //adapter.Fill(dt);
+            //foreach (DataRow dr1 in dt.Rows)
+            //{
+            //    txt_cur_code.Text = dr1["cur_code"].ToString();
+            //    txt_kurs.Text = dr1["kurs"].ToString();
 
-            }
+            //}
+
             con.Close();
         }
 
@@ -449,7 +455,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["KoBank"].ToString();
+            }
             dr.Close();
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -731,8 +739,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
         private static DataTable GetInv(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select inv_code,date, cur_code, Net from sls01h01 where stEdit != 4 " +
-                " AND name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select * from v_bank_receive_voucher_reff where inv_code LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -765,7 +772,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT date, Net, kurs, kurs_tax, region_code, dept_code, remark FROM sls01h01 WHERE inv_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT date, JmlSisa, kurs, kurs_tax, region_code, dept_code, remark FROM v_bank_receive_voucher_reff WHERE inv_code = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -782,13 +789,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                     RadComboBox t_dept_code = (RadComboBox)item.FindControl("dept_code");
                     RadComboBox t_remark = (RadComboBox)item.FindControl("remark");
 
-                    t_date.Text = txt_date.Text;
-                    t_Net.Text = txt_Net.Text;
-                    t_kurs_tax.Text = txt_kurs_tax.Text;
-                    t_kurs.Text = txt_kurs.Text;
-                    t_region_code.Text = txt_region_code.Text;
-                    t_dept_code.Text = txt_dept_code.Text;
-                    t_remark.Text = txt_remark.Text;
+                    t_date.Text = dtr["date"].ToString();
+                    t_Net.Text = dtr["JmlSisa"].ToString();
+                    t_kurs_tax.Text = dtr["kurs_tax"].ToString();
+                    t_kurs.Text = dtr["kurs"].ToString();
+                    t_region_code.Text = dtr["region_code"].ToString();
+                    t_dept_code.Text = dtr["dept_code"].ToString();
+                    t_remark.Text = dtr["remark"].ToString();
                 }
 
             }
