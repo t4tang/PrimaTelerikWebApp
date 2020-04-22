@@ -80,8 +80,8 @@
                             <HeaderStyle Width="120px"></HeaderStyle>
                         </telerik:GridBoundColumn>
                          <telerik:GridBoundColumn UniqueName="cashbank" HeaderText="Bank Code" DataField="cashbank" 
-                            FilterControlWidth="90px" >
-                            <HeaderStyle Width="90px"></HeaderStyle>
+                            FilterControlWidth="50px" >
+                            <HeaderStyle Width="50px"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="noctrl" HeaderText="Ctrl. No" DataField="noctrl" 
                             FilterControlWidth="120px" >
@@ -93,13 +93,13 @@
                             <HeaderStyle Width="80px"></HeaderStyle>
                         </telerik:GridDateTimeColumn>
                         <telerik:GridBoundColumn UniqueName="remark1" HeaderText="Supplier" DataField="remark1" 
-                            FilterControlWidth="90px" >
-                            <HeaderStyle Width="90px"></HeaderStyle>
+                            FilterControlWidth="150px" >
+                            <HeaderStyle Width="150px"></HeaderStyle>
                         </telerik:GridBoundColumn>
                                    
                         <telerik:GridBoundColumn UniqueName="cur_code" HeaderText="Curr." DataField="cur_code" 
-                            FilterControlWidth="90px" >
-                            <HeaderStyle Width="90px"></HeaderStyle>
+                            FilterControlWidth="50px" >
+                            <HeaderStyle Width="50px"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="kurs" HeaderText="Kurs" DataField="kurs" 
                             FilterControlWidth="90px" >
@@ -213,12 +213,7 @@
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>             
-                            
-                        </table>
-                    </td>
-                    <td style="vertical-align: top; padding-left:15px">
-                        <table id="Table3" border="0" class="module">
-                            <tr>
+                             <tr>
                                 <td class="tdLabel">
                                     Customer:
                                 </td>
@@ -230,6 +225,11 @@
                                     </telerik:RadComboBox>               
                                 </td>
                             </tr>
+                        </table>
+                    </td>
+                    <td style="vertical-align: top; padding-left:15px">
+                        <table id="Table3" border="0" class="module">
+                           
                              <tr>
                                 <td class="tdLabel">
                                     Currency:
@@ -576,12 +576,12 @@
                             
                                <telerik:GridTemplateColumn HeaderText="Inv Date" ItemStyle-Width="250px" ItemStyle-HorizontalAlign="Right" DefaultInsertValue="0">
                                     <ItemTemplate>  
-                                        <%#DataBinder.Eval(Container.DataItem, "slip_date", "{0:dd-MM-yyyy}")%>
+                                        <%#DataBinder.Eval(Container.DataItem, "date", "{0:dd-MM-yyyy}")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
                                         <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_date" Width="100px" NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                            Text='<%# DataBinder.Eval(Container.DataItem, "slip_date", "{0:dd-MM-yyyy}") %>'
+                                            Text='<%# DataBinder.Eval(Container.DataItem, "slip_date") %>'
                                             onkeydown="blurTextBox(this, event)"
                                             AutoPostBack="true" MaxLength="11" Type="Date" 
                                             >
@@ -595,7 +595,7 @@
                                     <EditItemTemplate>
                                         <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_payment" Width="150px" NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                            Text='<%# DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}") %>'
+                                            Text='<%# DataBinder.Eval(Container.DataItem, "pay_amount") %>'
                                             onkeydown="blurTextBox(this, event)"
                                             AutoPostBack="true" MaxLength="11" Type="Money"
                                             >
@@ -609,7 +609,7 @@
                                     <EditItemTemplate>
                                         <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_nopph23" Width="150px" NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                            Text='<%# DataBinder.Eval(Container.DataItem, "NoPPH23", "{0:#,###,###0.00}") %>'
+                                            Text='<%# DataBinder.Eval(Container.DataItem, "NoPPH23") %>'
                                             onkeydown="blurTextBox(this, event)"
                                             AutoPostBack="true" MaxLength="11" Type="Money"
                                             >
@@ -623,7 +623,7 @@
                                     <EditItemTemplate>
                                         <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_pphamount" Width="150px" NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                            Text='<%# DataBinder.Eval(Container.DataItem, "PPHAmount", "{0:#,###,###0.00}") %>'
+                                            Text='<%# DataBinder.Eval(Container.DataItem, "PPHAmount") %>'
                                             onkeydown="blurTextBox(this, event)"
                                             AutoPostBack="true" MaxLength="11" Type="Money"
                                             >
@@ -633,7 +633,7 @@
                                 
                               <telerik:GridTemplateColumn HeaderText="Kurs" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>  
-                                    <%#DataBinder.Eval(Container.DataItem, "kurs")%>
+                                    <%#DataBinder.Eval(Container.DataItem, "kurs", "{0:#,###,###0.00}")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_kurs" Width="100px"
@@ -643,7 +643,7 @@
                             </telerik:GridTemplateColumn>
                              <telerik:GridTemplateColumn HeaderText="Kurs Tax" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>  
-                                    <%#DataBinder.Eval(Container.DataItem, "kurs_tax")%>
+                                    <%#DataBinder.Eval(Container.DataItem, "kurs_tax", "{0:#,###,###0.00}")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_kurs" Width="100px"

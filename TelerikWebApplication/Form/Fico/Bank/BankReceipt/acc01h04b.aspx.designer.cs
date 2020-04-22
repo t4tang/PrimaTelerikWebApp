@@ -7,8 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
-{
+namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt {
     
     
     public partial class acc01h04b {
