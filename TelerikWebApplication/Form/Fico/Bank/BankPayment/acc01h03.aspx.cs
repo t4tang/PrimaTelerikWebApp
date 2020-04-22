@@ -730,5 +730,52 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 item.DataBind();
             }
         }
+
+        protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem itm = (GridEditableItem)cb.NamingContainer;
+            RadComboBox c_project = (RadComboBox)itm.FindControl("cb_project_detail");
+
+            string sql = "SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM [inv00h11]  WHERE stEdit != '4' AND CostCenterName LIKE @CostCenterName + '%' AND region_code = @project";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@CostCenterName", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", c_project.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["code"].ToString();
+                item.Value = row["code"].ToString();
+                item.Attributes.Add("name", row["name"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void cb_cost_center_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
     }
 }
