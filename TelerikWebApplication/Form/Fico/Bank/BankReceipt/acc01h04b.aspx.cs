@@ -127,7 +127,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT cashbank FROM acc00h01 WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT KoBank FROM acc00h01 WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -729,19 +729,92 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             }
         }
 
+        private static DataTable GetInv(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select inv_code,date, cur_code, Net from sls01h01 where stEdit != 4 " +
+                " AND name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
         protected void cb_inv_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            DataTable data = GetInv(e.Text);
 
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["inv_code"].ToString(), data.Rows[i]["inv_code"].ToString()));
+            }
         }
 
         protected void cb_inv_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            Session["inv_code"] = e.Value;
 
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT date, Net, kurs, kurs_tax, region_code, dept_code, remark FROM sls01h01 WHERE inv_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox t_date = (RadTextBox)item.FindControl("txt_date");
+                    RadTextBox t_Net = (RadTextBox)item.FindControl("txt_Net");
+                    RadTextBox t_kurs_tax = (RadTextBox)item.FindControl("txt_kurs_tax");
+                    RadTextBox t_kurs = (RadTextBox)item.FindControl("txt_kurs");
+                    RadComboBox t_region_code = (RadComboBox)item.FindControl("region_code");
+                    RadComboBox t_dept_code = (RadComboBox)item.FindControl("dept_code");
+                    RadComboBox t_remark = (RadComboBox)item.FindControl("remark");
+
+                    t_date.Text = txt_date.Text;
+                    t_Net.Text = txt_Net.Text;
+                    t_kurs_tax.Text = txt_kurs_tax.Text;
+                    t_kurs.Text = txt_kurs.Text;
+                    t_region_code.Text = txt_region_code.Text;
+                    t_dept_code.Text = txt_dept_code.Text;
+                    t_remark.Text = txt_remark.Text;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
         protected void cb_inv_code_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT inv_code FROM sls01h01 WHERE inv_code = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
         }
     }
 }
