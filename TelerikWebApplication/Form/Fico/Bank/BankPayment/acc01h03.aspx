@@ -339,9 +339,9 @@
         <%--DETAIL--%>
             <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"
-                    AllowPaging="true" AllowSorting="true" runat="server"  OnNeedDataSource="RadGrid2_NeedDataSource"
+                    AllowPaging="true" AllowSorting="true" runat="server" OnNeedDataSource="RadGrid2_NeedDataSource"
                     AllowAutomaticUpdates="true" AllowAutomaticInserts="True" ShowStatusBar="true" 
-                    ClientSettings-Selecting-AllowRowSelect="true">   
+                    ClientSettings-Selecting-AllowRowSelect="true" OnInsertCommand="RadGrid2_save_handler" OnUpdateCommand="RadGrid2_save_handler">   
                         <MasterTableView CommandItemDisplay="Top" Font-Size="12px" EditMode="InPlace"
                             ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" DataKeyNames="inv_code">                                             
                             <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
