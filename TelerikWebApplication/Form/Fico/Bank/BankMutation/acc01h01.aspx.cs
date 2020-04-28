@@ -27,8 +27,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_bank_prm.SelectedValue = public_str.site;
 
-                Session["action"] = "new";
+                set_info();
+                Session["action"] = "Firstload";
                 RadGrid2.Enabled = false;
+                btnSave.Enabled = false;
+                btnSave.ImageUrl = "~/Images/simpan-gray.png";
+                btnPrint.Enabled = false;
+                btnPrint.ImageUrl = "~/Images/cetak-gray.png";
                 dtp_bm.SelectedDate = DateTime.Now;
             }
         }
@@ -345,12 +350,18 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
                 cmd.ExecuteNonQuery();
                 
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data saved successfully";
-                lblsuccess.ForeColor = System.Drawing.Color.Blue;
-                //RadGrid1.Controls.Add(lblsuccess);
+                //Label lblsuccess = new Label();
+                //lblsuccess.Text = "Data saved successfully";
+                //lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                ////RadGrid1.Controls.Add(lblsuccess);
                 con.Close();
                 txt_NoBuk.Text = run;
+                RadGrid2.Enabled = true;
+                btnSave.Enabled = false;
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
+
             }
             catch (Exception ex)
             {
@@ -630,12 +641,18 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            Session["act"] = "new";
+            Session["action"] = "new";
             btnSave.Enabled = true;
-            clear_text(Page.Controls);
+            btnSave.ImageUrl = "~/Images/simpan.png";
+            
             RadGrid2.DataSource = new string[] { };
             RadGrid2.DataBind();
             RadGrid2.Enabled = false;
+            btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+            if (Session["action"].ToString() != "FirstLoad")
+            {
+                clear_text(Page.Controls);
+            } 
             set_info();
         }
 
