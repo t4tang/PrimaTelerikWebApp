@@ -39,7 +39,7 @@
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server">
     </telerik:RadAjaxLoadingPanel>
 
-    <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone" Modal="true" Width="1110px" Height="580px">
+<telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone" Modal="true" Width="1110px" Height="580px">
         <ContentTemplate>
             <div runat="server" style="padding:20px 10px 10px 10px;" id="searchParam">
                 <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="Date From" Height="26px"></telerik:RadDatePicker>
@@ -53,16 +53,16 @@
                 ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="10" OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced" />
                 <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
-                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="voucherno" Font-Size="12px" EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" 
+                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="ju_code" Font-Size="12px" EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" 
                     CommandItemSettings-ShowAddNewRecordButton="false" CommandItemSettings-ShowRefreshButton="false">
                     <Columns>
-                        <telerik:GridBoundColumn UniqueName="voucherno" HeaderText="JU Number" DataField="ju_code">
+                        <telerik:GridBoundColumn UniqueName="ju_code" HeaderText="JU Number" DataField="ju_code">
                             <HeaderStyle Width="120px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="ref_code" HeaderText="Reference" DataField="ref_code" FilterControlWidth="90px">
                             <HeaderStyle Width="90px" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridDateTimeColumn UniqueName="date" HeaderText="Date" DataField="ju_date" ItemStyle-Width="80px" EnableRangeFiltering="false" FilterControlWidth="80px" 
+                        <telerik:GridDateTimeColumn UniqueName="ju_date" HeaderText="Date" DataField="ju_date" ItemStyle-Width="80px" EnableRangeFiltering="false" FilterControlWidth="80px" 
                             PickerType="DatePicker" DataFormatString="{0:d}">
                             <HeaderStyle Width="80px" />
                         </telerik:GridDateTimeColumn>
@@ -189,9 +189,9 @@
                                     Currency:
                                 </td>
                                 <td style="vertical-align:top; text-align:left">                      
-                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_currency" runat="server" Width="150px" DropDownWidth="300px"
-                                        AutoPostBack="true" ShowMoreResultsBox="false" EmptyMessage="- Select a Currency -" Skin="MetroTouch" EnableLoadOnDemand="true"  
-                                        OnItemsRequested="cb_currency_ItemsRequested" OnSelectedIndexChanged="cb_currency_SelectedIndexChanged" 
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_currency" runat="server" Width="150px" DropDownWidth="300px" 
+                                        ShowMoreResultsBox="false" EmptyMessage="- Select a Currency -" Skin="MetroTouch" EnableLoadOnDemand="true" Enabled="true"   
+                                        OnItemsRequested="cb_currency_ItemsRequested" OnSelectedIndexChanged="cb_currency_SelectedIndexChanged" AutoPostBack="true" 
                                         OnPreRender="cb_currency_PreRender">
                                     </telerik:RadComboBox>               
                                 </td>
@@ -201,7 +201,7 @@
                                     Kurs:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_kurs" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_kurs" runat="server" Width="150px" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -236,9 +236,7 @@
                     </td>
                 </tr>
             </table>
-          </div>
-
-        <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
+            <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5" AllowPaging="true" AllowSorting="true" runat="server" 
@@ -295,12 +293,12 @@
                                         </telerik:RadComboBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="300px">
+                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="280px">
                                     <ItemTemplate>  
                                          <%#DataBinder.Eval(Container.DataItem, "remark")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark" Width="300px" 
+                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark" Width="280px" 
                                             Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>'>
                                         </telerik:RadTextBox>                                                 
                                     </EditItemTemplate>
@@ -310,9 +308,10 @@
                                         <%#DataBinder.Eval(Container.DataItem, "cur_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_currency" DropDownWidth="120px"   
+                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_currency_d" DropDownWidth="120px" AutoPostBack="false"
+                                             Text='<%# DataBinder.Eval(Container, "DataItem.cur_code") %>'   
                                             EnableLoadOnDemand="true" Skin="MetroTouch" DataValueField="cur_code" DataTextField="cur_name" 
-                                            OnItemsRequested="cb_currency_ItemsRequested1" OnPreRender="cb_currency_PreRender1" OnSelectedIndexChanged="cb_currency_SelectedIndexChanged1">
+                                            OnItemsRequested="cb_currency_d_ItemsRequested" OnPreRender="cb_currency_d_PreRender" OnSelectedIndexChanged="cb_currency_d_SelectedIndexChanged">
                                         </telerik:RadComboBox>                                                                                
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
@@ -442,9 +441,10 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+      </div>
         
     </div>
-     <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
+        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
             <Windows>
                 <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server"  ReloadOnShow="true" ShowContentDuringLoad="false"
                   Width="1170px" Height="670px" Modal="true">

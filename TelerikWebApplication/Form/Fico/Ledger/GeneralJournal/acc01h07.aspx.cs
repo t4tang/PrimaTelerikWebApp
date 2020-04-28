@@ -30,7 +30,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
 
                 set_info();
                 Session["action"] = "FirstLoad";
-                //RadGrid2.Enabled = false;
+                RadGrid2.Enabled = false;
                 btnSave.Enabled = false;
                 btnSave.ImageUrl = "~/Images/simpan-gray.png";
                 btnPrint.Enabled = false;
@@ -65,7 +65,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             cmd.Connection = con;
             cmd.CommandText = "sp_get_gjH";
             cmd.Parameters.AddWithValue("@date", fromDate);
-            cmd.Parameters.AddWithValue("@todate", toDate);            
+            cmd.Parameters.AddWithValue("@todate", toDate);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -91,7 +91,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
 
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
         {
-            var ju_code = ((GridDataItem)e.Item).GetDataKeyValue("ju_code"); 
+            var ju_code = ((GridDataItem)e.Item).GetDataKeyValue("ju_code");
             try
             {
                 con.Open();
@@ -133,7 +133,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             {
                 con.Open();
                 SqlDataReader sdr;
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.acc01h10 WHERE ju_code = '" + item["ju_code"].Text + "'", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM acc01h10 WHERE ju_code = '" + item["ju_code"].Text + "'", con);
                 sdr = cmd.ExecuteReader();
                 if (sdr.Read())
                 {
@@ -145,8 +145,9 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                     txt_kurs.Text = sdr["kurs"].ToString();
                     txt_user.Text = sdr["userid"].ToString();
                     txt_lastupdate.Text = sdr["lastupdate"].ToString();
-                    
+
                 }
+
                 con.Close();
 
                 RadGrid2.DataSource = GetDataDetailTable(txt_ju_code.Text);
@@ -169,7 +170,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
 
             try
             {
-                
+
                 if (Session["action"].ToString() == "edit")
                 {
                     run = txt_ju_code.Text;
@@ -179,24 +180,25 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h10.ju_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h10 WHERE LEFT(acc01h10.ju_code, 4) = 'JU'" +
+                        "FROM acc01h10 WHERE LEFT(acc01h10.ju_code, 4) = 'JU03'" +
                         "AND SUBSTRING(acc01h10.ju_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                         "AND SUBSTRING(acc01h10.ju_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "JU" + dtp_bm.SelectedDate.Value.Year + dtp_bm.SelectedDate.Value.Month + "0001";
+                        run = "JU03" + dtp_bm.SelectedDate.Value.Year + dtp_bm.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "JU" + (dtp_bm.SelectedDate.Value.Year.ToString()).Substring(dtp_bm.SelectedDate.Value.Year.ToString().Length - 2) +
+                        run = "JU03" + (dtp_bm.SelectedDate.Value.Year.ToString()).Substring(dtp_bm.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_bm.SelectedDate.Value.Month).Substring(("0000" + dtp_bm.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
                     con.Close();
                 }
+                //GridEditableItem item = (GridEditableItem)e.Item;
                 con.Open();
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -254,6 +256,27 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             set_info();
         }
 
+        public void control_status(ControlCollection ctrls, bool state)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is RadTextBox)
+                    ((RadTextBox)ctrl).Enabled = state;
+                if (ctrl is RadComboBox)
+                    ((RadComboBox)ctrl).Enabled = state;
+                else if (ctrl is DropDownList)
+                    ((DropDownList)ctrl).Enabled = state;
+                else if (ctrl is CheckBox)
+                    ((CheckBox)ctrl).Enabled = state;
+                else if (ctrl is RadDatePicker)
+                    ((RadDatePicker)ctrl).Enabled = state;
+                else if (ctrl is RadGrid)
+                    ((RadGrid)ctrl).Enabled = state;
+
+                control_status(ctrl.Controls, state);
+            }
+        }
+
         private void clear_text(ControlCollection ctrls)
         {
             foreach (Control ctrl in ctrls)
@@ -274,7 +297,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
         {
             txt_user.Text = public_str.uid;
             txt_lastupdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
-           
+
         }
 
         protected void cb_currency_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -331,14 +354,14 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             }
         }
 
-        public DataTable GetDataDetailTable(string voucherno)
+        public DataTable GetDataDetailTable(string ju_code)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_gjD";
-            cmd.Parameters.AddWithValue("@voucherno", voucherno);
+            cmd.Parameters.AddWithValue("@voucherno", ju_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -374,7 +397,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "delete from acc01h07 where accountno = @accountno and voucherno = @voucherno";
-                cmd.Parameters.AddWithValue("@ju_code", txt_ju_code.Text);
+                cmd.Parameters.AddWithValue("@voucherno", txt_ju_code.Text);
                 cmd.Parameters.AddWithValue("@accountno", accountno);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -514,7 +537,9 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadComboBox C_Currency = (RadComboBox)item.FindControl("cb_currency_d");
 
+                    C_Currency.Text = cb_currency.SelectedValue;
                 }
 
             }
@@ -555,7 +580,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-           
+
             cb.Items.Clear();
 
             foreach (DataRow row in dt.Rows)
@@ -575,7 +600,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem itm = (GridEditableItem)cb.NamingContainer;
-            RadComboBox C_Project = (RadComboBox)itm.FindControl("cb_Project_Detail");
+            RadComboBox C_Project = (RadComboBox)itm.FindControl("cb_Project");
 
             string sql = "SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM [inv00h11]  WHERE stEdit != '4' AND CostCenterName LIKE @CostCenterName + '%' AND region_code = @project";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
@@ -618,7 +643,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             con.Close();
         }
 
-        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e) 
+        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
         {
             try
             {
@@ -628,19 +653,21 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_gjD";
-                cmd.Parameters.AddWithValue("@ju_code", txt_ju_code.Text);
-                cmd.Parameters.AddWithValue("@accountno", (item.FindControl("cb_accountno") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@voucherno", txt_ju_code.Text);
+                cmd.Parameters.AddWithValue("@accountno", (item.FindControl("cb_account") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@cur_code", Convert.ToDecimal((item.FindControl("txt_currency") as RadTextBox).Text));
-                
-                cmd.Parameters.AddWithValue("@debet", Convert.ToDouble((item.FindControl("txt_debet") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@credit", Convert.ToDouble((item.FindControl("txt_credit") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@debet_idr", Convert.ToDouble((item.FindControl("txt_debet_idr") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@credit_idr", Convert.ToDouble((item.FindControl("txt_credit_idr") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@ref_code", txt_ref.Text);
+                cmd.Parameters.AddWithValue("@cur_code", (item.FindControl("cb_currency_d") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@debet", Convert.ToDecimal((item.FindControl("txt_debet") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@credit", Convert.ToDecimal((item.FindControl("txt_credit") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@debet_idr", Convert.ToDecimal((item.FindControl("txt_debet_idr") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@credit_idr", Convert.ToDecimal((item.FindControl("txt_credit_idr") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_Project") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_Cost_Center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@branch_code", "03");
                 cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                cmd.Parameters.AddWithValue("@status", "0");
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid2.DataBind();
@@ -662,15 +689,17 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             }
         }
 
-        protected void cb_currency_ItemsRequested1(object sender, RadComboBoxItemsRequestedEventArgs e)
+        
+
+        protected void cb_currency_d_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("EURO");
             (sender as RadComboBox).Items.Add("IDR");
             (sender as RadComboBox).Items.Add("USD");
-            (sender as RadComboBox).Items.Add("YEN JEPANG");
+            (sender as RadComboBox).Items.Add("YEN");
         }
 
-        protected void cb_currency_PreRender1(object sender, EventArgs e)
+        protected void cb_currency_d_PreRender(object sender, EventArgs e)
         {
             if ((sender as RadComboBox).Text == "EURO")
             {
@@ -684,13 +713,13 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             {
                 (sender as RadComboBox).SelectedValue = "USD";
             }
-            else if ((sender as RadComboBox).Text == "YEN JEPANG")
+            else if ((sender as RadComboBox).Text == "YEN")
             {
-                (sender as RadComboBox).SelectedValue = "YEN JEPANG";
+                (sender as RadComboBox).SelectedValue = "YEN";
             }
         }
 
-        protected void cb_currency_SelectedIndexChanged1(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void cb_currency_d_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             if ((sender as RadComboBox).Text == "EURO")
             {
@@ -704,9 +733,9 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             {
                 (sender as RadComboBox).SelectedValue = "USD";
             }
-            else if ((sender as RadComboBox).Text == "YEN JEPANG")
+            else if ((sender as RadComboBox).Text == "YEN")
             {
-                (sender as RadComboBox).SelectedValue = "YEN JEPANG";
+                (sender as RadComboBox).SelectedValue = "YEN";
             }
         }
     }
