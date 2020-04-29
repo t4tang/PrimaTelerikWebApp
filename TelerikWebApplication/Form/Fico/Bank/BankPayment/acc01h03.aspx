@@ -221,7 +221,7 @@
                                     Doc Date:
                                 </td>
                                 <td>
-                                    <telerik:RadDatePicker ID="dtp_bpv"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                    <telerik:RadDatePicker ID="dtp_created"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
                                         TabIndex="4" Skin="Metro"> 
                                         <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
                                             EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Metro"></Calendar>
@@ -308,8 +308,8 @@
                                     User :                                                
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_user" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
-                                        AutoPostBack="false">
+                                    <telerik:RadTextBox ID="txt_user" runat="server" Width="50px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false" ReadOnly="true">
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -358,7 +358,7 @@
                                         <%#DataBinder.Eval(Container.DataItem, "inv_code")%>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="cb_inv_code" DataTextField="Reg. Number"
+                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_inv_code" DataTextField="Reg. Number"
                                             OnItemsRequested="cb_inv_code_ItemsRequested" DataValueField="inv_code" Text='<%# DataBinder.Eval(Container, "DataItem.inv_code") %>'
                                             HighlightTemplatedItems="true" Width="130px">
                                             <%--<HeaderTemplate>
