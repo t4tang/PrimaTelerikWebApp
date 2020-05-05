@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc01h07.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Ledger.GeneralJournal.acc01h07" %>
+﻿    <%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc01h07.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Ledger.GeneralJournal.acc01h07" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../../../../../Script/Script.js"></script>
     <link href="../../../../../Styles/custom-cs.css" rel="stylesheet" />
