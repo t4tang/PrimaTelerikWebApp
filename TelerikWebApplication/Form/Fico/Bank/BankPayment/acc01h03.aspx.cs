@@ -33,7 +33,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 btnSave.ImageUrl = "~/Images/simpan-gray.png";
                 btnPrint.Enabled = false;
                 btnPrint.ImageUrl = "~/Images/cetak-gray.png";
-                //dtp_bm.SelectedDate = DateTime.Now;
+                dtp_created.SelectedDate = DateTime.Now;
             }
         }
 
@@ -185,19 +185,20 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
             Session["act"] = "new";
-            btnSave.Enabled = false;
+            btnSave.Enabled = true;
             clear_text(Page.Controls);
             RadGrid2.DataSource = new string[] { };
             RadGrid2.DataBind();
             RadGrid2.Enabled = false;
-            //set_info();
+            //txt_user.Text = sdr["userid"].ToString();
+            set_info();
         }
 
         private void set_info()
         {
-            //txt_uid.Text = public_str.uid;
-            //txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
-            //txt_owner.Text = public_str.uid;
+            txt_user.Text = public_str.uid;
+            txt_lastupdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+            //txt.Text = public_str.uid;
             //txt_printed.Text = "0";
             //txt_edited.Text = "0";
         }
@@ -210,7 +211,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         {
             long maxNo;
             string run = null;
-            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_bpv.SelectedDate);
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_created.SelectedDate);
 
             try
             {
@@ -230,14 +231,14 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = cb_bank.SelectedValue + "K" + dtp_bpv.SelectedDate.Value.Year + dtp_bpv.SelectedDate.Value.Month + "0001";
+                        run = cb_bank.SelectedValue + "K" + dtp_created.SelectedDate.Value.Year + dtp_created.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
                         run = cb_bank.SelectedValue + "K" +
-                            (dtp_bpv.SelectedDate.Value.Year.ToString()).Substring(dtp_bpv.SelectedDate.Value.Year.ToString().Length - 2) +
-                            ("0000" + dtp_bpv.SelectedDate.Value.Month).Substring(("0000" + dtp_bpv.SelectedDate.Value.Month).Length - 2, 2) +
+                            (dtp_created.SelectedDate.Value.Year.ToString()).Substring(dtp_created.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_created.SelectedDate.Value.Month).Substring(("0000" + dtp_created.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
                     con.Close();
@@ -250,7 +251,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_bank_paymentH";
                 cmd.Parameters.AddWithValue("@slip_no", run);
-                cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_bpv.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_created.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@pay_way", "2");
                 //cmd.Parameters.AddWithValue("@inf_pay_no", txt.Text);
                 cmd.Parameters.AddWithValue("@accountno", cb_ref.SelectedValue);
@@ -259,7 +260,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 //cmd.Parameters.AddWithValue("@remark1", txt.SelectedValue);
                 //cmd.Parameters.AddWithValue("@remark2", cb_approved.SelectedValue);
                 cmd.Parameters.AddWithValue("@cur_code", txt_currency.Text);
-                cmd.Parameters.AddWithValue("@kurs", txt_kurs.Text);
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDecimal(txt_kurs.Text));
                 cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
                 //cmd.Parameters.AddWithValue("@status", txt_kurs.Text);
                 cmd.Parameters.AddWithValue("@userid", txt_user.Text);
@@ -270,7 +271,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 cmd.Parameters.AddWithValue("@trans_kind", 1);
                 cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
                 cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
-                cmd.Parameters.AddWithValue("@kurs_acc", txt_kurs2.Text);
+                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDecimal(txt_kurs2.Text));
                 cmd.Parameters.AddWithValue("@cur_code_acc", txt_curr2.Text);
                 //cmd.Parameters.AddWithValue("@PlantCode", txt_NoCtrl.Text);
                 cmd.Parameters.AddWithValue("@noctrl", txt_ctrl.Text);
@@ -613,14 +614,14 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_bank_paymentD";
                 cmd.Parameters.AddWithValue("@slip_no", txt_slip_number.Text);
-                cmd.Parameters.AddWithValue("@inv_code", (item.FindControl("cb_korek") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@remark", Convert.ToDouble((item.FindControl("txt_Jumlah") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@selisih_kurs", (item.FindControl("cb_mutasi") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@pay_amount_acc", (item.FindControl("txt_Ket") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@pay_amount_idr", (item.FindControl("cb_cost_center") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@fkno", (item.FindControl("cb_project_detail") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_project_detail") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@inv_code", (item.FindControl("txt_inv_number") as RadTextBox).Text);
+                //cmd.Parameters.AddWithValue("@inv_date", (item.FindControl("dtp_date") as RadDatePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@pay_amount_idr", Convert.ToDouble((item.FindControl("txt_amount") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@pay_amount_acc", Convert.ToDouble((item.FindControl("txt_amount") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble((item.FindControl("txt_amount") as RadTextBox).Text));
+                //cmd.Parameters.AddWithValue("@fkno", (item.FindControl("cb_project_detail") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project_detail") as RadComboBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();

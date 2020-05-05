@@ -265,13 +265,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment {
         protected global::Telerik.Web.UI.RadTextBox txt_curr2;
         
         /// <summary>
-        /// dtp_bpv control.
+        /// dtp_created control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker dtp_bpv;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_created;
         
         /// <summary>
         /// txt_kurs2 control.
