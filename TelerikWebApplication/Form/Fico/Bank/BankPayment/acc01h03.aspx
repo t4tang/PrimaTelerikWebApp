@@ -68,34 +68,34 @@
                      EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                      CommandItemSettings-ShowRefreshButton="false">
                         <Columns>
-                            <telerik:GridBoundColumn UniqueName="slip_no" HeaderText="Reg. No" DataField="slip_no">
+                            <telerik:GridBoundColumn UniqueName="slip_no" HeaderText="Reg. No" DataField="slip_no" FilterControlWidth="120px">
                             <HeaderStyle Width="120px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="cashbank" HeaderText="Bank Code" DataField="cashbank">
+                            <telerik:GridBoundColumn UniqueName="cashbank" HeaderText="Bank Code" DataField="cashbank" FilterControlWidth="48px">
+                            <HeaderStyle Width="70px"></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="noctrl" HeaderText="Ctrl. No" DataField="noctrl" FilterControlWidth="120px">
                             <HeaderStyle Width="120px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="noctrl" HeaderText="Ctrl. No" DataField="noctrl">
-                            <HeaderStyle Width="120px"></HeaderStyle>
-                            </telerik:GridBoundColumn>
-                            <telerik:GridDateTimeColumn UniqueName="doc_date" HeaderText="Date" DataField="doc_date" ItemStyle-Width="80px" 
-                                EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
-                                DataFormatString="{0:d}" >
+                            <telerik:GridDateTimeColumn UniqueName="doc_date" HeaderText="Date" DataField="doc_date" FilterControlWidth="80px" 
+                                EnableRangeFiltering="false" PickerType="DatePicker" 
+                                DataFormatString="{0:d}">
                             <HeaderStyle Width="80px"></HeaderStyle>
                             </telerik:GridDateTimeColumn>
-                            <telerik:GridBoundColumn UniqueName="supplier_name" HeaderText="Supplier" DataField="supplier_name">
+                            <telerik:GridBoundColumn UniqueName="supplier_name" HeaderText="Supplier" DataField="supplier_name" FilterControlWidth="120px">
                             <HeaderStyle Width="120px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="cur_code" HeaderText="Curr" DataField="cur_code">
+                            <telerik:GridBoundColumn UniqueName="cur_code" HeaderText="Curr" DataField="cur_code" FilterControlWidth="30px">
+                            <HeaderStyle Width="50px"></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="kurs" HeaderText="Kurs" DataField="kurs" FilterControlWidth="120px">
                             <HeaderStyle Width="120px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="kurs" HeaderText="Kurs" DataField="kurs">
+                            <telerik:GridBoundColumn UniqueName="tot_pay" HeaderText="Tot. Amount" DataField="tot_pay" FilterControlWidth="120px">
                             <HeaderStyle Width="120px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="tot_pay" HeaderText="Tot. Amount" DataField="tot_pay">
-                            <HeaderStyle Width="120px"></HeaderStyle>
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="Remark" HeaderText="Remark" DataField="Remark">
-                            <HeaderStyle Width="120px"></HeaderStyle>
+                            <telerik:GridBoundColumn UniqueName="Remark" HeaderText="Remark" DataField="Remark" FilterControlWidth="300px">
+                            <HeaderStyle Width="200px"></HeaderStyle>
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
@@ -380,7 +380,7 @@
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>--%>
                             
-                                <telerik:GridTemplateColumn HeaderText="Invoice Number" ItemStyle-Width="200px">
+                                <telerik:GridTemplateColumn HeaderText="Invoice Number" ItemStyle-Width="130px">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "inv_code")%>
                                     </ItemTemplate>
@@ -390,7 +390,7 @@
                                         </telerik:RadTextBox>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText="Inv Date" ItemStyle-Width="250px" ItemStyle-HorizontalAlign="Center" DefaultInsertValue="0">
+                                <telerik:GridTemplateColumn HeaderText="Inv Date" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="Center" DefaultInsertValue="0">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "slip_date", "{0:dd-MM-yyyy}")%>
                                     </ItemTemplate>
@@ -415,7 +415,7 @@
                                     </telerik:RadDatePicker>
                                     </InsertItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="180px">
+                                <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="280px">
                                     <ItemTemplate>  
                                         <%#DataBinder.Eval(Container.DataItem, "remark")%>
                                     </ItemTemplate>
