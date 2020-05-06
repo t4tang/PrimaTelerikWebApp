@@ -98,7 +98,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h10 SET userid = @userid, lastupdate = GETDATE(), stEdit = '1' WHERE (ju_code = @ju_code)";
+                cmd.CommandText = "UPDATE acc01h10 SET userid = @userid, lastupdate = GETDATE(), stEdit = '4' WHERE (ju_code = @ju_code)";
                 cmd.Parameters.AddWithValue("@ju_code", ju_code);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -144,7 +144,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                     cb_currency.Text = sdr["cur_code"].ToString();
                     txt_kurs.Text = sdr["kurs"].ToString();
                     txt_user.Text = sdr["userid"].ToString();
-                    txt_lastupdate.Text = sdr["lastupdate"].ToString();
+                    txt_lastupdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
 
                 }
 
@@ -296,7 +296,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
         private void set_info()
         {
             txt_user.Text = public_str.uid;
-            txt_lastupdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+            txt_lastupdate.Text = string.Format("{0:dd/MM/yyyy hh:mm:ss}", DateTime.Now);
 
         }
 
