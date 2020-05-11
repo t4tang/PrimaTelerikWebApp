@@ -12,7 +12,7 @@
                 sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
             }
             function ShowPreview(id) {
-                window.radopen("ReportVieweracc01h01.aspx?slip_no=" + id, "PreviewDialog");
+                window.radopen("ReportVieweracc01h04.aspx?slip_no=" + id, "PreviewDialog");
                 return false;
             }
         </script>
@@ -611,7 +611,7 @@
                                             </EditItemTemplate>
                                         </telerik:GridTemplateColumn>    
 
-                                        <telerik:GridTemplateColumn HeaderText="Intrst.(%)" ItemStyle-Width="200px">
+                                       <%-- <telerik:GridTemplateColumn HeaderText="Intrst.(%)" ItemStyle-Width="200px">
                                             <ItemTemplate>  
                                                 <%#DataBinder.Eval(Container.DataItem, "NoPPH23", "{0:#,###,###0.00}")%>
                                             </ItemTemplate>
@@ -639,7 +639,7 @@
                                                     >
                                                 </telerik:RadTextBox>
                                             </EditItemTemplate>
-                                        </telerik:GridTemplateColumn>      
+                                        </telerik:GridTemplateColumn>      --%>
                                 
                                         <telerik:GridTemplateColumn HeaderText="Kurs" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>  
