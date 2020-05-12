@@ -12,9 +12,9 @@
 		#reportViewer1 {
 			position: absolute;
 			left: 5px;
-			right: 5px;
-			top: 5px;
-			bottom: 5px;
+			right: -233px;
+			top: 6px;
+			bottom: -358px;
 			overflow: hidden;
 			font-family: Verdana, Arial;
 		}
@@ -29,7 +29,7 @@
 			Height="900px"
 			EnableAccessibility="false"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="ReportLibrary.slip.acc01h03_slip, ReportLibrary">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="ReportLibrary.slip.acc01h03_slip, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
     </form>
