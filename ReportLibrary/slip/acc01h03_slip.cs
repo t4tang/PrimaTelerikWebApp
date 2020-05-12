@@ -12,7 +12,7 @@ namespace ReportLibrary.slip
     /// </summary>
     public partial class acc01h03_slip : Telerik.Reporting.Report
     {
-        public static string _tr_code = "B01K3110017";
+        public static string _tr_code;
         public acc01h03_slip()
         {
 
