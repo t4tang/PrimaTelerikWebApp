@@ -10,10 +10,10 @@
             function rowDblClick(sender, eventArgs) {
                 sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
             }
-            //function ShowPreview(id) {
-            //    window.radopen("ReportVieweracc01h01.aspx?NoBuk=" + id, "PreviewDialog");
-            //    return false;
-            //}
+            function ShowPreview(id) {
+                window.radopen("ReportVieweracc01h03.aspx?slip_no=" + id, "PreviewDialog");
+                return false;
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -129,7 +129,7 @@
                     </asp:ImageButton>
                 </td>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
-                    <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print"
+                    <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" OnClick="btnPrint_Click"
                         Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
                     </asp:ImageButton>
                 </td>   

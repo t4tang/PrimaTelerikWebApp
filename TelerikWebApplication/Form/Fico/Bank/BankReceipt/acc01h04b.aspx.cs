@@ -201,7 +201,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h01 SET Usr = @Usr, LastUpdate = GETDATE(), Batal = '1' WHERE (slip_no = @slip_no)";
+                cmd.CommandText = "UPDATE acc01h04 SET Usr = @Usr, LastUpdate = GETDATE(), status = 4 WHERE (slip_no = @slip_no)";
                 cmd.Parameters.AddWithValue("@slip_no", slip_no);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -756,7 +756,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         }
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
-            var KoRek = ((GridDataItem)e.Item).GetDataKeyValue("KoRek");
+            var inv_code = ((GridDataItem)e.Item).GetDataKeyValue("inv_code");
 
             try
             {
@@ -765,9 +765,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from acc01d01 where KoRek = @KoRek and slip_no = @slip_no";
+                cmd.CommandText = "delete from acc01d04 where inv_code = @inv_code and slip_no = @slip_no";
                 cmd.Parameters.AddWithValue("@slip_no", txt_slip_no.Text);
-                cmd.Parameters.AddWithValue("@KoRek", KoRek);
+                cmd.Parameters.AddWithValue("@inv_code", inv_code);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid2.DataBind();
