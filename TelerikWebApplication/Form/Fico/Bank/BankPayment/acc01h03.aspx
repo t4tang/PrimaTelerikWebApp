@@ -105,7 +105,7 @@
     </telerik:RadWindow>
     <div class="scroller"> 
     <%--ICONS--%>
-    <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
+   <div style=" padding-left:15px; width:100%; border-bottom-color: #FF6600; border-bottom-width: 1px; border-bottom-style: inset;">
         <table id="tbl_control">
             <tr>
                 <td  style="text-align:right;">
@@ -115,14 +115,10 @@
                 </td>
                 <td style="vertical-align:middle; margin-left:10px">
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
-                        Height="37px" Width="49px" ImageUrl="~/Images/tambah.png">
+                        Height="30px" Width="35px" ImageUrl="~/Images/tambah.png">
                     </asp:ImageButton>
                 </td>
-                <%--<td style="vertical-align:middle; margin-left:20px">
-                    <asp:ImageButton runat="server" ID="btnEdit" AlternateText="Edit" OnClick="btnEdit_Click"
-                        Height="25px" Width="30px" ImageUrl="~/Images/edit.png">
-                    </asp:ImageButton>
-                </td>--%>
+               
                 <td style="vertical-align:middle; margin-left:10px;padding-left:0px">
                     <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" OnClick="btnSave_Click"
                         Height="30px" Width="32px" ImageUrl="~/Images/simpan-gray.png">
@@ -133,7 +129,7 @@
                         Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
                     </asp:ImageButton>
                 </td>   
-                <td style="width:89%; text-align:right">
+                <td style="width:87%; text-align:right">
                     <telerik:RadLabel ID="lbl_form_name" Text="Bank Payment Voucher" runat="server" style="font-weight:lighter; 
                         font-size:10px; font-variant: small-caps; padding-left:10px; 
                     padding-bottom:0px; font-size:x-large; color:Highlight">
