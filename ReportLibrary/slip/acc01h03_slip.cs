@@ -15,7 +15,6 @@ namespace ReportLibrary.slip
         public static string _tr_code;
         public acc01h03_slip()
         {
-
             //
             // Required for telerik Reporting designer support
             //
