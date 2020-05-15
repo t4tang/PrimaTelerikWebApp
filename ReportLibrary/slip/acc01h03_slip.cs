@@ -8,7 +8,7 @@ namespace ReportLibrary.slip
     using Telerik.Reporting.Drawing;
 
     /// <summary>
-    /// Summary description for acc01h03_slip.
+    /// Summary description for Report1.
     /// </summary>
     public partial class acc01h03_slip : Telerik.Reporting.Report
     {
