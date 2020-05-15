@@ -10,10 +10,10 @@ namespace ReportLibrary.slip
     /// <summary>
     /// Summary description for Report1.
     /// </summary>
-    public partial class acc01h03_slip : Telerik.Reporting.Report
+    public partial class acc01h03_slip2 : Telerik.Reporting.Report
     {
         public static string _tr_code;
-        public acc01h03_slip()
+        public acc01h03_slip2()
         {
             //
             // Required for telerik Reporting designer support
