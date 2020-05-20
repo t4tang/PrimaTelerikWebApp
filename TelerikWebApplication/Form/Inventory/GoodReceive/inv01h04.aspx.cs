@@ -13,5 +13,20 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         {
 
         }
+
+        protected void btnOk_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnNew_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
     }
 }

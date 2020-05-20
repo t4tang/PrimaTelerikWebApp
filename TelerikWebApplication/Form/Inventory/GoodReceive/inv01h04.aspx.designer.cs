@@ -184,6 +184,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         protected global::Telerik.Web.UI.RadTextBox txt_gr_number;
         
         /// <summary>
+        /// rb_from control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox rb_from;
+        
+        /// <summary>
         /// dtp_gr control.
         /// </summary>
         /// <remarks>
@@ -191,5 +200,41 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker dtp_gr;
+        
+        /// <summary>
+        /// cb_project control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_project;
+        
+        /// <summary>
+        /// cb_supplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_supplier;
+        
+        /// <summary>
+        /// cb_ref control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_ref;
+        
+        /// <summary>
+        /// cb_costcenter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_costcenter;
     }
 }
