@@ -2,6 +2,7 @@ namespace ReportLibrary.slip
 {
     using System;
     using System.ComponentModel;
+    using System.Data.SqlClient;
     using System.Drawing;
     using System.Windows.Forms;
     using Telerik.Reporting;
@@ -12,7 +13,12 @@ namespace ReportLibrary.slip
     /// </summary>
     public partial class acc01h03_slip : Telerik.Reporting.Report
     {
+
+        //SqlConnection con = new SqlConnection(db_connection.koneksi);
+        //SqlDataAdapter sda = new SqlDataAdapter();
+        //SqlCommand cmd = new SqlCommand();
         public static string _tr_code;
+
         public acc01h03_slip()
         {
             //
@@ -23,6 +29,7 @@ namespace ReportLibrary.slip
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
+
             Telerik.Reporting.ReportParameter param = new ReportParameter();
             param.Name = "slip_no";
             param.Type = ReportParameterType.String;
