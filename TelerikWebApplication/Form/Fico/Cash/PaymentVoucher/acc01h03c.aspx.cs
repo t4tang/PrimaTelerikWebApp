@@ -1005,5 +1005,32 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 con.Close();
             }
         }
+
+        //protected void INV_Code(string name, RadComboBox cb)
+        //{
+        //    SqlConnection con = new SqlConnection(
+        //   ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(NoBuk) as code,upper(NoPO) as name FROM acc01h13 " +
+        //        "WHERE Batal <> '4' AND NoPO LIKE @text + '%'", con);
+        //    adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+        //    DataTable dt = new DataTable();
+        //    adapter.Fill(dt);
+
+        //    // Clear the default Item that has been re-created from ViewState at this point.
+        //    cb.Items.Clear();
+
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        RadComboBoxItem item = new RadComboBoxItem();
+        //        item.Text = row["code"].ToString();
+        //        item.Value = row["code"].ToString();
+        //        item.Attributes.Add("name", row["name"].ToString());
+
+        //        cb.Items.Add(item);
+
+        //        item.DataBind();
+        //    }
+        //}
     }
 }
