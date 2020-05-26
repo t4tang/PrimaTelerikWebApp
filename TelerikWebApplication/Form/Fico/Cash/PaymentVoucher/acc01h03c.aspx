@@ -460,7 +460,7 @@
                                         </ItemTemplate>
                                         <EditItemTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code" EnableLoadOnDemand="true" AutoPostBack="true" 
-                                                OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoPO" DataValueField="inv_code"
+                                                OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoPO" DataValueField="NoBuk"
                                                 Text='<%# DataBinder.Eval(Container, "DataItem.inv_code") %>' 
                                                 HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="500px" 
                                                 OnPreRender="cb_inv_code_PreRender" OnSelectedIndexChanged="cb_inv_code_SelectedIndexChanged"
