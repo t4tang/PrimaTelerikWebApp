@@ -10,10 +10,10 @@
             function rowDblClick(sender, eventArgs) {
                 sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
             }
-            //function ShowPreview(id) {
-            //    window.radopen("ReportVieweracc01h01.aspx?NoBuk=" + id, "PreviewDialog");
-            //    return false;
-            //}
+            function ShowPreview(id) {
+                window.radopen("ReportVieweracc01h03.aspx?slip_no=" + id, "PreviewDialog");
+                return false;
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -33,15 +33,13 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
-             <telerik:AjaxSetting AjaxControlID="cb_project_prm">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
-                </UpdatedControls>                
-            </telerik:AjaxSetting>
+             
         </AjaxSettings>
     </telerik:RadAjaxManager>
+    
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server">
     </telerik:RadAjaxLoadingPanel>
+    
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone"
         Modal="true" Width="1110px" Height="580px">
         <%--LIST DATA--%>
@@ -58,7 +56,7 @@
                  &nbsp
                 <asp:Button ID="btnOk" runat="server" Text="Select & Close" OnClick="btnOk_Click"/>
             </div>
-                <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="MetroTouch"
+            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="MetroTouch"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="10"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand">
                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
@@ -107,39 +105,36 @@
     </telerik:RadWindow>
     <div class="scroller"> 
     <%--ICONS--%>
-    <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
+   <div style=" padding-left:15px; width:100%; border-bottom-color: #FF6600; border-bottom-width: 1px; border-bottom-style: inset;">
         <table id="tbl_control">
             <tr>
-                <td style="text-align:right;">
-                        <asp:ImageButton runat="server" ID="btnList" OnClientClick="openWinContentTemplate(); return false;"
-                            Height="30px" Width="35px" ImageUrl="~/Images/list.png" >                            
-                        </asp:ImageButton>
+                <td  style="text-align:right;">
+                    <asp:ImageButton runat="server" ID="btnList" OnClientClick="openWinContentTemplate(); return false;"
+                        Height="30px" Width="35px" ImageUrl="~/Images/daftar.png">
+                    </asp:ImageButton>                        
                 </td>
                 <td style="vertical-align:middle; margin-left:10px">
-                        <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
-                            Height="37px" Width="49px" ImageUrl="~/Images/add.png">
-                        </asp:ImageButton>
-                </td>
-                <td style="vertical-align:middle; margin-left:20px">
-                    <asp:ImageButton runat="server" ID="btnEdit" AlternateText="Edit" OnClick="btnEdit_Click"
-                        Height="25px" Width="30px" ImageUrl="~/Images/edit.png">
+                    <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
+                        Height="30px" Width="35px" ImageUrl="~/Images/tambah.png">
                     </asp:ImageButton>
                 </td>
-                <td style="vertical-align:top; margin-left:20px;padding-left:7px">
+               
+                <td style="vertical-align:middle; margin-left:10px;padding-left:0px">
                     <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" OnClick="btnSave_Click"
-                        Height="37px" Width="38px" ImageUrl="~/Images/save.png">
+                        Height="30px" Width="32px" ImageUrl="~/Images/simpan-gray.png">
                     </asp:ImageButton>
                 </td>
-                <td style="vertical-align:middle; margin-left:10px;padding-left:3px">
-                    <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" 
-                        Height="35px" Width="35px" ImageUrl="~/Images/printer.png">
+                    <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
+                    <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" OnClick="btnPrint_Click"
+                        Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
                     </asp:ImageButton>
+                </td>   
+                <td style="width:87%; text-align:right">
+                    <telerik:RadLabel ID="lbl_form_name" Text="Bank Payment Voucher" runat="server" style="font-weight:lighter; 
+                        font-size:10px; font-variant: small-caps; padding-left:10px; 
+                    padding-bottom:0px; font-size:x-large; color:Highlight">
+                    </telerik:RadLabel>
                 </td>
-                <td style="width:89%; text-align:right">
-                        <telerik:RadLabel ID="lbl_form_name" Text="Bank Payment Voucher" runat="server" style="font-weight:lighter; 
-                            font-size:10px; font-variant: small-caps; padding-left:10px; 
-                        padding-bottom:0px; font-size:x-large; color:Highlight"></telerik:RadLabel>
-                    </td>
             </tr>
         </table>
     </div>

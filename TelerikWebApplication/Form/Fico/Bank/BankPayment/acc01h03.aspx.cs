@@ -184,13 +184,18 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
 
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            Session["act"] = "new";
+            Session["action"] = "new";
             btnSave.Enabled = true;
-            clear_text(Page.Controls);
+            btnSave.ImageUrl = "~/Images/simpan.png";
+
             RadGrid2.DataSource = new string[] { };
             RadGrid2.DataBind();
             RadGrid2.Enabled = false;
-            //txt_user.Text = sdr["userid"].ToString();
+            btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+            if (Session["action"].ToString() != "FirstLoad")
+            {
+                clear_text(Page.Controls);
+            }
             set_info();
         }
 
@@ -554,8 +559,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                     txt_curr2.Text = sdr["cur_code_acc"].ToString();
                     txt_kurs2.Text = sdr["kurs_acc"].ToString();
                     txt_ctrl.Text = sdr["noctrl"].ToString();
-                    dtp_from.SelectedDate = Convert.ToDateTime(sdr["slip_date"].ToString());
-                    dtp_to.SelectedDate = Convert.ToDateTime(sdr["tgl_cair"].ToString());
+                    dtp_created.SelectedDate = Convert.ToDateTime(sdr["slip_date"].ToString());
+                    dtp_cashed.SelectedDate = Convert.ToDateTime(sdr["tgl_cair"].ToString());
                     //txt_giro.Text = sdr["doc_remark"].ToString();
                     txt_remark.Text = sdr["Remark"].ToString();
                     txt_user.Text = sdr["userid"].ToString();
@@ -569,8 +574,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 RadGrid2.DataSource = GetDataDetailTable(txt_slip_number.Text);
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
-                RadGrid2.Enabled = true;
-                btnSave.Enabled = false;
+                btnSave.Enabled = true;
+                btnSave.ImageUrl = "~/Images/simpan.png";
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_number.Text);
+
             }
         }
 
@@ -813,6 +822,11 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
+        }
+
+        protected void btnPrint_Click(object sender, ImageClickEventArgs e)
+        {
+            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_number.Text);
         }
     }
 }
