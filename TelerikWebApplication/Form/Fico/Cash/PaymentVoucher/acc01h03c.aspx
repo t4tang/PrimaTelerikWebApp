@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
+    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
 
     <script type="text/javascript" src="../../../../Script/Script.js" ></script>
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server" >
@@ -17,7 +18,6 @@
     </telerik:RadCodeBlock>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
-    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
         <ContentTemplate>
             <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
@@ -182,7 +182,7 @@
                                     Supplier:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="308px" Enabled="true"
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="308px" Enabled="true" AutoPostBack="true"
                                         OnItemsRequested="cb_supplier_ItemsRequested" OnSelectedIndexChanged="cb_supplier_SelectedIndexChanged" OnPreRender="cb_supplier_PreRender"
                                         Skin="MetroTouch" EnableLoadOnDemand="true" EnableVirtualScrolling="true" MarkFirstMatch="true" ShowMoreResultsBox="true" >
                                     </telerik:RadComboBox>
@@ -214,8 +214,8 @@
                                     Reference:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="308px" Enabled="true" 
-                                        EnableLoadOnDemand="True" ShowMoreResultsBox="true" Skin="MetroTouch" EnableVirtualScrolling="true" autopostback="false" 
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="308px" Enabled="false" 
+                                        EnableLoadOnDemand="True" ShowMoreResultsBox="true" Skin="MetroTouch" EnableVirtualScrolling="true" 
                                         OnItemsRequested="cb_ref_ItemsRequested" OnSelectedIndexChanged="cb_ref_SelectedIndexChanged" OnPreRender="cb_ref_PreRender">
                                     </telerik:RadComboBox>
                                 </td>
@@ -225,7 +225,7 @@
                                     Cash:
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_cash" runat="server" Width="308px" Enabled="true" AutoPostBack="false" 
+                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_cash" runat="server" Width="308px" Enabled="true" AutoPostBack="true" 
                                         OnItemsRequested="cb_cash_ItemsRequested" OnSelectedIndexChanged="cb_cash_SelectedIndexChanged" OnPreRender="cb_cash_PreRender"
                                         Skin="MetroTouch" EnableLoadOnDemand="true" EnableVirtualScrolling="true" MarkFirstMatch="true" ShowMoreResultsBox="true"  >
                                     </telerik:RadComboBox>
@@ -460,7 +460,7 @@
                                         </ItemTemplate>
                                         <EditItemTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code" EnableLoadOnDemand="true" AutoPostBack="true" 
-                                                OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoPO" DataValueField="NoBuk"
+                                                OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoFP" DataValueField="NoBuk"
                                                 Text='<%# DataBinder.Eval(Container, "DataItem.inv_code") %>' 
                                                 HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="500px" 
                                                 OnPreRender="cb_inv_code_PreRender" OnSelectedIndexChanged="cb_inv_code_SelectedIndexChanged"
@@ -469,10 +469,10 @@
                                                     <table style="width: 500px; font-size:smaller">
                                                         <tr>
                                                             <td style="width: 150px;">
-                                                                Code
+                                                                Reg. Number
                                                             </td>
                                                             <td style="width: 350px;">
-                                                                Name
+                                                                Invoice Number
                                                             </td>                                                                
                                                         </tr>
                                                     </table>
@@ -484,7 +484,7 @@
                                                                 <%# DataBinder.Eval(Container, "Value")%>
                                                             </td>
                                                             <td style="width: 350px;">
-                                                                <%# DataBinder.Eval(Container, "Attributes['NoPO']")%>
+                                                                <%# DataBinder.Eval(Container, "Attributes['NoFP']")%>
                                                             </td>                                                                
                                                         </tr>
                                                     </table>                                                                
