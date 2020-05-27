@@ -157,5 +157,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         {
 
         }
+
+        protected void btnSave_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
     }
 }

@@ -135,12 +135,12 @@
                         </asp:ImageButton>                                                 
                     </td>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:8px">
-                        <asp:ImageButton runat="server" ID="btnNew" AlternateText="New"
+                        <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
                             Height="30px" Width="32px" ImageUrl="~/Images/tambah.png">
                         </asp:ImageButton>
                     </td>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
-                        <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save"
+                        <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" OnClick="btnSave_Click"
                             Height="30px" Width="32px" ImageUrl="~/Images/simpan-gray.png">
                         </asp:ImageButton>
                     </td>
