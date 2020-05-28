@@ -83,7 +83,7 @@
             </div>
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="MetroTouch"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="12"
-                >
+                OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                 <ClientSettings EnablePostBackOnRowClick="true" >
                 </ClientSettings>
@@ -372,9 +372,9 @@
              <%--DETAIL--%>
             <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"
-                    AllowPaging="true" AllowSorting="true" runat="server" 
+                    AllowPaging="true" AllowSorting="true" runat="server" OnNeedDataSource="RadGrid2_NeedDataSource"
                     AllowAutomaticUpdates="true" AllowAutomaticInserts="True" ShowStatusBar="true" 
-                    ClientSettings-Selecting-AllowRowSelect="true">
+                    ClientSettings-Selecting-AllowRowSelect="true" OnDeleteCommand="RadGrid2_DeleteCommand">
                         <MasterTableView CommandItemDisplay="Top" Font-Size="12px" EditMode="InPlace"
                                 ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" DataKeyNames="lbm_code">
                             <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
