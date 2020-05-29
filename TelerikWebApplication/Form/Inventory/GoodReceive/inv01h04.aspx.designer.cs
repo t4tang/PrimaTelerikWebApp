@@ -184,13 +184,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         protected global::Telerik.Web.UI.RadTextBox txt_gr_number;
         
         /// <summary>
-        /// rb_from control.
+        /// cb_from control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox rb_from;
+        protected global::Telerik.Web.UI.RadComboBox cb_from;
         
         /// <summary>
         /// dtp_gr control.
@@ -227,6 +227,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_ref;
+        
+        /// <summary>
+        /// dtp_ref control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker dtp_ref;
         
         /// <summary>
         /// cb_costcenter control.
@@ -335,6 +344,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTextBox txt_edited;
+        
+        /// <summary>
+        /// chk_posting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadCheckBox chk_posting;
         
         /// <summary>
         /// lbl_result control.

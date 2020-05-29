@@ -49,7 +49,7 @@
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone"
         Modal="true" Width="1250px" Height="670px">
         <ContentTemplate>
-
+            <%--LIST DATA--%>
             <div runat="server" style="padding:20px 10px 10px 10px;" id="searchParam">
                 <table>
                     <tr>
@@ -63,8 +63,8 @@
                          </td>
                          <td style="width:320px">
                               <telerik:RadComboBox ID="cb_project_prm" runat="server" RenderMode="Lightweight" Label="Project" AutoPostBack="false"
-                                EnableLoadOnDemand="True" Skin="MetroTouch" EnableVirtualScrolling="true" 
-                                Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px">
+                                EnableLoadOnDemand="True" Skin="MetroTouch" EnableVirtualScrolling="true" OnItemsRequested="cb_project_prm_ItemsRequested" 
+                                Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px" OnSelectedIndexChanged="cb_project_prm_SelectedIndexChanged">
                                </telerik:RadComboBox>
                          </td>
                          <td >
@@ -124,7 +124,7 @@
             </telerik:RadGrid>
         </ContentTemplate>
     </telerik:RadWindow>
-
+    <%--ICONS--%>
     <div  class="scroller" runat="server">
         <div style=" padding-left:15px; width:100%; border-bottom-color: #FF9933; border-bottom-width: 1px; border-bottom-style: inset;">
             <table id="tbl_control">
@@ -178,7 +178,7 @@
                                     From :
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="rb_from" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadComboBox ID="cb_from" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
                                         EnableVirtualScrolling="true" Skin="MetroTouch" OnItemsRequested="rb_from_ItemsRequested"
                                         OnSelectedIndexChanged="rb_from_SelectedIndexChanged" OnPreRender="rb_from_PreRender">
@@ -235,6 +235,16 @@
                                         AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"  
                                         >
                                     </telerik:RadComboBox>
+                                    &nbsp;
+                                    Date :
+                                    <telerik:RadDatePicker ID="dtp_ref" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                        TabIndex="4" Skin="Metro">
+                                        <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                            EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Metro"></Calendar>
+                                        <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
+                                        <EmptyMessageStyle Resize="Both"></EmptyMessageStyle>
+                                        </DateInput>
+                                    </telerik:RadDatePicker>
                                 </td>
                             </tr>
                             <tr>
@@ -357,7 +367,14 @@
                                 <td>
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_edited" Width="40px" runat="server" >
                                     </telerik:RadTextBox>
-                                </td>                                
+                                </td>
+                                <td style="padding:0px 10px 0px 10px">
+                                    Posting
+                                </td>
+                                <td>
+                                    <telerik:RadCheckBox ID="chk_posting" runat="server" Checked="true">
+                                    </telerik:RadCheckBox>
+                                </td>                                 
                             </tr>
                             <tr>
                                 <td colspan="5">
