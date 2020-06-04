@@ -49,7 +49,7 @@
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone"
         Modal="true" Width="1250px" Height="670px">
         <ContentTemplate>
-
+            <%--LIST DATA--%>
             <div runat="server" style="padding:20px 10px 10px 10px;" id="searchParam">
                 <table>
                     <tr>
@@ -63,8 +63,8 @@
                          </td>
                          <td style="width:320px">
                               <telerik:RadComboBox ID="cb_project_prm" runat="server" RenderMode="Lightweight" Label="Project" AutoPostBack="false"
-                                EnableLoadOnDemand="True" Skin="MetroTouch" EnableVirtualScrolling="true" 
-                                Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px">
+                                EnableLoadOnDemand="True" Skin="MetroTouch" EnableVirtualScrolling="true" OnItemsRequested="cb_project_prm_ItemsRequested" 
+                                Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px" OnSelectedIndexChanged="cb_project_prm_SelectedIndexChanged">
                                </telerik:RadComboBox>
                          </td>
                          <td >
@@ -83,7 +83,7 @@
             </div>
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="MetroTouch"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="12"
-                >
+                OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                 <ClientSettings EnablePostBackOnRowClick="true" >
                 </ClientSettings>
@@ -124,7 +124,7 @@
             </telerik:RadGrid>
         </ContentTemplate>
     </telerik:RadWindow>
-
+    <%--ICONS--%>
     <div  class="scroller" runat="server">
         <div style=" padding-left:15px; width:100%; border-bottom-color: #FF9933; border-bottom-width: 1px; border-bottom-style: inset;">
             <table id="tbl_control">
@@ -135,12 +135,12 @@
                         </asp:ImageButton>                                                 
                     </td>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:8px">
-                        <asp:ImageButton runat="server" ID="btnNew" AlternateText="New"
+                        <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
                             Height="30px" Width="32px" ImageUrl="~/Images/tambah.png">
                         </asp:ImageButton>
                     </td>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
-                        <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save"
+                        <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" OnClick="btnSave_Click"
                             Height="30px" Width="32px" ImageUrl="~/Images/simpan-gray.png">
                         </asp:ImageButton>
                     </td>
@@ -178,7 +178,7 @@
                                     From :
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="rb_from" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadComboBox ID="cb_from" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
                                         EnableVirtualScrolling="true" Skin="MetroTouch" OnItemsRequested="rb_from_ItemsRequested"
                                         OnSelectedIndexChanged="rb_from_SelectedIndexChanged" OnPreRender="rb_from_PreRender">
@@ -235,6 +235,16 @@
                                         AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"  
                                         >
                                     </telerik:RadComboBox>
+                                    &nbsp;
+                                    Date :
+                                    <telerik:RadDatePicker ID="dtp_ref" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                        TabIndex="4" Skin="Metro">
+                                        <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                            EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Metro"></Calendar>
+                                        <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
+                                        <EmptyMessageStyle Resize="Both"></EmptyMessageStyle>
+                                        </DateInput>
+                                    </telerik:RadDatePicker>
                                 </td>
                             </tr>
                             <tr>
@@ -357,7 +367,14 @@
                                 <td>
                                     <telerik:RadTextBox ReadOnly="true" ID="txt_edited" Width="40px" runat="server" >
                                     </telerik:RadTextBox>
-                                </td>                                
+                                </td>
+                                <td style="padding:0px 10px 0px 10px">
+                                    Posting
+                                </td>
+                                <td>
+                                    <telerik:RadCheckBox ID="chk_posting" runat="server" Checked="true">
+                                    </telerik:RadCheckBox>
+                                </td>                                 
                             </tr>
                             <tr>
                                 <td colspan="5">
@@ -372,9 +389,9 @@
              <%--DETAIL--%>
             <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px;">
                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"
-                    AllowPaging="true" AllowSorting="true" runat="server" 
+                    AllowPaging="true" AllowSorting="true" runat="server" OnNeedDataSource="RadGrid2_NeedDataSource"
                     AllowAutomaticUpdates="true" AllowAutomaticInserts="True" ShowStatusBar="true" 
-                    ClientSettings-Selecting-AllowRowSelect="true">
+                    ClientSettings-Selecting-AllowRowSelect="true" OnDeleteCommand="RadGrid2_DeleteCommand">
                         <MasterTableView CommandItemDisplay="Top" Font-Size="12px" EditMode="InPlace"
                                 ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" DataKeyNames="lbm_code">
                             <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        

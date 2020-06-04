@@ -20,12 +20,77 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         private const int ItemsPerRequest = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                dtp_to.SelectedDate = DateTime.Now;
+                //cb_bank_prm.SelectedValue = public_str.site;
 
+                set_info();
+                Session["action"] = "Firstload";
+                RadGrid2.Enabled = false;
+                btnSave.Enabled = false;
+                btnSave.ImageUrl = "~/Images/simpan-gray.png";
+                btnPrint.Enabled = false;
+                btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+                //dtp_created.SelectedDate = DateTime.Now;
+            }
         }
-
+        private void set_info()
+        {
+            txt_uid.Text = public_str.uid;
+            txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy hh:mm:ss}", DateTime.Now);
+            txt_owner.Text = public_str.uid;
+            txt_printed.Text = "0";
+            txt_edited.Text = "0";
+        }
         protected void btnOk_Click(object sender, EventArgs e)
         {
+            foreach (GridDataItem item in RadGrid1.SelectedItems)
+            {
+                //txt_ur_number.Text = item["doc_code"].Text;
+                //dtp_ur.SelectedDate = Convert.ToDateTime(item["doc_date"].Text);
 
+                con.Open();
+                SqlDataReader sdr;
+                SqlCommand cmd = new SqlCommand("SELECT * FROM v_good_receiveH /*NEW VIEW*/ WHERE trans_code='1' AND lbm_code = '" + item["lbm_code"].Text + "'", con);
+                sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    txt_gr_number.Text = sdr["lbm_code"].ToString();
+                    cb_from.Text = sdr["trans_code"].ToString();
+                    dtp_from.SelectedDate = Convert.ToDateTime(sdr["ref_date"].ToString());
+                    cb_project.Text = sdr["region_name"].ToString();
+                    cb_supplier.Text = sdr["cust_name"].ToString();
+                    cb_ref.Text = sdr["ref_code"].ToString();
+                    dtp_ref.SelectedDate = Convert.ToDateTime(sdr["ref_date"].ToString());
+                    cb_costcenter.Text = sdr["CostCenterName"].ToString();
+                    txt_delivery_note.Text = sdr["sj"].ToString();
+                    cb_storage.Text = sdr["wh_name"].ToString();
+                    cb_created.Text = sdr["createby_name"].ToString();
+                    cb_received.Text = sdr["Receiptby_name"].ToString();
+                    cb_approved.Text = sdr["approval_name"].ToString();
+                    //txt_lastupdate.Text = string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
+                    txt_remark.Text = sdr["remark"].ToString();
+                    cb_check.Text = sdr["Checkby"].ToString();
+                    cb_approve.Text = sdr["Approveby"].ToString();
+                    cb_approve.Text = sdr["Approveby"].ToString();
+                    cb_approve.Text = sdr["Approveby"].ToString();
+                    cb_approve.Text = sdr["Approveby"].ToString();
+                    cb_approve.Text = sdr["Approveby"].ToString();
+                }
+                con.Close();
+
+                RadGrid2.DataSource = GetDataDetailTable(txt_slip_number.Text);
+                RadGrid2.DataBind();
+                Session["action"] = "edit";
+                btnSave.Enabled = true;
+                btnSave.ImageUrl = "~/Images/simpan.png";
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_number.Text);
+
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -156,6 +221,118 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         protected void cb_approved_PreRender(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnSave_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
+        }
+        public DataTable GetDataTable(string ref_date, string lbm_date, string lbmcode)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_goods_receiveH";
+            cmd.Parameters.AddWithValue("@ref_date", ref_date);
+            cmd.Parameters.AddWithValue("@lbm_date", lbm_date);
+            cmd.Parameters.AddWithValue("@lbmcode", lbmcode);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+            DataTable DT = new DataTable();
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return DT;
+        }
+        protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            (sender as RadGrid).DataSource = GetDataDetailTable(txt_gr_number.Text);
+        }
+        public DataTable GetDataDetailTable(string slip_no)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT * FROM v_bank_paymentD where slip_no = @slipno";
+            cmd.Parameters.AddWithValue("@slipno", slip_no);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
+        protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void cb_project_prm_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetProject(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                cb_project_prm.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+                cb_project.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+            }
+        }
+        private static DataTable GetProject(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from inv00h09 WHERE stEdit != 4 AND region_names LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_project_prm_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_project_prm.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_project_prm.SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
         }
     }
 }
