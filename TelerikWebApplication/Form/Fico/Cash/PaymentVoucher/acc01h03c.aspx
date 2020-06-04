@@ -273,7 +273,7 @@
                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Prepared" runat="server" Width="250px" DropDownWidth="650px"
-                                                AutoPostBack="true" ShowMoreResultsBox="false" EmptyMessage="- Select -" Skin="MetroTouch" EnableLoadOnDemand="true" 
+                                                AutoPostBack="false" ShowMoreResultsBox="true" EmptyMessage="- Select -" Skin="MetroTouch" EnableLoadOnDemand="true" 
                                                 HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"    
                                                 OnItemsRequested="cb_Prepared_ItemsRequested" OnSelectedIndexChanged="cb_Prepared_SelectedIndexChanged" 
                                                 OnPreRender="cb_Prepared_PreRender"  >
@@ -320,7 +320,7 @@
                                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                        <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Checked" runat="server" Width="250px" DropDownWidth="650px"
-                                                AutoPostBack="true" ShowMoreResultsBox="false" EmptyMessage="- Select -" Skin="MetroTouch" EnableLoadOnDemand="true" 
+                                                AutoPostBack="false" ShowMoreResultsBox="true" EmptyMessage="- Select -" Skin="MetroTouch" EnableLoadOnDemand="true" 
                                                 HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true" 
                                                 OnItemsRequested="cb_Checked_ItemsRequested" OnSelectedIndexChanged="cb_Checked_SelectedIndexChanged" 
                                                 OnPreRender="cb_Checked_PreRender" 
@@ -369,7 +369,7 @@
                                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Approval" runat="server" Width="250px" DropDownWidth="650px"
-                                                AutoPostBack="true" ShowMoreResultsBox="false" EmptyMessage="- Select -" Skin="MetroTouch" EnableLoadOnDemand="true" 
+                                                AutoPostBack="false" ShowMoreResultsBox="true" EmptyMessage="- Select -" Skin="MetroTouch" EnableLoadOnDemand="true" 
                                                 HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true" 
                                                 OnItemsRequested="cb_Approval_ItemsRequested" OnSelectedIndexChanged="cb_Approval_SelectedIndexChanged" 
                                                 OnPreRender="cb_Approval_PreRender" 
@@ -622,8 +622,8 @@
                 </asp:UpdatePanel>
             </div>
         </div>
-    </div>
-    <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
+
+        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
             <Windows>
                 <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server"  ReloadOnShow="true" ShowContentDuringLoad="false"
                   Width="1170px" Height="670px" Modal="true">
@@ -637,5 +637,7 @@
             $windowContentDemo.templateWindowID = "<%=RadWindow_ContentTemplate.ClientID %>";
         });
     //]]>
-    </script>  
+    </script>
+    </div>
+      
 </asp:Content>
