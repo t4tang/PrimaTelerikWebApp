@@ -9,17 +9,14 @@ namespace ReportLibrary.slip
     using Telerik.Reporting.Drawing;
 
     /// <summary>
-    /// Summary description for Report1.
+    /// Summary description for acc01h03c_slip.
     /// </summary>
-    public partial class acc01h03_slip : Telerik.Reporting.Report
+    public partial class acc01h03c_slip : Telerik.Reporting.Report
     {
 
-        //SqlConnection con = new SqlConnection(db_connection.koneksi);
-        //SqlDataAdapter sda = new SqlDataAdapter();
-        //SqlCommand cmd = new SqlCommand();
         public static string _tr_code;
 
-        public acc01h03_slip()
+        public acc01h03c_slip()
         {
             //
             // Required for telerik Reporting designer support
