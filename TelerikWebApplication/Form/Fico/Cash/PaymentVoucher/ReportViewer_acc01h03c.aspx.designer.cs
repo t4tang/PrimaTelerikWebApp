@@ -11,7 +11,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
 {
 
 
-    public partial class ReportViewer_acc01h03
+    public partial class ReportViewer_acc01h03c
     {
 
         /// <summary>

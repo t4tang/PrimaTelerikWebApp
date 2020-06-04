@@ -118,22 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
-    <value>{"@slip_no":"K12K7010024"}</value>
+    <value>{"@slip_no":"K01K3110047"}</value>
   </metadata>
   <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
-    <value>SELECT        inv00h15.company_name, inv00h15.address1, v_cashPayment_Voucher.slip_no, v_cashPayment_Voucher.slip_date, v_cashPayment_Voucher.pay_way, v_cashPayment_Voucher.cashbank, 
-			v_cashPayment_Voucher.NamKas, v_cashPayment_Voucher.accountno, v_cashPayment_Voucher.cust_code, v_cashPayment_Voucher.supplier_name, 
-			v_cashPayment_Voucher.cur_code, v_cashPayment_Voucher.cur_code_acc, v_cashPayment_Voucher.kurs, v_cashPayment_Voucher.kurs_acc, 
-			v_cashPayment_Voucher.status, v_cashPayment_Voucher.userid, v_cashPayment_Voucher.lastupdate, v_cashPayment_Voucher.tot_pay, v_cashPayment_Voucher.tot_pay_idr, 
-                         v_cashPayment_Voucher.tot_pay_acc, v_cashPayment_Voucher.Remark, v_cashPayment_Voucher.status_post, v_cashPayment_Voucher.noctrl, 
-			v_cashPayment_Voucher.dept_code, v_cashPayment_Voucher.lvl, v_cashPayment_Voucher.freby, v_cashPayment_Voucher.FreByName, v_cashPayment_Voucher.ordby, v_cashPayment_Voucher.OrdByName, 
-			v_cashPayment_Voucher.appby, v_cashPayment_Voucher.AppByName, 
-			acc01d03.inv_code, acc01d03.pay_amount, acc01d03.remark AS Remark1, acc01d03.selisih_kurs, 
-                         acc01d03.pay_amount_acc, acc01d03.pay_amount_idr, acc01d03.fkno, acc01d03.dept_code AS Dept_code, acc01d03.region_code, acc01d03.idrun, inv00h15.company_name, inv00h15.address1
-FROM            v_cashPayment_Voucher INNER JOIN
-                         acc01d03 ON v_cashPayment_Voucher.slip_no = acc01d03.slip_no CROSS JOIN
+    <value>SELECT        inv00h15.company_name, inv00h15.address1, v_cash_paymentH.slip_no, v_cash_paymentH.slip_date, v_cash_paymentH.accountno, v_cash_paymentH.cashbank, v_cash_paymentH.NamKas, v_cash_paymentH.cust_code, 
+                         v_cash_paymentH.supplier_name, v_cash_paymentH.cur_code, v_cash_paymentH.kurs, v_cash_paymentH.Remark, v_cash_paymentH.noctrl, v_cash_paymentH.appby, v_cash_paymentH.AppByName, 
+                         v_cash_paymentH.freby, v_cash_paymentH.FreByName, v_cash_paymentH.ordby, v_cash_paymentH.OrdByName, acc01d03.inv_code, acc01d03.pay_amount, acc01d03.remark AS remark1, acc01d03.fkno, 
+                         acc01d03.region_code, acc01d03.dept_code, v_cash_paymentH.FreByJab, v_cash_paymentH.OrdByJab, v_cash_paymentH.AppByJab, dbo.fg_terbilang_eng(v_cash_paymentH.tot_pay, 'IDR') AS Terbilang
+FROM            v_cash_paymentH INNER JOIN
+                         acc01d03 ON v_cash_paymentH.slip_no = acc01d03.slip_no CROSS JOIN
                          inv00h15
-WHERE        (v_cashPayment_Voucher.slip_no = @slip_no)</value>
+WHERE        (v_cash_paymentH.slip_no = @slip_no)</value>
   </data>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>

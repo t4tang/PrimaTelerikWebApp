@@ -112,10 +112,10 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                     cb_cash.Text = sdr["NamKas"].ToString();
                     txt_CurCode2.Text = sdr["cur_code_acc"].ToString();
                     txt_kurs2.Text = sdr["kurs_acc"].ToString();
-                    txt_remark.Text = sdr["Remark"].ToString();
-                    cb_Prepared.Text = sdr["RequestBy"].ToString();
-                    cb_Checked.Text = sdr["Checkby"].ToString();
-                    cb_Approval.Text = sdr["Approveby"].ToString();
+                    txt_remark.Text = sdr["Remark"].ToString(); ;
+                    cb_Prepared.Text = sdr["FreByName"].ToString(); // Jangan dihapus lagi
+                    cb_Checked.Text = sdr["OrdByName"].ToString(); // Jangan dihapus lagi
+                    cb_Approval.Text = sdr["AppByName"].ToString(); // Jangan dihapus lagi
                     cb_Prepared.SelectedValue = sdr["freby"].ToString();
                     cb_Checked.SelectedValue = sdr["ordby"].ToString();
                     cb_Approval.SelectedValue = sdr["appby"].ToString();
@@ -169,23 +169,35 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT acc00h02.KoKas, 'IDR'as curr_code, acc00h04.KursRun FROM acc00h02 cross join acc00h04 " +
-            "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE acc00h04.cur_code = 'IDR') AND NamKas = '" + cb_Cash_prm.Text + "'";
+            cmd.CommandText = "SELECT KoKas FROM acc00h02 WHERE NamKas = '" + cb_Cash_prm.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_Cash_prm.SelectedValue = dr["KoKas"].ToString();
+                cb_Cash_prm.SelectedValue = dr[0].ToString();
             dr.Close();
-
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            foreach (DataRow dr1 in dt.Rows)
-            {
-                txt_CurCode2.Text = dr1["cur_code"].ToString();
-                txt_kurs2.Text = dr1["KursRun"].ToString();
-            }
             con.Close();
+
+            //con.Open();
+            //SqlCommand cmd = new SqlCommand();
+            //cmd.Connection = con;
+            //cmd.CommandType = CommandType.Text;
+            //cmd.CommandText = "SELECT acc00h02.KoKas, 'IDR'as cur_code, acc00h04.KursRun FROM acc00h02 cross join acc00h04 " +
+            //"WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE acc00h04.cur_code = 'IDR') AND NamKas = '" + cb_Cash_prm.Text + "'";
+            //SqlDataReader dr;
+            //dr = cmd.ExecuteReader();
+            //while (dr.Read())
+            //    cb_Cash_prm.SelectedValue = dr["KoKas"].ToString();
+            //dr.Close();
+
+            //SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            //DataTable dt = new DataTable();
+            //adapter.Fill(dt);
+            //foreach (DataRow dr1 in dt.Rows)
+            //{
+            //    txt_CurCode2.Text = dr1["cur_code"].ToString();
+            //    txt_kurs2.Text = dr1["KursRun"].ToString();
+            //}
+            //con.Close();
         }
 
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
@@ -202,7 +214,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h03 SET Usr = @userid, lastupdate = GETDATE(), status = '4' WHERE (slip_no = @slip_no)";
+                cmd.CommandText = "UPDATE acc01h03 SET userid = @userid, lastupdate = GETDATE(), status = '4' WHERE (slip_no = @slip_no)";
                 cmd.Parameters.AddWithValue("@slip_no", slip_no);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -331,7 +343,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
                 cmd.Parameters.AddWithValue("@cur_code", txt_CurCode.Text);
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDecimal(txt_kurs.Text));
-                //cmd.Parameters.AddWithValue("@accountno", cb_ref.SelectedValue);
+                cmd.Parameters.AddWithValue("@accountno", cb_ref.SelectedValue);
                 cmd.Parameters.AddWithValue("@cashbank", cb_cash.SelectedValue);
                 cmd.Parameters.AddWithValue("@cur_code_acc", txt_CurCode2.Text);
                 cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDecimal(txt_kurs2.Text));
@@ -339,8 +351,9 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 cmd.Parameters.AddWithValue("@freby", cb_Prepared.SelectedValue);
                 cmd.Parameters.AddWithValue("@ordby", cb_Checked.SelectedValue);
                 cmd.Parameters.AddWithValue("@appby", cb_Approval.SelectedValue);
+                cmd.Parameters.AddWithValue("@lvl", 1);
                 cmd.Parameters.AddWithValue("@userid", txt_UId.Text);
-                //cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@pay_way", 1);
                 cmd.Parameters.AddWithValue("@tot_pay", 0);
                 cmd.Parameters.AddWithValue("@status_post", 0);
@@ -348,8 +361,11 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
                 cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
                 cmd.Parameters.AddWithValue("@kursBeli", 0);
-                cmd.Parameters.AddWithValue("@lvl", public_str.level);
                 cmd.ExecuteNonQuery();
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data saved successfully";
+                lblsuccess.ForeColor = System.Drawing.Color.Blue;
 
                 con.Close();
 
@@ -379,7 +395,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
 
         private static DataTable GetSupplier(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT cust_code, cust_name FROM v_customer WHERE cust_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select cust_code, cust_name from v_customer where cust_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -409,13 +425,13 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT v_customer.cust_code, v_customer.cust_name, v_customer.cur_code, acc00h04.KursRun FROM v_customer cross join acc00h04 " +
+            cmd.CommandText = "SELECT v_customer.cust_code, v_customer.cust_name, v_customer.cur_code, acc00h04.KursRun AS kurs FROM v_customer cross join acc00h04 " +
                 "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE acc00h04.cur_code = v_customer.cur_code) " +
-                "AND cust_name = '" + cb_supplier.Text + "'";
+                "AND cust_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_supplier.SelectedValue = dr["cust_code"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
             dr.Close();
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -424,7 +440,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             foreach (DataRow dr1 in dt.Rows)
             {
                 txt_CurCode.Text = dr1["cur_code"].ToString();
-                txt_kurs.Text = dr1["KursRun"].ToString();
+                txt_kurs.Text = dr1["kurs"].ToString();
             }
             con.Close();
         }
@@ -435,11 +451,11 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM v_customer WHERE cust_name = '" + cb_supplier.Text + "'";
+            cmd.CommandText = "SELECT * FROM v_customer WHERE cust_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_supplier.SelectedValue = dr["cust_code"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
             dr.Close();
             con.Close();
         }
@@ -532,7 +548,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_Prepared.Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + cb_Prepared.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -547,7 +563,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_Prepared.Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + cb_Prepared.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -573,7 +589,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_Checked.Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + cb_Checked.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -588,7 +604,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_Checked.Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + cb_Checked.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -614,7 +630,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_Approval.Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + cb_Approval.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -629,7 +645,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_Approval.Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + cb_Approval.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -700,7 +716,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_CashPaymentD";
+            cmd.CommandText = "sp_get_cashpaymentD";
             cmd.Parameters.AddWithValue("@slip_no", slip_no);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -735,15 +751,13 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "delete from acc01d03 where inv_code = @inv_code and slip_no = @slip_no";
-                cmd.Parameters.AddWithValue("@slip_no", txt_slip_no);
+                cmd.Parameters.AddWithValue("@slip_no", txt_slip_no.Text);
                 cmd.Parameters.AddWithValue("@inv_code", inv_code);
                 cmd.ExecuteNonQuery();
+
                 con.Close();
 
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data deleted";
-                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-                RadGrid2.Controls.Add(lblsuccess);
+                
             }
             catch (Exception ex)
             {
@@ -765,13 +779,15 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_cashpaymentD";
+                cmd.CommandText = "sp_save_Cash_PaymentD";
                 cmd.Parameters.AddWithValue("@slip_no", txt_slip_no.Text);
-                cmd.Parameters.AddWithValue("@inv_code", (item.FindControl("txt_inv_code") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@inv_code", (item.FindControl("cb_inv_code") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@pay_amount", (item.FindControl("txt_amount") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("SelisiKurs", 0.00);
-                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_Project_Detail") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@pay_amount_idr", Convert.ToDouble((item.FindControl("txt_pay_amount") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@pay_amount_acc", Convert.ToDouble((item.FindControl("txt_pay_amount") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble((item.FindControl("txt_pay_amount") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("selisih_kurs", 0.00);
+                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_Project") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_Cost_Center") as RadComboBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -781,7 +797,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data saved";
                 lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-                RadGrid2.Controls.Add(lblsuccess);
+                RadGrid2.Controls.Add(lblsuccess);                             
             }
             catch (Exception ex)
             {
@@ -848,11 +864,12 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT NoFP FROM acc01h13 WHERE NoBuk = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "select acc01h13.NoFP, acc01d03.remark, acc01d03.pay_amount from acc01h13 inner join " +
+                                   "acc01d03 ON acc01h13.NoBuk = acc01d03.inv_code where acc01h13.NoBuk = '" + (sender as RadComboBox).SelectedValue + "'";
                 SqlDataReader dr;
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
-                    (sender as RadComboBox).SelectedValue = dr["NoFP"].ToString();
+                    cb_cash.SelectedValue = dr["NoBuk"].ToString();
                 dr.Close();
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
