@@ -15,6 +15,7 @@
                 this.reportViewer1.ViewMode = ViewMode.PrintPreview;
                 acc01h03c_slip._tr_code = Request.QueryString["slip_no"];
             }
+
         }
     }
 }
