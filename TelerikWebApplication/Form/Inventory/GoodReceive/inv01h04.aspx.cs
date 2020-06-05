@@ -72,30 +72,31 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
                     cb_approved.Text = sdr["approval_name"].ToString();
                     //txt_lastupdate.Text = string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
                     txt_remark.Text = sdr["remark"].ToString();
-                    cb_check.Text = sdr["Checkby"].ToString();
-                    cb_approve.Text = sdr["Approveby"].ToString();
-                    cb_approve.Text = sdr["Approveby"].ToString();
-                    cb_approve.Text = sdr["Approveby"].ToString();
-                    cb_approve.Text = sdr["Approveby"].ToString();
-                    cb_approve.Text = sdr["Approveby"].ToString();
+                    txt_uid.Text = sdr["userid"].ToString();
+                    txt_lastUpdate.Text = sdr["lastupdate"].ToString();
+                    txt_owner.Text = sdr["Owner"].ToString();
+                    txt_printed.Text = sdr["Printed"].ToString();
+                    txt_edited.Text = sdr["Edited"].ToString();
+                    chk_posting.Text = sdr["status_post"].ToString();
                 }
                 con.Close();
 
-                RadGrid2.DataSource = GetDataDetailTable(txt_slip_number.Text);
+                RadGrid2.DataSource = GetDataDetailTable(txt_gr_number.Text);
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
                 btnSave.Enabled = true;
                 btnSave.ImageUrl = "~/Images/simpan.png";
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
-                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_number.Text);
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_gr_number.Text);
 
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-
+            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
+            RadGrid1.DataBind();
         }
 
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
@@ -232,16 +233,16 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         {
             (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
         }
-        public DataTable GetDataTable(string ref_date, string lbm_date, string lbmcode)
+        public DataTable GetDataTable(string date, string todate, string project)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_goods_receiveH";
-            cmd.Parameters.AddWithValue("@ref_date", ref_date);
-            cmd.Parameters.AddWithValue("@lbm_date", lbm_date);
-            cmd.Parameters.AddWithValue("@lbmcode", lbmcode);
+            cmd.Parameters.AddWithValue("@date", date);
+            cmd.Parameters.AddWithValue("@todate", todate);
+            cmd.Parameters.AddWithValue("@project", project);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -263,7 +264,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataDetailTable(txt_gr_number.Text);
+            //(sender as RadGrid).DataSource = GetDataDetailTable(txt_gr_number.Text);
         }
         public DataTable GetDataDetailTable(string slip_no)
         {
@@ -305,13 +306,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_project_prm.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
-                cb_project.Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
             }
         }
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from inv00h09 WHERE stEdit != 4 AND region_names LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -333,6 +333,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
                 cb_project_prm.SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
+        }
+
+        protected void btnPrint_Click(object sender, ImageClickEventArgs e)
+        {
+
         }
     }
 }
