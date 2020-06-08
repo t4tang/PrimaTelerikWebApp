@@ -72,15 +72,15 @@
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                 <ClientSettings EnablePostBackOnRowClick="true" >
                 </ClientSettings>
-                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="doc_code" Font-Size="12px"
+                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="lbm_code" Font-Size="12px"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                      CommandItemSettings-ShowRefreshButton="false" >                    
                     <Columns>
                         <telerik:GridClientSelectColumn UniqueName="SelectColumn" ></telerik:GridClientSelectColumn> 
-                        <telerik:GridBoundColumn UniqueName="doc_code" HeaderText="UR Number" DataField="doc_code">
+                        <telerik:GridBoundColumn UniqueName="lbm_code" HeaderText="GR No." DataField="lbm_code">
                             <HeaderStyle Width="120px"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridDateTimeColumn UniqueName="doc_date" HeaderText="Date" DataField="doc_date" ItemStyle-Width="80px" 
+                        <telerik:GridDateTimeColumn UniqueName="lbm_date" HeaderText="Ref. Date" DataField="lbm_date" ItemStyle-Width="80px" 
                                 EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
                             DataFormatString="{0:d}" >
                             <HeaderStyle Width="80px"></HeaderStyle>
@@ -89,11 +89,15 @@
                             FilterControlWidth="120px" >
                             <HeaderStyle Width="120px"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="wo_desc" HeaderText="Status" DataField="wo_desc" 
-                            FilterControlWidth="90px" >
-                            <HeaderStyle Width="90px"></HeaderStyle>
+                        <telerik:GridBoundColumn UniqueName="cust_name" HeaderText="Suplier" DataField="cust_name" 
+                            FilterControlWidth="100px" >
+                            <HeaderStyle Width="100px"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="doc_remark" HeaderText="Remark" DataField="doc_remark" ItemStyle-Wrap="true"
+                        <telerik:GridBoundColumn UniqueName="trans_code" HeaderText="Transaction" DataField="trans_code" 
+                            FilterControlWidth="100px" >
+                            <HeaderStyle Width="100px"></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true"
                                 ItemStyle-Width="650px" FilterControlWidth="480px">
                             <HeaderStyle Width="650px"></HeaderStyle>
                         </telerik:GridBoundColumn>
