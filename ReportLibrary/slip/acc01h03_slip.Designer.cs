@@ -1,6 +1,6 @@
 namespace ReportLibrary.slip
 {
-    partial class acc01h03c_slip
+    partial class acc01h03_slip
     {
         #region Component Designer generated code
         /// <summary>
@@ -9,7 +9,7 @@ namespace ReportLibrary.slip
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(acc01h03c_slip));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(acc01h03_slip));
             Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
             this.pageHeaderSection1 = new Telerik.Reporting.PageHeaderSection();
             this.textBox1 = new Telerik.Reporting.TextBox();
