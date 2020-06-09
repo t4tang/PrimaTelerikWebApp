@@ -89,7 +89,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
                 btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_gr_number.Text);
-
             }
         }
 
@@ -101,7 +100,30 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-
+            Session["action"] = "new";
+            btnSave.Enabled = true;
+            btnSave.ImageUrl = "~/Images/simpan.png";
+            RadGrid2.DataSource = new string[] { };
+            RadGrid2.DataBind();
+            RadGrid2.Enabled = false;
+            btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+            if (Session["action"].ToString() != "FirstLoad")
+            {
+                clear_text(Page.Controls);
+            }
+            set_info();
+        }
+        private void clear_text(ControlCollection ctrls)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is RadTextBox)
+                {
+                    ((RadTextBox)ctrl).Text = string.Empty;
+                }
+                if (ctrl is RadComboBox)
+                    ((RadComboBox)ctrl).Text = string.Empty;
+            }
         }
 
         protected void rb_from_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
@@ -226,7 +248,96 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
         {
+            long maxNo;
+            string run = null;
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_created.SelectedDate);
 
+            try
+            {
+                if (Session["action"].ToString() == "edit")
+                {
+                    run = txt_slip_number.Text;
+                }
+                else
+                {
+                    con.Open();
+                    SqlDataReader sdr;
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h01.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
+                       "FROM acc01h01 WHERE LEFT(acc01h01.NoBuk, 4) ='" + cb_bank.SelectedValue + "' + 'K' " +
+                       "AND SUBSTRING(acc01h01.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                       "AND SUBSTRING(acc01h01.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.HasRows == false)
+                    {
+                        //throw new Exception();
+                        run = cb_bank.SelectedValue + "K" + dtp_created.SelectedDate.Value.Year + dtp_created.SelectedDate.Value.Month + "0001";
+                    }
+                    else if (sdr.Read())
+                    {
+                        maxNo = Convert.ToInt32(sdr[0].ToString());
+                        run = cb_bank.SelectedValue + "K" +
+                            (dtp_created.SelectedDate.Value.Year.ToString()).Substring(dtp_created.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_created.SelectedDate.Value.Month).Substring(("0000" + dtp_created.SelectedDate.Value.Month).Length - 2, 2) +
+                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
+                    }
+                    con.Close();
+                }
+                txt_slip_number.Text = run;
+
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_bank_paymentH";
+                cmd.Parameters.AddWithValue("@slip_no", run);
+                cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_created.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@pay_way", "2");
+                //cmd.Parameters.AddWithValue("@inf_pay_no", txt.Text);
+                cmd.Parameters.AddWithValue("@accountno", cb_ref.SelectedValue);
+                cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
+                cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_cashed.SelectedDate.Value));
+                //cmd.Parameters.AddWithValue("@remark1", txt.SelectedValue);
+                //cmd.Parameters.AddWithValue("@remark2", cb_approved.SelectedValue);
+                cmd.Parameters.AddWithValue("@cur_code", txt_currency.Text);
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDecimal(txt_kurs.Text));
+                cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
+                //cmd.Parameters.AddWithValue("@status", txt_kurs.Text);
+                cmd.Parameters.AddWithValue("@userid", txt_user.Text);
+                cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                cmd.Parameters.AddWithValue("@Remark", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@tot_pay", 0);
+                cmd.Parameters.AddWithValue("@status_post", 0);
+                cmd.Parameters.AddWithValue("@trans_kind", 1);
+                cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
+                cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
+                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDecimal(txt_kurs2.Text));
+                cmd.Parameters.AddWithValue("@cur_code_acc", txt_curr2.Text);
+                //cmd.Parameters.AddWithValue("@PlantCode", txt_NoCtrl.Text);
+                cmd.Parameters.AddWithValue("@noctrl", txt_ctrl.Text);
+                cmd.Parameters.AddWithValue("@kursBeli", 0);
+                //cmd.Parameters.AddWithValue("@dept_code", txt_NoCtrl.Text);
+                cmd.Parameters.AddWithValue("@lvl", public_str.level);
+                cmd.Parameters.AddWithValue("@freby", cb_pre.SelectedValue);
+                cmd.Parameters.AddWithValue("@ordby", cb_check.SelectedValue);
+                cmd.Parameters.AddWithValue("@appby", cb_approve.SelectedValue);
+                //cmd.Parameters.AddWithValue("@NoRef", txt_NoCtrl.Text);
+                cmd.ExecuteNonQuery();
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data saved successfully";
+                lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                //RadGrid1.Controls.Add(lblsuccess);
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to save data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                //RadGrid1.Controls.Add(lblError);
+                //throw;
+            }
         }
 
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
