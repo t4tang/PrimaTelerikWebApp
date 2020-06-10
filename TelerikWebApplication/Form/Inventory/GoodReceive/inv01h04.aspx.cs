@@ -250,52 +250,52 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         {
             long maxNo;
             string run = null;
-            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_created.SelectedDate);
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate);
 
             try
             {
                 if (Session["action"].ToString() == "edit")
                 {
-                    run = txt_slip_number.Text;
+                    run = txt_gr_number.Text;
                 }
                 else
                 {
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h01.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
-                       "FROM acc01h01 WHERE LEFT(acc01h01.NoBuk, 4) ='" + cb_bank.SelectedValue + "' + 'K' " +
+                       "FROM acc01h01 WHERE LEFT(acc01h01.NoBuk, 4) ='" + cb_project.SelectedValue + "' + 'K' " +
                        "AND SUBSTRING(acc01h01.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                        "AND SUBSTRING(acc01h01.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = cb_bank.SelectedValue + "K" + dtp_created.SelectedDate.Value.Year + dtp_created.SelectedDate.Value.Month + "0001";
+                        run = cb_project.SelectedValue + "K" + dtp_from.SelectedDate.Value.Year + dtp_from.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = cb_bank.SelectedValue + "K" +
-                            (dtp_created.SelectedDate.Value.Year.ToString()).Substring(dtp_created.SelectedDate.Value.Year.ToString().Length - 2) +
-                            ("0000" + dtp_created.SelectedDate.Value.Month).Substring(("0000" + dtp_created.SelectedDate.Value.Month).Length - 2, 2) +
+                        run = cb_project.SelectedValue + "K" +
+                            (dtp_from.SelectedDate.Value.Year.ToString()).Substring(dtp_from.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_from.SelectedDate.Value.Month).Substring(("0000" + dtp_from.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
                     con.Close();
                 }
-                txt_slip_number.Text = run;
+                txt_gr_number.Text = run;
 
                 con.Open();
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_bank_paymentH";
-                cmd.Parameters.AddWithValue("@slip_no", run);
-                cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_created.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@pay_way", "2");
+                cmd.CommandText = "sp_save_goods_receiveH";
+                cmd.Parameters.AddWithValue("@lbm_code", run);
+                cmd.Parameters.AddWithValue("@lbm_date", string.Format("{0:yyyy-MM-dd}", dtp_from.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@wh_code", cb_storage.SelectedValue);
                 //cmd.Parameters.AddWithValue("@inf_pay_no", txt.Text);
                 cmd.Parameters.AddWithValue("@accountno", cb_ref.SelectedValue);
-                cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
-                cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_cashed.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@cashbank", cb_project.SelectedValue);
+                cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_from.SelectedDate.Value));
                 //cmd.Parameters.AddWithValue("@remark1", txt.SelectedValue);
                 //cmd.Parameters.AddWithValue("@remark2", cb_approved.SelectedValue);
                 cmd.Parameters.AddWithValue("@cur_code", txt_currency.Text);

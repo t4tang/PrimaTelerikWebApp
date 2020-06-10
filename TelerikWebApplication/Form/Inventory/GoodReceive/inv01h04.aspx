@@ -158,7 +158,7 @@
                                     GR No :
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_gr_number" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_gr_number" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
