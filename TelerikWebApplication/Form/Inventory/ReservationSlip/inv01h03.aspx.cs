@@ -28,10 +28,10 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_project_prm.SelectedValue = public_str.site;
 
-                set_info();
+                //label_teks_default();
                 dtp_rs.SelectedDate = DateTime.Now;
                 Session["action"] = "firstLoad";
-                RadGrid2.Enabled = false;
+                //RadGrid2.Enabled = false;
                 btnSave.Enabled = false;
                 btnSave.ImageUrl = "~/Images/simpan-gray.png";
                 btnPrint.Enabled = false;
@@ -55,16 +55,25 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 RadGrid2.Rebind();
             }
         }
-        private void set_info()
+        private void label_teks_default()
         {
-            txt_uid.Text = public_str.uid;
-            txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy hh:mm:ss}", DateTime.Now);
-            txt_owner.Text = public_str.uid;
-            txt_printed.Text = "0";
-            txt_edited.Text = "0";
+
+            lbl_userId.Text = "User: ";
+            lbl_lastUpdate.Text = "Last Update: ";
+            lbl_Owner.Text = "Owner:";
+            lbl_printed.Text = "Printed: ";
+            lbl_edited.Text = "Edited: ";
             
         }
+        private void label_teks_clear()
+        {
+            lbl_userId.Text = "";
+            lbl_lastUpdate.Text = "";
+            lbl_Owner.Text = "";
+            lbl_printed.Text = "";
+            lbl_edited.Text = "";
 
+        }
         private static DataTable GetProjectPrm(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
@@ -101,9 +110,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
         {
             foreach (GridDataItem item in RadGrid1.SelectedItems)
             {
-                //txt_doc_code.Text = item["doc_code"].Text;
-                //dtp_rs.SelectedDate = Convert.ToDateTime(item["doc_date"].Text);
-
+                //label_teks_clear();
+                label_teks_default();
                 con.Open();
                 SqlDataReader sdr;
                 SqlCommand cmd = new SqlCommand("SELECT * FROM v_rs_list WHERE doc_code = '" + item["doc_code"].Text + "'", con);
@@ -126,19 +134,20 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                     cb_received.Text = sdr["ReceiveBy"].ToString();
                     cb_approved.Text = sdr["ApproveBy"].ToString();
                     txt_remark.Text = sdr["doc_remark"].ToString();
-                    txt_uid.Text = sdr["userid"].ToString();
-                    txt_lastUpdate.Text = string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
-                    txt_owner.Text = sdr["Owner"].ToString();
-                    txt_printed.Text = sdr["Printed"].ToString();
-                    txt_edited.Text = sdr["Edited"].ToString();
-                    
+                    lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
+                    lbl_lastUpdate.Text = lbl_lastUpdate.Text + string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
+                    lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
+                    lbl_printed.Text = lbl_printed.Text + sdr["Printed"].ToString();
+                    lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
+                    cb_warehouse.SelectedValue = sdr["wh_code"].ToString();
+                    cb_warehouse.Text = sdr["wh_name"].ToString();
                 }
                 con.Close();
 
                 RadGrid2.DataSource = GetDataDetailTable(txt_doc_code.Text);
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
-                RadGrid2.Enabled = true;
+                //RadGrid2.Enabled = true;
                 btnSave.Enabled = true;
                 btnSave.ImageUrl = "~/Images/simpan.png";
                 btnPrint.Enabled = true;
@@ -332,6 +341,12 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
+
+            cb_warehouse.Text = string.Empty;
+            cb_ref.Text = string.Empty;
+            texbox_clear(Page.Controls);
+            RadGrid2.DataSource = new string[] { };
+            RadGrid2.DataBind();
         }
 
         protected void cb_project_PreRender(object sender, EventArgs e)
@@ -348,7 +363,21 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             dr.Close();
             con.Close();
         }
+        private void texbox_clear(ControlCollection ctrls)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is RadTextBox)
+                {
+                    ((RadTextBox)ctrl).Text = "";
+                }
+                //else if (ctrl is RadComboBox)
+                //    ((RadComboBox)ctrl).Text = "";
 
+                texbox_clear(ctrl.Controls);
+
+            }
+        }
         private static DataTable GetReff(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("select * from v_rs_reff where sro_code LIKE @text + '%'",
@@ -420,18 +449,18 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM v_rs_reff WHERE sro_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM v_rs_reff WHERE sro_code = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                (sender as RadComboBox).SelectedValue = dr["sro_code"].ToString();
+                (sender as RadComboBox).Text = dr["sro_code"].ToString();
                 txt_unit_code.Text = dr["unit_code"].ToString();
                 txt_unit_name.Text = dr["model_no"].ToString();
                 txt_hm.Text = dr["time_reading"].ToString();
                 txt_cost_center.Text = dr["dept_code"].ToString();
                 txt_cost_name.Text = dr["CostCenterName"].ToString();
-           
+                txt_remark.Text = dr["sro_remark"].ToString();
             }
 
             dr.Close();
@@ -786,7 +815,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             Session["action"] = "new";
             btnSave.Enabled = true;
             btnSave.ImageUrl = "~/Images/simpan.png";
-            RadGrid2.Enabled = false;
+            //RadGrid2.Enabled = false;
             btnPrint.Enabled = false;
             btnPrint.ImageUrl = "~/Images/cetak-gray.png";
             RadGrid2.DataSource = new string[] { };
@@ -795,7 +824,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             {
                 clear_text(Page.Controls);
             }
-            set_info();
+            label_teks_default();
         }
 
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
@@ -851,28 +880,49 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 cmd.Parameters.AddWithValue("@doc_remark", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@unit_code", txt_unit_code.Text);
                 cmd.Parameters.AddWithValue("@model_no", txt_unit_name.Text);
-                cmd.Parameters.AddWithValue("@time_reading", txt_hm.Text);
-                cmd.Parameters.AddWithValue("@userid", txt_uid.Text);
+                cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Text));
+                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@tFullSupply", "0");
                 cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@region_code", public_str.site);
+                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@dept_code", txt_cost_center.Text);
                 cmd.Parameters.AddWithValue("@sro_code", cb_ref.SelectedValue);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
-                cmd.Parameters.AddWithValue("@Printed", txt_printed.Text);
-                cmd.Parameters.AddWithValue("@Edited", txt_edited.Text);
+                //cmd.Parameters.AddWithValue("@Printed", txt_printed.Text);
+                //cmd.Parameters.AddWithValue("@Edited", txt_edited.Text);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
                 cmd.ExecuteNonQuery();
 
-                //Label lblsuccess = new Label();
-                //lbl_result.Text = "Data saved successfully";
-                //lbl_result.ForeColor = System.Drawing.Color.Blue;
-                //RadGrid1.Controls.Add(lblsuccess);
+
+                // Save Detail
+                
+                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_save_rsD";
+                    cmd.Parameters.AddWithValue("@doc_code", run);
+                    cmd.Parameters.AddWithValue("@part_code", (item.FindControl("lblProdCode") as Label).Text);
+                    cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
+                    cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("lblUom") as Label).Text);
+                    cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
+                    cmd.Parameters.AddWithValue("@tWarranty", "0");
+                    cmd.Parameters.AddWithValue("@deliv_date", string.Format("{0:yyyy-MM-dd}", (item.FindControl("dtpDelivDate") as RadDatePicker).SelectedDate));
+                    //cmd.Parameters.AddWithValue("@fig_image", (item.FindControl("txt_fig_image") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@item", (item.FindControl("txt_item") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
+                    cmd.ExecuteNonQuery();
+                }
+                
+
                 con.Close();
 
                 txt_doc_code.Text = run;
-                RadGrid2.Enabled = true;
+                //RadGrid2.Enabled = true;
                 btnSave.Enabled = false;
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
@@ -884,6 +934,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 //Label lblError = new Label();
                 lbl_result.Text = "Unable to save data. Reason: " + ex.Message;
                 lbl_result.ForeColor = System.Drawing.Color.Red;
+                //lblError.Text = "Unable to save data. Reason: " + ex.Message;
+                //lblError.ForeColor = System.Drawing.Color.Red;
                 //RadGrid1.Controls.Add(lblError);
             }
         }
@@ -891,6 +943,62 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
         protected void btnPrint_Click(object sender, ImageClickEventArgs e)
         {
             btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_doc_code.Text);
+        }
+
+        private static DataTable GetWarehouse(string text, string project)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_warehouse_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetWarehouse(e.Text, cb_project.SelectedValue);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["wh_name"].ToString(), data.Rows[i]["wh_name"].ToString()));
+            }
+        }
+
+        protected void cb_warehouse_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_warehouse_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
         }
 
         //protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
