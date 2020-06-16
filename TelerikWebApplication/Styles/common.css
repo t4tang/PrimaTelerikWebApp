@@ -672,3 +672,13 @@ html body .RadInput_Focused_MetroTouch {
     overflow-y:auto; 
     padding-left:5px
 }
+
+/*Rad Button*/
+.btn-wrapper {
+    width:100%;
+    min-height: 50px;
+    padding-left:15px; 
+    border-bottom-color: #FF9933; 
+    border-bottom-width: 1px; 
+    border-bottom-style: inset;
+}
