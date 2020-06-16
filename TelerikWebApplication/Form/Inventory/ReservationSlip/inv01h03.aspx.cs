@@ -274,6 +274,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
 
         protected void cb_type_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+
             (sender as RadComboBox).Items.Add("Work Order");
             (sender as RadComboBox).Items.Add("General Request");
         }
@@ -412,35 +413,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
         {
             (sender as RadComboBox).Text = "";
             LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
-            //string sql = "select * from v_rs_reff where sro_code LIKE @text + '%'";
-
-            //SqlDataAdapter adapter = new SqlDataAdapter(sql,
-            //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            //adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
-
-            //DataTable dt = new DataTable();
-            //adapter.Fill(dt);
-
-            //RadComboBox comboBox = (RadComboBox)sender;
-            //// Clear the default Item that has been re-created from ViewState at this point.
-            //comboBox.Items.Clear();
-
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    RadComboBoxItem item = new RadComboBoxItem();
-            //    item.Text = row["sro_code"].ToString();
-            //    item.Text = row["sro_date"].ToString();
-            //    item.Text = row["trans_id"].ToString();
-            //    item.Text = row["unit_code"].ToString();
-            //    item.Value = row["time_reading"].ToString();
-            //    item.Text = row["model_no"].ToString();
-            //    item.Text = row["sro_remark"].ToString();
-
-            //    comboBox.Items.Add(item);
-
-            //    item.DataBind();
-            //}
-
+            
         }
 
         protected void cb_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -467,59 +440,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             con.Close();
 
             RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
-            RadGrid2.DataBind();
-
-            //Session["sro_code"] = e.Value;
-
-            //try
-            //{
-            //    con.Open();
-            //    cmd = new SqlCommand();
-            //    cmd.Connection = con;
-            //    cmd.CommandType = CommandType.Text;
-            //    cmd.CommandText = "select v_rs_reff.sro_code, sro_date, v_rs_reff.trans_id, v_rs_reff.unit_code, v_rs_reff.model_no, time_reading, " +
-            //    " sro_remark, prod_type, part_code, fig_image, item, part_qty,part_unit,deliv_date, tWarranty, remark, CostCenterName,dept_code " +
-            //    " from v_rs_reff join inv01d02 on v_rs_reff.sro_code = inv01d02.sro_code " +
-            //    " WHERE v_rs_reff.sro_code = '" + (sender as RadComboBox).SelectedValue + "'";
-
-            //    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            //    DataTable dt = new DataTable();
-            //    adapter.Fill(dt);
-            //    foreach (DataRow dtr in dt.Rows)
-            //    {
-            //        RadComboBox cb = (RadComboBox)sender;
-            //        GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-
-            //        RadTextBox t_prod_type = (RadTextBox)item.FindControl("txt_prod_type");
-            //        RadTextBox t_part_code = (RadTextBox)item.FindControl("txt_part_code");
-            //        RadTextBox t_fig_image = (RadTextBox)item.FindControl("txt_fig_image");
-            //        RadTextBox t_item = (RadTextBox)item.FindControl("txt_item");
-            //        RadTextBox t_part_qty = (RadTextBox)item.FindControl("txt_part_qty");
-            //        RadTextBox t_part_unit = (RadTextBox)item.FindControl("txt_part_unit");
-            //        RadTextBox t_deliv_date = (RadTextBox)item.FindControl("txt_deliv_date");
-            //        RadTextBox t_tWarranty = (RadTextBox)item.FindControl("txt_tWarranty");
-            //        RadTextBox t_remark = (RadTextBox)item.FindControl("txt_remark_d");
-
-            //        t_prod_type.Text = dtr["prod_type"].ToString();
-            //        t_part_code.Text = dtr["part_code"].ToString();
-            //        t_fig_image.Text = dtr["fig_image"].ToString();
-            //        t_item.Text = dtr["item"].ToString();
-            //        t_part_qty.Text = dtr["part_qty"].ToString();
-            //        t_part_unit.Text = dtr["part_unit"].ToString();
-            //        t_deliv_date.Text = dtr["deliv_date"].ToString();
-            //        t_tWarranty.Text = dtr["tWarranty"].ToString();
-            //        t_remark.Text = dtr["remark"].ToString();
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
-            //}
-            //finally
-            //{
-            //    con.Close();
-            //}
+            RadGrid2.DataBind();            
         }
 
         protected void cb_ref_PreRender(object sender, EventArgs e)
@@ -906,14 +827,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                     cmd.CommandText = "sp_save_rsD";
                     cmd.Parameters.AddWithValue("@doc_code", run);
                     cmd.Parameters.AddWithValue("@part_code", (item.FindControl("lblProdCode") as Label).Text);
+                    cmd.Parameters.AddWithValue("@oh_qty", Convert.ToDouble((item.FindControl("lblSoh") as Label).Text));
                     cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
                     cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("lblUom") as Label).Text);
                     cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
                     cmd.Parameters.AddWithValue("@tWarranty", "0");
                     cmd.Parameters.AddWithValue("@deliv_date", string.Format("{0:yyyy-MM-dd}", (item.FindControl("dtpDelivDate") as RadDatePicker).SelectedDate));
-                    //cmd.Parameters.AddWithValue("@fig_image", (item.FindControl("txt_fig_image") as RadTextBox).Text);
-                    //cmd.Parameters.AddWithValue("@item", (item.FindControl("txt_item") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
                     cmd.ExecuteNonQuery();
                 }
@@ -1000,6 +920,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             dr.Close();
             con.Close();
         }
+
 
         //protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         //{
