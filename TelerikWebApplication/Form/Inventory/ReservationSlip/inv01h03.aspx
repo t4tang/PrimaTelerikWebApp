@@ -574,7 +574,6 @@
                                     <asp:Label ID="lbl_result" runat="server"></asp:Label>
                                 </td>
                             </tr>
-
                         </table>
                     </td>
                 </tr>

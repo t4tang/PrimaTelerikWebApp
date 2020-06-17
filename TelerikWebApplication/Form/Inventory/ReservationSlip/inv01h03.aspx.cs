@@ -746,6 +746,11 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 clear_text(Page.Controls);
             }
             label_teks_default();
+            cb_type_ref.Text = "Work Order";
+            cb_type_ref.SelectedValue = "1";
+            cb_project.SelectedValue = public_str.site;
+            cb_project.Text = public_str.sitename;
+            dtp_exe.SelectedDate = dtp_rs.SelectedDate;
         }
 
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
