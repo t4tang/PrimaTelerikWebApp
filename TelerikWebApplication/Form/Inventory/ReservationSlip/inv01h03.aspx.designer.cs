@@ -454,13 +454,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip {
         protected global::Telerik.Web.UI.RadLabel lbl_edited;
         
         /// <summary>
-        /// lbl_result control.
+        /// chk_to_pr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_result;
+        protected global::System.Web.UI.WebControls.CheckBox chk_to_pr;
         
         /// <summary>
         /// RadGrid2 control.
@@ -488,5 +488,23 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindow PreviewDialog;
+        
+        /// <summary>
+        /// notif control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNotification notif;
+        
+        /// <summary>
+        /// RadWindowManager2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager2;
     }
 }

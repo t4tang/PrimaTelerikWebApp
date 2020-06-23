@@ -27,6 +27,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_project_prm.SelectedValue = public_str.site;
+                cb_project_prm.Text = public_str.sitename;
 
                 //label_teks_default();
                 dtp_rs.SelectedDate = DateTime.Now;
@@ -148,6 +149,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
                 //RadGrid2.Enabled = true;
+                chk_to_pr.Enabled = false;
                 btnSave.Enabled = true;
                 btnSave.ImageUrl = "~/Images/simpan.png";
                 btnPrint.Enabled = true;
@@ -216,7 +218,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_rs_refD";
-            cmd.Parameters.AddWithValue("@mr_code", doc_code);
+            cmd.Parameters.AddWithValue("@doc_code", doc_code);
+            cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -381,7 +384,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
         }
         private static DataTable GetReff(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select * from v_rs_reff where sro_code LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select * from v_rs_reff where doc_code LIKE @text + '%'",
              ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -391,28 +394,58 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             return data;
         }
 
-        protected void LoadRef(string sro_code, string projectID, RadComboBox cb)
+        //protected void LoadRefMR(string doc_code, string projectID, RadComboBox cb)
+        //{
+        //    SqlConnection con = new SqlConnection(
+        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff " +
+        //        "WHERE void <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
+        //    adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+        //    adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
+        //    DataTable dt = new DataTable();
+        //    adapter.Fill(dt);
+
+        //    cb.DataTextField = "doc_code";
+        //    cb.DataValueField = "doc_code";
+        //    cb.DataSource = dt;
+        //    cb.DataBind();
+        //}
+        protected void LoadReff(string doc_code, string projectID, string typeRef, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT sro_code, sro_remark FROM v_rs_reff " +
-                "WHERE void <> '4' AND region_code = @project AND sro_code LIKE @text + '%'", con);
-            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", sro_code);
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
 
-            cb.DataTextField = "sro_code";
-            cb.DataValueField = "sro_code";
+            if (typeRef == "Work Order")
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff " +
+                "WHERE void <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
+                adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
+                //DataTable dt = new DataTable();
+                adapter.Fill(dt);
+            }
+            else
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff_general " +
+                "WHERE region_code = @project AND doc_code LIKE @text + '%'", con);
+                adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
+                //DataTable dt = new DataTable();
+                adapter.Fill(dt);
+            }
+            
+
+            cb.DataTextField = "doc_code";
+            cb.DataValueField = "doc_code";
             cb.DataSource = dt;
             cb.DataBind();
         }
-       
         protected void cb_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            LoadReff(e.Text, cb_project.SelectedValue,cb_type_ref.Text, (sender as RadComboBox));
             
         }
 
@@ -422,19 +455,35 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM v_rs_reff WHERE sro_code = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            if (cb_type_ref.Text=="Work Order")
             {
-                (sender as RadComboBox).Text = dr["sro_code"].ToString();
-                txt_unit_code.Text = dr["unit_code"].ToString();
-                txt_unit_name.Text = dr["model_no"].ToString();
-                txt_hm.Text = dr["time_reading"].ToString();
-                txt_cost_center.Text = dr["dept_code"].ToString();
-                txt_cost_name.Text = dr["CostCenterName"].ToString();
-                txt_remark.Text = dr["sro_remark"].ToString();
+                cmd.CommandText = "SELECT * FROM v_rs_reff WHERE doc_code = '" + (sender as RadComboBox).SelectedValue + "'";                
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    (sender as RadComboBox).Text = dr["doc_code"].ToString();
+                    txt_unit_code.Text = dr["unit_code"].ToString();
+                    txt_unit_name.Text = dr["model_no"].ToString();
+                    txt_hm.Text = dr["time_reading"].ToString();
+                    txt_cost_center.Text = dr["dept_code"].ToString();
+                    txt_cost_name.Text = dr["CostCenterName"].ToString();
+                    txt_remark.Text = dr["remark"].ToString();
+                }
             }
+            else
+            {
+                cmd.CommandText = "SELECT * FROM v_rs_reff_general WHERE doc_code = '" + (sender as RadComboBox).SelectedValue + "'";                
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    (sender as RadComboBox).Text = dr["doc_code"].ToString();
+                    txt_cost_center.Text = dr["dept_code"].ToString();
+                    txt_cost_name.Text = dr["CostCenterName"].ToString();
+                    txt_remark.Text = dr["remark"].ToString();
+                }
+            }
+           
 
             dr.Close();
             con.Close();
@@ -449,7 +498,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT sro_code FROM v_rs_reff WHERE sro_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT doc_code FROM v_rs_reff WHERE doc_code = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -806,7 +855,14 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 cmd.Parameters.AddWithValue("@doc_remark", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@unit_code", txt_unit_code.Text);
                 cmd.Parameters.AddWithValue("@model_no", txt_unit_name.Text);
-                cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Text));
+                if (txt_hm.Text != "")
+                {
+                    cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Text));
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@time_reading", 0);
+                }
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@tFullSupply", "0");
                 cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
@@ -819,6 +875,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 //cmd.Parameters.AddWithValue("@Edited", txt_edited.Text);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
                 cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+                //cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
                 cmd.ExecuteNonQuery();
 
 
@@ -845,23 +902,34 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 
 
                 con.Close();
-
+                notif.Text = "Data berhasil disimpan";
+                notif.Title = "Notification";
+                notif.Show();
                 txt_doc_code.Text = run;
                 //RadGrid2.Enabled = true;
                 btnSave.Enabled = false;
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
                 btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_doc_code.Text);
+                if (Session["action"].ToString() == "new" && chk_to_pr.Checked == true)
+                {
+                    Response.Redirect("~/Form/Purchase/PurchaseReq/pur01h01.aspx?pr_code=" +System.Web.HttpUtility.UrlEncode(run) + 
+                        "&reff_date=" + System.Web.HttpUtility.UrlEncode(string.Format("{0:dd-MM-yyyy}", dtp_rs.SelectedDate.Value)) +
+                        "&project=" + System.Web.HttpUtility.UrlEncode(cb_project.Text) +
+                        "&costCtr=" + System.Web.HttpUtility.UrlEncode(txt_cost_center.Text) +
+                        "&unit=" + System.Web.HttpUtility.UrlEncode(txt_unit_code.Text) +
+                        "&hm=" + System.Web.HttpUtility.UrlEncode(txt_hm.Text) +
+                        "&model=" + System.Web.HttpUtility.UrlEncode(txt_unit_name.Text) +
+                        "&wo=" + System.Web.HttpUtility.UrlEncode(cb_ref.SelectedValue) +
+                        "&remark=" + System.Web.HttpUtility.UrlEncode(txt_remark.Text));
+                }
             }
             catch (Exception ex)
             {
                 con.Close();
-                //Label lblError = new Label();
-                lbl_result.Text = "Unable to save data. Reason: " + ex.Message;
-                lbl_result.ForeColor = System.Drawing.Color.Red;
-                //lblError.Text = "Unable to save data. Reason: " + ex.Message;
-                //lblError.ForeColor = System.Drawing.Color.Red;
-                //RadGrid1.Controls.Add(lblError);
+                //Response.Write("<font color='red'>" + ex.Message + "</font>");
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
+                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn","");
             }
         }
 
