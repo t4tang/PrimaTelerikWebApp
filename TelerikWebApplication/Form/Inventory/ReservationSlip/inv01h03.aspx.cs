@@ -913,7 +913,9 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_doc_code.Text);
                 if (Session["action"].ToString() == "new" && chk_to_pr.Checked == true)
                 {
-                    Response.Redirect("~/Form/Purchase/PurchaseReq/pur01h01.aspx?pr_code=" +System.Web.HttpUtility.UrlEncode(run) + 
+                    if(cb_type_ref.SelectedValue == "1")
+                    {
+                        Response.Redirect("~/Form/Purchase/PurchaseReq/pur01h01.aspx?pr_code=" + System.Web.HttpUtility.UrlEncode(run) +
                         "&reff_date=" + System.Web.HttpUtility.UrlEncode(string.Format("{0:dd-MM-yyyy}", dtp_rs.SelectedDate.Value)) +
                         "&project=" + System.Web.HttpUtility.UrlEncode(cb_project.Text) +
                         "&costCtr=" + System.Web.HttpUtility.UrlEncode(txt_cost_center.Text) +
@@ -922,6 +924,16 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                         "&model=" + System.Web.HttpUtility.UrlEncode(txt_unit_name.Text) +
                         "&wo=" + System.Web.HttpUtility.UrlEncode(cb_ref.SelectedValue) +
                         "&remark=" + System.Web.HttpUtility.UrlEncode(txt_remark.Text));
+                    }
+                    else if (cb_type_ref.SelectedValue == "2")
+                    {
+                        Response.Redirect("~/Form/Purchase/PurchaseReq/pur01h01a.aspx?pr_code=" + System.Web.HttpUtility.UrlEncode(run) +
+                        "&reff_date=" + System.Web.HttpUtility.UrlEncode(string.Format("{0:dd-MM-yyyy}", dtp_rs.SelectedDate.Value)) +
+                        "&project=" + System.Web.HttpUtility.UrlEncode(cb_project.Text) +
+                        "&costCtr=" + System.Web.HttpUtility.UrlEncode(txt_cost_center.Text) +
+                        "&unit=" + System.Web.HttpUtility.UrlEncode(txt_unit_code.Text) +
+                        "&remark=" + System.Web.HttpUtility.UrlEncode(txt_remark.Text));
+                    }
                 }
             }
             catch (Exception ex)

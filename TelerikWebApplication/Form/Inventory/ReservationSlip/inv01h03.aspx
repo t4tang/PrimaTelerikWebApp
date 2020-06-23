@@ -51,33 +51,7 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="RadAjaxLoadingPanel2"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
-            <%--<telerik:AjaxSetting AjaxControlID="cb_project">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="cb_warehouse" ></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_remark"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="cb_ref" ></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_unit_code" ></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_unit_name" ></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_hm" ></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_cost_center"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_cost_name"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid2"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="cb_orderBy"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="cb_received"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="cb_approved"></telerik:AjaxUpdatedControl>
-
-                </UpdatedControls>                
-            </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="cb_ref">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="txt_unit_code" ></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_unit_name" ></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_hm" ></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_cost_center"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_cost_name"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_remark"></telerik:AjaxUpdatedControl>
-                </UpdatedControls>                
-            </telerik:AjaxSetting>--%>
+            
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
