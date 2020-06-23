@@ -67,13 +67,22 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip {
         protected global::Telerik.Web.UI.RadAjaxLoadingPanel gridLoadingPanel;
         
         /// <summary>
-        /// RadAjaxLoadingPanel1 control.
+        /// RadAjaxLoadingPanel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
+        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel2;
+        
+        /// <summary>
+        /// RadAjaxLoadingPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel;
         
         /// <summary>
         /// RadWindow_ContentTemplate control.
@@ -436,15 +445,6 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip {
         protected global::Telerik.Web.UI.RadLabel lbl_Owner;
         
         /// <summary>
-        /// lbl_printed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_printed;
-        
-        /// <summary>
         /// lbl_edited control.
         /// </summary>
         /// <remarks>
@@ -452,6 +452,15 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadLabel lbl_edited;
+        
+        /// <summary>
+        /// lbl_printed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_printed;
         
         /// <summary>
         /// chk_to_pr control.

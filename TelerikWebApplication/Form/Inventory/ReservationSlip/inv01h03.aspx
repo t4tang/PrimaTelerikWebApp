@@ -43,12 +43,12 @@
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="cb_ref">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="RadAjaxLoadingPanel2"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="RadGrid2">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="RadAjaxLoadingPanel2"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
             <%--<telerik:AjaxSetting AjaxControlID="cb_project">
@@ -81,10 +81,13 @@
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
-    <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2000" BackgroundPosition="None">
-        <img alt="Loading..." src="../../../Images/loader.gif" style="border: 0px;" />
+     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2500" BackgroundPosition="None" Skin="Material">
+        <img alt="Loading..." src="../../../Images/loaderpage.gif" style="border: 0px; width:100px; height:75px; position: absolute; top: 170px; left:600px" />
     </telerik:RadAjaxLoadingPanel>
-    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Windows7" MinDisplayTime="2000" BackgroundPosition="Center"></telerik:RadAjaxLoadingPanel>
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel2" runat="server" MinDisplayTime="2500" BackgroundPosition="None" Skin="Material">
+        <img alt="Loading..." src="../../../Images/load.gif" style="border: 0px; width:60px; height:45px; position: absolute; top: 100px; left:600px" />
+    </telerik:RadAjaxLoadingPanel>
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel" runat="server" Skin="Windows7" MinDisplayTime="2000" BackgroundPosition="Center"></telerik:RadAjaxLoadingPanel>
 
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone"
         Modal="true" Width="1400px" Height="700px">
@@ -306,28 +309,28 @@
                                     <td style="vertical-align: top; text-align: left; width:300px;padding-left:4px" > 
                                         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                         <ContentTemplate>                                       
-                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="250px" DropDownWidth="570px" 
+                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="250px" DropDownWidth="620px" 
                                             AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select Reff. Number -" EnableLoadOnDemand="True" Skin="MetroTouch" 
                                             DataTextField="doc_code" DataValueField="doc_code"
                                             OnItemsRequested="cb_ref_ItemsRequested" OnSelectedIndexChanged="cb_ref_SelectedIndexChanged"
                                             OnPreRender="cb_ref_PreRender">
                                             <HeaderTemplate>
-                                            <table style="width: 570px; font-size: smaller">
+                                            <table style="width: 620px; font-size: smaller">
                                                 <tr>
                                                     <td style="width: 120px;">Reff. No.
                                                     </td>
-                                                    <td style="width: 450px;">Remark
+                                                    <td style="width: 500px;">Remark
                                                     </td>
                                                 </tr>
                                             </table>
                                         </HeaderTemplate>
                                         <ItemTemplate>
-                                            <table style="width: 570px; font-size: smaller">
+                                            <table style="width: 620px; font-size: smaller">
                                                 <tr>
                                                     <td style="width: 120px;">
                                                         <%# DataBinder.Eval(Container, "DataItem.doc_code")%>
                                                     </td>
-                                                    <td style="width: 450px; text-align:left">
+                                                    <td style="width: 500px; text-align:left">
                                                         <asp:label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "remark") %>'></asp:label>                                                                    
                                                     </td>
                                                 </tr>
@@ -566,10 +569,10 @@
                                     <telerik:RadLabel runat="server" ID="lbl_Owner" Width="100px" Text="Owner: " />
                                 </td>
                                 <td style="padding: 0px 10px 0px 10px">
-                                    <telerik:RadLabel runat="server" ID="lbl_printed" Width="100px" Text="Printed: " /> 
+                                    <telerik:RadLabel runat="server" ID="lbl_edited" Width="100px" Text="Edited: " />
                                 </td>
                                 <td style="padding: 0px 10px 0px 10px">
-                                    <telerik:RadLabel runat="server" ID="lbl_edited" Width="100px" Text="Edited: " />
+                                    <telerik:RadLabel runat="server" ID="lbl_printed" Width="100px" Text="Printed: " Visible="false" /> 
                                 </td>
                                 <td style="padding: 0px 10px 0px 10px">
                                    <asp:CheckBox ID="chk_to_pr" runat="server" Text="Proceed to the next process (PR)" ForeColor="Blue" />
@@ -696,8 +699,8 @@
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
-        <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Initial text"
-                    AutoCloseDelay="5000" Width="350" Height="110" Title="Current time" EnableRoundedCorners="true">
+        <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Initial text" Position="BottomRight"
+                    AutoCloseDelay="10000" Width="350" Height="110" Title="Current time" EnableRoundedCorners="true">
         </telerik:RadNotification>
         <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true">
         </telerik:RadWindowManager>
