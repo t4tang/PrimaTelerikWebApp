@@ -210,6 +210,9 @@
                                         AutoPostBack="false" ShowMoreResultsBox="true" EmptyMessage="- Select a Supplier -" EnableLoadOnDemand="True" Skin="MetroTouch"  
                                         OnItemsRequested="cb_supplier_ItemsRequested" OnSelectedIndexChanged="cb_supplier_SelectedIndexChanged" OnPreRender="cb_supplier_PreRender">
                                     </telerik:RadComboBox>
+                              &nbsp;<telerik:RadTextBox Rendermode="Lightweight" ID="txt_supplier" runat="server" Width="150" EmptyMessage="- Select a Supplier -"
+                                     Visible="false">
+                                   </telerik:RadTextBox>
                                 </td>
                             </tr>
                         </table>

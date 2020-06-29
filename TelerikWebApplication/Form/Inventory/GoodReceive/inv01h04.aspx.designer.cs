@@ -229,6 +229,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         protected global::Telerik.Web.UI.RadComboBox cb_supplier;
         
         /// <summary>
+        /// txt_supplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txt_supplier;
+        
+        /// <summary>
         /// cb_ref control.
         /// </summary>
         /// <remarks>
