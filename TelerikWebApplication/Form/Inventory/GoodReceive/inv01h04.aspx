@@ -170,8 +170,8 @@
                                 <td>
                                     <telerik:RadComboBox ID="cb_from" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
-                                        EnableVirtualScrolling="true" Skin="MetroTouch" OnItemsRequested="rb_from_ItemsRequested"
-                                        OnSelectedIndexChanged="rb_from_SelectedIndexChanged" OnPreRender="rb_from_PreRender">
+                                        EnableVirtualScrolling="true" Skin="MetroTouch" OnItemsRequested="cb_from_ItemsRequested"
+                                        OnSelectedIndexChanged="cb_from_SelectedIndexChanged" OnPreRender="cb_from_PreRender">
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>

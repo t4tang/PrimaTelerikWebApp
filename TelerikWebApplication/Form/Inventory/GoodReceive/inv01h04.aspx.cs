@@ -126,30 +126,57 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
                     ((RadComboBox)ctrl).Text = string.Empty;
             }
         }
-
-        protected void rb_from_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
+        private static DataTable GetSupplier(string text)
         {
+            SqlDataAdapter adapter = new SqlDataAdapter("select cust_code, cust_name from v_good_receiveH where cust_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
         }
-
-        protected void rb_from_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-
-        }
-
-        protected void rb_from_PreRender(object sender, EventArgs e)
-        {
-
-        }
-
         protected void cb_project_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
+            DataTable data = GetSupplier(e.Text);
 
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["cust_name"].ToString(), data.Rows[i]["cust_name"].ToString()));
+            }
         }
 
         protected void cb_project_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from v_good_receiveH WHERE cust_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
+            dr.Close();
 
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr1 in dt.Rows)
+            {
+                //RadComboBox cb = (RadComboBox)sender;
+                //GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                //RadTextBox txtCurr = (RadTextBox)item.FindControl("txt_currency");
+                //RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+                txt_currency.Text = dr1["cur_code"].ToString();
+                txt_kurs.Text = dr1["kurs"].ToString();
+            }
+            con.Close();
         }
 
         protected void cb_project_PreRender(object sender, EventArgs e)
@@ -299,7 +326,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
                 cmd.Parameters.AddWithValue("@ref_date", string.Format("{0:yyyy-MM-dd}", dtp_ref.SelectedDate.Value));
                 //cmd.Parameters.AddWithValue("@po_code", txt.SelectedValue);
                 cmd.Parameters.AddWithValue("@status_lbm", cb_from.SelectedValue);
-                cmd.Parameters.AddWithValue("@sj", txt_currency.Text);
+                //cmd.Parameters.AddWithValue("@sj", txt_currency.Text);
                 cmd.Parameters.AddWithValue("@lastupdate", txt_lastUpdate.Text);
                 cmd.Parameters.AddWithValue("@userid", txt_uid.Text);
                 //cmd.Parameters.AddWithValue("@remark", txt_kurs.Text);
@@ -451,6 +478,54 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         protected void btnPrint_Click(object sender, ImageClickEventArgs e)
         {
 
+        }
+
+        protected void cb_from_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Items.Add("Supplier");
+            (sender as RadComboBox).Items.Add("Consigment");
+            (sender as RadComboBox).Items.Add("Return");
+            (sender as RadComboBox).Items.Add("Assembly");
+        }
+
+        protected void cb_from_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Return")
+            {
+                (sender as RadComboBox).SelectedValue = "1";
+            }
+            else if ((sender as RadComboBox).Text == "Compliment")
+            {
+                (sender as RadComboBox).SelectedValue = "2";
+            }
+            else if ((sender as RadComboBox).Text == "Supplier")
+            {
+                (sender as RadComboBox).SelectedValue = "3";
+            }
+            else if ((sender as RadComboBox).Text == "Assembly")
+            {
+                (sender as RadComboBox).SelectedValue = "4";
+            }
+        }
+
+        protected void cb_from_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Return")
+            {
+                (sender as RadComboBox).SelectedValue = "1";
+            }
+            else if ((sender as RadComboBox).Text == "Compliment")
+            {
+                (sender as RadComboBox).SelectedValue = "2";
+            }
+            else if ((sender as RadComboBox).Text == "Supplier")
+            {
+                (sender as RadComboBox).SelectedValue = "3";
+            }
+            else if ((sender as RadComboBox).Text == "Assembly")
+            {
+                (sender as RadComboBox).SelectedValue = "4";
+            }
         }
     }
 }
