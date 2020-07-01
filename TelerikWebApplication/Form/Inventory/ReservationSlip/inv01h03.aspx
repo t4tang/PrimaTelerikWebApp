@@ -13,7 +13,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("reportViewer.aspx?doc_code=" + id, "PreviewDialog");
+                window.radopen("ReportViewer_inv01h03.aspx?doc_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
