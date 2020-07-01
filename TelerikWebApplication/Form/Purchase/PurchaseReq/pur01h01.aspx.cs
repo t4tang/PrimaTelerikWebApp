@@ -196,131 +196,131 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             lbl_edited.Text = "Edited: ";
 
         }
-        //protected void btnSave_Click(object sender, ImageClickEventArgs e)
-        //{
-        //    long maxNo;
-        //    string run = null;
-        //    string trDate = string.Format("{0:dd/MM/yyyy}", dtp_pr.SelectedDate);
+        protected void btnSave_Click(object sender, ImageClickEventArgs e)
+        {
+            long maxNo;
+            string run = null;
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_pr.SelectedDate);
 
-        //    try
-        //    {
-        //        if (Session["action"].ToString() == "edit")
-        //        {
-        //            run = txt_doc_code.Text;
-        //        }
-        //        else
-        //        {
-        //            con.Open();
-        //            SqlDataReader sdr;
-        //            cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h01.pr_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-        //                "FROM pur01h01 WHERE LEFT(pur01h01.pr_code, 4) = 'PR01' " +
-        //                "AND SUBSTRING(pur01h01.pr_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-        //                "AND SUBSTRING(pur01h01.pr_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
-        //            sdr = cmd.ExecuteReader();
-        //            if (sdr.HasRows == false)
-        //            {
-        //                //throw new Exception();
-        //                run = "PR01" + dtp_pr.SelectedDate.Value.Year + dtp_pr.SelectedDate.Value.Month + "0001";
-        //            }
-        //            else if (sdr.Read())
-        //            {
-        //                maxNo = Convert.ToInt32(sdr[0].ToString());
-        //                run = "PR01" + (dtp_pr.SelectedDate.Value.Year.ToString()).Substring(dtp_pr.SelectedDate.Value.Year.ToString().Length - 2) +
-        //                    ("0000" + dtp_pr.SelectedDate.Value.Month).Substring(("0000" + dtp_pr.SelectedDate.Value.Month).Length - 2, 2) +
-        //                    ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
-        //            }
-        //            con.Close();
-        //        }
-
-
-        //        con.Open();
-        //        cmd = new SqlCommand();
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.Connection = con;
-        //        cmd.CommandText = "sp_save_purchase_requestH";
-        //        cmd.Parameters.AddWithValue("@pr_code", run);
-        //        cmd.Parameters.AddWithValue("@Pr_date", string.Format("{0:yyyy-MM-dd}", dtp_pr.SelectedDate.Value));
-        //        cmd.Parameters.AddWithValue("@type_source", cb_type_ref.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@ctrl_no", cb_ref.Text);
-        //        cmd.Parameters.AddWithValue("@priority", cb_priority.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
-        //        cmd.Parameters.AddWithValue("@FreBy", cb_prepare_by.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@OrdBy", cb_orderBy.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@CekBy", cb_checked.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@userid", public_str.user_id);
-        //        cmd.Parameters.AddWithValue("@dept_code", cb_cost_ctr.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@unit_code", txt_unit_code.Text);
-        //        cmd.Parameters.AddWithValue("@model_no", txt_unit_name.Text);
-        //        if (txt_hm.Text != "")
-        //        {
-        //            cmd.Parameters.AddWithValue("@time_reading", Convert.ToDecimal(txt_hm.Text));
-        //        }
-        //        else
-        //        {
-        //            cmd.Parameters.AddWithValue("@time_reading", 0);
-        //        }
-        //        cmd.Parameters.AddWithValue("@type_pr", "B");
-        //        cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-        //        cmd.Parameters.AddWithValue("@doc_type", 1);
-        //        cmd.Parameters.AddWithValue("@asset_id", "NON");
-        //        //cmd.Parameters.AddWithValue("@asset_id", "NON");
-        //        cmd.ExecuteNonQuery();
+            try
+            {
+                if (Session["action"].ToString() == "edit")
+                {
+                    run = txt_doc_code.Text;
+                }
+                else
+                {
+                    con.Open();
+                    SqlDataReader sdr;
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h01.pr_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM pur01h01 WHERE LEFT(pur01h01.pr_code, 4) = 'PR01' " +
+                        "AND SUBSTRING(pur01h01.pr_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(pur01h01.pr_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.HasRows == false)
+                    {
+                        //throw new Exception();
+                        run = "PR01" + dtp_pr.SelectedDate.Value.Year + dtp_pr.SelectedDate.Value.Month + "0001";
+                    }
+                    else if (sdr.Read())
+                    {
+                        maxNo = Convert.ToInt32(sdr[0].ToString());
+                        run = "PR01" + (dtp_pr.SelectedDate.Value.Year.ToString()).Substring(dtp_pr.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_pr.SelectedDate.Value.Month).Substring(("0000" + dtp_pr.SelectedDate.Value.Month).Length - 2, 2) +
+                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
+                    }
+                    con.Close();
+                }
 
 
-        //        // Save Detail
-        //        //cmd = new SqlCommand();
-        //        //cmd.CommandType = CommandType.Text;
-        //        //cmd.Connection = con;
-        //        //cmd.CommandText = "DELETE FROM pur01d01 WHERE pr_code = @pr_code";
-        //        //cmd.Parameters.AddWithValue("@pr_code", run);
-        //        //cmd.ExecuteNonQuery();
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_purchase_requestH";
+                cmd.Parameters.AddWithValue("@pr_code", run);
+                cmd.Parameters.AddWithValue("@Pr_date", string.Format("{0:yyyy-MM-dd}", dtp_pr.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@type_source", cb_type_ref.SelectedValue);
+                cmd.Parameters.AddWithValue("@ctrl_no", cb_ref.Text);
+                cmd.Parameters.AddWithValue("@priority", cb_priority.SelectedValue);
+                cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+                cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@FreBy", cb_prepare_by.SelectedValue);
+                cmd.Parameters.AddWithValue("@OrdBy", cb_orderBy.SelectedValue);
+                cmd.Parameters.AddWithValue("@CekBy", cb_checked.SelectedValue);
+                cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
+                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@dept_code", cb_cost_ctr.SelectedValue);
+                cmd.Parameters.AddWithValue("@unit_code", txt_unit_code.Text);
+                cmd.Parameters.AddWithValue("@model_no", txt_unit_name.Text);
+                if (txt_hm.Text != "")
+                {
+                    cmd.Parameters.AddWithValue("@time_reading", Convert.ToDecimal(txt_hm.Text));
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@time_reading", 0);
+                }
+                cmd.Parameters.AddWithValue("@type_pr", "B");
+                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                cmd.Parameters.AddWithValue("@doc_type", 1);
+                cmd.Parameters.AddWithValue("@asset_id", "NON");
+                //cmd.Parameters.AddWithValue("@asset_id", "NON");
+                cmd.ExecuteNonQuery();
 
-        //        foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
-        //        {
-        //            cmd = new SqlCommand();
-        //            cmd.CommandType = CommandType.StoredProcedure;
-        //            cmd.Connection = con;
-        //            cmd.CommandText = "sp_save_purchase_requestD";
-        //            cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
-        //            cmd.Parameters.AddWithValue("@Prod_code", (item.FindControl("lblProdCode") as Label).Text);
-        //            cmd.Parameters.AddWithValue("@no_ref", (item.FindControl("lblRS") as Label).Text);
-        //            cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
-        //            cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
-        //            cmd.Parameters.AddWithValue("@DeliDate", string.Format("{0:yyyy-MM-dd}", (item.FindControl("dtpDelivDate") as RadDatePicker).SelectedDate));
-        //            cmd.Parameters.AddWithValue("@Remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
-        //            cmd.Parameters.AddWithValue("@pr_code", run);
-        //            //cmd.Parameters.AddWithValue("@tAsset", 0);
-        //            cmd.Parameters.AddWithValue("@stock_hand", Convert.ToDouble((item.FindControl("lblSoh") as Label).Text));
-        //            cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
-        //            cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
-        //            cmd.ExecuteNonQuery();
-                   
-        //        }
-        //        con.Close();
 
-        //        //HttpContext.Current.Response.Write("<script>alert('" + System.Web.HttpUtility.HtmlEncode("Berhasil disimpan") + "')</script>");
-        //        notif.Text = "Data berhasil disimpan";
-        //        notif.Title = "Notification";
-        //        notif.Show();
-        //        txt_doc_code.Text = run;
-        //        //RadGrid2.Enabled = true;
-        //        btnSave.Enabled = false;
-        //        btnPrint.Enabled = true;
-        //        btnPrint.ImageUrl = "~/Images/cetak.png";
-        //        btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_doc_code.Text);
-        //    }
-        //    catch (System.Exception ex)
-        //    {
-        //        con.Close();
-        //        RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
-        //        //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
-        //        //Response.Write("<font color='red'>" + ex.Message + "</font>");
-        //    }
-        //}
-        
+                // Save Detail
+                //cmd = new SqlCommand();
+                //cmd.CommandType = CommandType.Text;
+                //cmd.Connection = con;
+                //cmd.CommandText = "DELETE FROM pur01d01 WHERE pr_code = @pr_code";
+                //cmd.Parameters.AddWithValue("@pr_code", run);
+                //cmd.ExecuteNonQuery();
+
+                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_save_purchase_requestD";
+                    cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
+                    cmd.Parameters.AddWithValue("@Prod_code", (item.FindControl("lblProdCode") as Label).Text);
+                    cmd.Parameters.AddWithValue("@no_ref", (item.FindControl("lblRS") as Label).Text);
+                    cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
+                    cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
+                    cmd.Parameters.AddWithValue("@DeliDate", string.Format("{0:yyyy-MM-dd}", (item.FindControl("dtpDelivDate") as RadDatePicker).SelectedDate));
+                    cmd.Parameters.AddWithValue("@Remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@pr_code", run);
+                    //cmd.Parameters.AddWithValue("@tAsset", 0);
+                    cmd.Parameters.AddWithValue("@stock_hand", Convert.ToDouble((item.FindControl("lblSoh") as Label).Text));
+                    cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
+                    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
+                    cmd.ExecuteNonQuery();
+
+                }
+                con.Close();
+
+                //HttpContext.Current.Response.Write("<script>alert('" + System.Web.HttpUtility.HtmlEncode("Berhasil disimpan") + "')</script>");
+                notif.Text = "Data berhasil disimpan";
+                notif.Title = "Notification";
+                notif.Show();
+                txt_doc_code.Text = run;
+                //RadGrid2.Enabled = true;
+                btnSave.Enabled = false;
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_doc_code.Text);
+            }
+            catch (System.Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
+                //Response.Write("<font color='red'>" + ex.Message + "</font>");
+            }
+        }
+
         protected void btnPrint_Click(object sender, ImageClickEventArgs e)
         {
 
