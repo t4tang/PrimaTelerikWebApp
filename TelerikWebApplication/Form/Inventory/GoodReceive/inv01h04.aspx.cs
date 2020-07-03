@@ -139,7 +139,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         }
         protected void cb_project_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = GetSupplier(e.Text);
+            DataTable data = GetProject(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -147,7 +147,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["cust_name"].ToString(), data.Rows[i]["cust_name"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
             }
         }
 
@@ -167,68 +167,235 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-            foreach (DataRow dr1 in dt.Rows)
-            {
-                //RadComboBox cb = (RadComboBox)sender;
-                //GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                //RadTextBox txtCurr = (RadTextBox)item.FindControl("txt_currency");
-                //RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
-                txt_currency.Text = dr1["cur_code"].ToString();
-                txt_kurs.Text = dr1["kurs"].ToString();
-            }
+            //foreach (DataRow dr1 in dt.Rows)
+            //{
+            //    RadComboBox cb = (RadComboBox)sender;
+            //    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+            //    RadTextBox txtCurr = (RadTextBox)item.FindControl("txt_currency");
+            //    RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+            //    txt_currency.Text = dr1["cur_code"].ToString();
+            //    txt_kurs.Text = dr1["kurs"].ToString();
+            //}
             con.Close();
         }
 
         protected void cb_project_PreRender(object sender, EventArgs e)
         {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from v_good_receiveH WHERE cust_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
+            dr.Close();
 
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            //foreach (DataRow dr1 in dt.Rows)
+            //{
+            //    RadComboBox cb = (RadComboBox)sender;
+            //    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+            //    RadTextBox txtCurr = (RadTextBox)item.FindControl("txt_currency");
+            //    RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+            //    txt_currency.Text = dr1["cur_code"].ToString();
+            //    txt_kurs.Text = dr1["kurs"].ToString();
+            //}
+            con.Close();
         }
 
         protected void cb_supplier_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
+            DataTable data = GetSupplier(e.Text);
 
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["cust_name"].ToString(), data.Rows[i]["cust_name"].ToString()));
+            }
         }
 
         protected void cb_supplier_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from v_good_receiveH WHERE cust_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
+            dr.Close();
 
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            //foreach (DataRow dr1 in dt.Rows)
+            //{
+            //    RadComboBox cb = (RadComboBox)sender;
+            //    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+            //    RadTextBox txtCurr = (RadTextBox)item.FindControl("txt_currency");
+            //    RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+            //    txt_currency.Text = dr1["cur_code"].ToString();
+            //    txt_kurs.Text = dr1["kurs"].ToString();
+            //}
+            con.Close();
         }
 
         protected void cb_supplier_PreRender(object sender, EventArgs e)
         {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from v_good_receiveH WHERE cust_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
+            dr.Close();
 
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            //foreach (DataRow dr1 in dt.Rows)
+            //{
+            //    RadComboBox cb = (RadComboBox)sender;
+            //    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+            //    RadTextBox txtCurr = (RadTextBox)item.FindControl("txt_currency");
+            //    RadTextBox txtCurr = item.FindControl("txt_cur") as RadTextBox;
+            //    txt_currency.Text = dr1["cur_code"].ToString();
+            //    txt_kurs.Text = dr1["kurs"].ToString();
+            //}
+            con.Close();
         }
+        private static DataTable GetCostCenter(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenter, CostCenterName from inv00h11 WHERE stEdit != 4 AND CostCenterName LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
         protected void cb_costcenter_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
+            DataTable data = GetCostCenter(e.Text);
 
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["CostCenterName"].ToString(), data.Rows[i]["CostCenterName"].ToString()));
+            }
         }
 
         protected void cb_costcenter_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_costcenter_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
         }
+        private static DataTable GetWarehouse(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND wh_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
         protected void cb_storage_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
+            DataTable data = GetWarehouse(e.Text);
 
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["wh_name"].ToString(), data.Rows[i]["wh_name"].ToString()));
+            }
         }
 
         protected void cb_storage_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_storage_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
         }
 
+        private static DataTable GetUsers(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Nik, Name from inv00h26 WHERE stEdit != 4 AND Name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
         protected void cb_created_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
 
@@ -236,12 +403,32 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
         protected void cb_created_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_created_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_received_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
@@ -251,12 +438,32 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
         protected void cb_received_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_received_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_approved_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
@@ -266,12 +473,32 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
         protected void cb_approved_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_approved_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                cb_approved.SelectedValue = dr["nik"].ToString();
+            dr.Close();
+            con.Close();
         }
 
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
