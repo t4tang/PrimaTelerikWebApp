@@ -734,7 +734,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
         }
 
-        protected void cb_from_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
+        protected void cb_from_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("Supplier");
             (sender as RadComboBox).Items.Add("Consigment");
