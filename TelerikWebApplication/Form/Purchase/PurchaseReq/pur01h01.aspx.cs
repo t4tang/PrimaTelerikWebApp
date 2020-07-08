@@ -323,7 +323,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
 
         protected void btnPrint_Click(object sender, ImageClickEventArgs e)
         {
-
+            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_doc_code.Text);
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
