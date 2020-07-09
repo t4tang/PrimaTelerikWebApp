@@ -168,9 +168,8 @@
                                     From :
                                 </td>
                                 <td>
-                                    <telerik:RadComboBox ID="cb_from" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
-                                        AutoPostBack="false" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"
-                                        EnableVirtualScrolling="true" Skin="MetroTouch" OnItemsRequested="cb_from_ItemsRequested"
+                                    <telerik:RadComboBox ID="cb_from" runat="server" Width="150" EnableLoadOnDemand="True" ShowMoreResultsBox="false"
+                                        Skin="Metro" EnableVirtualScrolling="true" OnItemsRequested="cb_from_ItemsRequested"
                                         OnSelectedIndexChanged="cb_from_SelectedIndexChanged" OnPreRender="cb_from_PreRender">
                                     </telerik:RadComboBox>
                                 </td>
@@ -198,7 +197,10 @@
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="200" DropDownWidth="300px"
                                         AutoPostBack="false" ShowMoreResultsBox="true" EmptyMessage="- Select a Project -" EnableLoadOnDemand="True" Skin="MetroTouch"  
                                         OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" OnPreRender="cb_project_PreRender">
-                                    </telerik:RadComboBox>          
+                                    </telerik:RadComboBox>
+                              &nbsp;<telerik:RadTextBox Rendermode="Lightweight" ID="txt_project" runat="server" Width="150" EmptyMessage="- Select a Supplier -"
+                                     Visible="false">
+                                   </telerik:RadTextBox>          
                                 </td>
                             </tr>
                             <tr>
@@ -225,8 +227,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="200px" DropDownWidth="300px"
-                                        AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"  
-                                        >
+                                        AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch">
                                     </telerik:RadComboBox>
                                 </td>
                             </tr>
@@ -254,6 +255,9 @@
                                         AutoPostBack="false" ShowMoreResultsBox="true" EmptyMessage="- Select a Project -" EnableLoadOnDemand="True" Skin="MetroTouch"  
                                         OnItemsRequested="cb_costcenter_ItemsRequested" OnSelectedIndexChanged="cb_costcenter_SelectedIndexChanged" OnPreRender="cb_costcenter_PreRender">
                                     </telerik:RadComboBox>
+                              &nbsp;<telerik:RadTextBox ID="txt_costcenter" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                        AutoPostBack="false" Visible="false">
+                                    </telerik:RadTextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -268,7 +272,7 @@
                             </tr>
                             <tr>
                                 <td class="tdLabel">
-                                    storage Location:
+                                    Storage Location:
                                 </td>
                                 <td>
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_storage" runat="server" Width="200" DropDownWidth="300px"
