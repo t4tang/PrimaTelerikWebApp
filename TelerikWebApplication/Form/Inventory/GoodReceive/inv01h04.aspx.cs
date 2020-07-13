@@ -580,7 +580,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
                 cmd.Parameters.AddWithValue("@ref_date", string.Format("{0:yyyy-MM-dd}", dtp_ref.SelectedDate.Value));
                 //cmd.Parameters.AddWithValue("@po_code", txt.SelectedValue);
                 cmd.Parameters.AddWithValue("@status_lbm", cb_from.SelectedValue);
-                //cmd.Parameters.AddWithValue("@sj", txt_currency.Text);
+                cmd.Parameters.AddWithValue("@sj", txt_delivery_note.Text);
                 cmd.Parameters.AddWithValue("@lastupdate", txt_lastUpdate.Text);
                 cmd.Parameters.AddWithValue("@userid", txt_uid.Text);
                 cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
