@@ -220,6 +220,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         protected global::Telerik.Web.UI.RadComboBox cb_project;
         
         /// <summary>
+        /// txt_project control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txt_project;
+        
+        /// <summary>
         /// cb_supplier control.
         /// </summary>
         /// <remarks>
@@ -263,6 +272,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_costcenter;
+        
+        /// <summary>
+        /// txt_costcenter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txt_costcenter;
         
         /// <summary>
         /// txt_delivery_note control.
