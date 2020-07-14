@@ -7,10 +7,6 @@
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //}
-
             this.Title = Request.QueryString["doc_code"];
             this.reportViewer_inv01h03.ViewMode = ViewMode.PrintPreview;
             inv01h03_slip._tr_code = Request.QueryString["doc_code"];

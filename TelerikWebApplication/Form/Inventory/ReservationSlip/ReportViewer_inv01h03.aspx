@@ -26,8 +26,8 @@
     <form runat="server">
         <telerik:ReportViewer
             ID="reportViewer_inv01h03" 
-			Width="1300px"
-			Height="900px"
+			Width="1127px"
+			Height="600px"
 			EnableAccessibility="true"
             runat="server">
             <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.ReservationSlip.inv01h03_slip, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
