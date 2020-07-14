@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pur01h01a.aspx.cs" Inherits="TelerikWebApplication.Form.Purchase.PurchaseReq.pur01h01a" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="../../../Styles/common.css" rel="stylesheet" />
-    <link href="../../../Styles/mail.css" rel="stylesheet" />
-    <link href="../../../Styles/custom-cs.css" rel="stylesheet" />
+    <link href="../../../../Styles/common.css" rel="stylesheet" />
+    <link href="../../../../Styles/mail.css" rel="stylesheet" />
+    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
     <script type="text/javascript" src="../../../Script/Script.js"></script>
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
        

@@ -47,7 +47,7 @@
         </telerik:AjaxSetting>
         <telerik:AjaxSetting AjaxControlID="cb_ref">
             <UpdatedControls>
-                <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="RadAjaxLoadingPanel2"></telerik:AjaxUpdatedControl>
+                <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel2"></telerik:AjaxUpdatedControl>
             </UpdatedControls>                
         </telerik:AjaxSetting>    
     </AjaxSettings>
@@ -66,7 +66,7 @@
                             <tr style="vertical-align: top">                               
                                 <td  style="vertical-align: top">
                                     <telerik:RadLabel runat="server" Text="PR Number:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
-                                    <telerik:RadTextBox ID="txt_doc_code" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight">
+                                    <telerik:RadTextBox ID="txt_doc_code" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" EmptyMessage="Let it blank">
                                     </telerik:RadTextBox>
                                 </td>
                             </tr>
@@ -89,8 +89,8 @@
                                    <asp:RequiredFieldValidator runat="server" ID="prSourceValidator" ControlToValidate="cb_type_ref" ForeColor="Red" 
                                        Font-Size="X-Small"  Text="Empty not allowed!" Display="Dynamic"></asp:RequiredFieldValidator><br />
                                      <telerik:RadComboBox RenderMode="Lightweight" ID="cb_type_ref" runat="server" Width="150"
-                                        EnableLoadOnDemand="True" ShowMoreResultsBox="false" Skin="Metro" EnableVirtualScrolling="true"
-                                        OnItemsRequested="cb_type_ref_ItemsRequested" OnPreRender="cb_type_ref_PreRender">
+                                        EnableLoadOnDemand="True" ShowMoreResultsBox="false" Skin="Telerik" EnableVirtualScrolling="true"
+                                        OnItemsRequested="cb_type_ref_ItemsRequested" OnPreRender="cb_type_ref_PreRender" OnSelectedIndexChanged="cb_type_ref_SelectedIndexChanged">
                                     </telerik:RadComboBox>
                               </td>
                            </tr>
@@ -100,7 +100,7 @@
                                     <asp:RequiredFieldValidator runat="server" ID="priorityValidator" ControlToValidate="cb_priority" ForeColor="Red" 
                                         Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_priority" runat="server" Width="300" DropDownWidth="300px"
-                                        AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select the Priority -" EnableLoadOnDemand="True" Skin="Telerik"
+                                        AutoPostBack="false" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik"
                                         OnItemsRequested="cb_priority_ItemsRequested" OnSelectedIndexChanged="cb_priority_SelectedIndexChanged" OnPreRender="cb_priority_PreRender">
                                     </telerik:RadComboBox>                                        
                                 </td>
@@ -152,8 +152,8 @@
                                         Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                         <ContentTemplate>
-                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="200px" AutoPostBack="true"
-                                                DropDownWidth="900px" EmptyMessage="- Select RS Number -" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="200px" AutoPostBack="true" CausesValidation="false"
+                                                DropDownWidth="900px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                 MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="sro_code" DataValueField="sro_code"
                                                 OnItemsRequested="cb_ref_ItemsRequested" OnSelectedIndexChanged="cb_ref_SelectedIndexChanged">
                                                 <HeaderTemplate>
@@ -269,7 +269,7 @@
                                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                     <ContentTemplate>
                                         <telerik:RadComboBox ID="cb_cost_ctr" runat="server" Width="250px"
-                                            DropDownWidth="450px" EmptyMessage="- Select Cost Center -" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                            DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                             MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" 
                                             OnItemsRequested="cb_cost_ctr_ItemsRequested" OnSelectedIndexChanged="cb_cost_ctr_SelectedIndexChanged" 
                                             OnPreRender="cb_cost_ctr_PreRender">
@@ -344,7 +344,7 @@
                                 <asp:UpdatePanel ID="UpdatePanel14" runat="server">
                                 <ContentTemplate>
                                 <telerik:RadComboBox ID="cb_prepare_by" runat="server" Width="250px"
-                                                DropDownWidth="650px" EmptyMessage="- Select -" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                DropDownWidth="650px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                 MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                                    OnItemsRequested="cb_prepare_by_ItemsRequested"
                                                 OnSelectedIndexChanged="cb_prepare_by_SelectedIndexChanged" OnPreRender="cb_prepare_by_PreRender">
@@ -387,7 +387,7 @@
                                     <asp:UpdatePanel ID="UpdatePanel13" runat="server">
                                     <ContentTemplate>
                                     <telerik:RadComboBox ID="cb_orderBy" runat="server" Width="250px"
-                                                DropDownWidth="550px" EmptyMessage="- Select -" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                 MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                                 OnItemsRequested="cb_orderBy_ItemsRequested"
                                                 OnSelectedIndexChanged="cb_orderBy_SelectedIndexChanged"
@@ -431,7 +431,7 @@
                                 <asp:UpdatePanel ID="UpdatePanel10" runat="server">
                                 <ContentTemplate>
                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_checked" runat="server" Width="250px"
-                                        DropDownWidth="550px" EmptyMessage="- Select -" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                        DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                         MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                         OnItemsRequested="cb_received_ItemsRequested"
                                         OnSelectedIndexChanged="cb_received_SelectedIndexChanged"
@@ -475,7 +475,7 @@
                                 <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                 <ContentTemplate>
                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250px"
-                                        DropDownWidth="550px" EmptyMessage="- Select -" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                        DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                         MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true"
                                         OnItemsRequested="cb_approved_ItemsRequested"
                                         OnSelectedIndexChanged="cb_approved_SelectedIndexChanged"

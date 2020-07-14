@@ -165,12 +165,12 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         {
             con.Open();
             cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_rs_refD";
+            cmd.CommandText = "SELECT * FROM v_purcahse_requestD_reff WHERE no_ref = '" + doc_code + "'";
             cmd.Parameters.AddWithValue("@doc_code", doc_code);
-            cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
-            cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+            //cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
+            //cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -758,7 +758,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 cmd.Parameters.AddWithValue("@pr_code", run);
                 cmd.Parameters.AddWithValue("@Pr_date", string.Format("{0:yyyy-MM-dd}", dtp_pr.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@type_source", cb_type_ref.SelectedValue);
-                cmd.Parameters.AddWithValue("@ctrl_no", DBNull.Value);
+                cmd.Parameters.AddWithValue("@ctrl_no", cb_ref.Text);
                 cmd.Parameters.AddWithValue("@priority", cb_priority.SelectedValue);
                 cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
                 cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
@@ -769,16 +769,39 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@dept_code", cb_cost_ctr.SelectedValue);
-                cmd.Parameters.AddWithValue("@unit_code", DBNull.Value);
-                cmd.Parameters.AddWithValue("@model_no", DBNull.Value);
-                cmd.Parameters.AddWithValue("@time_reading", DBNull.Value);               
-                cmd.Parameters.AddWithValue("@type_pr", "A");
+                cmd.Parameters.AddWithValue("@unit_code", txt_unit_code.Text);
+                cmd.Parameters.AddWithValue("@model_no", txt_unit_name.Text);
+                cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Text));               
+                cmd.Parameters.AddWithValue("@type_pr", "B");
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
                 cmd.Parameters.AddWithValue("@doc_type", 1);
                 cmd.Parameters.AddWithValue("@asset_id", "NON");
                 cmd.ExecuteNonQuery();  
 
-                con.Close();
+
+                //Save Detail
+
+                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_save_purchase_requestD";
+                    cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
+                    cmd.Parameters.AddWithValue("@Prod_code", (item.FindControl("lblProdCode") as Label).Text);
+                    cmd.Parameters.AddWithValue("@no_ref", (item.FindControl("lblRS") as Label).Text);
+                    cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
+                    cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
+                    cmd.Parameters.AddWithValue("@DeliDate", string.Format("{0:yyyy-MM-dd}", (item.FindControl("dtpDelivDate") as RadDatePicker).SelectedDate));
+                    cmd.Parameters.AddWithValue("@Remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@pr_code", run);
+                    cmd.Parameters.AddWithValue("@stock_hand", Convert.ToDouble((item.FindControl("lblSoh") as Label).Text));
+                    cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
+                    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
+
+                    cmd.ExecuteNonQuery();
+                }
+
             }
             catch (System.Exception ex)
             {
@@ -787,6 +810,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             }
             finally
             {
+                con.Close();
                 notif.Text = "Data berhasil disimpan";
                 notif.Title = "Notification";
                 notif.Show();
@@ -801,6 +825,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
                     pur01h01a.tr_code = run;
                     pur01h01a.selected_cost_ctr = cb_cost_ctr.SelectedValue;
+                    
                 }
             }
         }

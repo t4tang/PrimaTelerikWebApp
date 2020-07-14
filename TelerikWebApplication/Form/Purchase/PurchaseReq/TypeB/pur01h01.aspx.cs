@@ -162,6 +162,17 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             }
         }
 
+        protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (GridDataItem item in RadGrid1.SelectedItems)
+            {
+                tr_code = item["pr_code"].Text;
+            }
+
+            populate_detail();
+            Session["action"] = "list";
+        }
+
         private void populate_detail()
         {
             if (tr_code == null)
@@ -302,14 +313,40 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             }
         }
 
-        protected void RadGrid2_InsertCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {
-
-        }
-
         protected void RadGrid2_UpdateCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
+            try
+            {
+                con.Open();
+                GridEditableItem item = (GridEditableItem)e.Item;
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_purchase_requestD";
+                cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
+                cmd.Parameters.AddWithValue("@Prod_code", (item.FindControl("lblProdCode") as Label).Text);
+                cmd.Parameters.AddWithValue("@no_ref", (item.FindControl("lblRS") as Label).Text);
+                cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
+                cmd.Parameters.AddWithValue("@DeliDate", string.Format("{0:yyyy-MM-dd}", (item.FindControl("dtpDelivDate") as RadDatePicker).SelectedDate));
+                cmd.Parameters.AddWithValue("@Remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@pr_code", tr_code);
+                cmd.Parameters.AddWithValue("@stock_hand", Convert.ToDouble((item.FindControl("lblSoh") as Label).Text));
+                cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
 
+                cmd.ExecuteNonQuery();
+
+                con.Close();
+
+                notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
         }
 
         protected void RadGrid2_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
