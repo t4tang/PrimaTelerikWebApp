@@ -265,7 +265,7 @@
                                     Delivery Note:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_delivery_note" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_delivery_note" runat="server" Width="150px" Enabled="true" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
