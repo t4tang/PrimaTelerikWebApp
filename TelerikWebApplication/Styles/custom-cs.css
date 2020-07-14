@@ -160,6 +160,8 @@ html .RadMultiPage .rmpView {
     text-align:left;
     width:100px;
     padding-right:10px;
+    font-weight:bold;
+    
 }
 .tdInput{
     vertical-align:top; 
@@ -275,8 +277,14 @@ div.RadGrid_MetroTouch td.rgPagerCell
     top: auto;
     bottom: -1px;
     background-position: 0 -10px;
+    font-size:small;
 }
- 
+ .lbObject
+ {
+     font-size:12px;
+     font-weight:normal;
+     font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif;         
+ }
 .rbRounded
 {
     top: auto;
@@ -330,6 +338,70 @@ li.rlbItem .rlbText {
     height: 46px;
 }
 
+.rgData
+{
+height : auto !important ;
+}
+
+div.RadGrid .rgSelectedRow
+{
+background: None;
+color:Black !important;
+}
+div.RadGrid .rgAltRow
+{
+background: #F2F2F2;
+color:Black !important;     
+}
+.RadGrid_Default .rgSelectedRow td, .RadGrid_Default .rgSelectedRow td.rgSorted
+{
+border-bottom-color:White !important;
+}
+
+.gridHeader {
+    /*position: relative;
+    background-image: url(Images/btns.png);
+    background-repeat: no-repeat;
+    background-position: 100% -80px;
+    padding-right: 161px;*/
+    font-size:13px;
+    font-weight:bold;
+    color:firebrick;
+    /*font-variant:small-caps;*/
+}
+ 
+.gridHeader > div {
+    background: #9ad0da url("Images/header.png") no-repeat;
+    height: 80px;
+    margin: 0;
+}
+ 
+.gridHeader button.saveButton,
+.gridHeader button.loadButton {
+    height: 80px;
+    width: 80px;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(Images/btns.png) no-repeat 0 0;
+    overflow: hidden;
+    border: 0 none;
+    border-radius: 0;
+}
+ 
+.gridHeader .saveButton span,
+.gridHeader .loadButton span {
+    text-indent: -9999px;
+    display: block;
+}
+ 
+.gridHeader button.saveButton {
+    right: 81px;
+    background-position: -80px 0;
+}
+
+
 /*Rad Button*/
 .goButtonClassHov .rbText {
     color: White !important;
@@ -343,12 +415,14 @@ a.RadButton_MetroTouch.rbImageButton:focus {
 
 .btn-wrapper {
     width:100%;
-    min-height: 50px;
+    min-height: 35px;
     padding-left:15px; 
     border-bottom-color: #FF9933; 
     border-bottom-width: 1px; 
     border-bottom-style: inset;
-}
+    background-color: deeppink !important;
+   }
+
 
 /*Editor*/
 .background-blackmetrotouch .demo-container.wrapper,
@@ -367,7 +441,7 @@ a.RadButton_MetroTouch.rbImageButton:focus {
     padding: 0px;
     border: none;
     /*max-height:585px;*/ 
-    overflow:auto;
+    /*overflow:auto;*/
     height:600px !important;
     width:auto;
 }
@@ -607,12 +681,11 @@ body {
 
 .table_trx
 {
-    padding-left:20px;
+    padding: 0px 0px 0px;
     font-family:Candara;
     font-size:13px;
     border-collapse: collapse; 
     padding-top:5px;
-    padding-right:15px; 
 }
 
 /* Customize the demo canvas */

@@ -29,7 +29,7 @@
 </head>
 <body>
     <form id="form1" class="clear" runat="server" >
-        <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server" EnablePageMethods="True">
             <Scripts>
                 <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
                 <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQuery.js" />
@@ -102,7 +102,7 @@
                     <span class="addBtn">
                         <span class="icon icon-Close"></span>
                         <span class="text">
-                            <asp:HyperLink id="hl1"  NavigateUrl="~/login.aspx" Text="Log out" Target="_parent" runat="server"/>
+                            <asp:HyperLink id="hl1"  NavigateUrl="~/Login.aspx" Text="Log out" Target="_parent" runat="server"/>
                         </span>
                     </span>
                     <%--<telerik:RadButton runat="server" ID="SignOut" ButtonType="LinkButton" Text="Sign Out"></telerik:RadButton>--%>
