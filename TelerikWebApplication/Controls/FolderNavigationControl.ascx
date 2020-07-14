@@ -19,11 +19,13 @@
 <div class="btn-new-node">Add New</div>--%>
 
 <telerik:RadLabel ID="lbl_modul_name" runat="server" style="font-weight: bold; font-variant: small-caps; padding-left:10px; 
-padding-bottom:13px; font-size:x-large; color:Highlight"></telerik:RadLabel>
- <telerik:RadPanelBar RenderMode="Lightweight" runat="server" ID="RadPanelBar1" AutoPostBack="false" BackColor="White" BorderWidth="0"
-    Height="100%" Width="237px" ExpandMode="SingleExpandedItem" Font-Names="Calibri" Font-Size="Medium" OnItemClick="RadPanelBar1_ItemClick" 
-     Skin="Windows7">
+padding-bottom:13px; font-size:x-large; color:deeppink"></telerik:RadLabel>
+
+<telerik:RadPanelBar RenderMode="Lightweight" runat="server" ID="RadPanelBar1" AutoPostBack="false" BackColor="White" BorderWidth="0" ForeColor="Teal"
+Height="100%" Width="237px" ExpandMode="SingleExpandedItem" Font-Names="Calibri" Font-Size="14px" OnItemClick="RadPanelBar1_ItemClick" 
+    Skin="Telerik" CollapseDelay="30" CollapseAnimation-Type="InBounce">
 </telerik:RadPanelBar>
+
 
 <%--<telerik:RadMenu RenderMode="Lightweight" runat="server" ID="RadMenu1" DataFieldID="menu_id" Height="550px"
     DataFieldParentID="Parent_menu_id" DataTextField="menu_description" DataNavigateUrlField="menu_url" 
