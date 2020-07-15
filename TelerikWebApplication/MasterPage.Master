@@ -24,7 +24,19 @@
         .rdfLabel.rdfBlock {
             margin-top: 6px;
         }        
-
+        .someDiv {
+              position:fixed;
+              width:100%;
+              height:27px;
+              /*margin-left:-25%;*/
+              background:#f4efef;
+              bottom:0px;   
+              font-family:'Century Gothic';
+              font-size:smaller;
+              color:#282b4f;
+              padding:2px 2px 0px 15px;
+              /*left:50%;*/
+            }
     </style>
 </head>
 <body>
@@ -108,6 +120,15 @@
                     <%--<telerik:RadButton runat="server" ID="SignOut" ButtonType="LinkButton" Text="Sign Out"></telerik:RadButton>--%>
                 </div>
             </telerik:RadToolTip>
+            <div id="info" class="someDiv">
+                <table>
+                    <tr>
+                        <td style="width:20%"><asp:Label ID="lblServer" runat="server"></asp:Label></td>
+                        <td style="width:30%"><asp:Label ID="lblPeriode" runat="server"></asp:Label></td>
+                        <td style="width:40%"><asp:Label ID="lblUserInfo" runat="server"></asp:Label></td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <asp:HiddenField runat="server" ID="nav" />
 

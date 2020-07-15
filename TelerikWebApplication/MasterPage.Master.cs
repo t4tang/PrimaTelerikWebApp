@@ -41,7 +41,9 @@ namespace TelerikWebApplication
 
                 NavNode1.Text = public_str.user_name;
                 //NavNode2.Text = public_str.selected_menu;
-
+                lblServer.Text = "Server: "+ public_str.server_ip;
+                lblPeriode.Text = "Periode: " + public_str.perstart + " - " + public_str.perend;
+                lblUserInfo.Text = "Username: " + public_str.user_name + "  |  Your login time: " + public_str.login_time;
             }
         }
 

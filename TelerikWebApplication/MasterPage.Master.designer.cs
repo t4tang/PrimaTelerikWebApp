@@ -130,6 +130,33 @@ namespace TelerikWebApplication {
         protected global::System.Web.UI.WebControls.HyperLink hl1;
         
         /// <summary>
+        /// lblServer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblServer;
+        
+        /// <summary>
+        /// lblPeriode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPeriode;
+        
+        /// <summary>
+        /// lblUserInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserInfo;
+        
+        /// <summary>
         /// nav control.
         /// </summary>
         /// <remarks>
