@@ -18,6 +18,8 @@ namespace TelerikWebApplication.Class
         public static string database_name = "";
         public static string database_uid = "";
         public static string database_pwd = "";
+        public static DateTime login_time;
+
         //===
         public static string site = "";
         public static string sitename = "";
@@ -31,6 +33,7 @@ namespace TelerikWebApplication.Class
         public static string modul;
         public static string selected_menu="";
 
+        public static string selected_project_item;
         //public static string str_type_code = "";
         //public static string str_category = "";
         //public static string str_run_group_code = "";
