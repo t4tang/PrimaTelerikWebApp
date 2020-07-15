@@ -5,14 +5,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TelerikWebApplication.Class;
-using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
-using System.Collections;
 
-namespace PrimaWebApp
+namespace TelerikWebApplication
 {
-    public partial class frm_login : System.Web.UI.Page
+    public partial class Login : System.Web.UI.Page
     {
         user_class uc = new user_class();
         bool login_ok = false;
@@ -22,7 +19,6 @@ namespace PrimaWebApp
         {
 
         }
-
         void login()
         {
             uc.user_id = txt_uid.Text;
@@ -37,6 +33,7 @@ namespace PrimaWebApp
                 public_str.database_name = builder.InitialCatalog;
                 public_str.database_uid = builder.UserID;
                 public_str.database_pwd = builder.Password;
+                public_str.login_time = DateTime.Now;
 
                 con.Open();
                 //SqlCommand cmd = new SqlCommand("SELECT USER_NAME, REGION_CODE, [LEVEL], sec_group FROM SEC_USER WHERE user_id='" + txt_uid.Text + "'", con);
@@ -64,17 +61,17 @@ namespace PrimaWebApp
                     public_str.modul = dr["def_modul"].ToString();
 
                     Session["UID"] = txt_uid.Text;
-                    Response.Redirect("default.aspx");
+                    Response.Redirect("~/default.aspx");
                 }
                 else
                 {
-                    lbl_error.Text = "Something wrong with your login";
+                    //lbl_error.Text = "Something wrong with your login";
                 }
                 con.Close();
-                                
-            }
-        }
 
+            }
+
+        }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             login();
