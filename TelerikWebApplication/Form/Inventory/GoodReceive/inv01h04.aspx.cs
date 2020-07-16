@@ -53,7 +53,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
                 con.Open();
                 SqlDataReader sdr;
-                SqlCommand cmd = new SqlCommand("SELECT * FROM v_good_receiveH /*NEW VIEW*/ WHERE trans_code='1' AND lbm_code = '" + item["lbm_code"].Text + "'", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM v_good_receiveH WHERE trans_code='1' AND lbm_code = '" + item["lbm_code"].Text + "'", con);
                 sdr = cmd.ExecuteReader();
                 if (sdr.Read())
                 {
@@ -81,7 +81,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
                     chk_posting.Text = sdr["status_post"].ToString();
                 }
                 con.Close();
-
                 RadGrid2.DataSource = GetDataDetailTable(txt_gr_number.Text);
                 RadGrid2.DataBind();
                 Session["action"] = "edit";
@@ -330,6 +329,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
             dr.Close();
             con.Close();
         }
+
         private static DataTable GetWarehouse(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND wh_name LIKE @text + '%'",
@@ -341,6 +341,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
             return data;
         }
+
         protected void cb_storage_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable data = GetWarehouse(e.Text);
@@ -396,6 +397,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
 
             return data;
         }
+
         protected void cb_created_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable data = GetUsers(e.Text);
@@ -655,7 +657,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         {
 
         }
-
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             //(sender as RadGrid).DataSource = GetDataDetailTable(txt_gr_number.Text);
@@ -689,7 +690,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         {
 
         }
-
         protected void cb_project_prm_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable data = GetProject(e.Text);
@@ -733,7 +733,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         {
 
         }
-
         protected void cb_from_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("Supplier");
