@@ -14,6 +14,10 @@
                 window.radopen("ReportVieweracc01h01.aspx?NoBuk=" + id, "PreviewDialog");
                 return false;
             }
+            function ShowJournal(id) {
+                window.radopen("acc01h01journal.aspx?doc_code=" + id, "PreviewDialog");
+                return false;
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -37,11 +41,15 @@
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
-    <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server">
+    <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2500" BackgroundPosition="None">
+        <img alt="Loading..." src="../../../../Images/loading.gif" style="border: 0px;" />
     </telerik:RadAjaxLoadingPanel>
-    
+    <%--<telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server"
+        BorderColor="Green" BorderStyle="Dotted" BorderWidth="3px" ForeColor="Blue" MinDisplayTime="1000">
+         <img alt="Loading..." src="loading.gif" style="border: 0px;" />
+    </telerik:RadAjaxLoadingPanel>--%>
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone"
-        Modal="true" Width="1110px" Height="580px">
+        Modal="true" Width="1310px" Height="650px">
         <ContentTemplate>
              <div runat="server" style="padding:20px 10px 10px 10px;" id="searchParam">                
                 <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" CssClass="dtPicker" DateInput-Label="Date From " Height="26px"></telerik:RadDatePicker>                
@@ -69,6 +77,7 @@
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                      CommandItemSettings-ShowRefreshButton="false" >                    
                     <Columns>
+                            <telerik:GridClientSelectColumn UniqueName="SelectColumn" ></telerik:GridClientSelectColumn> 
                          <%--<telerik:GridTemplateColumn UniqueName="TemplateEditColumn" AllowFiltering="False" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>                              
                                <asp:RadioButton ID="rb_get" runat="server" Width="15px"  />                                
@@ -76,18 +85,13 @@
                             <HeaderStyle Width="30px"></HeaderStyle>
                         </telerik:GridTemplateColumn>--%>
                         <telerik:GridBoundColumn UniqueName="NoBuk" HeaderText="Reg. No" DataField="NoBuk">
-                            <HeaderStyle Width="120px"></HeaderStyle>
+                            <HeaderStyle Width="100px"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridDateTimeColumn UniqueName="Tgl" HeaderText="Date" DataField="Tgl" ItemStyle-Width="80px" 
-                                EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
-                            DataFormatString="{0:d}" >
-                            <HeaderStyle Width="80px"></HeaderStyle>
-                        </telerik:GridDateTimeColumn>
                         <telerik:GridBoundColumn UniqueName="NoCtrl" HeaderText="Ctrl. No" DataField="NoCtrl" 
-                            FilterControlWidth="120px" >
-                            <HeaderStyle Width="120px"></HeaderStyle>
+                            FilterControlWidth="100px" >
+                            <HeaderStyle Width="100px"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="NoRef" HeaderText="No. Ref" DataField="NoRef" 
+                        <%--<telerik:GridBoundColumn UniqueName="NoRef" HeaderText="No. Ref" DataField="NoRef" 
                             FilterControlWidth="90px" >
                             <HeaderStyle Width="90px"></HeaderStyle>
                         </telerik:GridBoundColumn>
@@ -106,18 +110,24 @@
                         <telerik:GridBoundColumn UniqueName="kurs" HeaderText="Kurs" DataField="kurs" 
                             FilterControlWidth="90px" >
                             <HeaderStyle Width="90px"></HeaderStyle>
-                        </telerik:GridBoundColumn>
+                        </telerik:GridBoundColumn>--%>
                         <telerik:GridBoundColumn UniqueName="Total" HeaderText="Amount" DataField="Total" 
-                            FilterControlWidth="90px" >
+                            FilterControlWidth="90px" DataFormatString="{0:#,###,##0.00}" ItemStyle-HorizontalAlign="Right" 
+                            ItemStyle-ForeColor="#009933">
                             <HeaderStyle Width="90px"></HeaderStyle>
                         </telerik:GridBoundColumn>
+                        <telerik:GridDateTimeColumn UniqueName="Tgl" HeaderText="Date" DataField="Tgl" ItemStyle-Width="80px" 
+                                EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" ItemStyle-HorizontalAlign="Center"
+                            DataFormatString="{0:d}" >
+                            <HeaderStyle Width="80px"></HeaderStyle>
+                        </telerik:GridDateTimeColumn>
                         <telerik:GridBoundColumn UniqueName="Kontak" HeaderText="Contact" DataField="Kontak" 
-                            FilterControlWidth="90px" >
-                            <HeaderStyle Width="90px"></HeaderStyle>
+                            FilterControlWidth="200px" >
+                            <HeaderStyle Width="200px"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Ket" HeaderText="Remark" DataField="Ket" ItemStyle-Wrap="true"
-                                ItemStyle-Width="450px" FilterControlWidth="480px">
-                            <HeaderStyle Width="500px"></HeaderStyle>
+                                ItemStyle-Width="400px" FilterControlWidth="400px">
+                            <HeaderStyle Width="400px"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" HeaderText="Delete"
                             ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
@@ -145,7 +155,7 @@
                     </td>
                     <td style="vertical-align:middle; margin-left:10px">
                         <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
-                            Height="37px" Width="49px" ImageUrl="~/Images/tambah.png">
+                            Height="37px" Width="39px" ImageUrl="~/Images/tambah.png">
                         </asp:ImageButton>
                     </td>
                     <%--<td style="vertical-align:top; margin-left:20px">--%>
@@ -161,8 +171,13 @@
                         <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" OnClick="btnPrint_Click"
                             Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
                         </asp:ImageButton>
-                    </td>          
-                    <td style="width:89%; text-align:right">
+                    </td> 
+                    <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
+                        <asp:ImageButton runat="server" ID="btnJournal" AlternateText="Journal" OnClick="btnJournal_Click"
+                        Height="30px" Width="32px" ImageUrl="~/Images/ledger-gray.png">
+                        </asp:ImageButton>  
+                    </td>         
+                    <td style="width:82%; text-align:right">
                         <telerik:RadLabel ID="lbl_form_name" Text="Bank Mutation" runat="server" style="font-weight:lighter; 
                             font-variant: small-caps; padding-left:10px; 
                         padding-bottom:13px; font-size:x-large; color:Highlight"></telerik:RadLabel>
@@ -496,7 +511,7 @@
                 </tr>
             </table>
 
-           <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 20px; overflow:auto">
+           <div style=" width:100%; border-top-color: #009900; border-top-width: 1px; border-top-style: solid; padding-top: 20px; overflow:auto">
                 <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                       <ContentTemplate>
                              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"
@@ -504,7 +519,7 @@
                                ShowStatusBar="true" OnInsertCommand="RadGrid2_save_handler"
                                  OnUpdateCommand="RadGrid2_save_handler" OnDeleteCommand="RadGrid2_DeleteCommand" ClientSettings-Selecting-AllowRowSelect="true">   
                                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="KoRek" Font-Size="12px" EditMode="InPlace"
-                                    ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >                                             
+                                    ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemStyle-BorderColor="#009933" CommandItemStyle-ForeColor="#009933" CommandItemSettings-AddNewRecordText="Add Item">                                             
                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
                                     <Columns>   
                                         <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
@@ -524,10 +539,6 @@
                                                     HighlightTemplatedItems="true" Height="190px" Width="110px" DropDownWidth="450px"
                                                     OnSelectedIndexChanged="cb_korek_SelectedIndexChanged" OnPreRender="cb_korek_PreRender">
                                                     <HeaderTemplate>
-                                                       <%-- <ul>
-                                                            <li class="col1">Account No</li>
-                                                            <li class="col2">Account Name</li>
-                                                        </ul>--%>
                                                         <table style="width: 300px; font-size:smaller">
                                                         <tr>
                                                             <td style="width: 80px;">
@@ -540,13 +551,6 @@
                                                     </table>
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                       <%-- <ul>
-                                                            <li class="col1" >
-                                                                <%# DataBinder.Eval(Container, "Value")%>
-                                                            </li>
-                                                            <li class="col2">
-                                                                <%# DataBinder.Eval(Container, "Attributes['accountname']")%></li>
-                                                        </ul>--%>
                                                          <table style="width: 300px; font-size:smaller">
                                                         <tr>
                                                             <td style="width: 80px;">
@@ -622,10 +626,6 @@
                                                     HighlightTemplatedItems="true" Height="190px" Width="100px" DropDownWidth="450px"
                                                     OnSelectedIndexChanged="cb_project_detail_SelectedIndexChanged" OnPreRender="cb_project_detail_PreRender">
                                                     <HeaderTemplate>
-                                                       <%-- <ul>
-                                                            <li class="col1">Code</li>
-                                                            <li class="col2">Project</li>
-                                                        </ul>--%>
                                                      <table style="width: 300px; font-size:smaller">
                                                         <tr>
                                                             <td style="width: 80px;">
@@ -638,13 +638,6 @@
                                                     </table>
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                       <%-- <ul>
-                                                            <li class="col1" >
-                                                                <%# DataBinder.Eval(Container, "Value")%>
-                                                            </li>
-                                                            <li class="col2">
-                                                                <%# DataBinder.Eval(Container, "Attributes['region_name']")%></li>
-                                                        </ul>--%>
                                                         <table style="width: 300px; font-size:smaller">
                                                         <tr>
                                                             <td style="width: 80px;">
@@ -674,11 +667,6 @@
                                                     HighlightTemplatedItems="true" Height="190px" Width="100px" DropDownWidth="300px"
                                                      OnPreRender="cb_cost_center_PreRender">
                                                    <HeaderTemplate>
-                                                    <%--     <ul>
-                                                            <li class="col1">Code</li>
-                                                            <li class="col2">Cost Center</li>
-                                                        </ul/
-                                                    --%>
                                                      <table style="width: 300px; font-size:smaller">
                                                         <tr>
                                                             <td style="width: 80px;">
@@ -691,13 +679,6 @@
                                                     </table>
                                                     </HeaderTemplate>    
                                                     <ItemTemplate>
-                                                       <%-- <ul>
-                                                            <li class="col1" >
-                                                                <%# DataBinder.Eval(Container, "Attributes['code']")%>
-                                                            </li>
-                                                            <li class="col2">
-                                                                <%# DataBinder.Eval(Container, "Attributes['name']")%></li>
-                                                        </ul>--%>
 
                                                         <table style="width: 300px; font-size:smaller">
                                                         <tr>

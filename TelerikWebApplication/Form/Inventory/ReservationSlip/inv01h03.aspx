@@ -128,7 +128,6 @@
                                EnableLoadOnDemand="True"  Skin="Telerik" OnItemsRequested="cb_proj_prm_ItemsRequested"
                                 OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
                                 EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px">
-
                             </telerik:RadComboBox>
                         </td>
                     </tr>
