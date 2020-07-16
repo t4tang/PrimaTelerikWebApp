@@ -175,6 +175,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment {
         protected global::System.Web.UI.WebControls.ImageButton btnPrint;
         
         /// <summary>
+        /// btnJournal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnJournal;
+        
+        /// <summary>
         /// lbl_form_name control.
         /// </summary>
         /// <remarks>
@@ -256,15 +265,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment {
         protected global::Telerik.Web.UI.RadTextBox txt_curr2;
         
         /// <summary>
-        /// dtp_created control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker dtp_created;
-        
-        /// <summary>
         /// txt_kurs2 control.
         /// </summary>
         /// <remarks>
@@ -274,13 +274,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment {
         protected global::Telerik.Web.UI.RadTextBox txt_kurs2;
         
         /// <summary>
-        /// dtp_cashed control.
+        /// dtp_created control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker dtp_cashed;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_created;
         
         /// <summary>
         /// txt_ctrl control.
@@ -290,6 +290,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTextBox txt_ctrl;
+        
+        /// <summary>
+        /// dtp_cashed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker dtp_cashed;
         
         /// <summary>
         /// txt_giro control.
@@ -328,6 +337,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment {
         protected global::Telerik.Web.UI.RadComboBox cb_approve;
         
         /// <summary>
+        /// txt_remark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txt_remark;
+        
+        /// <summary>
         /// txt_user control.
         /// </summary>
         /// <remarks>
@@ -346,15 +364,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment {
         protected global::Telerik.Web.UI.RadTextBox txt_lastupdate;
         
         /// <summary>
-        /// txt_remark control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_remark;
-        
-        /// <summary>
         /// RadGrid2 control.
         /// </summary>
         /// <remarks>
@@ -362,6 +371,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid2;
+        
+        /// <summary>
+        /// SqlDataSource1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
         /// RadWindowManager1 control.
