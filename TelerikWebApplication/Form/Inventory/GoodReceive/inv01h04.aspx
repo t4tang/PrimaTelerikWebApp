@@ -263,7 +263,7 @@
                                             EnabledStyle-HorizontalAlign="Right"
                                             NumberFormat-AllowRounding="true"
                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                            Text='<%# DataBinder.Eval(Container.DataItem, "qty_receive", "{0:#,###,###0.00}") %>'
+                                            Text='<%# DataBinder.Eval(Container.DataItem, "qty_Sisa", "{0:#,###,###0.00}") %>'
                                             onkeydown="blurTextBox(this, event)"
                                             AutoPostBack="true" MaxLength="11" Type="Number"
                                             NumberFormat-DecimalDigits="2">
