@@ -12,7 +12,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("inv01h04EditForm.aspx?lbm_code=" + id, "PreviewDialog");
+                window.radopen("inv01h04ReportViewer.aspx?lbm_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
