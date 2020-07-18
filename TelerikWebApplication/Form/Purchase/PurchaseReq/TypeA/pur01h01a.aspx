@@ -56,7 +56,18 @@
                 }
 
             }
-           
+
+            function GetRadWindow() {
+                var oWindow = null;
+                if (window.radWindow)
+                    oWindow = window.RadWindow; //Will work in Moz in all cases, including clasic dialog     
+                else if (window.frameElement.radWindow)
+                    oWindow = window.frameElement.radWindow;//IE (and Moz as well)     
+                return oWindow;
+            }
+            function Close() {
+                GetRadWindow().Close();
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -100,15 +111,15 @@
     </telerik:RadAjaxManager>
 
    <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2500" BackgroundPosition="None" BackColor="Transparent" >
-        <img alt="Loading..." src="../../../Images/loaderpage.gif" style="border: 0px; width:100px; height:75px; position: absolute; top: 115px; left:600px" />
+        <img alt="Loading..." src="../../../../Images/loaderpage.gif" style="border: 0px; width:100px; height:75px; position: absolute; top: 115px; left:600px" />
     </telerik:RadAjaxLoadingPanel>
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel2" runat="server" MinDisplayTime="1000" BackgroundPosition="None" >
-        <img alt="Loading..." src="../../../Images/load.gif" style="border: 0px; width:60px; height:45px; position: absolute; top: 100px; left:600px" />
+        <img alt="Loading..." src="../../../../Images/load.gif" style="border: 0px; width:60px; height:45px; position: absolute; top: 100px; left:600px" />
     </telerik:RadAjaxLoadingPanel>
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel" runat="server" Skin="Windows7" MinDisplayTime="2000"></telerik:RadAjaxLoadingPanel>
 
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="FilterDialogWindows" RestrictionZoneID="ContentTemplateZone"
-        Modal="true" Width="450px" Height="350px" VisibleStatusbar="False" AutoSize="True">
+        Modal="true" Width="450px" Height="350px" VisibleStatusbar="False" AutoSize="True" Behaviors="Close">
         <ContentTemplate>
             <div runat="server" style="padding: 20px 10px 10px 10px;" id="Div1">
                 <table>
@@ -186,7 +197,7 @@
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="7" MasterTableView-GridLines="None"
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" OnItemCreated="RadGrid1_ItemCreated" OnPreRender="RadGrid1_PreRender"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand">
-                <PagerStyle Mode="Slider" VerticalAlign="NotSet" PageSizeControlType="RadComboBox"></PagerStyle>                
+                <PagerStyle Mode="Advanced" VerticalAlign="NotSet" PageSizeControlType="None"></PagerStyle>                
                 <HeaderStyle CssClass="gridHeader" />
                 <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
                 <SortingSettings EnableSkinSortStyles="false" />
@@ -256,7 +267,10 @@
                             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
                                 AllowPaging="true" AllowSorting="true" runat="server" ShowStatusBar="true"
                                     ClientSettings-EnableAlternatingItems="True" ItemStyle-Height="15px" MasterTableView-EditMode="InPlace"
-                                OnNeedDataSource="RadGrid2_NeedDataSource" OnInsertCommand="RadGrid2_InsertCommand" OnUpdateCommand="RadGrid2_InsertCommand" OnDeleteCommand="RadGrid2_DeleteCommand">
+                                OnNeedDataSource="RadGrid2_NeedDataSource" 
+                                OnInsertCommand="RadGrid2_InsertCommand" 
+                                OnUpdateCommand="RadGrid2_InsertCommand" 
+                                OnDeleteCommand="RadGrid2_DeleteCommand">
                                 <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                                 <HeaderStyle CssClass="gridHeader" />
                                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="pr_code" Font-Size="11px" EditMode="InPlace"
@@ -413,7 +427,7 @@
                                     </CommandItemTemplate>--%>
                                 </MasterTableView>
                                 <ClientSettings >
-                                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="185px" />  
+                                   <%-- <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="185px" />  --%>
                                     <Selecting AllowRowSelect="true"></Selecting>                          
                                 </ClientSettings>
                             </telerik:RadGrid>
