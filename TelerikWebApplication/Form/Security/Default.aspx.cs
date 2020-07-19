@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Forms.Security
+namespace TelerikWebApplication.Form.Security
 {
     public partial class Default : System.Web.UI.Page
     {
