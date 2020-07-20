@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Forms.Security {
+namespace TelerikWebApplication.Form.Security {
     
     
     public partial class Default {
