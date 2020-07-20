@@ -12,11 +12,15 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("reportViewer.aspx?doc_code=" + id, "PreviewDialog");
+                window.radopen("pur01h02ReportViewer.aspx?pr_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
                 Row = eventArgs.get_itemIndexHierarchical();
+            }
+            function callBackFn(arg) {
+                //alert("this is the client-side callback function. The RadAlert returned: " + arg);
+
             }
         </script>
     </telerik:RadCodeBlock>
@@ -146,7 +150,7 @@
                     </td>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:8px">
                         <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click"
-                            Height="30px" Width="32px" ImageUrl="~/Images/tambah-gray.png">
+                            Height="30px" Width="32px" ImageUrl="~/Images/tambah.png">
                         </asp:ImageButton>
                     </td>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
@@ -155,12 +159,12 @@
                         </asp:ImageButton>
                     </td>
                     <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
-                        <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" OnClick="btnPrint_Click"
+                        <asp:ImageButton runat="server" ID="btnPrint" AlternateText="Print" 
                             Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
                         </asp:ImageButton>
                     </td>                    
                     <td style="width:85%; text-align:right">
-                        <telerik:RadLabel ID="lbl_form_name" Text="User Request" runat="server" style="font-weight:lighter; 
+                        <telerik:RadLabel ID="lbl_form_name" Text="Purchase Order" runat="server" style="font-weight:lighter; 
                             font-size:10px; font-variant: small-caps; padding-left:10px; 
                         padding-bottom:0px; font-size:x-large; color:Highlight"></telerik:RadLabel>
                     </td>
@@ -179,7 +183,7 @@
                                     PO Number:
                                 </td>
                                 <td>
-                                    <telerik:RadTextBox ID="txt_po_number" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
+                                    <telerik:RadTextBox ID="txt_po_code" runat="server" Width="150px" Enabled="false" RenderMode="Lightweight"
                                         AutoPostBack="false">
                                     </telerik:RadTextBox>
                                 </td>
@@ -866,11 +870,21 @@
                          <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" runat="server" PageSize="5" AllowPaging="true" Font-Names="Calibri" 
                             AllowAutomaticUpdates="True" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" ShowFooter="false" 
                              AutoGenerateColumns="False" Skin="MetroTouch" 
-                             OnNeedDataSource="RadGrid2_NeedDataSource" OnInsertCommand="RadGrid2_save_handler" OnDeleteCommand="RadGrid2_DeleteCommand">   
+                             OnNeedDataSource="RadGrid2_NeedDataSource" OnDeleteCommand="RadGrid2_DeleteCommand">   
                             <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px" EditMode="InPlace"
                                 ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >
                                 <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />          
                                 <Columns>
+                                    <telerik:GridTemplateColumn HeaderText="Type" ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Left" >
+                                        <ItemTemplate>  
+                                            <%#DataBinder.Eval(Container.DataItem, "prod_type")%>
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_type" Width="180px" ReadOnly="true"
+                                                Text='<%# DataBinder.Eval(Container, "DataItem.prod_type") %>'>
+                                            </telerik:RadTextBox>
+                                        </EditItemTemplate>
+                                    </telerik:GridTemplateColumn>   
                                     <telerik:GridTemplateColumn UniqueName="prod_code" HeaderText="Prod. Code" HeaderStyle-Width="100px"
                                             SortExpression="prod_code" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left">
                                             <FooterTemplate>Template footer</FooterTemplate>
@@ -1064,6 +1078,11 @@
                   Width="1150px" Height="670px" Modal="true">
                 </telerik:RadWindow>
             </Windows>
+        </telerik:RadWindowManager>
+        <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Initial text" Position="BottomRight"
+                    AutoCloseDelay="10000" Width="350" Height="110" Title="Current time" EnableRoundedCorners="true">
+        </telerik:RadNotification>
+        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true">
         </telerik:RadWindowManager>
             
          <script type="text/javascript">

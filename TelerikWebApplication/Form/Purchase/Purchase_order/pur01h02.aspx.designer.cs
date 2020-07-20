@@ -184,13 +184,13 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadLabel lbl_form_name;
         
         /// <summary>
-        /// txt_po_number control.
+        /// txt_po_code control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_po_number;
+        protected global::Telerik.Web.UI.RadTextBox txt_po_code;
         
         /// <summary>
         /// dtp_po control.
@@ -740,5 +740,23 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindow PreviewDialog;
+        
+        /// <summary>
+        /// notif control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNotification notif;
+        
+        /// <summary>
+        /// RadWindowManager2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager2;
     }
 }

@@ -1,13 +1,14 @@
-﻿using TelerikWebApplication.Class;
-using System;
-using System.Collections;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
-using ReportLibrary.slip;
+using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Forms.Purchase.Purchase_order
 {
@@ -36,10 +37,17 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 //cb_project.Text = public_str.sitename;
                 cb_project_prm.SelectedValue = public_str.site;
 
-                btnNew.Enabled = false;
+                //label_teks_default();
+                dtp_po.SelectedDate = DateTime.Now;
+                Session["action"] = "firstLoad";
+                //RadGrid2.Enabled = false;
+                btnSave.Enabled = false;
+                btnSave.ImageUrl = "~/Images/simpan-gray.png";
+                btnPrint.Enabled = false;
+                btnPrint.ImageUrl = "~/Images/cetak-gray.png";
             }
         }
-        
+
         //protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         //{
         //    if (e.Item is GridDataItem)
@@ -59,7 +67,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             }
         }
 
-       
+
         public DataTable GetDataTable(string fromDate, string toDate, string project)
         {
             con.Open();
@@ -87,7 +95,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
 
             return DT;
         }
-      
+
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_project_prm.SelectedValue);
@@ -122,7 +130,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             {
                 con.Close();
             }
-            
+
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
         {
@@ -147,11 +155,11 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 con.Open();
                 SqlDataReader sdr;
                 SqlCommand cmd = new SqlCommand("SELECT a.*, b.unit_code FROM v_purchase_order a LEFT OUTER JOIN pur01h01 b ON " +
-                    "a.no_ref=b.pr_code WHERE a.po_code =  '" + item["po_code"].Text + "'", con);
+                    "a.no_ref=b.po_code WHERE a.po_code =  '" + item["po_code"].Text + "'", con);
                 sdr = cmd.ExecuteReader();
                 if (sdr.Read())
                 {
-                    txt_po_number.Text = sdr["po_code"].ToString();
+                    txt_po_code.Text = sdr["po_code"].ToString();
                     dtp_po.SelectedDate = Convert.ToDateTime(sdr["Po_date"].ToString());
                     dtp_exp.SelectedDate = Convert.ToDateTime(sdr["exp_date"].ToString());
                     cb_reff.Text = sdr["no_ref"].ToString();
@@ -176,7 +184,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                     cb_tax3.Text = sdr["tax3"].ToString();
                     cb_project.Text = sdr["region_name"].ToString();
                     cb_cost_center.Text = sdr["CostCenterName"].ToString();
-                    txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", sdr["ref_date"].ToString());
+                    //txt_Po_date.Text = string.Format("{0:dd/MM/yyyy}", sdr["ref_date"].ToString());
                     txt_remark.Text = sdr["Remark"].ToString();
                     txt_term_days.Text = sdr["JTempo"].ToString();
                     cb_prepared.Text = sdr["Order_by"].ToString();
@@ -211,32 +219,32 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                     {
                         cb_po_status.Text = "HOLD";
                     }
-                    pur01h02_slip._tot_amount = Convert.ToDouble(sdr["tot_amount"]);
-                    pur01h02_slip._unit_code = sdr["unit_code"].ToString();
+                    //pur01h02_slip._tot_amount = Convert.ToDouble(sdr["tot_amount"]);
+                    //pur01h02_slip._unit_code = sdr["unit_code"].ToString();
                 }
                 con.Close();
 
-                RadGrid2.DataSource = GetDataDetailTable(txt_po_number.Text);
-                RadGrid2.DataBind();
+                //RadGrid2.DataSource = GetDataDetailTable(txt_po_code.Text);
+                ////RadGrid2.DataBind();
                 Session["action"] = "edit";
                 RadGrid2.Enabled = true;
                 btnSave.Enabled = false;
                 //btnSave.ImageUrl = "~/Images/simpan.png";
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
-                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_po_number.Text);
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_po_code.Text);
             }
 
         }
-       
+
         protected void RadGrid1_SaveCommand(object source, GridCommandEventArgs e)
-        {           
+        {
             UserControl userControl = (UserControl)e.Item.FindControl(GridEditFormItem.EditFormUserControlID);
-                        
+
             try
             {
                 if ((userControl.FindControl("txt_validity") as TextBox).Text != "0")
-                {                    
+                {
                     long maxNo;
                     string run = null;
                     RadDatePicker dtp_po = userControl.FindControl("dtp_po") as RadDatePicker;
@@ -270,24 +278,24 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                     }
                     else
                     {
-                        run = (userControl.FindControl("txt_po_number") as TextBox).Text;
+                        run = (userControl.FindControl("txt_po_code") as TextBox).Text;
                     }
 
-                    int tax1Inc;
+                    int tax1Inc;  
                     int tax2Inc;
                     int tax3Inc;
 
                     if ((userControl.FindControl("chk_ppn_incl") as CheckBox).Checked == true)
+                    {
+                    if ((userControl.FindControl("cb_tax2") as RadComboBox).Text == "0")
                     {
                         tax1Inc = 1;
                     }
                     else
                     {
                         tax1Inc = 0;
-                    }
 
-                    if ((userControl.FindControl("cb_tax2") as RadComboBox).Text == "0")
-                    {
+                    }
                         tax2Inc = 0;
                     }
                     else
@@ -350,7 +358,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                     cmd.Parameters.AddWithValue("@cur_code", (userControl.FindControl("cb_priority") as RadComboBox).Text);
                     cmd.Parameters.AddWithValue("@userid", (userControl.FindControl("txt_uid") as TextBox).Text);
 
-                    cmd.Parameters.AddWithValue("@PPNIncl", tax1Inc);
+                    //cmd.Parameters.AddWithValue("@PPNIncl", tax1Inc);
                     cmd.Parameters.AddWithValue("@ppn", (userControl.FindControl("cb_tax1") as RadComboBox).SelectedValue);
                     cmd.Parameters.AddWithValue("@PPPN", double.Parse((userControl.FindControl("txt_pppn") as TextBox).Text));
                     cmd.Parameters.AddWithValue("@JPPN", double.Parse((userControl.FindControl("txt_tax1_value") as TextBox).Text));
@@ -564,7 +572,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         //        e.Canceled = true;
         //    }
         //}
-       
+
         protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
         {
 
@@ -780,11 +788,24 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_code  FROM pur00h01 WHERE supplier_name = '" + cb_supplier.Text + "'";
+            cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " +
+                               " FROM pur00h01 a LEFT OUTER JOIN acc00h05 AS b ON b.TAX_CODE = a.ppn LEFT OUTER JOIN acc00h05 AS c ON a.OTax = c.TAX_CODE LEFT OUTER JOIN " +
+                               " acc00h05 AS d ON a.pph = d.TAX_CODE inner join acc00h04 e on a.cur_code = e.cur_code WHERE (e.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
+                               " FROM acc00h04)) and a.supplier_name = '" + cb_supplier.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
+                //(sender as RadComboBox).Text = dr["doc_code"].ToString();
                 cb_supplier.SelectedValue = dr["supplier_code"].ToString();
+                txt_curr.Text = dr["cur_code"].ToString();
+                txt_kurs.Text = dr["KursRun"].ToString();
+                txt_tax_kurs.Text = dr["KursTax"].ToString();
+                cb_tax1.SelectedValue = dr["ppn"].ToString();
+                cb_tax2.SelectedValue = dr["Otax"].ToString();
+                cb_tax3.SelectedValue = dr["pph"].ToString();
+            }
+                
             dr.Close();
             con.Close();
 
@@ -816,12 +837,12 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             //SqlDataAdapter adapter = new SqlDataAdapter("SELECT cur_code, JTempo, case pur00h01.pay_code when '01' then 'Cash' when '02' then 'Credit' Else 'COD' end as pay_name  FROM pur00h01 WHERE supplier_code = @supplier_code", con);
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT pur00h01.supplier_name, pur00h01.supplier_code, pur00h01.KoGSup, pur00h01.contact1, pur00h01.contact2, ISNULL(acc00h05.TAX_NAME,'NON') AS tax1, " +
             "ISNULL(acc00h05_1.TAX_NAME, 'NON') AS tax2, ISNULL(acc00h05_2.TAX_NAME, 'NON') AS tax3, pur00h01.cur_code, pur00h01.pay_code, " +
-            "CASE pur00h01.pay_code WHEN '01' THEN 'Cash' WHEN '02' THEN 'Credit' ELSE 'COD' END AS pay_term, pur00h01.JTempo, ms_kurs.KursRun, " +
-            "ms_kurs.KursTax, pur00h01.ppn AS tax1_code, pur00h01.OTax AS tax2_code, pur00h01.pph AS tax3_code, " +
+            "CASE pur00h01.pay_code WHEN '01' THEN 'Cash' WHEN '02' THEN 'Credit' ELSE 'COD' END AS pay_term, pur00h01.JTempo, acc00h04.KursRun, " +
+            "acc00h04.KursTax, pur00h01.ppn AS tax1_code, pur00h01.OTax AS tax2_code, pur00h01.pph AS tax3_code, " +
             "ISNULL(acc00h05.TAX_PERC, 0) AS p_tax1, ISNULL(acc00h05_1.TAX_PERC, 0) AS p_tax2, ISNULL(acc00h05_2.TAX_PERC, 0) AS p_tax3 " +
             "FROM pur00h01 LEFT OUTER JOIN acc00h05 ON pur00h01.ppn = acc00h05.TAX_CODE LEFT OUTER JOIN acc00h05 AS acc00h05_1 ON pur00h01.OTax = acc00h05_1.TAX_CODE LEFT OUTER JOIN " +
-            "acc00h05 AS acc00h05_2 ON pur00h01.pph = acc00h05_2.TAX_CODE LEFT OUTER JOIN ms_kurs ON pur00h01.cur_code = ms_kurs.cur_code " +
-            "WHERE(pur00h01.stEdit <> 4) AND(ms_kurs.tglKurs = (SELECT MAX(tglKurs) AS Expr1 FROM ms_kurs AS ms_kurs_1)) AND pur00h01.supplier_code = @supplier_code", con);
+            "acc00h05 AS acc00h05_2 ON pur00h01.pph = acc00h05_2.TAX_CODE LEFT OUTER JOIN acc00h04 ON pur00h01.cur_code = acc00h04.cur_code " +
+            "WHERE(pur00h01.stEdit <> 4) AND(acc00h04.tglKurs = (SELECT MAX(tglKurs) AS Expr1 FROM acc00h04 AS acc00h04_1)) AND pur00h01.supplier_code = @supplier_code", con);
             adapter.SelectCommand.Parameters.AddWithValue("@supplier_code", supp_code);
 
             DataTable dt = new DataTable();
@@ -1036,12 +1057,12 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         #endregion
 
         #region PO_Refference
-        private static DataTable GetReff(string pr_code, string project)
+        private static DataTable GetReff(string po_code, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, pr_date, remark FROM v_purchase_request WHERE region_code = region_code " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, Pr_date, remark FROM v_purchase_request WHERE region_code = region_code " +
                 "AND pr_code LIKE @text + '%' ORDER BY pr_code",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", pr_code);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
             adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
 
             DataTable data = new DataTable();
@@ -1087,14 +1108,14 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenterName,dept_code, pr_date, remark FROM v_purchase_request WHERE pr_code = @pr_code", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenterName,dept_code, Pr_date, remark FROM v_purchase_request WHERE pr_code = @pr_code", con);
             adapter.SelectCommand.Parameters.AddWithValue("@pr_code", code);
 
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             foreach (DataRow dr in dt.Rows)
             {
-                txt_pr_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Pr_date"].ToString());
+                //txt_Po_date.Text = string.Format("{0:dd/MM/yyyy}", dr["Po_date"].ToString());
                 txt_remark.Text = dr["remark"].ToString();
                 cb_cost_center.Text = dr["dept_code"].ToString();
             }
@@ -1104,7 +1125,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, pr_date, remark FROM v_purchase_request WHERE region_code = @project", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, Pr_date, remark FROM v_purchase_request WHERE region_code = @project", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
 
             DataTable dt = new DataTable();
@@ -1287,33 +1308,255 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         }
         #endregion
 
-        //protected void chk_lock_detail_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (chk_lock_detail.Checked)
-        //    {
-        //        RadGrid2.Enabled = false;
-        //    }
-        //}
+        ////protected void chk_lock_detail_CheckedChanged(object sender, EventArgs e)
+        ////{
+        ////    if (chk_lock_detail.Checked)
+        ////    {
+        ////        RadGrid2.Enabled = false;
+        ////    }
+        ////}
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
+            Session["action"] = "new";
+            btnSave.Enabled = true;
+            btnSave.ImageUrl = "~/Images/simpan.png";
+            //RadGrid2.Enabled = false;
+            btnPrint.Enabled = false;
+            btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+            RadGrid2.DataSource = new string[] { };
+            RadGrid2.DataBind();
+            if (Session["action"].ToString() != "firstLoad")
+            {
+                clear_text(Page.Controls);
+            }
+            set_info();
+            teks_default();
+            cb_po_type.Text = "Inventory";
+            cb_po_type.SelectedValue = "INV";
+            cb_priority.Text = "Hight/Urgent";
+            cb_priority.SelectedValue = "1";
+            cb_project.SelectedValue = public_str.site;
+            cb_project.Text = public_str.sitename;
+            dtp_exp.SelectedDate = dtp_po.SelectedDate;
+        }
+
+        private void set_info()
+        {
+            txt_uid.Text = public_str.uid;
+            txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy hh:mm:ss}", DateTime.Today);
+            txt_owner.Text = public_str.uid;
+            txt_printed.Text = "0";
+            txt_edited.Text = "0";
+        }
+        private void clear_text(ControlCollection ctrls)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is RadTextBox)
+                {
+                    ((RadTextBox)ctrl).Text = "";
+                }
+                else if (ctrl is RadComboBox)
+                    ((RadComboBox)ctrl).Text = "";
+
+                clear_text(ctrl.Controls);
+
+            }
+        }
+
+        private void teks_default()
+        {
+            txt_uid.Text = "User: ";
+            txt_lastUpdate.Text = "Last Update: ";
+            txt_owner.Text = "Owner:";
+            txt_printed.Text = "Printed: ";
+            txt_edited.Text = "Edited: ";
+
+        }
+
+        private void teks_clear()
+        {
+            txt_uid.Text = "";
+            txt_lastUpdate.Text = "";
+            txt_owner.Text = "";
+            txt_printed.Text = "";
+            txt_edited.Text = "";
 
         }
 
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
         {
+            long maxNo;
+            string run = null;
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_po.SelectedDate);
 
-            pur01h02_slip._tot_amount = Convert.ToDouble(txt_total.Text);
+            try
+            {
+                if (Session["action"].ToString() == "edit")
+                {
+                    run = txt_po_code.Text;
+                }
+                else
+                {
+                    con.Open();
+                    SqlDataReader sdr;
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h01.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM pur01h01 WHERE LEFT(pur01h01.po_code, 4) = 'PR01' " +
+                        "AND SUBSTRING(pur01h01.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(pur01h01.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.HasRows == false)
+                    {
+                        //throw new Exception();
+                        run = "PR01" + dtp_po.SelectedDate.Value.Year + dtp_po.SelectedDate.Value.Month + "0001";
+                    }
+                    else if (sdr.Read())
+                    {
+                        maxNo = Convert.ToInt32(sdr[0].ToString());
+                        run = "PR01" + (dtp_po.SelectedDate.Value.Year.ToString()).Substring(dtp_po.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_po.SelectedDate.Value.Month).Substring(("0000" + dtp_po.SelectedDate.Value.Month).Length - 2, 2) +
+                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
+                    }
+                    con.Close();
+                }
+
+
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_poH";
+                cmd.Parameters.AddWithValue("@po_code", run);
+                cmd.Parameters.AddWithValue("@Po_date", string.Format("{0:yyyy-MM-dd}", dtp_po.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@exp_date", string.Format("{0:yyyy-MM-dd}", dtp_exp.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@trans_code", cb_po_type.SelectedValue);
+                cmd.Parameters.AddWithValue("@priority_code", cb_priority.Text);
+                cmd.Parameters.AddWithValue("@etd", string.Format("{0:yyyy-MM-dd}", dtp_etd.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@ShipModeEtd", cb_ship_mode.SelectedValue);
+                cmd.Parameters.AddWithValue("@ppn", cb_tax1.SelectedValue);
+                cmd.Parameters.AddWithValue("@PPNIncl", chk_ppn_incl.Checked);
+                cmd.Parameters.AddWithValue("@kurs", txt_kurs.Text);
+                cmd.Parameters.AddWithValue("@kurs_tax", txt_tax_kurs.Text);
+                cmd.Parameters.AddWithValue("@pay_code", cb_term.SelectedValue);
+                cmd.Parameters.AddWithValue("@JTempo", txt_term_days.Text);
+                cmd.Parameters.AddWithValue("@attname", txt_term_days.Text);
+                cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
+                cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
+                cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
+                cmd.Parameters.AddWithValue("@vendor_code", cb_supplier.SelectedValue);
+                cmd.Parameters.AddWithValue("@vendor_name", cb_supplier.SelectedValue);
+                cmd.Parameters.AddWithValue("@cur_code", txt_curr.Text);
+                cmd.Parameters.AddWithValue("@tot_amount", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@PPPN", txt_pppn.Text);
+                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@JPPN", txt_tax1_value.Text);
+                cmd.Parameters.AddWithValue("@OTaxIncl", cb_tax1.SelectedValue);
+                cmd.Parameters.AddWithValue("@JOTax", txt_tax2_value.Text);
+                cmd.Parameters.AddWithValue("@Net", txt_sub_total.Text);
+                cmd.Parameters.AddWithValue("@Freight", 0);
+                cmd.Parameters.AddWithValue("@Othercost", txt_other_value.Text);
+                cmd.Parameters.AddWithValue("@Ass", 0);
+                cmd.Parameters.AddWithValue("@DP", 0);
+                cmd.Parameters.AddWithValue("@OTax", cb_tax2.SelectedValue);
+                cmd.Parameters.AddWithValue("@PlantCode", cb_project.SelectedValue);
+                cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
+                cmd.Parameters.AddWithValue("@no_ref", cb_reff.SelectedValue);
+                cmd.Parameters.AddWithValue("@ref_date", txt_pr_date.Text);
+                cmd.Parameters.AddWithValue("@pph", "NON");
+                cmd.Parameters.AddWithValue("@pphIncl", cb_tax3.SelectedValue);
+                cmd.Parameters.AddWithValue("@Jpph", txt_tax3_value.Text);
+                cmd.Parameters.AddWithValue("@Owner", txt_owner.Text);
+                cmd.Parameters.AddWithValue("@OwnStamp", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
+                cmd.Parameters.AddWithValue("@doc_type", 1);
+                cmd.Parameters.AddWithValue("@tFullSupply", 0);
+                cmd.Parameters.AddWithValue("@tMonOrder", 0);
+                cmd.Parameters.AddWithValue("@doc_status", cb_priority.SelectedValue);
+                cmd.Parameters.AddWithValue("@share_date", string.Format("{0:yyyy-MM-dd}", dtp_share_date.SelectedDate.Value));
+                //cmd.Parameters.AddWithValue("@deliv_address", "");
+                cmd.Parameters.AddWithValue("@valid_period", txt_validity.Text);
+                cmd.Parameters.AddWithValue("@ppph", txt_ppph.Text);
+                cmd.Parameters.AddWithValue("@poTax", txt_po_tax.Text);
+
+                //cmd.Parameters.AddWithValue("@asset_id", "NON");
+                cmd.ExecuteNonQuery();
+
+
+                // Save Detail
+                //cmd = new SqlCommand();
+                //cmd.CommandType = CommandType.Text;
+                //cmd.Connection = con;
+                //cmd.CommandText = "DELETE FROM pur01d01 WHERE po_code = @po_code";
+                //cmd.Parameters.AddWithValue("@po_code", run);
+                //cmd.ExecuteNonQuery();
+
+                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_save_poD";
+                    cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("txt_type") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@Prod_code", (item.FindControl("cb_prod_code") as RadComboBox).SelectedValue);
+                    cmd.Parameters.AddWithValue("@spec", (item.FindControl("txt_prod_name") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txt_qty") as RadTextBox).Text));
+                    cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("cb_uom_d") as RadComboBox).SelectedValue);
+                    cmd.Parameters.AddWithValue("@harga", (item.FindControl("lblHarga") as Label).Text);
+                    cmd.Parameters.AddWithValue("@Disc", (item.FindControl("txt_disc") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@factor", (item.FindControl("txt_factor") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@jumlah", (item.FindControl("txt_sub_price") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("txt_cost_ctr") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("txt_Prod_code_ori") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@harga2", (item.FindControl("lblHarga") as Label).Text);
+                    //cmd.Parameters.AddWithValue("@tTax", (item.FindControl("lblRS") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@tOTax", (item.FindControl("lblUom") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@tpph", (item.FindControl("lblRS") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@nomer", (item.FindControl("lblUom") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@JDisc", (item.FindControl("txt_JDisk") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@HPokok", (item.FindControl("txt_HPokok") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@jumlah2", (item.FindControl("txt_sub_price") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@NoContr", (item.FindControl("txt_NoContr") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@jTax1", (item.FindControl("lblRS") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@jTax2", (item.FindControl("lblRS") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@jTax3", (item.FindControl("lblRS") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@Asscost", 0);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+                con.Close();
+
+                //HttpContext.Current.Response.Write("<script>alert('" + System.Web.HttpUtility.HtmlEncode("Berhasil disimpan") + "')</script>");
+                notif.Text = "Data berhasil disimpan";
+                notif.Title = "Notification";
+                notif.Show();
+                txt_po_code.Text = run;
+                //RadGrid2.Enabled = true;
+                btnSave.Enabled = false;
+                btnPrint.Enabled = true;
+                btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_po_code.Text);
+            }
+            catch (System.Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
+                //Response.Write("<font color='red'>" + ex.Message + "</font>");
+            }
+            //pur01h02_slip._tot_amount = Convert.ToDouble(txt_total.Text);
         }
 
-        protected void btnPrint_Click(object sender, ImageClickEventArgs e)
-        {
-            pur01h02_slip._tot_amount = Convert.ToDouble(txt_total.Text);
-            btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_po_number.Text);
-        }
+        //protected void btnPrint_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    //pur01h02_slip._tot_amount = Convert.ToDouble(txt_total.Text);
+        //    btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_po_code.Text);
+
+        //}
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            RadGrid2.DataSource = GetDataDetailTable(txt_po_number.Text);
+            RadGrid2.DataSource = GetDataDetailTable(txt_po_code.Text);
         }
         public DataTable GetDataDetailTable(string po_no)
         {
@@ -1337,45 +1580,45 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             {
                 con.Close();
             }
-            
+
             return DT;
         }
-        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
-        {
-            //try
-            //{
-            //    GridEditableItem item = (GridEditableItem)e.Item;
-            //    con.Open();
-            //    cmd = new SqlCommand();
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    cmd.Connection = con;
-            //    cmd.CommandText = "sp_save_urD";
-            //    cmd.Parameters.AddWithValue("@doc_code", txt_ur_number.Text);
-            //    cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
-            //    cmd.Parameters.AddWithValue("@part_qty", Convert.ToDecimal((item.FindControl("txt_qty") as RadTextBox).Text));
-            //    cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("cb_uom_d") as RadComboBox).Text);
-            //    cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark_d") as RadTextBox).Text);
-            //    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_dept_d") as RadComboBox).Text);
-            //    cmd.ExecuteNonQuery();
-            //    con.Close();
-            //    RadGrid2.DataBind();
-            //    RadGrid2.Rebind();
+        //protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
+        //{
+        //    //try
+        //    //{
+        //    //    GridEditableItem item = (GridEditableItem)e.Item;
+        //    //    con.Open();
+        //    //    cmd = new SqlCommand();
+        //    //    cmd.CommandType = CommandType.StoredProcedure;
+        //    //    cmd.Connection = con;
+        //    //    cmd.CommandText = "sp_save_urD";
+        //    //    cmd.Parameters.AddWithValue("@doc_code", txt_ur_number.Text);
+        //    //    cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
+        //    //    cmd.Parameters.AddWithValue("@part_qty", Convert.ToDecimal((item.FindControl("txt_qty") as RadTextBox).Text));
+        //    //    cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("cb_uom_d") as RadComboBox).Text);
+        //    //    cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark_d") as RadTextBox).Text);
+        //    //    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_dept_d") as RadComboBox).Text);
+        //    //    cmd.ExecuteNonQuery();
+        //    //    con.Close();
+        //    //    RadGrid2.DataBind();
+        //    //    RadGrid2.Rebind();
 
-            //    Label lblsuccess = new Label();
-            //    lblsuccess.Text = "Data saved";
-            //    lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-            //    RadGrid2.Controls.Add(lblsuccess);
-            //}
-            //catch (Exception ex)
-            //{
-            //    con.Close();
-            //    Label lblError = new Label();
-            //    lblError.Text = "Unable to insert data. Reason: " + ex.Message;
-            //    lblError.ForeColor = System.Drawing.Color.Red;
-            //    RadGrid2.Controls.Add(lblError);
-            //    e.Canceled = true;
-            //}
-        }
+        //    //    Label lblsuccess = new Label();
+        //    //    lblsuccess.Text = "Data saved";
+        //    //    lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
+        //    //    RadGrid2.Controls.Add(lblsuccess);
+        //    //}
+        //    //catch (Exception ex)
+        //    //{
+        //    //    con.Close();
+        //    //    Label lblError = new Label();
+        //    //    lblError.Text = "Unable to insert data. Reason: " + ex.Message;
+        //    //    lblError.ForeColor = System.Drawing.Color.Red;
+        //    //    RadGrid2.Controls.Add(lblError);
+        //    //    e.Canceled = true;
+        //    //}
+        //}
 
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
@@ -1461,6 +1704,5 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             con.Close();
         }
 
-        
     }
 }
