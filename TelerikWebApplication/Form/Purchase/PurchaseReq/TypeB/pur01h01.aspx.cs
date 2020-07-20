@@ -45,7 +45,12 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 {
                     RadGrid1.MasterTableView.SortExpressions.Clear();
                     RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                    RadGrid1.Rebind();
+                    RadGrid1.Rebind(); /* Kemudian RadGrid1 akan sorting data by lastupdate (lihat sp_get_purchase_requestH*/
+
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
+
+                    RadGrid2.DataSource = GetDataDetailTable(tr_code);
+                    RadGrid2.Rebind();
                 }
                 else if (e.Argument == "RebindAndNavigate")
                 {
@@ -53,8 +58,9 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                     RadGrid1.MasterTableView.GroupByExpressions.Clear();
                     RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
                     RadGrid1.DataBind();
-                    RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
-                    RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
+                    //RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
+                    //RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
                     RadGrid2.DataSource = GetDataDetailTable(tr_code);
                     RadGrid2.Rebind();
                     Session["action"] = "list";
@@ -147,20 +153,20 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
 
             }
         }
-        protected void RadGrid1_PreRender(object sender, EventArgs e)
-        {
-            if (Session["action"].ToString() == "firstLoad")
-            {
-                if (RadGrid1.MasterTableView.Items.Count > 0)
-                    RadGrid1.MasterTableView.Items[0].Selected = true;
+        //protected void RadGrid1_PreRender(object sender, EventArgs e)
+        //{
+        //    if (Session["action"].ToString() == "firstLoad")
+        //    {
+        //        if (RadGrid1.MasterTableView.Items.Count > 0)
+        //            RadGrid1.MasterTableView.Items[0].Selected = true;
 
-                foreach (GridDataItem gItem in RadGrid1.SelectedItems)
-                {
-                    tr_code = gItem["doc_code"].Text;
-                }
-                populate_detail();
-            }
-        }
+        //        foreach (GridDataItem gItem in RadGrid1.SelectedItems)
+        //        {
+        //            tr_code = gItem["doc_code"].Text;
+        //        }
+        //        populate_detail();
+        //    }
+        //}
 
         protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -485,6 +491,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             con.Close();
         }
         #endregion
-       
+
+        
     }
 }

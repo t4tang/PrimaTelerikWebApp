@@ -4,15 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.Security
+namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class inv01h05gto : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            public_str.modul = "Security";
+
         }
     }
 }

@@ -71,12 +71,12 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
-            else
-            {
-                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
-                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
-                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 200;
-            }
+            //else
+            //{
+            //    (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+            //    (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+            //    (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 200;
+            //}
         }
 
         #endregion
@@ -823,10 +823,9 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 else
                 {
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                    pur01h01a.tr_code = run;
-                    pur01h01a.selected_cost_ctr = cb_cost_ctr.SelectedValue;
-                    
                 }
+                pur01h01.tr_code = run;
+                pur01h01.selected_project = cb_project.SelectedValue;
             }
         }
 

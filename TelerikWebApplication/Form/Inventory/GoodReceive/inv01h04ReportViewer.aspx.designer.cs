@@ -7,27 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Security {
+namespace TelerikWebApplication.Form.Inventory.GoodReceive {
     
     
-    public partial class Default {
+    public partial class inv01h04ReportViewer {
         
         /// <summary>
-        /// FolderNavigationControl control.
+        /// reportViewer_pur01h01 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TelerikWebApplication.Controls.FolderNavigationControl FolderNavigationControl;
-        
-        /// <summary>
-        /// MobileNavigation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::TelerikWebApplication.Controls.MobileNavigation MobileNavigation;
+        protected global::Telerik.ReportViewer.Html5.WebForms.ReportViewer reportViewer_pur01h01;
     }
 }
