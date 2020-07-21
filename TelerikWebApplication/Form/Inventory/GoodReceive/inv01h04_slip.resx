@@ -117,20 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
-    <value>SELECT dbo.inv01h04.lbm_code, dbo.inv01h04.lbm_date, dbo.inv01h04.remark, dbo.inv01h04.cust_code, dbo.inv01h04.cust_name, dbo.inv01h04.trans_code, 
-dbo.inv01h04.ref_code, dbo.inv01h04.ref_date, dbo.inv00h28.NmMasuk, dbo.inv00h09.region_code, dbo.inv00h09.region_name, dbo.inv01h04.dept_code, 
-dbo.inv00h11.CostCenterName, dbo.inv01h04.sj, dbo.inv01h04.wh_code, dbo.inv00h05.wh_name, dbo.inv01h04.createby, dbo.inv01h04.Receiptby, 
-dbo.inv01h04.approval, ISNULL
-((SELECT Name FROM dbo.inv00h26 AS mm WHERE (Nik = dbo.inv01h04.createby)), '') AS createby_name, ISNULL
-((SELECT Name FROM dbo.inv00h26 AS mm WHERE (Nik = dbo.inv01h04.Receiptby)), '') AS Receiptby_name, ISNULL
-((SELECT Name FROM dbo.inv00h26 AS mm WHERE (Nik = dbo.inv01h04.approval)), '') AS approval_name,
-dbo.inv01h04.Owner, dbo.inv01h04.OwnStamp, dbo.inv01h04.Printed, dbo.inv01h04.Edited, dbo.inv01h04.userid, dbo.inv01h04.lastupdate, dbo.inv01h04.status_post
-FROM dbo.inv01h04 INNER JOIN
-dbo.inv00h28 ON dbo.inv01h04.trans_code = dbo.inv00h28.KdMasuk INNER JOIN
-dbo.inv00h09 ON dbo.inv01h04.region_code = dbo.inv00h09.region_code INNER JOIN
-dbo.inv00h11 ON dbo.inv01h04.dept_code = dbo.inv00h11.CostCenter INNER JOIN
-dbo.inv00h05 ON dbo.inv01h04.wh_code = dbo.inv00h05.wh_code
-WHERE (dbo.inv01h04.status_lbm &lt;&gt; '4') AND (dbo.inv01h04.trans_code NOT IN ('2', '6', '5')) AND (dbo.inv01h04.lbm_code NOT LIKE 'SA%')</value>
-  </data>
+  <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
+    <value>{"@gr_code":"GR0318090002"}</value>
+  </metadata>
 </root>
