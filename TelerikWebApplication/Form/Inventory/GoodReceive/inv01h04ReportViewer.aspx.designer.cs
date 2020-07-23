@@ -13,12 +13,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
     public partial class inv01h04ReportViewer {
         
         /// <summary>
-        /// reportViewer_pur01h01 control.
+        /// reportViewer_inv01h04 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.ReportViewer.Html5.WebForms.ReportViewer reportViewer_pur01h01;
+        protected global::Telerik.ReportViewer.Html5.WebForms.ReportViewer reportViewer_inv01h04;
     }
 }
