@@ -58,15 +58,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::Telerik.Web.UI.RadTextBox txt_gr_number;
         
         /// <summary>
-        /// cb_from control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_from;
-        
-        /// <summary>
         /// dtp_gr control.
         /// </summary>
         /// <remarks>
@@ -103,22 +94,31 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::Telerik.Web.UI.RadComboBox cb_project;
         
         /// <summary>
-        /// supplierValidator control.
+        /// warehouseValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator supplierValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator warehouseValidator;
         
         /// <summary>
-        /// cb_supplier control.
+        /// UpdatePanel6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_supplier;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+        
+        /// <summary>
+        /// cb_warehouse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_warehouse;
         
         /// <summary>
         /// reffCodeValidator control.
@@ -175,6 +175,24 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::Telerik.Web.UI.RadTextBox txt_reff_date;
         
         /// <summary>
+        /// UpdatePanel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        
+        /// <summary>
+        /// txt_proj_area_ori control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txt_proj_area_ori;
+        
+        /// <summary>
         /// cost_ctr_Validator control.
         /// </summary>
         /// <remarks>
@@ -200,60 +218,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_costcenter;
-        
-        /// <summary>
-        /// warehouseValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator warehouseValidator;
-        
-        /// <summary>
-        /// UpdatePanel6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
-        
-        /// <summary>
-        /// cb_warehouse control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_warehouse;
-        
-        /// <summary>
-        /// txt_delivery_note control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_delivery_note;
-        
-        /// <summary>
-        /// UpdatePanel7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
-        
-        /// <summary>
-        /// txt_remark control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_remark;
         
         /// <summary>
         /// UpdatePanel13 control.
@@ -308,6 +272,24 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_approved;
+        
+        /// <summary>
+        /// UpdatePanel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
+        
+        /// <summary>
+        /// txt_remark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txt_remark;
         
         /// <summary>
         /// panel2 control.
