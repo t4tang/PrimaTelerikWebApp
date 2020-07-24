@@ -276,7 +276,7 @@
                         <telerik:GridTemplateColumn HeaderText="From Storage Loc." HeaderStyle-Width="100px" ItemStyle-Width="100px" 
                              HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lblFromStorLoc" Text='<%# DataBinder.Eval(Container.DataItem, "from_wh_code") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lblFromStorLoc" Text='<%# DataBinder.Eval(Container.DataItem, "from_wh_name") %>'></asp:Label>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                        
