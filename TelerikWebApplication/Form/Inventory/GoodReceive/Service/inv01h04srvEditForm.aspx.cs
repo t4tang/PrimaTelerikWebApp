@@ -12,7 +12,7 @@ using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Form.Inventory.GoodReceive
 {
-    public partial class inv01h04EditForm : System.Web.UI.Page
+    public partial class inv01h04srvEditForm : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();

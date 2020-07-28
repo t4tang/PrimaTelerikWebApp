@@ -12,7 +12,7 @@ using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Form.Inventory.GoodReceive
 {
-    public partial class inv01h04 : System.Web.UI.Page
+    public partial class inv01h04srv : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
@@ -220,20 +220,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
             }
             return DT;
         }
-        //protected void RadGrid1_PreRender(object sender, EventArgs e)
-        //{
-        //    if (Session["action"].ToString() == "firstLoad")
-        //    {
-        //        if (RadGrid1.MasterTableView.Items.Count > 0)
-        //            RadGrid1.MasterTableView.Items[0].Selected = true;
-
-        //        foreach (GridDataItem gItem in RadGrid1.SelectedItems)
-        //        {
-        //            tr_code = gItem["lbm_code"].Text;
-        //        }
-        //        populate_detail();
-        //    }
-        //}
+        
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
@@ -250,7 +237,30 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         }
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
         {
+            var doc_code = ((GridDataItem)e.Item).GetDataKeyValue("lbm_code");
 
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "UPDATE inv01h04 SET userid = @Usr, lastupdate = GETDATE(), status_lbm = '4' WHERE (lbm_code = @lbm_code)";
+                cmd.Parameters.AddWithValue("@lbm_code", doc_code);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                notif.Text = "Data berhasil dihapus";
+                notif.Title = "Notification";
+                notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
+                e.Canceled = true;
+            }
         }
         protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -314,15 +324,35 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
         }
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
+            var partCode = ((GridDataItem)e.Item).GetDataKeyValue("part_code");
 
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "delete from inv01d04 where prod_code = @prod_code and lbm_code = @lbm_code";
+                cmd.Parameters.AddWithValue("@lbm_code", tr_code);
+                cmd.Parameters.AddWithValue("@prod_code", partCode);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                RadGrid2.DataBind();
+
+                notif.Text = "Data berhasil dihapus";
+                notif.Title = "Notification";
+                notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
+                e.Canceled = true;
+            }
         }
 
         
-        protected void btnPrint_Click(object sender, ImageClickEventArgs e)
-        {
-
-        }
-
         
     }
 }

@@ -10,7 +10,8 @@
 namespace TelerikWebApplication.Form.Inventory.GoodReceive {
     
     
-    public partial class inv01h04 {
+    public partial class inv01h04srv
+    {
         
         /// <summary>
         /// RadCodeBlock1 control.
@@ -175,6 +176,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
         
         /// <summary>
+        /// panel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel panel2;
+        
+        /// <summary>
         /// RadGrid2 control.
         /// </summary>
         /// <remarks>
@@ -182,6 +192,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid2;
+        
+        /// <summary>
+        /// notif control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNotification notif;
         
         /// <summary>
         /// RadWindowManager1 control.
