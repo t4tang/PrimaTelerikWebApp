@@ -68,7 +68,7 @@
     </asp:UpdatePanel> 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
+   <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
                 <UpdatedControls>
@@ -143,7 +143,7 @@
         </ContentTemplate>
     </telerik:RadWindow>
 
-    <div style="padding-left: 15px; width: 100%; ">
+    <div style="padding-left: 15px;">
         <table id="tbl_control">
             <tr>                  
                 <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
@@ -154,7 +154,7 @@
                     <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
                         Height="28px" Width="28px" ImageUrl="~/Images/filter1.png"></asp:ImageButton>
                 </td>
-                <td style="width: 93%; text-align: right">
+                <td style="width: 94%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
                         padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:bold">
                     </telerik:RadLabel>
@@ -194,12 +194,12 @@
                         FilterControlWidth="40px">
                         <HeaderStyle Width="80px" ForeColor="Highlight"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="wo_no" HeaderText="WO Number" DataField="wo_no">
+                        <telerik:GridBoundColumn UniqueName="reff_no" HeaderText="Reff Number" DataField="wo_no">
                             <HeaderStyle Width="120px" ForeColor="Highlight"></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="reff_no" HeaderText="Reff Number" DataField="reff_no">
+                        </telerik:GridBoundColumn>   
+                        <telerik:GridBoundColumn UniqueName="wo_no" HeaderText="WO Number" DataField="reff_no">
                             <HeaderStyle Width="120px" ForeColor="Highlight"></HeaderStyle>
-                        </telerik:GridBoundColumn>                       
+                        </telerik:GridBoundColumn>                    
                         <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true"
                             ItemStyle-Width="580px" FilterControlWidth="570px">
                             <HeaderStyle Width="600px" ForeColor="Highlight"></HeaderStyle>
@@ -215,9 +215,9 @@
                                 <asp:ImageButton ID="PrintLink" runat="server" Height="20px" Width="20px" ImageUrl="~/Images/cetak.png" ToolTip="Print" />
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete" 
-                            ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="50px" HeaderStyle-Width="50px"
-                            ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
+                        <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete"
+                            ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="25px"
+                            ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton" ItemStyle-ForeColor="#66CCFF">
                         </telerik:GridButtonColumn>
                     </Columns>
 

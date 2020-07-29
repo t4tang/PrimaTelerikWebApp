@@ -26,8 +26,8 @@
     <form runat="server">
         <telerik:ReportViewer
             ID="reportViewer_pur01h01" 
-			Width="1300px"
-			Height="900px"
+			Width="1127px"
+			Height="600px"
 			EnableAccessibility="true"
             runat="server">
             <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Purchase.PurchaseReq.pur01h01_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">

@@ -33,6 +33,14 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 else
                 {
                     Session["actionEdit"] = "new";
+                    cb_type_ref.SelectedValue = "1";
+                    cb_type_ref.Text = "Reservation";
+
+                    cb_priority.SelectedValue = "1";
+                    cb_priority.Text = "High/Urgent";
+
+                    cb_project.SelectedValue = public_str.site;
+                    cb_project.Text = public_str.sitename;                    
                 }
             }
 

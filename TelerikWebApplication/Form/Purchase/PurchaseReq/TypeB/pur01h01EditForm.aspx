@@ -53,7 +53,7 @@
     </AjaxSettings>
     </telerik:RadAjaxManager>
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel2" runat="server" MinDisplayTime="1000" BackgroundPosition="None" >
-    <img alt="Loading..." src="../../../Images/load.gif" style="border: 0px; width:60px; height:45px; position: absolute; top: 100px; left:600px" />
+    <img alt="Loading..." src="../../../../Images/load.gif" style="border: 0px; width:60px; height:45px; position: absolute; top: 100px; left:600px" />
     </telerik:RadAjaxLoadingPanel>
 
     <telerik:RadScriptManager runat="server" ID="RadScriptManager1"></telerik:RadScriptManager>
@@ -308,6 +308,7 @@
                                 <td colspan="2">
                                     <asp:UpdatePanel ID="UpdatePanel12" runat="server">
                                         <ContentTemplate>
+                                            <telerik:RadLabel runat="server" Text="WO Number:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
                                             <telerik:RadTextBox ID="txt_work_order" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight"
                                                 AutoPostBack="false">
                                             </telerik:RadTextBox>
@@ -652,7 +653,7 @@
                             <telerik:RadLabel runat="server" ID="lbl_edited" Width="100px" Text="Edited: " CssClass="lbObject" Font-Size="Small"/>
                         </td>
                         <td colspan="2" style="padding-top:0px; text-align:left">
-                            <telerik:RadButton ID="btn_save" runat="server" Text="Save Me!" CssClass="btn-wrapper" ForeColor="White"
+                            <telerik:RadButton ID="btn_save" runat="server" Text="Save" CssClass="btn-wrapper" ForeColor="White"
                                 OnClick="btn_save_Click" Skin="Material"></telerik:RadButton>
                         </td>
                     </tr>                   
