@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 {
     public partial class inv01h04srvEditForm : System.Web.UI.Page
     {
@@ -234,8 +234,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
                 {
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
                 }
-                inv01h04.tr_code = run;
-                inv01h04.selected_project = cb_project.SelectedValue;
+                inv01h04srv.tr_code = run;
+                inv01h04srv.selected_project = cb_project.SelectedValue;
             }
         }
 

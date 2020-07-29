@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv01h04.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodReceive.inv01h04" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv01h04srv.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodReceive.Service.inv01h04srv" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="../../../Styles/common.css" rel="stylesheet" />
-    <link href="../../../Styles/mail.css" rel="stylesheet" />
-    <link href="../../../Styles/custom-cs.css" rel="stylesheet" />
+    <link href="../../../../Styles/common.css" rel="stylesheet" />
+    <link href="../../../../Styles/mail.css" rel="stylesheet" />
+    <link href="../../../../Styles/custom-cs.css" rel="stylesheet" />
     
-    <script type="text/javascript" src="../../../Script/Script.js" ></script>
+    <script type="text/javascript" src="../../../../Script/Script.js" ></script>
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
             function rowDblClick(sender, eventArgs) {
@@ -142,7 +142,7 @@
         </ContentTemplate>
     </telerik:RadWindow>
 
-    <div style="padding-left: 15px; width: 100%; ">
+    <div style="padding-left: 15px;">
         <table id="tbl_control">
             <tr>                  
                 <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">

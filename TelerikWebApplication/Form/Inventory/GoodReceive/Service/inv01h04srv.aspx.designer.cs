@@ -7,11 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive {
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service{
     
     
-    public partial class inv01h04srv
-    {
+    public partial class inv01h04srv {
         
         /// <summary>
         /// RadCodeBlock1 control.

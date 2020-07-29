@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inv01h04EditForm.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodReceive.inv01h04EditForm" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inv01h04srvEditForm.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodReceive.Service.inv01h04EditForm" %>
 
 <!DOCTYPE html>
 

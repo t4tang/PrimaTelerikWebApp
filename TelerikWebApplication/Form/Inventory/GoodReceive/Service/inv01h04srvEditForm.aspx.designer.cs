@@ -7,11 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive {
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service {
     
     
-    public partial class inv01h04srvEditForm
-    {
+    public partial class inv01h04srvEditForm {
         
         /// <summary>
         /// form1 control.

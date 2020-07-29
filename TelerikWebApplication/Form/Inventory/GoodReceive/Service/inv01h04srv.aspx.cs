@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 {
     public partial class inv01h04srv : System.Web.UI.Page
     {
