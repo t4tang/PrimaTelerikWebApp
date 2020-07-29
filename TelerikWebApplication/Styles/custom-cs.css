@@ -414,7 +414,8 @@ a.RadButton_MetroTouch.rbImageButton:focus {
 }
 
 .btn-wrapper {
-    width:100%;
+    /*width:100%;*/
+    min-width:105px;
     min-height: 35px;
     padding-left:15px; 
     border-bottom-color: #FF9933; 
@@ -464,6 +465,8 @@ a.RadButton_MetroTouch.rbImageButton:focus {
  
 .submitButton {
     margin-right: 15px;
+    width:20%;
+    padding: 25px 0px 25px 0px;
 }
  
 .resultLabel {
@@ -771,6 +774,18 @@ body {
     font-family:'Segoe UI';
     font-size:11px;    
 
+}
+
+.transactionLabel{
+    font-weight: lighter; 
+    font-size: 10px; 
+    font-variant: small-caps; 
+    padding-left: 10px; 
+    padding-bottom: 0px; 
+    font-size: x-large; 
+    color:deepskyblue; 
+    font-weight:bold; 
+    text-align:right
 }
 
 /*#info { 

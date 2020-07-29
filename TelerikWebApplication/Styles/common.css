@@ -498,7 +498,7 @@ html .RadNavigation {
     margin-right: 60px; }
 
 .scroller {
-  overflow: auto;
+  /*overflow:;*/
   overflow-x: hidden;
   font-size:11px;
 
