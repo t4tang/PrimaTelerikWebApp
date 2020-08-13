@@ -556,7 +556,8 @@
                                     <telerik:GridTemplateColumn HeaderText="UoM" HeaderStyle-Width="70px" ItemStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblUnitCode" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.unit_code") %>' ></asp:Label>
+                                            <telerik:RadTextBox ID="txt_unit" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.unit_code") %>'></telerik:RadTextBox>
+                                            <%--<asp:Label ID="lblUnitCode" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.unit_code") %>' ></asp:Label>--%>
                                         </ItemTemplate>                                                                           
                                     </telerik:GridTemplateColumn>
                                 
