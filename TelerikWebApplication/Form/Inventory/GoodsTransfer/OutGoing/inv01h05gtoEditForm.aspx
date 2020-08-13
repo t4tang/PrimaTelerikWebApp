@@ -452,7 +452,7 @@
                             OnNeedDataSource="RadGrid2_NeedDataSource" OnPreRender="RadGrid2_PreRender"
                             >
                             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
-                            <MasterTableView CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Size="12px" EditMode="Batch"
+                            <MasterTableView CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Size="12px" EditMode="InPlace" 
                                 ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False">
                                 <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="true" ShowCancelChangesButton="false" />
                                 <ColumnGroups>
