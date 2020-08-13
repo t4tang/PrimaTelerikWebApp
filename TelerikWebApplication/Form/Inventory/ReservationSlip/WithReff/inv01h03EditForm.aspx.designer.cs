@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.ReservationSlip {
+namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
     
     
     public partial class inv01h03EditForm {
@@ -382,40 +382,31 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip {
         protected global::Telerik.Web.UI.RadNotification RadNotification1;
         
         /// <summary>
-        /// lbl_userId control.
+        /// RadToolTip1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_userId;
+        protected global::Telerik.Web.UI.RadToolTip RadToolTip1;
         
         /// <summary>
-        /// lbl_lastUpdate control.
+        /// Updatepanel12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_lastUpdate;
+        protected global::System.Web.UI.UpdatePanel Updatepanel12;
         
         /// <summary>
-        /// lbl_Owner control.
+        /// Image1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_Owner;
-        
-        /// <summary>
-        /// lbl_edited control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_edited;
+        protected global::System.Web.UI.WebControls.Image Image1;
         
         /// <summary>
         /// btn_save control.
