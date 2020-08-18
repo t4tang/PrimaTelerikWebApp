@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive {
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
     
     
     public partial class inv01h04ReportViewer {

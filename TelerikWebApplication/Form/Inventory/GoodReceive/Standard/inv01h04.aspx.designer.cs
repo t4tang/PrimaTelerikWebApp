@@ -22,13 +22,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadCodeBlock RadCodeBlock1;
         
         /// <summary>
-        /// UpdatePanel2 control.
+        /// UpdatePanel22 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel22;
         
         /// <summary>
         /// FolderNavigationControl control.
@@ -136,7 +136,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::Telerik.Web.UI.RadButton btnSearch;
         
         /// <summary>
         /// btnNew control.
@@ -173,15 +173,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
-        
-        /// <summary>
-        /// panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel panel2;
         
         /// <summary>
         /// RadGrid2 control.

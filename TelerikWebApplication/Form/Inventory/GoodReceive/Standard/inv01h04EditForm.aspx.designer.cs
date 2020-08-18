@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard{
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
     
     
     public partial class inv01h04EditForm {
@@ -110,6 +110,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard{
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator supplierValidator;
+        
+        /// <summary>
+        /// UpdatePanel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
         
         /// <summary>
         /// cb_supplier control.

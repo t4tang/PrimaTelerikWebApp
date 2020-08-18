@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 {
     using ReportLibrary.slip;
     using System;

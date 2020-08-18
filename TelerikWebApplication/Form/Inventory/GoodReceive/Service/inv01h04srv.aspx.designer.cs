@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service{
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service {
     
     
     public partial class inv01h04srv {
@@ -136,7 +136,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service{
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::Telerik.Web.UI.RadButton btnSearch;
         
         /// <summary>
         /// btnNew control.
@@ -173,15 +173,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service{
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
-        
-        /// <summary>
-        /// panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel panel2;
         
         /// <summary>
         /// RadGrid2 control.

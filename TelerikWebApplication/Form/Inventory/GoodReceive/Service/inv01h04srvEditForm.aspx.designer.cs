@@ -112,6 +112,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator supplierValidator;
         
         /// <summary>
+        /// UpdatePanel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        
+        /// <summary>
         /// cb_supplier control.
         /// </summary>
         /// <remarks>
@@ -175,13 +184,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service {
         protected global::Telerik.Web.UI.RadTextBox txt_reff_date;
         
         /// <summary>
-        /// cost_ctr_Validator control.
+        /// cost_ctr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator cost_ctr_Validator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator cost_ctr;
         
         /// <summary>
         /// UpdatePanel3 control.

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inv01h04ReportViewer.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodReceive.inv01h04ReportViewer" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inv01h04ReportViewer.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodReceive.Standard.inv01h04ReportViewer" %>
 <%@ Register TagPrefix="telerik" Assembly="Telerik.ReportViewer.Html5.WebForms" Namespace="Telerik.ReportViewer.Html5.WebForms" %>
 
 <!DOCTYPE html>
@@ -26,8 +26,8 @@
     <form runat="server">
         <telerik:ReportViewer
             ID="reportViewer_inv01h04" 
-			Width="1300px"
-			Height="900px"
+			Width="1127px"
+			Height="600px"
 			EnableAccessibility="true"
             runat="server">
             <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.GoodReceive.inv01h04_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
