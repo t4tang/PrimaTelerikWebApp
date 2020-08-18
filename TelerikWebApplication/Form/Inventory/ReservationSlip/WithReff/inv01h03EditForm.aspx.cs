@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.Inventory.ReservationSlip
+namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
 {
     public partial class inv01h03EditForm : System.Web.UI.Page
     {
@@ -34,6 +34,10 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 else
                 {
                     Session["actionEdit"] = "new";
+                    cb_type_ref.Text = "Work Order";
+                    cb_type_ref.SelectedValue = "1";
+                    cb_project.Text = public_str.sitename;
+                    cb_project.SelectedValue = public_str.site;
                 }
             }
 
@@ -63,14 +67,18 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 cb_received.Text = sdr["ReceiveBy"].ToString();
                 cb_approved.Text = sdr["ApproveBy"].ToString();
                 txt_remark.Text = sdr["doc_remark"].ToString();
-                lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
-                lbl_lastUpdate.Text = lbl_lastUpdate.Text + string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
-                lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
-                //lbl_printed.Text = lbl_printed.Text + sdr["Printed"].ToString();
-                lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
+                //lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
+                //lbl_lastUpdate.Text = lbl_lastUpdate.Text + string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
+                //lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
+                ////lbl_printed.Text = lbl_printed.Text + sdr["Printed"].ToString();
+                //lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
                 cb_warehouse.SelectedValue = sdr["wh_code"].ToString();
                 cb_warehouse.Text = sdr["wh_name"].ToString();
-                
+                Updatepanel12.ContentTemplateContainer.Controls.Add(new LiteralControl("Last Update : " + string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString())));
+                Updatepanel12.ContentTemplateContainer.Controls.Add(new LiteralControl("<p>Updated : " + sdr["Edited"].ToString()));
+                Updatepanel12.ContentTemplateContainer.Controls.Add(new LiteralControl("<p>User Id : " + sdr["userid"].ToString()));
+                Updatepanel12.ContentTemplateContainer.Controls.Add(new LiteralControl("<p>Owner : " + sdr["Owner"].ToString()));
+                Updatepanel12.Update();
             }
             con.Close();
 
@@ -698,117 +706,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
             con.Close();
         }
         #endregion
-
-
-        protected void btn_save_Click(object sender, EventArgs e)
-        {
-            long maxNo;
-            string run = null;
-            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_rs.SelectedDate);
-
-            try
-            {
-                if (Session["action"].ToString() == "edit")
-                {
-                    run = txt_doc_code.Text;
-                }
-                else
-                {
-                    con.Open();
-                    SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h03.doc_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM inv01h03 WHERE LEFT(inv01h03.doc_code, 4) = 'RS03' " +
-                        "AND SUBSTRING(inv01h03.doc_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(inv01h03.doc_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
-                    sdr = cmd.ExecuteReader();
-                    if (sdr.HasRows == false)
-                    {
-                        //throw new Exception();
-                        run = "RS03" + dtp_rs.SelectedDate.Value.Year + dtp_rs.SelectedDate.Value.Month + "0001";
-                    }
-                    else if (sdr.Read())
-                    {
-                        maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "RS03" + (dtp_rs.SelectedDate.Value.Year.ToString()).Substring(dtp_rs.SelectedDate.Value.Year.ToString().Length - 2) +
-                            ("0000" + dtp_rs.SelectedDate.Value.Month).Substring(("0000" + dtp_rs.SelectedDate.Value.Month).Length - 2, 2) +
-                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
-                    }
-                    con.Close();
-                }
-
-
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
-                cmd.CommandText = "sp_save_rsH";
-                cmd.Parameters.AddWithValue("@doc_code", run);
-                cmd.Parameters.AddWithValue("@doc_date", string.Format("{0:yyyy-MM-dd}", dtp_rs.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@type_ref", cb_type_ref.SelectedValue);
-                cmd.Parameters.AddWithValue("@date_exec", string.Format("{0:yyyy-MM-dd}", dtp_exe.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@order_by", cb_orderBy.SelectedValue);
-                cmd.Parameters.AddWithValue("@receive_by", cb_received.SelectedValue);
-                cmd.Parameters.AddWithValue("@approval_by", cb_approved.SelectedValue);
-                cmd.Parameters.AddWithValue("@doc_remark", txt_remark.Text);
-                cmd.Parameters.AddWithValue("@unit_code", txt_unit_code.Text);
-                cmd.Parameters.AddWithValue("@model_no", txt_unit_name.Text);
-                if (txt_hm.Text != "")
-                {
-                    cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Text));
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@time_reading", 0);
-                }
-                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
-                cmd.Parameters.AddWithValue("@tFullSupply", "0");
-                cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-                cmd.Parameters.AddWithValue("@dept_code", cb_cost_ctr.SelectedValue);
-                cmd.Parameters.AddWithValue("@sro_code", cb_ref.SelectedValue);
-                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
-                cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
-                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
-                cmd.ExecuteNonQuery();
-
-
-                con.Close();
-                //notif.Text = "Data berhasil disimpan";
-                //notif.Title = "Notification";
-                //notif.Show();
-                //txt_doc_code.Text = run;
-
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
-            }
-            finally
-            {
-                notif.Text = "Data berhasil disimpan";
-                notif.Title = "Notification";
-                notif.Show();
-                txt_doc_code.Text = run;
-
-                if (Session["actionEdit"].ToString() == "edit")
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                }
-                else
-                {
-                    inv01h03.tr_code = run;
-                    inv01h03.selected_project = cb_project.SelectedValue;
-                    inv01h03.selected_cost_ctr = cb_cost_ctr.SelectedValue;
-                    inv01h03.selected_wh_code = cb_warehouse.SelectedValue;
-                    inv01h03.selected_type_reff = cb_type_ref.SelectedValue;
-                    inv01h03.selected_reff_no = cb_ref.Text;
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                }
-            }
-        }
-
+                       
         protected void btnSave_Click(object sender, EventArgs e)
         {
             long maxNo;
@@ -871,6 +769,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                     cmd.Parameters.AddWithValue("@time_reading", 0);
                 }
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@type_source", "1");
                 cmd.Parameters.AddWithValue("@tFullSupply", "0");
                 cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
@@ -969,8 +868,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip
                 }
             }
         }
-
-       
+               
         protected void RadGridDetail_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             if (!IsPostBack)

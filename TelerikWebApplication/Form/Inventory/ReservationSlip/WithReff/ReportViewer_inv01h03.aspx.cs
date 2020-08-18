@@ -1,4 +1,4 @@
-﻿namespace TelerikWebApplication.Form.Inventory.ReservationSlip
+﻿namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
 {
     using System;
     using Telerik.ReportViewer.Html5.WebForms;

@@ -827,48 +827,51 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 cmd.CommandText = "sp_save_goods_transfer_outH";
                 cmd.Parameters.AddWithValue("@do_code", run);
                 cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_do.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@region_code", cb_proj_from.SelectedValue);
-                cmd.Parameters.AddWithValue("@dept_code", cb_CostCtr.SelectedValue);
                 cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
-                cmd.Parameters.AddWithValue("@KoExp", cb_expedition.SelectedValue);
-                cmd.Parameters.AddWithValue("@ShipModeEtd", cb_ship.SelectedValue);
-                cmd.Parameters.AddWithValue("@to_region_code", cb_proj_to.SelectedValue);
                 cmd.Parameters.AddWithValue("@to_wh_code", cb_warehouse_to.SelectedValue);
-                cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
-                cmd.Parameters.AddWithValue("@FreBy", cb_prepare_by.SelectedValue);
-                cmd.Parameters.AddWithValue("@OrdBy", cb_send_by.SelectedValue);
-                cmd.Parameters.AddWithValue("@AppBy", cb_ack_by.SelectedValue);
-                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
-                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
-                cmd.Parameters.AddWithValue("@cust_code", "PSG");
                 cmd.Parameters.AddWithValue("@sales_code", "NON");
+                cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@ref_code", DBNull.Value);
+                cmd.Parameters.AddWithValue("@cust_code", "PSG");
                 cmd.Parameters.AddWithValue("@status_do", 3);
+                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@dept_code", cb_CostCtr.SelectedValue);
+                cmd.Parameters.AddWithValue("@region_code", cb_proj_from.SelectedValue);
+                cmd.Parameters.AddWithValue("@AppBy", cb_ack_by.SelectedValue);
+                cmd.Parameters.AddWithValue("@OrdBy", cb_send_by.SelectedValue);
+                cmd.Parameters.AddWithValue("@FreBy", cb_prepare_by.SelectedValue);
+                cmd.Parameters.AddWithValue("@to_region_code", cb_proj_to.SelectedValue);
+                cmd.Parameters.AddWithValue("@cust_name", "PRIMA SARANA GEMILANG, PT");
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                cmd.Parameters.AddWithValue("@ShipModeEtd", cb_ship.SelectedValue);
+                cmd.Parameters.AddWithValue("@KoExp", cb_expedition.SelectedValue);
                 cmd.ExecuteNonQuery();
 
-                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
-                {
-                    con.Open();
-                    cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = con;
-                    cmd.CommandText = "sp_save_goods_transfer_outD";
-                    cmd.Parameters.AddWithValue("@do_code", tr_code);
-                    cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
-                    cmd.Parameters.AddWithValue("@qty_out", Convert.ToDouble((item.FindControl("lblQtyOut") as Label).Text));
-                    cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("lblUnitCode") as Label).Text);
-                    cmd.Parameters.AddWithValue("@hpokok", 0);
-                    cmd.Parameters.AddWithValue("@type_out", 'N');
-                    cmd.Parameters.AddWithValue("@disc", 0);
-                    cmd.Parameters.AddWithValue("@price", 0);
-                    cmd.Parameters.AddWithValue("@wh_code", selected_storage);
-                    cmd.Parameters.AddWithValue("@remark", (item.FindControl("lblRemark") as Label).Text);
-                    cmd.Parameters.AddWithValue("@dept_code", selected_cost_ctr);
-                    cmd.Parameters.AddWithValue("@twarranty", 0);
-                    cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
-                    cmd.Parameters.AddWithValue("@tFullLink", 0);
-                    cmd.ExecuteNonQuery();
-                }
+
+                //foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                //{
+                //    con.Open();
+                //    cmd = new SqlCommand();
+                //    cmd.CommandType = CommandType.StoredProcedure;
+                //    cmd.Connection = con;
+                //    cmd.CommandText = "sp_save_goods_transfer_outD";
+                //    cmd.Parameters.AddWithValue("@do_code", tr_code);
+                //    cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
+                //    cmd.Parameters.AddWithValue("@qty_out", Convert.ToDouble((item.FindControl("lblQtyOut") as Label).Text));
+                //    cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("lblUnitCode") as Label).Text);
+                //    cmd.Parameters.AddWithValue("@hpokok", 0);
+                //    cmd.Parameters.AddWithValue("@type_out", 'N');
+                //    cmd.Parameters.AddWithValue("@disc", 0);
+                //    cmd.Parameters.AddWithValue("@price", 0);
+                //    cmd.Parameters.AddWithValue("@wh_code", selected_storage);
+                //    cmd.Parameters.AddWithValue("@remark", (item.FindControl("lblRemark") as Label).Text);
+                //    cmd.Parameters.AddWithValue("@dept_code", selected_cost_ctr);
+                //    cmd.Parameters.AddWithValue("@twarranty", 0);
+                //    cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
+                //    cmd.Parameters.AddWithValue("@tFullLink", 0);
+                //    cmd.ExecuteNonQuery();
+                //}
             }
 
             catch (System.Exception ex)

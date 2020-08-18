@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportViewer_inv01h03.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.ReservationSlip.ReportViewer_inv01h03" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inv01h03mReportViewer.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.ReservationSlip.Manual.inv01h03mReportViewer" %>
 
 <%@ Register TagPrefix="telerik" Assembly="Telerik.ReportViewer.Html5.WebForms" Namespace="Telerik.ReportViewer.Html5.WebForms" %>
 
@@ -6,8 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Preview</title>
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-
+    <script src="../../../../Script/jqueri-1.9.1.min.js"></script>
 	<style>
 		#reportViewer_inv01h03 {
 			position: absolute;
@@ -25,12 +24,12 @@
 <body>
     <form runat="server">
         <telerik:ReportViewer
-            ID="reportViewer_inv01h03" 
+            ID="ReportViewer1" 
 			Width="1127px"
 			Height="600px"
 			EnableAccessibility="true"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.ReservationSlip.inv01h03_slip, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.ReservationSlip.inv01h03_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
     </form>

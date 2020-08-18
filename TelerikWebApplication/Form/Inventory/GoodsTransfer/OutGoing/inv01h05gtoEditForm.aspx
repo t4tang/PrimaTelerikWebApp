@@ -447,12 +447,13 @@
             <div style="padding: 5px 15px 0px 15px; border-bottom-style:double; border-bottom-width: 1px; border-bottom-color:deeppink; height:250px; overflow-y:auto">
                 <asp:UpdatePanel ID="panel2" runat="server" UpdateMode="Always">
                     <ContentTemplate>
+                        <%--<telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"--%>
                         <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Telerik" PageSize="5"
                             AllowPaging="false" AllowSorting="true" runat="server" ShowStatusBar="true"  ClientSettings-Selecting-AllowRowSelect="true"
-                            OnNeedDataSource="RadGrid2_NeedDataSource" OnPreRender="RadGrid2_PreRender"
-                            >
+                            OnNeedDataSource="RadGrid2_NeedDataSource" 
+                            OnPreRender="RadGrid2_PreRender">
                             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
-                            <MasterTableView CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Size="12px" EditMode="InPlace" 
+                            <MasterTableView CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Size="12px" EditMode="Batch" 
                                 ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False">
                                 <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="true" ShowCancelChangesButton="false" />
                                 <ColumnGroups>
