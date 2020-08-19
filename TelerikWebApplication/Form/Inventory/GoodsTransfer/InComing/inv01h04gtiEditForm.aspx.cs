@@ -179,7 +179,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM v_goods_transfer_inH_reff WHERE no_ref = '" + do_code + "'";
+            cmd.CommandText = "SELECT * FROM v_goods_transfer_inD_reff WHERE do_code = '" + do_code + "'";
             cmd.Parameters.AddWithValue("@do_code", do_code);
             //cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
             //cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
@@ -199,6 +199,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             }
 
             return DT;
+
+
         }
         private void label_teks_default()
         {
@@ -469,6 +471,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             }
 
             dr.Close();
+            con.Close();
         }
 
         protected void cb_received_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)

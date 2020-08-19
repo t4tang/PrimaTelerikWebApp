@@ -12,7 +12,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("pur01h01ReportViewer.aspx?lbm_code=" + id, "PreviewDialog");
+                window.radopen("inv01h04gtiReportViewer.aspx?lbm_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
@@ -22,7 +22,7 @@
                 //alert("this is the client-side callback function. The RadAlert returned: " + arg);
             }
             function ShowInsertForm() {                
-                window.radopen("pur01h01EditForm.aspx", "EditDialogWindows");
+                window.radopen("inv01h04gtiEditForm.aspx", "EditDialogWindows");
                 return false;
             }
 
@@ -32,7 +32,7 @@
                 var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
                 grid.get_masterTableView().selectItem(rowControl, true);
  
-                window.radopen("pur01h01EditForm.aspx?lbm_code=" + id, "EditDialogWindows");
+                window.radopen("inv01h04gtiEditForm.aspx?lbm_code=" + id, "EditDialogWindows");
                 return false;
             }
 
