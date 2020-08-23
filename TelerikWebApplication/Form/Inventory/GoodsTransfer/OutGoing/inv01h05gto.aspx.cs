@@ -330,9 +330,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_goods_transfer_outD";
                 cmd.Parameters.AddWithValue("@do_code", tr_code);
-                cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
+                cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("cb_ProdCode") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@qty_out", Convert.ToDecimal((item.FindControl("txt_QtySend") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("lblUom") as Label).Text); 
+                cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("txt_uom") as RadTextBox).Text); 
                 cmd.Parameters.AddWithValue("@hpokok", 0);
                 cmd.Parameters.AddWithValue("@type_out", 'N');
                 cmd.Parameters.AddWithValue("@disc", 0);
@@ -341,11 +341,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", selected_cost_ctr);
                 cmd.Parameters.AddWithValue("@twarranty", 0);
-                cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
+                cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("cb_ProdCode") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@tFullLink", 0);
-
                 cmd.ExecuteNonQuery();
-
                 con.Close();
 
                 notif.Show();
@@ -424,7 +422,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT prod_spec,unit_code, qty_out, QtyRec, remark FROM v_goods_transfer_outD WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT inv00h01.prod_code, inv00h01.spec, inv00h01.unit as unit_code, v_goods_transfer_outD.qty_out, v_goods_transfer_outD.remark  " +
+                                    "FROM inv00h01 INNER JOIN " +
+                                    "v_goods_transfer_outD ON inv00h01.prod_code = v_goods_transfer_outD.prod_code " +
+                                    "WHERE inv00h01.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -434,12 +435,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
                     RadTextBox L_QtyOut = (RadTextBox)item.FindControl("txt_QtySend");
-                    RadTextBox L_QtyRec = (RadTextBox)item.FindControl("txt_QtyRec");
+                    //RadTextBox L_QtyRec = (RadTextBox)item.FindControl("txt_QtyRec");
                     RadTextBox L_UnitCode = (RadTextBox)item.FindControl("txt_uom");
                     RadTextBox T_Remark = (RadTextBox)item.FindControl("txtRemark_d");
 
                     L_QtyOut.Text = string.Format("{0:#,###,##0.00}", dtr["qty_out"].ToString());
-                    L_QtyRec.Text = dtr["QtyRec"].ToString();
+                    //L_QtyRec.Text = dtr["QtyRec"].ToString();
                     L_UnitCode.Text = dtr["unit_code"].ToString();
                     T_Remark.Text = dtr["remark"].ToString();
                 }
