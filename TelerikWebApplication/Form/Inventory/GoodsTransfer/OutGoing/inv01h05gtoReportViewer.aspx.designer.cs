@@ -20,5 +20,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        
+        /// <summary>
+        /// reportViewer_inv01h05gto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.ReportViewer.Html5.WebForms.ReportViewer reportViewer_inv01h05gto;
     }
 }
