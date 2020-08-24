@@ -330,9 +330,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_goods_transfer_outD";
                 cmd.Parameters.AddWithValue("@do_code", tr_code);
-                cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
+                cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("cb_ProdCode") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@qty_out", Convert.ToDecimal((item.FindControl("txt_QtySend") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("lblUom") as Label).Text); 
+                cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("txt_uom") as RadTextBox).Text); 
                 cmd.Parameters.AddWithValue("@hpokok", 0);
                 cmd.Parameters.AddWithValue("@type_out", 'N');
                 cmd.Parameters.AddWithValue("@disc", 0);
@@ -341,11 +341,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", selected_cost_ctr);
                 cmd.Parameters.AddWithValue("@twarranty", 0);
-                cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
+                cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("cb_ProdCode") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@tFullLink", 0);
-
                 cmd.ExecuteNonQuery();
-
                 con.Close();
 
                 notif.Show();
@@ -355,6 +353,106 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 con.Close();
                 RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
                 e.Canceled = true;
+            }
+        }
+
+        protected void cb_ProdCode_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+
+            string sql = "SELECT TOP (100) inv00h01.prod_code, inv00h01.spec, inv00h04.brand_name, inv00h01.unit as unit_code, inv00d01.QACT " +
+                            "FROM inv00h01 INNER JOIN " +
+                            "inv00d01 ON inv00h01.prod_code = inv00d01.prod_code INNER JOIN " +
+                            "inv00h04 ON inv00h01.brand_code = inv00h04.brand_code INNER JOIN " +
+                            "inv00h02 ON inv00h01.kind_code = inv00h02.kind_code " +
+                            "WHERE(inv00h02.stMain = '2') AND spec LIKE @spec + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            //adapter.SelectCommand.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@brand_name", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@unit_code", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@QACT", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["prod_code"].ToString();
+                item.Value = row["prod_code"].ToString();
+                item.Attributes.Add("spec", row["spec"].ToString());
+                item.Attributes.Add("brand_name", row["brand_name"].ToString());
+                item.Attributes.Add("unit_code", row["unit_code"].ToString());
+                item.Attributes.Add("QACT", row["QACT"].ToString());
+                //item.Text = row["brand_name"].ToString();
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void cb_ProdCode_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_ProdCode_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            Session["prod_code"] = e.Value;
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT inv00h01.prod_code, inv00h01.spec, inv00h01.unit as unit_code, v_goods_transfer_outD.qty_out, v_goods_transfer_outD.remark  " +
+                                    "FROM inv00h01 INNER JOIN " +
+                                    "v_goods_transfer_outD ON inv00h01.prod_code = v_goods_transfer_outD.prod_code " +
+                                    "WHERE inv00h01.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox L_QtyOut = (RadTextBox)item.FindControl("txt_QtySend");
+                    //RadTextBox L_QtyRec = (RadTextBox)item.FindControl("txt_QtyRec");
+                    RadTextBox L_UnitCode = (RadTextBox)item.FindControl("txt_uom");
+                    RadTextBox T_Remark = (RadTextBox)item.FindControl("txtRemark_d");
+
+                    L_QtyOut.Text = string.Format("{0:#,###,##0.00}", dtr["qty_out"].ToString());
+                    //L_QtyRec.Text = dtr["QtyRec"].ToString();
+                    L_UnitCode.Text = dtr["unit_code"].ToString();
+                    T_Remark.Text = dtr["remark"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
             }
         }
     }

@@ -32,7 +32,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 if (Request.QueryString["do_code"] != null)
                 {
                     fill_object(Request.QueryString["do_code"].ToString());
-                    RadGrid2.DataSource = GetDataDetailTable(txt_do_code.Text);
+                    //RadGrid2.DataSource = GetDataDetailTable(txt_do_code.Text);
                     Session["actionEdit"] = "edit";
                 }
                 else
@@ -603,60 +603,60 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
         }
         #endregion
 
-        public DataTable GetDataDetailTable(string do_code)
-        {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Connection = con;
-            cmd.CommandText = "sp_get_goods_transfer_outD2";
-            cmd.Parameters.AddWithValue("@do_code", do_code);
-            cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
-            sda = new SqlDataAdapter(cmd);
+        //public DataTable GetDataDetailTable(string do_code)
+        //{
+        //    con.Open();
+        //    cmd = new SqlCommand();
+        //    cmd.CommandType = CommandType.StoredProcedure;
+        //    cmd.Connection = con;
+        //    cmd.CommandText = "sp_get_goods_transfer_outD2";
+        //    cmd.Parameters.AddWithValue("@do_code", do_code);
+        //    cmd.CommandTimeout = 0;
+        //    cmd.ExecuteNonQuery();
+        //    sda = new SqlDataAdapter(cmd);
 
-            DataTable DT = new DataTable();
+        //    DataTable DT = new DataTable();
 
-            try
-            {
-                sda.Fill(DT);
-            }
-            finally
-            {
-                con.Close();
-            }
+        //    try
+        //    {
+        //        sda.Fill(DT);
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
 
-            return DT;
-        }
+        //    return DT;
+        //}
 
-        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-            }
-            //else if (Session["actionEdit"].ToString() == "new")
-            //{
-            //    (sender as RadGrid).DataSource = new string[] { };
-            //    (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_ref.Text);
-            //}
-            else if (Session["actionEdit"].ToString() == "new")
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataDetailTable(txt_do_code.Text);
-            }
+        //protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        //{
+        //    if (!IsPostBack)
+        //    {
+        //        (sender as RadGrid).DataSource = new string[] { };
+        //    }
+        //    //else if (Session["actionEdit"].ToString() == "new")
+        //    //{
+        //    //    (sender as RadGrid).DataSource = new string[] { };
+        //    //    (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_ref.Text);
+        //    //}
+        //    else if (Session["actionEdit"].ToString() == "new")
+        //    {
+        //        (sender as RadGrid).DataSource = new string[] { };
+        //        (sender as RadGrid).DataSource = GetDataDetailTable(txt_do_code.Text);
+        //    }
 
-            //RadGrid2.DataSource = GetDataDetailTable(txt_do_code.Text);
-        }
+        //    //RadGrid2.DataSource = GetDataDetailTable(txt_do_code.Text);
+        //}
 
-        protected void RadGrid2_PreRender(object sender, EventArgs e)
-        {
-            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
-            {
-                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
-                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
-            }
-        }
+        //protected void RadGrid2_PreRender(object sender, EventArgs e)
+        //{
+        //    if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+        //    {
+        //        (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+        //        (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+        //    }
+        //}
 
         protected void fill_object(string id)
         {
@@ -670,119 +670,119 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 dtp_do.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
                 cb_proj_from.Text = sdr["region_name"].ToString();
                 cb_CostCtr.Text = sdr["CostCenterName"].ToString();
-                cb_warehouse.Text = sdr["wh_name"].ToString();
+                cb_warehouse.Text = sdr["ori_wh_name"].ToString();
                 //cb_ref.Text = sdr["ref_code"].ToString();
                 cb_expedition.Text = sdr["KoExp"].ToString();
                 cb_ship.Text = sdr["ShipModeEtd"].ToString();
-                cb_proj_to.Text = sdr["region_name"].ToString();
-                cb_warehouse_to.Text = sdr["wh_name"].ToString();
+                cb_proj_to.Text = sdr["to_region_name"].ToString();
+                cb_warehouse_to.Text = sdr["dest_wh_name"].ToString();
                 //txt_hm.Text = String.Format("{0:#,###,###.00}", sdr["time_reading"]);
                 //cb_cost_ctr.SelectedValue = sdr["dept_code"].ToString();
                 //cb_cost_ctr.Text = sdr["CostCenterName"].ToString();
-                cb_prepare_by.Text = sdr["freby"].ToString();
-                cb_send_by.Text = sdr["ordby"].ToString();
-                cb_ack_by.Text = sdr["appby"].ToString();
+                cb_prepare_by.Text = sdr["FreBy"].ToString();
+                cb_send_by.Text = sdr["OrdBy"].ToString();
+                cb_ack_by.Text = sdr["AppBy"].ToString();
                 //cb_approved.Text = sdr["NameAppBy"].ToString();
                 txt_remark.Text = sdr["remark"].ToString();
-                lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
-                lbl_lastUpdate.Text = lbl_lastUpdate.Text + String.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
-                lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
+                //lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
+                //lbl_lastUpdate.Text = lbl_lastUpdate.Text + String.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
+                //lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
                 //lbl_printed.Text = lbl_printed.Text + sdr["Printed"].ToString();
-                lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
+                //lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
             }
             con.Close();
         }
 
-        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-            string sql = "SELECT  inv00h01.prod_code, inv00h01.spec, inv00h04.brand_name, inv00h01.unit as unit_code, inv00d01.QACT " +
-                            "FROM inv00h01 INNER JOIN " +
-                            "inv00d01 ON inv00h01.prod_code = inv00d01.prod_code INNER JOIN " +
-                            "inv00h04 ON inv00h01.brand_code = inv00h04.brand_code INNER JOIN " +
-                            "inv00h02 ON inv00h01.kind_code = inv00h02.kind_code " +
-                            "WHERE(inv00d01.wh_code = @wh_code) AND(inv00h02.stMain = '2') AND spec LIKE @spec + '%'";
-            SqlDataAdapter adapter = new SqlDataAdapter(sql,
-                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
-            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
-            //adapter.SelectCommand.Parameters.AddWithValue("@brand_name", e.Text);
-            //adapter.SelectCommand.Parameters.AddWithValue("@unit", e.Text);
-            //adapter.SelectCommand.Parameters.AddWithValue("@QACT", e.Text);
+        //protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        //{
+        //    string sql = "SELECT  inv00h01.prod_code, inv00h01.spec, inv00h04.brand_name, inv00h01.unit as unit_code, inv00d01.QACT " +
+        //                    "FROM inv00h01 INNER JOIN " +
+        //                    "inv00d01 ON inv00h01.prod_code = inv00d01.prod_code INNER JOIN " +
+        //                    "inv00h04 ON inv00h01.brand_code = inv00h04.brand_code INNER JOIN " +
+        //                    "inv00h02 ON inv00h01.kind_code = inv00h02.kind_code " +
+        //                    "WHERE(inv00d01.wh_code = @wh_code) AND(inv00h02.stMain = '2') AND spec LIKE @spec + '%'";
+        //    SqlDataAdapter adapter = new SqlDataAdapter(sql,
+        //        ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+        //    adapter.SelectCommand.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+        //    adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+        //    //adapter.SelectCommand.Parameters.AddWithValue("@brand_name", e.Text);
+        //    //adapter.SelectCommand.Parameters.AddWithValue("@unit", e.Text);
+        //    //adapter.SelectCommand.Parameters.AddWithValue("@QACT", e.Text);
 
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
+        //    DataTable dt = new DataTable();
+        //    adapter.Fill(dt);
 
-            RadComboBox comboBox = (RadComboBox)sender;
-            // Clear the default Item that has been re-created from ViewState at this point.
-            comboBox.Items.Clear();
+        //    RadComboBox comboBox = (RadComboBox)sender;
+        //    // Clear the default Item that has been re-created from ViewState at this point.
+        //    comboBox.Items.Clear();
 
-            foreach (DataRow row in dt.Rows)
-            {
-                RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = row["prod_code"].ToString();
-                item.Value = row["prod_code"].ToString();
-                item.Attributes.Add("spec", row["spec"].ToString());
-                item.Attributes.Add("brand_name", row["brand_name"].ToString());
-                item.Attributes.Add("unit_code", row["unit_code"].ToString());
-                item.Attributes.Add("QACT", row["QACT"].ToString());
-                //item.Text = row["brand_name"].ToString();
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        RadComboBoxItem item = new RadComboBoxItem();
+        //        item.Text = row["prod_code"].ToString();
+        //        item.Value = row["prod_code"].ToString();
+        //        item.Attributes.Add("spec", row["spec"].ToString());
+        //        item.Attributes.Add("brand_name", row["brand_name"].ToString());
+        //        item.Attributes.Add("unit_code", row["unit_code"].ToString());
+        //        item.Attributes.Add("QACT", row["QACT"].ToString());
+        //        //item.Text = row["brand_name"].ToString();
 
-                comboBox.Items.Add(item);
+        //        comboBox.Items.Add(item);
                                
-                item.DataBind();
-            }
-        }
+        //        item.DataBind();
+        //    }
+        //}
 
-        protected void cb_prod_code_PreRender(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr[0].ToString();
-            dr.Close();
-            con.Close();
-        }
+        //protected void cb_prod_code_PreRender(object sender, EventArgs e)
+        //{
+        //    con.Open();
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.Connection = con;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+        //    SqlDataReader dr;
+        //    dr = cmd.ExecuteReader();
+        //    while (dr.Read())
+        //        (sender as RadComboBox).SelectedValue = dr[0].ToString();
+        //    dr.Close();
+        //    con.Close();
+        //}
 
-        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            Session["prod_code"] = e.Value;
+        //protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        //{
+        //    Session["prod_code"] = e.Value;
 
-            try
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT unit AS unit_code FROM inv00h01 where prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+        //    try
+        //    {
+        //        con.Open();
+        //        SqlCommand cmd = new SqlCommand();
+        //        cmd.Connection = con;
+        //        cmd.CommandType = CommandType.Text;
+        //        cmd.CommandText = "SELECT unit AS unit_code FROM inv00h01 where prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                foreach (DataRow dtr in dt.Rows)
-                {
-                    RadComboBox cb = (RadComboBox)sender;
-                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox T_UnitCode = (RadTextBox)item.FindControl("txt_unit");
+        //        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+        //        DataTable dt = new DataTable();
+        //        adapter.Fill(dt);
+        //        foreach (DataRow dtr in dt.Rows)
+        //        {
+        //            RadComboBox cb = (RadComboBox)sender;
+        //            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+        //            RadTextBox T_UnitCode = (RadTextBox)item.FindControl("txt_unit");
 
-                    T_UnitCode.Text = dtr["unit_code"].ToString();
+        //            T_UnitCode.Text = dtr["unit_code"].ToString();
                     
-                }
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //}
 
         protected void btn_save_Click(object sender, EventArgs e)
         {

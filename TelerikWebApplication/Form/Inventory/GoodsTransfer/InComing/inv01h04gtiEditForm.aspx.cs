@@ -42,7 +42,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "v_goods_transfer_inD";
+            cmd.CommandText = "sp_get_goods_transfer_inD";
             cmd.Parameters.AddWithValue("@lbm_code", lbm_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -139,28 +139,28 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         {
             con.Open();
             SqlDataReader sdr;
-            SqlCommand cmd = new SqlCommand("SELECT * FROM v_gti_list WHERE lbm_code = '" + id + "'", con);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM v_goods_transfer_inH WHERE lbm_code = '" + id + "'", con);
             sdr = cmd.ExecuteReader();
             if (sdr.Read())
             {
                 txt_gr_number.Text = sdr["lbm_code"].ToString();
-                dtp_gr.SelectedDate = Convert.ToDateTime(sdr["Pr_date"].ToString());
+                dtp_gr.SelectedDate = Convert.ToDateTime(sdr["lbm_date"].ToString());
                 txt_reff_date.Text = String.Format("{0:dd-MM-yyyy}", sdr["DateRef"]);
-                txt_proj_area_ori.Text = sdr["from_region_name"].ToString();
+                txt_proj_area_ori.Text = sdr["from_region_code"].ToString();
                 cb_ref.Text = sdr["ref_code"].ToString();
                 cb_project.Text = sdr["region_name"].ToString();
                 cb_project.SelectedValue = sdr["region_code"].ToString();
                 cb_warehouse.Text = sdr["wh_name"].ToString();
                 cb_costcenter.SelectedValue = sdr["dept_code"].ToString();
                 cb_costcenter.Text = sdr["CostCenterName"].ToString();
-                cb_createdBy.Text = sdr["Namecreateby"].ToString();
-                cb_received.Text = sdr["NameReceiptby"].ToString();
-                cb_approved.Text = sdr["Nameapproval"].ToString();
+                cb_createdBy.Text = sdr["CreateByName"].ToString();
+                cb_received.Text = sdr["ReceiptByName"].ToString();
+                cb_approved.Text = sdr["AppByName"].ToString();
                 txt_remark.Text = sdr["remark"].ToString();
                 lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
                 lbl_lastUpdate.Text = lbl_lastUpdate.Text + String.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
                 lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
-                //lbl_printed.Text = lbl_printed.Text + sdr["Printed"].ToString();
+                ////lbl_printed.Text = lbl_printed.Text + sdr["Printed"].ToString();
                 lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
             }
             con.Close();
@@ -179,7 +179,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM v_goods_transfer_inH_reff WHERE no_ref = '" + do_code + "'";
+            cmd.CommandText = "SELECT * FROM v_goods_transfer_inD_reff WHERE do_code = '" + do_code + "'";
             cmd.Parameters.AddWithValue("@do_code", do_code);
             //cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
             //cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
@@ -199,6 +199,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             }
 
             return DT;
+
+
         }
         private void label_teks_default()
         {
@@ -469,6 +471,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             }
 
             dr.Close();
+            con.Close();
         }
 
         protected void cb_received_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -599,7 +602,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 cmd.CommandText = "sp_save_goods_transfer_inH";
                 cmd.Parameters.AddWithValue("@lbm_code", run);
                 cmd.Parameters.AddWithValue("@lbm_date", string.Format("{0:yyyy-MM-dd}", dtp_gr.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@ref_date", txt_reff_date.Text);
+                cmd.Parameters.AddWithValue("@ref_date", Convert.ToDateTime(txt_reff_date.Text));
                 cmd.Parameters.AddWithValue("@ref_code", cb_ref.SelectedValue);
                 cmd.Parameters.AddWithValue("@status_lbm", 0);
                 cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
@@ -609,6 +612,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.Parameters.AddWithValue("@dept_code", cb_costcenter.SelectedValue);
                 cmd.Parameters.AddWithValue("@cust_code", "PSG");
                 cmd.Parameters.AddWithValue("@cust_name", "PRIMA SARANA GEMILANG, PT");
@@ -632,17 +636,17 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                     cmd.CommandText = "sp_save_goods_transfer_inD";
                     cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
                     cmd.Parameters.AddWithValue("@from_wh_code", (item.FindControl("lblFromStorLocCode") as Label).Text);
-                    cmd.Parameters.AddWithValue("@qty_receive", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
+                    cmd.Parameters.AddWithValue("@qty_receive", Convert.ToDecimal((item.FindControl("txtPartQty") as RadTextBox).Text));
                     cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
-                    cmd.Parameters.AddWithValue("@hpokok", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@hpokok_idr", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@hpokok", 0.00);
+                    cmd.Parameters.AddWithValue("@hpokok_idr", 0.00);
                     cmd.Parameters.AddWithValue("@lbm_code", run);
-                    cmd.Parameters.AddWithValue("@hpokok", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@hpTot", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@prod_type", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@twarranty", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@wh_code", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@nomor", run);
+                    //cmd.Parameters.AddWithValue("@hpokok", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@hpTot", 0.00);
+                    cmd.Parameters.AddWithValue("@prod_type", "M1");
+                    cmd.Parameters.AddWithValue("@twarranty", 0);
+                    cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@nomor", run);
                     cmd.Parameters.AddWithValue("@qty_hpp", 0);
                     cmd.ExecuteNonQuery();
                 }

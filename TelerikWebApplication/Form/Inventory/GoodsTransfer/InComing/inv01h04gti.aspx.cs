@@ -260,7 +260,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "v_goods_transfer_inD";
+            cmd.CommandText = "sp_get_goods_transfer_inD";
             cmd.Parameters.AddWithValue("@lbm_code", lbm_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();

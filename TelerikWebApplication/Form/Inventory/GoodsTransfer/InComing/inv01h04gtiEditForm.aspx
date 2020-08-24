@@ -90,7 +90,7 @@
                                                 Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                         <ContentTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="300" DropDownWidth="300px"
+                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="300" DropDownWidth="300px"
                                                 AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
                                                 OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" Font-Size="Small"
                                                 OnPreRender="cb_project_PreRender">
@@ -110,8 +110,7 @@
                                                     AutoPostBack="false" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik"
                                                     OnItemsRequested="cb_warehouse_ItemsRequested" OnSelectedIndexChanged="cb_warehouse_SelectedIndexChanged" Font-Size="Small"
                                                     OnPreRender="cb_warehouse_PreRender">
-                                                </telerik:RadComboBox> 
-                                    
+                                                </telerik:RadComboBox>                                    
                                             </ContentTemplate>
                                             <Triggers>
                                                 <asp:AsyncPostBackTrigger ControlID="cb_project" EventName="SelectedIndexChanged"></asp:AsyncPostBackTrigger>
@@ -120,48 +119,48 @@
                                 </td>
                             </tr>
                              <tr>
-                               <td colspan="2">
+                               <td>
                                    <telerik:RadLabel runat="server" Text="No. Ref:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                    <asp:RequiredFieldValidator runat="server" ID="reffCodeValidator" ControlToValidate="cb_ref" ForeColor="Red" 
                                         Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="200px" AutoPostBack="true" CausesValidation="false"
-                                                DropDownWidth="900px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                DropDownWidth="1100px" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
                                                 MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="sro_code" DataValueField="sro_code"
                                                 OnItemsRequested="cb_ref_ItemsRequested" OnSelectedIndexChanged="cb_ref_SelectedIndexChanged">
                                                 <HeaderTemplate>
-                                                    <table style="width: 900px; font-size: smaller">
+                                                    <table style="width: 1000px; font-size: smaller">
                                                         <tr>
-                                                            <td style="width: 100px; font-variant:small-caps; color: #3399FF;">No. Reg
+                                                            <td style="width: 150px; font-variant:small-caps; color: #3399FF;">No. Reg
                                                             </td>
-                                                            <td style="width: 75px;font-variant:small-caps; color: #3399FF;">Date
+                                                            <td style="width: 150px;font-variant:small-caps; color: #3399FF;">Date
                                                             </td>
-                                                            <td style="width: 300px; font-variant:small-caps; color: #3399FF;">Project Area
+                                                            <td style="width: 150px; font-variant:small-caps; color: #3399FF;">Project Area
                                                             </td>
-                                                            <td style="width: 400px; font-variant:small-caps; color: #3399FF;">Storage Location
+                                                            <td style="width: 200px; font-variant:small-caps; color: #3399FF;">Storage Location
                                                             </td>
-                                                            <td style="width: 700px;font-variant:small-caps; color: #3399FF;">Remark
+                                                            <td style="width: 450px;font-variant:small-caps; color: #3399FF;">Remark
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <table style="width: 900px; font-size: smaller">
+                                                    <table style="width: 1000px; font-size: smaller">
                                                         <tr>
-                                                            <td style="width: 100px;">
+                                                            <td style="width: 150px;">
                                                                 <%# DataBinder.Eval(Container, "DataItem.do_code")%>
                                                             </td>
-                                                            <td style="width: 75px;">
+                                                            <td style="width: 150px;">
                                                                 <%# DataBinder.Eval(Container, "DataItem.Tgl")%>
                                                             </td>
-                                                            <td style="width: 300px;">
+                                                            <td style="width: 150px;">
                                                                 <%# DataBinder.Eval(Container, "DataItem.region_name")%>
                                                             </td>
-                                                            <td style="width: 400px;">
+                                                            <td style="width: 200px;">
                                                                 <%# DataBinder.Eval(Container, "DataItem.wh_name")%>
                                                             </td>
-                                                            <td style="width: 700px;">
+                                                            <td style="width: 450px;">
                                                                 <%# DataBinder.Eval(Container, "DataItem.remark")%>
                                                             </td>
                                                         </tr>
@@ -171,27 +170,27 @@
                                                 <FooterTemplate>
                                                 </FooterTemplate>
                                             </telerik:RadComboBox>
-                                        </ContentTemplate>
-                                        <td>
-                                    <telerik:RadLabel runat="server" Text="Reff. Date:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                                   <asp:RequiredFieldValidator runat="server" ID="reffDateValidator" ControlToValidate="txt_reff_date" ForeColor="Red" 
-                                                Font-Size="X-Small" Text="Empty not allowed!" ></asp:RequiredFieldValidator><br />
-                                   <asp:UpdatePanel ID="UpdatePanel8" runat="server">                                        
-                                        <ContentTemplate>
-                                           <telerik:RadTextBox ID="txt_reff_date" runat="server" Width="100px" ReadOnly="true" RenderMode="Lightweight"
-                                                AutoPostBack="false">
-                                            </telerik:RadTextBox>
-                                        </ContentTemplate>
-                                    <Triggers>
-                                        <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged" />
-                                    </Triggers>
-                                </asp:UpdatePanel>q
-                                </td>
+                                        </ContentTemplate>                                  
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_warehouse" EventName="SelectedIndexChanged"></asp:AsyncPostBackTrigger>
                                         </Triggers>
                                     </asp:UpdatePanel>
                                </td>
+                                 <td>
+                                     <telerik:RadLabel runat="server" Text="Reff. Date:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
+                                     <asp:RequiredFieldValidator runat="server" ID="reffDateValidator" ControlToValidate="txt_reff_date" ForeColor="Red" 
+                                            Font-Size="X-Small" Text="Empty not allowed!" ></asp:RequiredFieldValidator><br />
+                                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">                                        
+                                         <ContentTemplate>
+                                             <telerik:RadTextBox ID="txt_reff_date" runat="server" Width="100px" ReadOnly="true" RenderMode="Lightweight"
+                                                 AutoPostBack="false">
+                                             </telerik:RadTextBox>
+                                         </ContentTemplate>
+                                         <Triggers>
+                                             <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged" />
+                                         </Triggers>
+                                     </asp:UpdatePanel>
+                                 </td>
                            </tr> 
                             <tr>
                                 <td>
@@ -258,16 +257,10 @@
                                     </asp:UpdatePanel>
                                 </td>
                             </tr>
-                           
-                                                     
-                        </table>
-                    </td>                   
-                    <td style="vertical-align:top">
-                        <table> 
                             <tr>
                                 <td style="vertical-align: top; text-align: left">
                                     <telerik:RadLabel runat="server" Text="Created By:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
-                                    <asp:UpdatePanel ID="UpdatePanel13" runat="server">
+                                    <asp:UpdatePanel ID="UpdatePanel9" runat="server">
                                     <ContentTemplate>
                                     <telerik:RadComboBox ID="cb_createdBy" runat="server" Width="250px"
                                                 DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
@@ -311,7 +304,7 @@
                             <tr>
                                 <td style="vertical-align: top; text-align: left">
                                 <telerik:RadLabel runat="server" Text="Received By:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
-                                <asp:UpdatePanel ID="UpdatePanel10" runat="server">
+                                <asp:UpdatePanel ID="UpdatePanel11" runat="server">
                                 <ContentTemplate>
                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_received" runat="server" Width="250px"
                                         DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
@@ -355,7 +348,7 @@
                             <tr>
                                 <td style="vertical-align: top; text-align: left; ">
                                 <telerik:RadLabel CssClass="lbObject" runat="server" Text="Approved By:" ForeColor="Black"></telerik:RadLabel><br />
-                                <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                <asp:UpdatePanel ID="UpdatePanel12" runat="server">
                                 <ContentTemplate>
                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250px"
                                         DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
@@ -399,7 +392,7 @@
                             <tr>
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Remark:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
-                                    <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+                                    <asp:UpdatePanel ID="UpdatePanel14" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadTextBox ID="txt_remark"
                                                 runat="server" TextMode="MultiLine"
@@ -411,10 +404,10 @@
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </td>
-                            </tr>              
-                                    
+                            </tr>
+                                                     
                         </table>
-                    </td>
+                    </td> 
                 </tr>                  
                </table>
             </div>            
@@ -446,14 +439,11 @@
                                         <telerik:GridTemplateColumn HeaderText="Qty" HeaderStyle-Width="80px" ItemStyle-Width="80px" ItemStyle-HorizontalAlign="Right" 
                                             HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900" DefaultInsertValue="0" HeaderStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
-                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPartQty" Width="80px"  ReadOnly="false" 
-                                                    EnabledStyle-HorizontalAlign="Right"
-                                                    NumberFormat-AllowRounding="true"
-                                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                                    Text='<%# DataBinder.Eval(Container.DataItem, "qty_receive", "{0:#,###,###0.00}") %>'
-                                                    onkeydown="blurTextBox(this, event)"
-                                                    AutoPostBack="true" MaxLength="11" Type="Number"
-                                                    NumberFormat-DecimalDigits="2">
+                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPartQty" Width="80px" 
+                                                    ReadOnly="false" EnabledStyle-HorizontalAlign="Right" 
+                                                    NumberFormat-AllowRounding="true" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" 
+                                                    Text='<%# DataBinder.Eval(Container.DataItem, "qty_receive", "{0:#,###,###0.00}") %>' onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" 
+                                                    Type="Number" NumberFormat-DecimalDigits="2">
                                                 </telerik:RadTextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>

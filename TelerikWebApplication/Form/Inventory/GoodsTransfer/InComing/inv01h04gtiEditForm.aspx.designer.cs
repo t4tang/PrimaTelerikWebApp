@@ -220,13 +220,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::Telerik.Web.UI.RadComboBox cb_costcenter;
         
         /// <summary>
-        /// UpdatePanel13 control.
+        /// UpdatePanel9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel13;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
         
         /// <summary>
         /// cb_createdBy control.
@@ -238,13 +238,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::Telerik.Web.UI.RadComboBox cb_createdBy;
         
         /// <summary>
-        /// UpdatePanel10 control.
+        /// UpdatePanel11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel10;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel11;
         
         /// <summary>
         /// cb_received control.
@@ -256,13 +256,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::Telerik.Web.UI.RadComboBox cb_received;
         
         /// <summary>
-        /// UpdatePanel4 control.
+        /// UpdatePanel12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel12;
         
         /// <summary>
         /// cb_approved control.
@@ -274,13 +274,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::Telerik.Web.UI.RadComboBox cb_approved;
         
         /// <summary>
-        /// UpdatePanel7 control.
+        /// UpdatePanel14 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel14;
         
         /// <summary>
         /// txt_remark control.
