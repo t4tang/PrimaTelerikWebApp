@@ -35,6 +35,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 btnSave.ImageUrl = "~/Images/simpan-gray.png";
                 btnPrint.Enabled = false;
                 btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+                btnJournal.Enabled = false;
+                btnJournal.ImageUrl = "~/Images/ledger-gray.png";
                 dtp_bm.SelectedDate = DateTime.Now;
             }
         }
@@ -181,9 +183,12 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 btnSave.ImageUrl = "~/Images/simpan.png";
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnJournal.Enabled = true;
+                btnJournal.ImageUrl = "~/Images/ledger.png";
                 btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
-            }
+                btnJournal.Attributes["OnClick"] = String.Format("return ShowJournal('{0}');", txt_NoBuk.Text);
 
+            }
         }
 
         public DataTable GetDataDetailTable(string NoBuk)
@@ -955,6 +960,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             RadGrid2.Enabled = false;
             btnPrint.Enabled = false;
             btnPrint.ImageUrl = "~/Images/cetak-gray.png";
+            btnJournal.Enabled = false;
+            btnJournal.ImageUrl = "~/Images/ledger-gray.png";
             if (Session["action"].ToString() != "FirstLoad")
             {
                 clear_text(Page.Controls);
@@ -1049,7 +1056,10 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 btnSave.Enabled = false;
                 btnPrint.Enabled = true;
                 btnPrint.ImageUrl = "~/Images/cetak.png";
+                btnJournal.Enabled = true;
+                btnJournal.ImageUrl = "~/Images/ledger.png";
                 btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
+                btnJournal.Attributes["OnClick"] = String.Format("return ShowJournal('{0}');", txt_NoBuk.Text);
             }
             catch (Exception ex)
             {
@@ -1064,6 +1074,11 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
         protected void btnPrint_Click(object sender, ImageClickEventArgs e)
         {
             btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_NoBuk.Text);
+        }
+
+        protected void btnJournal_Click(object sender, ImageClickEventArgs e)
+        {
+            btnJournal.Attributes["OnClick"] = String.Format("return ShowJournal('{0}');", txt_NoBuk.Text);
         }
     }
 }

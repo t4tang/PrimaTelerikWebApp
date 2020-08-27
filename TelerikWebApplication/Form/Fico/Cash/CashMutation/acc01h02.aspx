@@ -13,6 +13,10 @@
                 window.radopen("ReportViewer_acc01h02.aspx?NoBuk=" + id, "PreviewDialog");
                 return false;
             }
+            function ShowJournal(id) {
+                window.radopen("acc01h02journal.aspx?doc_code=" + id, "PreviewDialog");
+                return false;
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -39,7 +43,8 @@
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
-    <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server">
+     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2500" BackgroundPosition="None">
+        <img alt="Loading..." src="../../../../Images/loading.gif" style="border: 0px;" />
     </telerik:RadAjaxLoadingPanel>
 
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="RadWindow_ContentTemplate" RestrictionZoneID="ContentTemplateZone" Modal="true" Width="1110px" Height="580px">
@@ -132,7 +137,12 @@
                             Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png">
                         </asp:ImageButton>
                     </td>
-                    <td style="width:89%; text-align:right">
+                    <td style="vertical-align:middle; margin-left:10px;padding-left:13px">
+                        <asp:ImageButton runat="server" ID="btnJournal" AlternateText="Journal" OnClick="btnJournal_Click"
+                        Height="30px" Width="32px" ImageUrl="~/Images/ledger-gray.png">
+                        </asp:ImageButton>  
+                    </td>
+                    <td style="width:82%; text-align:right">
                         <telerik:RadLabel ID="lbl_form_name" Text="Cash Mutation" runat="server" style="font-weight:lighter; 
                             font-size:10px; font-variant: small-caps; padding-left:10px; 
                         padding-bottom:0px; font-size:x-large; color:Highlight"></telerik:RadLabel>
