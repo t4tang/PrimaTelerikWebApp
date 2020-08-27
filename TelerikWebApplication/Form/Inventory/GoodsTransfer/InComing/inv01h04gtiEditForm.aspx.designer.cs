@@ -184,13 +184,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::System.Web.UI.UpdatePanel UpdatePanel5;
         
         /// <summary>
-        /// txt_proj_area_ori control.
+        /// cb_proj_from control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_proj_area_ori;
+        protected global::Telerik.Web.UI.RadComboBox cb_proj_from;
         
         /// <summary>
         /// cost_ctr_Validator control.
