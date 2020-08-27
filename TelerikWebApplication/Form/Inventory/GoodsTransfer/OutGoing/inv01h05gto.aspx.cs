@@ -24,6 +24,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
         public static string selected_project = null;
         public static string selected_storage = null;
         public static string selected_cost_ctr = null;
+        public static string selected_ProdCode = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -319,44 +320,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
             }
         }
 
-        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
-        {
-            try
-            {
-                con.Open();
-                GridEditableItem item = (GridEditableItem)e.Item;
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
-                cmd.CommandText = "sp_save_goods_transfer_outD";
-                cmd.Parameters.AddWithValue("@do_code", tr_code);
-                cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("cb_ProdCode") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@qty_out", Convert.ToDecimal((item.FindControl("txt_QtySend") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("txt_uom") as RadTextBox).Text); 
-                cmd.Parameters.AddWithValue("@hpokok", 0);
-                cmd.Parameters.AddWithValue("@type_out", 'N');
-                cmd.Parameters.AddWithValue("@disc", 0);
-                cmd.Parameters.AddWithValue("@price", 0);
-                cmd.Parameters.AddWithValue("@wh_code", selected_storage);
-                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@dept_code", selected_cost_ctr);
-                cmd.Parameters.AddWithValue("@twarranty", 0);
-                cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("cb_ProdCode") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@tFullLink", 0);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-                notif.Show();
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
-                e.Canceled = true;
-            }
-        }
-
-        protected void cb_ProdCode_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
 
             string sql = "SELECT TOP (100) inv00h01.prod_code, inv00h01.spec, inv00h04.brand_name, inv00h01.unit as unit_code, inv00d01.QACT " +
@@ -397,7 +361,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
             }
         }
 
-        protected void cb_ProdCode_PreRender(object sender, EventArgs e)
+        protected void cb_prod_code_PreRender(object sender, EventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -412,7 +376,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
             con.Close();
         }
 
-        protected void cb_ProdCode_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             Session["prod_code"] = e.Value;
 
@@ -434,7 +398,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox L_QtyOut = (RadTextBox)item.FindControl("txt_QtySend");
+                    RadNumericTextBox L_QtyOut = (RadNumericTextBox)item.FindControl("txt_QtyOut");
                     //RadTextBox L_QtyRec = (RadTextBox)item.FindControl("txt_QtyRec");
                     RadTextBox L_UnitCode = (RadTextBox)item.FindControl("txt_uom");
                     RadTextBox T_Remark = (RadTextBox)item.FindControl("txtRemark_d");
@@ -453,6 +417,43 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
             finally
             {
                 con.Close();
+            }
+        }
+
+        protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                GridEditableItem item = (GridEditableItem)e.Item;
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_goods_transfer_outD";
+                cmd.Parameters.AddWithValue("@do_code", tr_code);
+                cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@qty_out", Convert.ToDouble((item.FindControl("txt_QtyOut") as RadNumericTextBox).Value));
+                cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("txt_uom") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@hpokok", 0);
+                cmd.Parameters.AddWithValue("@type_out", 'N');
+                cmd.Parameters.AddWithValue("@disc", 0);
+                cmd.Parameters.AddWithValue("@price", 0);
+                cmd.Parameters.AddWithValue("@wh_code", selected_storage);
+                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@dept_code", selected_cost_ctr);
+                cmd.Parameters.AddWithValue("@twarranty", "0");
+                //cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("cb_ProdCode") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@tFullLink", 0);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
             }
         }
     }
