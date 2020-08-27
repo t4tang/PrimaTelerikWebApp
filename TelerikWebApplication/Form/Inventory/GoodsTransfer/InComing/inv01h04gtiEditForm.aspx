@@ -197,10 +197,11 @@
                                     <telerik:RadLabel runat="server" Text="Project Area Ori:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
                                     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                         <ContentTemplate>
-                                            <telerik:RadTextBox ID="txt_proj_area_ori"
-                                                runat="server" TextMode="MultiLine"
-                                                Width="450px" Rows="0" TabIndex="5" Resize="Both">
-                                            </telerik:RadTextBox>
+                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_proj_from" runat="server" Width="300" DropDownWidth="300px"
+                                                AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
+                                                OnItemsRequested="cb_proj_from_ItemsRequested" OnSelectedIndexChanged="cb_proj_from_SelectedIndexChanged" Font-Size="Small"
+                                                OnPreRender="cb_proj_from_PreRender">
+                                            </telerik:RadComboBox>                       
                                         </ContentTemplate>
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged" />
