@@ -497,12 +497,12 @@
                                 <td style="vertical-align:top;padding-top:17px">Status :</td>
                                 <td style="vertical-align:top;padding-top:17px">
                                     <asp:RadioButtonList ID="rbl_status" runat="server" OnSelectedIndexChanged="rbl_status_SelectedIndexChanged" AutoPostBack="true">
-                                        <asp:ListItem Selected="False" Value="0">Open</asp:ListItem>
-                                        <asp:ListItem Selected="False" Value="1">Approve</asp:ListItem>
-                                        <asp:ListItem Selected="False" Value="2">Close</asp:ListItem>
-                                        <asp:ListItem Selected="False" Value="3">Unapprove</asp:ListItem>
-                                        <asp:ListItem Selected="False" Value="4">Cancel</asp:ListItem>
-                                        <asp:ListItem Selected="False" Value="5">Hold</asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="0" Text="Open"></asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="1" Text="Approve"></asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="2" Text="Close"></asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="3" Text="Unapprove"></asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="4" Text="Cancel"></asp:ListItem>
+                                        <asp:ListItem Selected="False" Value="5" Text="Hold"></asp:ListItem>
                                     </asp:RadioButtonList>
                                </td>                                
                             </tr>

@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Telerik HTML5 Web Forms Report Viewer Form</title>
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../../Script/jqueri-1.9.1.min.js" ></script>
 
 	<style>
 		#reportViewer1 {

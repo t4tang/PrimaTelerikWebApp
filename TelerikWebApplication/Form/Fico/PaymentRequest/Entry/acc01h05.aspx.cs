@@ -343,6 +343,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
                     else
                     {
                         dtp_approved_date.Clear();
+                        dtp_approved_date.Enabled = false;
                     }
                 }
                 con.Close();
@@ -490,9 +491,17 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
         
         #endregion
 
-        protected void rbl_status_SelectedIndexChanged(object sender, EventArgs e)
+        protected void  rbl_status_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (rbl_status.SelectedItem.Value == "1")
+            //if (rbl_status.SelectedIndex.ToString() == "1")
+            //{
+            //    dtp_approved_date.Enabled = true;
+            //}
+            if (rbl_status.SelectedItem.Text=="Open")
+            {
+                dtp_approved_date.Enabled = false;
+            }
+            else if (rbl_status.SelectedItem.Text == "Approve")
             {
                 dtp_approved_date.Enabled = true;
             }
