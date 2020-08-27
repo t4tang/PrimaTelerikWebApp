@@ -29,7 +29,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = "MT0319110048";
+            param.Value = _tr_code;
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
