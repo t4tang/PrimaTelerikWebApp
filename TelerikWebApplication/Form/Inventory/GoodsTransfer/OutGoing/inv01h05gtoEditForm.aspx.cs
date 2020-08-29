@@ -305,15 +305,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
         {
             if (cb_ship.Text == "Sea")
             {
-                cb_ship.SelectedValue = "1";
+                cb_ship.SelectedValue = "01";
             }
             else if (cb_ship.Text == "Air")
             {
-                cb_ship.SelectedValue = "2";
+                cb_ship.SelectedValue = "02";
             }
             else if (cb_ship.Text == "Courier")
             {
-                cb_ship.SelectedValue = "3";
+                cb_ship.SelectedValue = "03";
             }
         }
 
@@ -321,15 +321,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
         {
             if (cb_ship.Text == "Sea")
             {
-                cb_ship.SelectedValue = "1";
+                cb_ship.SelectedValue = "01";
             }
             else if (cb_ship.Text == "Air")
             {
-                cb_ship.SelectedValue = "2";
+                cb_ship.SelectedValue = "02";
             }
             else if (cb_ship.Text == "Courier")
             {
-                cb_ship.SelectedValue = "3";
+                cb_ship.SelectedValue = "03";
             }
         }
         #endregion
@@ -672,16 +672,17 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 cb_CostCtr.Text = sdr["CostCenterName"].ToString();
                 cb_warehouse.Text = sdr["ori_wh_name"].ToString();
                 //cb_ref.Text = sdr["ref_code"].ToString();
-                cb_expedition.Text = sdr["KoExp"].ToString();
-                cb_ship.Text = sdr["ShipModeEtd"].ToString();
+                cb_expedition.Text = sdr["EXP_NAME"].ToString();
+                cb_ship.Text = sdr["ShipModeName"].ToString();
+                
                 cb_proj_to.Text = sdr["to_region_name"].ToString();
                 cb_warehouse_to.Text = sdr["dest_wh_name"].ToString();
                 //txt_hm.Text = String.Format("{0:#,###,###.00}", sdr["time_reading"]);
                 //cb_cost_ctr.SelectedValue = sdr["dept_code"].ToString();
                 //cb_cost_ctr.Text = sdr["CostCenterName"].ToString();
-                cb_prepare_by.Text = sdr["FreBy"].ToString();
-                cb_send_by.Text = sdr["OrdBy"].ToString();
-                cb_ack_by.Text = sdr["AppBy"].ToString();
+                cb_prepare_by.Text = sdr["FreByName"].ToString();
+                cb_send_by.Text = sdr["OrdByName"].ToString();
+                cb_ack_by.Text = sdr["AppByName"].ToString();
                 //cb_approved.Text = sdr["NameAppBy"].ToString();
                 txt_remark.Text = sdr["remark"].ToString();
                 //lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
@@ -792,7 +793,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
 
             try
             {
-                if (Session["action"].ToString() == "edit")
+                if (Session["actionEdit"].ToString() == "edit")
                 {
                     run = txt_do_code.Text;
                 }

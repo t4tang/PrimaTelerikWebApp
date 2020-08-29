@@ -400,7 +400,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
                     RadNumericTextBox L_QtyOut = (RadNumericTextBox)item.FindControl("txt_QtyOut");
                     //RadTextBox L_QtyRec = (RadTextBox)item.FindControl("txt_QtyRec");
-                    RadTextBox L_UnitCode = (RadTextBox)item.FindControl("txt_uom");
+                    Label L_UnitCode = (Label)item.FindControl("lbl_uom");
                     RadTextBox T_Remark = (RadTextBox)item.FindControl("txtRemark_d");
 
                     L_QtyOut.Text = string.Format("{0:#,###,##0.00}", dtr["qty_out"].ToString());
@@ -432,8 +432,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
                 cmd.CommandText = "sp_save_goods_transfer_outD";
                 cmd.Parameters.AddWithValue("@do_code", tr_code);
                 cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@qty_out", Convert.ToDouble((item.FindControl("txt_QtyOut") as RadNumericTextBox).Value));
-                cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("txt_uom") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@qty_out", Convert.ToDouble((item.FindControl("txt_QtyOut") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("lbl_uom") as Label).Text);
                 cmd.Parameters.AddWithValue("@hpokok", 0);
                 cmd.Parameters.AddWithValue("@type_out", 'N');
                 cmd.Parameters.AddWithValue("@disc", 0);
