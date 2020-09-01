@@ -125,7 +125,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             while (dr.Read())
             {
                 (sender as RadComboBox).Text = dr["do_code"].ToString();
-                txt_proj_area_ori.Text = dr["region_name"].ToString();
+                cb_proj_from.Text = dr["region_name"].ToString();
                 txt_reff_date.Text = dr["Tgl"].ToString();
             }
 
@@ -146,7 +146,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 txt_gr_number.Text = sdr["lbm_code"].ToString();
                 dtp_gr.SelectedDate = Convert.ToDateTime(sdr["lbm_date"].ToString());
                 txt_reff_date.Text = String.Format("{0:dd-MM-yyyy}", sdr["DateRef"]);
-                txt_proj_area_ori.Text = sdr["from_region_name"].ToString();
+                cb_proj_from.Text = sdr["from_region_name"].ToString();
                 cb_ref.Text = sdr["ref_code"].ToString();
                 cb_project.Text = sdr["region_name"].ToString();
                 cb_project.SelectedValue = sdr["region_code"].ToString();
@@ -616,7 +616,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 cmd.Parameters.AddWithValue("@dept_code", cb_costcenter.SelectedValue);
                 cmd.Parameters.AddWithValue("@cust_code", "PSG");
                 cmd.Parameters.AddWithValue("@cust_name", "PRIMA SARANA GEMILANG, PT");
-                cmd.Parameters.AddWithValue("@from_region_code", cb_proj_from.);
+                cmd.Parameters.AddWithValue("@from_region_code", cb_proj_from.SelectedValue);
                 cmd.Parameters.AddWithValue("@trans_code", 2);
                 cmd.Parameters.AddWithValue("@ShipModeEtd", 2);
                 cmd.Parameters.AddWithValue("@status_post", 0);
@@ -678,7 +678,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             }
         }
 
-        private static DataTable GetProjectFrom(string text)
+
+        private static DataTable GetProjectFrom(string text) 
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);

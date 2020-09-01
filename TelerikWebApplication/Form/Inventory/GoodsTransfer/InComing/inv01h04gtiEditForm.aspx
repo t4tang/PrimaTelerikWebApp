@@ -201,7 +201,7 @@
                                                 AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
                                                 OnItemsRequested="cb_proj_from_ItemsRequested" OnSelectedIndexChanged="cb_proj_from_SelectedIndexChanged" Font-Size="Small"
                                                 OnPreRender="cb_proj_from_PreRender">
-                                            </telerik:RadComboBox>                       
+                                            </telerik:RadComboBox>
                                         </ContentTemplate>
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged" />
@@ -426,7 +426,7 @@
                                 CommandItemSettings-ShowRefreshButton="False" ItemStyle-ForeColor="#006600">
                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="False" ShowCancelChangesButton="false" />
                                     <ColumnGroups>
-                                        <telerik:GridColumnGroup HeaderText="From Warehouse" Name="from_wh" HeaderStyle-HorizontalAlign="Center">
+                                        <telerik:GridColumnGroup HeaderText="From Storage Loc" Name="from_wh" HeaderStyle-HorizontalAlign="Center">
                                         </telerik:GridColumnGroup>
                                     </ColumnGroups>
                                     <Columns>
