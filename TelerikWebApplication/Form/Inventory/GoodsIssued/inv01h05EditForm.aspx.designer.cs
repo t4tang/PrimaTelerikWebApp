@@ -346,6 +346,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued {
         protected global::Telerik.Web.UI.RadTextBox txt_remark;
         
         /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
         /// RadGrid2 control.
         /// </summary>
         /// <remarks>
