@@ -274,13 +274,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::System.Web.UI.UpdatePanel UpdatePanel11;
         
         /// <summary>
-        /// txt_hm control.
+        /// txt_hm1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_hm;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_hm1;
         
         /// <summary>
         /// UpdatePanel7 control.
@@ -319,24 +319,6 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadComboBox cb_orderBy;
         
         /// <summary>
-        /// UpdatePanel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
-        
-        /// <summary>
-        /// cb_approved control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_approved;
-        
-        /// <summary>
         /// UpdatePanel10 control.
         /// </summary>
         /// <remarks>
@@ -353,6 +335,24 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_received;
+        
+        /// <summary>
+        /// UpdatePanel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+        
+        /// <summary>
+        /// cb_approved control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_approved;
         
         /// <summary>
         /// panel2 control.

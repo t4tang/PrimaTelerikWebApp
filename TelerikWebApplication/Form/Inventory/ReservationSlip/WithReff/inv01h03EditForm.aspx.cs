@@ -60,7 +60,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 txt_unit_code.Text = sdr["unit_code"].ToString();
                 txt_unit_name.Text = sdr["model_no"].ToString();
                 cb_project.Text = sdr["region_name"].ToString();
-                txt_hm.Text = sdr["time_reading"].ToString();
+                //txt_hm.Text = sdr["time_reading"].ToString();
+                txt_hm1.Value = Convert.ToDouble(sdr["time_reading"].ToString());
                 cb_cost_ctr.SelectedValue = sdr["CostCenter"].ToString();
                 cb_cost_ctr.Text = sdr["CostCenterName"].ToString();
                 cb_orderBy.Text = sdr["RequestBy"].ToString();
@@ -159,7 +160,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                     (sender as RadComboBox).Text = dr["doc_code"].ToString();
                     txt_unit_code.Text = dr["unit_code"].ToString();
                     txt_unit_name.Text = dr["model_no"].ToString();
-                    txt_hm.Text = dr["time_reading"].ToString();
+                    txt_hm1.Value = Convert.ToDouble(dr["time_reading"].ToString());
                     cb_cost_ctr.SelectedValue = dr["dept_code"].ToString();
                     cb_cost_ctr.Text = dr["CostCenterName"].ToString();
                     txt_remark.Text = dr["remark"].ToString();
@@ -391,7 +392,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
             cb_cost_ctr.SelectedValue = null;
             txt_unit_code.Text = string.Empty;
             txt_unit_name.Text = string.Empty;
-            txt_hm.Text = string.Empty;
+            txt_hm1.Value = 0;
             txt_remark.Text = string.Empty;
         }
 
@@ -760,14 +761,15 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 cmd.Parameters.AddWithValue("@doc_remark", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@unit_code", txt_unit_code.Text);
                 cmd.Parameters.AddWithValue("@model_no", txt_unit_name.Text);
-                if (txt_hm.Text != "")
-                {
-                    cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Text));
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@time_reading", 0);
-                }
+                //if (txt_hm.Text != "")
+                //{
+                //    cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Text));
+                //}
+                //else
+                //{
+                //    cmd.Parameters.AddWithValue("@time_reading", 0);
+                //}
+                cmd.Parameters.AddWithValue("@time_reading", txt_hm1.Value);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@type_source", "1");
                 cmd.Parameters.AddWithValue("@tFullSupply", "0");
