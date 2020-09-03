@@ -34,6 +34,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 else
                 {
                     Session["actionEdit"] = "new";
+                    cb_type_ref.Text = "Consumption";
+                    cb_type_ref.SelectedValue = "6";
+                    cb_CustSupp.Text = "PRIMA SARANA GEMILANG, PT";
+                    cb_CustSupp.SelectedValue = "PSG";
                 }
             }
         }
@@ -53,7 +57,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 cb_CustSupp.SelectedValue = sdr["cust_code"].ToString();
                 cb_Project.Text = sdr["region_name"].ToString();
                 cb_Project.SelectedValue = sdr["region_code"].ToString();
-                cb_CostCenter.Text = sdr["dept_code"].ToString();
+                cb_CostCenter.SelectedValue = sdr["dept_code"].ToString();
                 txt_CostCenterName.Text = sdr["CostCenterName"].ToString();
                 cb_warehouse.Text = sdr["wh_name"].ToString();
                 cb_warehouse.SelectedValue = sdr["wh_code"].ToString();
@@ -75,14 +79,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             con.Close();
 
         }
-        public DataTable GetDataRefDetailTable(string do_code)
+        public DataTable GetDataRefDetailTable(string tr_code)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_goods_issued_refD";
-            cmd.Parameters.AddWithValue("@doc_code", do_code);
+            cmd.Parameters.AddWithValue("@doc_code", tr_code);
             //cmd.Parameters.AddWithValue("@type_ref", "1");
             //cmd.Parameters.AddWithValue("@part_desc", cb_loc.SelectedValue);
             cmd.CommandTimeout = 0;
@@ -255,10 +259,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     {
                         cmd.Parameters.AddWithValue("@twarranty", 0);
                     }
-
-                    cmd.ExecuteNonQuery();
                     cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@type_out", "N");
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -445,8 +448,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
         }
         protected void cb_CostCenter_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            (sender as RadComboBox).Text = "";
-            LoadCostCtr(e.Text, cb_Project.SelectedValue, (sender as RadComboBox));
+            cb_CostCenter.Text = "";
+            LoadCostCtr(e.Text, cb_Project.SelectedValue, cb_CostCenter);
         }
 
         protected void cb_CostCenter_PreRender(object sender, EventArgs e)
@@ -455,11 +458,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + cb_CostCenter.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                cb_CostCenter.SelectedValue = dr["CostCenter"].ToString();
             dr.Close();
             con.Close();
         }
@@ -470,11 +473,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + cb_CostCenter.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                cb_CostCenter.SelectedValue = dr["CostCenter"].ToString();
             dr.Close();
             con.Close();
         }

@@ -498,7 +498,7 @@
                             <telerik:GridTemplateColumn HeaderText="Original Material" HeaderStyle-Width="150px" ItemStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" 
                                 HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="Teal">
                                 <ItemTemplate>
-                                    <asp:Label runat="server" ID="lblProdCodeOri" Text='<%# DataBinder.Eval(Container.DataItem, "prod_code_ori") %>'></asp:Label>
+                                    <asp:Label runat="server" ID="lblProdCodeOri" Text='<%# DataBinder.Eval(Container, "DataItem.prod_code_ori") %>'></asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                                     
