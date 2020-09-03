@@ -32,7 +32,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = "GI0120070003";
+            param.Value = _tr_code;
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
