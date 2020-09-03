@@ -49,7 +49,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     RadGrid1.MasterTableView.SortExpressions.Clear();
                     RadGrid1.MasterTableView.GroupByExpressions.Clear();
                     RadGrid1.Rebind(); /* Kemudian RadGrid1 akan sorting data by lastupdate (lihat sp_get_purchase_requestH*/
-                    
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
+
                 }
                 else if (e.Argument == "RebindAndNavigate")
                 {
@@ -449,6 +450,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
             populate_detail();
             Session["action"] = "list";
+        }
+
+        private static string GetStatusMessage(int offset, int total)
+        {
+            if (total <= 0)
+                return "No matches";
+
+            return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
         }
     }
 
