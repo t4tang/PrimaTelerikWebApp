@@ -448,8 +448,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
         }
         protected void cb_CostCenter_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            cb_CostCenter.Text = "";
-            LoadCostCtr(e.Text, cb_Project.SelectedValue, cb_CostCenter);
+            (sender as RadComboBox).Text = "";
+            LoadCostCtr(e.Text, cb_Project.SelectedValue, (sender as RadComboBox));
         }
 
         protected void cb_CostCenter_PreRender(object sender, EventArgs e)
@@ -458,11 +458,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + cb_CostCenter.Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_CostCenter.SelectedValue = dr["CostCenter"].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
         }
@@ -473,17 +473,20 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + cb_CostCenter.Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_CostCenter.SelectedValue = dr["CostCenter"].ToString();
-            dr.Close();
+            {
+                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                txt_CostCenterName.Text = dr["CostCenterName"].ToString();
+            }  
+
             con.Close();
         }
         #endregion
 
-        #region storage loc
+            #region storage loc
 
         protected void GetLoc(string name, string projectID, RadComboBox cb)
         {

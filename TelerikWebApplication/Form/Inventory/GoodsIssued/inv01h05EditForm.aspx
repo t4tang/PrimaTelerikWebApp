@@ -137,7 +137,7 @@
                                                 <td colspan="2">
                                                     <asp:UpdatePanel ID="UpdatePanel9" runat="server">
                                                         <ContentTemplate>
-                                                            <telerik:RadComboBox ID="cb_CostCenter" runat="server" RenderMode="Lightweight" Skin="Telerik" EnableLoadOnDemand="true" AutoPostBack="false"
+                                                            <telerik:RadComboBox ID="cb_CostCenter" runat="server" RenderMode="Lightweight" Skin="Telerik" EnableLoadOnDemand="true" AutoPostBack="true"   
                                                                 EnableVirtualScrolling="true" MarkFirstMatch="true" ShowMoreResultsBox="true" Width="150" DropDownWidth="350px" CausesValidation="false"
                                                                 OnItemsRequested="cb_CostCenter_ItemsRequested" 
                                                                 OnPreRender="cb_CostCenter_PreRender" 
@@ -183,7 +183,7 @@
                                                             </telerik:RadTextBox>
                                                         </ContentTemplate>
                                                         <Triggers>
-                                                            <%--<asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged" />--%>
+                                                            <%--<asp:AsyncPostBackTrigger ControlID="cb_CostCenter" EventName="SelectedIndexChanged" />--%>
                                                         </Triggers>
                                                     </asp:UpdatePanel>
                                                 </td>
@@ -224,12 +224,13 @@
                                     <td style="vertical-align:top; text-align:left">
                                         <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                                             <ContentTemplate>
-                                                <telerik:RadComboBox ID="cb_ref" runat="server" RenderMode="Lightweight" Width="200px" DataTextField="doc_code" DataValueField="doc_code" 
-                                                    EnableLoadOnDemand="true" EnableVirtualScrolling="true" MarkFirstMatch="true" ShowMoreResultsBox="true" Skin="Telerik" CausesValidation="false"
+                                                <telerik:RadComboBox ID="cb_ref" runat="server" RenderMode="Lightweight" Width="200px" AutoPostBack="true" CausesValidation="false"  
+                                                    DropDownWidth="650px" EnableLoadOnDemand="true" MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="doc_code" DataValueField="doc_code"
+                                                    ShowMoreResultsBox="true"  
                                                     OnItemsRequested="cb_ref_ItemsRequested"
                                                     OnPreRender="cb_ref_PreRender" 
                                                     OnSelectedIndexChanged="cb_ref_SelectedIndexChanged" 
-                                                    DropDownWidth="650px" AutoPostBack="true">
+                                                     >
                                                     <HeaderTemplate>
                                                         <table style="width: 450px; font-size:smaller">
                                                             <tr>
@@ -278,12 +279,10 @@
                                             <ContentTemplate>
                                                 <telerik:RadTextBox ID="txt_unit" runat="server" RenderMode="Lightweight" Skin="Telerik" Width="150px" 
                                                     ReadOnly="true" AutoPostBack="false">
-                                                </telerik:RadTextBox>
-                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator7" ControlToValidate="txt_unit" ForeColor="Red" 
-                                                Font-Size="X-Small" Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>                                          
+                                                </telerik:RadTextBox>                                          
                                             </ContentTemplate>
                                             <Triggers>
-                                               <%-- <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged" />--%>
+                                                <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged" />
                                             </Triggers>
                                         </asp:UpdatePanel>                                   
                                     </td>
