@@ -201,8 +201,8 @@
                             <HeaderStyle Width="80px" ForeColor="Highlight"></HeaderStyle>
                         </telerik:GridDateTimeColumn>                        
                         <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true"
-                            ItemStyle-Width="580px" FilterControlWidth="570px">
-                            <HeaderStyle Width="600px" ForeColor="Highlight"></HeaderStyle>
+                            ItemStyle-Width="400px" FilterControlWidth="570px">
+                            <HeaderStyle Width="400px" ForeColor="Highlight"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" AllowFiltering="False">
                         <ItemTemplate>                                
@@ -258,7 +258,7 @@
                                     EnabledStyle-HorizontalAlign="Right"
                                     NumberFormat-AllowRounding="true"
                                     NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                    Text='<%# DataBinder.Eval(Container.DataItem, "qty_receive", "{0:#,###,###0.00}") %>'
+                                    Text='<%# DataBinder.Eval(Container.DataItem, "qty", "{0:#,###,###0.00}") %>'
                                     onkeydown="blurTextBox(this, event)"
                                     AutoPostBack="true" MaxLength="11" Type="Number"
                                     NumberFormat-DecimalDigits="2">
@@ -276,7 +276,7 @@
                         <telerik:GridTemplateColumn HeaderText="From Storage Loc." HeaderStyle-Width="100px" ItemStyle-Width="100px" 
                              HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lblFromStorLoc" Text='<%# DataBinder.Eval(Container.DataItem, "from_wh_name") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lblFromStorLoc" Text='<%# DataBinder.Eval(Container.DataItem, "from_wh_code") %>'></asp:Label>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                        
