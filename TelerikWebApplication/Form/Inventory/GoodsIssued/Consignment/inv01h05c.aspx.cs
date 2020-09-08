@@ -320,33 +320,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
 
             return DT;
         }
-        public DataTable GetDataRefDetailTable(string do_code)
-        {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Connection = con;
-            cmd.CommandText = "sp_get_consignment_refD";
-            cmd.Parameters.AddWithValue("@doc_code", do_code);
-            //cmd.Parameters.AddWithValue("@type_ref", "1");
-            //cmd.Parameters.AddWithValue("@part_desc", cb_loc.SelectedValue);
-            cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
-            sda = new SqlDataAdapter(cmd);
-
-            DataTable DT = new DataTable();
-
-            try
-            {
-                sda.Fill(DT);
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return DT;
-        }
+        
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             if (tr_code == null)
