@@ -112,6 +112,23 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
         }
 
+        protected void cb_ref_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT * FROM v_goods_transfer_inH_reff WHERE do_code = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
+            dr.Close();
+            con.Close();
+        }
+
         protected void cb_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             //fillReffH((sender as RadComboBox).SelectedValue);
@@ -603,7 +620,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 cmd.Parameters.AddWithValue("@lbm_code", run);
                 cmd.Parameters.AddWithValue("@lbm_date", string.Format("{0:yyyy-MM-dd}", dtp_gr.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@ref_date", Convert.ToDateTime(txt_reff_date.Text));
-                cmd.Parameters.AddWithValue("@ref_code", cb_ref.SelectedValue);
+                cmd.Parameters.AddWithValue("@ref_code", cb_ref.Text);
                 cmd.Parameters.AddWithValue("@status_lbm", 0);
                 cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
                 cmd.Parameters.AddWithValue("@remark", txt_remark.Text);

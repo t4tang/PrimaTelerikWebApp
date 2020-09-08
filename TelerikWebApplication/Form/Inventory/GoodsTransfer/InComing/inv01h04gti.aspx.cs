@@ -308,7 +308,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
                 cmd.Parameters.AddWithValue("@Remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@from_wh_code", (item.FindControl("lblFromStorLoc") as Label).Text);
-
+                cmd.Parameters.AddWithValue("@hpokok", 0.00);
+                cmd.Parameters.AddWithValue("@hpokok_idr", 0.00);
+                cmd.Parameters.AddWithValue("@lbm_code", tr_code);
+                cmd.Parameters.AddWithValue("@hpTot", 0.00);
+                cmd.Parameters.AddWithValue("@prod_type", "M1");
+                cmd.Parameters.AddWithValue("@twarranty", 0);
+                cmd.Parameters.AddWithValue("@qty_hpp", 0);
                 cmd.ExecuteNonQuery();
 
                 con.Close();

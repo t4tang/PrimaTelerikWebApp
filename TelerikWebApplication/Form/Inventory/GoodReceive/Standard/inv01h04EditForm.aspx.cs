@@ -173,7 +173,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@Owner", public_str.uid);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                
+                cmd.Parameters.AddWithValue("@doc_type", "1");
+
                 cmd.ExecuteNonQuery();
 
                 //Save Detail
