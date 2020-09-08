@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
+namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment {
     
     
-    public partial class pur01h02 {
+    public partial class inv01h05c {
         
         /// <summary>
         /// RadCodeBlock1 control.
@@ -67,13 +67,13 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadAjaxLoadingPanel gridLoadingPanel;
         
         /// <summary>
-        /// gridLoadingPanel2 control.
+        /// RadAjaxLoadingPanel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxLoadingPanel gridLoadingPanel2;
+        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel2;
         
         /// <summary>
         /// RadAjaxLoadingPanel control.
@@ -136,7 +136,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::Telerik.Web.UI.RadButton btnSearch;
         
         /// <summary>
         /// btnNew control.
@@ -175,15 +175,6 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
         
         /// <summary>
-        /// panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel panel2;
-        
-        /// <summary>
         /// RadGrid2 control.
         /// </summary>
         /// <remarks>
@@ -193,13 +184,13 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadGrid RadGrid2;
         
         /// <summary>
-        /// notif control.
+        /// RadNotification1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadNotification notif;
+        protected global::Telerik.Web.UI.RadNotification RadNotification1;
         
         /// <summary>
         /// RadWindowManager1 control.

@@ -385,6 +385,11 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             }
         }
 
+
+
+
+
+        //?? kok ada ini???
         protected void cb_type_ref_PreRender(object sender, EventArgs e)
         {
             if ((sender as RadComboBox).Text == "Reservation")

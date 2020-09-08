@@ -726,7 +726,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 
             if (typeRef == "Supplier")
             {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_goods_receiveH_reff WHERE vendor_code = '" + vendor + "' " +
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_service_receiveH_reff WHERE vendor_code = '" + vendor + "' " +
                     "AND PlantCode = '" + project + "' AND po_code LIKE @text + '%' ", con);
                 adapter.SelectCommand.Parameters.AddWithValue("@vendor_code", vendor);
                 adapter.SelectCommand.Parameters.AddWithValue("@project", project);
