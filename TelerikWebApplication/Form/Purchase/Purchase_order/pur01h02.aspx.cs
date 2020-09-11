@@ -369,6 +369,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             }
         }
 
+        #region Tax
         protected void edt_chkTax1_CheckedChanged(object sender, EventArgs e)
         {
             if ((sender as CheckBox).Checked == true)
@@ -440,7 +441,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             }
         }
 
-
+        #endregion
 
 
         //private void get_po(string fromDate, string toDate, string project)

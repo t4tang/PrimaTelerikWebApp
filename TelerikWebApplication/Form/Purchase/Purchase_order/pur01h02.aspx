@@ -447,15 +447,15 @@
                                         </asp:Label>
                                     </EditItemTemplate>
                             </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn DataField="Prod_code_ori" HeaderText="Ori. Prod" HeaderStyle-Width="100px" ItemStyle-Width="100px" SortExpression="Prod_code_ori" UniqueName="Prod_code_ori"
-                                ItemStyle-HorizontalAlign="left" HeaderStyle-ForeColor="#009900">
-                                <ItemTemplate>  
-                                        <%#DataBinder.Eval(Container.DataItem, "Prod_code_ori")%>
-                                    </ItemTemplate>
-                                    <EditItemTemplate>
-                                        <asp:Label runat="server" ID="lbl_Prod_code_ori" Text='<%# DataBinder.Eval(Container, "DataItem.Prod_code_ori") %>'>
-                                        </asp:Label>
-                                    </EditItemTemplate>
+                            <telerik:GridTemplateColumn DataField="Prod_code_ori" HeaderText="Ori. Prod" HeaderStyle-Width="100px" ItemStyle-Width="100px" SortExpression="Prod_code_ori" UniqueName="Prod_code_ori"
+                            ItemStyle-HorizontalAlign="left" HeaderStyle-ForeColor="#009900">
+                            <ItemTemplate>  
+                                    <%#DataBinder.Eval(Container.DataItem, "Prod_code_ori")%>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:Label runat="server" ID="lbl_Prod_code_ori" Text='<%# DataBinder.Eval(Container, "DataItem.Prod_code_ori") %>'>
+                                    </asp:Label>
+                                </EditItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridButtonColumn ConfirmText="Delete this product?" ConfirmDialogType="RadWindow"
                                 ConfirmTitle="Delete" HeaderStyle-Width="20px" ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center"
