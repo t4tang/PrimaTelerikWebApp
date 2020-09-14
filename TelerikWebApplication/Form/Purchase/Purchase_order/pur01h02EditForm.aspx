@@ -271,7 +271,7 @@
                                     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax1" runat="server" Width="150"
-                                                EnableLoadOnDemand="True" ShowMoreResultsBox="true" 
+                                                EnableLoadOnDemand="True" ShowMoreResultsBox="true" AutoPostBack="true"
                                                 OnItemsRequested="cb_tax1_ItemsRequested" OnSelectedIndexChanged="cb_tax1_SelectedIndexChanged"
                                                 EnableVirtualScrolling="true" >
                                             </telerik:RadComboBox>
@@ -717,11 +717,19 @@
                                     <telerik:RadLabel runat="server" Text="Sub Total" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
-                                    <telerik:RadNumericTextBox ReadOnly="true" EnabledStyle-HorizontalAlign="Right"  ID="txt_sub_total" Width="130px" ItemStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true"
-                                    runat="server" onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                        AutoPostBack="true" MaxLength="11" Type="Number"
-                                        NumberFormat-DecimalDigits="2" Skin="Telerik">
-                                    </telerik:RadNumericTextBox>                                    
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <telerik:RadNumericTextBox ReadOnly="true" EnabledStyle-HorizontalAlign="Right"  ID="txt_sub_total" Width="130px" ItemStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true"
+                                        runat="server" onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
+                                            AutoPostBack="true" MaxLength="11" Type="Number"
+                                            NumberFormat-DecimalDigits="2" Skin="Telerik">
+                                    </telerik:RadNumericTextBox>  
+                                        </ContentTemplate>
+                                        <Triggers>
+                                            <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                        </Triggers>
+                                    </asp:UpdatePanel>
+                                                                      
                                 </td>
                                 <td style="width:50px; padding-left:15px" class="tdLabel">
                                     <telerik:RadLabel runat="server" Text="Tax 2" CssClass="lbObject"></telerik:RadLabel>
@@ -805,12 +813,19 @@
                                     <telerik:RadLabel runat="server" Text="Total" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
-                                    <telerik:RadNumericTextBox ReadOnly="true" EnabledStyle-HorizontalAlign="Right"  ID="txt_total" Width="150px" runat="server" 
-                                        ItemStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true"
-                                        onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                        AutoPostBack="true" MaxLength="11" Type="Number"
-                                        NumberFormat-DecimalDigits="2" Skin="Telerik"  >
-                                    </telerik:RadNumericTextBox>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                        <telerik:RadNumericTextBox ReadOnly="true" EnabledStyle-HorizontalAlign="Right"  ID="txt_total" Width="150px" runat="server" 
+                                            ItemStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true"
+                                            onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
+                                            AutoPostBack="true" MaxLength="11" Type="Number"
+                                            NumberFormat-DecimalDigits="2" Skin="Telerik"  >
+                                        </telerik:RadNumericTextBox>
+                                        </ContentTemplate>
+                                        <Triggers>
+                                            <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                        </Triggers>
+                                    </asp:UpdatePanel>
                                 </td>
                             </tr>
                         </table>
@@ -825,8 +840,7 @@
                             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Telerik" PageSize="5"
                                 AllowPaging="true" AllowSorting="true" runat="server" ShowStatusBar="true"  ClientSettings-Selecting-AllowRowSelect="true"
                                 OnNeedDataSource="RadGrid2_NeedDataSource" 
-                                OnPreRender="RadGrid2_PreRender"
-                                OnDataBound="RadGrid2_DataBound">
+                                OnPreRender="RadGrid2_PreRender">
                                 <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px" EditMode="Batch"
                                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >
@@ -1016,6 +1030,11 @@
                                     AutoCloseDelay="10000" Width="350" Height="110" Title="Notification" EnableRoundedCorners="true">
                             </telerik:RadNotification>
                      </ContentTemplate>
+                     <Triggers>
+                         <asp:AsyncPostBackTrigger ControlID="cb_tax1" EventName="SelectedIndexChanged" />
+                         <asp:AsyncPostBackTrigger ControlID="cb_tax2" EventName="SelectedIndexChanged"/>
+                         <asp:AsyncPostBackTrigger ControlID="cb_tax3" EventName="SelectedIndexChanged"/>
+                     </Triggers>
                     </asp:UpdatePanel>
             </div>
             
