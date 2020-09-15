@@ -173,10 +173,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@Owner", public_str.uid);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-
+                cmd.Parameters.AddWithValue("doc_type", "4");
                 cmd.ExecuteNonQuery();
 
-                //Save Detail
+                //Save Deta
 
                 foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
                 {
