@@ -176,7 +176,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                 cmd.Parameters.AddWithValue("doc_type", "4");
                 cmd.ExecuteNonQuery();
 
-                //Save Deta
+                //Save Detail
 
                 foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
                 {
@@ -755,7 +755,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
             SqlDataReader dr;
             if (cb_from.Text == "Supplier")
             {
-                cmd.CommandText = "SELECT * FROM v_goods_receiveH_reff WHERE po_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT * FROM v_service_receiveH_reff WHERE po_code = '" + (sender as RadComboBox).SelectedValue + "'";
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
