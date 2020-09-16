@@ -1,6 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pur01h02.aspx.cs" Inherits="TelerikWebApplication.Forms.Purchase.Purchase_order.pur01h02" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="pur01h02srv.aspx.cs" Inherits="TelerikWebApplication.Form.Purchase.Purchase_service.pur01h02srv" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../Styles/mail.css" rel="stylesheet" />
     <link href="../../../Styles/custom-cs.css" rel="stylesheet" />
@@ -13,7 +12,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("pur01h02ReportViewer.aspx?po_code=" + id, "PreviewDialog");
+                window.radopen("pur01h02srvReportViewer.aspx?po_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
@@ -23,7 +22,7 @@
                 //alert("this is the client-side callback function. The RadAlert returned: " + arg);
             }
             function ShowInsertForm() {                
-                window.radopen("pur01h02EditForm.aspx", "EditDialogWindows");
+                window.radopen("pur01h02srvEditForm.aspx", "EditDialogWindows");
                 return false;
             }
 
@@ -33,7 +32,7 @@
                 var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
                 grid.get_masterTableView().selectItem(rowControl, true);
  
-                window.radopen("pur01h02EditForm.aspx?po_code=" + id, "EditDialogWindows");
+                window.radopen("pur01h02srvEditForm.aspx?po_code=" + id, "EditDialogWindows");
                 return false;
             }
 
@@ -58,17 +57,16 @@
             }
         </script>
     </telerik:RadCodeBlock>
-
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="Server">
-     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
+   <asp:UpdatePanel ID="UpdatePanel2" runat="server">
         <ContentTemplate>
             <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
             <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
         </ContentTemplate>        
     </asp:UpdatePanel> 
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
@@ -125,8 +123,8 @@
                         <td >
                             <telerik:RadLabel runat="server" Text="Project :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
                             <telerik:RadComboBox ID="cb_proj_prm" runat="server" RenderMode="Lightweight"
-                               EnableLoadOnDemand="True"  Skin="Telerik" OnItemsRequested="cb_project_prm_ItemsRequested"
-                                OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
+                               EnableLoadOnDemand="True"  Skin="Telerik" OnItemsRequested="cb_proj_prm_ItemsRequested"
+                                OnSelectedIndexChanged="cb_proj_prm_SelectedIndexChanged"
                                 EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px">
 
                             </telerik:RadComboBox>
@@ -167,8 +165,8 @@
     <div class="scroller" runat="server">        
         <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
             AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="7"
-            OnNeedDataSource="RadGrid1_NeedDataSource" 
-            OnPreRender="RadGrid1_PreRender" 
+            OnNeedDataSource="RadGrid1_NeedDataSource"
+            OnPreRender="RadGrid1_PreRender"
             OnDeleteCommand="RadGrid1_DeleteCommand"
             OnItemCreated="RadGrid1_ItemCreated"
             OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged">
@@ -310,16 +308,7 @@
                                     </telerik:RadComboBox>
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <%-- <telerik:GridTemplateColumn HeaderText="Part Name" ItemStyle-Width="160px" HeaderStyle-Width="160px" ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="#009900">
-                                <ItemTemplate>  
-                                    <%#DataBinder.Eval(Container.DataItem, "spec")%>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_prod_name" Width="160px" ReadOnly="true"
-                                        Text='<%# DataBinder.Eval(Container, "DataItem.spec") %>'>
-                                    </telerik:RadTextBox>
-                                </EditItemTemplate>
-                            </telerik:GridTemplateColumn>  --%>                                  
+                                                       
                             <telerik:GridTemplateColumn HeaderText="Qty" ItemStyle-Width="80px" HeaderStyle-Width="80px" ItemStyle-HorizontalAlign="Right" DefaultInsertValue="0" 
                                 HeaderStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="#009900">
                                     <ItemTemplate>  
@@ -495,5 +484,4 @@
         </telerik:RadWindowManager>
  
     </div>
-    
 </asp:Content>
