@@ -488,6 +488,13 @@
                                                 <asp:Label runat="server" ID="lblCostCtr" Text='<%# DataBinder.Eval(Container.DataItem, "dept_code") %>'></asp:Label>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+
+                                        <telerik:GridTemplateColumn HeaderText="Kode Lokasi" HeaderStyle-Width="100px" ItemStyle-Width="100px"
+                                            HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="009900" HeaderStyle-HorizontalAlign="Center">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="cbKolok" Text='<%# DataBinder.Eval(Container.DataItem, "koLok") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                             
                                         <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="300px" HeaderStyle-Width="300px" 
                                             HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center">
