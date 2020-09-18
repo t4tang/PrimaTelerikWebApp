@@ -174,7 +174,7 @@
                 <HeaderStyle CssClass="gridHeader" />
                 <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
                 <SortingSettings EnableSkinSortStyles="false" />
-                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px" 
+                <MasterTableView Width="80%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="12px" 
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                      CommandItemSettings-ShowRefreshButton="false" >
                     <Columns>
