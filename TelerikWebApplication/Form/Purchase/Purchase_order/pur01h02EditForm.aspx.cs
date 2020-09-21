@@ -515,15 +515,20 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             dr.Close();
             con.Close();
 
-
-            if (cb_tax1.SelectedValue != "NON")
+            
+            foreach (GridDataItem item in this.RadGrid2.Items)
             {
-                foreach (GridDataItem item in this.RadGrid2.Items)
+                CheckBox cTax1 = (CheckBox)item.FindControl("edt_chkTax1");
+                if (cb_tax1.SelectedValue != "NON")
                 {
-                    CheckBox cTax1 = (CheckBox)item.FindControl("edt_chkTax1");
                     cTax1.Checked = true;
                 }
+                else
+                {
+                    cTax1.Checked = false;
+                }
             }
+            
 
             get_tax_perc(cb_tax1.SelectedValue, txt_pppn);
         }
@@ -577,6 +582,19 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             dr.Close();
             con.Close();
 
+            foreach (GridDataItem item in this.RadGrid2.Items)
+            {
+                CheckBox cTax2 = (CheckBox)item.FindControl("edt_chkOTax");
+                if (cb_tax2.SelectedValue != "NON")
+                {
+                    cTax2.Checked = true;
+                }
+                else
+                {
+                    cTax2.Checked = false;
+                }
+            }
+
             get_tax_perc(cb_tax2.SelectedValue, txt_po_tax);
         }
         protected void cb_tax3_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -610,6 +628,19 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             //txt_ppph.Text = dr["TAX_PERC"].ToString();
             dr.Close();
             con.Close();
+
+            foreach (GridDataItem item in this.RadGrid2.Items)
+            {
+                CheckBox cTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+                if (cb_tax3.SelectedValue != "NON")
+                {
+                    cTax3.Checked = true;
+                }
+                else
+                {
+                    cTax3.Checked = false;
+                }
+            }
 
             get_tax_perc(cb_tax3.SelectedValue, txt_ppph);
         }
@@ -652,7 +683,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 sub_price = Convert.ToDouble(txt_sub_price.Value);
                 taxVal = Convert.ToDouble(txt_tax2_value.Value);
-                txt_tax1_value.Value = taxVal + ((Convert.ToDouble(txt_po_tax.Text) / 100) * sub_price);
+                txt_tax2_value.Value = taxVal + ((Convert.ToDouble(txt_po_tax.Text) / 100) * sub_price);
 
                 oTax_check = "1";
             }
@@ -660,7 +691,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 sub_price = Convert.ToDouble(txt_sub_price.Value);
                 taxVal = Convert.ToDouble(txt_tax2_value.Value);
-                txt_tax1_value.Value = taxVal - ((txt_po_tax.Value / 100) * sub_price);
+                txt_tax2_value.Value = taxVal - ((txt_po_tax.Value / 100) * sub_price);
 
                 oTax_check = "0";
             }
@@ -679,7 +710,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 sub_price = Convert.ToDouble(txt_sub_price.Value);
                 taxVal = Convert.ToDouble(txt_tax3_value.Value);
-                txt_tax1_value.Value = taxVal + ((Convert.ToDouble(txt_ppph.Text) / 100) * sub_price);
+                txt_tax3_value.Value = taxVal + ((Convert.ToDouble(txt_ppph.Text) / 100) * sub_price);
 
                 pph_check = "1";
             }
@@ -687,7 +718,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 sub_price = Convert.ToDouble(txt_sub_price.Value);
                 taxVal = Convert.ToDouble(txt_tax3_value.Value);
-                txt_tax1_value.Value = taxVal - ((txt_ppph.Value / 100) * sub_price);
+                txt_tax3_value.Value = taxVal - ((txt_ppph.Value / 100) * sub_price);
 
                 pph_check = "0";
             }
