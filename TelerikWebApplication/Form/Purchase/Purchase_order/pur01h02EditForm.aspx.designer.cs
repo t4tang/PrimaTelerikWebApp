@@ -121,6 +121,15 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadTextBox txt_validity;
         
         /// <summary>
+        /// UpdatePanel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel8;
+        
+        /// <summary>
         /// cb_supplier control.
         /// </summary>
         /// <remarks>
