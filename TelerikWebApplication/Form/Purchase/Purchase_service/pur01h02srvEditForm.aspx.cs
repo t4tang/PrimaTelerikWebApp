@@ -822,7 +822,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from v_purchase_order_reff where pr_code = '" + (sender as RadComboBox).SelectedValue + "'";
+            cmd.CommandText = "select * from v_purchase_service_reff where pr_code = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
