@@ -57,11 +57,11 @@
                 <telerik:AjaxUpdatedControl ControlID="cb_tax3"></telerik:AjaxUpdatedControl>
             </UpdatedControls>                
         </telerik:AjaxSetting>  
-       <%-- <telerik:AjaxSetting AjaxControlID="cb_tax1">
+        <telerik:AjaxSetting AjaxControlID="RadGrid2">
             <UpdatedControls>
-                <telerik:AjaxUpdatedControl ControlID="txt_pppn"></telerik:AjaxUpdatedControl>
+                <telerik:AjaxUpdatedControl ControlID="RadGrid2"></telerik:AjaxUpdatedControl>
             </UpdatedControls>                
-        </telerik:AjaxSetting>  --%>
+        </telerik:AjaxSetting>  
     </AjaxSettings>
     </telerik:RadAjaxManager>
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel2" runat="server" MinDisplayTime="1000" BackgroundPosition="None" >
@@ -834,10 +834,17 @@
                                     <telerik:RadLabel runat="server" Text="Tax 3" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
-                                    <telerik:RadNumericTextBox  ReadOnly="true" runat="server"  ID="txt_tax3_value" Width="130px" EnabledStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true"
-                                    onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                     MaxLength="11" Type="Number" NumberFormat-DecimalDigits="2" Skin="Telerik"  >
-                                    </telerik:RadNumericTextBox>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                        <telerik:RadNumericTextBox  ReadOnly="true" runat="server"  ID="txt_tax3_value" Width="130px" EnabledStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true"
+                                        onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
+                                         MaxLength="11" Type="Number" NumberFormat-DecimalDigits="2" Skin="Telerik"  >
+                                        </telerik:RadNumericTextBox>
+                                        </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                    </Triggers>
+                                    </asp:UpdatePanel>
                                 </td>
                                 <td style="padding-left:15px" class="tdLabel">
                                     <telerik:RadLabel runat="server" Text="Total" CssClass="lbObject"></telerik:RadLabel>
@@ -868,9 +875,8 @@
                  <asp:UpdatePanel ID="panel2" runat="server" UpdateMode="Always">
                       <ContentTemplate>
                             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Telerik" PageSize="5"
-                                AllowPaging="true" AllowSorting="true" runat="server" ShowStatusBar="true"  ClientSettings-Selecting-AllowRowSelect="true"
-                                OnNeedDataSource="RadGrid2_NeedDataSource" 
-                                OnPreRender="RadGrid2_PreRender">
+                                AllowPaging="false" AllowSorting="true" runat="server" ShowStatusBar="true"  ClientSettings-Selecting-AllowRowSelect="true"
+                                OnNeedDataSource="RadGrid2_NeedDataSource" >
                                 <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px" EditMode="Batch"
                                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >
@@ -1003,7 +1009,7 @@
                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" ItemStyle-HorizontalAlign="Right"
                                                 DbValue='<%# Convert.ToDouble(Eval("jumlah")) %>' 
                                                 onkeydown="blurTextBox(this, event)"
-                                                AutoPostBack="true" MaxLength="11" Type="Number" EnabledStyle-HorizontalAlign="Right"
+                                                AutoPostBack="true" MaxLength="11" Type="Number" EnabledStyle-HorizontalAlign="Right" ReadOnly="true"
                                                 NumberFormat-DecimalDigits="2">
                                             </telerik:RadNumericTextBox>
                                         </ItemTemplate>
@@ -1019,7 +1025,7 @@
                                         HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:CheckBox runat="server" ID="edt_chkOTax" OnCheckedChanged="edt_chkOTax_CheckedChanged" OnPreRender="edt_chkOTax_PreRender"
-                                                Checked='<%# DataBinder.Eval(Container.DataItem, "tOTax") %>' />
+                                                Checked='<%# DataBinder.Eval(Container.DataItem, "tOTax") %>' AutoPostBack="true" />
                                         </ItemTemplate>
                                                                                
                                     </telerik:GridTemplateColumn>
@@ -1027,7 +1033,7 @@
                                             HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:CheckBox runat="server" ID="edt_chkTpph" OnCheckedChanged="edt_chkTpph_CheckedChanged" OnPreRender="edt_chkTpph_PreRender"
-                                                Checked='<%# DataBinder.Eval(Container.DataItem, "tpph") %>' />
+                                                Checked='<%# DataBinder.Eval(Container.DataItem, "tpph") %>'  AutoPostBack="true" />
                                         </ItemTemplate>                                       
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn DataField="dept_code" HeaderText="Cost Ctr" HeaderStyle-Width="75px" ItemStyle-Width="75px" SortExpression="dept_code" UniqueName="dept_code"
@@ -1052,7 +1058,7 @@
                                 </Columns>
                                 </MasterTableView>
                                 <ClientSettings>
-                                   <%-- <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="192px" />--%>
+                                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="192px" SaveScrollPosition="true" />
                                     <Selecting AllowRowSelect="true"></Selecting>                    
                                 </ClientSettings>
                             </telerik:RadGrid>
