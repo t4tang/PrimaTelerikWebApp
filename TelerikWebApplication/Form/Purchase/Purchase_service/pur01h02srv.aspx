@@ -179,15 +179,15 @@
                      CommandItemSettings-ShowRefreshButton="false" >
                     <Columns>
                         <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="40px" HeaderStyle-Width="40px"></telerik:GridClientSelectColumn>
-                        <telerik:GridBoundColumn UniqueName="po_code" HeaderText="PO Number" DataField="po_code" ItemStyle-Width="70px" FilterControlWidth="70px">
+                        <telerik:GridBoundColumn UniqueName="po_code" HeaderText="PO Number" DataField="po_code" ItemStyle-Width="70px" FilterControlWidth="40px">
                             <HeaderStyle Width="70px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="Po_date" HeaderText="Date" DataField="Po_date" ItemStyle-Width="60px" 
-                                EnableRangeFiltering="false" FilterControlWidth="90px" PickerType="DatePicker" 
+                                EnableRangeFiltering="false" FilterControlWidth="40px" PickerType="DatePicker" 
                             DataFormatString="{0:d}" >
                             <HeaderStyle Width="60px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridDateTimeColumn>
-                        <telerik:GridBoundColumn UniqueName="refNo" HeaderText="Reff. Number" DataField="refNo" ItemStyle-Width="70px" FilterControlWidth="70px">
+                        <telerik:GridBoundColumn UniqueName="refNo" HeaderText="Reff. Number" DataField="refNo" ItemStyle-Width="70px" FilterControlWidth="40px">
                             <HeaderStyle Width="70px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="vendor_name" HeaderText="Vendor Name" DataField="vendor_name" 
@@ -197,21 +197,21 @@
                         <telerik:GridBoundColumn UniqueName="project" HeaderText="Project" DataField="plantCode" ItemStyle-Width="40px" FilterControlWidth="40px">
                             <HeaderStyle Width="40px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="tax1" HeaderText="Tax 1" DataField="tax1" ItemStyle-Width="70px" FilterControlWidth="70px">
+                        <telerik:GridBoundColumn UniqueName="tax1" HeaderText="Tax 1" DataField="tax1" ItemStyle-Width="70px" FilterControlWidth="40px">
                             <HeaderStyle Width="70px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="tax2" HeaderText="Tax 2" DataField="tax2" ItemStyle-Width="70px" FilterControlWidth="70px">
+                        <telerik:GridBoundColumn UniqueName="tax2" HeaderText="Tax 2" DataField="tax2" ItemStyle-Width="70px" FilterControlWidth="40px">
                             <HeaderStyle Width="70px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="tax3" HeaderText="Tax 3" DataField="tax3" ItemStyle-Width="70px" FilterControlWidth="70px">
+                        <telerik:GridBoundColumn UniqueName="tax3" HeaderText="Tax 3" DataField="tax3" ItemStyle-Width="70px" FilterControlWidth="40px">
                             <HeaderStyle Width="70px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="amount" HeaderText="Amount" DataField="tot_amount" ItemStyle-Width="90px" FilterControlWidth="90px" 
+                        <telerik:GridBoundColumn UniqueName="amount" HeaderText="Amount" DataField="tot_amount" ItemStyle-Width="90px" FilterControlWidth="40px" 
                             ItemStyle-HorizontalAlign="Right" Visible="False"
                             DataFormatString="{0:#,##0.00}" DataType="System.Double">
                             <HeaderStyle Width="90px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn> 
-                        <telerik:GridBoundColumn UniqueName="net" HeaderText="Net" DataField="Net" ItemStyle-Width="80px" FilterControlWidth="80px" ItemStyle-HorizontalAlign="Right" 
+                        <telerik:GridBoundColumn UniqueName="net" HeaderText="Net" DataField="Net" ItemStyle-Width="80px" FilterControlWidth="40px" ItemStyle-HorizontalAlign="Right" 
                             DataFormatString="{0:#,##0.00}" DataType="System.Double">
                             <HeaderStyle Width="80px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>   
