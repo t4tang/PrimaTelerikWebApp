@@ -1091,13 +1091,18 @@
                         </td>
                         <td colspan="2" style="padding-top:0px; text-align:left">
                             <telerik:RadButton ID="btn_save" runat="server" Text="Save" CssClass="btn-wrapper" ForeColor="White"
-                                Skin="Material"></telerik:RadButton>
+                                Skin="Material" OnClick="btn_save_Click"></telerik:RadButton>
                         </td>
                     </tr>                   
                 </table>
             </div>
 
-    </div>
+        </div>
+        <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Data telah disimpan" Position="Center" Skin="Windows7"
+                    AutoCloseDelay="7000" Width="350" Height="110" Title="Congrotulation" EnableRoundedCorners="true">
+        </telerik:RadNotification>
+        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true">
+        </telerik:RadWindowManager>
     </form>
 </body>
 </html>
