@@ -110,7 +110,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cb_tax3.Text = sdr["tax3"].ToString();
                 cb_project.Text = sdr["region_name"].ToString();
                 cb_cost_center.Text = sdr["CostCenterName"].ToString();
-                DateTime ref_date = Convert.ToDateTime(sdr["ref_date"]);
+                DateTime ref_date = Convert.ToDateTime(sdr["ref_date"].ToString());
                 txt_pr_date.Text = ref_date.ToString("dd/MM/yyyy");
                 txt_remark.Text = sdr["Remark"].ToString();
                 txt_term_days.Text = sdr["JTempo"].ToString();
