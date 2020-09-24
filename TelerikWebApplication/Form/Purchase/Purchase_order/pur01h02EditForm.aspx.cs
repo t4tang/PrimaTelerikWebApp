@@ -95,8 +95,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cb_ship_mode.Text = sdr["ShipMode"].ToString();
                 cb_supplier.Text = sdr["vendor_name"].ToString();
                 txt_curr.Text = sdr["cur_code"].ToString();
-                txt_kurs.Text = sdr["kurs"].ToString();
-                txt_tax_kurs.Text = sdr["kurs_tax"].ToString();
+                txt_kurs.Value = Convert.ToDouble(sdr["kurs"].ToString());
+                txt_tax_kurs.Value = Convert.ToDouble(sdr["kurs_tax"].ToString());
                 if (sdr["ppnIncl"].ToString() == "1")
                 {
                     chk_ppn_incl.Checked = true;
@@ -113,7 +113,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 DateTime ref_date = Convert.ToDateTime(sdr["ref_date"].ToString());
                 txt_pr_date.Text = ref_date.ToString("dd/MM/yyyy");
                 txt_remark.Text = sdr["Remark"].ToString();
-                txt_term_days.Text = sdr["JTempo"].ToString();
+                txt_term_days.Value = Convert.ToDouble(sdr["JTempo"].ToString());
                 cb_prepared.Text = sdr["Order_by"].ToString();
                 cb_verified.Text = sdr["Prepare_by"].ToString();
                 cb_approved.Text = sdr["Order_by"].ToString();
@@ -418,8 +418,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 //(sender as RadComboBox).Text = dr["doc_code"].ToString();
                 cb_supplier.SelectedValue = dr["supplier_code"].ToString();
                 txt_curr.Text = dr["cur_code"].ToString();
-                txt_kurs.Text = dr["KursRun"].ToString();
-                txt_tax_kurs.Text = dr["KursTax"].ToString();
+                txt_kurs.Value = Convert.ToDouble(dr["KursRun"].ToString());
+                txt_tax_kurs.Value = Convert.ToDouble(dr["KursTax"].ToString());
                 cb_tax1.SelectedValue = dr["ppn"].ToString();
                 cb_tax2.SelectedValue = dr["Otax"].ToString();
                 cb_tax3.SelectedValue = dr["pph"].ToString();
@@ -1478,7 +1478,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
                     cmd.Parameters.AddWithValue("@Prod_code", (item.FindControl("lblProdCode") as Label).Text);
                     cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Value));
-                    cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("cb_uom_d") as RadComboBox).SelectedValue);
+                    cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("cb_uom_d") as RadComboBox).Text);
                     cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
                     cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("txt_disc") as RadNumericTextBox).Value));
                     if ((item.FindControl("edt_chkTax1") as CheckBox).Checked == true)
