@@ -85,6 +85,15 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadComboBox cb_po_type;
         
         /// <summary>
+        /// UpdatePanel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
+        
+        /// <summary>
         /// cb_priority control.
         /// </summary>
         /// <remarks>
@@ -163,7 +172,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_kurs;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_kurs;
         
         /// <summary>
         /// UpdatePanel3 control.
@@ -181,7 +190,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_tax_kurs;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_tax_kurs;
         
         /// <summary>
         /// chk_ppn_incl control.
@@ -343,7 +352,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_term_days;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_term_days;
         
         /// <summary>
         /// UpdatePanel10 control.
