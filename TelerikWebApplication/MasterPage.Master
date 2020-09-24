@@ -60,6 +60,7 @@
                     <telerik:RadMenuItem Text="Fico" NavigateUrl="Form/Fico/Default.aspx" CssClass="notes" />
                     <telerik:RadMenuItem Text="Inventory" NavigateUrl="Form/Inventory/Default.aspx" CssClass="notes" />
                     <telerik:RadMenuItem Text="Purchase" NavigateUrl="Form/Purchase/Default.aspx" CssClass="notes" />
+                    <telerik:RadMenuItem Text="Preventive Maintenance" NavigateUrl="Form/Preventive_maintenance/Default.aspx" CssClass="notes" />                    
                     <telerik:RadMenuItem Text="Security" NavigateUrl="Form/Security/Default.aspx" CssClass="notes" />
                 </Items>
             </telerik:RadMenu>
