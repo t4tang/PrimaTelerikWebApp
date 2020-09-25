@@ -1116,5 +1116,236 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
             txt_total.Text = sum.ToString();
 
         }
+
+        protected void btn_save_Click(object sender, EventArgs e)
+        {
+            long maxNo;
+            string run = null;
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_po.SelectedDate);
+
+            try
+            {
+                if (Session["actionEdit"].ToString() != "new")
+                {
+                    run = txt_po_code.Text;
+                }
+                else
+                {
+                    con.Open();
+                    SqlDataReader sdr;
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h02.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM pur01h02 WHERE LEFT(pur01h02.po_code, 4) = 'PS03' " +
+                        "AND SUBSTRING(pur01h02.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(pur01h02.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.HasRows == false)
+                    {
+                        //throw new Exception();
+                        run = "PS03" + dtp_po.SelectedDate.Value.Year + dtp_po.SelectedDate.Value.Month + "0001";
+                    }
+                    else if (sdr.Read())
+                    {
+                        maxNo = Convert.ToInt32(sdr[0].ToString());
+                        run = "PS03" + (dtp_po.SelectedDate.Value.Year.ToString()).Substring(dtp_po.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_po.SelectedDate.Value.Month).Substring(("0000" + dtp_po.SelectedDate.Value.Month).Length - 2, 2) +
+                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
+                    }
+                    con.Close();
+                }
+
+
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_purchase_orderH";
+                cmd.Parameters.AddWithValue("@po_code", run);
+                cmd.Parameters.AddWithValue("@Po_date", string.Format("{0:yyyy-MM-dd}", dtp_po.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@exp_date", string.Format("{0:yyyy-MM-dd}", dtp_exp.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@trans_code", cb_po_type.SelectedValue);
+                cmd.Parameters.AddWithValue("@priority_code", cb_priority.SelectedValue);
+                cmd.Parameters.AddWithValue("@etd", string.Format("{0:yyyy-MM-dd}", dtp_etd.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@ShipModeEtd", cb_ship_mode.SelectedValue);
+                cmd.Parameters.AddWithValue("@ppn", cb_tax1.SelectedValue);
+                cmd.Parameters.AddWithValue("@PPNIncl", chk_ppn_incl.Checked);
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
+                cmd.Parameters.AddWithValue("@kurs_tax", Convert.ToDouble(txt_tax_kurs.Text));
+                cmd.Parameters.AddWithValue("@pay_code", cb_term.SelectedValue);
+                cmd.Parameters.AddWithValue("@JTempo", Convert.ToDouble(txt_term_days.Value));
+                cmd.Parameters.AddWithValue("@attname", txt_att_name.Text);
+                cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
+                cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
+                cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
+                cmd.Parameters.AddWithValue("@vendor_code", cb_supplier.SelectedValue);
+                cmd.Parameters.AddWithValue("@vendor_name", cb_supplier.Text);
+                cmd.Parameters.AddWithValue("@cur_code", txt_curr.Text);
+                cmd.Parameters.AddWithValue("@tot_amount", Convert.ToDouble(txt_total.Value));
+                cmd.Parameters.AddWithValue("@PPPN", Convert.ToDouble(txt_pppn.Value));
+                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@JPPN", Convert.ToDouble(txt_tax1_value.Value));
+                cmd.Parameters.AddWithValue("@OTaxIncl", 0);
+                cmd.Parameters.AddWithValue("@JOTax", Convert.ToDouble(txt_tax2_value.Value));
+                cmd.Parameters.AddWithValue("@Net", Convert.ToDouble(txt_sub_total.Value));
+                cmd.Parameters.AddWithValue("@Freight", 0);
+                cmd.Parameters.AddWithValue("@Othercost", Convert.ToDouble(txt_other_value.Value));
+                cmd.Parameters.AddWithValue("@Ass", 0);
+                cmd.Parameters.AddWithValue("@DP", 0);
+                cmd.Parameters.AddWithValue("@OTax", cb_tax2.SelectedValue);
+                cmd.Parameters.AddWithValue("@PlantCode", cb_project.SelectedValue);
+                cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
+                cmd.Parameters.AddWithValue("@no_ref", cb_reff.Text);
+                cmd.Parameters.AddWithValue("@ref_date", Convert.ToDateTime(txt_pr_date.Text));
+                cmd.Parameters.AddWithValue("@pph", cb_tax3.SelectedValue);
+                cmd.Parameters.AddWithValue("@pphIncl", 0);
+                cmd.Parameters.AddWithValue("@Jpph", Convert.ToDouble(txt_tax3_value.Value));
+                cmd.Parameters.AddWithValue("@Owner", txt_owner.Text);
+                cmd.Parameters.AddWithValue("@OwnStamp", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
+                cmd.Parameters.AddWithValue("@doc_type", 4);
+                cmd.Parameters.AddWithValue("@tFullSupply", 0);
+                cmd.Parameters.AddWithValue("@tMonOrder", 0);
+                cmd.Parameters.AddWithValue("@doc_status", cb_priority.SelectedValue);
+                cmd.Parameters.AddWithValue("@deliv_address", DBNull.Value);
+                if (dtp_share_date.SelectedDate != null)
+                {
+                    cmd.Parameters.AddWithValue("@share_date", string.Format("{0:yyyy-MM-dd}", dtp_share_date.SelectedDate.Value));
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@share_date", DBNull.Value);
+                }
+                cmd.Parameters.AddWithValue("@valid_period", 0);
+                cmd.Parameters.AddWithValue("@ppph", Convert.ToDouble(txt_ppph.Value));
+                cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
+
+                cmd.ExecuteNonQuery();
+
+
+                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_save_purchase_orderD";
+                    cmd.Parameters.AddWithValue("@po_code", run);
+                    cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
+                    cmd.Parameters.AddWithValue("@Prod_code", (item.FindControl("lblProdCode") as Label).Text);
+                    cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Value));
+                    cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("cb_uom_d") as RadComboBox).SelectedValue);
+                    cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
+                    cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("txt_disc") as RadNumericTextBox).Value));
+                    if ((item.FindControl("edt_chkTax1") as CheckBox).Checked == true)
+                    {
+                        cmd.Parameters.AddWithValue("@tTax", 1);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@tTax", 0);
+                    }
+                    if ((item.FindControl("edt_chkOTax") as CheckBox).Checked == true)
+                    {
+                        cmd.Parameters.AddWithValue("@tOTax", 1);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@tOTax", 0);
+                    }
+                    if ((item.FindControl("edt_chkTpph") as CheckBox).Checked == true)
+                    {
+                        cmd.Parameters.AddWithValue("@tpph", 1);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@tpph", 0);
+                    }
+                    cmd.Parameters.AddWithValue("@harga", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
+                    cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lbl_Prod_code_ori") as Label).Text);
+                    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as Label).Text);
+                    cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("txt_factor") as RadNumericTextBox).Value));
+                    cmd.Parameters.AddWithValue("@Asscost", 0);
+                    cmd.Parameters.AddWithValue("@reff_no", cb_reff.SelectedValue);
+                    cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
+                    cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
+                    cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
+
+                    //cmd.Parameters.AddWithValue("@jumlah", (item.FindControl("txt_sub_price") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@nomer", (item.FindControl("lblUom") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@JDisc", (item.FindControl("txt_JDisk") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@HPokok", (item.FindControl("txt_HPokok") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@jumlah2", (item.FindControl("txt_sub_price") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@NoContr", (item.FindControl("txt_NoContr") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@jTax1", (item.FindControl("lblRS") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@jTax2", (item.FindControl("lblRS") as RadTextBox).Text);
+                    //cmd.Parameters.AddWithValue("@jTax3", (item.FindControl("lblRS") as RadTextBox).Text);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+            }
+            finally
+            {
+                con.Close();
+                notif.Text = "Data berhasil disimpan";
+                notif.Title = "Notification";
+                notif.Show();
+                txt_po_code.Text = run;
+
+                if (Session["actionEdit"].ToString() == "edit")
+                {
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                }
+
+                //pur01h02.tr_code = run;
+                //pur01h02.selected_project = cb_project.SelectedValue;
+            }
+        }
+        protected void cb_term_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Cash")
+            {
+                (sender as RadComboBox).SelectedValue = "01";
+            }
+            else if ((sender as RadComboBox).Text == "Credit")
+            {
+                (sender as RadComboBox).SelectedValue = "02";
+            }
+            else if ((sender as RadComboBox).Text == "COD")
+            {
+                (sender as RadComboBox).SelectedValue = "03";
+            }
+        }
+
+        protected void cb_term_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Cash")
+            {
+                (sender as RadComboBox).SelectedValue = "01";
+            }
+            else if ((sender as RadComboBox).Text == "Credit")
+            {
+                (sender as RadComboBox).SelectedValue = "02";
+            }
+            else if ((sender as RadComboBox).Text == "COD")
+            {
+                (sender as RadComboBox).SelectedValue = "03";
+            }
+        }
+
+        protected void cb_term_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Items.Add("Cash");
+            (sender as RadComboBox).Items.Add("Credit");
+            (sender as RadComboBox).Items.Add("COD");
+        }
     }
 }
