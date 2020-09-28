@@ -73,7 +73,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 
             }
             con.Close();
-
+            //jdgzksjgfzwh
         }
         public DataTable GetDataDetailTable(string lbm_code)
         {
