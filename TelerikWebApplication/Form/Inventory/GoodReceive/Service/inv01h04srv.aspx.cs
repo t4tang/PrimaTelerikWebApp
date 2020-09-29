@@ -212,17 +212,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
         }
         protected void RadGrid1_PreRender(object sender, EventArgs e)
         {
-            if (Session["action"].ToString() == "firstLoad")
+            foreach (GridDataItem item in RadGrid1.SelectedItems)
             {
-                if (RadGrid1.MasterTableView.Items.Count > 0)
-                    RadGrid1.MasterTableView.Items[0].Selected = true;
-
-                foreach (GridDataItem gItem in RadGrid1.SelectedItems)
-                {
-                    tr_code = gItem["lbm_code"].Text;
-                }
-                populate_detail();
+                tr_code = item["lbm_code"].Text;
+                selected_wh_code = item["warehouse"].Text;
+                selected_reff_code = item["ref_code"].Text;
             }
+
+            populate_detail();
+            Session["action"] = "list";
         }
         #endregion
 
