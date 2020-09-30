@@ -370,7 +370,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " +
+            cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph, " +
+                                "a.ppn AS tax1_code , a.OTax AS Tax2_code, a.pph AS Tax3_code" +
                                " FROM pur00h01 a LEFT OUTER JOIN acc00h05 AS b ON b.TAX_CODE = a.ppn LEFT OUTER JOIN acc00h05 AS c ON a.OTax = c.TAX_CODE LEFT OUTER JOIN " +
                                " acc00h05 AS d ON a.pph = d.TAX_CODE inner join acc00h04 e on a.cur_code = e.cur_code WHERE (e.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
                                " FROM acc00h04)) and a.supplier_name = '" + cb_supplier.Text + "'";
@@ -383,9 +384,12 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
                 txt_curr.Text = dr["cur_code"].ToString();
                 txt_kurs.Text = dr["KursRun"].ToString();
                 txt_tax_kurs.Text = dr["KursTax"].ToString();
-                cb_tax1.SelectedValue = dr["ppn"].ToString();
-                cb_tax2.SelectedValue = dr["Otax"].ToString();
-                cb_tax3.SelectedValue = dr["pph"].ToString();
+                cb_tax1.Text = dr["ppn"].ToString();
+                cb_tax2.Text = dr["Otax"].ToString();
+                cb_tax3.Text = dr["pph"].ToString();
+                cb_tax1.SelectedValue = dr["tax1_code"].ToString();
+                cb_tax2.SelectedValue = dr["Tax2_code"].ToString();
+                cb_tax3.SelectedValue = dr["Tax3_code"].ToString();
             }
 
             dr.Close();
@@ -1168,8 +1172,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
                 cmd.Parameters.AddWithValue("@ShipModeEtd", cb_ship_mode.SelectedValue);
                 cmd.Parameters.AddWithValue("@ppn", cb_tax1.SelectedValue);
                 cmd.Parameters.AddWithValue("@PPNIncl", chk_ppn_incl.Checked);
-                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
-                cmd.Parameters.AddWithValue("@kurs_tax", Convert.ToDouble(txt_tax_kurs.Text));
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Value));
+                cmd.Parameters.AddWithValue("@kurs_tax", Convert.ToDouble(txt_tax_kurs.Value));
                 cmd.Parameters.AddWithValue("@pay_code", cb_term.SelectedValue);
                 cmd.Parameters.AddWithValue("@JTempo", Convert.ToDouble(txt_term_days.Value));
                 cmd.Parameters.AddWithValue("@attname", txt_att_name.Text);

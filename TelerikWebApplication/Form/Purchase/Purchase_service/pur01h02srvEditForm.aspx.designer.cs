@@ -154,7 +154,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_kurs;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_kurs;
         
         /// <summary>
         /// UpdatePanel3 control.
@@ -172,7 +172,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_tax_kurs;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_tax_kurs;
         
         /// <summary>
         /// chk_ppn_incl control.
