@@ -733,7 +733,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_rsH";
+                cmd.CommandText = "sp_save_reservation_slipH";
                 cmd.Parameters.AddWithValue("@doc_code", run);
                 cmd.Parameters.AddWithValue("@doc_date", string.Format("{0:yyyy-MM-dd}", dtp_rs.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@date_exec", string.Format("{0:yyyy-MM-dd}", dtp_exe.SelectedDate.Value));
