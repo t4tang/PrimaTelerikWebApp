@@ -123,6 +123,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
             this.textBox97 = new Telerik.Reporting.TextBox();
             this.textBox96 = new Telerik.Reporting.TextBox();
             this.textBox95 = new Telerik.Reporting.TextBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // pageHeaderSection1
@@ -801,11 +802,10 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionString = "Data Source=PSGHONB036;Initial Catalog=PSG_DEV;User ID=IT;Password=PSGPRO";
+            this.sqlDataSource1.ConnectionString = "DbConString";
             this.sqlDataSource1.Name = "sqlDataSource1";
             this.sqlDataSource1.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@po_code", System.Data.DbType.AnsiString, null)});
-            this.sqlDataSource1.ProviderName = "System.Data.SqlClient";
             this.sqlDataSource1.SelectCommand = "dbo.spr_print_po";
             this.sqlDataSource1.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
@@ -1584,5 +1584,6 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
         private Telerik.Reporting.TextBox textBox20;
         private Telerik.Reporting.PageFooterSection pageFooterSection1;
         private Telerik.Reporting.Shape shape2;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
