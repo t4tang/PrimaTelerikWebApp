@@ -22,14 +22,15 @@
 
 </head>
 <body>
-    <form runat="server">
+    <form runat="server">        
+        <asp:Button ID="Button1" runat="server" Text="Button" />
         <telerik:ReportViewer
             ID="reportViewer1" 
 			Width="1127px"
 			Height="600px"
 			EnableAccessibility="false"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Purchase.Purchase.Purchase_order.pur01h01typeA_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Forms.Purchase.Purchase_order.pur01h02_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
     </form>

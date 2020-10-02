@@ -183,7 +183,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
-                    cmd.CommandText = "sp_save_goods_receiveD";
+                    cmd.CommandText = "sp_save_service_receiveD";
                     cmd.Parameters.AddWithValue("@lbm_code", run);
                     cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
                     cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);

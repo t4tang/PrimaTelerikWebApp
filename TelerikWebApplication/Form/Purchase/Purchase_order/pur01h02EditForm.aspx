@@ -271,13 +271,13 @@
                                         </telerik:RadTextBox>&nbsp
                                             Kurs 
                                             <telerik:RadNumericTextBox ID="txt_kurs" runat="server" Enabled="false" Width="100px" ReadOnly="true" RenderMode="Lightweight" 
-                                           Skin="Telerik"   >
-                                        <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
-                                        <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
-                                        <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
-                                        <HoveredStyle CssClass="MyHoveredTextBox"></HoveredStyle>
-                                        <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
-                                        </telerik:RadNumericTextBox>
+                                                   Skin="Telerik"   >
+                                                <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
+                                                <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
+                                                <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
+                                                <HoveredStyle CssClass="MyHoveredTextBox"></HoveredStyle>
+                                                <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
+                                            </telerik:RadNumericTextBox>
                                         </ContentTemplate>
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
