@@ -9,7 +9,7 @@
 
 	<style>
 		#reportViewer1 {
-			position: absolute;
+			position:absolute;
 			left: 5px;
 			right: 5px;
 			top: 5px;
@@ -23,8 +23,8 @@
 </head>
 <body>
     <form runat="server">        
-        <asp:Button ID="Button1" runat="server" Text="Button" />
-        <telerik:ReportViewer
+        <div runat="server">
+            <telerik:ReportViewer
             ID="reportViewer1" 
 			Width="1127px"
 			Height="600px"
@@ -33,6 +33,8 @@
             <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Forms.Purchase.Purchase_order.pur01h02_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
+        </div>
+        
     </form>
 </body>
 </html>
