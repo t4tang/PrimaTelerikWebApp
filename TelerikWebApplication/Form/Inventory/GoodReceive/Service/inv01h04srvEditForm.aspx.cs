@@ -73,7 +73,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 
             }
             con.Close();
-
+            //jdgzksjgfzwh
         }
         public DataTable GetDataDetailTable(string lbm_code)
         {
@@ -130,19 +130,19 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h04.lbm_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                       "FROM inv01h04 WHERE LEFT(inv01h04.lbm_code, 4) ='GR03' " +
+                       "FROM inv01h04 WHERE LEFT(inv01h04.lbm_code, 4) ='SR03' " +
                        "AND SUBSTRING(inv01h04.lbm_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                        "AND SUBSTRING(inv01h04.lbm_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "GR03" + dtp_gr.SelectedDate.Value.Year + dtp_gr.SelectedDate.Value.Month + "0001";
+                        run = "SR03" + dtp_gr.SelectedDate.Value.Year + dtp_gr.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "GR03" +
+                        run = "SR03" +
                             (dtp_gr.SelectedDate.Value.Year.ToString()).Substring(dtp_gr.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_gr.SelectedDate.Value.Month).Substring(("0000" + dtp_gr.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
@@ -173,9 +173,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@Owner", public_str.uid);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                cmd.Parameters.AddWithValue("doc_type", "4");
+                cmd.Parameters.AddWithValue("@doc_type", "2");
                 cmd.ExecuteNonQuery();
-
+                //5146854321684564986
                 //Save Detail
 
                 foreach (GridDataItem item in RadGrid2.MasterTableView.Items)

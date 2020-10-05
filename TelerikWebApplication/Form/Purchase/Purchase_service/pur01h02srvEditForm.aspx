@@ -220,14 +220,14 @@
                                         <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
                                         </telerik:RadTextBox>&nbsp
                                             Kurs 
-                                            <telerik:RadTextBox ID="txt_kurs" runat="server" Enabled="false" Width="100px" ReadOnly="true" RenderMode="Lightweight" 
-                                           Skin="Telerik"   >
-                                        <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
-                                        <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
-                                        <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
-                                        <HoveredStyle CssClass="MyHoveredTextBox"></HoveredStyle>
-                                        <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
-                                        </telerik:RadTextBox>
+                                            <telerik:RadNumericTextBox ID="txt_kurs" runat="server" Enabled="false" Width="100px" ReadOnly="true" RenderMode="Lightweight" 
+                                                Skin="Telerik" >
+                                                <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
+                                                <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
+                                                <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
+                                                <HoveredStyle CssClass="MyHoveredTextBox"></HoveredStyle>
+                                                <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
+                                            </telerik:RadNumericTextBox>                                           
                                         </ContentTemplate>
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
@@ -244,14 +244,15 @@
                                 <td style="vertical-align:top; text-align:left">
                                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                         <ContentTemplate>
-                                            <telerik:RadTextBox ID="txt_tax_kurs" runat="server" Width="111px" ReadOnly="true" RenderMode="Lightweight" 
+
+                                            <telerik:RadNumericTextBox ID="txt_tax_kurs" runat="server" Width="111px" ReadOnly="true" RenderMode="Lightweight" 
                                            Skin="Telerik"   >
                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
                                         <HoveredStyle CssClass="MyHoveredTextBox"></HoveredStyle>
                                         <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
-                                        </telerik:RadTextBox>
+                                        </telerik:RadNumericTextBox>
                                                 &nbsp                                                 
                                             <asp:CheckBox ID="chk_ppn_incl" runat="server" AutoPostBack="false" Text="PPN Include" />
                                         </ContentTemplate>
@@ -280,10 +281,10 @@
                                                 EnabledStyle-HorizontalAlign="Right" >
                                             </telerik:RadNumericTextBox>
                                         </ContentTemplate>
-                                        <Triggers>
+                                        <%--<Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
                                             </asp:AsyncPostBackTrigger>
-                                        </Triggers>
+                                        </Triggers>--%>
                                     </asp:UpdatePanel>                                                
                                 </td>
                             </tr>
@@ -305,10 +306,10 @@
                                                 EnabledStyle-HorizontalAlign="Right" >
                                             </telerik:RadNumericTextBox>
                                         </ContentTemplate>
-                                        <Triggers>
+                                        <%--<Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
                                             </asp:AsyncPostBackTrigger>
-                                        </Triggers>
+                                        </Triggers>--%>
                                     </asp:UpdatePanel>                                                                       
                                 </td>
                             </tr>
@@ -329,10 +330,10 @@
                                                 EnabledStyle-HorizontalAlign="Right">
                                             </telerik:RadNumericTextBox>
                                         </ContentTemplate>
-                                        <Triggers>
+                                        <%--<Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
                                             </asp:AsyncPostBackTrigger>
-                                        </Triggers>
+                                        </Triggers>--%>
                                     </asp:UpdatePanel> 
                                 </td>
                             </tr>
@@ -431,12 +432,15 @@
                                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_term" runat="server" Width="120" ShowMoreResultsBox="true"
-                                            EnableVirtualScrolling="true" EnableLoadOnDemand="true" >
+                                            EnableVirtualScrolling="true" EnableLoadOnDemand="true" 
+                                            OnItemsRequested="cb_term_ItemsRequested"
+                                            OnSelectedIndexChanged="cb_term_SelectedIndexChanged"
+                                            OnPreRender="cb_term_PreRender">
                                             </telerik:RadComboBox>                       
                                             &nbsp Days:
-                                            <telerik:RadTextBox ID="txt_term_days" Width="60px" 
+                                            <telerik:RadNumericTextBox ID="txt_term_days" Width="60px" 
                                                 runat="server" >
-                                            </telerik:RadTextBox>  
+                                            </telerik:RadNumericTextBox>  
                                         </ContentTemplate>
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">
@@ -446,7 +450,6 @@
                                                                      
                                 </td>
                             </tr>
-                                <tr>
                                 <td class="tdLabel">
                                     <telerik:RadLabel runat="server" Text="ATT Name" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
@@ -849,11 +852,9 @@
                                     <telerik:GridTemplateColumn HeaderText="Type" HeaderStyle-HorizontalAlign="Left" HeaderStyle-Width="40px" ItemStyle-HorizontalAlign="Left"  ItemStyle-Width="40px" 
                                         HeaderStyle-ForeColor="#009900">
                                         <ItemTemplate>  
-                                            <%#DataBinder.Eval(Container.DataItem, "prod_type")%>
-                                        </ItemTemplate>
-                                        <EditItemTemplate>
                                             <asp:Label runat="server" ID="lblProdType" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>
-                                        </EditItemTemplate>
+                                        </ItemTemplate>
+                                        
                                     </telerik:GridTemplateColumn>  
                                     <telerik:GridTemplateColumn UniqueName="prod_code" HeaderText="Prod. Code" HeaderStyle-Width="100px"
                                             SortExpression="prod_code" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left">
@@ -1016,13 +1017,17 @@
                         </td>
                         <td colspan="2" style="padding-top:0px; text-align:left">
                             <telerik:RadButton ID="btn_save" runat="server" Text="Save" CssClass="btn-wrapper" ForeColor="White"
-                                Skin="Material"></telerik:RadButton>
+                               Skin="Material" OnClick="btn_save_Click"></telerik:RadButton>
                         </td>
                     </tr>                   
                 </table>
             </div>
-
-    </div>
+        </div>
+        <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Initial text" Position="Center" Skin="Windows7" 
+            AutoCloseDelay="7000" Width="350" Height="110" Title="Current time" EnableRoundedCorners="true">
+        </telerik:RadNotification>
+        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true">
+        </telerik:RadWindowManager>
     </form>
 </body>
 </html>
