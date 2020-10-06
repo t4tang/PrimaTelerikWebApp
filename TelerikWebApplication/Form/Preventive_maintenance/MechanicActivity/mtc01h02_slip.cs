@@ -29,7 +29,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = _tr_code;
+            param.Value = "MA0120100002";
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
