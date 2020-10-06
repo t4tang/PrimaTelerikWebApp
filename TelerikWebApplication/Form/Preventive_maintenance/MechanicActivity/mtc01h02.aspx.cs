@@ -72,7 +72,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
             RadGrid1.DataBind();
         }
 
@@ -223,6 +223,23 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             RadGrid2.DataBind();
         }
 
+        
+
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            if (Session["action"].ToString() == "firstLoad")
+            {
+                if (RadGrid1.MasterTableView.Items.Count > 0)
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
+
+                foreach (GridDataItem gItem in RadGrid1.SelectedItems)
+                {
+                    tr_code = gItem["jobno"].Text;
+                }
+                populate_detail();
+            }
+        }
+
         public DataTable GetDataDetailTable(string jobno)
         {
             con.Open();
@@ -257,13 +274,13 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             }
             else
             {
-                (sender as RadGrid).DataSource = GetDataDetailTable(tr_code);
+                RadGrid2.DataSource = GetDataDetailTable(tr_code);
             }
         }
 
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
-            var jobtype = ((GridDataItem)e.Item).GetDataKeyValue("jobtype");
+            var jobno = ((GridDataItem)e.Item).GetDataKeyValue("jobno");
 
             try
             {
@@ -274,33 +291,21 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
                 cmd.Connection = con;
                 cmd.CommandText = "delete from mtc01d02 where jobtype = @jobtype and jobno = @jobno";
                 cmd.Parameters.AddWithValue("@jobno", tr_code);
-                cmd.Parameters.AddWithValue("@jobtype", jobtype);
+                cmd.Parameters.AddWithValue("@jobtype", jobno);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid2.DataBind();
 
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data deleted";
-                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-                RadGrid2.Controls.Add(lblsuccess);
+                notif.Text = "Data berhasil dihapus";
+                notif.Title = "Notification";
+                notif.Show();
             }
             catch (Exception ex)
             {
                 con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid2.Controls.Add(lblError);
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
                 e.Canceled = true;
             }
-        }
-
-        private static string GetStatusMessage(int offset, int total)
-        {
-            if (total <= 0)
-                return "No matches";
-
-            return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
         }
 
         protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
@@ -314,32 +319,52 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_mechanic_activityD";
                 cmd.Parameters.AddWithValue("@jobno", tr_code);
-                cmd.Parameters.AddWithValue("@jobtype", (item.FindControl("cb_jobnoD") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@jobtype", (item.FindControl("cb_job_code") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@time_tot", Convert.ToDouble((item.FindControl("txt_time_tot") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@adj_tot", Convert.ToDouble((item.FindControl("txt_adj") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@activity", (item.FindControl("txtactivity") as RadTextBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                RadGrid2.DataBind();
-                RadGrid2.Rebind();
 
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data saved";
-                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-                RadGrid2.Controls.Add(lblsuccess);
+                notif.Show();
             }
             catch (Exception ex)
             {
                 con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to insert data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid2.Controls.Add(lblError);
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
                 e.Canceled = true;
             }
         }
 
-        protected void cb_jobnoD_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_mechanic_activityD";
+                cmd.Parameters.AddWithValue("@jobno", tr_code);
+                cmd.Parameters.AddWithValue("@jobtype", (item.FindControl("lbl_job_code") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@time_tot", Convert.ToDouble((item.FindControl("lbl_time_tot") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@adj_tot", Convert.ToDouble((item.FindControl("txt_adj") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@activity", (item.FindControl("lblactivity") as RadTextBox).Text);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+        }
+
+        protected void cb_job_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             string sql = "SELECT [job_code], [job_name] FROM [mtc00h10]  WHERE stEdit != '4' AND job_name LIKE @job_name + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
@@ -366,24 +391,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             }
         }
 
-        protected void cb_jobnoD_PreRender(object sender, EventArgs e)
+        protected void cb_job_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT job_code FROM mtc00h10 WHERE job_name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr[0].ToString();
-            dr.Close();
-            con.Close();
-        }
-
-        protected void cb_jobnoD_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            Session["job_code"] = e.Value;
+            Session["action"] = "list";
 
             try
             {
@@ -417,56 +427,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             finally
             {
                 con.Close();
-            }
-        }
-
-        protected void RadGrid1_PreRender(object sender, EventArgs e)
-        {
-            if (Session["action"].ToString() == "firstLoad")
-            {
-                if (RadGrid1.MasterTableView.Items.Count > 0)
-                    RadGrid1.MasterTableView.Items[0].Selected = true;
-
-                foreach (GridDataItem gItem in RadGrid1.SelectedItems)
-                {
-                    tr_code = gItem["jobno"].Text;
-                }
-                populate_detail();
-            }
-        }
-        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
-        {
-            try
-            {
-                GridEditableItem item = (GridEditableItem)e.Item;
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
-                cmd.CommandText = "sp_save_mechanic_activityD";
-                cmd.Parameters.AddWithValue("@jobno", tr_code);
-                cmd.Parameters.AddWithValue("@jobtype", (item.FindControl("lbl_job_code") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@time_tot", Convert.ToDouble((item.FindControl("lbl_time_tot") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@adj_tot", Convert.ToDouble((item.FindControl("txt_adj") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@activity", (item.FindControl("lblactivity") as RadTextBox).Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                RadGrid2.DataBind();
-                RadGrid2.Rebind();
-
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data saved";
-                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-                RadGrid2.Controls.Add(lblsuccess);
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to insert data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid2.Controls.Add(lblError);
-                e.Canceled = true;
             }
         }
     }
