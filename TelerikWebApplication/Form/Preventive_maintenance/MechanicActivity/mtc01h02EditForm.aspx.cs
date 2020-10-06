@@ -309,7 +309,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "MA" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
+                        run = "MA01" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {

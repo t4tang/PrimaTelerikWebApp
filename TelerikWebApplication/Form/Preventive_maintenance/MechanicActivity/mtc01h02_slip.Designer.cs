@@ -229,7 +229,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             // 
             this.textBox10.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2.6738035678863525D), Telerik.Reporting.Drawing.Unit.Cm(4.3031411170959473D));
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2000002861022949D), Telerik.Reporting.Drawing.Unit.Cm(0.59999984502792358D));
+            this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(5.2261962890625D), Telerik.Reporting.Drawing.Unit.Cm(0.59999984502792358D));
             this.textBox10.Value = "= Fields.region_name";
             // 
             // textBox14
@@ -250,7 +250,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             // 
             this.textBox12.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2.6738040447235107D), Telerik.Reporting.Drawing.Unit.Cm(4.9033412933349609D));
             this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2000002861022949D), Telerik.Reporting.Drawing.Unit.Cm(0.59999984502792358D));
+            this.textBox12.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(5.2261962890625D), Telerik.Reporting.Drawing.Unit.Cm(0.59999984502792358D));
             this.textBox12.Value = "= Fields.Name";
             // 
             // textBox29
@@ -388,11 +388,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             this.textBox18.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
             this.textBox18.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
             this.textBox18.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
-            this.textBox18.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox18.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox18.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox18.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox18.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox18.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox18.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox18.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox18.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox18.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox18.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox18.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox18.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -412,11 +412,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             this.textBox17.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
             this.textBox17.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
             this.textBox17.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
-            this.textBox17.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox17.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox17.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox17.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox17.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox17.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox17.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox17.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox17.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox17.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox17.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox17.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox17.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -436,11 +436,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             this.textBox16.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
             this.textBox16.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
             this.textBox16.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
-            this.textBox16.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox16.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox16.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox16.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox16.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox16.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox16.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox16.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox16.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox16.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox16.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox16.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox16.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -459,11 +459,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             this.textBox15.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
             this.textBox15.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
             this.textBox15.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(96)))), ((int)(((byte)(146)))));
-            this.textBox15.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox15.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox15.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox15.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox15.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox15.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox15.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox15.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox15.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox15.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox15.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox15.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox15.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -525,7 +525,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             this.detail,
             this.pageFooterSection1});
             this.Name = "mtc01h02_slip";
-            this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D));
+            this.PageSettings.ContinuousPaper = false;
+            this.PageSettings.Landscape = false;
+            this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Cm(1D), Telerik.Reporting.Drawing.Unit.Pixel(1D), Telerik.Reporting.Drawing.Unit.Cm(1D), Telerik.Reporting.Drawing.Unit.Pixel(1D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
             new Telerik.Reporting.Drawing.TypeSelector(typeof(Telerik.Reporting.TextItemBase)),
