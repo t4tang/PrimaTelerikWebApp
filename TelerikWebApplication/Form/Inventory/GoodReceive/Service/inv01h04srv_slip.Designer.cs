@@ -579,7 +579,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
             this.textBox40,
             this.textBox39});
             this.pageFooterSection1.Name = "pageFooterSection1";
-            this.pageFooterSection1.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox58
             // 
