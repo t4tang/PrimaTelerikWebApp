@@ -16,7 +16,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
         {
             this.Title = Request.QueryString["lbm_code"];
             this.reportViewer_inv01h04.ViewMode = ViewMode.PrintPreview;
-            inv01h04_slip._tr_code = Request.QueryString["lbm_code"];
+            inv01h04srv_slip._tr_code = Request.QueryString["lbm_code"];
         }
     }
 }
