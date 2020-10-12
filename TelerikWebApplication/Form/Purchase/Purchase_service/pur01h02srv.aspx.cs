@@ -120,7 +120,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
         }
         protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            var doc_code = ((GridDataItem)e.Item).GetDataKeyValue("pr_code");
+            var doc_code = ((GridDataItem)e.Item).GetDataKeyValue("po_code");
 
             try
             {
