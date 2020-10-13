@@ -117,22 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
-    <value>{"@slip_no":"B01K3050065"}</value>
+  <metadata name="sqlDataSource2.ParameterValues" xml:space="preserve">
+    <value>{"@tglawal":"2019-07-01","@tglakhir":"2019-07-31","@accountno":"100-"}</value>
   </metadata>
-  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
-    <value>SELECT        v_bank_paymentH.slip_no, v_bank_paymentH.slip_date, v_bank_paymentH.accountno, v_bank_paymentH.supplier_name, v_bank_paymentH.NamBank, v_bank_paymentH.cashbank, v_bank_paymentH.Remark, v_bank_paymentH.Remark1, 
-                         v_bank_paymentH.noctrl, v_bank_paymentH.RequestBy, v_bank_paymentH.Checkby, v_bank_paymentH.Approveby, v_bank_paymentD.remark AS Expr1, v_bank_paymentD.pay_amount, v_bank_paymentD.inv_code, 
-                         v_bank_paymentD.dept_code, v_bank_paymentD.region_code, v_bank_paymentH.tot_pay, dbo.fg_terbilang_eng(v_bank_paymentH.tot_pay, 'IDR') AS Terbilang, v_bank_paymentH.cur_code, inv00h15.company_name, inv00h15.address1, 
-                         inv00h26.Jabatan AS pre_jab, inv00h26_1.Jabatan AS check_jab, inv00h26_2.Jabatan AS app_jab
-FROM            inv00h15 CROSS JOIN
-                         inv00h26 AS inv00h26_2 INNER JOIN
-                         inv00h26 INNER JOIN
-                         v_bank_paymentD INNER JOIN
-                         v_bank_paymentH ON v_bank_paymentD.slip_no = v_bank_paymentH.slip_no ON inv00h26.Nik = v_bank_paymentH.freby INNER JOIN
-                         inv00h26 AS inv00h26_1 ON v_bank_paymentH.ordby = inv00h26_1.Nik ON inv00h26_2.Nik = v_bank_paymentH.appby
-WHERE        (v_bank_paymentH.slip_no = @slip_no)</value>
-  </data>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>
   </metadata>
