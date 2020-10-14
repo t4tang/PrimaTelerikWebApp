@@ -1,4 +1,4 @@
-namespace ReportLibrary.Reports
+namespace ReportLibrary.Reports.Inventory
 {
     partial class WorkOrderAndUserRequestMonitoring
     {

@@ -1,4 +1,4 @@
-namespace ReportLibrary.Reports
+namespace ReportLibrary.Reports.Inventory
 {
     using System;
     using System.ComponentModel;
@@ -10,12 +10,13 @@ namespace ReportLibrary.Reports
     /// <summary>
     /// Summary description for rpt_pr_to_gr.
     /// </summary>
-    public partial class rpt_pr_to_gr : Telerik.Reporting.Report
+    [Description("Display the tracking of Purchase Request to Goods Receive proccess in a given periode")]
+    public partial class PurchaseRequestToGoodsReceiveReport : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
-        public rpt_pr_to_gr()
+        public PurchaseRequestToGoodsReceiveReport()
         {
             //
             // Required for telerik Reporting designer support

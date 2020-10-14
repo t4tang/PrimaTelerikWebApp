@@ -1,6 +1,6 @@
-namespace ReportLibrary.Reports
+namespace ReportLibrary.Reports.Inventory
 {
-    partial class rpt_pr_to_gr
+    partial class PurchaseRequestToGoodsReceiveReport
     {
         #region Component Designer generated code
         /// <summary>
@@ -218,7 +218,7 @@ namespace ReportLibrary.Reports
             // textBox22
             // 
             this.textBox22.Format = "{0:d}";
-            this.textBox22.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(7.6000785827636719D), Telerik.Reporting.Drawing.Unit.Inch(0.41614198684692383D));
+            this.textBox22.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(8.1889772415161133D), Telerik.Reporting.Drawing.Unit.Inch(0.41614198684692383D));
             this.textBox22.Name = "textBox22";
             this.textBox22.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.6999630928039551D), Telerik.Reporting.Drawing.Unit.Inch(0.483858197927475D));
             this.textBox22.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
@@ -233,7 +233,7 @@ namespace ReportLibrary.Reports
             // 
             // textBox21
             // 
-            this.textBox21.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(7.6000785827636719D), Telerik.Reporting.Drawing.Unit.Inch(0.033070962876081467D));
+            this.textBox21.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(8.1889772415161133D), Telerik.Reporting.Drawing.Unit.Inch(0.033070962876081467D));
             this.textBox21.Name = "textBox21";
             this.textBox21.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.6999616622924805D), Telerik.Reporting.Drawing.Unit.Inch(0.33307099342346191D));
             this.textBox21.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
@@ -267,7 +267,7 @@ namespace ReportLibrary.Reports
             // 
             // table1
             // 
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.72648197412490845D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.72648191452026367D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.109144926071167D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.91791290044784546D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.1450008153915405D)));
@@ -276,7 +276,7 @@ namespace ReportLibrary.Reports
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.0983797311782837D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.1808574199676514D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.85533982515335083D)));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.7950854301452637D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.7950853109359741D)));
             this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.22615465521812439D)));
             this.table1.Body.SetCellContent(0, 0, this.textBox11);
             this.table1.Body.SetCellContent(0, 1, this.textBox12);
@@ -475,12 +475,13 @@ namespace ReportLibrary.Reports
             // sqlDataSourcePR2GR
             // 
             this.sqlDataSourcePR2GR.CommandTimeout = 0;
-            this.sqlDataSourcePR2GR.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
+            this.sqlDataSourcePR2GR.ConnectionString = "Data Source=PSGHONB036;Initial Catalog=PSG_DEV;User ID=IT;Password=PSGPRO";
             this.sqlDataSourcePR2GR.Name = "sqlDataSourcePR2GR";
             this.sqlDataSourcePR2GR.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@project", System.Data.DbType.AnsiString, null),
             new Telerik.Reporting.SqlDataSourceParameter("@tglawal", System.Data.DbType.DateTime, null),
             new Telerik.Reporting.SqlDataSourceParameter("@tglakhir", System.Data.DbType.DateTime, null)});
+            this.sqlDataSourcePR2GR.ProviderName = "System.Data.SqlClient";
             this.sqlDataSourcePR2GR.SelectCommand = "dbo.spr_pr_to_gr";
             this.sqlDataSourcePR2GR.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
@@ -506,13 +507,13 @@ namespace ReportLibrary.Reports
             this.textBox24.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox24.Value = "Print Date :{Today()}";
             // 
-            // rpt_pr_to_gr
+            // PurchaseRequestToGoodsReceiveReport
             // 
             this.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.pageHeaderSection1,
             this.detail,
             this.pageFooterSection1});
-            this.Name = "rpt_pr_to_gr";
+            this.Name = "PurchaseRequestToGoodsReceiveReport";
             this.PageSettings.ContinuousPaper = false;
             this.PageSettings.Landscape = true;
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Cm(1D), Telerik.Reporting.Drawing.Unit.Cm(1D), Telerik.Reporting.Drawing.Unit.Cm(1D), Telerik.Reporting.Drawing.Unit.Cm(1D));
