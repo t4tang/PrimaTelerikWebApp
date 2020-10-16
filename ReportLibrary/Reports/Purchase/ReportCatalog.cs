@@ -1,4 +1,4 @@
-namespace ReportLibrary.Reports.Fico
+namespace ReportLibrary.Reports.Purchase
 {
     using System.ComponentModel;
 

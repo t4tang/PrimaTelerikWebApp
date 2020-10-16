@@ -1,4 +1,4 @@
-namespace ReportLibrary.Reports.Fico
+namespace ReportLibrary.Reports.Inventory
 {
     using System.Data;
     using Telerik.Reporting;
@@ -17,6 +17,7 @@ namespace ReportLibrary.Reports.Fico
             Telerik.Reporting.TypeReportSource typeReportSource1 = new Telerik.Reporting.TypeReportSource();
             Telerik.Reporting.NavigateToUrlAction navigateToUrlAction1 = new Telerik.Reporting.NavigateToUrlAction();
             Telerik.Reporting.NavigateToUrlAction navigateToUrlAction2 = new Telerik.Reporting.NavigateToUrlAction();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportCatalog));
             Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule2 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule3 = new Telerik.Reporting.Drawing.StyleRule();
@@ -147,6 +148,7 @@ namespace ReportLibrary.Reports.Fico
             this.textBox5.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(6.3000006675720215D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3699995279312134D), Telerik.Reporting.Drawing.Unit.Inch(0.3608449399471283D));
+            this.textBox5.Style.BackgroundImage.ImageData = ((System.Drawing.Image)(resources.GetObject("textBox5.Style.BackgroundImage.ImageData")));
             this.textBox5.Style.BackgroundImage.MimeType = "image/png";
             this.textBox5.Style.BackgroundImage.Repeat = Telerik.Reporting.Drawing.BackgroundRepeat.NoRepeat;
             this.textBox5.Style.Color = System.Drawing.Color.White;
@@ -173,7 +175,7 @@ namespace ReportLibrary.Reports.Fico
             // 
             // textBox7
             // 
-            this.textBox7.Action = null;
+            this.textBox7.Action = navigateToUrlAction1;
             this.textBox7.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(10.341832160949707D), Telerik.Reporting.Drawing.Unit.Cm(1.4000000953674316D));
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.13996696472168D), Telerik.Reporting.Drawing.Unit.Cm(0.56659996509552D));
@@ -215,7 +217,7 @@ namespace ReportLibrary.Reports.Fico
             this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(5.3905510902404785D), Telerik.Reporting.Drawing.Unit.Inch(0.39992132782936096D));
             this.textBox9.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(20D);
             this.textBox9.StyleName = "Header";
-            this.textBox9.Value = "Finance - Controling Report Dashboard";
+            this.textBox9.Value = "Inventory Report Dashboard";
             // 
             // ReportCatalog
             // 

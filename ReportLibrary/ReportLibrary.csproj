@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -52,6 +53,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ReportManager.cs" />
     <Compile Include="Reports\Fico\ActualVsBudget.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -118,6 +120,18 @@
     <Compile Include="Reports\Fico\TrialBalance.Designer.cs">
       <DependentUpon>TrialBalance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Inventory\ReportCatalog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\ReportCatalog.designer.cs">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\rpt_goods_receive.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\rpt_goods_receive.Designer.cs">
+      <DependentUpon>rpt_goods_receive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Inventory\rpt_pr_to_gr.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -129,6 +143,12 @@
     </Compile>
     <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.designer.cs">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\ReportCatalog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\ReportCatalog.designer.cs">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Purchase\rpt_purchase_order.cs">
       <SubType>Component</SubType>
@@ -197,6 +217,9 @@
     <EmbeddedResource Include="Reports\Fico\ProfitAndLostDetailAllSite.resx">
       <DependentUpon>ProfitAndLostDetailAllSite.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\ReportCatalog.resx">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Fico\rpt_bank_mutation.resx">
       <DependentUpon>rpt_bank_mutation.cs</DependentUpon>
     </EmbeddedResource>
@@ -215,11 +238,20 @@
     <EmbeddedResource Include="Reports\Fico\TrialBalance.resx">
       <DependentUpon>TrialBalance.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\ReportCatalog.resx">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\rpt_goods_receive.resx">
+      <DependentUpon>rpt_goods_receive.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_pr_to_gr.resx">
       <DependentUpon>rpt_pr_to_gr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_WO_UR_Monitoring.resx">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\ReportCatalog.resx">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Purchase\rpt_purchase_order.resx">
       <DependentUpon>rpt_purchase_order.cs</DependentUpon>

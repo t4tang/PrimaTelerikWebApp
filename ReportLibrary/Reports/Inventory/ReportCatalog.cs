@@ -1,4 +1,4 @@
-namespace ReportLibrary.Reports.Fico
+namespace ReportLibrary.Reports.Inventory
 {
     using System.ComponentModel;
 
@@ -18,6 +18,7 @@ namespace ReportLibrary.Reports.Fico
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
+
         }
     }
 }
