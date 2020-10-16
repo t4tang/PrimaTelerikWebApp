@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,17 +52,131 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Fico\ActualVsBudget.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\ActualVsBudget.Designer.cs">
+      <DependentUpon>ActualVsBudget.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\ActualVsBudgetYTD.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\ActualVsBudgetYTD.Designer.cs">
+      <DependentUpon>ActualVsBudgetYTD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\ProfitAndLostDetail.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\ProfitAndLostDetail.Designer.cs">
+      <DependentUpon>ProfitAndLostDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\ProfitAndLostDetailAllSite.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\ProfitAndLostDetailAllSite.Designer.cs">
+      <DependentUpon>ProfitAndLostDetailAllSite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\ReportCatalog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\ReportCatalog.Designer.cs">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_bank_mutation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_bank_mutation.designer.cs">
+      <DependentUpon>rpt_bank_mutation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_cash_bank_mutation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_cash_bank_mutation.designer.cs">
+      <DependentUpon>rpt_cash_bank_mutation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_cash_mutation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_cash_mutation.designer.cs">
+      <DependentUpon>rpt_cash_mutation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_general_journal.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_general_journal.Designer.cs">
+      <DependentUpon>rpt_general_journal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_payment_request_monitoring.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_payment_request_monitoring.Designer.cs">
+      <DependentUpon>rpt_payment_request_monitoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\TrialBalance.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\TrialBalance.Designer.cs">
+      <DependentUpon>TrialBalance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\rpt_pr_to_gr.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\rpt_pr_to_gr.designer.cs">
+      <DependentUpon>rpt_pr_to_gr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.designer.cs">
+      <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_purchase_order.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_purchase_order.Designer.cs">
+      <DependentUpon>rpt_purchase_order.cs</DependentUpon>
+    </Compile>
     <Compile Include="slip\acc01h01_slip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="slip\acc01h01_slip.Designer.cs">
       <DependentUpon>acc01h01_slip.cs</DependentUpon>
     </Compile>
+    <Compile Include="slip\acc01h02_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="slip\acc01h02_slip.Designer.cs">
+      <DependentUpon>acc01h02_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="slip\acc01h03c_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="slip\acc01h03c_slip.Designer.cs">
+      <DependentUpon>acc01h03c_slip.cs</DependentUpon>
+    </Compile>
     <Compile Include="slip\acc01h05_slip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="slip\acc01h05_slip.Designer.cs">
       <DependentUpon>acc01h05_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="slip\inv01h03_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="slip\inv01h03_slip.Designer.cs">
+      <DependentUpon>inv01h03_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="slip\inv01h05fc_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="slip\inv01h05fc_slip.Designer.cs">
+      <DependentUpon>inv01h05fc_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="slip\pur01h02_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="slip\pur01h02_slip.Designer.cs">
+      <DependentUpon>pur01h02_slip.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -73,8 +188,63 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\Fico\ActualVsBudgetYTD.resx">
+      <DependentUpon>ActualVsBudgetYTD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\ProfitAndLostDetail.resx">
+      <DependentUpon>ProfitAndLostDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\ProfitAndLostDetailAllSite.resx">
+      <DependentUpon>ProfitAndLostDetailAllSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\rpt_bank_mutation.resx">
+      <DependentUpon>rpt_bank_mutation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\rpt_cash_bank_mutation.resx">
+      <DependentUpon>rpt_cash_bank_mutation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\rpt_cash_mutation.resx">
+      <DependentUpon>rpt_cash_mutation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\rpt_general_journal.resx">
+      <DependentUpon>rpt_general_journal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\rpt_payment_request_monitoring.resx">
+      <DependentUpon>rpt_payment_request_monitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\TrialBalance.resx">
+      <DependentUpon>TrialBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\rpt_pr_to_gr.resx">
+      <DependentUpon>rpt_pr_to_gr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\rpt_WO_UR_Monitoring.resx">
+      <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_purchase_order.resx">
+      <DependentUpon>rpt_purchase_order.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="slip\acc01h01_slip.resx">
       <DependentUpon>acc01h01_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="slip\acc01h02_slip.resx">
+      <DependentUpon>acc01h02_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="slip\acc01h03c_slip.resx">
+      <DependentUpon>acc01h03c_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="slip\acc01h04_slip.resx" />
+    <EmbeddedResource Include="slip\acc01h05_slip.resx">
+      <DependentUpon>acc01h05_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="slip\inv01h03_slip.resx">
+      <DependentUpon>inv01h03_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="slip\inv01h05fc_slip.resx">
+      <DependentUpon>inv01h05fc_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="slip\pur01h02_slip.resx">
+      <DependentUpon>pur01h02_slip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
