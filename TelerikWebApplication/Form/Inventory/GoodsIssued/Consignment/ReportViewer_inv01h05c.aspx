@@ -30,7 +30,7 @@
 			Height="600px"
 			EnableAccessibility="false"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment.inv01h05c_slip, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment.inv01h05c_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
     </form>
