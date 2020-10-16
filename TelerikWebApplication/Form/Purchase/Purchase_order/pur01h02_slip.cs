@@ -16,7 +16,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
     public partial class pur01h02_slip : Telerik.Reporting.Report
     {
         public static string _tr_code;
-        //public static string _tr_code = "PO0319110200";
+        //public static string _tr_code = "PO0320070360";
         public static string _unit_code;
         public static double _tot_amount;
 
@@ -34,7 +34,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             param.AllowNull = false;
             param.Value = _tr_code;
             //param.Value = "PO0319110199";
-            //param.Value = "PO0319110200";
+            //param.Value = "PO0320070360";
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 

@@ -671,7 +671,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
-            else if ((sender as RadComboBox).Text == "Compliment")
+            else if ((sender as RadComboBox).Text == "Consigment")
             {
                 (sender as RadComboBox).SelectedValue = "2";
             }
