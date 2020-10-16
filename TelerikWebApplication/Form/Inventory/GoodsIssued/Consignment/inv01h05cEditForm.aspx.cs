@@ -266,6 +266,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
                         cmd.Parameters.AddWithValue("@twarranty", 0);
                     }
                     cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark") as RadTextBox).Text);
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
@@ -352,7 +353,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             dr.Close();
             con.Close();
         }
-
         protected void cb_Project_PreRender(object sender, EventArgs e)
         {
             con.Open();
@@ -367,7 +367,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             dr.Close();
             con.Close();
         }
-
         #endregion
 
         #region Cust/Sup
@@ -793,6 +792,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             dr.Close();
             con.Close();
         }
+
 
 
 

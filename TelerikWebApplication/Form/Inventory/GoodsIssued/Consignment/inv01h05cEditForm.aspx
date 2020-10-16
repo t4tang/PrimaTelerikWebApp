@@ -115,7 +115,7 @@
                                     </td>
                                     <td>
                                         <telerik:RadComboBox ID="cb_Project" runat="server" RenderMode="Lightweight" Skin="Telerik" EnableLoadOnDemand="true"  CausesValidation="false"
-                                            EnableVirtualScrolling="true" MarkFirstMatch="true" ShowMoreResultsBox="true" AutoPostBack="true" Width="250" DropDownWidth="270px" 
+                                            EnableVirtualScrolling="true" MarkFirstMatch="true" ShowMoreResultsBox="true" AutoPostBack="true" Width="250" DropDownWidth="270px" Enabled="true" 
                                             OnItemsRequested="cb_Project_ItemsRequested"
                                             OnSelectedIndexChanged="cb_Project_SelectedIndexChanged"
                                             OnPreRender="cb_Project_PreRender">
