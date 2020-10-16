@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Reports.Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TelerikWebApplication.Form.Purchase.Reports.Default" %>
 <%@ Register TagPrefix="telerik" Assembly="Telerik.ReportViewer.Html5.WebForms" Namespace="Telerik.ReportViewer.Html5.WebForms" %>
 <%@ Register Assembly="Telerik.ReportViewer.Html5.WebForms, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" Namespace="Telerik.ReportViewer.Html5.WebForms" TagPrefix="telerik" %>
 
@@ -79,7 +79,7 @@
 			    EnableAccessibility="false" >
             <ReportSource
                 IdentifierType="TypeReportSource" 
-                Identifier="ReportLibrary.Reports.Fico.ReportCatalog, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                Identifier="ReportLibrary.Reports.Purchase.ReportCatalog, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
              
         </telerik:ReportViewer>

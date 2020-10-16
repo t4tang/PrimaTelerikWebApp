@@ -17,6 +17,8 @@ namespace TelerikWebApplication.Forms.Purchase
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
+
+        public static string tr_name { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -25,11 +27,14 @@ namespace TelerikWebApplication.Forms.Purchase
                 lbl_form_name.Text = "Document Review";
                 RadListBox1.DataSource = GetDataTable();
                 RadListBox1.DataBind();
+
+                RadGrid2.DataSource = new string[] { };
             }
         }
-        protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        
+        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable();
+            (sender as RadGrid).DataSource = GetDataDetailTable(tr_name);
         }
         public DataTable GetDataTable()
         {
@@ -68,27 +73,15 @@ namespace TelerikWebApplication.Forms.Purchase
 
             }
         }
-        protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
+      
+        protected void RadListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //foreach (GridDataItem item in RadGrid1.SelectedItems)
-            //{
-            //    RadGrid2.DataSource = GetDataDetailTable(item["TRANSAKSI"].Text);
-            //    RadGrid2.DataBind();
-            //}
-            ////populate_detail();
-        }
-        private void populate_detail()
-        {
-            //if (tr_code == null)
-            //{
-            //    RadGrid2.DataSource = new string[] { };
-            //}
-            //else
-            //{
-            //RadGrid2.DataSource = GetDataDetailTable(tr_code);
-            //}
-
-            RadGrid2.DataBind();
+            foreach (RadListBoxItem item in RadListBox1.SelectedItems)
+            {
+                tr_name = item.Text;
+                RadGrid2.DataSource = GetDataDetailTable(item.Text);
+                RadGrid2.DataBind();
+            }
         }
         public DataTable GetDataDetailTable(string transaction_name)
         {
@@ -194,13 +187,5 @@ namespace TelerikWebApplication.Forms.Purchase
 
         }
 
-        protected void RadListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            foreach (RadListBoxItem item in RadListBox1.SelectedItems)
-            {
-                RadGrid2.DataSource = GetDataDetailTable(item.Text);
-                RadGrid2.DataBind();
-            }
-        }
     }
 }

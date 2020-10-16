@@ -158,20 +158,25 @@
     
         <div style="float:right;width:72%;">                
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid2"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
-                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="17"
-                OnItemCreated="RadGrid2_ItemCreated" >
+                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="12"
+                OnItemCreated="RadGrid2_ItemCreated" 
+                OnNeedDataSource="RadGrid2_NeedDataSource" >
                 <PagerStyle Mode="Slider" VerticalAlign="NotSet" PageSizeControlType="RadComboBox"></PagerStyle>                
                 <HeaderStyle CssClass="gridHeader" />
                 <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
                 <SortingSettings EnableSkinSortStyles="false" />
                 <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="tr_no" Font-Size="12px" 
+                    HeaderStyle-Font-Size="11px" HeaderStyle-BorderColor="Teal" HeaderStyle-BorderStyle="None"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="false" CommandItemSettings-ShowAddNewRecordButton="false"
-                        CommandItemSettings-ShowRefreshButton="false" >
+                    HeaderStyle-ForeColor="Teal" HeaderStyle-Font-Bold="true"  CommandItemSettings-ShowRefreshButton="false" >
+                    <ColumnGroups>
+                        <telerik:GridColumnGroup HeaderText="Approval" HeaderStyle-BorderColor="Teal" Name="grp_approve" HeaderStyle-HorizontalAlign="Center"></telerik:GridColumnGroup>
+                    </ColumnGroups>
                     <Columns>
                         <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="30px" ></telerik:GridClientSelectColumn> 
                         <telerik:GridBoundColumn UniqueName="tr_no" HeaderText="Doc. Number" DataField="tr_no">
-                            <HeaderStyle Width="100px"></HeaderStyle>
-                            <ItemStyle Width="100px" />
+                            <HeaderStyle Width="120px"></HeaderStyle>
+                            <ItemStyle Width="120px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="tr_date" HeaderText="Date" DataField="tr_date" ItemStyle-Width="80px" 
                             EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
@@ -183,23 +188,23 @@
                             FilterControlWidth="40px" >
                             <HeaderStyle Width="40px"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                    <telerik:GridTemplateColumn HeaderText="Approval 1" HeaderStyle-Width="80px" ItemStyle-Width="80px" ItemStyle-HorizontalAlign="Center" 
-                            HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center" ReadOnly="true">
+                    <telerik:GridTemplateColumn HeaderText="1" HeaderStyle-Width="20px" ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center" 
+                         ColumnGroupName="grp_approve"    HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center" ReadOnly="true">
                         <ItemTemplate>
                             <asp:CheckBox runat="server" ID="edt_chkApv1" OnCheckedChanged="edt_chkApv1_CheckedChanged" OnPreRender="edt_chkApv1_PreRender"
                                 Checked='<%# DataBinder.Eval(Container.DataItem, "bool_apv1") %>' Enabled="false"/>
                         </ItemTemplate>                                        
                     </telerik:GridTemplateColumn>
-                    <telerik:GridTemplateColumn HeaderText="Approval 2" HeaderStyle-Width="80px" ItemStyle-Width="80px" ItemStyle-HorizontalAlign="Center"
-                        HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center" ReadOnly="true">
+                    <telerik:GridTemplateColumn HeaderText="2" HeaderStyle-Width="20px" ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center"
+                      ColumnGroupName="grp_approve"  HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center" ReadOnly="true">
                         <ItemTemplate>
-                            <asp:CheckBox runat="server" ID="edt_chkApv2" OnCheckedChanged="edt_chkApv2_CheckedChanged" OnPreRender="edt_chkApv2_PreRender"
+                            <asp:CheckBox runat="server" ID="edt_chkApv2"  OnCheckedChanged="edt_chkApv2_CheckedChanged" OnPreRender="edt_chkApv2_PreRender"
                                 Checked='<%# DataBinder.Eval(Container.DataItem, "bool_apv2") %>' Enabled="false"/>
                         </ItemTemplate>
                                                                                
                     </telerik:GridTemplateColumn>
-                    <telerik:GridTemplateColumn HeaderText="Approval 3" HeaderStyle-Width="80px" ItemStyle-Width="80px" ItemStyle-HorizontalAlign="Center"
-                            HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center" ReadOnly="true">
+                    <telerik:GridTemplateColumn HeaderText="3" HeaderStyle-Width="20px" ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center"
+                         ColumnGroupName="grp_approve"  HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center" ReadOnly="true">
                         <ItemTemplate>
                             <asp:CheckBox runat="server" ID="edt_chkApv3" OnCheckedChanged="edt_chkApv3_CheckedChanged" OnPreRender="edt_chkApv3_PreRender"
                                 Checked='<%# DataBinder.Eval(Container.DataItem, "bool_apv3") %>'  Enabled="false"/>
