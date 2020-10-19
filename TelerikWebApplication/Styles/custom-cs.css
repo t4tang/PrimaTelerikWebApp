@@ -429,8 +429,8 @@ a.RadButton_MetroTouch.rbImageButton:focus {
 
 .btn-wrapper {
     /*width:100%;*/
-    min-width:105px;
-    min-height: 35px;
+    min-width:55px;
+    min-height: 25px;
     padding-left:15px; 
     border-bottom-color: #FF9933; 
     border-bottom-width: 1px; 
@@ -446,6 +446,16 @@ a.RadButton_MetroTouch.rbImageButton:focus {
     border-color:greenyellow;
    }
 
+.btn-style1 {
+    /*width:100%;*/
+    min-width:105px;
+    min-height: 15px;
+    padding: 20px 0px 0px 15px;
+    border-bottom-color: #FF9933; 
+    border-bottom-width: 1px; 
+    border-bottom-style: inset;
+    background-color: deeppink !important;
+   }
 /*Editor*/
 .background-blackmetrotouch .demo-container.wrapper,
 .background-black .demo-container.wrapper,

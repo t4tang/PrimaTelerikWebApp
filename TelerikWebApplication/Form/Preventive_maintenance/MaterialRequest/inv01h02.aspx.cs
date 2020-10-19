@@ -20,6 +20,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
         private const int ItemsPerRequest = 10;
         public static string tr_code = null;
+        public static string wo_code = null;
         public static string selected_project = null;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,6 +31,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 selected_project = public_str.site;
+                cb_proj_prm.SelectedValue = public_str.site;
                 cb_proj_prm.Text = public_str.sitename;
 
                 tr_code = null;
@@ -124,13 +126,16 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             if (tr_code == null)
             {
                 RadGrid2.DataSource = new string[] { };
+                RadGrid3.DataSource = new string[] { };
             }
             else
             {
-                RadGrid2.DataSource = GetDataDetailTable(tr_code);
+                RadGrid2.DataSource = GetDataOpertionTable(wo_code);
+                RadGrid3.DataSource = GetDataDetailTable(tr_code);
             }
 
             RadGrid2.DataBind();
+            RadGrid3.DataBind();
         }
 
         private static string GetStatusMessage(int offset, int total)
@@ -226,6 +231,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             foreach (GridDataItem item in RadGrid1.SelectedItems)
             {
                 tr_code = item["sro_code"].Text;
+                wo_code = item["trans_id"].Text;
             }
 
             populate_detail();
@@ -239,7 +245,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_material_requestD";
-            cmd.Parameters.AddWithValue("@doh_code", sro_code);
+            cmd.Parameters.AddWithValue("@sro_code", sro_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -257,7 +263,31 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
             return DT;
         }
+        public DataTable GetDataOpertionTable(string trans_id)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT a.*, b.OprName FROM mtc01h03 a, mtc00h25 b WHERE a.chart_code = b.OprCode AND trans_id = @sro_code";
+            cmd.Parameters.AddWithValue("@sro_code", trans_id);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
 
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             if (tr_code == null)
@@ -266,7 +296,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             }
             else
             {
-                (sender as RadGrid).DataSource = GetDataDetailTable(tr_code);
+                (sender as RadGrid).DataSource = GetDataOpertionTable(tr_code);
             }
         }
 
@@ -301,6 +331,18 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 lblError.ForeColor = System.Drawing.Color.Red;
                 RadGrid2.Controls.Add(lblError);
                 e.Canceled = true;
+            }
+        }
+
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (tr_code == null)
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = GetDataDetailTable(tr_code);
             }
         }
     }

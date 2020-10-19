@@ -20,20 +20,25 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
         private const int ItemsPerRequest = 10;
 
+        public static string tr_code = null;
+        //public static string wo_code = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 if (Request.QueryString["sro_code"] != null)
                 {
+                    DetailPage.Enabled = true;
                     dtp_date.SelectedDate = DateTime.Now;
                     dtp_deliv.SelectedDate = DateTime.Now;
                     fill_object(Request.QueryString["sro_code"].ToString());
                     //RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["sro_code"].ToString());
+                    tr_code = Request.QueryString["sro_code"].ToString();
                     Session["actionEdit"] = "edit";
                 }
                 else
                 {
+                    DetailPage.Enabled = false;
                     Session["actionEdit"] = "new";
                     //cb_type_ref.Text = "Consumption";
                     //cb_type_ref.SelectedValue = "6";
@@ -50,6 +55,18 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 return "No matches";
 
             return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
+        }
+
+        protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (tr_code == null)
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = GetDataOpertionTable(tr_code);
+            }
         }
 
         #region Project
@@ -523,14 +540,14 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         }
         #endregion
 
-        public DataTable GetDataDetailTable(string do_code)
+        public DataTable GetDataDetailTable(string sro_code)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_material_requestD";
-            cmd.Parameters.AddWithValue("@doh_code", do_code);
+            cmd.Parameters.AddWithValue("@sro_code", sro_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -548,10 +565,42 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
             return DT;
         }
+        public DataTable GetDataOpertionTable(string sro_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT c.sro_code, a.trans_id, a.chart_code, b.OprName FROM mtc01h03 a, mtc00h25 b, inv01h02 c " +
+                "WHERE a.chart_code = b.OprCode AND c.trans_id = a.trans_id AND c.sro_code = @sro_code";
+            cmd.Parameters.AddWithValue("@sro_code", sro_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
 
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            RadGrid2.DataSource = GetDataDetailTable(txt_mr_number.Text);
+            if (tr_code == null)
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = GetDataDetailTable(tr_code);
+            }
         }
 
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
@@ -570,12 +619,12 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd.Parameters.AddWithValue("@part_code", part_code);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                RadGrid2.DataBind();
+                //RadGrid2.DataBind();
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data deleted";
                 lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-                RadGrid2.Controls.Add(lblsuccess);
+                //RadGrid2.Controls.Add(lblsuccess);
             }
             catch (Exception ex)
             {
@@ -583,7 +632,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 Label lblError = new Label();
                 lblError.Text = "Unable to delete data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid2.Controls.Add(lblError);
+                //RadGrid2.Controls.Add(lblError);
                 e.Canceled = true;
             }
         }
@@ -602,19 +651,18 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cb_wo.Text = sdr["trans_id"].ToString();
                 txt_unit.Text = sdr["unit_code"].ToString();
                 dtp_deliv.SelectedDate = Convert.ToDateTime(sdr["deliv_date"].ToString());
-                cb_priority.Text = sdr["prio_desc"].ToString();
-
+                cb_priority.Text = sdr["priority"].ToString();
                 cb_Order.Text = sdr["OrderName"].ToString();
                 cb_job.Text = sdr["PMAct_Name"].ToString();
-                cb_ordered.Text = sdr["OrdByName"].ToString();
-                cb_checked.Text = sdr["CheckedByName"].ToString();
-                cb_ack.Text = sdr["AckByName"].ToString();
+                cb_ordered.Text = sdr["orderedby_name"].ToString();
+                cb_checked.Text = sdr["checkedby_name"].ToString();
+                cb_ack.Text = sdr["ackby_name"].ToString();
                 txt_remark.Text = sdr["sro_remark"].ToString();
-                lbl_userId.Text = lbl_userId.Text + sdr["LASTUSER"].ToString();
-                lbl_lastUpdate.Text = lbl_lastUpdate.Text + String.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
-                lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
-                lbl_Printed.Text = lbl_Printed.Text + sdr["Printed"].ToString();
-                lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
+                //lbl_userId.Text = lbl_userId.Text + sdr["LASTUSER"].ToString();
+                //lbl_lastUpdate.Text = lbl_lastUpdate.Text + String.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
+                //lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
+                //lbl_Printed.Text = lbl_Printed.Text + sdr["Printed"].ToString();
+                //lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
             }
             con.Close();
         }
@@ -682,29 +730,33 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd.Parameters.AddWithValue("@Edited", 0);
                 cmd.Parameters.AddWithValue("@void", 3);
 
-                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
-                {
-                    cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = con;
-                    cmd.CommandText = "sp_save_material_requestD";
-                    cmd.Parameters.AddWithValue("@sro_code", run);
-                }
+                //foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                //{
+                //    cmd = new SqlCommand();
+                //    cmd.CommandType = CommandType.StoredProcedure;
+                //    cmd.Connection = con;
+                //    cmd.CommandText = "sp_save_material_requestD";
+                //    cmd.Parameters.AddWithValue("@sro_code", run);
+                //}
             }
             catch (Exception ex)
             {
                 con.Close();
                 //Response.Write("<font color='red'>" + ex.Message + "</font>");
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
+                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
                 //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn","");
             }
             finally
             {
                 con.Close();
-                notif.Text = "Data berhasil disimpan";
-                notif.Title = "Notification";
-                notif.Show();
+                //notif.Text = "Data berhasil disimpan";
+                //notif.Title = "Notification";
+                //notif.Show();
                 txt_mr_number.Text = run;
+
+                DetailPage.Enabled = true;
+                RadTabStrip1.SelectedIndex = 1;                
+                DetailPage.Selected = true;
 
                 if (Session["actionEdit"].ToString() == "edit")
                 {
@@ -718,7 +770,72 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 }
             }
 
+
         }
 
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            string sql = "SELECT TOP (100)[prod_code], [spec], [unit] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["prod_code"].ToString();
+                item.Value = row["prod_code"].ToString();
+                item.Attributes.Add("spec", row["spec"].ToString());
+                item.Attributes.Add("unit", row["unit"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT spec,unit FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox lbl_prodType = (RadTextBox)item.FindControl("lbl_prodType");
+                    RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
+                    RadComboBox cb_uom = (RadComboBox)item.FindControl("lbl_UoM");
+
+                    lbl_prodType.Text = "M1";
+                    cb_prodType.Text = dtr["unit"].ToString();
+                    cb_uom.Text= dtr["unit"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
     }
 }

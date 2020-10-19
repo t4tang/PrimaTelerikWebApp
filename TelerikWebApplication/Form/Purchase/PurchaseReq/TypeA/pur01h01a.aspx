@@ -285,8 +285,8 @@
                                         <telerik:GridTemplateColumn UniqueName="prod_code" HeaderText="Product Code" HeaderStyle-Width="130px"
                                             SortExpression="prod_code" ItemStyle-Width="130px" >
                                             <FooterTemplate>Template footer</FooterTemplate>
-                                            <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />                                            <ItemTemplate>
-                                                
+                                            <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />                                            
+                                            <ItemTemplate>                                                
                                                 <asp:Label runat="server" ID="lbl_prod_code" Text='<%# DataBinder.Eval(Container.DataItem, "Prod_code") %>'></asp:Label>
                                                 <telerik:RadToolTip RenderMode="Lightweight" ID="RadToolTip1" runat="server" TargetControlID="lbl_prod_code" RelativeTo="Element"
                                                 Position="BottomCenter" RenderInPageRoot="true">
