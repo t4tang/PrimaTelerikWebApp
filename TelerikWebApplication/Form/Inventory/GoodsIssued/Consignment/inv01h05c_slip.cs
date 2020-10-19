@@ -28,7 +28,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = _tr_code;
+            param.Value = "GI0319071182";
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 

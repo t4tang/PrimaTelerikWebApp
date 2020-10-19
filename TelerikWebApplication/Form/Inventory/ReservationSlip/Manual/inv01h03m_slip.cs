@@ -29,7 +29,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = "RS0318013773";
+            param.Value = _tr_code;
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 

@@ -229,8 +229,7 @@
             </MasterTableView>
             <ClientSettings>
                 <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="273px" />
-                <Selecting AllowRowSelect="true"></Selecting>   
-                <ClientEvents OnRowDblClick="RowDblClick" />                 
+                <Selecting AllowRowSelect="true"></Selecting>                    
             </ClientSettings>
         </telerik:RadGrid>
 
