@@ -10,7 +10,7 @@ namespace ReportLibrary.Reports.Inventory
     /// <summary>
     /// Summary description for rpt_pr_to_gr.
     /// </summary>
-    [Description("Display the tracking of Purchase Request to Goods Receive proccess in a given periode")]
+    [Description("Menampilkan informasi dari setiap transaksi Purchase Request ke Goods Receive dalam periode tertentu")]
     public partial class PurchaseRequestToGoodsReceiveReport : Telerik.Reporting.Report
     {
         public static string _project;
