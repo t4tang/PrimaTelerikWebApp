@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Preview</title>
-    <script type="text/javascript" src="../../../Script/jqueri-1.9.1.min.js" ></script>
+    <script type="text/javascript" src="../../../Script/Script.js"></script>
+    <script src="../../../Script/jquery-1.9.1.min.js"></script>
 
 	<style>
 		#reportViewer1 {
@@ -22,19 +23,18 @@
 
 </head>
 <body>
-    <form runat="server">        
-        <div runat="server">
+    <form runat="server"> 
             <telerik:ReportViewer
             ID="reportViewer1" 
 			Width="1127px"
 			Height="600px"
-			EnableAccessibility="false"
+			EnableAccessibility="true"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Forms.Purchase.Purchase_order.pur01h02_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Purchase.Purchase_order.pur01h02_slip, TelerikWebApplication, 
+                Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
-        </div>
-        
+               
     </form>
 </body>
 </html>

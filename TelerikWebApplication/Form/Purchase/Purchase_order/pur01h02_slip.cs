@@ -1,4 +1,4 @@
-namespace TelerikWebApplication.Forms.Purchase.Purchase_order
+namespace TelerikWebApplication.Form.Purchase.Purchase_order
 {
     using System;
     using System.ComponentModel;
@@ -41,7 +41,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             sqlDataSource1.Parameters[0].Value = "=Parameters.po_code.Value";
 
             if (_unit_code == string.Empty)
-            {                
+            {
                 pnl_po_unit.Visible = true;
                 txt_engine_no.Visible = false;
                 txt_engine_no_label.Visible = false;
@@ -57,7 +57,8 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 txt_mr_no.Value = "=Fields.printed";
             }
 
-            SqlConnection con = new SqlConnection(db_connection.koneksi);
+            //string koneksi = ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString;
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -86,11 +87,11 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 pnl_approval_kecil.Visible = true;
             }
 
-            //else
-            //{
-            //    pnl_approval_besar.Visible = false;
-            //    pnl_approval_kecil.Visible = true;
-            //}
+            ////else
+            ////{
+            ////    pnl_approval_besar.Visible = false;
+            ////    pnl_approval_kecil.Visible = true;
+            ////}
         }
     }
 }

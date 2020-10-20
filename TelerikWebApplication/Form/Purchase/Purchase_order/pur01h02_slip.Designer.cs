@@ -1,4 +1,4 @@
-namespace TelerikWebApplication.Forms.Purchase.Purchase_order {
+namespace TelerikWebApplication.Form.Purchase.Purchase_order {
     partial class pur01h02_slip
     {
         #region Component Designer generated code
