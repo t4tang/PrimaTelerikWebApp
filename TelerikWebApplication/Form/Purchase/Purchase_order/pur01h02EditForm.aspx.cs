@@ -1427,13 +1427,13 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cmd.Parameters.AddWithValue("@vendor_code", cb_supplier.SelectedValue);
                 cmd.Parameters.AddWithValue("@vendor_name", cb_supplier.Text);
                 cmd.Parameters.AddWithValue("@cur_code", txt_curr.Text);
-                cmd.Parameters.AddWithValue("@tot_amount", Convert.ToDouble(txt_total.Value));
+                cmd.Parameters.AddWithValue("@tot_amount", Convert.ToDouble(txt_sub_total.Value));
                 cmd.Parameters.AddWithValue("@PPPN", Convert.ToDouble(txt_pppn.Value));
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@JPPN", Convert.ToDouble(txt_tax1_value.Value));
                 cmd.Parameters.AddWithValue("@OTaxIncl", 0);
                 cmd.Parameters.AddWithValue("@JOTax", Convert.ToDouble(txt_tax2_value.Value));
-                cmd.Parameters.AddWithValue("@Net", Convert.ToDouble(txt_sub_total.Value));
+                cmd.Parameters.AddWithValue("@Net", Convert.ToDouble(txt_total.Value));
                 cmd.Parameters.AddWithValue("@Freight", 0);
                 cmd.Parameters.AddWithValue("@Othercost", Convert.ToDouble(txt_other_value.Value));
                 cmd.Parameters.AddWithValue("@Ass", 0);
