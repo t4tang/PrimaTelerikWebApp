@@ -80,7 +80,7 @@
                         <table id="Table2" width="Auto" border="0" class="module">                
                             <tr>
                                 <td>
-                                    <telerik:RadLabel runat="server" Text="PO Number" CssClass="lbObject"></telerik:RadLabel>
+                                    <telerik:RadLabel runat="server" Text="PS Number" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_po_code" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
@@ -95,7 +95,7 @@
                             </tr>             
                             <tr>
                                 <td class="tdLabel">
-                                    <telerik:RadLabel runat="server" Text="PO Date" CssClass="lbObject"></telerik:RadLabel>
+                                    <telerik:RadLabel runat="server" Text="PS Date" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
                                     <telerik:RadDatePicker ID="dtp_po"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"

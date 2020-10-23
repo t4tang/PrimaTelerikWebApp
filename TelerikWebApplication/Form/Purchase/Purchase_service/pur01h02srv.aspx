@@ -179,7 +179,7 @@
                      CommandItemSettings-ShowRefreshButton="false" >
                     <Columns>
                         <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="40px" HeaderStyle-Width="40px"></telerik:GridClientSelectColumn>
-                        <telerik:GridBoundColumn UniqueName="po_code" HeaderText="PO Number" DataField="po_code" ItemStyle-Width="70px" FilterControlWidth="40px">
+                        <telerik:GridBoundColumn UniqueName="po_code" HeaderText="PS Number" DataField="po_code" ItemStyle-Width="70px" FilterControlWidth="40px">
                             <HeaderStyle Width="70px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="Po_date" HeaderText="Date" DataField="Po_date" ItemStyle-Width="60px" 
