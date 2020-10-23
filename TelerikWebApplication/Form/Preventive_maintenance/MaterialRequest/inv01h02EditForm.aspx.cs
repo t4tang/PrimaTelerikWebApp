@@ -26,11 +26,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         {
             if (!IsPostBack)
             {
+                dtp_date.SelectedDate = DateTime.Now;
+                dtp_deliv.SelectedDate = DateTime.Now;
                 if (Request.QueryString["sro_code"] != null)
                 {
                     DetailPage.Enabled = true;
-                    dtp_date.SelectedDate = DateTime.Now;
-                    dtp_deliv.SelectedDate = DateTime.Now;
                     fill_object(Request.QueryString["sro_code"].ToString());
                     //RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["sro_code"].ToString());
                     tr_code = Request.QueryString["sro_code"].ToString();
@@ -129,29 +129,44 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
 
         #region WO
-        private static DataTable GetWO(string text)
+
+        public DataTable GetDataRefDetailTable(string projectID)  
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("sp_get_material_request_refH",
-             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_material_request_refH";
+            cmd.Parameters.AddWithValue("@project", projectID);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
 
-            DataTable data = new DataTable();
-            adapter.Fill(data);
+            DataTable DT = new DataTable();
 
-            return data;
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
         }
 
-        protected void LoadReff(string trans_id, string project, RadComboBox cb)
+        protected void LoadWO(string trans_id, string projectID, RadComboBox cb)  
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            DataTable dt = new DataTable();
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT	trans_id, trans_date, unit_code, unitstatus, DBDate, BDTime, OrderName, remark FROM	v_material_request_H_reff " +
-                "WHERE region_code = '" + project + "' AND trans_id LIKE @text + '%' ", con);
-            adapter.SelectCommand.Parameters.AddWithValue("@project", project);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT trans_id, trans_date, unit_code, unitstatus, DBDate, BDTime, OrderName, remark FROM v_material_request_H_reff " +
+                "WHERE region_code = @project AND trans_id LIKE @text + '%'", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", trans_id);
-            //DataTable dt = new DataTable();
+            DataTable dt = new DataTable();
             adapter.Fill(dt);
 
             cb.DataTextField = "trans_id";
@@ -163,7 +178,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         protected void cb_wo_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadReff(e.Text, cb_Project.SelectedValue, (sender as RadComboBox));
+            LoadWO(e.Text, cb_Project.SelectedValue, (sender as RadComboBox));
         }
 
         protected void cb_wo_PreRender(object sender, EventArgs e)
@@ -172,7 +187,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT trans_id FROM mtc01h01 WHERE unit_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM v_material_request_H_reff WHERE trans_id = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -189,32 +204,24 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT mtc01h01.trans_id, mtc01h01.unit_code, mtc00h23.OrderName, mtc01h01.remark, pur00h06.prio_desc, mtc00h22.PMAct_name " +
-                                "FROM mtc01h01 INNER JOIN mtc00h23 ON mtc01h01.OrderType=mtc00h23.OrderType INNER JOIN pur00h06 ON mtc01h01.priority_code = pur00h06.priority_code " +
-                                "INNER JOIN mtc00h22 ON mtc01h01.job_status = mtc00h22.PMact_type WHERE void != 4 AND trans_id = '" + (sender as RadComboBox).Text + "'";
-
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            foreach (DataRow dtr in dt.Rows)
+            cmd.CommandText = "SELECT * FROM v_material_request_H_reff WHERE trans_id = '" + (sender as RadComboBox).SelectedValue + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
             {
-                RadComboBox cb = (RadComboBox)sender;
-                GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                RadTextBox T_unit = (RadTextBox)item.FindControl("txt_unit");
-                RadComboBox C_Priority = (RadComboBox)item.FindControl("cb_priority");
-                RadComboBox C_Order = (RadComboBox)item.FindControl("cb_Order");
-                RadComboBox C_Job = (RadComboBox)item.FindControl("cb_job");
-                RadTextBox T_Remark = (RadTextBox)item.FindControl("txt_remark");
-
-                //(sender as RadComboBox).Text = dr["doc_code"].ToString();
-                T_unit.Text = dtr["unit_code"].ToString();
-                C_Priority.SelectedValue = dtr["prio_desc"].ToString();
-                C_Order.SelectedValue = dtr["OrderName"].ToString();
-                C_Job.SelectedValue = dtr["PMAct_name"].ToString();
-                T_Remark.Text = dtr["remark"].ToString();
+                (sender as RadComboBox).Text = dr["trans_id"].ToString();
+                txt_unit.Text = dr["unit_code"].ToString();
+                cb_priority.Text = dr["prio_desc"].ToString();
+                cb_Order.Text = dr["OrderName"].ToString();
+                cb_job.Text = dr["PMAct_Name"].ToString();
+                txt_remark.Text = dr["remark"].ToString();
             }
 
+            dr.Close();
             con.Close();
+
+            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
+            RadGrid2.DataBind();
         }
         #endregion
 
@@ -403,6 +410,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            
 
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
@@ -593,13 +601,19 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            if (tr_code == null)
+            if (!IsPostBack)
             {
                 (sender as RadGrid).DataSource = new string[] { };
             }
-            else
+            else if (Session["actionEdit"].ToString() == "new")
             {
-                (sender as RadGrid).DataSource = GetDataDetailTable(tr_code);
+                (sender as RadGrid).DataSource = new string[] { };
+                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_wo.Text);
+            }
+            else if (Session["actionEdit"].ToString() == "edit")
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+                (sender as RadGrid).DataSource = GetDataRefDetailTable(txt_mr_number.Text);
             }
         }
 
@@ -651,12 +665,12 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cb_wo.Text = sdr["trans_id"].ToString();
                 txt_unit.Text = sdr["unit_code"].ToString();
                 dtp_deliv.SelectedDate = Convert.ToDateTime(sdr["deliv_date"].ToString());
-                cb_priority.Text = sdr["priority"].ToString();
+                cb_priority.Text = sdr["prio_desc"].ToString();
                 cb_Order.Text = sdr["OrderName"].ToString();
                 cb_job.Text = sdr["PMAct_Name"].ToString();
-                cb_ordered.Text = sdr["orderedby_name"].ToString();
-                cb_checked.Text = sdr["checkedby_name"].ToString();
-                cb_ack.Text = sdr["ackby_name"].ToString();
+                cb_ordered.Text = sdr["OrdByName"].ToString();
+                cb_checked.Text = sdr["CheckedByName"].ToString();
+                cb_ack.Text = sdr["AckByName"].ToString();
                 txt_remark.Text = sdr["sro_remark"].ToString();
                 //lbl_userId.Text = lbl_userId.Text + sdr["LASTUSER"].ToString();
                 //lbl_lastUpdate.Text = lbl_lastUpdate.Text + String.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
@@ -723,21 +737,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd.Parameters.AddWithValue("@ack_by", cb_ack.SelectedValue);
                 cmd.Parameters.AddWithValue("@sro_remark", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@LASTUSER", public_str.user_id);
+                cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@status", 1);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
                 cmd.Parameters.AddWithValue("@Printed", 1);
                 cmd.Parameters.AddWithValue("@Edited", 0);
                 cmd.Parameters.AddWithValue("@void", 3);
+                cmd.ExecuteNonQuery();
 
-                //foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
-                //{
-                //    cmd = new SqlCommand();
-                //    cmd.CommandType = CommandType.StoredProcedure;
-                //    cmd.Connection = con;
-                //    cmd.CommandText = "sp_save_material_requestD";
-                //    cmd.Parameters.AddWithValue("@sro_code", run);
-                //}
             }
             catch (Exception ex)
             {
@@ -835,6 +843,37 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             finally
             {
                 con.Close();
+            }
+        }
+
+        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_material_requestD";
+                cmd.Parameters.AddWithValue("@sro_code", tr_code);
+                cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lbl_prodType") as RadLabel).Text);
+                cmd.Parameters.AddWithValue("@part_code", (item.FindControl("lbl_partCode") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@qty_pr", Convert.ToDouble((item.FindControl("txt_qtyRs") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("lbl_UoM") as RadLabel).Text);
+                cmd.Parameters.AddWithValue("@tWarranty", Convert.ToDouble((item.FindControl("chk_waranty") as RadNumericTextBox).Text));
+                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadLabel).Text);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
             }
         }
     }
