@@ -21,7 +21,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         private const int ItemsPerRequest = 10;
 
         public static string tr_code = null;
-        //public static string wo_code = null;
+        public static string chart_code = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -35,15 +35,12 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     //RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["sro_code"].ToString());
                     tr_code = Request.QueryString["sro_code"].ToString();
                     Session["actionEdit"] = "edit";
+                    RadTabStrip1.Tabs[1].Enabled = true;
                 }
                 else
                 {
                     DetailPage.Enabled = false;
                     Session["actionEdit"] = "new";
-                    //cb_type_ref.Text = "Consumption";
-                    //cb_type_ref.SelectedValue = "6";
-                    //cb_CustSupp.Text = "PRIMA SARANA GEMILANG, PT";
-                    //cb_CustSupp.SelectedValue = "PSG";
                 }
             }
 
@@ -220,6 +217,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             dr.Close();
             con.Close();
 
+            RadGrid1.DataSource = GetDataOpertionReff((sender as RadComboBox).Text);
+            RadGrid1.DataBind();
             RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
             RadGrid2.DataBind();
         }
@@ -379,7 +378,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT PMact_type FROM mtc00h22 WHERE PMAct_Name = '" + cb_job.Text + "'";
+            cmd.CommandText = "SELECT PMact_type FROM mtc00h22 WHERE PMAct_Name = '" + cb_job.Text + "' AND status_hist != 4";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -599,6 +598,31 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
             return DT;
         }
+        public DataTable GetDataOpertionReff(string trans_id)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT a.chart_code, b.OprName FROM mtc01h03 AS a INNER JOIN mtc00h25 AS b ON a.chart_code = b.OprCode WHERE a.trans_id = @trans_id";
+            cmd.Parameters.AddWithValue("@trans_id", trans_id);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             if (!IsPostBack)
@@ -613,7 +637,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             else if (Session["actionEdit"].ToString() == "edit")
             {
                 (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(txt_mr_number.Text);
+                (sender as RadGrid).DataSource = GetDataDetailByChartCode(tr_code, chart_code);
             }
         }
 
@@ -689,7 +713,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
             try
             {
-                if (Session["action"].ToString() == "edit")
+                if (Session["actionEdit"].ToString() == "edit")
                 {
                     run = txt_mr_number.Text;
                 }
@@ -746,6 +770,27 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd.Parameters.AddWithValue("@void", 3);
                 cmd.ExecuteNonQuery();
 
+                foreach (GridDataItem item in RadGrid1.MasterTableView.Items)
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = con;
+                    if (Session["actionEdit"].ToString() == "edit")
+                    {
+                        cmd.CommandText = "UPDATE mtc01h03 SET chart_code= @chart_code WHERE trans_id=@trans_id";
+                        cmd.Parameters.AddWithValue("@trans_id", run);
+                        cmd.Parameters.AddWithValue("@chart_code", item["chart_code"].Text);
+                        cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        cmd.CommandText = "INSERT INTO mtc01h03(trans_id, chart_code, formula) VALUES (@trans_id, @chart_code, 0)";
+                        cmd.Parameters.AddWithValue("@trans_id", run);
+                        cmd.Parameters.AddWithValue("@chart_code", item["chart_code"].Text);
+                        cmd.ExecuteNonQuery();
+                    }
+                    
+                }
             }
             catch (Exception ex)
             {
@@ -762,8 +807,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 //notif.Show();
                 txt_mr_number.Text = run;
 
+                RadTabStrip1.Tabs[1].Enabled = true;
+                RadTabStrip1.SelectedIndex = 1;
                 DetailPage.Enabled = true;
-                RadTabStrip1.SelectedIndex = 1;                
                 DetailPage.Selected = true;
 
                 if (Session["actionEdit"].ToString() == "edit")
@@ -826,13 +872,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox lbl_prodType = (RadTextBox)item.FindControl("lbl_prodType");
-                    RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
-                    RadComboBox cb_uom = (RadComboBox)item.FindControl("lbl_UoM");
+                    Label lbl_prodType = (Label)item.FindControl("lbl_prodType");
+                    Label lblQtyRs = (Label)item.FindControl("lblQtyRs");
+                    Label lbl_UoM = (Label)item.FindControl("lbl_UoM");
+                    RadTextBox txtPartQty = (RadTextBox)item.FindControl("txtPartQty");
 
                     lbl_prodType.Text = "M1";
-                    cb_prodType.Text = dtr["unit"].ToString();
-                    cb_uom.Text= dtr["unit"].ToString();
+                    lblQtyRs.Text = "0";
+                    lbl_UoM.Text= dtr["unit"].ToString();
+                    txtPartQty.Text = "0";
                 }
 
             }
@@ -856,24 +904,94 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_material_requestD";
+                cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lbl_prodType") as Label).Text);
+                cmd.Parameters.AddWithValue("@item", DBNull.Value);
+                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@sro_code", tr_code);
-                cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lbl_prodType") as RadLabel).Text);
-                cmd.Parameters.AddWithValue("@part_code", (item.FindControl("lbl_partCode") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Text));
-                cmd.Parameters.AddWithValue("@qty_pr", Convert.ToDouble((item.FindControl("txt_qtyRs") as RadNumericTextBox).Text));
-                cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("lbl_UoM") as RadLabel).Text);
-                cmd.Parameters.AddWithValue("@tWarranty", Convert.ToDouble((item.FindControl("chk_waranty") as RadNumericTextBox).Text));
-                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadLabel).Text);
+                cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("lbl_UoM") as Label).Text);
+                cmd.Parameters.AddWithValue("@chart_code", chart_code);
+                cmd.Parameters.AddWithValue("@trans_id", cb_wo.Text);
+                cmd.Parameters.AddWithValue("@deliv_date", string.Format("{0:yyyy-MM-dd}", dtp_deliv.SelectedDate.Value));
+                if ((item.FindControl("chk_waranty") as CheckBox).Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@tWarranty", 1);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@tWarranty", 0);
+                }
+                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                 cmd.ExecuteNonQuery();
-                con.Close();
+                
 
-                notif.Show();
+                //notif.Show();
+
             }
             catch (Exception ex)
             {
                 con.Close();
                 RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
                 e.Canceled = true;
+            }
+            finally
+            {
+                con.Close();
+                RadGrid2.DataSource = GetDataDetailByChartCode(tr_code, chart_code);
+                RadGrid2.DataBind();
+            }
+        }
+
+        protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (GridDataItem item in RadGrid1.SelectedItems)
+            {
+                chart_code = item["chart_code"].Text;
+                RadGrid2.DataSource = GetDataDetailByChartCode(tr_code, chart_code);
+                RadGrid2.DataBind();
+            }
+        }
+        public DataTable GetDataDetailByChartCode(string sro_code, string chart_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_material_requestD_by_chartCode";
+            cmd.Parameters.AddWithValue("@sro_code", sro_code);
+            cmd.Parameters.AddWithValue("@chart_code", chart_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
+
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            if (Session["actionEdit"].ToString() == "firstLoad")
+            {
+                if ((sender as RadGrid).MasterTableView.Items.Count > 0)
+                    (sender as RadGrid).MasterTableView.Items[0].Selected = true;
+
+                foreach (GridDataItem item in (sender as RadGrid).SelectedItems)
+                {
+                    tr_code = item["chart_code"].Text;
+                }
+
+                RadGrid2.DataSource = GetDataDetailByChartCode(tr_code, chart_code);
+                RadGrid2.DataBind();
             }
         }
     }

@@ -149,7 +149,7 @@
                 </td>
                 <td style="width: 93%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:bold">
+                        padding-bottom: 0px; font-size: x-large; color:deepskyblue;">
                     </telerik:RadLabel>
                 </td>
             </tr>
@@ -162,7 +162,8 @@
             OnNeedDataSource="RadGrid1_NeedDataSource" 
             OnDeleteCommand="RadGrid1_DeleteCommand" 
             OnItemCreated="RadGrid1_ItemCreated"
-            OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged">
+            OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged"
+            OnPreRender="RadGrid1_PreRender">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
             <ClientSettings EnablePostBackOnRowClick="true" >
             </ClientSettings>
@@ -196,12 +197,12 @@
                         <ItemStyle Width="80px" />
                     </telerik:GridDateTimeColumn>
                     <telerik:GridBoundColumn UniqueName="status" HeaderText="Status" DataField="status" ItemStyle-HorizontalAlign="Left" 
-                            FilterControlWidth="80px" >
-                        <HeaderStyle Width="80px"></HeaderStyle>
+                            FilterControlWidth="70px" >
+                        <HeaderStyle Width="70px"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="sro_remark" ItemStyle-Wrap="true"
-                                ItemStyle-Width="310px" FilterControlWidth="300px">
-                        <HeaderStyle Width="310px"></HeaderStyle>
+                                ItemStyle-Width="300px" FilterControlWidth="300px">
+                        <HeaderStyle Width="300px"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" AllowFiltering="False">
                         <ItemTemplate>                                
@@ -214,7 +215,7 @@
                             <asp:ImageButton ID="PrintLink" runat="server" Height="20px" Width="20px" ImageUrl="~/Images/cetak.png" ToolTip="Print" />
                         </ItemTemplate>
                     </telerik:GridTemplateColumn>
-                    <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete"
+                    <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete" ItemStyle-ForeColor="Red"
                         ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
                     </telerik:GridButtonColumn>
                 </Columns>
@@ -225,56 +226,9 @@
             </ClientSettings>
         </telerik:RadGrid>
 
-        <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 10px;">
-            <telerik:RadTabStrip RenderMode="Lightweight" runat="server" ID="RadTabStrip1"  Orientation="HorizontalTop" Width="97%" 
-            SelectedIndex="0" MultiPageID="RadMultiPage1" Skin="MetroTouch">
-            <Tabs>
-                <telerik:RadTab Text="Operation" Height="15px"> 
-                </telerik:RadTab>
-                <telerik:RadTab Text="Material Request" Height="15px">
-                </telerik:RadTab>                
-            </Tabs>
-            </telerik:RadTabStrip>
-            <telerik:RadMultiPage runat="server" ID="RadMultiPage1"  SelectedIndex="0" Width="97%" >
-                <telerik:RadPageView runat="server" ID="RadPageView1" Height="275px">
-                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
-                        AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True"  Width="450px" 
-                        OnNeedDataSource="RadGrid2_NeedDataSource" 
-                        OnDeleteCommand="RadGrid2_DeleteCommand" ShowStatusBar="true">
-                        <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
-                        <HeaderStyle CssClass="gridHeader" BackColor="YellowGreen" />
-                        <MasterTableView CommandItemDisplay="None" DataKeyNames="chart_code" Font-Size="11px" EditMode="InPlace"
-                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
-                            <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />
-                            <Columns>
-                                <%--<telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  HeaderStyle-ForeColor="#009900"
-                                    HeaderText="Edit" HeaderStyle-Width="30px" UpdateText="Update" HeaderStyle-HorizontalAlign="Center">
-                                </telerik:GridEditCommandColumn>--%>
+        <div style=" width:100%; border-top-color:coral; border-top-width: 1px; border-top-style:solid; padding-top: 0px; margin-top:10px">
 
-                                <telerik:GridTemplateColumn HeaderText="Opr. Code" HeaderStyle-Width="100px" ItemStyle-Width="100px" 
-                                    HeaderStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900"
-                                    ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
-                                        <asp:Label runat="server" ID="lbl_OprCode" Text='<%# DataBinder.Eval(Container.DataItem, "chart_code") %>'></asp:Label>
-                                    </ItemTemplate>
-                                </telerik:GridTemplateColumn>
-
-                                <telerik:GridTemplateColumn HeaderText="Maintenance Operation" HeaderStyle-Width="250px" ItemStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" 
-                                    HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
-                                    <ItemTemplate>
-                                        <asp:Label runat="server" ID="lblMainOpr" Text='<%# DataBinder.Eval(Container.DataItem, "OprName") %>'></asp:Label>
-                                    </ItemTemplate>
-                                </telerik:GridTemplateColumn>
-
-                                <telerik:GridButtonColumn UniqueName="materialColumn" Text="Material" 
-                                    ButtonType="PushButton" ItemStyle-Width="40px" HeaderStyle-Width="40px" HeaderText="Material">
-                                </telerik:GridButtonColumn>
-                            </Columns>
-                        </MasterTableView>
-                    </telerik:RadGrid>                    
-                </telerik:RadPageView>
-                <telerik:RadPageView runat="server" ID="RadPageView2" Height="275px">
-                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid3" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid3" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
                         AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True"  
                         OnNeedDataSource="RadGrid3_NeedDataSource"
                         ShowStatusBar="true">
@@ -295,13 +249,13 @@
                                 
                             </GroupByExpressions>
                             <Columns>
-                                <telerik:GridTemplateColumn HeaderText="No" HeaderStyle-Width="20px" ItemStyle-Width="20px" HeaderStyle-HorizontalAlign="Center" 
+                               <%-- <telerik:GridTemplateColumn HeaderText="No" HeaderStyle-Width="20px" ItemStyle-Width="20px" HeaderStyle-HorizontalAlign="Center" 
                                     HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lbl_nomor" Width="10px" Text='<%# DataBinder.Eval(Container.DataItem, "nomor") %>'></asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <%--<telerik:GridTemplateColumn HeaderText="Operation" HeaderStyle-Width="80px" ItemStyle-Width="80px" HeaderStyle-HorizontalAlign="Center" 
+                                <telerik:GridTemplateColumn HeaderText="Operation" HeaderStyle-Width="80px" ItemStyle-Width="80px" HeaderStyle-HorizontalAlign="Center" 
                                     HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900" ItemStyle-HorizontalAlign="Left">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lbl_nomor" Width="80px" Text='<%# DataBinder.Eval(Container.DataItem, "OprName") %>'></asp:Label>
@@ -367,9 +321,63 @@
                                 </telerik:GridButtonColumn>--%>
                             </Columns>
                         </MasterTableView>
+                        <ClientSettings>
+                                            
+                        </ClientSettings>
                     </telerik:RadGrid>
+
+
+
+<%--            <telerik:RadTabStrip RenderMode="Lightweight" runat="server" ID="RadTabStrip1"  Orientation="HorizontalTop" Width="97%" 
+            SelectedIndex="0" MultiPageID="RadMultiPage1" Skin="MetroTouch">
+            <Tabs>
+                <telerik:RadTab Text="Operation" Height="15px"> 
+                </telerik:RadTab>
+                <telerik:RadTab Text="Material Request" Height="15px">
+                </telerik:RadTab>                
+            </Tabs>
+            </telerik:RadTabStrip>
+            <telerik:RadMultiPage runat="server" ID="RadMultiPage1"  SelectedIndex="0" Width="97%" >
+                <telerik:RadPageView runat="server" ID="RadPageView1" Height="275px">
+                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
+                        AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True"  Width="450px" 
+                        OnNeedDataSource="RadGrid2_NeedDataSource" 
+                        OnDeleteCommand="RadGrid2_DeleteCommand" ShowStatusBar="true">
+                        <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
+                        <HeaderStyle CssClass="gridHeader" BackColor="YellowGreen" />
+                        <MasterTableView CommandItemDisplay="None" DataKeyNames="chart_code" Font-Size="11px" EditMode="InPlace"
+                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
+                            <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />
+                            <Columns>
+                               
+                                <telerik:GridTemplateColumn HeaderText="Opr. Code" HeaderStyle-Width="100px" ItemStyle-Width="100px" 
+                                    HeaderStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900"
+                                    ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label runat="server" ID="lbl_OprCode" Text='<%# DataBinder.Eval(Container.DataItem, "chart_code") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+
+                                <telerik:GridTemplateColumn HeaderText="Maintenance Operation" HeaderStyle-Width="250px" ItemStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" 
+                                    HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
+                                    <ItemTemplate>
+                                        <asp:Label runat="server" ID="lblMainOpr" Text='<%# DataBinder.Eval(Container.DataItem, "OprName") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+
+                                <telerik:GridButtonColumn UniqueName="materialColumn" Text="Material" 
+                                    ButtonType="PushButton" ItemStyle-Width="40px" HeaderStyle-Width="40px" HeaderText="Material">
+                                </telerik:GridButtonColumn>
+                            </Columns>
+                        </MasterTableView>
+                    </telerik:RadGrid>                    
+                </telerik:RadPageView>
+                <telerik:RadPageView runat="server" ID="RadPageView2" Height="275px">
+                    
                 </telerik:RadPageView>
             </telerik:RadMultiPage>
+--%>
+
         </div>
 
         <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
@@ -377,8 +385,8 @@
                 <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
                     Width="1150px" Height="670px" Modal="true" AutoSize="True">
                 </telerik:RadWindow>
-                <telerik:RadWindow RenderMode="Lightweight" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
-                    Width="1400px" Height="720px" Modal="true" AutoSize="False">
+                <telerik:RadWindow RenderMode="Auto" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="true"
+                    Width="1400px" Height="720px" AutoSize="False">
                 </telerik:RadWindow>        
             </Windows>
         </telerik:RadWindowManager>

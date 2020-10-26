@@ -27,7 +27,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         {
             if (!IsPostBack)
             {
-                //lbl_form_name.Text = "Material Request";
+                lbl_form_name.Text = "Material Request";
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 selected_project = public_str.site;
@@ -58,16 +58,33 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
                     RadGrid1.DataBind();
                     RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
+                    
                     RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
-                    //RadGrid1.MasterTableView.Items[0].Selected = true;
-                    RadGrid2.DataSource = GetDataDetailTable(tr_code);
-                    RadGrid2.Rebind();
+                    RadGrid3.DataSource = new string[] { };
+                    RadGrid3.Rebind();
+                    //RadGrid2.MasterTableView.Caption = tr_code;
                     Session["action"] = "list";
                 }
             }
             catch (Exception ex)
             {
                 RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+            }
+        }
+
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            if (Session["action"].ToString() == "firstLoad")
+            {
+                if ((sender as RadGrid).MasterTableView.Items.Count > 0)
+                    (sender as RadGrid).MasterTableView.Items[0].Selected = true;
+
+                foreach (GridDataItem item in RadGrid1.SelectedItems)
+                {
+                    tr_code = item["sro_code"].Text;
+                }
+
+                populate_detail();
             }
         }
 
@@ -125,16 +142,16 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         {
             if (tr_code == null)
             {
-                RadGrid2.DataSource = new string[] { };
+                //RadGrid2.DataSource = new string[] { };
                 RadGrid3.DataSource = new string[] { };
             }
             else
             {
-                RadGrid2.DataSource = GetDataOpertionTable(wo_code);
+                //RadGrid2.DataSource = GetDataOpertionTable(wo_code);
                 RadGrid3.DataSource = GetDataDetailTable(tr_code);
             }
 
-            RadGrid2.DataBind();
+            //RadGrid2.DataBind();
             RadGrid3.DataBind();
         }
 
@@ -177,6 +194,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+            
         }
 
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
@@ -316,12 +334,12 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd.Parameters.AddWithValue("@part_code", part_code);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                RadGrid2.DataBind();
+                //RadGrid2.DataBind();
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data deleted";
                 lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-                RadGrid2.Controls.Add(lblsuccess);
+                //RadGrid2.Controls.Add(lblsuccess);
             }
             catch (Exception ex)
             {
@@ -329,7 +347,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 Label lblError = new Label();
                 lblError.Text = "Unable to delete data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid2.Controls.Add(lblError);
+                //RadGrid2.Controls.Add(lblError);
                 e.Canceled = true;
             }
         }
