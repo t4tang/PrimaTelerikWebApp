@@ -24,7 +24,6 @@ namespace ReportLibrary.Reports.Inventory
             this.textBox12 = new Telerik.Reporting.TextBox();
             this.textBox11 = new Telerik.Reporting.TextBox();
             this.textBox7 = new Telerik.Reporting.TextBox();
-            this.textBox8 = new Telerik.Reporting.TextBox();
             this.textBox9 = new Telerik.Reporting.TextBox();
             this.textBox10 = new Telerik.Reporting.TextBox();
             this.textBox13 = new Telerik.Reporting.TextBox();
@@ -37,6 +36,7 @@ namespace ReportLibrary.Reports.Inventory
             this.textBox20 = new Telerik.Reporting.TextBox();
             this.textBox21 = new Telerik.Reporting.TextBox();
             this.textBox22 = new Telerik.Reporting.TextBox();
+            this.textBox8 = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // pageHeaderSection1
@@ -89,7 +89,6 @@ namespace ReportLibrary.Reports.Inventory
             this.textBox12,
             this.textBox6,
             this.textBox5,
-            this.textBox8,
             this.textBox7,
             this.textBox10,
             this.textBox9,
@@ -102,7 +101,8 @@ namespace ReportLibrary.Reports.Inventory
             this.textBox20,
             this.textBox19,
             this.textBox22,
-            this.textBox21});
+            this.textBox21,
+            this.textBox8});
             this.detail.Name = "detail";
             // 
             // pageFooterSection1
@@ -210,19 +210,6 @@ namespace ReportLibrary.Reports.Inventory
             this.textBox7.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox7.StyleName = "BlueOpal.TableHeader";
             this.textBox7.Value = "GI Date";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(2.0541846752166748D), Telerik.Reporting.Drawing.Unit.Inch(0.29892411828041077D));
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.81983119249343872D), Telerik.Reporting.Drawing.Unit.Inch(0.22615465521812439D));
-            this.textBox8.Style.Color = System.Drawing.Color.Black;
-            this.textBox8.Style.Font.Name = "Segoe UI";
-            this.textBox8.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Pixel(12D);
-            this.textBox8.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
-            this.textBox8.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox8.StyleName = "BlueOpal.TableBody";
-            this.textBox8.Value = "= Fields.lbm_date.Kind";
             // 
             // textBox9
             // 
@@ -392,6 +379,20 @@ namespace ReportLibrary.Reports.Inventory
             this.textBox22.StyleName = "BlueOpal.TableBody";
             this.textBox22.Value = "= Fields.remark";
             // 
+            // textBox8
+            // 
+            this.textBox8.Format = "{0:dd-MM-yyyy}";
+            this.textBox8.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(2.0541846752166748D), Telerik.Reporting.Drawing.Unit.Inch(0.29892429709434509D));
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.8198312520980835D), Telerik.Reporting.Drawing.Unit.Inch(0.22615465521812439D));
+            this.textBox8.Style.Color = System.Drawing.Color.Black;
+            this.textBox8.Style.Font.Name = "Segoe UI";
+            this.textBox8.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Pixel(12D);
+            this.textBox8.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox8.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.textBox8.StyleName = "BlueOpal.TableBody";
+            this.textBox8.Value = "= Fields.lbm_date";
+            // 
             // rpt_goods_receive
             // 
             this.DataSource = this.sqlDataSource1;
@@ -428,7 +429,6 @@ namespace ReportLibrary.Reports.Inventory
         private Telerik.Reporting.TextBox textBox12;
         private Telerik.Reporting.TextBox textBox6;
         private Telerik.Reporting.TextBox textBox5;
-        private Telerik.Reporting.TextBox textBox8;
         private Telerik.Reporting.TextBox textBox7;
         private Telerik.Reporting.TextBox textBox10;
         private Telerik.Reporting.TextBox textBox9;
@@ -442,5 +442,6 @@ namespace ReportLibrary.Reports.Inventory
         private Telerik.Reporting.TextBox textBox19;
         private Telerik.Reporting.TextBox textBox22;
         private Telerik.Reporting.TextBox textBox21;
+        private Telerik.Reporting.TextBox textBox8;
     }
 }
