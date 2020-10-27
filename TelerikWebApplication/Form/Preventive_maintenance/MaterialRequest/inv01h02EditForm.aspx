@@ -745,7 +745,10 @@
                                                             <ItemTemplate>
                                                                 <asp:CheckBox runat="server" ID="chk_waranty" Text="Warranty"
                                                                     Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' Enabled="false" />
-                                                            </ItemTemplate>                                        
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <asp:CheckBox runat="server" ID="chk_warranty" Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' Enabled="false" />
+                                                            </EditItemTemplate>                                        
                                                         </telerik:GridTemplateColumn>
                                                         <telerik:GridTemplateColumn HeaderText="Remark" HeaderStyle-Width="250px" ItemStyle-Width="250px" HeaderStyle-HorizontalAlign="Center" 
                                                             HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
