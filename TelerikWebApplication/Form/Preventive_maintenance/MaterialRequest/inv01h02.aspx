@@ -12,7 +12,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("reportViewer_inv01h02.aspx?sro_code=" + id, "PreviewDialog");
+                window.radopen("inv01h02_ReportViewer.aspx?sro_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
@@ -158,7 +158,7 @@
 
     <div  class="scroller" runat="server">
         <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
-            AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="5"
+            AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="7"
             OnNeedDataSource="RadGrid1_NeedDataSource" 
             OnDeleteCommand="RadGrid1_DeleteCommand" 
             OnItemCreated="RadGrid1_ItemCreated"
