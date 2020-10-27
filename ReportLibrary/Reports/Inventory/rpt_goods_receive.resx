@@ -120,6 +120,9 @@
   <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
     <value>{"@project":"ALL","@tglawal":"2018-08-01","@tglakhir":"2018-08-30"}</value>
   </metadata>
+  <metadata name="$this.Zoom" type="System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>4</value>
+  </metadata>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>
   </metadata>
