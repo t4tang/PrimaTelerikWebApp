@@ -623,6 +623,31 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
             return DT;
         }
+        public DataTable GetDataDetailTableD(string trans_id)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_material_request_refD";
+            cmd.Parameters.AddWithValue("@trans_id", trans_id); 
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             if (!IsPostBack)
@@ -632,7 +657,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             else if (Session["actionEdit"].ToString() == "new")
             {
                 (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_wo.Text);
+                (sender as RadGrid).DataSource = GetDataDetailTableD(cb_wo.Text);
             }
             else if (Session["actionEdit"].ToString() == "edit")
             {
@@ -907,13 +932,13 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lbl_prodType") as Label).Text);
                 cmd.Parameters.AddWithValue("@item", DBNull.Value);
                 cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@sro_code", tr_code);
+                cmd.Parameters.AddWithValue("@sro_code", txt_mr_number.Text);
                 cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@part_unit", (item.FindControl("lbl_UoM") as Label).Text);
                 cmd.Parameters.AddWithValue("@chart_code", chart_code);
                 cmd.Parameters.AddWithValue("@trans_id", cb_wo.Text);
                 cmd.Parameters.AddWithValue("@deliv_date", string.Format("{0:yyyy-MM-dd}", dtp_deliv.SelectedDate.Value));
-                if ((item.FindControl("chk_waranty") as CheckBox).Checked == true)
+                if ((item.FindControl("chk_warranty") as CheckBox).Checked == true)
                 {
                     cmd.Parameters.AddWithValue("@tWarranty", 1);
                 }
@@ -937,7 +962,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             finally
             {
                 con.Close();
-                RadGrid2.DataSource = GetDataDetailByChartCode(tr_code, chart_code);
+                RadGrid2.DataSource = GetDataDetailByChartCode(txt_mr_number.Text, chart_code);
                 RadGrid2.DataBind();
             }
         }
@@ -947,7 +972,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             foreach (GridDataItem item in RadGrid1.SelectedItems)
             {
                 chart_code = item["chart_code"].Text;
-                RadGrid2.DataSource = GetDataDetailByChartCode(tr_code, chart_code);
+                RadGrid2.DataSource = GetDataDetailByChartCode(txt_mr_number.Text, chart_code);
                 RadGrid2.DataBind();
             }
         }
@@ -990,7 +1015,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     tr_code = item["chart_code"].Text;
                 }
 
-                RadGrid2.DataSource = GetDataDetailByChartCode(tr_code, chart_code);
+                RadGrid2.DataSource = GetDataDetailByChartCode(txt_mr_number.Text, chart_code);
                 RadGrid2.DataBind();
             }
         }
