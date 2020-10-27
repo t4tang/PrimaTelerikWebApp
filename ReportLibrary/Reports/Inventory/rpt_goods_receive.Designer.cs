@@ -1,6 +1,6 @@
 namespace ReportLibrary.Reports.Inventory
 {
-    partial class rpt_goods_receive
+    partial class GoodsReceiveReport
     {
         #region Component Designer generated code
         /// <summary>
@@ -423,14 +423,14 @@ namespace ReportLibrary.Reports.Inventory
     "(stEdit <> \'4\')\r\nUNION ALL\r\nSELECT        \'ALL\' AS region_code, \'ALL\' AS region_" +
     "name";
             // 
-            // rpt_goods_receive
+            // GoodsReceiveReport
             // 
             this.DataSource = this.sqlDataSource1;
             this.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.pageHeaderSection1,
             this.detail,
             this.pageFooterSection1});
-            this.Name = "rpt_goods_receive";
+            this.Name = "GoodsReceiveReport";
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
