@@ -785,7 +785,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             this.textBox64.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2.2738032341003418D), Telerik.Reporting.Drawing.Unit.Cm(2.1000001430511475D));
             this.textBox64.Name = "textBox64";
             this.textBox64.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.726197242736816D), Telerik.Reporting.Drawing.Unit.Cm(0.60000050067901611D));
-            this.textBox64.Value = "";
+            this.textBox64.Value = "barang bekas harus dikembalikan";
             // 
             // textBox76
             // 
