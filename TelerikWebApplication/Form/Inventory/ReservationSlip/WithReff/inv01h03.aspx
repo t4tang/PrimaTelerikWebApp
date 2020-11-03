@@ -156,7 +156,7 @@
                 </td>
                 <td style="width: 93%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:bold">
+                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:lighter">
                     </telerik:RadLabel>
                 </td>
             </tr>

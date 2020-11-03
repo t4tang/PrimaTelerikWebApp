@@ -190,9 +190,9 @@
                             <ItemStyle Width="120px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project Area" DataField="region_name" 
-                            FilterControlWidth="120px" >
-                            <HeaderStyle Width="120px"></HeaderStyle>
-                            <ItemStyle Width="120px" />
+                            FilterControlWidth="220px" >
+                            <HeaderStyle Width="220px"></HeaderStyle>
+                            <ItemStyle Width="220px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="Tgl" HeaderText="Date" DataField="Tgl" ItemStyle-Width="80px" 
                                 EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
@@ -209,8 +209,8 @@
                             <HeaderStyle Width="120px"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true"
-                                ItemStyle-Width="450px" FilterControlWidth="440px">
-                            <HeaderStyle Width="450px"></HeaderStyle>
+                                ItemStyle-Width="350px" FilterControlWidth="340px">
+                            <HeaderStyle Width="350px"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" AllowFiltering="False">
                         <ItemTemplate>                                
@@ -223,7 +223,7 @@
                                 <asp:ImageButton ID="PrintLink" runat="server" Height="20px" Width="20px" ImageUrl="~/Images/cetak.png" ToolTip="Print" />
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete"
+                        <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete" ItemStyle-ForeColor="Red" ItemStyle-HorizontalAlign="Center"
                             ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
                         </telerik:GridButtonColumn>
                     </Columns>
