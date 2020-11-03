@@ -36,6 +36,8 @@
               color:#282b4f;
               padding:2px 2px 0px 15px;
               /*left:50%;*/
+              border-top-style:outset;
+              border-top-color:orangered;
             }
     </style>
 </head>
@@ -52,7 +54,8 @@
         <div id="about" class="slider">
             <header class="tm-header" id="logo"></header>
             <h2 class="logo">
-                <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/telerik_logo.png" Width="170px" Height="55px"/>
+               <%-- <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/progress.png" Width="50px" Height="55px"/>--%>
+                 <%--<asp:Image ID="Image1" runat="server" Width="50px" Height="55px"/>--%>
             </h2>
             <telerik:RadMenu runat="server" ID="verticalMenu" Skin="BlackMetroTouch" Flow="Vertical" CssClass="main-menu" EnableImageSprites="true" RenderMode="Lightweight">
                 <Items>
@@ -60,7 +63,7 @@
                     <telerik:RadMenuItem Text="Fico" NavigateUrl="Form/Fico/Default.aspx" CssClass="notes" />
                     <telerik:RadMenuItem Text="Inventory" NavigateUrl="Form/Inventory/Default.aspx" CssClass="notes" />
                     <telerik:RadMenuItem Text="Purchase" NavigateUrl="Form/Purchase/Default.aspx" CssClass="notes" />
-                    <telerik:RadMenuItem Text="Preventive Maintenance" NavigateUrl="Form/Preventive_maintenance/Default.aspx" CssClass="notes" />                    
+                    <telerik:RadMenuItem Text="Maintenance" NavigateUrl="Form/Preventive_maintenance/Default.aspx" CssClass="notes" />                    
                     <telerik:RadMenuItem Text="Security" NavigateUrl="Form/Security/Default.aspx" CssClass="notes" />
                 </Items>
             </telerik:RadMenu>
@@ -73,7 +76,7 @@
             </telerik:RadMenu>--%>
         </div>
         <div class="page">
-            <div class="main-header clear">
+            <div class="main-header clear" style="border-bottom-style:outset; border-bottom-color:greenyellow" >
                 <div class="home-btn">
                     <span class="icon icon-Home"></span>
                     <span class="text"><%: Page.Title %></span>

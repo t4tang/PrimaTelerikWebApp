@@ -159,7 +159,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT trans_id, trans_date, unit_code, unitstatus, DBDate, BDTime, OrderName, remark FROM v_material_request_H_reff " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT TOP(20) trans_id, trans_date, unit_code, unitstatus, DBDate, BDTime, OrderName, remark FROM v_material_request_H_reff " +
                 "WHERE region_code = @project AND trans_id LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", trans_id);
@@ -378,11 +378,14 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT PMact_type FROM mtc00h22 WHERE PMAct_Name = '" + cb_job.Text + "' AND status_hist != 4";
+            cmd.CommandText = "SELECT PMact_type FROM mtc00h22 WHERE PMAct_Name = '" + cb_job.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 cb_job.SelectedValue = dr[0].ToString();
+            }
+
             dr.Close();
             con.Close();
         }
@@ -397,7 +400,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 cb_job.SelectedValue = dr[0].ToString();
+            }
+                
             dr.Close();
             con.Close();
         }

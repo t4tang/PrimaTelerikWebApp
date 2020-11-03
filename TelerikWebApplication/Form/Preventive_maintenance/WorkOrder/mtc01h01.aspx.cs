@@ -26,6 +26,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         {
             if (!IsPostBack)
             {
+                lbl_form_name.Text = "Work Order";
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 selected_project = public_str.site;
@@ -34,7 +35,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
 
                 tr_code = null;
                 Session["action"] = "firstLoad";
+
+
             }
+            
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
         {
@@ -114,7 +118,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
 
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -317,24 +321,62 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 RadGrid3.DataBind();
                 RadGrid4.DataSource = new string[] { };
                 RadGrid4.DataBind();
-                //RadGrid5.DataSource = new string[] { };
-                //RadGrid5.DataBind();
+                RadGrid5.DataSource = new string[] { };
+                RadGrid5.DataBind();
             }
             else
             {
+                populate_component(tr_code);
                 RadGrid2.DataSource = GetDBMB(tr_code);
                 RadGrid2.DataBind();
                 RadGrid3.DataSource = GetExtService(tr_code);
                 RadGrid3.DataBind();
                 RadGrid4.DataSource = GetOperation(tr_code);
                 RadGrid4.DataBind();
-                //RadGrid5.DataSource = GetManpowerService(tr_code);
-                //RadGrid5.DataBind();
+                RadGrid5.DataSource = GetManpowerService(tr_code);
+                RadGrid5.DataBind();
 
             }
 
         }
+        private void populate_component(string id)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT com_group, com_group_name, com_code, com_name, DIAG_CODE, diag_remark, sym_code, sym_name, remark " +
+                    "FROM v_work_orderH WHERE trans_id = '" + id + "'";
 
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    cb_compGroup.SelectedValue = dtr["com_group"].ToString();
+                    cb_compGroup.Text = dtr["com_group_name"].ToString();
+                    cb_comp.SelectedValue = dtr["com_code"].ToString();
+                    cb_comp.Text = dtr["com_name"].ToString();
+                    cb_diagnosis.SelectedValue = dtr["DIAG_CODE"].ToString();
+                    cb_diagnosis.Text = dtr["diag_remark"].ToString();
+                    cb_symptom.SelectedValue = dtr["sym_code"].ToString();
+                    cb_symptom.Text = dtr["sym_name"].ToString();
+                    txt_jobDesc.Text = dtr["remark"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             if (tr_code == null)
@@ -368,19 +410,19 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 (sender as RadGrid).DataSource = GetOperation(tr_code);
             }
         }
-        protected void RadGrid5_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-        {
-            if (tr_code == null)
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-            }
-            else
-            {
-                (sender as RadGrid).DataSource = GetManpowerService(tr_code);
-            }
-        }
+        //protected void RadGrid5_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        //{
+        //    if (tr_code == null)
+        //    {
+        //        (sender as RadGrid).DataSource = new string[] { };
+        //    }
+        //    else
+        //    {
+        //        (sender as RadGrid).DataSource = GetManpowerService(tr_code);
+        //    }
+        //}
        
-        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        protected void cb_bd_status_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {            
             string sql = "SELECT wo_status, wo_desc, mType, remark FROM mtc00h19 WHERE(mType NOT IN('0', '4')) AND wo_desc LIKE @text +'%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
@@ -433,5 +475,205 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 item.DataBind();
             }
         }
+
+        protected void RadGrid1_NeedDataSource1(object sender, GridNeedDataSourceEventArgs e)
+        {
+            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+
+        }
+
+        protected void cb_operation_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {            
+            string sql = "SELECT OprCode, OprName  FROM mtc00h25 WHERE stEdit != 4 AND OprName LIKE @text + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["OprName"].ToString();
+                item.Value = row["OprCode"].ToString();
+                item.Attributes.Add("OprName", row["OprName"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void cb_operation_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT OprCode FROM mtc00h25 WHERE OprName = '" + (sender as RadComboBox).Text + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    Label lbl_chart_code = (Label)item.FindControl("lbl_chart_code");
+
+                    lbl_chart_code.Text = dtr["OprCode"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        
+        protected void RadGrid4_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                GridEditableItem item = (GridEditableItem)e.Item;
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "INSERT INTO mtc01h03 (chart_code, trans_id, formula) VALUES (@chart_code,@trans_id,@formula)";
+                cmd.Parameters.AddWithValue("@trans_id", tr_code);
+                cmd.Parameters.AddWithValue("@chart_code", (item.FindControl("lbl_chart_code") as Label).Text);
+                cmd.Parameters.AddWithValue("@formula", "0");
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+            finally
+            {
+                con.Close();
+
+            }
+        }
+
+        protected void RadGrid4_UpdateCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                GridEditableItem item = (GridEditableItem)e.Item;
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "UPDATE mtc01h03 SET chart_code = @chart_code, formula = @formula WHERE trans_id = @trans_id ";
+                cmd.Parameters.AddWithValue("@trans_id", tr_code);
+                cmd.Parameters.AddWithValue("@chart_code", (item.FindControl("lbl_chart_code") as Label).Text);
+                cmd.Parameters.AddWithValue("@formula", "0");
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        protected void RadGrid4_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                GridEditableItem item = (GridEditableItem)e.Item;
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "DELETE mtc01h03 WHERE trans_id = @trans_id AND chart_code = @chart_code ";
+                cmd.Parameters.AddWithValue("@trans_id", tr_code);
+                cmd.Parameters.AddWithValue("@chart_code", (item.FindControl("lbl_chart_code") as Label).Text);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        #region Material Request
+        public DataTable GetMatrialRequest(string trans_id)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT prod_type, part_code, part_desc, part_qty, part_unit, deliv_date, CAST(tWarranty AS Bit) AS tWarranty, remark, sro_code, trans_id " +
+                "FROM inv01d02  WHERE trans_id = @trans_id";
+            cmd.Parameters.AddWithValue("@trans_id", trans_id);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
+        protected void RadGrid5_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (tr_code == null)
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = GetMatrialRequest(tr_code);
+            }
+        }
+
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+
+        }
+
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

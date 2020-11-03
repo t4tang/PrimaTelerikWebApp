@@ -154,13 +154,13 @@
                                                                         </td>
                                                                         <td style="width: 100px; font-variant:small-caps; color: #3399FF;"">Unit Code 
                                                                         </td>
-                                                                        <td style="width: 75px; font-variant:small-caps; color: #3399FF;"">Status
+                                                                        <%--<td style="width: 75px; font-variant:small-caps; color: #3399FF;"">Status
                                                                         </td>
                                                                         <td style="width: 75px; font-variant:small-caps; color: #3399FF;"">B/D Date
                                                                         </td>
                                                                         <td style="width: 75px; font-variant:small-caps; color: #3399FF;"">B/D Time
                                                                         </td> 
-                                                                        <td style="width: 200px; font-variant:small-caps; color: #3399FF;"">Order Type
+                                                                        <td style="width: 200px; font-variant:small-caps; color: #3399FF;"">Order Type--%>
                                                                         </td> 
                                                                         <td style="width: 250px; font-variant:small-caps; color: #3399FF;"">Problem
                                                                         </td>
@@ -179,7 +179,7 @@
                                                                         <td style="width: 100px;">
                                                                             <%# DataBinder.Eval(Container, "DataItem.unit_code")%>
                                                                         </td>
-                                                                        <td style="width: 75px;">
+                                                                        <%--<td style="width: 75px;">
                                                                             <%# DataBinder.Eval(Container, "DataItem.unitstatus")%>
                                                                         </td>
                                                                         <td style="width: 750px;">
@@ -190,7 +190,7 @@
                                                                         </td>
                                                                         <td style="width: 200px;">
                                                                             <%# DataBinder.Eval(Container, "DataItem.OrderName")%>
-                                                                        </td>
+                                                                        </td>--%>
                                                                         <td style="width: 250px;">
                                                                             <%# DataBinder.Eval(Container, "DataItem.remark")%>
                                                                         </td>
@@ -361,7 +361,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadComboBox ID="cb_job" runat="server" RenderMode="Lightweight" Skin="Telerik" EnableLoadOnDemand="true" CausesValidation="false" 
-                                                    EnableVirtualScrolling="true" MarkFirstMatch="true" ShowMoreResultsBox="true" AutoPostBack="false" Width="180" DropDownWidth="180px" 
+                                                    EnableVirtualScrolling="true" MarkFirstMatch="true" ShowMoreResultsBox="true" AutoPostBack="true" Width="180" DropDownWidth="180px" 
                                                     OnItemsRequested="cb_job_ItemsRequested" 
                                                     OnPreRender="cb_job_PreRender" 
                                                     OnSelectedIndexChanged="cb_job_SelectedIndexChanged">
