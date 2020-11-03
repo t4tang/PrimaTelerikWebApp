@@ -552,36 +552,36 @@ html .RadToolTip {
   background-color:white; 
   position:inherit;
   padding-top:5px;
-  overflow-y:scroll;
+  overflow-y:scroll;  
 }
-  .sidebar .RadTreeView {
-    margin-top: 10px;
-    line-height: 1.7em; }
-    .sidebar .RadTreeView .rtIn {
-      display: block;
-      margin-left: -27px;
-      padding-left: 27px;
-      overflow: hidden;
-      text-overflow: ellipsis; }
-    .sidebar .RadTreeView .rtHover .rtIn,
-    .sidebar .RadTreeView .rtSelected .rtIn,
-    .sidebar .RadTreeView .rtEdit .rtIn {
-      color: #000;
-      background: #fff;
-      border-color: #fff; }
-    .sidebar .RadTreeView .rtLines .rtLI:before,
-    .sidebar .RadTreeView .rtLines .rtTop:before,
-    .sidebar .RadTreeView .rtLines .rtMid:before,
-    .sidebar .RadTreeView .rtLines .rtBot:before {
-      display: none; }
-  .sidebar #newFolderContainer {
-    padding-left: 1.66667em; }
-  .sidebar .btn-new-node {
-    margin-top: 7px;
-    padding-left: 28px;
-    cursor: pointer; }
-  .sidebar .rtLI.last {
-    border-bottom: 1px solid #e1e1e1; }
+.sidebar .RadTreeView {
+margin-top: 10px;
+line-height: 1.7em; }
+.sidebar .RadTreeView .rtIn {
+    display: block;
+    margin-left: -27px;
+    padding-left: 27px;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+.sidebar .RadTreeView .rtHover .rtIn,
+.sidebar .RadTreeView .rtSelected .rtIn,
+.sidebar .RadTreeView .rtEdit .rtIn {
+    color: #000;
+    background: #fff;
+    border-color: #fff; }
+.sidebar .RadTreeView .rtLines .rtLI:before,
+.sidebar .RadTreeView .rtLines .rtTop:before,
+.sidebar .RadTreeView .rtLines .rtMid:before,
+.sidebar .RadTreeView .rtLines .rtBot:before {
+    display: none; }
+.sidebar #newFolderContainer {
+padding-left: 1.66667em; }
+.sidebar .btn-new-node {
+margin-top: 7px;
+padding-left: 28px;
+cursor: pointer; }
+.sidebar .rtLI.last {
+border-bottom: 1px solid #e1e1e1; }
 
 /* Tree Folders */
 .mainFolder {
@@ -679,11 +679,11 @@ html body .RadInput_Focused_MetroTouch {
 }
 
 /*Rad Button*/
-.btn-wrapper {
-    width:100%;
-    min-height: 50px;
+/*.btn-wrapper {
+    width:150px;
+    min-height: 90px;
     padding-left:15px; 
     border-bottom-color: #FF9933; 
     border-bottom-width: 1px; 
     border-bottom-style: inset;
-}
+}*/

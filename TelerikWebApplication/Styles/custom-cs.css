@@ -429,8 +429,8 @@ a.RadButton_MetroTouch.rbImageButton:focus {
 
 .btn-wrapper {
     /*width:100%;*/
-    min-width:55px;
-    min-height: 25px;
+    min-width:180px;
+    min-height: 35px;
     padding-left:15px; 
     border-bottom-color: #FF9933; 
     border-bottom-width: 1px; 

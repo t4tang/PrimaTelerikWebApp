@@ -71,7 +71,7 @@
            
            <%-- <telerik:RadMenu ID="RadMenu1" runat="server" CssClass="help-menu" Skin="BlackMetroTouch" Flow="Vertical" RenderMode="Lightweight">
                 <Items>
-                    <telerik:RadMenuItem Text="LIVE WEBMAIL APP" NavigateUrl="https://demos.telerik.com/aspnet-ajax/webmail/" Target="_blank" />
+                    
                 </Items>
             </telerik:RadMenu>--%>
         </div>
@@ -84,20 +84,18 @@
 
                 <telerik:RadNavigation ID="mainNavigation" runat="server" CssClass="header-info" EnableEmbeddedSkins="false">
                     <Nodes>
-                        <%--<telerik:NavigationNode Text="LIVE WEBMAIL APP" NavigateUrl="https://demos.telerik.com/aspnet-ajax/webmail/" Target="_blank" SpriteCssClass="icon icon-Info" />
-                        <telerik:NavigationNode Text="DOWNLOAD" NavigateUrl="https://demos.telerik.com/aspnet-ajax/webmail/webmailsource.zip" SpriteCssClass="icon icon-Download" />--%>
-                        <telerik:NavigationNode ID="NavNode1" Text="Administrator" CssClass="user" SpriteCssClass="icon icon-Arrow-South"></telerik:NavigationNode>
+                        <telerik:NavigationNode ID="NavNode1" CssClass="user" SpriteCssClass="icon icon-Arrow-South"></telerik:NavigationNode>
                     </Nodes>
                 </telerik:RadNavigation>
             </div>
             <div class="container clear">
-                <%--<div class="sidebar" id="sidebar">--%>
-                <div class="sidebar">
-                    <asp:ContentPlaceHolder ID="FolderContent" runat="server">
+                <div class="sidebar" id="sidebar" style="height:680px; background-color:aliceblue; padding-right:5px">
+                    <div class="sidebar">
+                        <asp:ContentPlaceHolder ID="FolderContent" runat="server">
                         
-                    </asp:ContentPlaceHolder>
+                        </asp:ContentPlaceHolder>
+                    </div>
                 </div>
-
                 <div class="section bottom">
                     <telerik:RadNavigation runat="server" ID="contactNavigation" Skin="BlackMetroTouch" CssClass="secondaryMenu">
                         <Nodes>
