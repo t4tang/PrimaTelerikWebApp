@@ -171,14 +171,14 @@
                         <ItemStyle Width="150px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="wo_desc" HeaderText="Status" DataField="wo_desc" ItemStyle-HorizontalAlign="Left" 
-                        FilterControlWidth="120px">
-                        <HeaderStyle Width="120px" />
-                        <ItemStyle Width="120px" />
+                        FilterControlWidth="50px">
+                        <HeaderStyle Width="50px" />
+                        <ItemStyle Width="50px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="unit_code" HeaderText="Unit Code" DataField="unit_code" ItemStyle-HorizontalAlign="Left" 
-                        FilterControlWidth="120px">
-                        <HeaderStyle Width="120px" />
-                        <ItemStyle Width="120px" />
+                        FilterControlWidth="100px">
+                        <HeaderStyle Width="100px" />
+                        <ItemStyle Width="100px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="model_no" HeaderText="Model" DataField="model_no" ItemStyle-HorizontalAlign="Left" 
                         FilterControlWidth="120px">
@@ -186,8 +186,8 @@
                         <ItemStyle Width="120px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="time_reading" HeaderText="HM" DataField="time_reading" ItemStyle-HorizontalAlign="Left">
-                        <HeaderStyle Width="100px" />
-                        <ItemStyle Width="100px" />
+                        <HeaderStyle Width="50px" />
+                        <ItemStyle Width="50px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridDateTimeColumn UniqueName="Req_date" HeaderText="Date Req" DataField="Req_date" ItemStyle-Width="100px" 
                         EnableRangeFiltering="false" FilterControlWidth="100px" PickerType="DatePicker" DataFormatString="{0:d}">
@@ -200,14 +200,14 @@
                         <ItemStyle Width="100px" />
                     </telerik:GridDateTimeColumn>
                     <telerik:GridBoundColumn UniqueName="Notif_type_name" HeaderText="Type" DataField="Notif_type_name" ItemStyle-HorizontalAlign="Left" 
-                        FilterControlWidth="150px" >
-                        <HeaderStyle Width="150px" />
-                        <ItemStyle Width="150px" />
+                        FilterControlWidth="120px" >
+                        <HeaderStyle Width="120px" />
+                        <ItemStyle Width="120px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project Area" DataField="region_name" ItemStyle-HorizontalAlign="Left" 
-                        FilterControlWidth="180px">
-                        <HeaderStyle Width="180px" />
-                        <ItemStyle Width="180px" />
+                        FilterControlWidth="150px">
+                        <HeaderStyle Width="150px" />
+                        <ItemStyle Width="150px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true" FilterControlWidth="200px">
                         <HeaderStyle Width="200px" />

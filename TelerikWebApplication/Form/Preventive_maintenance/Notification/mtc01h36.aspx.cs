@@ -41,21 +41,21 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             {
                 if (e.Argument == "Rebind")
                 {
-                    (sender as RadGrid).MasterTableView.SortExpressions.Clear();
-                    (sender as RadGrid).MasterTableView.GroupByExpressions.Clear();
-                    (sender as RadGrid).Rebind(); /* Kemudian RadGrid1 akan sorting data by lastupdate (lihat sp_get_purchase_requestH*/
-                    (sender as RadGrid).MasterTableView.Items[0].Selected = true;
+                    RadGrid1.MasterTableView.SortExpressions.Clear();
+                    RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                    RadGrid1.Rebind(); /* Kemudian RadGrid1 akan sorting data by lastupdate (lihat sp_get_purchase_requestH*/
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
 
                 }
                 else if (e.Argument == "RebindAndNavigate")
                 {
-                    (sender as RadGrid).MasterTableView.SortExpressions.Clear();
-                    (sender as RadGrid).MasterTableView.GroupByExpressions.Clear();
-                    (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
-                    (sender as RadGrid).DataBind();
-                    (sender as RadGrid).MasterTableView.CurrentPageIndex = (sender as RadGrid).MasterTableView.PageCount - 1;
+                    RadGrid1.MasterTableView.SortExpressions.Clear();
+                    RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                    RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
+                    RadGrid1.DataBind();
+                    RadGrid1.MasterTableView.CurrentPageIndex = (sender as RadGrid).MasterTableView.PageCount - 1;
 
-                    (sender as RadGrid).MasterTableView.Items[(sender as RadGrid).Items.Count - 1].Selected = true;
+                    RadGrid1.MasterTableView.Items[(sender as RadGrid).Items.Count - 1].Selected = true;
                     //RadGrid2.MasterTableView.Caption = tr_code;
                     Session["action"] = "list";
                 }
@@ -109,8 +109,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
         #endregion
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
-            (sender as RadGrid).DataBind();
+            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
+            RadGrid1.DataBind();
         }
         private static string GetStatusMessage(int offset, int total)
         {
@@ -150,7 +150,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
 
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
         }
 
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
