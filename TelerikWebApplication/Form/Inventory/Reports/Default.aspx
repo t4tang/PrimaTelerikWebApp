@@ -24,7 +24,6 @@
         }*/
 
         #reportViewer1 {
-
             /*position: absolute;
             left: 5px;
             right: 5px;
