@@ -108,7 +108,7 @@ namespace ReportLibrary
 
             con.Open();
             cmd = new SqlCommand("SELECT COUNT(*) FROM v_menu_report_accessebility WHERE menu_description = '" + FormatName(t.Name) + "' AND " +
-                "user_id = '" + _uid + "' AND modul = '" + _mdl + "'");
+                "user_id = '" + _uid + "' AND modul = '" + _mdl + "' AND from_code = 'Rpt'");
             cmd.Connection = con;
             SqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
