@@ -1,0 +1,98 @@
+namespace ReportLibrary.Reports.Inventory
+{
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using Telerik.Reporting;
+    using Telerik.Reporting.Drawing;
+
+    /// <summary>
+    /// Summary description for StockCard.
+    /// </summary>
+    public partial class StockCard : Telerik.Reporting.Report
+    {
+        public static string _material;
+        public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        //public static DateTime _tglawal = Convert.ToDateTime("2018-05-01");
+        //public static DateTime _tglakhir = Convert.ToDateTime("2020-07-01");
+        public static DateTime _tglakhir = DateTime.Now;
+        public static string _project;
+        public static string _storage;
+        public StockCard()
+        {
+            //
+            // Required for telerik Reporting designer support
+            //
+            InitializeComponent();
+
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+            Telerik.Reporting.ReportParameter param1 = new ReportParameter();
+            param1.Name = "material";
+            param1.Text = "Material  :";
+            param1.Type = ReportParameterType.String;
+            param1.AllowBlank = false;
+            param1.AllowNull = false; param1.AvailableValues.DataSource = prod_code;
+            param1.AvailableValues.DisplayMember = "spec";
+            param1.AvailableValues.ValueMember = "prod_code";
+            param1.Value = _material;
+            param1.Visible = true;
+            this.Report.ReportParameters.Add(param1);
+
+            Telerik.Reporting.ReportParameter param2 = new ReportParameter();
+            param2.Name = "tglawal";
+            param2.Text = "Date :";
+            param2.Type = ReportParameterType.DateTime;
+            param2.AllowBlank = false;
+            param2.AllowNull = false;
+            param2.Value = string.Format("{0:yyyy-MM-dd}", _tglawal);
+            param2.Visible = true;
+            this.Report.ReportParameters.Add(param2);
+
+            Telerik.Reporting.ReportParameter param3 = new ReportParameter();
+            param3.Name = "tglakhir";
+            param3.Text = "To Date :";
+            param3.Type = ReportParameterType.DateTime;
+            param3.AllowBlank = false;
+            param3.AllowNull = false;
+            param3.Value = string.Format("{0:yyyy-MM-dd}", _tglakhir);
+            param3.Visible = true;
+            this.Report.ReportParameters.Add(param3);
+
+            Telerik.Reporting.ReportParameter param4 = new ReportParameter();
+            param4.Name = "project";
+            param4.Text = "Project  :";
+            param4.Type = ReportParameterType.String;
+            param4.AllowBlank = false;
+            param4.AllowNull = false;
+            param4.AvailableValues.DataSource = Jobsite;
+            param4.AvailableValues.DisplayMember = "region_name";
+            param4.AvailableValues.ValueMember = "region_code";
+            param4.Value = _project;
+            param4.Visible = true;
+            this.Report.ReportParameters.Add(param4);
+
+            Telerik.Reporting.ReportParameter param5 = new ReportParameter();
+            param5.Name = "storage";
+            param5.Text = "Storage  :";
+            param5.Type = ReportParameterType.String;
+            param5.AllowBlank = false;
+            param5.AllowNull = false;
+            param5.AvailableValues.DataSource = storage;
+            param5.AvailableValues.DisplayMember = "wh_name";
+            param5.AvailableValues.ValueMember = "wh_code";
+            param5.Value = _storage;
+            param5.Visible = true;
+            this.Report.ReportParameters.Add(param5);
+            //storage.Parameters[0].Value = "=Parameters.project.Value";
+
+            sds_stockcard.Parameters[0].Value = "=Parameters.tglawal.Value";
+            sds_stockcard.Parameters[1].Value = "=Parameters.tglakhir.Value";
+            sds_stockcard.Parameters[2].Value = "=Parameters.material.Value";
+            sds_stockcard.Parameters[3].Value = "=Parameters.storage.Value";
+            //sds_stockcard.Parameters[3].Value = "=Parameters.project.Value";
+        }
+    }
+}
