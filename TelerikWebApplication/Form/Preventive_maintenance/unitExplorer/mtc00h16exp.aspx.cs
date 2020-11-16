@@ -102,46 +102,63 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.unitExplorer
                     txt_category.Text = sdr["category"].ToString();
                     txt_class.Text = sdr["class_name"].ToString();
                     txt_supplier.Text = sdr["supplier_name"].ToString();
-                    //DateTime? purc_date = Convert.ToDateTime(sdr["pur_date"].ToString());
-                    //txt_purc_date.Text = purc_date?.ToString("dd/MM/yyyy");
-                    //DateTime? arr_date = Convert.ToDateTime(sdr["arr_date"].ToString());
-                    //txt_purc_date.Text = arr_date?.ToString("dd/MM/yyyy");
-                    //txt_engine_no.Text = sdr["createby_name"].ToString();
-                    //txt_engine_model.Text = sdr["createby_name"].ToString();
-                    //txt_sn.Text = sdr["createby_name"].ToString();
-                    //txt_condition.Text = sdr["createby_name"].ToString();
-                    //txt_project.Text = sdr["status_post"].ToString();
-                    //txt_year.Text = sdr["createby_name"].ToString();
-                    //txt_seat_cap.Text = sdr["createby_name"].ToString();
-                    //txt_chasis.Text = sdr["createby_name"].ToString();
-                    //txt_no_cylinder.Text = sdr["createby_name"].ToString();
-                    //txt_transmission.Text = sdr["status_post"].ToString();
-                    //txt_radio_no.Text = sdr["createby_name"].ToString();
-                    //txt_sn_sarana.Text = sdr["createby_name"].ToString();
-                    //txt_exp_lifetime.Text = sdr["createby_name"].ToString();
-                    //txt_unschedule_bd.Text = sdr["createby_name"].ToString();
-                    //txt_schedule_bd.Text = sdr["status_post"].ToString();
-                    //txt_steer_size.Text = sdr["createby_name"].ToString();
-                    //txt_noOf_steer_size.Text = sdr["createby_name"].ToString();
-                    //txt_tyre_size_drive.Text = sdr["createby_name"].ToString();
-                    //txt_noOf_tyre_size_drive.Text = sdr["createby_name"].ToString();
-                    //txt_wheel_base.Text = sdr["status_post"].ToString();
-                    //txt_wheel_drive.Text = sdr["createby_name"].ToString();
-                    //txt_no_of_axles.Text = sdr["createby_name"].ToString();
-                    //txt_tare_weight.Text = sdr["createby_name"].ToString();
-                    //txt_height.Text = sdr["createby_name"].ToString();
-                    //txt_gross_weight.Text = sdr["status_post"].ToString();
-                    //txt_width.Text = sdr["createby_name"].ToString();
-                    //txt_color.Text = sdr["createby_name"].ToString();
-                    //txt_lenght.Text = sdr["createby_name"].ToString();
-                    //txt_primary_fuel.Text = sdr["createby_name"].ToString();
-                    //txt_primary_tank_capacity.Text = sdr["status_post"].ToString();
-                    //txt_secondary_fuel.Text = sdr["createby_name"].ToString();
-                    //txt_secondary_fuel_capacity.Text = sdr["createby_name"].ToString();
-                    //txt_tank_unit.Text = sdr["createby_name"].ToString();
-                    //txt_inspect_done.Text = sdr["createby_name"].ToString();
-                    //txt_certificate_no.Text = sdr["status_post"].ToString();
-                    //txt_next_due.Text = sdr["createby_name"].ToString();
+
+                    DateTime? purc_date = Convert.ToDateTime(sdr["pur_date"].ToString());
+                    if (purc_date?.ToString("dd/MM/yyyy") != "01/01/1900")
+                    {                        
+                        txt_purc_date.Text = purc_date?.ToString("dd/MM/yyyy");
+                    }
+                    else
+                    {
+                        txt_purc_date.Text = "";
+                    }
+
+                    DateTime? arr_date = Convert.ToDateTime(sdr["arr_date"].ToString());
+                    if (arr_date?.ToString("dd/MM/yyyy") != "01/01/1900")
+                    {                       
+                        txt_arrived_date.Text = arr_date?.ToString("dd/MM/yyyy");
+                    }
+                    else
+                    {
+                        txt_arrived_date.Text = "";
+                    }
+                    
+                    //txt_engine_no.Text = sdr[""].ToString();
+                    //txt_engine_model.Text = sdr[""].ToString();
+                    //txt_sn.Text = sdr[""].ToString();
+                    //txt_condition.Text = sdr[""].ToString();
+                    //txt_project.Text = sdr[""].ToString();
+                    //txt_year.Text = sdr[""].ToString();
+                    //txt_seat_cap.Text = sdr[""].ToString();
+                    //txt_chasis.Text = sdr[""].ToString();
+                    //txt_no_cylinder.Text = sdr[""].ToString();
+                    //txt_transmission.Text = sdr[""].ToString();
+                    //txt_radio_no.Text = sdr[""].ToString();
+                    //txt_sn_sarana.Text = sdr[""].ToString();
+                    //txt_exp_lifetime.Text = sdr[""].ToString();
+                    //txt_unschedule_bd.Text = sdr[""].ToString();
+                    //txt_schedule_bd.Text = sdr[""].ToString();
+                    //txt_steer_size.Text = sdr[""].ToString();
+                    //txt_noOf_steer_size.Text = sdr[""].ToString();
+                    //txt_tyre_size_drive.Text = sdr[""].ToString();
+                    //txt_noOf_tyre_size_drive.Text = sdr[""].ToString();
+                    //txt_wheel_base.Text = sdr[""].ToString();
+                    //txt_wheel_drive.Text = sdr[""].ToString();
+                    //txt_no_of_axles.Text = sdr[""].ToString();
+                    //txt_tare_weight.Text = sdr[""].ToString();
+                    //txt_height.Text = sdr[""].ToString();
+                    //txt_gross_weight.Text = sdr[""].ToString();
+                    //txt_width.Text = sdr[""].ToString();
+                    //txt_color.Text = sdr[""].ToString();
+                    //txt_lenght.Text = sdr[""].ToString();
+                    //txt_primary_fuel.Text = sdr[""].ToString();
+                    //txt_primary_tank_capacity.Text = sdr[""].ToString();
+                    //txt_secondary_fuel.Text = sdr[""].ToString();
+                    //txt_secondary_fuel_capacity.Text = sdr[""].ToString();
+                    //txt_tank_unit.Text = sdr[""].ToString();
+                    //txt_inspect_done.Text = sdr[""].ToString();
+                    //txt_certificate_no.Text = sdr[""].ToString();
+                    //txt_next_due.Text = sdr[""].ToString();
                 }
                 con.Close();
             }
