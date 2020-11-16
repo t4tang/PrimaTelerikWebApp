@@ -174,7 +174,7 @@
                             </tr>
                             <tr>
                                 <td class="tdLabel">
-                                    <telerik:RadLabel runat="server" Text="Shift Mode" CssClass="lbObject"></telerik:RadLabel>
+                                    <telerik:RadLabel runat="server" Text="Ship Mode" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
                                     <asp:UpdatePanel runat="server">
@@ -192,10 +192,10 @@
                             </tr>
                             <tr>
                                 <td class="tdLabel">
-                                    <telerik:RadLabel runat="server" Text="Validation" CssClass="lbObject"></telerik:RadLabel>
+                                    <telerik:RadLabel runat="server" Text="Validation" CssClass="lbObject" ForeColor="Transparent"></telerik:RadLabel>
                                 </td> 
                                 <td style="vertical-align:top; text-align:left">
-                                    <telerik:RadTextBox ID="txt_validity" runat="server" Width="59px" RenderMode="Lightweight" 
+                                    <telerik:RadTextBox ID="txt_validity" runat="server" Width="59px" RenderMode="Lightweight" BorderStyle="None" 
                                            Skin="Telerik"   >
                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
