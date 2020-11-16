@@ -10,61 +10,25 @@
 namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
     
     
-    public partial class mtc01h01EditForm {
+    public partial class entry {
         
         /// <summary>
-        /// form1 control.
+        /// btnUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
         
         /// <summary>
-        /// RadAjaxManager1 control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
-        
-        /// <summary>
-        /// gridLoadingPanel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxLoadingPanel gridLoadingPanel2;
-        
-        /// <summary>
-        /// RadScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
-        
-        /// <summary>
-        /// RadTabStrip1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
-        
-        /// <summary>
-        /// RadMultiPage1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
+        protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
         /// txt_reg_number control.
@@ -139,15 +103,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
-        /// UpdatePanel9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
-        
-        /// <summary>
         /// cb_priority control.
         /// </summary>
         /// <remarks>
@@ -184,15 +139,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::Telerik.Web.UI.RadComboBox cb_reff;
         
         /// <summary>
-        /// txt_reqDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_reqDate;
-        
-        /// <summary>
         /// RequiredFieldValidator6 control.
         /// </summary>
         /// <remarks>
@@ -202,15 +148,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
         
         /// <summary>
-        /// UpdatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
-        /// <summary>
         /// cb_unit control.
         /// </summary>
         /// <remarks>
@@ -218,15 +155,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_unit;
-        
-        /// <summary>
-        /// UpdatePanel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         
         /// <summary>
         /// txt_unit_name control.
@@ -247,15 +175,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator hmValidator;
         
         /// <summary>
-        /// UpdatePanel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
-        
-        /// <summary>
         /// txt_hm control.
         /// </summary>
         /// <remarks>
@@ -263,15 +182,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadNumericTextBox txt_hm;
-        
-        /// <summary>
-        /// UpdatePanel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
         
         /// <summary>
         /// txt_hmEstAccum control.
@@ -292,15 +202,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
         
         /// <summary>
-        /// UpdatePanel6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
-        
-        /// <summary>
         /// cb_orderType control.
         /// </summary>
         /// <remarks>
@@ -319,15 +220,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
         
         /// <summary>
-        /// UpdatePanel7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
-        
-        /// <summary>
         /// cb_jobType control.
         /// </summary>
         /// <remarks>
@@ -337,15 +229,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::Telerik.Web.UI.RadComboBox cb_jobType;
         
         /// <summary>
-        /// UpdatePanel8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel8;
-        
-        /// <summary>
         /// cb_jsa control.
         /// </summary>
         /// <remarks>
@@ -353,159 +236,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_jsa;
-        
-        /// <summary>
-        /// chk_breakdown control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_breakdown;
-        
-        /// <summary>
-        /// dtp_breakdownDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker dtp_breakdownDate;
-        
-        /// <summary>
-        /// rtp_breakdownTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTimePicker rtp_breakdownTime;
-        
-        /// <summary>
-        /// dtp_excStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker dtp_excStartDate;
-        
-        /// <summary>
-        /// rtp_excStartTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTimePicker rtp_excStartTime;
-        
-        /// <summary>
-        /// dtp_excFinishDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker dtp_excFinishDate;
-        
-        /// <summary>
-        /// rtp_excFinishTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTimePicker rtp_excFinishTime;
-        
-        /// <summary>
-        /// cb_mainType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_mainType;
-        
-        /// <summary>
-        /// UpdatePanel12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel12;
-        
-        /// <summary>
-        /// cb_orderBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_orderBy;
-        
-        /// <summary>
-        /// UpdatePanel13 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel13;
-        
-        /// <summary>
-        /// cb_recordBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_recordBy;
-        
-        /// <summary>
-        /// UpdatePanel14 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel14;
-        
-        /// <summary>
-        /// cb_acknowledgedBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_acknowledgedBy;
-        
-        /// <summary>
-        /// RadTabStrip2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip2;
-        
-        /// <summary>
-        /// RadMultiPage2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage2;
-        
-        /// <summary>
-        /// RadPageView1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView RadPageView1;
         
         /// <summary>
         /// projectValidator control.
@@ -598,138 +328,102 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::Telerik.Web.UI.RadTextBox txt_jobDesc;
         
         /// <summary>
-        /// RadPageView2 control.
+        /// chk_breakdown control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView RadPageView2;
+        protected global::System.Web.UI.WebControls.CheckBox chk_breakdown;
         
         /// <summary>
-        /// RadGrid2 control.
+        /// dtp_breakdownDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid2;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_breakdownDate;
         
         /// <summary>
-        /// RadPageView3 control.
+        /// rtp_breakdownTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView RadPageView3;
+        protected global::Telerik.Web.UI.RadTimePicker rtp_breakdownTime;
         
         /// <summary>
-        /// RadGrid3 control.
+        /// dtp_excStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid3;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_excStartDate;
         
         /// <summary>
-        /// RadPageView4 control.
+        /// rtp_excStartTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView RadPageView4;
+        protected global::Telerik.Web.UI.RadTimePicker rtp_excStartTime;
         
         /// <summary>
-        /// RadGrid4 control.
+        /// dtp_excFinishDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid4;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_excFinishDate;
         
         /// <summary>
-        /// RadPageView5 control.
+        /// rtp_excFinishTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView RadPageView5;
+        protected global::Telerik.Web.UI.RadTimePicker rtp_excFinishTime;
         
         /// <summary>
-        /// RadGrid5 control.
+        /// cb_mainType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid5;
+        protected global::Telerik.Web.UI.RadComboBox cb_mainType;
         
         /// <summary>
-        /// lbl_userId control.
+        /// cb_orderBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_userId;
+        protected global::Telerik.Web.UI.RadComboBox cb_orderBy;
         
         /// <summary>
-        /// lbl_lastUpdate control.
+        /// cb_recordBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_lastUpdate;
+        protected global::Telerik.Web.UI.RadComboBox cb_recordBy;
         
         /// <summary>
-        /// lbl_Owner control.
+        /// cb_acknowledgedBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_Owner;
-        
-        /// <summary>
-        /// lbl_edited control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_edited;
-        
-        /// <summary>
-        /// btn_save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
-        
-        /// <summary>
-        /// notif control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNotification notif;
-        
-        /// <summary>
-        /// RadWindowManager2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager2;
+        protected global::Telerik.Web.UI.RadComboBox cb_acknowledgedBy;
     }
 }
