@@ -12,13 +12,26 @@ using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
 {
-    public partial class mtc01h01EditForm : System.Web.UI.Page
+    public partial class entry : System.Web.UI.UserControl
     {
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         private const int ItemsPerRequest = 10;
         public static string tr_code = null;
+
+        private object _dataItem = null;
+        public object DataItem
+        {
+            get
+            {
+                return this._dataItem;
+            }
+            set
+            {
+                this._dataItem = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -27,15 +40,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 dtp_estExct.SelectedDate = DateTime.Now;
                 if (Request.QueryString["trans_id"] != null)
                 {
-                    fill_object(Request.QueryString["trans_id"].ToString());
+                    //fill_object(Request.QueryString["trans_id"].ToString());
                     //RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["sro_code"].ToString());
                     tr_code = Request.QueryString["trans_id"].ToString();
                     Session["actionEdit"] = "edit";
 
-                    RadPageView2.Enabled = true;
-                    RadPageView3.Enabled = true;
-                    RadPageView4.Enabled = true;
-                    RadPageView5.Enabled = true;
                 }
                 else
                 {
@@ -44,101 +53,115 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                     cb_priority.Text = "High/Urgent";
                     Session["actionEdit"] = "new";
 
-                    RadPageView2.Enabled = false;
-                    RadPageView3.Enabled = false;
-                    RadPageView4.Enabled = false;
-                    RadPageView5.Enabled = false;
                 }
             }
         }
-        protected void fill_object(string id)
+
+        protected void btn_save_Click(object sender, EventArgs e)
         {
+            long maxNo;
+            string run = null;
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_doc_date.SelectedDate);
+
             try
             {
-                con.Open();
-                SqlDataReader sdr;
-                SqlCommand cmd = new SqlCommand("SELECT * FROM v_work_orderH WHERE trans_id = '" + id + "'", con);
-                sdr = cmd.ExecuteReader();
-                if (sdr.Read())
+                if (btnUpdate.Text== "Update")
                 {
-                    txt_reg_number.Text = sdr["trans_id"].ToString();
-                    dtp_doc_date.SelectedDate = Convert.ToDateTime(sdr["trans_date"].ToString());
-                    dtp_estExct.SelectedDate = Convert.ToDateTime(sdr["EstExcDate"].ToString());
-                    cb_status.Text = sdr["statusName"].ToString();
-                    cb_status.SelectedValue = sdr["trans_status"].ToString();
-                    cb_project.Text = sdr["region_name"].ToString();
-                    cb_project.SelectedValue = sdr["region_code"].ToString();
-                    cb_reff.Text = sdr["pm_id"].ToString();
-                    if (sdr["Req_date"].ToString() != null)
-                    {
-                        txt_reqDate.Text = null;
-                    }
-                    else
-                    {
-                        DateTime ref_date = Convert.ToDateTime(sdr["Req_date"].ToString());
-                        txt_reqDate.Text = ref_date.ToString("dd/MM/yyyy");
-                    }
-                    cb_priority.Text = sdr["prio_desc"].ToString();
-                    cb_unit.Text = sdr["unit_code"].ToString();
-                    txt_unit_name.Text = sdr["model_no"].ToString();
-                    txt_hm.Value = Convert.ToDouble(sdr["time_reading"].ToString());
-                    txt_hmEstAccum.Value = Convert.ToDouble(sdr["hmEstAccum"].ToString());
-                    cb_orderType.SelectedValue = sdr["OrderType"].ToString();
-                    cb_orderType.Text = sdr["OrderName"].ToString();
-                    cb_jobType.SelectedValue = sdr["job_status"].ToString();
-                    cb_jobType.Text = sdr["PMAct_Name"].ToString();
-                    cb_jsa.SelectedValue = sdr["jsa_code"].ToString();
-                    cb_jsa.Text = sdr["jsa_name"].ToString();
-                    if (sdr["tDown"].ToString() == "1")
-                    {
-                        chk_breakdown.Checked = true;
-                        dtp_breakdownDate.SelectedDate = Convert.ToDateTime(sdr["DBDate"].ToString());
-                        rtp_breakdownTime.SelectedDate = Convert.ToDateTime(sdr["breakdown_time"].ToString());
-                    }
-                    else
-                    {
-                        chk_breakdown.Checked = false;
-                    }
-                    DateTime? excStartDate = new DateTime();
-                    excStartDate = Convert.ToDateTime(sdr["compstdate"].ToString());
-                    dtp_excStartDate.SelectedDate = excStartDate;
-
-                    DateTime? excStartTime = new DateTime();
-                    excStartTime = Convert.ToDateTime(sdr["ext_start_time"].ToString());
-                    rtp_excStartTime.SelectedDate = excStartTime;
-
-                    DateTime? excFinishDate = new DateTime();
-                    excFinishDate = Convert.ToDateTime(sdr["compfndate"].ToString());
-                    dtp_excFinishDate.SelectedDate = excFinishDate;
-
-                    DateTime? excFinishTime = new DateTime();
-                    excFinishTime = Convert.ToDateTime(sdr["ext_fnish_time"].ToString());
-                    rtp_excFinishTime.SelectedDate = excFinishTime;
-
-                    cb_mainType.Text = sdr["maintType"].ToString();
-                    cb_mainType.SelectedValue = sdr["down_type"].ToString();
-                    cb_compGroup.Text = sdr["com_group"].ToString();
-                    cb_compGroup.SelectedValue = sdr["com_group_name"].ToString();
-                    cb_comp.Text = sdr["com_code"].ToString();
-                    cb_comp.SelectedValue = sdr["com_name"].ToString();
-                    cb_diagnosis.Text = sdr["diag_remark"].ToString();
-                    cb_diagnosis.SelectedValue = sdr["DIAG_CODE"].ToString();
-                    cb_symptom.Text = sdr["sym_name"].ToString();
-                    cb_symptom.SelectedValue = sdr["sym_code"].ToString();
-                    txt_jobDesc.Text = sdr["remark"].ToString();
+                    run = txt_reg_number.Text;
                 }
-                ;
+                else
+                {
+                    con.Open();
+                    SqlDataReader sdr;
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( mtc01h01.trans_id , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM mtc01h01 WHERE LEFT( mtc01h01.trans_id, 4) = 'WO01' " +
+                        "AND SUBSTRING(mtc01h01.trans_id, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(mtc01h01.trans_id, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.HasRows == false)
+                    {
+                        //throw new Exception();
+                        run = "WO01" + dtp_doc_date.SelectedDate.Value.Year + dtp_doc_date.SelectedDate.Value.Month + "0001";
+                    }
+                    else if (sdr.Read())
+                    {
+                        maxNo = Convert.ToInt32(sdr[0].ToString());
+                        run = "WO01" + (dtp_doc_date.SelectedDate.Value.Year.ToString()).Substring(dtp_doc_date.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_doc_date.SelectedDate.Value.Month).Substring(("0000" + dtp_doc_date.SelectedDate.Value.Month).Length - 2, 2) +
+                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
+                    }
+                    con.Close();
+                }
+
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_work_orderH";
+                cmd.Parameters.AddWithValue("@trans_id", run);
+                cmd.Parameters.AddWithValue("@trans_date", string.Format("{0:yyyy-MM-dd}", dtp_doc_date.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@trans_down", Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Hours) +
+                (Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                cmd.Parameters.AddWithValue("@down_type", cb_mainType.SelectedValue);
+                cmd.Parameters.AddWithValue("@OrderType", cb_orderType.SelectedValue);
+                cmd.Parameters.AddWithValue("@job_status", cb_jobType.SelectedValue);
+                if (chk_breakdown.Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@tDown", 1);
+                    cmd.Parameters.AddWithValue("@DBDate", string.Format("{0:yyyy-MM-dd}", dtp_breakdownDate.SelectedDate.Value));
+                    cmd.Parameters.AddWithValue("@comp_down_time", Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Hours) +
+                    (Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                    cmd.Parameters.AddWithValue("@BDTime", Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Hours) +
+                    (Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@tDown", 0);
+                    cmd.Parameters.AddWithValue("@DBDate", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@comp_down_time", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@BDTime", DBNull.Value);
+                }
+                cmd.Parameters.AddWithValue("@jsa_code", cb_jsa.SelectedValue);
+                cmd.Parameters.AddWithValue("@trans_status", "00");
+                cmd.Parameters.AddWithValue("@priority_code", cb_priority.SelectedValue);
+
+                cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Value));
+                cmd.Parameters.AddWithValue("@compstdate", string.Format("{0:yyyy-MM-dd}", dtp_excStartDate.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@compfndate", string.Format("{0:yyyy-MM-dd}", dtp_excFinishDate.SelectedDate.Value));
+
+                cmd.Parameters.AddWithValue("@remark", txt_jobDesc.Text);
+                cmd.Parameters.AddWithValue("@unit_code", cb_unit.Text);
+                cmd.Parameters.AddWithValue("@status_code", cb_status.SelectedValue);
+                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@sro", "0");
+
+                cmd.Parameters.AddWithValue("@void", "1");
+                cmd.Parameters.AddWithValue("@sym_code", cb_symptom.SelectedValue);
+                cmd.Parameters.AddWithValue("@com_code", cb_comp.SelectedValue);
+                cmd.Parameters.AddWithValue("@pm_id", cb_reff.Text);
+                cmd.Parameters.AddWithValue("@com_group", cb_compGroup.SelectedValue);
+                cmd.Parameters.AddWithValue("@EstExcDate", string.Format("{0:yyyy-MM-dd}", dtp_estExct.SelectedDate.Value));
+
+                cmd.Parameters.AddWithValue("@DIAG_CODE", cb_diagnosis.SelectedValue);
+                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                cmd.ExecuteNonQuery();
+
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
             }
             finally
             {
                 con.Close();
+                //notif.Text = "Data berhasil disimpan";
+                //notif.Title = "Notification";
+                //notif.Show();
+                txt_reg_number.Text = run;
+                
             }
-
         }
 
         #region Reff - Notif
@@ -178,13 +201,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             while (dr.Read())
             {
                 (sender as RadComboBox).Text = dr["PM_id"].ToString();
-                txt_reqDate.Text = dr["Req_date"].ToString();
+                //txt_reqDate.Text = dr["Req_date"].ToString();
                 cb_unit.Text = dr["unit_code"].ToString();
                 txt_unit_name.Text = dr["model_no"].ToString();
                 txt_hm.Value = Convert.ToDouble(dr["time_reading"].ToString());
                 txt_hmEstAccum.Value = Convert.ToDouble(dr["hmEstAccum"].ToString());
-                //dtp_breakdownDate.SelectedDate= Convert.ToDateTime(dr["Req_date"].ToString());
-                //rtp_breakdownTime.SelectedDate = Convert.ToDateTime(dr["breakdown_time"].ToString());
                 if (dr["tdown"].ToString() == "1")
                 {
                     chk_breakdown.Checked = true;
@@ -200,17 +221,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 txt_jobDesc.Text = dr["remark"].ToString();
             }
 
-            //dr.Close();
             con.Close();
-
-            //RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue, cb_project.SelectedValue, cb_supplier.SelectedValue);
-            //RadGrid2.DataBind();
-
-            //txt_sub_total.Value = 0;
-            //txt_tax1_value.Value = 0;
-            //txt_tax2_value.Value = 0;
-            //txt_tax3_value.Value = 0;
-            //txt_total.Value = 0;
 
         }
 
@@ -224,7 +235,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         protected void cb_reff_DataBound(object sender, EventArgs e)
         {
             //set the initial footer label
-            ((Literal)cb_reff.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString(cb_reff.Items.Count);
+            ((Literal)(sender as RadComboBox).Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString((sender as RadComboBox).Items.Count);
         }
         #endregion
 
@@ -572,14 +583,47 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         }
         #endregion
 
-        #region Priority
+        #region status
         protected void cb_status_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("Open");
             (sender as RadComboBox).Items.Add("Realease");
             (sender as RadComboBox).Items.Add("Closed");
         }
+        protected void cb_status_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Open")
+            {
+                (sender as RadComboBox).SelectedValue = "0";
+            }
+            else if ((sender as RadComboBox).Text == "Realease")
+            {
+                (sender as RadComboBox).SelectedValue = "1";
+            }
+            else if ((sender as RadComboBox).Text == "Closed")
+            {
+                (sender as RadComboBox).SelectedValue = "2";
+            }
+        }
 
+        protected void cb_status_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Open")
+            {
+                (sender as RadComboBox).SelectedValue = "0";
+            }
+            else if ((sender as RadComboBox).Text == "Realease")
+            {
+                (sender as RadComboBox).SelectedValue = "1";
+            }
+            else if ((sender as RadComboBox).Text == "Closed")
+            {
+                (sender as RadComboBox).SelectedValue = "2";
+            }
+        }
+        #endregion
+
+        #region Priority
         protected void cb_priority_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("High/Urgent");
@@ -627,6 +671,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 (sender as RadComboBox).SelectedValue = "4";
             }
         }
+
+
         #endregion
 
         #region Comp Group
@@ -857,126 +903,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         }
         #endregion
 
-        protected void cb_orderBy_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-
-        }
-
-        protected void cb_orderBy_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-
-        }
-
-        protected void cb_orderBy_PreRender(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void cb_recordBy_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-
-        }
-
-        protected void cb_recordBy_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-
-        }
-
-        protected void cb_recordBy_PreRender(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void cb_acknowledgedBy_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-
-        }
-
-        protected void cb_acknowledgedBy_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-
-        }
-
-        protected void cb_acknowledgedBy_PreRender(object sender, EventArgs e)
-        {
-
-        }
-        public DataTable GetDBMB(string trans_id)
-        {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "SELECT down_date, downTime, downAct, downUp, remark_activity, mtc01d01.remark, mtc01d01.trans_id, tot_time_down, run_num, tot_time_num, esti_date,  " +
-                "esti_time, no_part, part_item, part_date, part_eta, status, mtc00h25.OprName FROM mtc01d01, mtc01h03, mtc00h25 WHERE mtc01d01.trans_id = mtc01h03.trans_id " +
-                "AND mtc01h03.chart_code = mtc00h25.OprCode AND mtc01d01.trans_id = @trans_id";
-            cmd.Parameters.AddWithValue("@trans_id", trans_id);
-            cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
-            sda = new SqlDataAdapter(cmd);
-
-            DataTable DT = new DataTable();
-
-            try
-            {
-                sda.Fill(DT);
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return DT;
-        }
-        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-        {
-            if (tr_code == null)
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-            }
-            else
-            {
-                (sender as RadGrid).DataSource = GetDBMB(tr_code);
-            }
-        }
-        public DataTable GetExtService(string trans_id)
-        {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "SELECT trans_date, mtc01h04.sup_code, pur00h01.supplier_name, description, price, trans_id " +
-                                "FROM mtc01h04, pur00h01 WHERE mtc01h04.sup_code=pur00h01.supplier_code AND trans_id = @trans_id";
-            cmd.Parameters.AddWithValue("@trans_id", trans_id);
-            cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
-            sda = new SqlDataAdapter(cmd);
-
-            DataTable DT = new DataTable();
-
-            try
-            {
-                sda.Fill(DT);
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return DT;
-        }
-        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-        {
-            if (tr_code == null)
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-            }
-            else
-            {
-                (sender as RadGrid).DataSource = GetExtService(tr_code);
-            }
-        }
-
         #region Operation
         public DataTable GetOperation(string trans_id)
         {
@@ -1016,44 +942,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             }
         }
 
-        //public DataTable GetOperationItem(string text)
-        //{
-        //    con.Open();
-        //    cmd = new SqlCommand();
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.Connection = con;
-        //    cmd.CommandText = "SELECT OprCode, OprName  FROM mtc00h25 WHERE stEdit != 4 AND OprName LIKE @text + '%'";
-        //    cmd.Parameters.AddWithValue("@text", text);
-        //    cmd.CommandTimeout = 0;
-        //    cmd.ExecuteNonQuery();
-        //    sda = new SqlDataAdapter(cmd);
-
-        //    DataTable DT = new DataTable();
-
-        //    try
-        //    {
-        //        sda.Fill(DT);
-        //    }
-        //    finally
-        //    {
-        //        con.Close();
-        //    }
-
-        //    return DT;
-        //}
+        
         protected void cb_operation_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            //DataTable data = GetOperationItem(e.Text);
-
-            //int itemOffset = e.NumberOfItems;
-            //int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
-            //e.EndOfItems = endOffset == data.Rows.Count;
-
-            //for (int i = itemOffset; i < endOffset; i++)
-            //{
-            //    (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["OprName"].ToString(), data.Rows[i]["OprName"].ToString()));
-            //}
-
             string sql = "SELECT OprCode, OprName  FROM mtc00h25 WHERE stEdit != 4 AND OprName LIKE @text + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -1111,256 +1002,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             }
         }
         #endregion
-
-        protected void btn_save_Click(object sender, EventArgs e)
-        {
-            long maxNo;
-            string run = null;
-            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_doc_date.SelectedDate);
-
-            try
-            {
-                if (Session["actionEdit"].ToString() != "new")
-                {
-                    run = txt_reg_number.Text;
-                }
-                else
-                {
-                    con.Open();
-                    SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( mtc01h01.trans_id , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM mtc01h01 WHERE LEFT( mtc01h01.trans_id, 4) = 'WO01' " +
-                        "AND SUBSTRING(mtc01h01.trans_id, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(mtc01h01.trans_id, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
-                    sdr = cmd.ExecuteReader();
-                    if (sdr.HasRows == false)
-                    {
-                        //throw new Exception();
-                        run = "WO01" + dtp_doc_date.SelectedDate.Value.Year + dtp_doc_date.SelectedDate.Value.Month + "0001";
-                    }
-                    else if (sdr.Read())
-                    {
-                        maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "WO01" + (dtp_doc_date.SelectedDate.Value.Year.ToString()).Substring(dtp_doc_date.SelectedDate.Value.Year.ToString().Length - 2) +
-                            ("0000" + dtp_doc_date.SelectedDate.Value.Month).Substring(("0000" + dtp_doc_date.SelectedDate.Value.Month).Length - 2, 2) +
-                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
-                    }
-                    con.Close();
-                }
-
-
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
-                cmd.CommandText = "sp_save_work_orderH";
-                cmd.Parameters.AddWithValue("@trans_id", run);
-                cmd.Parameters.AddWithValue("@trans_date", string.Format("{0:yyyy-MM-dd}", dtp_doc_date.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@trans_down", Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Hours) +
-                (Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                cmd.Parameters.AddWithValue("@down_type", cb_mainType.SelectedValue);
-                cmd.Parameters.AddWithValue("@OrderType", cb_orderType.SelectedValue);
-                cmd.Parameters.AddWithValue("@job_status", cb_jobType.SelectedValue);
-                if (chk_breakdown.Checked == true)
-                {
-                    cmd.Parameters.AddWithValue("@tDown", 1);
-                    cmd.Parameters.AddWithValue("@DBDate", string.Format("{0:yyyy-MM-dd}", dtp_breakdownDate.SelectedDate.Value));
-                    cmd.Parameters.AddWithValue("@comp_down_time", Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Hours) +
-                    (Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                    cmd.Parameters.AddWithValue("@BDTime", Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Hours) +
-                    (Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@tDown", 0);
-                    cmd.Parameters.AddWithValue("@DBDate", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@comp_down_time", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@BDTime", DBNull.Value);
-                }
-                cmd.Parameters.AddWithValue("@jsa_code", cb_jsa.SelectedValue);
-                cmd.Parameters.AddWithValue("@trans_status", "00");
-                cmd.Parameters.AddWithValue("@priority_code", cb_priority.SelectedValue);
-
-                cmd.Parameters.AddWithValue("@time_reading", Convert.ToDouble(txt_hm.Value));
-                cmd.Parameters.AddWithValue("@compstdate", string.Format("{0:yyyy-MM-dd}", dtp_excStartDate.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@compfndate", string.Format("{0:yyyy-MM-dd}", dtp_excFinishDate.SelectedDate.Value));
-                
-                cmd.Parameters.AddWithValue("@remark", txt_jobDesc.Text);
-                cmd.Parameters.AddWithValue("@unit_code", cb_unit.Text);
-                cmd.Parameters.AddWithValue("@status_code", cb_status.SelectedValue);
-                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
-                cmd.Parameters.AddWithValue("@sro", "0");
-
-                cmd.Parameters.AddWithValue("@void", "1");
-                cmd.Parameters.AddWithValue("@sym_code", cb_symptom.SelectedValue);
-                cmd.Parameters.AddWithValue("@com_code", cb_comp.SelectedValue);
-                cmd.Parameters.AddWithValue("@pm_id", cb_reff.Text);
-                cmd.Parameters.AddWithValue("@com_group", cb_compGroup.SelectedValue);
-                cmd.Parameters.AddWithValue("@EstExcDate", string.Format("{0:yyyy-MM-dd}", dtp_estExct.SelectedDate.Value));
-                
-                cmd.Parameters.AddWithValue("@DIAG_CODE", cb_diagnosis.SelectedValue);
-                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-
-                //cmd.ExecuteNonQuery();
-
-
-                //foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
-                //{
-                //    cmd = new SqlCommand();
-                //    cmd.CommandType = CommandType.StoredProcedure;
-                //    cmd.Connection = con;
-                //    cmd.CommandText = "sp_save_work_orderD";
-                //    cmd.Parameters.AddWithValue("@trans_id", run);
-                //    cmd.Parameters.AddWithValue("@down_date", string.Format("{0:yyyy-MM-dd}", (item.FindControl("trans_date") as RadDatePicker).SelectedDate));
-                //    cmd.Parameters.AddWithValue("@down_time", Convert.ToDouble((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                //    (Convert.ToDouble((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                //    cmd.Parameters.AddWithValue("@down_act", Convert.ToDouble((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                //    (Convert.ToDouble((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                //    cmd.Parameters.AddWithValue("@down_up", Convert.ToDouble((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                //    (Convert.ToDouble((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                //    cmd.Parameters.AddWithValue("@remark_activity", (item.FindControl("lbl_remark") as RadTextBox).Text);
-                //    //cmd.Parameters.AddWithValue("@tot_time_down", (item.FindControl("cb_uom_d") as RadComboBox).Text);
-                //    //cmd.Parameters.AddWithValue("@tot_time_num", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
-                //    cmd.Parameters.AddWithValue("@status", (item.FindControl("cb_bd_status") as RadComboBox).SelectedValue);                    
-
-                //    cmd.ExecuteNonQuery();
-
-                //}
-                //foreach (GridDataItem item in RadGrid3.MasterTableView.Items)
-                //{
-                //    cmd = new SqlCommand();
-                //    cmd.CommandType = CommandType.Text;
-                //    cmd.Connection = con;
-                //    cmd.CommandText = "INSERT INTO mtc01h04(trans_date, sup_code, description, price, trans_id) " +
-                //    "VALUES(@trans_date, @sup_code, @description, @price, @trans_id)";
-                //    cmd.Parameters.AddWithValue("@trans_id", run);
-                //    cmd.Parameters.AddWithValue("@trans_date", string.Format("{0:yyyy-MM-dd}", (item.FindControl("trans_date") as RadDatePicker).SelectedDate));
-                //    cmd.Parameters.AddWithValue("@sup_code", (item.FindControl("cb_supplier") as RadComboBox).SelectedValue);
-                //    cmd.Parameters.AddWithValue("@description", (item.FindControl("txt_description") as RadTextBox).Text);
-                //    cmd.Parameters.AddWithValue("@price", Convert.ToDouble((item.FindControl("txt_rate") as RadTextBox).Text));
-
-                //    cmd.ExecuteNonQuery();
-
-                //}
-                //foreach (GridDataItem item in RadGrid4.MasterTableView.Items)
-                //{
-                //    cmd = new SqlCommand();
-                //    cmd.CommandType = CommandType.StoredProcedure;
-                //    cmd.Connection = con;
-                //    cmd.CommandText = "sp_save_operationH";
-                //    cmd.Parameters.AddWithValue("@trans_id", run);
-                //    cmd.Parameters.AddWithValue("@chart_desc", (item.FindControl("cb_operation") as RadComboBox).Text);
-                //    cmd.Parameters.AddWithValue("@formula", "0");
-
-                //    cmd.ExecuteNonQuery();
-
-                //}
-                
-                save_operation(run);
-
-            }
-            catch (System.Exception ex)
-            {
-                con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
-            }
-            finally
-            {
-                con.Close();
-                notif.Text = "Data berhasil disimpan";
-                notif.Title = "Notification";
-                notif.Show();
-                txt_reg_number.Text = run;
-
-                if (Session["actionEdit"].ToString() == "edit")
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                }
-                else
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                }
-
-                //pur01h02.tr_code = run;
-                //pur01h02.selected_project = cb_project.SelectedValue;
-            }
-        }
-
-        private void save_operation(string trans_id)
-        {
-            //var chart_code = ((GridDataItem)e.Item).GetDataKeyValue("OprCode");
-
-            try
-            {
-                //GridEditableItem item = (GridEditableItem)e.Item;
-                //con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = con;
-                cmd.CommandText = "delete from mtc01h03 where trans_id = @trans_id";
-                cmd.Parameters.AddWithValue("@trans_id", trans_id);
-                cmd.ExecuteNonQuery();
-                //con.Close();
-                //RadGrid2.DataBind();
-
-                //notif.Text = "Data berhasil dihapus";
-                //notif.Title = "Notification";
-                //notif.Show();
-           
-                foreach (GridDataItem item in RadGrid4.MasterTableView.Items)
-                {
-                    cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = con;
-                    cmd.CommandText = "sp_save_operationH";
-                    cmd.Parameters.AddWithValue("@trans_id", trans_id);
-                    cmd.Parameters.AddWithValue("@chart_desc", (item.FindControl("cb_operation") as RadComboBox).Text);
-                    cmd.Parameters.AddWithValue("@formula", "0");
-
-                    cmd.ExecuteNonQuery();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
-            }
-
-        }
-
-        protected void cb_status_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            if ((sender as RadComboBox).Text == "Open")
-            {
-                (sender as RadComboBox).SelectedValue = "00";
-            }
-            else if ((sender as RadComboBox).Text == "Realease")
-            {
-                (sender as RadComboBox).SelectedValue = "01";
-            }
-            else if ((sender as RadComboBox).Text == "Closed")
-            {
-                (sender as RadComboBox).SelectedValue = "02";
-            }
-        }
-
-        protected void cb_status_PreRender(object sender, EventArgs e)
-        {
-            if ((sender as RadComboBox).Text == "Open")
-            {
-                (sender as RadComboBox).SelectedValue = "00";
-            }
-            else if ((sender as RadComboBox).Text == "Realease")
-            {
-                (sender as RadComboBox).SelectedValue = "01";
-            }
-            else if ((sender as RadComboBox).Text == "Closed")
-            {
-                (sender as RadComboBox).SelectedValue = "02";
-            }
-        }
 
         #region BD Status
         protected void cb_bd_status_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -1472,7 +1113,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         }
         #endregion
 
-       
         #region approval
 
         protected void LoadManPower(string name, string projectID, RadComboBox cb)
@@ -1493,18 +1133,18 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             cb.DataSource = dt;
             cb.DataBind();
         }
-        protected void cb_checked_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        protected void cb_approval_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
             LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
         }
 
-        protected void cb_checked_DataBound(object sender, EventArgs e)
+        protected void cb_approval_DataBound(object sender, EventArgs e)
         {
             ((Literal)(sender as RadComboBox).Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString((sender as RadComboBox).Items.Count);
         }
 
-        protected void cb_checked_PreRender(object sender, EventArgs e)
+        protected void cb_approval_PreRender(object sender, EventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -1519,7 +1159,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             con.Close();
         }
 
-        protected void cb_checked_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void cb_approval_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -1532,131 +1172,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
             dr.Close();
             con.Close();
-        }
+        }        
 
-        protected void cb_ack_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-            (sender as RadComboBox).Text = "";
-            LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
-        }
-
-        protected void cb_ack_DataBound(object sender, EventArgs e)
-        {
-            ((Literal)(sender as RadComboBox).Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString((sender as RadComboBox).Items.Count);
-        }
-
-        protected void cb_ack_PreRender(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
-            dr.Close();
-            con.Close();
-        }
-
-        protected void cb_ack_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
-            dr.Close();
-            con.Close();
-        }
-
-        protected void cb_ordered_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        {
-            (sender as RadComboBox).Text = "";
-            LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
-        }
-
-        protected void cb_ordered_DataBound(object sender, EventArgs e)
-        {
-            ((Literal)(sender as RadComboBox).Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString((sender as RadComboBox).Items.Count);
-        }
-
-        protected void cb_ordered_PreRender(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
-            dr.Close();
-            con.Close();
-        }
-
-        protected void cb_ordered_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
-            dr.Close();
-            con.Close();
-        }
         #endregion
 
-        protected void RadGrid_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
-        {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem dataItem = (GridDataItem)e.Item;
-                dataItem["RowNumber"].Text = Convert.ToString((sender as RadGrid).PageSize * (sender as RadGrid).CurrentPageIndex + e.Item.ItemIndex + 1);
-
-            }
-        }
-               
-        protected void RadGrid4_DeleteCommand(object sender, GridCommandEventArgs e)
-        {
-            var chart_code = ((GridDataItem)e.Item).GetDataKeyValue("OprCode");
-
-            try
-            {
-                GridEditableItem item = (GridEditableItem)e.Item;
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = con;
-                cmd.CommandText = "delete from mtc01h03 where trans_id = @trans_id and chart_code = @chart_code";
-                cmd.Parameters.AddWithValue("@trans_id", tr_code);
-                cmd.Parameters.AddWithValue("@chart_code", chart_code);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                RadGrid2.DataBind();
-
-                notif.Text = "Data berhasil dihapus";
-                notif.Title = "Notification";
-                notif.Show();
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
-                e.Canceled = true;
-            }
-        }
        
-        
     }
 }

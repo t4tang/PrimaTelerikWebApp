@@ -604,7 +604,7 @@ body {
 
 .demo-container {
     width: 760px;
-    height: 410px;
+    height: 900px;
     position: relative;
 }
  
@@ -877,3 +877,9 @@ html body form .RadInput .MyReadOnlyTextBox {
     background-color: #393838; 
     opacity: 1;
 }*/
+
+.entryFormStyle
+{
+    background-color:white;
+    color:teal;
+}
