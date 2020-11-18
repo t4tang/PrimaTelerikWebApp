@@ -13,5 +13,45 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         {
 
         }
+
+        protected void edt_chkTax1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void edt_chkTax1_PreRender(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void edt_chkOTax_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void edt_chkOTax_PreRender(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void edt_chkTpph_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void edt_chkTpph_PreRender(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid2_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+        }
     }
 }
