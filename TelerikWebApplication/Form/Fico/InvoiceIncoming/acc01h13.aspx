@@ -68,7 +68,7 @@
     </asp:UpdatePanel> 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
                 <UpdatedControls>
@@ -111,6 +111,8 @@
                                 DateInput-ReadOnly="false" DateInput-DateFormat="dd/MM/yyyy">
                             </telerik:RadDatePicker>
                         </td>
+                    </tr>
+                    <tr>
                         <td >
                             <telerik:RadLabel runat="server" Text="To Date :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
                             <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" Width="200px"  Skin="Telerik"
@@ -119,19 +121,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td >
                             <telerik:RadLabel runat="server" Text="Project :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
                             <telerik:RadComboBox ID="cb_proj_prm" runat="server" RenderMode="Lightweight"
-                               EnableLoadOnDemand="True"  Skin="Telerik" 
+                               EnableLoadOnDemand="True"  Skin="Telerik" OnItemsRequested="cb_proj_prm_ItemsRequested"
+                                OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
+                                EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px">
 
-                                EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="100%">
                             </telerik:RadComboBox>
                         </td>
                     </tr>
                     <tr style="height:50px">   
-                        <td colspan="2" style="padding-right:10px">
-                            <telerik:RadButton ID="btnSearch" runat="server" Text="Filter" Width="95%" Height="25px"
-                             Skin="Material"></telerik:RadButton>
+                        <td>  
+                            <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Filter" Width="120px" Height="25px" 
+                            BackColor="#FF6600" ForeColor="White" BorderStyle="None"  />
                         </td>
 
                     </tr>
@@ -164,7 +167,10 @@
         <div runat="server" style=" overflow-x:auto; padding-top: 5px;">
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="7" MasterTableView-GridLines="None" 
-                 OnNeedDataSource="RadGrid1_NeedDataSource">
+                 OnNeedDataSource="RadGrid1_NeedDataSource" OnPreRender="RadGrid1_PreRender"
+            OnDeleteCommand="RadGrid1_DeleteCommand"
+            OnItemCreated="RadGrid1_ItemCreated"
+            OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                 <HeaderStyle CssClass="gridHeader" />
                 <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
@@ -258,10 +264,11 @@
         <div runat="server" style="width: 100%; border-top-width: 1px; border-top-style: inset; padding-top: 5px;">
             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
             AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" 
-            OnNeedDataSource="RadGrid2_NeedDataSource" >
+            OnNeedDataSource="RadGrid2_NeedDataSource" OnUpdateCommand="RadGrid2_UpdateCommand"
+                    OnDeleteCommand="RadGrid2_DeleteCommand"> 
             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
             <HeaderStyle CssClass="gridHeader" BackColor="YellowGreen" />
-            <MasterTableView CommandItemDisplay="None" DataKeyNames="lbm_code,prod_code" Font-Size="11px" EditMode="InPlace"
+            <MasterTableView CommandItemDisplay="None" DataKeyNames="lbm_code,KoBar" Font-Size="11px" EditMode="InPlace"
                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
             <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
             <Columns>
@@ -448,7 +455,7 @@
                 <telerik:GridTemplateColumn HeaderText="Ori. Material Code" HeaderStyle-Width="120px" ItemStyle-Width="120px" 
                         HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Left">
                     <ItemTemplate>
-                        <asp:Label runat="server" ID="lblProdOri" Enabled="false" Text='<%# DataBinder.Eval(Container.DataItem, "prod_code_ori") %>'></asp:Label>
+                        <asp:Label runat="server" ID="lblProdOri" Enabled="false" Text='<%# DataBinder.Eval(Container.DataItem, "KoBar_ori") %>'></asp:Label>
                     </ItemTemplate>                                      
                 </telerik:GridTemplateColumn>
                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" 
