@@ -155,7 +155,7 @@ namespace ReportLibrary.Reports.Maintenance
             this.textBox6.CanGrow = false;
             this.textBox6.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(4.2999997138977051D), Telerik.Reporting.Drawing.Unit.Inch(1.0999608039855957D));
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.5999211072921753D), Telerik.Reporting.Drawing.Unit.Inch(0.39992141723632812D));
+            this.textBox6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8999999761581421D), Telerik.Reporting.Drawing.Unit.Inch(0.39992141723632812D));
             this.textBox6.Style.BackgroundColor = System.Drawing.Color.Teal;
             this.textBox6.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox6.Style.Color = System.Drawing.Color.White;
@@ -167,9 +167,9 @@ namespace ReportLibrary.Reports.Maintenance
             // textBox13
             // 
             this.textBox13.CanGrow = false;
-            this.textBox13.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(5.90000057220459D), Telerik.Reporting.Drawing.Unit.Inch(1.0999608039855957D));
+            this.textBox13.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(6.2000794410705566D), Telerik.Reporting.Drawing.Unit.Inch(1.0999608039855957D));
             this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.5997245311737061D), Telerik.Reporting.Drawing.Unit.Inch(0.39992141723632812D));
+            this.textBox13.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.2996456623077393D), Telerik.Reporting.Drawing.Unit.Inch(0.39992141723632812D));
             this.textBox13.Style.BackgroundColor = System.Drawing.Color.Teal;
             this.textBox13.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox13.Style.Color = System.Drawing.Color.White;
@@ -351,16 +351,16 @@ namespace ReportLibrary.Reports.Maintenance
             this.textBox20.CanGrow = false;
             this.textBox20.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(4.3000001907348633D), Telerik.Reporting.Drawing.Unit.Inch(3.9577484130859375E-05D));
             this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.5999199151992798D), Telerik.Reporting.Drawing.Unit.Inch(0.20000004768371582D));
+            this.textBox20.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8999987840652466D), Telerik.Reporting.Drawing.Unit.Inch(0.20000004768371582D));
             this.textBox20.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox20.Value = "= Fields.key_no";
             // 
             // textBox24
             // 
             this.textBox24.CanGrow = false;
-            this.textBox24.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(5.90000057220459D), Telerik.Reporting.Drawing.Unit.Inch(3.9577484130859375E-05D));
+            this.textBox24.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(6.2000794410705566D), Telerik.Reporting.Drawing.Unit.Inch(3.9577484130859375E-05D));
             this.textBox24.Name = "textBox24";
-            this.textBox24.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.5997240543365479D), Telerik.Reporting.Drawing.Unit.Inch(0.20000004768371582D));
+            this.textBox24.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.2996451854705811D), Telerik.Reporting.Drawing.Unit.Inch(0.20000004768371582D));
             this.textBox24.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox24.Value = "= Fields.engine_size";
             // 
