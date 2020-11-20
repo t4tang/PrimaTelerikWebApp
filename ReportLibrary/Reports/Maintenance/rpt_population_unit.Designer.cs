@@ -1,6 +1,6 @@
 namespace ReportLibrary.Reports.Maintenance
 {
-    partial class rpt_population_unit
+    partial class UnitPopulationReport
     {
         #region Component Designer generated code
         /// <summary>
@@ -48,7 +48,7 @@ namespace ReportLibrary.Reports.Maintenance
             // 
             // pageHeaderSection1
             // 
-            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(1.5D);
+            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(1.6000000238418579D);
             this.pageHeaderSection1.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox21,
             this.textBox22,
@@ -431,14 +431,14 @@ namespace ReportLibrary.Reports.Maintenance
             new Telerik.Reporting.SqlDataSourceParameter("@region_code", System.Data.DbType.String, null)});
             this.sqlDataSource1.SelectCommand = "select * from v_unit_population where region_code=@region_code";
             // 
-            // rpt_population_unit
+            // UnitPopulationReport
             // 
             this.DataSource = this.sqlDataSource1;
             this.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.pageHeaderSection1,
             this.detail,
             this.pageFooterSection1});
-            this.Name = "rpt_population_unit";
+            this.Name = "UnitPopulationReport";
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.Letter;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
