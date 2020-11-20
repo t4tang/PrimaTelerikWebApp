@@ -1,6 +1,6 @@
 namespace ReportLibrary.Reports.Inventory
 {
-    partial class GoodsReceiveByValue
+    partial class rpt_gr_by_values
     {
         #region Component Designer generated code
         /// <summary>
