@@ -43,6 +43,7 @@ namespace ReportLibrary.Reports.Maintenance
             this.textBox32 = new Telerik.Reporting.TextBox();
             this.pageFooterSection1 = new Telerik.Reporting.PageFooterSection();
             this.sqlDataSource1 = new Telerik.Reporting.SqlDataSource();
+            this.Jobsite = new Telerik.Reporting.SqlDataSource();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // pageHeaderSection1
@@ -443,6 +444,14 @@ namespace ReportLibrary.Reports.Maintenance
             new Telerik.Reporting.SqlDataSourceParameter("@region_code", System.Data.DbType.String, null)});
             this.sqlDataSource1.SelectCommand = "select * from v_unit_population where region_code=@region_code";
             // 
+            // Jobsite
+            // 
+            this.Jobsite.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
+            this.Jobsite.Name = "Jobsite";
+            this.Jobsite.SelectCommand = "SELECT        region_code, region_name\r\nFROM            ms_jobsite\r\nWHERE        " +
+    "(stEdit <> \'4\')\r\nUNION ALL\r\nSELECT        \'ALL\' AS region_code, \'ALL\' AS region_" +
+    "name";
+            // 
             // UnitPopulationReport
             // 
             this.DataSource = this.sqlDataSource1;
@@ -499,5 +508,6 @@ namespace ReportLibrary.Reports.Maintenance
         private Telerik.Reporting.TextBox textBox31;
         private Telerik.Reporting.TextBox textBox32;
         private Telerik.Reporting.SqlDataSource sqlDataSource1;
+        private Telerik.Reporting.SqlDataSource Jobsite;
     }
 }

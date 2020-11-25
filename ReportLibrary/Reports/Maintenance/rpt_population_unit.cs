@@ -13,7 +13,7 @@ namespace ReportLibrary.Reports.Maintenance
     [Description("Menampilkan seluruh Populasi Unit")]
     public partial class UnitPopulationReport : Telerik.Reporting.Report
     {
-        public static string _project="SMB";
+        public static string _project;
         //public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         //public static DateTime _tglakhir = DateTime.Now;
         public UnitPopulationReport()
@@ -31,7 +31,7 @@ namespace ReportLibrary.Reports.Maintenance
             param1.Text = "Project :";
             param1.Type = ReportParameterType.String;
             param1.AllowBlank = false;
-            //param1.AllowNull = false; param1.AvailableValues.DataSource = Jobsite;
+            param1.AllowNull = false; param1.AvailableValues.DataSource = Jobsite;
             param1.AvailableValues.DisplayMember = "region_name";
             param1.AvailableValues.ValueMember = "region_code";
             param1.Value = _project;
