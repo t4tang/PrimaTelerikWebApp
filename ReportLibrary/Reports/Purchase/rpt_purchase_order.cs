@@ -10,7 +10,7 @@ namespace ReportLibrary.Reports
     /// <summary>
     /// Summary description for rpt_purchase_order.
     /// </summary>
-    public partial class rpt_purchase_order : Telerik.Reporting.Report
+    public partial class PurchaseOrderReport : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -18,7 +18,7 @@ namespace ReportLibrary.Reports
         public static bool TF; 
         //public static DateTime _tglawal ;
         //public static DateTime _tglakhir;
-        public rpt_purchase_order()
+        public PurchaseOrderReport()
         {
             //
             // Required for telerik Reporting designer support
