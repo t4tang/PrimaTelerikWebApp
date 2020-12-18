@@ -456,6 +456,18 @@ a.RadButton_MetroTouch.rbImageButton:focus {
     border-bottom-style: inset;
     background-color: deeppink !important;
    }
+.btn-main{
+    background-color:deepskyblue;
+    color:#efe;
+}
+.btn-entryFrm{
+    background-color:Highlight;
+    color:#efe;
+    border-style:inset;
+    border-color:lightgray;
+}
+
+
 /*Editor*/
 .background-blackmetrotouch .demo-container.wrapper,
 .background-black .demo-container.wrapper,
@@ -882,4 +894,9 @@ html body form .RadInput .MyReadOnlyTextBox {
 {
     background-color:white;
     color:teal;
+}
+
+.gridItem
+{
+    padding: 0px 2px 0px 5px;
 }
