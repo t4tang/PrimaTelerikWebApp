@@ -19,7 +19,8 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         private const int ItemsPerRequest = 10;
-        //int type_out;
+        public static string selected_wh_code = null;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -291,6 +292,21 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 else
                     txt.Enabled = false;
             }
+
+            if (e.Item is GridDataItem)
+            {
+                HyperLink gl_account_link = (HyperLink)e.Item.FindControl("link_gl_account");
+                gl_account_link.Attributes["href"] = "javascript:void(0);";
+                gl_account_link.Attributes["onclick"] = String.Format("return ShowGlAccountForm('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["wh_code"], e.Item.ItemIndex);
+
+                HyperLink material_link = (HyperLink)e.Item.FindControl("link_material");
+                material_link.Attributes["href"] = "javascript:void(0);";
+                material_link.Attributes["onclick"] = String.Format("return ShowMaterialForm('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["wh_code"], e.Item.ItemIndex);
+
+            }
         }
+
+       
+
     }
 }
