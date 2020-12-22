@@ -165,26 +165,18 @@
     <div class="scroller" runat="server" >
         <div style="padding-left: 15px; width: 100%; ">
             <table id="tbl_control">
-                <tr>
-                   <%-- <td style="text-align: right; vertical-align: middle;">
-                        <asp:ImageButton runat="server" ID="btnList" OnClientClick="openWinContentTemplate(); return false;"
-                            Height="30px" Width="35px" ImageUrl="~/Images/daftar.png"></asp:ImageButton>
-                    </td>--%>
-                    <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
+                <tr>                  
+                    <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                         <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClientClick="ShowInsertForm(); return false;" ToolTip="Add New"
-                            Height="30px" Width="32px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
-                    </td>
-                    <%--<td style="vertical-align: middle; margin-left: 10px; padding-left: 13px">
-                        <asp:ImageButton runat="server" ID="btnEdit" AlternateText="Modify" 
-                            Height="30px" Width="32px" ImageUrl="~/Images/edit.png"></asp:ImageButton>
-                    </td>--%>
-                    <td style="vertical-align: middle; margin-left: 10px; padding-left: 13px">
+                            Height="25px" Width="27px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
+                    </td>                    
+                    <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                         <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
-                            Height="28px" Width="28px" ImageUrl="~/Images/filter1.png"></asp:ImageButton>
+                            Height="20px" Width="23px" ImageUrl="~/Images/filter.png"></asp:ImageButton>
                     </td>
-                    <td style="width: 93%; text-align: right">
+                    <td style="width: 94%; text-align: right">
                         <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                            padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:bold">
+                            padding-bottom: 0px; font-size: x-large; color:#7cca05; font-weight:normal">
                         </telerik:RadLabel>
                     </td>
                 </tr>
@@ -193,7 +185,7 @@
          <%--<div runat="server" style="padding: 5px 10px 5px 10px; font-size:11px" id="searchParam">
                 
             </div>--%>
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Material"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="7" MasterTableView-GridLines="None"
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" OnItemCreated="RadGrid1_ItemCreated" OnPreRender="RadGrid1_PreRender"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand">

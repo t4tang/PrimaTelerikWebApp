@@ -232,7 +232,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             }
         }
 
-
         #region Supplier
         private static DataTable GetSupplier(string text)
         {
@@ -823,10 +822,22 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
 
         protected void RadGrid2_PreRender(object sender, EventArgs e)
         {
+            //if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            //{
+            //    (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+            //    (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            //}
+
             if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
             {
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 225;
             }
         }
 
