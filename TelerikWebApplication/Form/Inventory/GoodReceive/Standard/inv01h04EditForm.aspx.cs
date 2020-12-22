@@ -667,7 +667,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
 
         protected void cb_from_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            if ((sender as RadComboBox).Text == "Return")
+            if ((sender as RadComboBox).Text == "Supplier")
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
@@ -675,7 +675,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             {
                 (sender as RadComboBox).SelectedValue = "2";
             }
-            else if ((sender as RadComboBox).Text == "Supplier")
+            else if ((sender as RadComboBox).Text == "Return")
             {
                 (sender as RadComboBox).SelectedValue = "3";
             }
@@ -691,7 +691,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
-            else if ((sender as RadComboBox).Text == "Compliment")
+            else if ((sender as RadComboBox).Text == "Consigment")
             {
                 (sender as RadComboBox).SelectedValue = "2";
             }
