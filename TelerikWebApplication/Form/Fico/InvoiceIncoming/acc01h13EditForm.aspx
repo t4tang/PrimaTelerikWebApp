@@ -929,7 +929,7 @@
                                     HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:CheckBox runat="server" ID="edt_chkOTax" OnCheckedChanged="edt_chkOTax_CheckedChanged" OnPreRender="edt_chkOTax_PreRender"
-                                            Checked='<%# DataBinder.Eval(Container.DataItem, "tOTax") %>' AutoPostBack="true" />
+                                            Checked='<%# DataBinder.Eval(Container.DataItem, "tOtax") %>' AutoPostBack="true" />
                                     </ItemTemplate>
                                                                                
                                 </telerik:GridTemplateColumn>
