@@ -155,5 +155,38 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 con.Close();
             }
         }
+
+        protected void cb_sales_inventory_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadLabel label = (RadLabel)item.FindControl("lbl_sales_inventory");
+
+                    label.Text = dtr["accountname"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
     }
 }
