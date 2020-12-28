@@ -109,7 +109,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
             dr.Close();
             con.Close();
 
@@ -492,7 +494,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT prod_type, part_code, part_desc, part_qty, part_unit, deliv_date, CAST(tWarranty AS Bit) AS tWarranty, remark, sro_code, trans_id " +
+            cmd.CommandText = "SELECT trans_id, prod_type, part_code, part_desc, part_qty, part_unit, deliv_date, CAST(tWarranty AS Bit) AS tWarranty, remark, sro_code, trans_id " +
                 "FROM inv01d02  WHERE trans_id = @trans_id";
             cmd.Parameters.AddWithValue("@trans_id", trans_id);
             cmd.CommandTimeout = 0;
@@ -946,5 +948,12 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         }
         #endregion
 
+        protected void btnNew_Click(object sender, ImageClickEventArgs e)
+        {
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
+
+            //RadTabStrip1.Enabled = false;
+        }
     }
 }

@@ -642,7 +642,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
                 cmd.Parameters.AddWithValue("@unit_km", 0);
                 cmd.Parameters.AddWithValue("@unit_km_b", 0);
                 cmd.Parameters.AddWithValue("@km_tot", 0);
-                cmd.Parameters.AddWithValue("@liter_km", 0);
+                cmd.Parameters.AddWithValue("@liter_km", txt_literHmKm.Value);
                 cmd.Parameters.AddWithValue("@doc_type", 1);
                 cmd.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
                 cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);

@@ -10,14 +10,15 @@ namespace ReportLibrary.Reports
     /// <summary>
     /// Summary description for rpt_purchase_order.
     /// </summary>
-    public partial class rpt_purchase_order : Telerik.Reporting.Report
+    public partial class PurchaseOrderReport : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
+        public static bool TF; 
         //public static DateTime _tglawal ;
         //public static DateTime _tglakhir;
-        public rpt_purchase_order()
+        public PurchaseOrderReport()
         {
             //
             // Required for telerik Reporting designer support
@@ -61,10 +62,23 @@ namespace ReportLibrary.Reports
             prm_project.Value = _project;
             prm_project.Visible = true;
             this.Report.ReportParameters.Add(prm_project);
-            
+
+            Telerik.Reporting.ReportParameter status_po = new ReportParameter();
+            status_po.Name = "status_po";
+            status_po.Text = "include cancel";
+            status_po.Type = ReportParameterType.Boolean;
+            status_po.AllowBlank = false;
+            status_po.AllowNull = false;
+            //status_po.Value = string.Format("{0:yyyy-MM-dd}", _tglakhir);
+            //prm_tgl2.Value = long.Parse(_tglakhir.ToString("yyyyMMdd"));
+            status_po.Value = false;
+            status_po.Visible = true;
+            this.Report.ReportParameters.Add(status_po);
+
             sqlDataSource1.Parameters[0].Value = "=Parameters.project.Value";
             sqlDataSource1.Parameters[1].Value = "=Parameters.tglawal.Value";
             sqlDataSource1.Parameters[2].Value = "=Parameters.tglakhir.Value";
+            sqlDataSource1.Parameters[3].Value = "=Parameters.status_po.Value";
 
             txt_periode.Value = string.Format("{0:dd-MMM-yyyy}", "= Parameters.tglawal.Value");
             txt_periode2.Value = string.Format("{0:dd-MMM-yyyy}", "= Parameters.tglakhir.Value");

@@ -6,8 +6,7 @@
 <head runat="server">
     <title>Preview</title>
 	<script type="text/javascript" src="../../../Script/Script.js"></script>
-    <script src="../../../Script/jquery-1.9.1.min.js"></script>
-
+    <script src="../../../../Script/jquery-1.9.1.min.js"></script>
 	<style>
 		#reportViewer_inv01h03 {
 			position: absolute;
@@ -28,10 +27,9 @@
             ID="reportViewer_pur01h01" 
 			Width="1127px"
 			Height="600px"
-			EnableAccessibility="true"
+			EnableAccessibility="false"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Purchase.PurchaseReq.pur01h01_slip, TelerikWebApplication, 
-                Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Purchase.PurchaseReq.pur01h01_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
     </form>

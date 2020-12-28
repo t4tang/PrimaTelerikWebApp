@@ -49,6 +49,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// btn_save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btn_save;
+        
+        /// <summary>
         /// txt_gr_number control.
         /// </summary>
         /// <remarks>
@@ -76,15 +85,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadDatePicker dtp_gr;
         
         /// <summary>
-        /// projectValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator projectValidator;
-        
-        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -103,13 +103,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadComboBox cb_project;
         
         /// <summary>
-        /// supplierValidator control.
+        /// projectValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator supplierValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator projectValidator;
         
         /// <summary>
         /// UpdatePanel5 control.
@@ -130,13 +130,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadComboBox cb_supplier;
         
         /// <summary>
-        /// reffCodeValidator control.
+        /// supplierValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffCodeValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator supplierValidator;
         
         /// <summary>
         /// UpdatePanel2 control.
@@ -157,13 +157,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadComboBox cb_ref;
         
         /// <summary>
-        /// reffDateValidator control.
+        /// reffCodeValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffDateValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffCodeValidator;
         
         /// <summary>
         /// UpdatePanel8 control.
@@ -184,13 +184,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadTextBox txt_reff_date;
         
         /// <summary>
-        /// cost_ctr_Validator control.
+        /// reffDateValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator cost_ctr_Validator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffDateValidator;
         
         /// <summary>
         /// UpdatePanel3 control.
@@ -211,13 +211,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadComboBox cb_costcenter;
         
         /// <summary>
-        /// warehouseValidator control.
+        /// cost_ctr_Validator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator warehouseValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator cost_ctr_Validator;
         
         /// <summary>
         /// UpdatePanel6 control.
@@ -236,6 +236,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_warehouse;
+        
+        /// <summary>
+        /// warehouseValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator warehouseValidator;
         
         /// <summary>
         /// txt_delivery_note control.
@@ -380,15 +389,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadLabel lbl_edited;
-        
-        /// <summary>
-        /// btn_save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
         
         /// <summary>
         /// notif control.

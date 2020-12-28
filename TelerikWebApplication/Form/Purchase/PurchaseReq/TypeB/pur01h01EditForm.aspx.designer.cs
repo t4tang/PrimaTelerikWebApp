@@ -49,6 +49,15 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// btn_save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btn_save;
+        
+        /// <summary>
         /// txt_doc_code control.
         /// </summary>
         /// <remarks>
@@ -67,15 +76,6 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadDatePicker dtp_pr;
         
         /// <summary>
-        /// prSourceValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator prSourceValidator;
-        
-        /// <summary>
         /// cb_type_ref control.
         /// </summary>
         /// <remarks>
@@ -85,13 +85,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadComboBox cb_type_ref;
         
         /// <summary>
-        /// priorityValidator control.
+        /// prSourceValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator priorityValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator prSourceValidator;
         
         /// <summary>
         /// cb_priority control.
@@ -103,13 +103,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadComboBox cb_priority;
         
         /// <summary>
-        /// projectValidator control.
+        /// priorityValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator projectValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator priorityValidator;
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -130,13 +130,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadComboBox cb_project;
         
         /// <summary>
-        /// warehouseValidator control.
+        /// projectValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator warehouseValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator projectValidator;
         
         /// <summary>
         /// UpdatePanel6 control.
@@ -157,13 +157,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadComboBox cb_warehouse;
         
         /// <summary>
-        /// reffCodeValidator control.
+        /// warehouseValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffCodeValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator warehouseValidator;
         
         /// <summary>
         /// UpdatePanel2 control.
@@ -184,13 +184,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadComboBox cb_ref;
         
         /// <summary>
-        /// reffDateValidator control.
+        /// reffCodeValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffDateValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffCodeValidator;
         
         /// <summary>
         /// UpdatePanel8 control.
@@ -211,13 +211,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadTextBox txt_reff_date;
         
         /// <summary>
-        /// unitCodeValidator control.
+        /// reffDateValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitCodeValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffDateValidator;
         
         /// <summary>
         /// UpdatePanel5 control.
@@ -238,13 +238,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadTextBox txt_unit_code;
         
         /// <summary>
-        /// unitNameValidator control.
+        /// unitCodeValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitNameValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitCodeValidator;
         
         /// <summary>
         /// UpdatePanel9 control.
@@ -265,13 +265,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadTextBox txt_unit_name;
         
         /// <summary>
-        /// hmValidator control.
+        /// unitNameValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator hmValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitNameValidator;
         
         /// <summary>
         /// UpdatePanel11 control.
@@ -292,13 +292,13 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadTextBox txt_hm;
         
         /// <summary>
-        /// cost_ctr_Validator control.
+        /// hmValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator cost_ctr_Validator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator hmValidator;
         
         /// <summary>
         /// UpdatePanel3 control.
@@ -317,6 +317,15 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_cost_ctr;
+        
+        /// <summary>
+        /// cost_ctr_Validator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator cost_ctr_Validator;
         
         /// <summary>
         /// UpdatePanel12 control.
@@ -488,15 +497,6 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadLabel lbl_edited;
-        
-        /// <summary>
-        /// btn_save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
         
         /// <summary>
         /// notif control.

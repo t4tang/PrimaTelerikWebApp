@@ -7,54 +7,45 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Forms.Reports {
+namespace TelerikWebApplication.Form.DataStore.Material.Warehouse {
     
     
-    public partial class Default {
+    public partial class gl_account {
         
         /// <summary>
-        /// RadCodeBlock1 control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadCodeBlock RadCodeBlock1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// UpdatePanel2 control.
+        /// RadScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
-        /// FolderNavigationControl control.
+        /// panel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TelerikWebApplication.Controls.FolderNavigationControl FolderNavigationControl;
+        protected global::System.Web.UI.UpdatePanel panel2;
         
         /// <summary>
-        /// MobileNavigation control.
+        /// RadGridGLAcc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TelerikWebApplication.Controls.MobileNavigation MobileNavigation;
-        
-        /// <summary>
-        /// ReportViewer1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.ReportViewer.Html5.WebForms.ReportViewer ReportViewer1;
+        protected global::Telerik.Web.UI.RadGrid RadGridGLAcc;
     }
 }

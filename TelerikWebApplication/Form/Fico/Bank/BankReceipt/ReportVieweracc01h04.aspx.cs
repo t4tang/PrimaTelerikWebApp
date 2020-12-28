@@ -12,7 +12,7 @@
             {
                 this.Title = Request.QueryString["slip_no"];
                 this.reportViewer1.ViewMode = ViewMode.PrintPreview;
-                acc01h04_slip._tr_code = Request.QueryString["slip_no"];
+                //acc01h04_slip._tr_code = Request.QueryString["slip_no"];
             }
         }
     }

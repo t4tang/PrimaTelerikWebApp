@@ -288,7 +288,7 @@
                         </td>
                         <td>
                             <telerik:RadNumericTextBox ID="txt_hm" runat="server" Width="100px" ReadOnly="false" RenderMode="Lightweight"
-                                Text='<%# DataBinder.Eval(Container, "DataItem.time_reading") %>' 
+                                DBValue='<%# DataBinder.Eval(Container, "DataItem.time_reading") %>' 
                                 ItemStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true" EnabledStyle-HorizontalAlign="Right"
                                 onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
                                 AutoPostBack="false" MaxLength="11" Type="Number"
@@ -303,7 +303,7 @@
                         </td>
                         <td>
                             <telerik:RadNumericTextBox ID="txt_hmEstAccum" runat="server" Width="100px" ReadOnly="true" RenderMode="Lightweight"
-                                Text='<%# DataBinder.Eval(Container, "DataItem.hmEstAccum") %>'  
+                                DBValue='<%# DataBinder.Eval(Container, "DataItem.hmEstAccum") %>'  
                                 ItemStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true" EnabledStyle-HorizontalAlign="Right"
                                 onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
                                 AutoPostBack="false" MaxLength="11" Type="Number"
@@ -385,7 +385,7 @@
                         <td>
                             <telerik:RadComboBox RenderMode="Lightweight" runat="server" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" 
                                 CausesValidation="false" HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"
-                                Text='<%# DataBinder.Eval(Container, "DataItem.com_group") %>' 
+                                Text='<%# DataBinder.Eval(Container, "DataItem.com_group_name") %>' 
                                 Font-Size="X-Small" 
                                 ID="cb_compGroup"
                                 Width="300" 
@@ -406,7 +406,7 @@
                         <td>
                             <telerik:RadComboBox RenderMode="Lightweight" runat="server" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" 
                                 CausesValidation="false" HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"
-                                Text='<%# DataBinder.Eval(Container, "DataItem.com_code") %>' 
+                                Text='<%# DataBinder.Eval(Container, "DataItem.com_name") %>' 
                                 Font-Size="X-Small"
                                 ID="cb_comp" 
                                 Width="300"

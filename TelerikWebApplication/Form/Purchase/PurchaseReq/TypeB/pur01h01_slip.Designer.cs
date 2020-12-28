@@ -157,7 +157,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(7.0998997688293457D), Telerik.Reporting.Drawing.Unit.Cm(0.60000002384185791D));
             this.textBox1.Style.Font.Bold = true;
-            this.textBox1.Style.Font.Name = "Microsoft Sans Serif";
+            this.textBox1.Style.Font.Name = "Century Gothic";
             this.textBox1.Value = "= Fields.company_name";
             // 
             // textBox2
@@ -165,7 +165,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox2.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(0.83208316564559937D));
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.899898529052734D), Telerik.Reporting.Drawing.Unit.Cm(1D));
-            this.textBox2.Style.Font.Name = "Microsoft Sans Serif";
+            this.textBox2.Style.Font.Name = "Century Gothic";
             this.textBox2.Value = "= Fields.address1";
             // 
             // textBox3
@@ -1388,8 +1388,6 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.detail,
             this.pageFooterSection1});
             this.Name = "pur01h01_slip";
-            this.PageSettings.ContinuousPaper = false;
-            this.PageSettings.Landscape = false;
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Inch(0.30000001192092896D), Telerik.Reporting.Drawing.Unit.Inch(0.30000001192092896D), Telerik.Reporting.Drawing.Unit.Inch(0.30000001192092896D), Telerik.Reporting.Drawing.Unit.Inch(0.30000001192092896D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.Letter;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {

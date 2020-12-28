@@ -71,6 +71,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 }
                 else
                 {
+                    btnUpdate.Text = "Update";
+                    btnCancel.Text = "Close";
+
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( mtc01h01.trans_id , 4 ) ) , 0 ) + 1 AS maxNo " +
@@ -100,8 +103,16 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 cmd.CommandText = "sp_save_work_orderH";
                 cmd.Parameters.AddWithValue("@trans_id", run);
                 cmd.Parameters.AddWithValue("@trans_date", string.Format("{0:yyyy-MM-dd}", dtp_doc_date.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@trans_down", Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Hours) +
-                (Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                if(rtp_excStartTime.SelectedDate != null)
+                {
+                    cmd.Parameters.AddWithValue("@trans_down", Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Hours) +
+                    (Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@trans_down", DBNull.Value);
+                }
+                
                 cmd.Parameters.AddWithValue("@down_type", cb_mainType.SelectedValue);
                 cmd.Parameters.AddWithValue("@OrderType", cb_orderType.SelectedValue);
                 cmd.Parameters.AddWithValue("@job_status", cb_jobType.SelectedValue);
@@ -594,15 +605,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         {
             if ((sender as RadComboBox).Text == "Open")
             {
-                (sender as RadComboBox).SelectedValue = "0";
+                (sender as RadComboBox).SelectedValue = "00";
             }
             else if ((sender as RadComboBox).Text == "Realease")
             {
-                (sender as RadComboBox).SelectedValue = "1";
+                (sender as RadComboBox).SelectedValue = "01";
             }
             else if ((sender as RadComboBox).Text == "Closed")
             {
-                (sender as RadComboBox).SelectedValue = "2";
+                (sender as RadComboBox).SelectedValue = "02";
             }
         }
 

@@ -41,6 +41,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 {
                     fill_object(Request.QueryString["po_code"].ToString());
                     RadGrid2.DataSource = GetDataDetailTable(txt_po_code.Text);
+                    RadGrid2.DataBind();
                     Session["actionEdit"] = "edit";
                 }
                 else
@@ -57,6 +58,9 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     cb_po_type.Text = "Inventory";
                     cb_project.SelectedValue = public_str.site;
                     cb_project.Text = public_str.sitename;
+                    cb_tax1.Text = "NON";
+                    cb_tax2.Text = "NON";
+                    cb_tax3.Text = "NON";
 
                     txt_uid.Text = public_str.user_id;
                     txt_owner.Text = public_str.user_id;
@@ -193,7 +197,18 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             //    (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
             //    (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             //}
-            
+
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 192;
+            }
         }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
@@ -575,12 +590,13 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 cb_tax1.SelectedValue = dr["TAX_CODE"].ToString();
+                txt_pppn.Value = Convert.ToDouble(dr["TAX_PERC"].ToString());
             }
 
             dr.Close();
@@ -608,12 +624,13 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + cb_tax2.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + cb_tax2.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 cb_tax2.SelectedValue = dr[0].ToString();
+                txt_po_tax.Value = Convert.ToDouble(dr["TAX_PERC"].ToString());
             }
             dr.Close();
             con.Close();
@@ -638,6 +655,24 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 }
             }
         }
+        protected void cb_tax2_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb_tax1.SelectedValue = dr["TAX_CODE"].ToString();
+                txt_po_tax.Value = Convert.ToDouble(dr["TAX_PERC"].ToString());
+            }
+
+            dr.Close();
+            con.Close();
+        }
         protected void cb_tax3_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable data = GetTax(e.Text);
@@ -659,12 +694,13 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + cb_tax3.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + cb_tax3.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 cb_tax3.SelectedValue = dr[0].ToString();
+                txt_ppph.Value = Convert.ToDouble(dr["TAX_PERC"].ToString());
             }                
             //txt_ppph.Text = dr["TAX_PERC"].ToString();
             dr.Close();
@@ -690,60 +726,116 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 }
             }
         }
+        protected void cb_tax3_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb_tax1.SelectedValue = dr["TAX_CODE"].ToString();
+                txt_ppph.Value = Convert.ToDouble(dr["TAX_PERC"].ToString());
+            }
+
+            dr.Close();
+            con.Close();
+        }
         protected void edt_chkTax1_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox ntb = (CheckBox)sender;
-            GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
-            RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
-            double sub_price;
-            double taxVal;
-
-            if ((sender as CheckBox).Checked == true)
+            try
             {
-                sub_price = Convert.ToDouble(txt_sub_price.Value);
-                taxVal = Convert.ToDouble(txt_tax1_value.Value);
-                txt_tax1_value.Value = taxVal + ((Convert.ToDouble(txt_pppn.Value)/100) * sub_price);
+                CheckBox ntb = (CheckBox)sender;
+                GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
+                RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
+                double sub_price;
+                double taxVal;
 
-                tax_check = "1";
+                if ((sender as CheckBox).Checked == true)
+                {
+                    sub_price = Convert.ToDouble(txt_sub_price.Value);
+                    taxVal = Convert.ToDouble(txt_tax1_value.Value);
+                    txt_tax1_value.Value = taxVal + ((Convert.ToDouble(txt_pppn.Value) / 100) * sub_price);
+
+                    tax_check = "1";
+                }
+                else
+                {
+                    sub_price = Convert.ToDouble(txt_sub_price.Value);
+                    taxVal = Convert.ToDouble(txt_tax1_value.Value);
+                    txt_tax1_value.Value = taxVal - ((Convert.ToDouble(txt_pppn.Value) / 100) * sub_price);
+
+                    tax_check = "0";
+                }                
             }
-            else
+            catch (Exception ex)
             {
-                sub_price = Convert.ToDouble(txt_sub_price.Value);
-                taxVal = Convert.ToDouble(txt_tax1_value.Value);
-                txt_tax1_value.Value = taxVal - ((Convert.ToDouble(txt_pppn.Value) / 100) * sub_price);
-
-                tax_check = "0";
+                Response.Write("<script language=\"javascript\">");
+                if (ex.InnerException == null)
+                {
+                    Response.Write("alert(\"" + ex.Message.ToString() + "\");");
+                }
+                else
+                {
+                    Response.Write("alert(\"" + ex.InnerException.Message.ToString() + "\");");
+                }
+                Response.Write("</script>");
             }
-
-            CalculateTotal();
+            finally
+            {
+                CalculateTotal();
+            }
         }
 
         protected void edt_chkOTax_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox ntb = (CheckBox)sender;
-            GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
-            RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
-            double sub_price;
-            double taxVal;
-
-            if ((sender as CheckBox).Checked == true)
+            try
             {
-                sub_price = Convert.ToDouble(txt_sub_price.Value);
-                taxVal = Convert.ToDouble(txt_tax2_value.Value);
-                txt_tax2_value.Value = taxVal + ((Convert.ToDouble(txt_po_tax.Value) / 100) * sub_price);
+                CheckBox ntb = (CheckBox)sender;
+                GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
+                RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
+                double sub_price;
+                double taxVal;
 
-                oTax_check = "1";
+                if ((sender as CheckBox).Checked == true)
+                {
+                    sub_price = Convert.ToDouble(txt_sub_price.Value);
+                    taxVal = Convert.ToDouble(txt_tax2_value.Value);
+                    txt_tax2_value.Value = taxVal + ((Convert.ToDouble(txt_po_tax.Value) / 100) * sub_price);
+
+                    oTax_check = "1";
+                }
+                else
+                {
+                    sub_price = Convert.ToDouble(txt_sub_price.Value);
+                    taxVal = Convert.ToDouble(txt_tax2_value.Value);
+                    txt_tax2_value.Value = taxVal - ((Convert.ToDouble(txt_po_tax.Value) / 100) * sub_price);
+
+                    oTax_check = "0";
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                sub_price = Convert.ToDouble(txt_sub_price.Value);
-                taxVal = Convert.ToDouble(txt_tax2_value.Value);
-                txt_tax2_value.Value = taxVal - ((Convert.ToDouble(txt_po_tax.Value) / 100) * sub_price);
-
-                oTax_check = "0";
+                Response.Write("<script language=\"javascript\">");
+                if (ex.InnerException == null)
+                {
+                    Response.Write("alert(\"" + ex.Message.ToString() + "\");");
+                }
+                else
+                {
+                    Response.Write("alert(\"" + ex.InnerException.Message.ToString() + "\");");
+                }
+                Response.Write("</script>");
             }
+            finally
+            {
+                CalculateTotal();
 
-            CalculateTotal();
+            }
         }
 
         protected void edt_chkTpph_CheckedChanged(object sender, EventArgs e)
@@ -1259,23 +1351,40 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
       
         protected void calculate_sub_price(object sender, EventArgs e)
         {
-            RadNumericTextBox ntb = (RadNumericTextBox)sender;
-            GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
+            try
+            {
+                RadNumericTextBox ntb = (RadNumericTextBox)sender;
+                GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
 
-            RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
-            RadNumericTextBox txt_harga = (RadNumericTextBox)item.FindControl("txt_harga");
-            RadNumericTextBox txt_disc = (RadNumericTextBox)item.FindControl("txt_disc");
-            RadNumericTextBox txt_factor = (RadNumericTextBox)item.FindControl("txt_factor");
-            RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
-            CheckBox chkTax1 = (CheckBox)item.FindControl("edt_chkTax1");
-            CheckBox chkTax2 = (CheckBox)item.FindControl("edt_chkOTax");
-            CheckBox chkTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+                RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
+                RadNumericTextBox txt_harga = (RadNumericTextBox)item.FindControl("txt_harga");
+                RadNumericTextBox txt_disc = (RadNumericTextBox)item.FindControl("txt_disc");
+                RadNumericTextBox txt_factor = (RadNumericTextBox)item.FindControl("txt_factor");
+                RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
+                CheckBox chkTax1 = (CheckBox)item.FindControl("edt_chkTax1");
+                CheckBox chkTax2 = (CheckBox)item.FindControl("edt_chkOTax");
+                CheckBox chkTax3 = (CheckBox)item.FindControl("edt_chkTpph");
 
-            txt_sub_price.Value = (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value))-(Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value) * txt_disc.Value/100) + (txt_factor.Value);
+                txt_sub_price.Value = (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value)) - (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value) * txt_disc.Value / 100) + (txt_factor.Value);
 
-            CalculateSubTotal(chkTax1.Checked, chkTax2.Checked, chkTax3.Checked);
-            //CalculateSubTotal();
-            //CalculateTotal();
+                CalculateSubTotal(chkTax1.Checked, chkTax2.Checked, chkTax3.Checked);
+                //CalculateSubTotal();
+                //CalculateTotal();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language=\"javascript\">");
+                if (ex.InnerException == null)
+                {
+                    Response.Write("alert(\"" + ex.Message.ToString() + "\");");
+                }
+                else
+                {
+                    Response.Write("alert(\"" + ex.InnerException.Message.ToString() + "\");");
+                }
+                Response.Write("</script>");
+            }
+            
         }
 
         private void CalculateSubTotal(bool tax1, bool tax2, bool tax3)
@@ -1353,14 +1462,22 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
         private void CalculateTotal()
         {
-            //double amount = 0;
-            double sum = 0;
+            try
+            {
+                //double amount = 0;
+                double sum = 0;
 
-            sum = (Convert.ToDouble(txt_sub_total.Value)) + (Convert.ToDouble(txt_tax1_value.Value)) +
-                (Convert.ToDouble(txt_tax2_value.Value)) + (Convert.ToDouble(txt_tax3_value.Value)) +
-                (Convert.ToDouble(txt_other_value.Value));
+                sum = (Convert.ToDouble(txt_sub_total.Value)) + (Convert.ToDouble(txt_tax1_value.Value)) +
+                    (Convert.ToDouble(txt_tax2_value.Value)) + (Convert.ToDouble(txt_tax3_value.Value)) +
+                    (Convert.ToDouble(txt_other_value.Value));
 
-            txt_total.Text = sum.ToString();
+                txt_total.Text = sum.ToString();
+            }
+            catch (Exception)
+            {
+                
+            }
+            
 
         }
 
