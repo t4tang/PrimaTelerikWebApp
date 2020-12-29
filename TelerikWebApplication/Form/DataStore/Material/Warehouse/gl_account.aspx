@@ -200,6 +200,56 @@
                                                     </tr>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td> 
+                                                    <tr>
+                                                        <td>
+                                                            <telerik:RadLabel runat="server" ID="RadLabel3" Width="100px" Text="Discount: " CssClass="lbObject" Font-Size="12px"/>
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadComboBox ID="RadComboBox1" runat="server" RenderMode="Lightweight" Width="200px" AutoPostBack="true" CausesValidation="false"  
+                                                                DropDownWidth="550px" EnableLoadOnDemand="true" MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="doc_code" DataValueField="doc_code"
+                                                                ShowMoreResultsBox="true" Text='<%# DataBinder.Eval(Container, "DataItem.AccInventory") %>' 
+                                                                OnItemsRequested="cb_acc_ItemsRequested" 
+                                                                OnSelectedIndexChanged="cb_sales_inventory_SelectedIndexChanged">
+                                                                <HeaderTemplate>
+                                                                    <table style="width: 550px; font-size:11px">
+                                                                        <tr>
+                                                                            <td style="width: 100px;">
+                                                                                Account No.
+                                                                            </td>
+                                                                            <td style="width: 400px;">
+                                                                                Account Name
+                                                                            </td>
+                                                                            <td style="width: 50px;">
+                                                                                Curr.
+                                                                            </td>                                                                
+                                                                        </tr>
+                                                                    </table>
+                                                                </HeaderTemplate>
+                                                                <ItemTemplate>
+                                                                    <table style="width: 550px; font-size:11px">
+                                                                        <tr>
+                                                                            <td style="width: 100px;">
+                                                                                <%# DataBinder.Eval(Container, "DataItem.accountno")%>
+                                                                            </td>
+                                                                            <td style="width: 400px;">
+                                                                                <asp:label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "accountname") %>'></asp:label> 
+                                                                            </td>  
+                                                                            <td style="width: 50px;">
+                                                                                <asp:label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "cur_code") %>'></asp:label> 
+                                                                            </td>                                                                
+                                                                        </tr>
+                                                                    </table>
+                                                                </ItemTemplate>
+                                                            </telerik:RadComboBox>
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadLabel runat="server" ID="RadLabel4" CssClass="lbObject" Font-Size="12px" Text='<%# DataBinder.Eval(Container, "DataItem.accReturnName") %>' />
+                                                        </td>
+                                                    </tr>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </FormTemplate>
                                 </EditFormSettings>
