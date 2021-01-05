@@ -125,7 +125,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 txt_tax3_value.Value = Convert.ToDouble(sdr["jtax3"]);
                 txt_total.Value = Convert.ToDouble(sdr["Net"]);
                 txt_other_value.Value = Convert.ToDouble(sdr["Othercost"]);
-                
+
             }
             con.Close();
         }
@@ -233,7 +233,22 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
-
+        protected void cb_supplier_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT supplier_code FROM pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
+            dr.Close();
+            con.Close();
+        }
         protected void cb_supplier_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
@@ -472,7 +487,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
         }
 
-        public DataTable GetDataRefDetailTable(string po_code) 
+        public DataTable GetDataRefDetailTable(string po_code)
         {
             con.Open();
             cmd = new SqlCommand();
@@ -1251,7 +1266,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.Parameters.AddWithValue("@PreJPPH", 0);
                 cmd.Parameters.AddWithValue("@PreJOTAX", 0);
                 cmd.Parameters.AddWithValue("@Edited", 0);
-           
+
                 cmd.ExecuteNonQuery();
 
 
@@ -1308,11 +1323,11 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     cmd.Parameters.AddWithValue("@TDisc", "%");
                     cmd.Parameters.AddWithValue("@Freight", 0);
                     cmd.Parameters.AddWithValue("@Ass", 0);
-                    cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txtRemark_d") as RadTextBox).Text); 
+                    cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@tfactor", 0);
                     //cmd.Parameters.AddWithValue("@RefTransID", 0);
                     cmd.Parameters.AddWithValue("@KoBarH", 0);
-                    
+
                     cmd.ExecuteNonQuery();
 
                 }
@@ -1344,5 +1359,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 //acc01h13.selected_project = cb_project.SelectedValue;
             }
         }
+
+        
     }
 }
