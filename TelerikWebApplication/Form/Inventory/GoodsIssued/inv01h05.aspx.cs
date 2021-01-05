@@ -32,7 +32,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 selected_project = public_str.site;
-                cb_proj_prm.Text = public_str.sitename;
+                cb_proj_prm.Text = public_str.sitename;               
 
                 tr_code = null;
                 Session["action"] = "firstLoad";
@@ -113,7 +113,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
+                selected_project= dr[0].ToString();
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -206,7 +209,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
         }
 
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
