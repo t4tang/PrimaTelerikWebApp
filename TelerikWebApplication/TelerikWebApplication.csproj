@@ -709,6 +709,33 @@
     <Compile Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx.designer.cs">
       <DependentUpon>reportViewer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08.aspx.cs">
+      <DependentUpon>inv01h08.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08.aspx.designer.cs">
+      <DependentUpon>inv01h08.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08EditForm.aspx.cs">
+      <DependentUpon>inv01h08EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08EditForm.aspx.designer.cs">
+      <DependentUpon>inv01h08EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08_ReportViewer.aspx.cs">
+      <DependentUpon>inv01h08_ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08_ReportViewer.aspx.designer.cs">
+      <DependentUpon>inv01h08_ReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08_slip.Designer.cs">
+      <DependentUpon>inv01h08_slip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\Inventory\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1070,11 +1097,25 @@
     <Compile Include="Form\Preventive_maintenance\MechanicActivity\reportViewer.aspx.designer.cs">
       <DependentUpon>reportViewer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Preventive_maintenance\unitExplorer\mtc00h16exp.aspx.cs">
+      <DependentUpon>mtc00h16exp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\unitExplorer\mtc00h16exp.aspx.designer.cs">
+      <DependentUpon>mtc00h16exp.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Production\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\Production\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a.aspx.cs">
@@ -1370,6 +1411,9 @@
     <Content Include="Form\Fico\Ledger\OpeningBalance\acc00h11.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx" />
+    <Content Include="Form\Inventory\ComponentExchange\inv01h08.aspx" />
+    <Content Include="Form\Inventory\ComponentExchange\inv01h08EditForm.aspx" />
+    <Content Include="Form\Inventory\ComponentExchange\inv01h08_ReportViewer.aspx" />
     <Content Include="Form\Inventory\Default.aspx" />
     <Content Include="Form\DataStore\Material\Brand\Data_entry.ascx" />
     <Content Include="Form\DataStore\Default.aspx" />
@@ -1413,7 +1457,9 @@
     <Content Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02.aspx" />
     <Content Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02EditForm.aspx" />
     <Content Include="Form\Preventive_maintenance\MechanicActivity\reportViewer.aspx" />
+    <Content Include="Form\Preventive_maintenance\unitExplorer\mtc00h16exp.aspx" />
     <Content Include="Form\Production\Default.aspx" />
+    <Content Include="Form\Purchase\Default.aspx" />
     <Content Include="Form\Purchase\PurchaseReq\pur01h01.aspx" />
     <Content Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a.aspx" />
     <Content Include="Form\Purchase\PurchaseReq\TypeA\pur01h01aEditForm.aspx" />
@@ -1524,6 +1570,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form\Inventory\ComponentExchange\inv01h08_slip.resx">
+      <DependentUpon>inv01h08_slip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Inventory\GoodReceive\Service\inv01h04srv_slip.resx">
       <DependentUpon>inv01h04srv_slip.cs</DependentUpon>
     </EmbeddedResource>
@@ -1608,7 +1657,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

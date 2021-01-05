@@ -144,6 +144,12 @@
     <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.designer.cs">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Inventory\StockCard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\StockCard.Designer.cs">
+      <DependentUpon>StockCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Purchase\ReportCatalog.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -249,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_WO_UR_Monitoring.resx">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\StockCard.resx">
+      <DependentUpon>StockCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Purchase\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
