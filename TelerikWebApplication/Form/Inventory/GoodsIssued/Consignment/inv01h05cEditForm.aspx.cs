@@ -184,7 +184,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             
             try
             {
-                if (Session["action"].ToString() == "edit")
+                lblErrorDescription.Text = "";
+
+                if (Session["actionEdit"].ToString() == "edit")
                 {
                     run = txt_gi_number.Text;
                 }
@@ -193,19 +195,19 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h05.do_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM inv01h05 WHERE LEFT(inv01h05.do_code, 4) = 'GI01' " +
+                        "FROM inv01h05 WHERE LEFT(inv01h05.do_code, 4) = 'GI03' " +
                         "AND SUBSTRING(inv01h05.do_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                         "AND SUBSTRING(inv01h05.do_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "GI01" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
+                        run = "GI03" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "GI01" + (dtp_date.SelectedDate.Value.Year.ToString()).Substring(dtp_date.SelectedDate.Value.Year.ToString().Length - 2) +
+                        run = "GI03" + (dtp_date.SelectedDate.Value.Year.ToString()).Substring(dtp_date.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_date.SelectedDate.Value.Month).Substring(("0000" + dtp_date.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
@@ -228,7 +230,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
                 cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_date.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
-                cmd.Parameters.AddWithValue("@status_post", 1);
+                cmd.Parameters.AddWithValue("@status_post", 0);
                 cmd.Parameters.AddWithValue("@region_code", cb_Project.SelectedValue);
                 cmd.Parameters.AddWithValue("@dept_code", cb_CostCenter.SelectedValue);
                 cmd.Parameters.AddWithValue("@unit_code", txt_unit.Text);
@@ -247,33 +249,49 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
-                    cmd.CommandText = "sp_save_goods_issuedD";
+                    cmd.CommandText = "sp_save_goods_issued_consignmentD";
                     cmd.Parameters.AddWithValue("@do_code", run);
                     cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("txt_ProdCode") as RadTextBox).Text);
-                    cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lblProdCodeOri") as Label).Text);
+                    cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("txt_ProdCode") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@info_code", (item.FindControl("lblInfoRecord") as Label).Text);
                     cmd.Parameters.AddWithValue("@validdate", string.Format("{0:yyyy-MM-dd}", (item.FindControl("dtpValidDate") as RadDatePicker).SelectedDate));
                     cmd.Parameters.AddWithValue("@qty_out", Convert.ToDouble((item.FindControl("txt_Part_Qty") as RadTextBox).Text));
                     cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("lblUom") as Label).Text);
-                    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCntr") as Label).Text);
-                    cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("lblstorage") as Label).Text);
-                    if ((item.FindControl("chkWarranty") as CheckBox).Checked == true)
-                    {
-                        cmd.Parameters.AddWithValue("@twarranty", 1);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@twarranty", 0);
-                    }
+                    cmd.Parameters.AddWithValue("@dept_code", cb_CostCenter.Text);
+                    cmd.Parameters.AddWithValue("@type_out", "C");
+                    cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+                    //if ((item.FindControl("chkWarranty") as CheckBox).Checked == true)
+                    //{
+                    //    cmd.Parameters.AddWithValue("@twarranty", 1);
+                    //}
+                    //else
+                    //{
+                    //    cmd.Parameters.AddWithValue("@twarranty", 0);
+                    //}
+                    cmd.Parameters.AddWithValue("@twarranty", 0);
                     cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark") as RadTextBox).Text);
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
+
+                con.Close();
+                notif.Text = "Data berhasil disimpan";
+                notif.Title = "Notification";
+                notif.Show();
+                txt_gi_number.Text = run;
+
             }
             catch (Exception ex)
             {
+                lblErrorDescription.Text = "Error: " + ex.Message.ToString();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "DELETE inv01h05 WHERE do_code = '" + run + "'";
+                cmd.ExecuteNonQuery();
                 con.Close();
                 //Response.Write("<font color='red'>" + ex.Message + "</font>");
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
+                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
                 //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn","");
             }
         }
@@ -407,7 +425,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_CustSupp.SelectedValue = dr[0].ToString();
+            {
+                cb_CustSupp.SelectedValue = dr["supplier_code"].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -422,7 +442,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_CustSupp.SelectedValue = dr[0].ToString();
+            {
+                (sender as RadComboBox).SelectedValue = dr["supplier_code"].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -451,8 +473,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
 
             if (typeRef == "Consumption")
             {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT ref_code, remark FROM v_gi_reffConsigment " +
-                "WHERE status_do <> '4' AND region_code = @project AND ref_code LIKE @text + '%'", con);
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, doc_remark FROM v_gi_reffConsigment " +
+                "WHERE status_doc <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
                 adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
                 adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
                 //DataTable dt = new DataTable();
@@ -469,8 +491,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             }
 
 
-            cb.DataTextField = "ref_code";
-            cb.DataValueField = "ref_code";
+            cb.DataTextField = "doc_code";
+            cb.DataValueField = "doc_code";
             cb.DataSource = dt;
             cb.DataBind();
         }
@@ -487,11 +509,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT ref_code FROM v_gi_reffConsigment WHERE ref_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT doc_code FROM v_gi_reffConsigment WHERE doc_code = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
+                
             dr.Close();
             con.Close();
         }
@@ -505,15 +530,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             SqlDataReader dr;
             if (cb_type_ref.Text == "Consumption")
             {
-                cmd.CommandText = "SELECT * FROM v_gi_reffConsigment WHERE ref_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT * FROM v_gi_reffConsigment WHERE doc_code = '" + (sender as RadComboBox).SelectedValue + "'";
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    (sender as RadComboBox).Text = dr["ref_code"].ToString();
+                    (sender as RadComboBox).Text = dr["doc_code"].ToString();
                     txt_unit.Text = dr["unit_code"].ToString();
                     cb_CostCenter.Text = dr["dept_code"].ToString();
                     txt_CostCenterName.Text = dr["CostCenterName"].ToString();
-                    txt_remark.Text = dr["remark"].ToString();
+                    txt_remark.Text = dr["doc_remark"].ToString();
                 }
             }
             else
@@ -541,10 +566,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
 
 
         #region Storage Loc
-        private static DataTable GetStorage(string text)
+        private static DataTable GetStorage(string text, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
             DataTable data = new DataTable();
@@ -555,7 +581,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
 
         protected void cb_warehouse_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = GetStorage(e.Text);
+            DataTable data = GetStorage(e.Text, cb_Project.SelectedValue);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -796,8 +822,22 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
 
 
 
+
         #endregion
 
-        
+        protected void RadGrid2_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 295;
+            }
+        }
     }
 }

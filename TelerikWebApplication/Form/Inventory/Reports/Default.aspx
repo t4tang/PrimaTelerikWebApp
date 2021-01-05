@@ -10,27 +10,15 @@
     
     <script type="text/javascript" src="../../../Script/Script.js" ></script>
 
-  <script src="../../../Script/jqueri-1.9.1.min.js"></script>
-	 <%--  <script src="../../../Script/kendo.all.min.js"></script>--%>
-   <script src="Scripts/themeSwitcher.js"></script>
+   <script src="../../../Script/jqueri-1.9.1.min.js"></script>
+   <%--<script src="Scripts/themeSwitcher.js"></script>--%>
 
-    <link href="../../../Styles/kendo.common.min.css" rel="stylesheet" id="commonCss" />
-    <link href="../../../Styles/kendo.blueopal.min.css" rel="stylesheet" id="skinCss" />
+    <%--<link href="../../../Styles/kendo.common.min.css" rel="stylesheet" id="commonCss" />
+    <link href="../../../Styles/kendo.blueopal.min.css" rel="stylesheet" id="skinCss" />--%>
 
     <style>
-        /*body {
-            margin: 5px;
-            font-family: Verdana, Arial;
-        }*/
 
         #reportViewer1 {
-            /*position: absolute;
-            left: 5px;
-            right: 5px;
-            top: 40px;
-            bottom: 5px;
-            overflow: hidden;
-            clear: both;*/
 
             position:absolute;
 			left: 5px;
@@ -57,6 +45,7 @@
                 '#skinCss');
         });
     </script>
+
     </telerik:RadCodeBlock>
     
 </asp:Content>
@@ -69,8 +58,8 @@
     </asp:UpdatePanel> 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="scroller" runat="server">
-    <%--<select id="theme-switcher"></select>--%>
+    <%--<div class="scroller" runat="server">
+    <select id="theme-switcher"></select>--%>
 
         <telerik:ReportViewer ID="ReportViewer1" runat="server"
             Width="1300px"
@@ -81,6 +70,6 @@
                 Identifier="ReportLibrary.Reports.Inventory.ReportCatalog, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
              
-        </telerik:ReportViewer>
-    </div>
+      </telerik:ReportViewer>
+     <%-- </div>--%>
 </asp:Content>

@@ -49,6 +49,15 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// btn_save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_save;
+        
+        /// <summary>
         /// txt_doc_code control.
         /// </summary>
         /// <remarks>
@@ -76,15 +85,6 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadDatePicker dtp_exe;
         
         /// <summary>
-        /// reffTypeValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffTypeValidator;
-        
-        /// <summary>
         /// cb_type_ref control.
         /// </summary>
         /// <remarks>
@@ -94,13 +94,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadComboBox cb_type_ref;
         
         /// <summary>
-        /// projectValidator control.
+        /// reffTypeValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator projectValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffTypeValidator;
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -121,13 +121,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadComboBox cb_project;
         
         /// <summary>
-        /// warehouseValidator control.
+        /// projectValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator warehouseValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator projectValidator;
         
         /// <summary>
         /// UpdatePanel6 control.
@@ -148,13 +148,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadComboBox cb_warehouse;
         
         /// <summary>
-        /// reffCodeValidator control.
+        /// warehouseValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffCodeValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator warehouseValidator;
         
         /// <summary>
         /// UpdatePanel2 control.
@@ -175,13 +175,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadComboBox cb_ref;
         
         /// <summary>
-        /// costCtrValidator control.
+        /// reffCodeValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator costCtrValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reffCodeValidator;
         
         /// <summary>
         /// UpdatePanel8 control.
@@ -202,13 +202,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadComboBox cb_cost_ctr;
         
         /// <summary>
-        /// unitCodeValidator control.
+        /// costCtrValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitCodeValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator costCtrValidator;
         
         /// <summary>
         /// UpdatePanel5 control.
@@ -229,13 +229,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadTextBox txt_unit_code;
         
         /// <summary>
-        /// unitNameValidator control.
+        /// unitCodeValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitNameValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitCodeValidator;
         
         /// <summary>
         /// UpdatePanel9 control.
@@ -256,13 +256,13 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadTextBox txt_unit_name;
         
         /// <summary>
-        /// hmValidator control.
+        /// unitNameValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator hmValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitNameValidator;
         
         /// <summary>
         /// UpdatePanel11 control.
@@ -281,6 +281,15 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadNumericTextBox txt_hm1;
+        
+        /// <summary>
+        /// hmValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator hmValidator;
         
         /// <summary>
         /// UpdatePanel7 control.
@@ -407,15 +416,6 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image Image1;
-        
-        /// <summary>
-        /// btn_save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
         
         /// <summary>
         /// notif control.
