@@ -49,6 +49,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// btn_save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btn_save;
+        
+        /// <summary>
         /// txt_gi_number control.
         /// </summary>
         /// <remarks>
@@ -184,24 +193,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
         
         /// <summary>
-        /// UpdatePanel11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel11;
-        
-        /// <summary>
-        /// txt_remark control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTextBox txt_remark;
-        
-        /// <summary>
         /// UpdatePanel7 control.
         /// </summary>
         /// <remarks>
@@ -274,6 +265,24 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment {
         protected global::Telerik.Web.UI.RadTextBox txt_CostCenterName;
         
         /// <summary>
+        /// UpdatePanel11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel11;
+        
+        /// <summary>
+        /// txt_remark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txt_remark;
+        
+        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -337,24 +346,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment {
         protected global::System.Web.UI.WebControls.CheckBox chk_posting;
         
         /// <summary>
-        /// UpdatePanel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-        
-        /// <summary>
-        /// RadGrid2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid2;
-        
-        /// <summary>
         /// lbl_userId control.
         /// </summary>
         /// <remarks>
@@ -391,13 +382,31 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment {
         protected global::Telerik.Web.UI.RadLabel lbl_edited;
         
         /// <summary>
-        /// btn_save control.
+        /// lblErrorDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
+        protected global::Telerik.Web.UI.RadLabel lblErrorDescription;
+        
+        /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
+        /// RadGrid2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid RadGrid2;
         
         /// <summary>
         /// notif control.

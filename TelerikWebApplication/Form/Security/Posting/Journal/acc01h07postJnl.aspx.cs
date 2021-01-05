@@ -229,6 +229,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkCash.Checked == true)
                 {
@@ -241,6 +242,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkPurchase.Checked == true)
                 {
@@ -253,6 +255,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkGR.Checked == true)
                 {
@@ -265,6 +268,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkGI.Checked == true)
                 {
@@ -277,6 +281,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkSales.Checked == true)
                 {
@@ -289,19 +294,21 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
-                //if (chkAsset.Checked == true)
-                //{
-                //    con.Open();
-                //    cmd = new SqlCommand();
-                //    cmd.CommandType = CommandType.StoredProcedure;
-                //    cmd.Connection = con;
-                //    cmd.CommandText = "sp_posting_fixed_asset";
-                //    cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
-                //    cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
-                //    cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                //    cmd.ExecuteNonQuery();
-                //}
+                if (chkAsset.Checked == true)
+                {
+                    con.Open();
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_posting_fixed_asset";
+                    cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
+                    cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
+                    cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
             }
             else
             {
@@ -316,6 +323,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkCash.Checked == true)
                 {
@@ -328,6 +336,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkPurchase.Checked == true)
                 {
@@ -340,6 +349,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkGR.Checked == true)
                 {
@@ -352,6 +362,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkGI.Checked == true)
                 {
@@ -364,6 +375,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
                 if (chkSales.Checked == true)
                 {
@@ -376,19 +388,21 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
                     cmd.ExecuteNonQuery();
+                    con.Close();
                 }
-                //if (chkAsset.Checked == true)
-                //{
-                //    con.Open();
-                //    cmd = new SqlCommand();
-                //    cmd.CommandType = CommandType.StoredProcedure;
-                //    cmd.Connection = con;
-                //    cmd.CommandText = "sp_unposting_fixed_asset";
-                //    cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
-                //    cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
-                //    cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                //    cmd.ExecuteNonQuery();
-                //}
+                if (chkAsset.Checked == true)
+                {
+                    con.Open();
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_unposting_fixed_asset";
+                    cmd.Parameters.AddWithValue("@month", 12);
+                    cmd.Parameters.AddWithValue("@year", 2020);
+                    cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
             }
 
             UpdateProgressContext();
