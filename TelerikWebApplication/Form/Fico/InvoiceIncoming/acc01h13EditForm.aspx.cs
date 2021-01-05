@@ -166,12 +166,12 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             else if (Session["actionEdit"].ToString() == "new")
             {
                 (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text, cb_project.SelectedValue, "");
+                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text);
             }
             else if (Session["actionEdit"].ToString() == "edit")
             {
                 (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text, cb_project.SelectedValue, cb_supplier.SelectedValue);
+                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text);
             }
         }
         #endregion
@@ -436,7 +436,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             //dr.Close();
             con.Close();
 
-            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue, cb_project.SelectedValue, cb_supplier.SelectedValue);
+            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
             RadGrid2.DataBind();
 
             txt_sub_total.Value = 0;
@@ -453,7 +453,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_invoice_incoming_reff WHERE region_code = @region_code " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_invoice_incoming_reff WHERE PlantCode = @region_code " +
                 "AND po_code LIKE @text + '%' ORDER BY po_code",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
@@ -472,19 +472,19 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
         }
 
-        public DataTable GetDataRefDetailTable(string po_code, string project_code, string supplier_code)
+        public DataTable GetDataRefDetailTable(string po_code) 
         {
             con.Open();
             cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "v_invoice_incoming_reff";
+            cmd.CommandText = "sp_get_invoice_incoming_ReffD";
             cmd.Parameters.AddWithValue("@po_code", po_code);
-            cmd.Parameters.AddWithValue("@region_code", project_code);
-            cmd.Parameters.AddWithValue("@supplier_code", supplier_code);
-            cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
-            cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
-            cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
+            //cmd.Parameters.AddWithValue("@region_code", project_code);
+            //cmd.Parameters.AddWithValue("@supplier_code", supplier_code);
+            //cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
+            //cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
+            //cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
