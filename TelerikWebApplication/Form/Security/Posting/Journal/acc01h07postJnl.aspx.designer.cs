@@ -139,15 +139,6 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal {
         protected global::System.Web.UI.WebControls.CheckBox chkPurchase;
         
         /// <summary>
-        /// chkSales control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSales;
-        
-        /// <summary>
         /// chkAsset control.
         /// </summary>
         /// <remarks>
@@ -155,6 +146,15 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkAsset;
+        
+        /// <summary>
+        /// chkSales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSales;
         
         /// <summary>
         /// RadAjaxManager1 control.

@@ -396,7 +396,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             }
             else if ((sender as RadComboBox).Text == "PENGELUARAN BANK")
             {
-                (sender as RadComboBox).SelectedValue = "C";
+                (sender as RadComboBox).SelectedValue = "K";
             }
         }
 
@@ -408,7 +408,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             }
             else if ((sender as RadComboBox).Text == "PENGELUARAN BANK")
             {
-                (sender as RadComboBox).SelectedValue = "C";
+                (sender as RadComboBox).SelectedValue = "K";
             }
         }
         protected void LoadManPower(string name, string projectID, RadComboBox cb)
@@ -855,7 +855,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
         protected void cb_mutasi_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("D");
-            (sender as RadComboBox).Items.Add("C");
+            (sender as RadComboBox).Items.Add("K");
         }
 
         protected void cb_mutasi_PreRender(object sender, EventArgs e)
@@ -864,9 +864,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             {
                 (sender as RadComboBox).SelectedValue = "D";
             }
-            else if ((sender as RadComboBox).Text == "C")
+            else if ((sender as RadComboBox).Text == "K")
             {
-                (sender as RadComboBox).SelectedValue = "C";
+                (sender as RadComboBox).SelectedValue = "K";
             }
         }
 
@@ -876,9 +876,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             {
                 (sender as RadComboBox).SelectedValue = "D";
             }
-            else if ((sender as RadComboBox).Text == "C")
+            else if ((sender as RadComboBox).Text == "K")
             {
-                (sender as RadComboBox).SelectedValue = "C";
+                (sender as RadComboBox).SelectedValue = "K";
             }
         }
 

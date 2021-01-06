@@ -951,11 +951,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionString = "Data Source=PSGHONB037;Initial Catalog=PSG_DEV;User ID=IT;Password=PSGPRO";
+            this.sqlDataSource1.ConnectionString = "DbConString";
             this.sqlDataSource1.Name = "sqlDataSource1";
             this.sqlDataSource1.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@sro_code", System.Data.DbType.AnsiString, null)});
-            this.sqlDataSource1.ProviderName = "System.Data.SqlClient";
             this.sqlDataSource1.SelectCommand = "dbo.spr_print_material_request";
             this.sqlDataSource1.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 

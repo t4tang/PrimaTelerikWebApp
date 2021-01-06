@@ -7,8 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
-{
+namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
     
     
     public partial class inv01h03 {

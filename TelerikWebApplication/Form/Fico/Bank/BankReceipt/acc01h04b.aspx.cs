@@ -319,7 +319,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                             (dtp_bm.SelectedDate.Value.Year.ToString()).Substring(dtp_bm.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_bm.SelectedDate.Value.Month).Substring(("0000" + dtp_bm.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
-                    }
+                     }
                     con.Close();
                 }
 
@@ -330,7 +330,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd.CommandText = "sp_save_BankReceiptVoucherH";
                 cmd.Parameters.AddWithValue("@slip_no", run);
                 cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_bm.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_lm.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
                 cmd.Parameters.AddWithValue("@noctrl", txt_NoCtrl.Text);
                 cmd.Parameters.AddWithValue("@cust_code", cb_Cust.SelectedValue);
@@ -340,19 +339,20 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd.Parameters.AddWithValue("@appby", cb_Approval.SelectedValue);
                 cmd.Parameters.AddWithValue("@Remark", txt_Remark.Text);
                 cmd.Parameters.AddWithValue("@inf_pay_no", txt_inf_pay_no.Text);
+                cmd.Parameters.AddWithValue("@tot_pay", 0);
                 cmd.Parameters.AddWithValue("@status", 1);
                 cmd.Parameters.AddWithValue("@cur_code", txt_cur_code.Text);
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
                 cmd.Parameters.AddWithValue("@cur_code_acc", txt_cur_code_acc.Text);
-                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs_acc.Text));
-                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-                //cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
-               
+                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs.Text));
+                cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
+                cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
                 cmd.Parameters.AddWithValue("@Printed", 0);
                 cmd.Parameters.AddWithValue("@Edited", 0);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
                 cmd.ExecuteNonQuery();
 
                 //Label lblsuccess = new Label();
@@ -693,17 +693,19 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd.CommandText = "sp_save_BankReceiptVoucherD";
                 cmd.Parameters.AddWithValue("@slip_no", txt_slip_no.Text);
                 cmd.Parameters.AddWithValue("@inv_code", (item.FindControl("cb_inv_code") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@pay_amount_acc", Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("txt_project") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("txt_cost_ctr") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@pay_amount_idr", Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@kurs_tax", Convert.ToDouble((item.FindControl("txt_kurs_tax") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
-                cmd.Parameters.AddWithValue("@PPHAmount", 0);
-                cmd.Parameters.AddWithValue("@NoPPH23", 0);
-                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("txt_cost_ctr") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("txt_project") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_Ket") as RadTextBox).Text);
-                //cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-                //cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
-                //cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
+                cmd.Parameters.AddWithValue("@POTax", potax);
+                cmd.Parameters.AddWithValue("@OTax", OTax);
+                cmd.Parameters.AddWithValue("@JOTax", JOTax);
+                cmd.Parameters.AddWithValue("@PPHAmount", DBNull.Value);
+                cmd.Parameters.AddWithValue("@NoPPH23", DBNull.Value);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid2.DataBind();
@@ -838,6 +840,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             //}
         }
 
+        private static double potax = 0;
+        private static double JOTax = 0;
+        private static string OTax = null;
         protected void cb_inv_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             Session["inv_code"] = e.Value;
@@ -848,7 +853,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT date, JmlSisa, kurs, kurs_tax, region_code, dept_code, remark FROM v_bank_receive_voucher_reff WHERE inv_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT date, JmlSisa, kurs, kurs_tax, region_code, dept_code, remark, POTax, JOTax, OTax FROM v_bank_receive_voucher_reff WHERE inv_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -872,6 +877,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                     t_region_code.Text = dtr["region_code"].ToString();
                     t_dept_code.Text = dtr["dept_code"].ToString();
                     t_remark.Text = dtr["remark"].ToString();
+                    JOTax = Convert.ToDouble(dtr["JOTax"].ToString());
+                    potax = Convert.ToDouble(dtr["POTax"].ToString());
+                    OTax = dtr["OTax"].ToString();
                 }
 
             }
@@ -898,6 +906,11 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
+        }
+
+        protected void btnJournal_Click(object sender, ImageClickEventArgs e)
+        {
+
         }
     }
 }
