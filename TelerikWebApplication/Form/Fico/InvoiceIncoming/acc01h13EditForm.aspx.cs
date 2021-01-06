@@ -137,8 +137,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT noref, prod_type, KoBar, Qty, SatQty, Harga, Disc, Jumlah, CAST(tTax AS Bit) AS tTax, CAST(tOtax AS Bit) AS tOtax, " +
-            "CAST(tpph AS Bit) AS tpph, dept_code, Prod_code_ori, jTax1, jTax2, jTax3, Nomor, ref_date, Ket, Asscost  FROM acc01h14 WHERE NoBuk = '" + NoBuk + "'";
+            cmd.CommandText = "SELECT noref, prod_type, KoBar, Qty, SatQty, Harga, Disc, Jumlah, tTax, tOtax, " +
+            "tpph, dept_code, Prod_code_ori, jTax1, jTax2, jTax3, Nomor, ref_date, Ket, Asscost  FROM acc01h14 WHERE NoBuk = '" + NoBuk + "'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -176,6 +176,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         }
         #endregion
 
+        #region From Type
         protected void cb_from_type_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
             if ((sender as RadComboBox).Text == "Purchase Order")
@@ -205,6 +206,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 (sender as RadComboBox).SelectedValue = "2";
             }
         }
+        #endregion
 
         #region Supplier
         private static DataTable GetSupplier(string text)
@@ -234,6 +236,20 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
 
+        protected void cb_supplier_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT supplier_code FROM pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
         protected void cb_supplier_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
@@ -243,13 +259,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " +
                                " FROM pur00h01 a LEFT OUTER JOIN acc00h05 AS b ON b.TAX_CODE = a.ppn LEFT OUTER JOIN acc00h05 AS c ON a.OTax = c.TAX_CODE LEFT OUTER JOIN " +
                                " acc00h05 AS d ON a.pph = d.TAX_CODE inner join acc00h04 e on a.cur_code = e.cur_code WHERE (e.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
-                               " FROM acc00h04)) and a.supplier_name = '" + cb_supplier.Text + "'";
+                               " FROM acc00h04)) and a.supplier_name = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 //(sender as RadComboBox).Text = dr["doc_code"].ToString();
-                cb_supplier.SelectedValue = dr["supplier_code"].ToString();
+                (sender as RadComboBox).Text = dr["supplier_code"].ToString();
                 txt_curr.Text = dr["cur_code"].ToString();
                 txt_kurs.Value = Convert.ToDouble(dr["KursRun"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(dr["KursTax"].ToString());
@@ -315,6 +331,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         }
         #endregion
 
+        #region Term
         protected void cb_term_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             if ((sender as RadComboBox).Text == "Cash")
@@ -353,6 +370,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             (sender as RadComboBox).Items.Add("Credit");
             (sender as RadComboBox).Items.Add("COD");
         }
+        #endregion
 
         #region Project
         private static DataTable GetProject(string text)
@@ -430,6 +448,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cb_cost_center.SelectedValue = dr["dept_code"].ToString();
                 cb_cost_center.Text = dr["CostCenterName"].ToString();
                 txt_remark.Text = dr["remark"].ToString();
+                txt_kurs.Text = dr["kurs"].ToString();
+                txt_tax_kurs.Text = dr["kurs_tax"].ToString();
+                txt_curr.Text = dr["cur_name"].ToString();
+                txt_pppn.Value = Convert.ToDouble(dr["PPPN"]);
+                txt_po_tax.Value = Convert.ToDouble(dr["POTax"]);
+                txt_ppph.Value = Convert.ToDouble (dr["ppph"]);
+
                 //txt_po_date.Text = dr["Po_date"].ToString();
             }
 
@@ -886,30 +911,48 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
         protected void edt_chkTax1_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox ntb = (CheckBox)sender;
-            GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
-            RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
-            double sub_price;
-            double taxVal;
-
-            if ((sender as CheckBox).Checked == true)
+            try
             {
-                sub_price = Convert.ToDouble(txt_sub_price.Value);
-                taxVal = Convert.ToDouble(txt_tax1_value.Value);
-                txt_tax1_value.Value = taxVal + ((Convert.ToDouble(txt_pppn.Value) / 100) * sub_price);
+                CheckBox ntb = (CheckBox)sender;
+                GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
+                RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
+                double sub_price;
+                double taxVal;
 
-                tax_check = "1";
+                if ((sender as CheckBox).Checked == true)
+                {
+                    sub_price = Convert.ToDouble(txt_sub_price.Value);
+                    taxVal = Convert.ToDouble(txt_tax1_value.Value);
+                    txt_tax1_value.Value = taxVal + ((Convert.ToDouble(txt_pppn.Value) / 100) * sub_price);
+
+                    tax_check = "1";
+                }
+                else
+                {
+                    sub_price = Convert.ToDouble(txt_sub_price.Value);
+                    taxVal = Convert.ToDouble(txt_tax1_value.Value);
+                    txt_tax1_value.Value = taxVal - ((Convert.ToDouble(txt_pppn.Value) / 100) * sub_price);
+
+                    tax_check = "0";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                sub_price = Convert.ToDouble(txt_sub_price.Value);
-                taxVal = Convert.ToDouble(txt_tax1_value.Value);
-                txt_tax1_value.Value = taxVal - ((Convert.ToDouble(txt_pppn.Value) / 100) * sub_price);
-
-                tax_check = "0";
+                Response.Write("<script language=\"javascript\">");
+                if (ex.InnerException == null)
+                {
+                    Response.Write("alert(\"" + ex.Message.ToString() + "\");");
+                }
+                else
+                {
+                    Response.Write("alert(\"" + ex.InnerException.Message.ToString() + "\");");
+                }
+                Response.Write("</script>");
             }
-
-            CalculateTotal();
+            finally
+            {
+                CalculateTotal();
+            }  
         }
 
         protected void edt_chkOTax_CheckedChanged(object sender, EventArgs e)
@@ -1342,6 +1385,21 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
                 //acc01h13.tr_code = run;
                 //acc01h13.selected_project = cb_project.SelectedValue;
+            }
+        }
+
+        protected void RadGrid2_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 192;
             }
         }
     }
