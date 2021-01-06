@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TelerikWebApplication.Forms.Purchase.Default" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TelerikWebApplication.Form.Purchase.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">  
     <link href="../../Styles/common.css" rel="stylesheet" />
