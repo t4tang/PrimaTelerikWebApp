@@ -87,7 +87,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 //cb_po_type.Text = sdr["TransName"].ToString();
                 //cb_po_type.SelectedValue = sdr["trans_code"].ToString();
                 //cb_priority.Text = sdr["prio_desc"].ToString();
-                cb_supplier.Text = sdr["NamSup"].ToString();
+                cb_supplier.Text = sdr["supplier_name"].ToString();
                 txt_curr.Text = sdr["KoMat"].ToString();
                 txt_kurs.Value = Convert.ToDouble(sdr["Kurs"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(sdr["KursTax"].ToString());
@@ -430,36 +430,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         }
         #endregion
 
-        protected void cb_reff_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from v_invoice_incoming_reff where po_code = '" + (sender as RadComboBox).SelectedValue + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                (sender as RadComboBox).Text = dr["po_code"].ToString();
-                cb_cost_center.SelectedValue = dr["dept_code"].ToString();
-                cb_cost_center.Text = dr["CostCenterName"].ToString();
-                txt_remark.Text = dr["remark"].ToString();
-                //txt_po_date.Text = dr["Po_date"].ToString();
-            }
-
-            //dr.Close();
-            con.Close();
-
-            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
-            RadGrid2.DataBind();
-
-            txt_sub_total.Value = 0;
-            txt_tax1_value.Value = 0;
-            txt_tax2_value.Value = 0;
-            txt_tax3_value.Value = 0;
-            txt_total.Value = 0;
-        }
+       
 
         #region PO_Refference
 
@@ -525,6 +496,42 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         protected void cb_reff_DataBound(object sender, EventArgs e)
         {
             ((Literal)cb_reff.Footer.FindControl("RadComboItemsCount")).Text = Convert.ToString(cb_reff.Items.Count);
+        }
+
+        protected void cb_reff_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from v_invoice_incoming_reff where po_code = '" + (sender as RadComboBox).SelectedValue + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).Text = dr["po_code"].ToString();
+                cb_cost_center.SelectedValue = dr["dept_code"].ToString();
+                cb_cost_center.Text = dr["CostCenterName"].ToString();
+                txt_remark.Text = dr["remark"].ToString();
+                txt_curr.Text = dr["cur_name"].ToString();
+                txt_kurs.Text = dr["kurs"].ToString();
+                txt_tax_kurs.Text = dr["kurs_tax"].ToString();
+                cb_tax1.Text = dr["PPNName"].ToString();
+                cb_tax2.Text = dr["OtaxName"].ToString();
+                cb_tax3.Text = dr["PPHName"].ToString();
+            }
+
+            //dr.Close();
+            con.Close();
+
+            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
+            RadGrid2.DataBind();
+
+            txt_sub_total.Value = 0;
+            txt_tax1_value.Value = 0;
+            txt_tax2_value.Value = 0;
+            txt_tax3_value.Value = 0;
+            txt_total.Value = 0;
         }
         #endregion
 

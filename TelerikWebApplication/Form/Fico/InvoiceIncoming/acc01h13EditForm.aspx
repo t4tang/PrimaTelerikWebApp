@@ -233,15 +233,15 @@
                                     <telerik:RadLabel runat="server" Text="Supplier" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
-                                    <asp:UpdatePanel ID="UpdatePanel8" runat="server">
-                                        <ContentTemplate>
+                                    <%--<asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                                        <ContentTemplate>--%>
                                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="300px" CausesValidation="false"
-                                            EnableLoadOnDemand="True" ShowMoreResultsBox="true" AutoPostBack="true" OnPreRender="cb_supplier_PreRender"
+                                            EnableLoadOnDemand="True" ShowMoreResultsBox="true" AutoPostBack="true"
                                             OnItemsRequested="cb_supplier_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" MarkFirstMatch="true"
                                             EnableVirtualScrolling="true" >
                                         </telerik:RadComboBox>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                        <%--</ContentTemplate>
+                                    </asp:UpdatePanel>--%>
                                 </td>
                             </tr>
                 
@@ -644,7 +644,7 @@
                             </tr>
                         </table>
                     </td>
-                </tr>    
+                </tr>    c
                 <tr>
                     <td colspan="3" style="padding-top:5px; padding-bottom:0px; "">
                         <table>
@@ -829,7 +829,7 @@
                     <ContentTemplate>
                         <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Telerik" PageSize="5"
                             AllowPaging="false" AllowSorting="true" runat="server" ShowStatusBar="true"  ClientSettings-Selecting-AllowRowSelect="true"
-                            OnNeedDataSource="RadGrid2_NeedDataSource" OnPreRender="RadGrid2_PreRender" >
+                            OnNeedDataSource="RadGrid2_NeedDataSource" >
                             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                             <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="12px" EditMode="Batch"
                                 ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >
