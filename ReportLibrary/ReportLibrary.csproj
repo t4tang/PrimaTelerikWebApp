@@ -120,6 +120,12 @@
     <Compile Include="Reports\Fico\TrialBalance.Designer.cs">
       <DependentUpon>TrialBalance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Inventory\ListOfGoodsIssued.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\ListOfGoodsIssued.Designer.cs">
+      <DependentUpon>ListOfGoodsIssued.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Inventory\ReportCatalog.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -132,6 +138,12 @@
     <Compile Include="Reports\Inventory\rpt_goods_receive.Designer.cs">
       <DependentUpon>rpt_goods_receive.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Inventory\rpt_gr_by_values.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\rpt_gr_by_values.Designer.cs">
+      <DependentUpon>rpt_gr_by_values.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Inventory\rpt_pr_to_gr.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -143,6 +155,24 @@
     </Compile>
     <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.designer.cs">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\StockCard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\StockCard.Designer.cs">
+      <DependentUpon>StockCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\ReportCatalog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\ReportCatalog.Designer.cs">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_population_unit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_population_unit.Designer.cs">
+      <DependentUpon>rpt_population_unit.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Purchase\ReportCatalog.cs">
       <SubType>Component</SubType>
@@ -244,11 +274,20 @@
     <EmbeddedResource Include="Reports\Inventory\rpt_goods_receive.resx">
       <DependentUpon>rpt_goods_receive.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\rpt_gr_by_values.resx">
+      <DependentUpon>rpt_gr_by_values.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_pr_to_gr.resx">
       <DependentUpon>rpt_pr_to_gr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_WO_UR_Monitoring.resx">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\ReportCatalog.resx">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\rpt_population_unit.resx">
+      <DependentUpon>rpt_population_unit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Purchase\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>

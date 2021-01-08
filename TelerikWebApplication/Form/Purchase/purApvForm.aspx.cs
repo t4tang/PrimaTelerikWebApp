@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Telerik.ReportViewer.Html5.WebForms;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
-using TelerikWebApplication.Forms.Purchase.Purchase_order;
+using TelerikWebApplication.Form.Purchase.Purchase_order;
 
 namespace TelerikWebApplication.Form.Purchase
 {
