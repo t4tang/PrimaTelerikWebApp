@@ -150,13 +150,15 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     txt_NoCtrl.Text = sdr["NoCtrl"].ToString();
                     txt_NoRef.Text = sdr["NoRef"].ToString();
 
-                    if (sdr["KoTrans"].ToString() == "Penerimaan")
+                    if (sdr["KodeMutasi"].ToString() == "D")
                     {
                         cb_KoTrans.Text = "PENERIMAAN KAS";
+                        cb_KoTrans.SelectedValue = sdr["KodeMutasi"].ToString();
                     }
                     else
                     {
                         cb_KoTrans.Text = "PENGELUARAN KAS";
+                        cb_KoTrans.SelectedValue = sdr["KodeMutasi"].ToString();
                     }
                     cb_Project.Text = sdr["region_name"].ToString();
                     cb_Cash.Text = sdr["NamKas"].ToString();
@@ -316,11 +318,16 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_Project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_Project.SelectedValue = dr[0].ToString();
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                //cb_Cash.Text = "";
+                //cb_Cash.SelectedValue = null;
+            }
+                
             dr.Close();
             con.Close();
         }
@@ -331,11 +338,11 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_Project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_Project.SelectedValue = dr[0].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
         }
@@ -371,13 +378,14 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT acc00h02.*, acc00h04.KursRun, acc00h04.cur_code " +
-                                "FROM acc00h02 CROSS JOIN acc00h04 where acc00h04.tglKurs = (select MAX(acc00h04.tglKurs) from acc00h04) AND NamKas = '" + cb_Cash.Text + "'";
+            "FROM acc00h02 CROSS JOIN acc00h04 where acc00h04.tglKurs = (select MAX(acc00h04.tglKurs) from acc00h04) AND NamKas = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                cb_Cash.SelectedValue = dr["KoKas"].ToString();
+            {
+                (sender as RadComboBox).SelectedValue = dr["KoKas"].ToString();
+            }                
             dr.Close();
-
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -398,12 +406,27 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoKas FROM acc00h02 WHERE NamKas  = '" + cb_Cash.Text + "'";
+            cmd.CommandText = "SELECT acc00h02.*, acc00h04.KursRun, acc00h04.cur_code " +
+                                "FROM acc00h02 CROSS JOIN acc00h04 where acc00h04.tglKurs = (select MAX(acc00h04.tglKurs) from acc00h04) AND NamKas = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 cb_Cash.SelectedValue = dr["KoKas"].ToString();
+            }
+
             dr.Close();
+
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            foreach (DataRow dr1 in dt.Rows)
+            {
+                txt_cur_code.Text = dr1["cur_code"].ToString();
+                txt_kurs.Text = dr1["KursRun"].ToString();
+            }
+
             con.Close();
         }
 
@@ -1030,7 +1053,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 decimal kurs = decimal.Parse(txt_kurs.Text);
                 cmd.Parameters.AddWithValue("@kurs", kurs);
                 cmd.Parameters.AddWithValue("@Kontak", txt_fromto.Text);
-                cmd.Parameters.AddWithValue("@region_code", public_str.site);
+                cmd.Parameters.AddWithValue("@region_code", cb_Project.SelectedValue);
                 cmd.Parameters.AddWithValue("@Ket", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@freby", cb_Prepared.SelectedValue);
                 cmd.Parameters.AddWithValue("@ordby", cb_Checked.SelectedValue);

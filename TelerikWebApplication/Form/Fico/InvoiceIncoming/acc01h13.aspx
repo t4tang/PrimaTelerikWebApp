@@ -132,9 +132,9 @@
                         </td>
                     </tr>
                     <tr style="height:50px">   
-                        <td>  
-                            <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Filter" Width="120px" Height="25px" 
-                            BackColor="#FF6600" ForeColor="White" BorderStyle="None"  />
+                        <td>
+                            <telerik:RadButton ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Filter" Width="95%" Height="25px"
+                             Skin="Material" ForeColor="DeepSkyBlue"></telerik:RadButton>
                         </td>
 
                     </tr>

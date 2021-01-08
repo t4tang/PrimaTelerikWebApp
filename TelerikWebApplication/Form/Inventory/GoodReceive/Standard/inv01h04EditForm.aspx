@@ -29,6 +29,25 @@
         }
 
     </script>
+   <style type="text/css">
+       .lbObject
+         {
+             color:teal;
+             font-size:12px;
+             font-weight:normal;
+             font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif;         
+         }
+
+       .lblEditInfo
+       {
+         font-size:11px;
+         color:black;
+         font-style:italic;
+         background-color:greenyellow;
+         font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif;
+       }
+   </style>
+    
 
 </head>
 <body>
@@ -113,7 +132,7 @@
                                 <td >
                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                         <ContentTemplate>
-                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="200" DropDownWidth="200px"
+                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="250px" DropDownWidth="250px"
                                                 AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
                                                 OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
                                                 OnPreRender="cb_project_PreRender">
@@ -453,7 +472,7 @@
                </table>
             </div>            
             
-            <div style="padding: 25px 15px 15px 15px; height:270px">
+            <div style="padding: 25px 15px 15px 15px; height:250px">
                  <asp:UpdatePanel ID="panel2" runat="server" UpdateMode="Always">
                       <ContentTemplate>
                             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
@@ -556,7 +575,7 @@
 
                                         <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" 
                                             HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900" ConfirmTitle="Delete" ConfirmDialogType="RadWindow"
-                                            ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px">
+                                            ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px" ItemStyle-ForeColor="Red">
                                         </telerik:GridButtonColumn>
 
                                     </Columns>
@@ -576,20 +595,20 @@
                     </asp:UpdatePanel>
             </div>
 
-            <div style="padding: 5px 15px 5px 15px;">
+            <div style="padding: 5px 15px 5px 15px;" runat="server" >
                 <table>
                     <tr>
-                        <td style="padding: 0px 10px 0px 10px"> 
-                            <telerik:RadLabel runat="server" ID="lbl_userId" Width="100px" Text="User: " CssClass="lbObject" Font-Size="Small"/>
+                        <td style="padding: 0px 10px 0px 10px" > 
+                            <telerik:RadLabel runat="server" ID="lbl_userId" Width="100px" Text="User: " CssClass="lblEditInfo" />
                         </td>
                         <td style="width: 240px; padding-left: 5px">
-                            <telerik:RadLabel runat="server" ID="lbl_lastUpdate" Width="220px" Text="Last Update: " CssClass="lbObject" Font-Size="Small"/>
+                            <telerik:RadLabel runat="server" ID="lbl_lastUpdate" Width="220px" Text="Last Update: " CssClass="lblEditInfo"/>
                         </td>
                         <td style="padding: 0px 10px 0px 10px"> 
-                            <telerik:RadLabel runat="server" ID="lbl_Owner" Width="100px" Text="Owner: " CssClass="lbObject" Font-Size="Small"/>
+                            <telerik:RadLabel runat="server" ID="lbl_Owner" Width="100px" Text="Owner: " CssClass="lblEditInfo"/>
                         </td>
                         <td style="padding: 0px 10px 0px 10px">
-                            <telerik:RadLabel runat="server" ID="lbl_edited" Width="100px" Text="Edited: " CssClass="lbObject" Font-Size="Small"/>
+                            <telerik:RadLabel runat="server" ID="lbl_edited" Width="100px" Text="Edited: " CssClass="lblEditInfo"/>
                         </td>
                         <td  style="padding-top:0px; text-align:left">
                             

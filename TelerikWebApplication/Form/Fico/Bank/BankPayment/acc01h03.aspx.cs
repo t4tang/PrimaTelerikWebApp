@@ -18,6 +18,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         private const int ItemsPerRequest = 10;
+        public static string KoRek = null;
         //private string selected_project_item;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -263,8 +264,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 cmd.Parameters.AddWithValue("@slip_no", run);
                 cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_created.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@pay_way", "2");
-                //cmd.Parameters.AddWithValue("@inf_pay_no", txt.Text);
-                cmd.Parameters.AddWithValue("@accountno", cb_ref.SelectedValue);
+                cmd.Parameters.AddWithValue("@inf_pay_no", txt_giro.Text);
+                cmd.Parameters.AddWithValue("@accountno", KoRek);
                 cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
                 cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_cashed.SelectedDate.Value));
                 //cmd.Parameters.AddWithValue("@remark1", txt.SelectedValue);
@@ -433,13 +434,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
             //cmd.CommandText = "select KoBank from acc00h01 WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
-            cmd.CommandText = "SELECT KoBank, NamBank, acc00h10.cur_code, acc00h04.KursRun FROM acc00h01, acc00h04, acc00h10 " +
+            cmd.CommandText = "SELECT KoBank, NamBank, acc00h10.cur_code, acc00h04.KursRun, acc00h01.KoRek FROM acc00h01, acc00h04, acc00h10 " +
            "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE cur_code = acc00h10.cur_code) AND acc00h10.accountno = acc00h01.KoRek " +
            "AND NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["KoBank"].ToString();
+            }                
             dr.Close();
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -449,6 +452,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
             {
                 txt_curr2.Text = dr1["cur_code"].ToString();
                 txt_kurs2.Text = dr1["KursRun"].ToString();
+                KoRek = dr1["KoRek"].ToString();
             }
             con.Close();
         }
@@ -459,13 +463,16 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoBank, NamBank, acc00h10.cur_code, acc00h04.KursRun FROM acc00h01, acc00h04, acc00h10 " +
+            cmd.CommandText = "SELECT KoBank, NamBank, acc00h10.cur_code, acc00h04.KursRun, acc00h01.KoRek FROM acc00h01, acc00h04, acc00h10 " +
             "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE cur_code = acc00h10.cur_code) AND acc00h10.accountno = acc00h01.KoRek " +
             "AND NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["KoBank"].ToString();
+            }
+                
             dr.Close();
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -475,6 +482,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
             {
                 txt_curr2.Text = dr1["cur_code"].ToString();
                 txt_kurs2.Text = dr1["KursRun"].ToString();
+                KoRek = dr1["KoRek"].ToString();
             }
             con.Close();
         }
@@ -575,6 +583,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                     cb_pre.Text = sdr["RequestBy"].ToString();
                     cb_check.Text = sdr["Checkby"].ToString();
                     cb_approve.Text = sdr["Approveby"].ToString();
+                    txt_giro.Text = sdr["inf_pay_no"].ToString();
                 }
                 con.Close();
 

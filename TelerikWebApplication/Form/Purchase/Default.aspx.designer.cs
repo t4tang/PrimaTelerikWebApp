@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Forms.Purchase {
+namespace TelerikWebApplication.Form.Purchase {
     
     
     public partial class Default {

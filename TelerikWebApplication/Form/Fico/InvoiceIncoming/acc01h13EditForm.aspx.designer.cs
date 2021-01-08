@@ -157,15 +157,6 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         protected global::Telerik.Web.UI.RadComboBox cb_project;
         
         /// <summary>
-        /// UpdatePanel8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel8;
-        
-        /// <summary>
         /// cb_supplier control.
         /// </summary>
         /// <remarks>
@@ -173,6 +164,15 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_supplier;
+        
+        /// <summary>
+        /// UpdatePanel0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel0;
         
         /// <summary>
         /// cb_reff control.
