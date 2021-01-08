@@ -31,7 +31,7 @@ namespace TelerikWebApplication.Form.Purchase
             this.Title = tr_code;
             this.reportViewer1.ViewMode = ViewMode.PrintPreview;
             initBtnOk(tr_code);
-            pur01h02_slip._tr_code = tr_code;
+            //pur01h02_slip._tr_code = tr_code;
         }
 
         private void initBtnOk(string tr_code)
