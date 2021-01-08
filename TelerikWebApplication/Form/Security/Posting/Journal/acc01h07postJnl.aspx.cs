@@ -270,6 +270,32 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }
+                if (chkAP.Checked == true)
+                {
+                    con.Open();
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_posting_journal_AP";
+                    cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
+                    cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
+                    cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (chkAR.Checked == true)
+                {
+                    con.Open();
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_posting_journal_AR";
+                    cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
+                    cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
+                    cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
                 if (chkGI.Checked == true)
                 {
                     con.Open();
@@ -358,6 +384,32 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
                     cmd.CommandText = "sp_unposting_journal_goods_receive";
+                    cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
+                    cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
+                    cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (chkAP.Checked == true)
+                {
+                    con.Open();
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_unposting_journal_AP";
+                    cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
+                    cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
+                    cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (chkAR.Checked == true)
+                {
+                    con.Open();
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_unposting_journal_AR";
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
