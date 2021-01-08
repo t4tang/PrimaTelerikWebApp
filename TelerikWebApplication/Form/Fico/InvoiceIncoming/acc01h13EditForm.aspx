@@ -413,32 +413,7 @@
                                     </asp:UpdatePanel> 
                                 </td>
                             </tr>
-                             <tr>
-                                <td class="tdLabel">
-                                    <telerik:RadLabel runat="server" Text="Remark" CssClass="lbObject"></telerik:RadLabel>
-                                </td>                
-                                <td style="vertical-align:top; text-align:left">
-                                    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
-                                        <ContentTemplate>
-                                            <telerik:RadTextBox ID="txt_remark" 
-                                                runat="server" TextMode="MultiLine"
-                                                Width="250px" Rows="0" Columns="100" TabIndex="5" Resize="Both" RenderMode="Lightweight" 
-                                           Skin="Telerik"   >
-                                        <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
-                                        <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
-                                        <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
-                                        <HoveredStyle CssClass="MyHoveredTextBox"></HoveredStyle>
-                                        <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
-                                        </telerik:RadTextBox>
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged">
-                                            </asp:AsyncPostBackTrigger>
-                                        </Triggers>
-                                    </asp:UpdatePanel>
-                                                
-                                </td>
-                            </tr>                     
+                                                  
                                                 
                       </table>           
                     </td>
@@ -489,6 +464,32 @@
                                 </td>
                             </tr>
                            
+                             <tr>
+                                <td class="tdLabel">
+                                    <telerik:RadLabel runat="server" Text="Remark" CssClass="lbObject"></telerik:RadLabel>
+                                </td>                
+                                <td style="vertical-align:top; text-align:left">
+                                    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                                        <ContentTemplate>
+                                            <telerik:RadTextBox ID="txt_remark" 
+                                                runat="server" TextMode="MultiLine"
+                                                Width="250px" Rows="0" Columns="100" TabIndex="5" Resize="Both" RenderMode="Lightweight" 
+                                           Skin="Telerik"   >
+                                        <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
+                                        <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
+                                        <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
+                                        <HoveredStyle CssClass="MyHoveredTextBox"></HoveredStyle>
+                                        <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
+                                        </telerik:RadTextBox>
+                                        </ContentTemplate>
+                                        <Triggers>
+                                            <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged">
+                                            </asp:AsyncPostBackTrigger>
+                                        </Triggers>
+                                    </asp:UpdatePanel>
+                                                
+                                </td>
+                            </tr>
                             <tr>
                                 <td class="tdLabel">
                                     <telerik:RadLabel runat="server" Text="Prepare By" CssClass="lbObject"></telerik:RadLabel>
