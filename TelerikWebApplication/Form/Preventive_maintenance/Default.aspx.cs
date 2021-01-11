@@ -12,7 +12,7 @@ namespace TelerikWebApplication.Forms.Preventive_maintenance
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            public_str.modul = "Preventive Manintenance";
+            public_str.modul = "Plant";
         }
     }
 }

@@ -126,9 +126,11 @@
                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="200px" AutoPostBack="true" CausesValidation="false"
-                                                DropDownWidth="1100px" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                                MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="sro_code" DataValueField="sro_code"
-                                                OnItemsRequested="cb_ref_ItemsRequested" OnSelectedIndexChanged="cb_ref_SelectedIndexChanged">
+                                                DropDownWidth="1100px" EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
+                                                MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="do_code" DataValueField="do_code"
+                                                OnItemsRequested="cb_ref_ItemsRequested" 
+                                                OnSelectedIndexChanged="cb_ref_SelectedIndexChanged" 
+                                                OnPreRender="cb_ref_PreRender">
                                                 <HeaderTemplate>
                                                     <table style="width: 1000px; font-size: smaller">
                                                         <tr>
@@ -443,7 +445,7 @@
                                                 <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPartQty" Width="80px" 
                                                     ReadOnly="false" EnabledStyle-HorizontalAlign="Right" 
                                                     NumberFormat-AllowRounding="true" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" 
-                                                    Text='<%# DataBinder.Eval(Container.DataItem, "qty_receive", "{0:#,###,###0.00}") %>' onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" 
+                                                    Text='<%# DataBinder.Eval(Container.DataItem, "qty", "{0:#,###,###0.00}") %>' onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" 
                                                     Type="Number" NumberFormat-DecimalDigits="2">
                                                 </telerik:RadTextBox>
                                             </ItemTemplate>

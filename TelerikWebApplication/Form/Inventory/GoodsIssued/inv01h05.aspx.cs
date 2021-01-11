@@ -32,7 +32,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 selected_project = public_str.site;
-                cb_proj_prm.Text = public_str.sitename;
+                cb_proj_prm.Text = public_str.sitename;               
 
                 tr_code = null;
                 Session["action"] = "firstLoad";
@@ -49,7 +49,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     RadGrid1.MasterTableView.SortExpressions.Clear();
                     RadGrid1.MasterTableView.GroupByExpressions.Clear();
                     RadGrid1.Rebind(); /* Kemudian RadGrid1 akan sorting data by lastupdate (lihat sp_get_purchase_requestH*/
-                    
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
+
                 }
                 else if (e.Argument == "RebindAndNavigate")
                 {
@@ -112,7 +113,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
+                selected_project= dr[0].ToString();
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -205,7 +209,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
         }
 
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
@@ -449,6 +453,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
             populate_detail();
             Session["action"] = "list";
+        }
+
+        private static string GetStatusMessage(int offset, int total)
+        {
+            if (total <= 0)
+                return "No matches";
+
+            return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
         }
     }
 

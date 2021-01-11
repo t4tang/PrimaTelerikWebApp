@@ -31,6 +31,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 selected_project = public_str.site;
+                cb_proj_prm.SelectedValue = public_str.site;
                 cb_proj_prm.Text = public_str.sitename;
 
                 tr_code = null;
@@ -385,6 +386,11 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             }
         }
 
+
+
+
+
+        //?? kok ada ini???
         protected void cb_type_ref_PreRender(object sender, EventArgs e)
         {
             if ((sender as RadComboBox).Text == "Reservation")
@@ -429,7 +435,22 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             cb.DataSource = dt;
             cb.DataBind();
         }
-        
+
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            if (Session["action"].ToString() == "firstLoad")
+            {
+                if (RadGrid1.MasterTableView.Items.Count > 0)
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
+
+                foreach (GridDataItem gItem in RadGrid1.SelectedItems)
+                {
+                    tr_code = gItem["pr_code"].Text;
+                }
+                populate_detail();
+            }
+        }
+
         #region Priority 
         private static DataTable GetPriority(string text)
         {

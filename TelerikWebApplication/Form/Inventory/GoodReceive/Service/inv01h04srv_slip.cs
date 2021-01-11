@@ -13,7 +13,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive
     /// </summary>
     public partial class inv01h04srv_slip : Telerik.Reporting.Report
     {
-        public static string _tr_code;
+        public static string _tr_code ;
         public inv01h04srv_slip()
         {
             //

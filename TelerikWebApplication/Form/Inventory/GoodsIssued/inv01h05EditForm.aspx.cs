@@ -20,6 +20,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
         SqlCommand cmd = new SqlCommand();
 
         private const int ItemsPerRequest = 10;
+        public static string prod_code = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -34,6 +35,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 else
                 {
                     Session["actionEdit"] = "new";
+                    cb_type_ref.Text = "Consumption";
+                    cb_type_ref.SelectedValue = "6";
+                    cb_CustSupp.Text = "PRIMA SARANA GEMILANG, PT";
+                    cb_CustSupp.SelectedValue = "PSG";
                 }
             }
         }
@@ -53,6 +58,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 cb_CustSupp.SelectedValue = sdr["cust_code"].ToString();
                 cb_Project.Text = sdr["region_name"].ToString();
                 cb_Project.SelectedValue = sdr["region_code"].ToString();
+                cb_CostCenter.SelectedValue = sdr["dept_code"].ToString();
                 cb_CostCenter.Text = sdr["dept_code"].ToString();
                 txt_CostCenterName.Text = sdr["CostCenterName"].ToString();
                 cb_warehouse.Text = sdr["wh_name"].ToString();
@@ -75,14 +81,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             con.Close();
 
         }
-        public DataTable GetDataRefDetailTable(string do_code)
+        public DataTable GetDataRefDetailTable(string tr_code)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_goods_issued_refD";
-            cmd.Parameters.AddWithValue("@doc_code", do_code);
+            cmd.Parameters.AddWithValue("@doc_code", tr_code);
             //cmd.Parameters.AddWithValue("@type_ref", "1");
             //cmd.Parameters.AddWithValue("@part_desc", cb_loc.SelectedValue);
             cmd.CommandTimeout = 0;
@@ -165,6 +171,26 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 e.Canceled = true;
             }
         }
+        protected void RadGrid2_PreRender(object sender, EventArgs e)
+        {
+            //if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            //{
+            //    (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+            //    (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            //}
+
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 295;
+            }
+        }
 
         protected void btn_save_Click(object sender, EventArgs e)
         {
@@ -174,7 +200,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
             try
             {
-                if (Session["action"].ToString() == "edit")
+                lblErrorDescription.Text = "";
+
+                if (Session["actionEdit"].ToString() == "edit")
                 {
                     run = txt_gi_number.Text;
                 }
@@ -183,19 +211,19 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h05.do_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM inv01h05 WHERE LEFT(inv01h05.do_code, 4) = 'GI01' " +
+                        "FROM inv01h05 WHERE LEFT(inv01h05.do_code, 4) = 'GI03' " +
                         "AND SUBSTRING(inv01h05.do_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                         "AND SUBSTRING(inv01h05.do_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "GI01" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
+                        run = "GI03" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "GI01" + (dtp_date.SelectedDate.Value.Year.ToString()).Substring(dtp_date.SelectedDate.Value.Year.ToString().Length - 2) +
+                        run = "GI03" + (dtp_date.SelectedDate.Value.Year.ToString()).Substring(dtp_date.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_date.SelectedDate.Value.Month).Substring(("0000" + dtp_date.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
@@ -222,13 +250,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@type_out", "N");
                 cmd.Parameters.AddWithValue("@CntrDoc", 1);
-                cmd.Parameters.AddWithValue("@status_post", 1);
+                cmd.Parameters.AddWithValue("@status_post", 0);
                 cmd.Parameters.AddWithValue("@sales_code", "NON");
                 cmd.Parameters.AddWithValue("@to_wh_code", "NONE");
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@Printed", 1);
+                cmd.Parameters.AddWithValue("@Printed", 0);
                 cmd.Parameters.AddWithValue("@Edited", 0);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
                 cmd.Parameters.AddWithValue("@doc_type", 1);
@@ -242,11 +270,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     cmd.CommandText = "sp_save_goods_issuedD";
                     cmd.Parameters.AddWithValue("@do_code", run);
                     cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("txt_ProdCode") as RadTextBox).Text);
+                    prod_code = "Part Code " +(item.FindControl("txt_ProdCode") as RadTextBox).Text;
                     cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lblProdCodeOri") as Label).Text);
                     cmd.Parameters.AddWithValue("@qty_out", Convert.ToDouble((item.FindControl("txt_Part_Qty") as RadTextBox).Text));
                     cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("lblUom") as Label).Text);
                     cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCntr") as Label).Text);
-                    cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("lblstorage") as Label).Text);
+                    //cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("lblstorage") as Label).Text);
+                    cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
                     if ((item.FindControl("chkWarranty") as CheckBox).Checked == true)
                     {
                         cmd.Parameters.AddWithValue("@twarranty", 1);
@@ -255,10 +285,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     {
                         cmd.Parameters.AddWithValue("@twarranty", 0);
                     }
-
-                    cmd.ExecuteNonQuery();
                     cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@type_out", "N");
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -271,10 +300,20 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             }
             catch (Exception ex)
             {
+                lblErrorDescription.Text = "Error: " + prod_code +" " + ex.Message.ToString();
+                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
+                //notif.Text = "Error: " + ex;
+                //notif.ForeColor = System.Drawing.Color.Red;
+                //notif.Title = "Notification";
+                //notif.Show();
+
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "DELETE inv01h05 WHERE do_code = '" + run + "'";
+                cmd.ExecuteNonQuery();
                 con.Close();
-                //Response.Write("<font color='red'>" + ex.Message + "</font>");
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
-                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn","");
+
             }
         }
 
@@ -438,7 +477,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            cb.DataTextField = "name";
+            cb.DataTextField = "code";
             cb.DataValueField = "code";
             cb.DataSource = dt;
             cb.DataBind();
@@ -455,11 +494,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             dr.Close();
             con.Close();
         }
@@ -470,17 +509,20 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
-            dr.Close();
+                txt_CostCenterName.Text = dr["CostCenterName"].ToString();
+            }  
+
             con.Close();
         }
         #endregion
 
-        #region storage loc
+            #region storage loc
 
         protected void GetLoc(string name, string projectID, RadComboBox cb)
         {

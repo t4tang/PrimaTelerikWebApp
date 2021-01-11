@@ -583,6 +583,20 @@
     <Compile Include="Form\DataStore\Vehicle\ModelUnit\mtc00h11.aspx.designer.cs">
       <DependentUpon>mtc00h11.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Fico\Asset\acc00d22.aspx.cs">
+      <DependentUpon>acc00d22.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Asset\acc00d22.aspx.designer.cs">
+      <DependentUpon>acc00d22.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Asset\acc00h22.aspx.cs">
+      <DependentUpon>acc00h22.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Asset\acc00h22.aspx.designer.cs">
+      <DependentUpon>acc00h22.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Fico\Bank\BankMutation\acc01h01.aspx.cs">
       <DependentUpon>acc01h01.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -596,6 +610,27 @@
     </Compile>
     <Compile Include="Form\Fico\Bank\BankMutation\ReportVieweracc01h01.aspx.designer.cs">
       <DependentUpon>ReportVieweracc01h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Bank\BankReceipt\acc01h04b.aspx.cs">
+      <DependentUpon>acc01h04b.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Bank\BankReceipt\acc01h04b.aspx.designer.cs">
+      <DependentUpon>acc01h04b.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Bank\BankReceipt\ReportVieweracc01h04.aspx.cs">
+      <DependentUpon>ReportVieweracc01h04.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Bank\BankReceipt\ReportVieweracc01h04.aspx.designer.cs">
+      <DependentUpon>ReportVieweracc01h04.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Budget\acc01h15.aspx.cs">
+      <DependentUpon>acc01h15.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Budget\acc01h15.aspx.designer.cs">
+      <DependentUpon>acc01h15.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Fico\Cash\CashMutation\acc01h02.aspx.cs">
       <DependentUpon>acc01h02.aspx</DependentUpon>
@@ -611,12 +646,54 @@
     <Compile Include="Form\Fico\Cash\CashMutation\ReportViewer_acc01h02.aspx.designer.cs">
       <DependentUpon>ReportViewer_acc01h02.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Fico\Cash\PaymentVoucher\acc01h03c.aspx.cs">
+      <DependentUpon>acc01h03c.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Cash\PaymentVoucher\acc01h03c.aspx.designer.cs">
+      <DependentUpon>acc01h03c.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Cash\PaymentVoucher\ReportViewer_acc01h03c.aspx.cs">
+      <DependentUpon>ReportViewer_acc01h03c.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Cash\PaymentVoucher\ReportViewer_acc01h03c.aspx.designer.cs">
+      <DependentUpon>ReportViewer_acc01h03c.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Fico\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\Fico\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\InvoiceIncoming\acc01h13.aspx.cs">
+      <DependentUpon>acc01h13.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\InvoiceIncoming\acc01h13.aspx.designer.cs">
+      <DependentUpon>acc01h13.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\InvoiceIncoming\acc01h13EditForm.aspx.cs">
+      <DependentUpon>acc01h13EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\InvoiceIncoming\acc01h13EditForm.aspx.designer.cs">
+      <DependentUpon>acc01h13EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Ledger\GeneralJournal\acc01h07.aspx.cs">
+      <DependentUpon>acc01h07.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Ledger\GeneralJournal\acc01h07.aspx.designer.cs">
+      <DependentUpon>acc01h07.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\Ledger\OpeningBalance\acc00h11.aspx.cs">
+      <DependentUpon>acc00h11.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\Ledger\OpeningBalance\acc00h11.aspx.designer.cs">
+      <DependentUpon>acc00h11.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx.cs">
       <DependentUpon>acc01h05.aspx</DependentUpon>
@@ -631,13 +708,6 @@
     </Compile>
     <Compile Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx.designer.cs">
       <DependentUpon>reportViewer.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Form\Inventory\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\Inventory\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\DataStore\Material\Brand\Data_entry.ascx.cs">
       <DependentUpon>Data_entry.ascx</DependentUpon>
@@ -687,6 +757,175 @@
     </Compile>
     <Compile Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx.designer.cs">
       <DependentUpon>inv00h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08.aspx.cs">
+      <DependentUpon>inv01h08.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08.aspx.designer.cs">
+      <DependentUpon>inv01h08.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08EditForm.aspx.cs">
+      <DependentUpon>inv01h08EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08EditForm.aspx.designer.cs">
+      <DependentUpon>inv01h08EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08_ReportViewer.aspx.cs">
+      <DependentUpon>inv01h08_ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08_ReportViewer.aspx.designer.cs">
+      <DependentUpon>inv01h08_ReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ComponentExchange\inv01h08_slip.Designer.cs">
+      <DependentUpon>inv01h08_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\FluidControl\Fuel\inv01h05fc.aspx.cs">
+      <DependentUpon>inv01h05fc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\FluidControl\Fuel\inv01h05fc.aspx.designer.cs">
+      <DependentUpon>inv01h05fc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\FluidControl\Fuel\inv01h05fcEditForm.aspx.cs">
+      <DependentUpon>inv01h05fcEditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\FluidControl\Fuel\inv01h05fcEditForm.aspx.designer.cs">
+      <DependentUpon>inv01h05fcEditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\FluidControl\Fuel\inv01h05fcReportViewer.aspx.cs">
+      <DependentUpon>inv01h05fcReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\FluidControl\Fuel\inv01h05fcReportViewer.aspx.designer.cs">
+      <DependentUpon>inv01h05fcReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Service\inv01h04srv.aspx.cs">
+      <DependentUpon>inv01h04srv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Service\inv01h04srv.aspx.designer.cs">
+      <DependentUpon>inv01h04srv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Service\inv01h04srvEditForm.aspx.cs">
+      <DependentUpon>inv01h04srvEditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Service\inv01h04srvEditForm.aspx.designer.cs">
+      <DependentUpon>inv01h04srvEditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Service\inv01h04srvReportViewer.aspx.cs">
+      <DependentUpon>inv01h04srvReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Service\inv01h04srvReportViewer.aspx.designer.cs">
+      <DependentUpon>inv01h04srvReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Service\inv01h04srv_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Service\inv01h04srv_slip.Designer.cs">
+      <DependentUpon>inv01h04srv_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Standard\inv01h04.aspx.cs">
+      <DependentUpon>inv01h04.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Standard\inv01h04.aspx.designer.cs">
+      <DependentUpon>inv01h04.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Standard\inv01h04EditForm.aspx.cs">
+      <DependentUpon>inv01h04EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Standard\inv01h04EditForm.aspx.designer.cs">
+      <DependentUpon>inv01h04EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Standard\inv01h04ReportViewer.aspx.cs">
+      <DependentUpon>inv01h04ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Standard\inv01h04ReportViewer.aspx.designer.cs">
+      <DependentUpon>inv01h04ReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Standard\inv01h04_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodReceive\Standard\inv01h04_slip.Designer.cs">
+      <DependentUpon>inv01h04_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\acc01h05_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\acc01h05_slip.Designer.cs">
+      <DependentUpon>acc01h05_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\Consignment\inv01h05c.aspx.cs">
+      <DependentUpon>inv01h05c.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\Consignment\inv01h05c.aspx.designer.cs">
+      <DependentUpon>inv01h05c.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\Consignment\inv01h05cEditForm.aspx.cs">
+      <DependentUpon>inv01h05cEditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\Consignment\inv01h05cEditForm.aspx.designer.cs">
+      <DependentUpon>inv01h05cEditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\Consignment\inv01h05c_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\Consignment\inv01h05c_slip.Designer.cs">
+      <DependentUpon>inv01h05c_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\Consignment\ReportViewer_inv01h05c.aspx.cs">
+      <DependentUpon>ReportViewer_inv01h05c.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\Consignment\ReportViewer_inv01h05c.aspx.designer.cs">
+      <DependentUpon>ReportViewer_inv01h05c.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\inv01h05.aspx.cs">
+      <DependentUpon>inv01h05.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\inv01h05.aspx.designer.cs">
+      <DependentUpon>inv01h05.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\inv01h05EditForm.aspx.cs">
+      <DependentUpon>inv01h05EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\inv01h05EditForm.aspx.designer.cs">
+      <DependentUpon>inv01h05EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\inv01h05_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\inv01h05_slip.Designer.cs">
+      <DependentUpon>inv01h05_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\ReportViewer_inv01h05.aspx.cs">
+      <DependentUpon>ReportViewer_inv01h05.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\ReportViewer_inv01h05.aspx.designer.cs">
+      <DependentUpon>ReportViewer_inv01h05.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti.aspx.cs">
       <DependentUpon>inv01h04gti.aspx</DependentUpon>
@@ -742,6 +981,67 @@
     <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto_slip.Designer.cs">
       <DependentUpon>inv01h05gto_slip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\Inventory\Reports\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\Reports\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\Manual\inv01h03m.aspx.cs">
+      <DependentUpon>inv01h03m.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\Manual\inv01h03m.aspx.designer.cs">
+      <DependentUpon>inv01h03m.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\Manual\inv01h03mEditForm.aspx.cs">
+      <DependentUpon>inv01h03mEditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\Manual\inv01h03mEditForm.aspx.designer.cs">
+      <DependentUpon>inv01h03mEditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\Manual\inv01h03mReportViewer.aspx.cs">
+      <DependentUpon>inv01h03mReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\Manual\inv01h03mReportViewer.aspx.designer.cs">
+      <DependentUpon>inv01h03mReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\Manual\inv01h03m_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\Manual\inv01h03m_slip.Designer.cs">
+      <DependentUpon>inv01h03m_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\WithReff\inv01h03.aspx.cs">
+      <DependentUpon>inv01h03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\WithReff\inv01h03.aspx.designer.cs">
+      <DependentUpon>inv01h03.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\WithReff\inv01h03EditForm.aspx.cs">
+      <DependentUpon>inv01h03EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\WithReff\inv01h03EditForm.aspx.designer.cs">
+      <DependentUpon>inv01h03EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\WithReff\inv01h03_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\WithReff\inv01h03_slip.Designer.cs">
+      <DependentUpon>inv01h03_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\WithReff\ReportViewer_inv01h03.aspx.cs">
+      <DependentUpon>ReportViewer_inv01h03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ReservationSlip\WithReff\ReportViewer_inv01h03.aspx.designer.cs">
+      <DependentUpon>ReportViewer_inv01h03.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Inventory\UserRequest\inv01h01.aspx.cs">
       <DependentUpon>inv01h01.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -769,6 +1069,47 @@
     <Compile Include="Form\Preventive_maintenance\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Preventive_maintenance\MaterialRequest\inv01h02.aspx.cs">
+      <DependentUpon>inv01h02.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MaterialRequest\inv01h02.aspx.designer.cs">
+      <DependentUpon>inv01h02.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MaterialRequest\inv01h02EditForm.aspx.cs">
+      <DependentUpon>inv01h02EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MaterialRequest\inv01h02EditForm.aspx.designer.cs">
+      <DependentUpon>inv01h02EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02.aspx.cs">
+      <DependentUpon>mtc01h02.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02.aspx.designer.cs">
+      <DependentUpon>mtc01h02.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02EditForm.aspx.cs">
+      <DependentUpon>mtc01h02EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02EditForm.aspx.designer.cs">
+      <DependentUpon>mtc01h02EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02_slip.Designer.cs">
+      <DependentUpon>mtc01h02_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MechanicActivity\reportViewer.aspx.cs">
+      <DependentUpon>reportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Preventive_maintenance\MechanicActivity\reportViewer.aspx.designer.cs">
+      <DependentUpon>reportViewer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Production\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -782,6 +1123,60 @@
     </Compile>
     <Compile Include="Form\Purchase\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a.aspx.cs">
+      <DependentUpon>pur01h01a.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a.aspx.designer.cs">
+      <DependentUpon>pur01h01a.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01aEditForm.aspx.cs">
+      <DependentUpon>pur01h01aEditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01aEditForm.aspx.designer.cs">
+      <DependentUpon>pur01h01aEditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01aReportViewer.aspx.cs">
+      <DependentUpon>pur01h01aReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01aReportViewer.aspx.designer.cs">
+      <DependentUpon>pur01h01aReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a_slip.Designer.cs">
+      <DependentUpon>pur01h01a_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeB\pur01h01.aspx.cs">
+      <DependentUpon>pur01h01.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeB\pur01h01.aspx.designer.cs">
+      <DependentUpon>pur01h01.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeB\pur01h01EditForm.aspx.cs">
+      <DependentUpon>pur01h01EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeB\pur01h01EditForm.aspx.designer.cs">
+      <DependentUpon>pur01h01EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeB\pur01h01ReportViewer.aspx.cs">
+      <DependentUpon>pur01h01ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeB\pur01h01ReportViewer.aspx.designer.cs">
+      <DependentUpon>pur01h01ReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeB\pur01h01_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\PurchaseReq\TypeB\pur01h01_slip.Designer.cs">
+      <DependentUpon>pur01h01_slip.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx.cs">
       <DependentUpon>po_std_data_entry.ascx</DependentUpon>
@@ -803,6 +1198,27 @@
     </Compile>
     <Compile Include="Form\Purchase\Purchase_order\pur01h02.aspx.designer.cs">
       <DependentUpon>pur01h02.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_order\pur01h02EditForm.aspx.cs">
+      <DependentUpon>pur01h02EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_order\pur01h02EditForm.aspx.designer.cs">
+      <DependentUpon>pur01h02EditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_service\pur01h02srv.aspx.cs">
+      <DependentUpon>pur01h02srv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_service\pur01h02srv.aspx.designer.cs">
+      <DependentUpon>pur01h02srv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_service\pur01h02srvEditForm.aspx.cs">
+      <DependentUpon>pur01h02srvEditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\Purchase_service\pur01h02srvEditForm.aspx.designer.cs">
+      <DependentUpon>pur01h02srvEditForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Reports\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -983,14 +1399,24 @@
     <Content Include="Form\DataStore\Vehicle\Manufacture\inv00h13.aspx" />
     <Content Include="Form\DataStore\Vehicle\MechanicJobs\mtc00h10.aspx" />
     <Content Include="Form\DataStore\Vehicle\ModelUnit\mtc00h11.aspx" />
+    <Content Include="Form\Fico\Asset\acc00d22.aspx" />
+    <Content Include="Form\Fico\Asset\acc00h22.aspx" />
     <Content Include="Form\Fico\Bank\BankMutation\acc01h01.aspx" />
     <Content Include="Form\Fico\Bank\BankMutation\ReportVieweracc01h01.aspx" />
+    <Content Include="Form\Fico\Bank\BankReceipt\acc01h04b.aspx" />
+    <Content Include="Form\Fico\Bank\BankReceipt\ReportVieweracc01h04.aspx" />
+    <Content Include="Form\Fico\Budget\acc01h15.aspx" />
     <Content Include="Form\Fico\Cash\CashMutation\acc01h02.aspx" />
     <Content Include="Form\Fico\Cash\CashMutation\ReportViewer_acc01h02.aspx" />
+    <Content Include="Form\Fico\Cash\PaymentVoucher\acc01h03c.aspx" />
+    <Content Include="Form\Fico\Cash\PaymentVoucher\ReportViewer_acc01h03c.aspx" />
     <Content Include="Form\Fico\Default.aspx" />
+    <Content Include="Form\Fico\InvoiceIncoming\acc01h13.aspx" />
+    <Content Include="Form\Fico\InvoiceIncoming\acc01h13EditForm.aspx" />
+    <Content Include="Form\Fico\Ledger\GeneralJournal\acc01h07.aspx" />
+    <Content Include="Form\Fico\Ledger\OpeningBalance\acc00h11.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx" />
-    <Content Include="Form\Inventory\Default.aspx" />
     <Content Include="Form\DataStore\Material\Brand\Data_entry.ascx" />
     <Content Include="Form\DataStore\Default.aspx" />
     <Content Include="Form\DataStore\Material\Brand\inv00h04.aspx" />
@@ -998,20 +1424,61 @@
     <Content Include="Form\DataStore\Material\Category\category_data_entry.ascx" />
     <Content Include="Form\DataStore\Material\MaterialMaster\Data_entry.ascx" />
     <Content Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx" />
+    <Content Include="Form\Inventory\ComponentExchange\inv01h08.aspx" />
+    <Content Include="Form\Inventory\ComponentExchange\inv01h08EditForm.aspx" />
+    <Content Include="Form\Inventory\ComponentExchange\inv01h08_ReportViewer.aspx" />
+    <Content Include="Form\Inventory\Default.aspx" />
+    <Content Include="Form\Inventory\FluidControl\Fuel\inv01h05fc.aspx" />
+    <Content Include="Form\Inventory\FluidControl\Fuel\inv01h05fcEditForm.aspx" />
+    <Content Include="Form\Inventory\FluidControl\Fuel\inv01h05fcReportViewer.aspx" />
+    <Content Include="Form\Inventory\GoodReceive\Service\inv01h04srv.aspx" />
+    <Content Include="Form\Inventory\GoodReceive\Service\inv01h04srvEditForm.aspx" />
+    <Content Include="Form\Inventory\GoodReceive\Service\inv01h04srvReportViewer.aspx" />
+    <Content Include="Form\Inventory\GoodReceive\Standard\inv01h04.aspx" />
+    <Content Include="Form\Inventory\GoodReceive\Standard\inv01h04EditForm.aspx" />
+    <Content Include="Form\Inventory\GoodReceive\Standard\inv01h04ReportViewer.aspx" />
+    <Content Include="Form\Inventory\GoodsIssued\Consignment\inv01h05c.aspx" />
+    <Content Include="Form\Inventory\GoodsIssued\Consignment\inv01h05cEditForm.aspx" />
+    <Content Include="Form\Inventory\GoodsIssued\Consignment\ReportViewer_inv01h05c.aspx" />
+    <Content Include="Form\Inventory\GoodsIssued\inv01h05.aspx" />
+    <Content Include="Form\Inventory\GoodsIssued\inv01h05EditForm.aspx" />
+    <Content Include="Form\Inventory\GoodsIssued\ReportViewer_inv01h05.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiEditForm.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiReportViewer.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoEditForm.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoReportViewer.aspx" />
+    <Content Include="Form\Inventory\Reports\Default.aspx" />
+    <Content Include="Form\Inventory\ReservationSlip\Manual\inv01h03m.aspx" />
+    <Content Include="Form\Inventory\ReservationSlip\Manual\inv01h03mEditForm.aspx" />
+    <Content Include="Form\Inventory\ReservationSlip\Manual\inv01h03mReportViewer.aspx" />
+    <Content Include="Form\Inventory\ReservationSlip\WithReff\inv01h03.aspx" />
+    <Content Include="Form\Inventory\ReservationSlip\WithReff\inv01h03EditForm.aspx" />
+    <Content Include="Form\Inventory\ReservationSlip\WithReff\ReportViewer_inv01h03.aspx" />
     <Content Include="Form\Inventory\UserRequest\inv01h01.aspx" />
     <Content Include="Form\Inventory\UserRequest\reportViewer.aspx" />
     <Content Include="Form\Preventive_maintenance\Default.aspx" />
+    <Content Include="Form\Preventive_maintenance\MaterialRequest\inv01h02.aspx" />
+    <Content Include="Form\Preventive_maintenance\MaterialRequest\inv01h02EditForm.aspx" />
+    <Content Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02.aspx" />
+    <Content Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02EditForm.aspx" />
+    <Content Include="Form\Preventive_maintenance\MechanicActivity\reportViewer.aspx" />
     <Content Include="Form\Production\Default.aspx" />
     <Content Include="Form\Purchase\Default.aspx" />
+    <Content Include="Form\Purchase\PurchaseReq\pur01h01.aspx" />
+    <Content Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a.aspx" />
+    <Content Include="Form\Purchase\PurchaseReq\TypeA\pur01h01aEditForm.aspx" />
+    <Content Include="Form\Purchase\PurchaseReq\TypeA\pur01h01aReportViewer.aspx" />
+    <Content Include="Form\Purchase\PurchaseReq\TypeB\pur01h01.aspx" />
+    <Content Include="Form\Purchase\PurchaseReq\TypeB\pur01h01EditForm.aspx" />
+    <Content Include="Form\Purchase\PurchaseReq\TypeB\pur01h01ReportViewer.aspx" />
     <Content Include="Form\Purchase\Purchase_order\po_std_data_entry.ascx" />
     <Content Include="Form\Purchase\Purchase_order\pur01d02.aspx" />
     <Content Include="Form\Purchase\Purchase_order\pur01h02.aspx" />
+    <Content Include="Form\Purchase\Purchase_order\pur01h02EditForm.aspx" />
+    <Content Include="Form\Purchase\Purchase_service\pur01h02srv.aspx" />
+    <Content Include="Form\Purchase\Purchase_service\pur01h02srvEditForm.aspx" />
     <Content Include="Form\Reports\Default.aspx" />
     <Content Include="Form\Sales\Default.aspx" />
     <Content Include="Form\Security\Default.aspx" />
@@ -1098,6 +1565,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="packages.config" />
+    <Content Include="Reports\SampleReport.trdp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -1106,11 +1576,47 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form\Inventory\ComponentExchange\inv01h08_slip.resx">
+      <DependentUpon>inv01h08_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Inventory\GoodReceive\Service\inv01h04srv_slip.resx">
+      <DependentUpon>inv01h04srv_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Inventory\GoodReceive\Standard\inv01h04_slip.resx">
+      <DependentUpon>inv01h04_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Inventory\GoodsIssued\acc01h05_slip.resx">
+      <DependentUpon>acc01h05_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Inventory\GoodsIssued\Consignment\inv01h05c_slip.resx">
+      <DependentUpon>inv01h05c_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Inventory\GoodsIssued\inv01h05_slip.resx">
+      <DependentUpon>inv01h05_slip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti_slip.resx">
       <DependentUpon>inv01h04gti_slip.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto_slip.resx">
+      <DependentUpon>inv01h05gto_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Inventory\ReservationSlip\Manual\inv01h03m_slip.resx">
+      <DependentUpon>inv01h03m_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Inventory\ReservationSlip\WithReff\inv01h03_slip.resx">
+      <DependentUpon>inv01h03_slip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Inventory\UserRequest\inv01h01_slip.resx">
       <DependentUpon>inv01h01_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02_slip.resx">
+      <DependentUpon>mtc01h02_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a_slip.resx">
+      <DependentUpon>pur01h01a_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Purchase\PurchaseReq\TypeB\pur01h01_slip.resx">
+      <DependentUpon>pur01h01_slip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
@@ -1118,8 +1624,10 @@
     <Folder Include="Form\DataStore\Customer\Area\" />
     <Folder Include="Form\DataStore\Marine\" />
     <Folder Include="Form\Fico\Bank\BankPayment\" />
+    <Folder Include="Form\Fico\CashMutation\" />
     <Folder Include="Form\Fico\PaymentRequest\Payment\" />
     <Folder Include="Form\Fico\PaymentRequest\Register\" />
+    <Folder Include="Form\Inventory\FluidControl\Oil\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
@@ -1159,7 +1667,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -55,7 +55,7 @@
                         <div class="col-sm-6 col-sm-offset-3 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
-                        			<h3><strong>ALL-PURPOSE </strong>APPLICATION SYSTEM</h3>
+                        			<%--<h3><strong>ALL-PURPOSE </strong>APPLICATION SYSTEM</h3>--%>
                             		<p>Enter your username and password to log in:</p>
                         		</div>
                         		<div class="form-top-right">

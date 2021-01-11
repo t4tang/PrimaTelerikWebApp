@@ -57,7 +57,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                 cb_costcenter.Text = sdr["CostCenterName"].ToString();
                 txt_delivery_note.Text = sdr["sj"].ToString();
                 cb_warehouse.Text = sdr["wh_name"].ToString();
-                //cb_warehouse.SelectedValue = sdr["wh_code"].ToString();
+                cb_warehouse.SelectedValue = sdr["wh_code"].ToString();
                 txt_remark.Text = sdr["remark"].ToString();
                 cb_createdBy.Text = sdr["createby_name"].ToString();
                 //cb_createdBy.SelectedValue = sdr["createby"].ToString();
@@ -73,7 +73,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 
             }
             con.Close();
-
+            //jdgzksjgfzwh
         }
         public DataTable GetDataDetailTable(string lbm_code)
         {
@@ -130,19 +130,19 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h04.lbm_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                       "FROM inv01h04 WHERE LEFT(inv01h04.lbm_code, 4) ='GR03' " +
+                       "FROM inv01h04 WHERE LEFT(inv01h04.lbm_code, 4) ='SR03' " +
                        "AND SUBSTRING(inv01h04.lbm_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                        "AND SUBSTRING(inv01h04.lbm_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "GR03" + dtp_gr.SelectedDate.Value.Year + dtp_gr.SelectedDate.Value.Month + "0001";
+                        run = "SR03" + dtp_gr.SelectedDate.Value.Year + dtp_gr.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "GR03" +
+                        run = "SR03" +
                             (dtp_gr.SelectedDate.Value.Year.ToString()).Substring(dtp_gr.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_gr.SelectedDate.Value.Month).Substring(("0000" + dtp_gr.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
@@ -173,9 +173,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@Owner", public_str.uid);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-
+                cmd.Parameters.AddWithValue("@doc_type", "2");
                 cmd.ExecuteNonQuery();
-
+                //5146854321684564986
                 //Save Detail
 
                 foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
@@ -183,13 +183,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
-                    cmd.CommandText = "sp_save_goods_receiveD";
+                    cmd.CommandText = "sp_save_service_receiveD";
                     cmd.Parameters.AddWithValue("@lbm_code", run);
                     cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
                     cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
                     cmd.Parameters.AddWithValue("@qty_receive", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
                     cmd.Parameters.AddWithValue("@ref_code", cb_ref.Text);
-                    cmd.Parameters.AddWithValue("@koLok", (item.FindControl("cbKolok") as RadComboBox).Text);
+                    cmd.Parameters.AddWithValue("@koLok", DBNull.Value);
                     cmd.Parameters.AddWithValue("@UID", public_str.uid);
                     cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
                     cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
@@ -670,7 +670,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
-            else if ((sender as RadComboBox).Text == "Compliment")
+            else if ((sender as RadComboBox).Text == "Consigment")
             {
                 (sender as RadComboBox).SelectedValue = "2";
             }
@@ -726,7 +726,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 
             if (typeRef == "Supplier")
             {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_goods_receiveH_reff WHERE vendor_code = '" + vendor + "' " +
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_service_receiveH_reff WHERE vendor_code = '" + vendor + "' " +
                     "AND PlantCode = '" + project + "' AND po_code LIKE @text + '%' ", con);
                 adapter.SelectCommand.Parameters.AddWithValue("@vendor_code", vendor);
                 adapter.SelectCommand.Parameters.AddWithValue("@project", project);
@@ -755,7 +755,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
             SqlDataReader dr;
             if (cb_from.Text == "Supplier")
             {
-                cmd.CommandText = "SELECT * FROM v_goods_receiveH_reff WHERE po_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT * FROM v_service_receiveH_reff WHERE po_code = '" + (sender as RadComboBox).SelectedValue + "'";
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
@@ -770,19 +770,19 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
             con.Close();
 
 
-            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue, cb_warehouse.SelectedValue);
+            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
             RadGrid2.DataBind();
         }
 
-        public DataTable GetDataRefDetailTable(string doc_code, string wh_code)
+        public DataTable GetDataRefDetailTable(string doc_code)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_goods_receive_refD";
+            cmd.CommandText = "sp_get_service_receive_refD";
             cmd.Parameters.AddWithValue("@po_code", doc_code);
-            cmd.Parameters.AddWithValue("@wh_code", wh_code);
+            //cmd.Parameters.AddWithValue("@wh_code", wh_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -811,12 +811,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
             else if (Session["actionEdit"].ToString() == "new")
             {
                 (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_ref.Text, cb_warehouse.SelectedValue);
+                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_ref.Text);
             }
             else if (Session["actionEdit"].ToString() == "edit")
             {
                 (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(txt_gr_number.Text, cb_warehouse.SelectedValue);
+                (sender as RadGrid).DataSource = GetDataDetailTable(txt_gr_number.Text);
             }
         }
 

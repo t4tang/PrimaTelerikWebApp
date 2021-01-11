@@ -136,7 +136,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_rs_manualH";
+            cmd.CommandText = "sp_get_reservation_slip_manualH";
             cmd.Parameters.AddWithValue("@date", fromDate);
             cmd.Parameters.AddWithValue("@todate", toDate);
             cmd.Parameters.AddWithValue("@project", project);
@@ -163,7 +163,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_rsD";
+            cmd.CommandText = "sp_get_reservation_slipD";
             cmd.Parameters.AddWithValue("@doc_code", doc_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -392,7 +392,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_rsD";
+                cmd.CommandText = "sp_save_reservation_slipD";
                 cmd.Parameters.AddWithValue("@doc_code", tr_code);
                 cmd.Parameters.AddWithValue("@part_code", (item.FindControl("lblProdCode") as Label).Text);
                 cmd.Parameters.AddWithValue("@oh_qty", Convert.ToDouble((item.FindControl("lblSoh") as Label).Text));
@@ -546,7 +546,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_rsD";
+                cmd.CommandText = "sp_save_reservation_slipD";
                 cmd.Parameters.AddWithValue("@doc_code", tr_code);
                 cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@oh_qty", Convert.ToDouble((item.FindControl("lblSoh") as Label).Text));

@@ -173,7 +173,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@Owner", public_str.uid);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                
+                cmd.Parameters.AddWithValue("@doc_type", "1");
+
                 cmd.ExecuteNonQuery();
 
                 //Save Detail
@@ -230,7 +231,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 inv01h04.selected_project = cb_project.SelectedValue;
             }
         }
-
 
         #region Supplier
         private static DataTable GetSupplier(string text)
@@ -666,15 +666,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
 
         protected void cb_from_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            if ((sender as RadComboBox).Text == "Return")
+            if ((sender as RadComboBox).Text == "Supplier")
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
-            else if ((sender as RadComboBox).Text == "Compliment")
+            else if ((sender as RadComboBox).Text == "Consigment")
             {
                 (sender as RadComboBox).SelectedValue = "2";
             }
-            else if ((sender as RadComboBox).Text == "Supplier")
+            else if ((sender as RadComboBox).Text == "Return")
             {
                 (sender as RadComboBox).SelectedValue = "3";
             }
@@ -690,7 +690,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
-            else if ((sender as RadComboBox).Text == "Compliment")
+            else if ((sender as RadComboBox).Text == "Consigment")
             {
                 (sender as RadComboBox).SelectedValue = "2";
             }
@@ -822,10 +822,22 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
 
         protected void RadGrid2_PreRender(object sender, EventArgs e)
         {
+            //if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            //{
+            //    (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+            //    (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            //}
+
             if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
             {
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 225;
             }
         }
 

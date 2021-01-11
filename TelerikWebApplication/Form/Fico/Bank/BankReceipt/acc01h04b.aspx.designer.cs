@@ -175,13 +175,22 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt {
         protected global::System.Web.UI.WebControls.ImageButton btnPrint;
         
         /// <summary>
-        /// lbl_form_name control.
+        /// btnJournal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_form_name;
+        protected global::System.Web.UI.WebControls.ImageButton btnJournal;
+        
+        /// <summary>
+        /// RadLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel RadLabel1;
         
         /// <summary>
         /// txt_slip_no control.
@@ -236,15 +245,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTextBox txt_cur_code;
-        
-        /// <summary>
-        /// UpdatePanel7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
         
         /// <summary>
         /// txt_kurs control.
