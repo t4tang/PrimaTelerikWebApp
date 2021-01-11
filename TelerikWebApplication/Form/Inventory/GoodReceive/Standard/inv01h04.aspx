@@ -122,7 +122,8 @@
                         <td colspan="2">
                             <telerik:RadLabel runat="server" Text="Project :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
                             <telerik:RadComboBox ID="cb_proj_prm" runat="server" RenderMode="Lightweight"
-                               EnableLoadOnDemand="True"  Skin="Telerik" OnItemsRequested="cb_project_prm_ItemsRequested"
+                               EnableLoadOnDemand="True"  Skin="Telerik" 
+                                OnItemsRequested="cb_project_prm_ItemsRequested"
                                 OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
                                 EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="100%">
                             </telerik:RadComboBox>

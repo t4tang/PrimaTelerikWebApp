@@ -688,6 +688,60 @@
     <Compile Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx.designer.cs">
       <DependentUpon>inv00h01.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti.aspx.cs">
+      <DependentUpon>inv01h04gti.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti.aspx.designer.cs">
+      <DependentUpon>inv01h04gti.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiEditForm.aspx.cs">
+      <DependentUpon>inv01h04gtiEditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiEditForm.aspx.designer.cs">
+      <DependentUpon>inv01h04gtiEditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiReportViewer.aspx.cs">
+      <DependentUpon>inv01h04gtiReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiReportViewer.aspx.designer.cs">
+      <DependentUpon>inv01h04gtiReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti_slip.Designer.cs">
+      <DependentUpon>inv01h04gti_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto.aspx.cs">
+      <DependentUpon>inv01h05gto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto.aspx.designer.cs">
+      <DependentUpon>inv01h05gto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoEditForm.aspx.cs">
+      <DependentUpon>inv01h05gtoEditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoEditForm.aspx.designer.cs">
+      <DependentUpon>inv01h05gtoEditForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoReportViewer.aspx.cs">
+      <DependentUpon>inv01h05gtoReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoReportViewer.aspx.designer.cs">
+      <DependentUpon>inv01h05gtoReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto_slip.Designer.cs">
+      <DependentUpon>inv01h05gto_slip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\Inventory\UserRequest\inv01h01.aspx.cs">
       <DependentUpon>inv01h01.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -944,6 +998,12 @@
     <Content Include="Form\DataStore\Material\Category\category_data_entry.ascx" />
     <Content Include="Form\DataStore\Material\MaterialMaster\Data_entry.ascx" />
     <Content Include="Form\DataStore\Material\MaterialMaster\inv00h01.aspx" />
+    <Content Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti.aspx" />
+    <Content Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiEditForm.aspx" />
+    <Content Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiReportViewer.aspx" />
+    <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto.aspx" />
+    <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoEditForm.aspx" />
+    <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoReportViewer.aspx" />
     <Content Include="Form\Inventory\UserRequest\inv01h01.aspx" />
     <Content Include="Form\Inventory\UserRequest\reportViewer.aspx" />
     <Content Include="Form\Preventive_maintenance\Default.aspx" />
@@ -1046,6 +1106,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti_slip.resx">
+      <DependentUpon>inv01h04gti_slip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Inventory\UserRequest\inv01h01_slip.resx">
       <DependentUpon>inv01h01_slip.cs</DependentUpon>
     </EmbeddedResource>
