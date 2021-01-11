@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Telerik.ReportViewer.Html5.WebForms;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
-using TelerikWebApplication.Forms.Purchase.Purchase_order;
+using TelerikWebApplication.Form.Purchase.Purchase_order;
 
 namespace TelerikWebApplication.Form.Purchase
 {
@@ -31,7 +31,7 @@ namespace TelerikWebApplication.Form.Purchase
             this.Title = tr_code;
             this.reportViewer1.ViewMode = ViewMode.PrintPreview;
             initBtnOk(tr_code);
-            pur01h02_slip._tr_code = tr_code;
+            //pur01h02_slip._tr_code = tr_code;
         }
 
         private void initBtnOk(string tr_code)

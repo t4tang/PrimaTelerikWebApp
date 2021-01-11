@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Forms.Purchase
+namespace TelerikWebApplication.Form.Purchase
 {
     public partial class Default : System.Web.UI.Page
     {

@@ -49,6 +49,24 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// RadTabStrip1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        
+        /// <summary>
+        /// RadMultiPage1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
+        
+        /// <summary>
         /// txt_reg_number control.
         /// </summary>
         /// <remarks>
@@ -463,22 +481,22 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::Telerik.Web.UI.RadComboBox cb_acknowledgedBy;
         
         /// <summary>
-        /// RadTabStrip1 control.
+        /// RadTabStrip2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip2;
         
         /// <summary>
-        /// RadMultiPage1 control.
+        /// RadMultiPage2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
+        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage2;
         
         /// <summary>
         /// RadPageView1 control.

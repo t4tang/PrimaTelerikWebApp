@@ -50,7 +50,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
                     RadGrid1.MasterTableView.GroupByExpressions.Clear();
                     RadGrid1.Rebind(); /* Kemudian RadGrid1 akan sorting data by lastupdate (lihat sp_get_purchase_requestH*/
 
-                    RadGrid1.MasterTableView.Items[0].Selected = true;
+                    //RadGrid1.MasterTableView.Items[0].Selected = true;
 
                     //RadGrid2.DataSource = GetDataDetailTable(tr_code);
                     //RadGrid2.Rebind();
@@ -59,7 +59,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
                 {
                     RadGrid1.MasterTableView.SortExpressions.Clear();
                     RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                    RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project, selected_wh_code);
+                    //RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
                     RadGrid1.DataBind();
                     RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
                     RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
@@ -87,7 +87,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
         #region Header
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue, selected_wh_code);
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project, selected_wh_code);
         }
         public DataTable GetDataTable(string date, string todate, string project, string storage)
         {

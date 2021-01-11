@@ -345,6 +345,13 @@
     <Compile Include="Form\DataStore\Ledger\AccountNumber\acc00h10.aspx.designer.cs">
       <DependentUpon>acc00h10.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\DataStore\Material\Group\inv00h03.aspx.cs">
+      <DependentUpon>inv00h03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Group\inv00h03.aspx.designer.cs">
+      <DependentUpon>inv00h03.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\DataStore\Material\LocationProduct\inv00h12.aspx.cs">
       <DependentUpon>inv00h12.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -366,12 +373,26 @@
     <Compile Include="Form\DataStore\Material\Uom\inv00h08.aspx.designer.cs">
       <DependentUpon>inv00h08.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\DataStore\Material\Warehouse\gl_account.aspx.cs">
+      <DependentUpon>gl_account.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Warehouse\gl_account.aspx.designer.cs">
+      <DependentUpon>gl_account.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\DataStore\Material\Warehouse\inv00h05.aspx.cs">
       <DependentUpon>inv00h05.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\DataStore\Material\Warehouse\inv00h05.aspx.designer.cs">
       <DependentUpon>inv00h05.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Warehouse\material.aspx.cs">
+      <DependentUpon>material.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\DataStore\Material\Warehouse\material.aspx.designer.cs">
+      <DependentUpon>material.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\DataStore\MineControlProduction\LocationCategory\pro00h04.aspx.cs">
       <DependentUpon>pro00h04.aspx</DependentUpon>
@@ -1255,10 +1276,13 @@
     <Content Include="Form\DataStore\Finance\OtherBankCode\acc00h08.aspx" />
     <Content Include="Form\DataStore\Ledger\AccountGroup\acc00h12.aspx" />
     <Content Include="Form\DataStore\Ledger\AccountNumber\acc00h10.aspx" />
+    <Content Include="Form\DataStore\Material\Group\inv00h03.aspx" />
     <Content Include="Form\DataStore\Material\LocationProduct\inv00h12.aspx" />
     <Content Include="Form\DataStore\Material\ServiceMaster\inv00h06.aspx" />
     <Content Include="Form\DataStore\Material\Uom\inv00h08.aspx" />
+    <Content Include="Form\DataStore\Material\Warehouse\gl_account.aspx" />
     <Content Include="Form\DataStore\Material\Warehouse\inv00h05.aspx" />
+    <Content Include="Form\DataStore\Material\Warehouse\material.aspx" />
     <Content Include="Form\DataStore\MineControlProduction\LocationCategory\pro00h04.aspx" />
     <Content Include="Form\DataStore\MineControlProduction\Location\pro00h03.aspx" />
     <Content Include="Form\DataStore\MineControlProduction\MasterMaterial\pro00h05.aspx" />
@@ -1444,6 +1468,7 @@
     <Content Include="Reports\SampleReport.trdp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Form\DataStore\Material\Group\INV00H03BAK" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

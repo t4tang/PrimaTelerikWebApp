@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc01h07postJnl.aspx.cs" Inherits="TelerikWebApplication.Form.Security.Posting.Journal.acc01h07postJnl" %>
+﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc01h07postJnl.aspx.cs" Inherits="TelerikWebApplication.Form.Security.Posting.Journal.acc01h07postJnl" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
@@ -93,11 +93,11 @@
                     <td style="width:70px">
                         <asp:CheckBox ID="chkPurchase" runat="server" Text="Purchase" Checked="true" />
                     </td>
-                    <td style="width:60px">
-                        <asp:CheckBox ID="chkSales" runat="server" Text="Sales" Checked="true" />
-                    </td>
                     <td style="width:80px">
                         <asp:CheckBox ID="chkAsset" runat="server" Text="Fixed Asset" Checked="true" />
+                    </td>
+                    <td style="width:60px">
+                        <asp:CheckBox ID="chkSales" runat="server" Text="Sales" Checked="true" />
                     </td>
                 </tr>
             </table>
@@ -106,7 +106,7 @@
             <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
             </telerik:RadAjaxManager>
             <telerik:RadButton RenderMode="Lightweight" ID="btnProcessing" runat="server" Text="Start Posting Process" CssClass="btn-wrapper" ForeColor="White"
-               Skin="Material"  OnClick="btnProcessing_Click">
+               Skin="Material"  OnClick="btnProcessing_Click" Width="160px">
             </telerik:RadButton>
             <telerik:RadProgressManager ID="RadProgressManager1" runat="server" />
             <telerik:RadProgressArea RenderMode="Lightweight" ID="RadProgressArea1" runat="server" Width="500px" />

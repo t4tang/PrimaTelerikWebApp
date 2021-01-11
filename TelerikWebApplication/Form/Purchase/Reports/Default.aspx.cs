@@ -15,7 +15,7 @@ namespace TelerikWebApplication.Form.Purchase.Reports
         protected void Page_Load(object sender, EventArgs e)
         {
             ReportManager._uid = public_str.user_id;
-            ReportManager._mdl = "Inventory";
+            ReportManager._mdl = "Purchase";
             //FPPMonitoring._uid = public_str.user_id;
             //FicoReportLibrary.
         }

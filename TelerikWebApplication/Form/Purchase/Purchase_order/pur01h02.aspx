@@ -147,17 +147,17 @@
     <div style="padding-left: 15px;">
         <table id="tbl_control">
             <tr>                  
-                <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
+                <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClientClick="ShowInsertForm(); return false;" ToolTip="Add New"
-                        Height="30px" Width="32px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
+                        Height="25px" Width="27px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
                 </td>                    
-                <td style="vertical-align: middle; margin-left: 10px; padding-left: 13px">
+                <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                     <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
-                        Height="28px" Width="28px" ImageUrl="~/Images/filter1.png"></asp:ImageButton>
+                        Height="20px" Width="23px" ImageUrl="~/Images/filter.png"></asp:ImageButton>
                 </td>
-                <td style="width: 94%; text-align: right">
+                <td style="width: 97%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
+                        padding-bottom: 0px; font-size: x-large; color:#7cca05; font-weight:normal">
                     </telerik:RadLabel>
                 </td>
             </tr>
@@ -165,7 +165,7 @@
     </div>   
 
     <div class="scroller" runat="server">        
-        <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
+        <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Material"
             AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="7"
             OnNeedDataSource="RadGrid1_NeedDataSource" 
             OnPreRender="RadGrid1_PreRender" 
@@ -253,7 +253,8 @@
                     AutoGenerateColumns="False" Skin="Telerik" 
                     OnNeedDataSource="RadGrid2_NeedDataSource"
                     OnUpdateCommand="RadGrid2_UpdateCommand"
-                    OnDeleteCommand="RadGrid2_DeleteCommand">   
+                    OnDeleteCommand="RadGrid2_DeleteCommand"> 
+                    <PagerStyle Mode="NumericPages" BackColor="Yellow" />  
                     <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="11px" EditMode="InPlace"
                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="false" />                                                 
