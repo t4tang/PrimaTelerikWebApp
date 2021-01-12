@@ -453,30 +453,32 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             }
         }
 
-        protected void btnUpdateAcc_Click(object sender, GridCommandEventArgs e)
+        protected void btnUpdateAcc_Click(object sender, EventArgs e)
         {
-            GridEditableItem item = (GridEditableItem)e.Item;
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "UPDATE inv00h23 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
-                              "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
-                              "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
-                              "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code";
-            cmd.Parameters.AddWithValue("@AccCOGS", (item.FindControl("cb_sales_cogs") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccSales", (item.FindControl("cb_sales_acc") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccReturn", (item.FindControl("cb_sales_return") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccSalesDisc", (item.FindControl("cb_sales_disc") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccReturnBeli", (item.FindControl("cb_pur_return") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccDiscBeli", (item.FindControl("cb_pur_discount") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccAssem", (item.FindControl("cb_other_assembly") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccRev", (item.FindControl("cb_other_rev") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccConsum", (item.FindControl("cb_other_consumption") as RadTextBox).Text);
-            cmd.Parameters.AddWithValue("@AccConsign", (item.FindControl("cb_other_consign") as RadTextBox).Text);
-            cmd.ExecuteNonQuery();
-            con.Close();
+            foreach (GridDataItem item in )
+            {
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "UPDATE inv00h23 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
+                                  "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
+                                  "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
+                                  "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code";
+                cmd.Parameters.AddWithValue("@AccCOGS", (item.FindControl("cb_sales_cogs") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccSales", (item.FindControl("cb_sales_acc") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccReturn", (item.FindControl("cb_sales_return") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccSalesDisc", (item.FindControl("cb_sales_disc") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccReturnBeli", (item.FindControl("cb_pur_return") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccDiscBeli", (item.FindControl("cb_pur_discount") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccAssem", (item.FindControl("cb_other_assembly") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccRev", (item.FindControl("cb_other_rev") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccConsum", (item.FindControl("cb_other_consumption") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@AccConsign", (item.FindControl("cb_other_consign") as RadTextBox).Text);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
         }
     }
 }
