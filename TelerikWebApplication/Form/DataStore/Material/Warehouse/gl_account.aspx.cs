@@ -58,7 +58,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             //}
             //else
             //{
-                RadGridGLAcc.DataSource = GetDataDetailTable(wh_code);
+            RadGridGLAcc.DataSource = GetDataDetailTable(wh_code);
             //}
 
             RadGridGLAcc.DataBind();
@@ -89,7 +89,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             (sender as RadComboBox).Text = "";
             GetAccount(e.Text, (sender as RadComboBox));
         }
-               
+
         protected void cb_sales_acc_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             try
@@ -455,63 +455,74 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void btnUpdateAcc_Click(object sender, EventArgs e)
         {
-            foreach (GridEditableItem item in RadGridGLAcc.Items)
-            {
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv00h23 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
-                                  "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
-                                  "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
-                                  "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code";
-                cmd.Parameters.AddWithValue("@AccCOGS", (item.FindControl("cb_sales_cogs") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccSales", (item.FindControl("cb_sales_acc") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccReturn", (item.FindControl("cb_sales_return") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccSalesDisc", (item.FindControl("cb_sales_disc") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccReturnBeli", (item.FindControl("cb_pur_return") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccDiscBeli", (item.FindControl("cb_pur_discount") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccAssem", (item.FindControl("cb_other_assembly") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccRev", (item.FindControl("cb_other_rev") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccConsum", (item.FindControl("cb_other_consumption") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccConsign", (item.FindControl("cb_other_consign") as RadTextBox).Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
+            //foreach (GridEditableItem item in RadGridGLAcc.Items)
+            //{
+            //    con.Open();
+            //    cmd = new SqlCommand();
+            //    cmd.CommandType = CommandType.Text;
+            //    cmd.Connection = con;
+            //    cmd.CommandText = "UPDATE inv00h23 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
+            //                      "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
+            //                      "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
+            //                      "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code";
+            //    cmd.Parameters.AddWithValue("@AccCOGS", (item.FindControl("cb_sales_cogs") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccSales", (item.FindControl("cb_sales_acc") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccReturn", (item.FindControl("cb_sales_return") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccSalesDisc", (item.FindControl("cb_sales_disc") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccReturnBeli", (item.FindControl("cb_pur_return") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccDiscBeli", (item.FindControl("cb_pur_discount") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccAssem", (item.FindControl("cb_other_assembly") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccRev", (item.FindControl("cb_other_rev") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccConsum", (item.FindControl("cb_other_consumption") as RadTextBox).Text);
+            //    cmd.Parameters.AddWithValue("@AccConsign", (item.FindControl("cb_other_consign") as RadTextBox).Text);
+            //    cmd.ExecuteNonQuery();
+            //    con.Close();
+            //}
         }
 
         protected void RadGridGLAcc_UpdateCommand(object sender, GridCommandEventArgs e)
         {
             try
             {
-                if (e.Item is GridEditFormItem)
+                if (e.CommandName == RadGrid.UpdateCommandName)
                 {
-                    GridEditFormItem item = (GridEditFormItem)e.Item;
+                    if (e.Item is GridEditFormItem)
+                    {
+                        GridEditFormItem item = (GridEditFormItem)e.Item;
+                        //cmd = new SqlCommand(con);
+                        //cmd.CommandType = CommandType.Text;
+                        //cmd.Connection = con;
+                        con.Open();
+                        cmd = new SqlCommand("UPDATE inv00h23 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
+                                      "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
+                                      "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
+                                      "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code",con);
+                        cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("txt_code") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("cb_category") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccCOGS", (item.FindControl("cb_sales_cogs") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccSales", (item.FindControl("cb_sales_acc") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccReturn", (item.FindControl("cb_sales_return") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccSalesDisc", (item.FindControl("cb_sales_disc") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccReturnBeli", (item.FindControl("cb_pur_return") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccDiscBeli", (item.FindControl("cb_pur_discount") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccAssem", (item.FindControl("cb_other_assembly") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccRev", (item.FindControl("cb_other_rev") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccConsum", (item.FindControl("cb_other_consumption") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccConsign", (item.FindControl("cb_other_consign") as RadComboBox).Text);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+                        RadGridGLAcc.DataBind();
+                    }
+
                 }
-                cmd = new SqlCommand("UPDATE inv00h23 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
-                              "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
-                              "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
-                              "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code";
-                cmd.Parameters.AddWithValue("@AccCOGS", (item.FindControl("cb_sales_cogs") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccSales", (item.FindControl("cb_sales_acc") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccReturn", (item.FindControl("cb_sales_return") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccSalesDisc", (item.FindControl("cb_sales_disc") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccReturnBeli", (item.FindControl("cb_pur_return") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccDiscBeli", (item.FindControl("cb_pur_discount") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccAssem", (item.FindControl("cb_other_assembly") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccRev", (item.FindControl("cb_other_rev") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccConsum", (item.FindControl("cb_other_consumption") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@AccConsign", (item.FindControl("cb_other_consign") as RadTextBox).Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                RadGrid1.DataBind();
-            }
+
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data updated successfully";
                 lblsuccess.ForeColor = System.Drawing.Color.Blue;
-                RadGrid1.Controls.Add(lblsuccess);
+                RadGridGLAcc.Controls.Add(lblsuccess);
             }
             catch (Exception ex)
             {
@@ -519,8 +530,9 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 Label lblError = new Label();
                 lblError.Text = "Unable to update data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
+                RadGridGLAcc.Controls.Add(lblError);
                 e.Canceled = true;
             }
         }
+    }
 }

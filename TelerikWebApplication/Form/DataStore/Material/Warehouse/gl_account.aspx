@@ -42,7 +42,7 @@
                                                 <td>                                    
                                                     <tr>
                                                         <td colspan="2" style="padding:10px 0px 10px 0px">
-                                                            <asp:Button ID="btnUpdateAcc" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' OnClick="btnUpdateAcc_Click"
+                                                            <asp:Button ID="btnUpdateAcc" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' 
                                                                         runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' />
                                                                 &nbsp; <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="false" CommandName="Cancel" />
                                                         </td>
