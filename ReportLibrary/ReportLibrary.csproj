@@ -47,9 +47,6 @@
     <Reference Include="Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -123,12 +120,6 @@
     <Compile Include="Reports\Fico\TrialBalance.Designer.cs">
       <DependentUpon>TrialBalance.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Inventory\ListOfGoodsIssued.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Inventory\ListOfGoodsIssued.Designer.cs">
-      <DependentUpon>ListOfGoodsIssued.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reports\Inventory\ReportCatalog.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -141,12 +132,6 @@
     <Compile Include="Reports\Inventory\rpt_goods_receive.Designer.cs">
       <DependentUpon>rpt_goods_receive.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Inventory\rpt_gr_by_values.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Inventory\rpt_gr_by_values.Designer.cs">
-      <DependentUpon>rpt_gr_by_values.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reports\Inventory\rpt_pr_to_gr.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -158,18 +143,6 @@
     </Compile>
     <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.designer.cs">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\Maintenance\ReportCatalog.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Maintenance\ReportCatalog.Designer.cs">
-      <DependentUpon>ReportCatalog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\Maintenance\rpt_population_unit.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Maintenance\rpt_population_unit.Designer.cs">
-      <DependentUpon>rpt_population_unit.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Purchase\ReportCatalog.cs">
       <SubType>Component</SubType>
@@ -228,7 +201,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="bin\Debug\ReportLibrary.dll.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -272,20 +244,11 @@
     <EmbeddedResource Include="Reports\Inventory\rpt_goods_receive.resx">
       <DependentUpon>rpt_goods_receive.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Inventory\rpt_gr_by_values.resx">
-      <DependentUpon>rpt_gr_by_values.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_pr_to_gr.resx">
       <DependentUpon>rpt_pr_to_gr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_WO_UR_Monitoring.resx">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Maintenance\ReportCatalog.resx">
-      <DependentUpon>ReportCatalog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Maintenance\rpt_population_unit.resx">
-      <DependentUpon>rpt_population_unit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Purchase\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
@@ -315,17 +278,6 @@
     <EmbeddedResource Include="slip\pur01h02_slip.resx">
       <DependentUpon>pur01h02_slip.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\ReportLibrary.dll" />
-    <Content Include="bin\Debug\ReportLibrary.pdb" />
-    <Content Include="bin\Debug\Telerik.Reporting.dll" />
-    <Content Include="bin\Debug\Telerik.Reporting.pdb" />
-    <Content Include="bin\Debug\Telerik.Reporting.xml" />
-    <Content Include="Resources\prima-logo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

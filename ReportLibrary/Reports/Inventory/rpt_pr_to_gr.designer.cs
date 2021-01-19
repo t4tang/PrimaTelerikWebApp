@@ -475,12 +475,13 @@ namespace ReportLibrary.Reports.Inventory
             // sqlDataSourcePR2GR
             // 
             this.sqlDataSourcePR2GR.CommandTimeout = 0;
-            this.sqlDataSourcePR2GR.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
+            this.sqlDataSourcePR2GR.ConnectionString = "Data Source=PSGHONB036;Initial Catalog=PSG_DEV;User ID=IT;Password=PSGPRO";
             this.sqlDataSourcePR2GR.Name = "sqlDataSourcePR2GR";
             this.sqlDataSourcePR2GR.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@project", System.Data.DbType.AnsiString, null),
             new Telerik.Reporting.SqlDataSourceParameter("@tglawal", System.Data.DbType.DateTime, null),
             new Telerik.Reporting.SqlDataSourceParameter("@tglakhir", System.Data.DbType.DateTime, null)});
+            this.sqlDataSourcePR2GR.ProviderName = "System.Data.SqlClient";
             this.sqlDataSourcePR2GR.SelectCommand = "dbo.spr_pr_to_gr";
             this.sqlDataSourcePR2GR.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 

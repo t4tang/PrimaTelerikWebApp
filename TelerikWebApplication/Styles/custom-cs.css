@@ -158,21 +158,16 @@ html .RadMultiPage .rmpView {
 .tdLabel{
     vertical-align:middle; 
     text-align:left;
-    width:auto;
+    width:100px;
     padding-right:10px;
-    font-weight:lighter;
-    font-family:'Century Gothic';
-    font-style:normal;
-    color:#555;
+    font-weight:bold;
+    
 }
 .tdInput{
     vertical-align:top; 
     text-align:left
 }
-.trxInfo{
-    border-style:none;
-    /*background-color:deeppink;*/
-}
+
 /** Combo Box */
 /** Customize the demo canvas */
  
@@ -293,26 +288,10 @@ div.RadGrid_MetroTouch td.rgPagerCell
 }
  .lbObject
  {
-     color:teal;
      font-size:12px;
      font-weight:normal;
      font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif;         
  }
- .lblErrorDescription{
-     color:red;
-     background-color:silver;
-     font-size:11px;
-     font-weight:normal;
-     font-style:italic;
-     font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif;
- }
- /*.lblEditInfo{
-     font-size:9px;
-     /*color:darkgrey;
-     font-style:italic;
-     background-color:greenyellow;
-     font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif;
- }*/
  .lbSummary
  {
      font-size:12px;
@@ -449,7 +428,7 @@ a.RadButton_MetroTouch.rbImageButton:focus {
 }
 
 .btn-wrapper {
-    width:100%;
+    /*width:100%;*/
     min-width:180px;
     min-height: 35px;
     padding-left:15px; 
@@ -477,18 +456,6 @@ a.RadButton_MetroTouch.rbImageButton:focus {
     border-bottom-style: inset;
     background-color: deeppink !important;
    }
-.btn-main{
-    background-color:deepskyblue;
-    color:#efe;
-}
-.btn-entryFrm{
-    background-color:Highlight;
-    color:#efe;
-    border-style:inset;
-    border-color:lightgray;
-}
-
-
 /*Editor*/
 .background-blackmetrotouch .demo-container.wrapper,
 .background-black .demo-container.wrapper,
@@ -637,7 +604,7 @@ body {
 
 .demo-container {
     width: 760px;
-    height: 900px;
+    height: 410px;
     position: relative;
 }
  
@@ -750,7 +717,7 @@ body {
 {
     padding: 0px 0px 0px;
     font-family:Candara;
-    font-size:12px;
+    font-size:13px;
     border-collapse: collapse; 
     padding-top:5px;
 }
@@ -910,14 +877,3 @@ html body form .RadInput .MyReadOnlyTextBox {
     background-color: #393838; 
     opacity: 1;
 }*/
-
-.entryFormStyle
-{
-    background-color:white;
-    color:teal;
-}
-
-.gridItem
-{
-    padding: 0px 2px 0px 5px;
-}
