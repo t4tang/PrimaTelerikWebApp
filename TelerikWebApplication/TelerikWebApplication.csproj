@@ -373,27 +373,6 @@
     <Compile Include="Form\DataStore\Material\Uom\inv00h08.aspx.designer.cs">
       <DependentUpon>inv00h08.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Form\DataStore\Material\Warehouse\gl_account.aspx.cs">
-      <DependentUpon>gl_account.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\DataStore\Material\Warehouse\gl_account.aspx.designer.cs">
-      <DependentUpon>gl_account.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Form\DataStore\Material\Warehouse\inv00h05.aspx.cs">
-      <DependentUpon>inv00h05.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\DataStore\Material\Warehouse\inv00h05.aspx.designer.cs">
-      <DependentUpon>inv00h05.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Form\DataStore\Material\Warehouse\material.aspx.cs">
-      <DependentUpon>material.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\DataStore\Material\Warehouse\material.aspx.designer.cs">
-      <DependentUpon>material.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Form\DataStore\MineControlProduction\LocationCategory\pro00h04.aspx.cs">
       <DependentUpon>pro00h04.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -652,6 +631,20 @@
     </Compile>
     <Compile Include="Form\Fico\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\InvoiceIncoming\acc01h13.aspx.cs">
+      <DependentUpon>acc01h13.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\InvoiceIncoming\acc01h13.aspx.designer.cs">
+      <DependentUpon>acc01h13.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Fico\InvoiceIncoming\acc01h13EditForm.aspx.cs">
+      <DependentUpon>acc01h13EditForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Fico\InvoiceIncoming\acc01h13EditForm.aspx.designer.cs">
+      <DependentUpon>acc01h13EditForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx.cs">
       <DependentUpon>acc01h05.aspx</DependentUpon>
@@ -1035,6 +1028,13 @@
     <Compile Include="Form\Production\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Purchase\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Purchase\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a.aspx.cs">
       <DependentUpon>pur01h01a.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1280,9 +1280,6 @@
     <Content Include="Form\DataStore\Material\LocationProduct\inv00h12.aspx" />
     <Content Include="Form\DataStore\Material\ServiceMaster\inv00h06.aspx" />
     <Content Include="Form\DataStore\Material\Uom\inv00h08.aspx" />
-    <Content Include="Form\DataStore\Material\Warehouse\gl_account.aspx" />
-    <Content Include="Form\DataStore\Material\Warehouse\inv00h05.aspx" />
-    <Content Include="Form\DataStore\Material\Warehouse\material.aspx" />
     <Content Include="Form\DataStore\MineControlProduction\LocationCategory\pro00h04.aspx" />
     <Content Include="Form\DataStore\MineControlProduction\Location\pro00h03.aspx" />
     <Content Include="Form\DataStore\MineControlProduction\MasterMaterial\pro00h05.aspx" />
@@ -1320,6 +1317,8 @@
     <Content Include="Form\Fico\Cash\PaymentVoucher\acc01h03c.aspx" />
     <Content Include="Form\Fico\Cash\PaymentVoucher\ReportViewer_acc01h03c.aspx" />
     <Content Include="Form\Fico\Default.aspx" />
+    <Content Include="Form\Fico\InvoiceIncoming\acc01h13.aspx" />
+    <Content Include="Form\Fico\InvoiceIncoming\acc01h13EditForm.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\acc01h05.aspx" />
     <Content Include="Form\Fico\PaymentRequest\Entry\reportViewer.aspx" />
     <Content Include="Form\Inventory\Default.aspx" />
@@ -1366,6 +1365,7 @@
     <Content Include="Form\Preventive_maintenance\MechanicActivity\mtc01h02EditForm.aspx" />
     <Content Include="Form\Preventive_maintenance\MechanicActivity\reportViewer.aspx" />
     <Content Include="Form\Production\Default.aspx" />
+    <Content Include="Form\Purchase\Default.aspx" />
     <Content Include="Form\Purchase\PurchaseReq\pur01h01.aspx" />
     <Content Include="Form\Purchase\PurchaseReq\TypeA\pur01h01a.aspx" />
     <Content Include="Form\Purchase\PurchaseReq\TypeA\pur01h01aEditForm.aspx" />
