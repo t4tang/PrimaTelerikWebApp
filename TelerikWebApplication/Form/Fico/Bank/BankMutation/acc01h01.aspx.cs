@@ -775,25 +775,25 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             con.Close();
         }
 
-        protected void RadGrid2_save_handler(object sender, GridCommandEventArgs e)
+        protected void RadGrid2_insert(object sender, GridCommandEventArgs e)
         {
             try
             {
-                GridEditableItem item = (GridEditableItem)e.Item;
+                GridEditableItem item = (GridEditableItem)e.Item;                
                 con.Open();
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_BankMutationD";
-                cmd.Parameters.AddWithValue("@NoBuk", txt_NoBuk.Text);
+                cmd.Parameters.AddWithValue("@NoBuk", txt_NoBuk.Text);                
                 cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("cb_korek") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@Nmr", 0);                
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_Jumlah") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@mutasi", (item.FindControl("cb_mutasi") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_Ket") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project_detail") as RadComboBox).Text);
-                //cmd.Parameters.AddWithValue("@Valas", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 //cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
@@ -818,6 +818,48 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             }
         }
 
+        protected void RadGrid2_update(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_BankMutationD";
+                cmd.Parameters.AddWithValue("@NoBuk", txt_NoBuk.Text);
+                cmd.Parameters.AddWithValue("@KoRek", (item.FindControl("lbl_korek") as Label).Text);
+                cmd.Parameters.AddWithValue("@Nmr", Convert.ToDouble((item.FindControl("lbl_nomor") as Label).Text));                
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble((item.FindControl("txt_Jumlah") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@mutasi", (item.FindControl("cb_mutasi") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txt_Ket") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project_detail") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                //cmd.Parameters.AddWithValue("@Stamp", DateTime.Today);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                RadGrid2.DataBind();
+                RadGrid2.Rebind();
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data saved";
+                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
+                RadGrid2.Controls.Add(lblsuccess);
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to insert data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGrid2.Controls.Add(lblError);
+                e.Canceled = true;
+            }
+        }
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
             var KoRek = ((GridDataItem)e.Item).GetDataKeyValue("KoRek");

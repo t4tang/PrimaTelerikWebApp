@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -13,19 +15,15 @@ namespace TelerikWebApplication.Form.Security.Posting.Inventory.Fluid
 {
     public partial class acc01h07postFld : System.Web.UI.Page
     {
+        SqlConnection con = new SqlConnection(db_connection.koneksi);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        SqlCommand cmd = new SqlCommand();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                DateTime periode = DateTime.Parse(public_str.perstart);
-
                 lbl_form_name.Text = "INVENTORY POSTING (FLUID)";
-                cbMonth.Text = periode.ToString("MMMM");
-                cbMonth.SelectedValue = periode.ToString("MM");
-                cbYear.Text = periode.ToString("yyyy");
-
-                txtPerStart.Text = public_str.perstart;
-                txtPerEnd.Text = public_str.perend;
+                set_periode();
             }
 
             if (Request.Browser.Browser == "Safari")
@@ -42,6 +40,33 @@ namespace TelerikWebApplication.Form.Security.Posting.Inventory.Fluid
             RadProgressArea1.Localization.Uploaded = "Total Progress";
             RadProgressArea1.Localization.UploadedFiles = "Progress";
             RadProgressArea1.Localization.CurrentFileName = "Posting progress in action: ";
+        }
+        private void set_periode()
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT CONVERT(varchar, Fuelstart, 103) Fuelstart, CONVERT(varchar, Fuelend, 103) Fuelend FROM inv00h15 ", con);
+
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {                
+                public_str.Fuelstart = dr["Fuelstart"].ToString();
+                public_str.Fuelend = dr["Fuelend"].ToString();
+            }
+            
+            con.Close();
+
+            DateTime periode = DateTime.Parse(public_str.Fuelstart);
+
+            cbMonth.Text = periode.ToString("MMMM");
+            cbMonth.SelectedValue = periode.ToString("MM");
+            cbYear.Text = periode.ToString("yyyy");
+
+            txtPerStart.Text = public_str.Fuelstart;
+            txtPerEnd.Text = public_str.Fuelend;
+
+            //Label lbl = (Label)Master.FindControl("lblPeriode");
+            //lbl.Text = "Periode: " + public_str.perstart + " - " + public_str.perend;
         }
         protected double CalculateMarkupSize(Telerik.Web.UI.RenderMode renderMode)
         {
@@ -174,6 +199,59 @@ namespace TelerikWebApplication.Form.Security.Posting.Inventory.Fluid
         }
         protected void btnProcessing_Click(object sender, EventArgs e)
         {
+            if (rblPost.SelectedValue == "1")
+            {
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_posting_inventory";
+                cmd.Parameters.AddWithValue("@type", "1");
+                cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
+                cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
+                cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    UpdateProgressContext();
+                }
+                catch (Exception ex)
+                {
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                }
+                finally
+                {
+                    con.Close();
+                    set_periode();
+                }
+            }
+            else
+            {
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_unposting_inventory";
+                cmd.Parameters.AddWithValue("@type", "1");
+                cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
+                cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
+                cmd.Parameters.AddWithValue("@uid", public_str.uid);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    UpdateProgressContext();
+                }
+                catch (Exception ex)
+                {
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                }
+                finally
+                {
+                    con.Close();
+                    set_periode();
+                }
+            }
+            
 
         }
     }

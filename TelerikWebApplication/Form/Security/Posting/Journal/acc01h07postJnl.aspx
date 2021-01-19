@@ -19,7 +19,7 @@
             <tr> 
                 <td style="text-align: right; width:1300px">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:bold; text-align:right">
+                        padding-bottom: 0px; font-size: x-large; color:#7cca05; font-weight:bold; text-align:right">
                     </telerik:RadLabel>
                 </td>
             </tr>
@@ -57,12 +57,12 @@
                 </tr>
                 <tr>
                     <td>
-                        <telerik:RadTextBox runat="server" ID="txtPerStart" Skin="Telerik" Font-Size="11px" Width="90px">
+                        <telerik:RadTextBox runat="server" ID="txtPerStart" Skin="Telerik" Font-Size="11px" Width="90px" ReadOnly="true">
                         </telerik:RadTextBox>
                     </td>
                     <td>
                         <telerik:RadLabel runat="server" Skin="Telerik" Font-Size="11px" Text="To:"></telerik:RadLabel>
-                         <telerik:RadTextBox runat="server" ID="txtPerEnd" Skin="Telerik" Font-Size="11px" Width="120px">
+                         <telerik:RadTextBox runat="server" ID="txtPerEnd" Skin="Telerik" Font-Size="11px" Width="120px" ReadOnly="true">
                         </telerik:RadTextBox>
                     </td>
                 </tr>

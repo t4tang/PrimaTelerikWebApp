@@ -56,7 +56,7 @@
         <AjaxSettings>            
             <telerik:AjaxSetting AjaxControlID="btnSearch">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
              <telerik:AjaxSetting AjaxControlID="cb_Cash">
@@ -140,7 +140,7 @@
     </telerik:RadWindow>
         
     <div id="div1" class="scroller" runat="server">
-        <div style="padding-left:15px;width:100%;border-bottom-color:#FF6600;border-bottom-width:1px;border-bottom-style:inset;">
+        <div style="padding-left:15px;width:100%;border-bottom-color:#FF6600;border-bottom-width:1px;border-bottom-style:inset;background-color:#e2e6e6;">
             <table id="tbl_control">
                 <tr>
                     <td  style="text-align:right;vertical-align:middle;">
@@ -180,7 +180,7 @@
 
             <table id="Table1" border="0" >   
                 <tr style="vertical-align: top">
-                    <td style="vertical-align:top; width:35%">
+                    <td style="vertical-align:top; width:25%">
                             <table id="Table2" width="Auto" border="0" class="module"> 
                                 <tr>
                                     <td class="tdLabel">
@@ -311,15 +311,13 @@
                                     <td style="vertical-align:top; text-align:left">
                                         <telerik:RadTextBox ID="txt_remark"  Skin="Telerik"
                                             runat="server" TextMode="MultiLine"
-                                            Width="450px" Rows="0" Columns="100" TabIndex="5" Resize="Both">
+                                            Width="300px" Rows="0" Columns="100" TabIndex="5" Resize="Both">
                                         </telerik:RadTextBox>
                                     </td>
                                 </tr>                   
                             </table>
                         </td>
-                    </tr>
-                    <tr>
-                       <td colspan="4">
+                        <td>
                            <table>
                                <tr>
                                     <td >
@@ -328,41 +326,36 @@
                                     <td style="vertical-align:top; text-align:left">
                                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                             <ContentTemplate>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Prepared" runat="server" Width="250px" DropDownWidth="650px"
-                                                    AutoPostBack="true" ShowMoreResultsBox="false" EmptyMessage="- Select -" Skin="Telerik" EnableLoadOnDemand="true" 
+                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Prepared" runat="server" Width="250px" DropDownWidth="500px"
+                                                    AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select -" Skin="Telerik" EnableLoadOnDemand="true" 
                                                     HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"    
                                                     OnItemsRequested="cb_Prepared_ItemsRequested" OnSelectedIndexChanged="cb_Prepared_SelectedIndexChanged" 
                                                     OnPreRender="cb_Prepared_PreRender"  >
                                                     <HeaderTemplate>
-                                                        <table style="width: 650px; font-size:smaller">
+                                                        <table style="width: 550px; font-size:smaller">
                                                             <tr>
-                                                                <td style="width: 300px;">
+                                                                <td style="width: 250px;">
                                                                     Name
                                                                 </td>
-                                                                <td style="width: 350px;">
+                                                                <td style="width: 300px;">
                                                                     Position
                                                                 </td>                                                                
                                                             </tr>
                                                         </table>                                                       
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <table style="width: 650px; font-size:smaller">
+                                                        <table style="width: 550px; font-size:smaller">
                                                             <tr>
-                                                                <td style="width: 300px;">
+                                                                <td style="width: 250px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                                 </td>
-                                                                <td style="width: 350px;">
+                                                                <td style="width: 300px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                                 </td>                                                                
                                                             </tr>
                                                         </table>
 
                                                     </ItemTemplate>
-                                                    <FooterTemplate>
-                                                        A total of
-                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                        items
-                                                    </FooterTemplate>
                                                 </telerik:RadComboBox>
                                             </ContentTemplate>
                                             <Triggers>
@@ -370,48 +363,45 @@
                                             </Triggers>                                                                                            
                                         </asp:UpdatePanel>
                                     </td>
-                                   <td style="padding-left=15px">
+                                </tr>
+                               <tr>
+                                   <td>
                                        Checked By:
                                    </td>
                                    <td>
                                        <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                            <ContentTemplate>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Checked" runat="server" Width="250px" DropDownWidth="650px"
-                                                    AutoPostBack="true" ShowMoreResultsBox="false" EmptyMessage="- Select -" Skin="Telerik" EnableLoadOnDemand="true" 
+                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Checked" runat="server" Width="250px" DropDownWidth="500px"
+                                                    AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select -" Skin="Telerik" EnableLoadOnDemand="true" 
                                                     HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true" 
                                                     OnItemsRequested="cb_Checked_ItemsRequested" OnSelectedIndexChanged="cb_Checked_SelectedIndexChanged" 
                                                     OnPreRender="cb_Checked_PreRender" 
                                                     >
                                                     <HeaderTemplate>
-                                                        <table style="width: 650px; font-size:smaller">
+                                                        <table style="width: 550px; font-size:smaller">
                                                             <tr>
-                                                                <td style="width: 300px;">
+                                                                <td style="width: 250px;">
                                                                     Name
                                                                 </td>
-                                                                <td style="width: 350px;">
+                                                                <td style="width: 300px;">
                                                                     Position
                                                                 </td>                                                                
                                                             </tr>
                                                         </table>                                                       
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <table style="width: 650px; font-size:smaller">
+                                                        <table style="width: 550px; font-size:smaller">
                                                             <tr>
-                                                                <td style="width: 300px;">
+                                                                <td style="width: 250px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                                 </td>
-                                                                <td style="width: 350px;">
+                                                                <td style="width: 300px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                                 </td>                                                                
                                                             </tr>
                                                         </table>
 
                                                     </ItemTemplate>
-                                                    <FooterTemplate>
-                                                        A total of
-                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                        items
-                                                    </FooterTemplate>
                                                 </telerik:RadComboBox>
                                            </ContentTemplate>
                                            <Triggers>
@@ -421,48 +411,45 @@
                                        </asp:UpdatePanel>
                                    
                                    </td>
-                                   <td style="padding-left=15px">
+                                </tr>
+                               <tr>
+                                   <td>
                                        Aproval By:
                                    </td>     
                                    <td>
                                         <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                             <ContentTemplate>
-                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Approval" runat="server" Width="250px" DropDownWidth="650px"
-                                                    AutoPostBack="true" ShowMoreResultsBox="false" EmptyMessage="- Select -" Skin="Telerik" EnableLoadOnDemand="true" 
+                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Approval" runat="server" Width="250px" DropDownWidth="500px"
+                                                    AutoPostBack="true" ShowMoreResultsBox="true" EmptyMessage="- Select -" Skin="Telerik" EnableLoadOnDemand="true" 
                                                     HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"
                                                     OnItemsRequested="cb_Approval_ItemsRequested" OnSelectedIndexChanged="cb_Approval_SelectedIndexChanged" 
                                                     OnPreRender="cb_Approval_PreRender" 
                                                     >
                                                     <HeaderTemplate>
-                                                        <table style="width: 650px; font-size:smaller">
+                                                        <table style="width: 550px; font-size:smaller">
                                                             <tr>
-                                                                <td style="width: 300px;">
+                                                                <td style="width: 250px;">
                                                                     Name
                                                                 </td>
-                                                                <td style="width: 350px;">
+                                                                <td style="width: 300px;">
                                                                     Position
                                                                 </td>                                                                
                                                             </tr>
                                                         </table>                                                       
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <table style="width: 650px; font-size:smaller">
+                                                        <table style="width: 550px; font-size:smaller">
                                                             <tr>
-                                                                <td style="width: 300px;">
+                                                                <td style="width: 250px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                                 </td>
-                                                                <td style="width: 350px;">
+                                                                <td style="width: 300px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                                 </td>                                                                
                                                             </tr>
                                                         </table>
 
                                                     </ItemTemplate>
-                                                    <FooterTemplate>
-                                                        A total of
-                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                        items
-                                                    </FooterTemplate>
                                                 </telerik:RadComboBox>
                                             </ContentTemplate>
                                             <Triggers>
@@ -476,12 +463,15 @@
                        </td>
                     </tr>
                     <tr>
+                       
+                    </tr>
+                    <tr>
                         <td colspan="3" style="padding-top:20px; padding-bottom:20px;">
-                            <table class="trxInfo">
+                            <table class="trxInfo" style="color:#f07f2e;">
                                 <tr>
-                                    <td style="width:15px"> User: </td>
-                                    <td style="width:50px">
-                                        <telerik:RadTextBox ReadOnly="true" ID="txt_UId" Width="60px" runat="server"  BorderStyle="None" >
+                                    <td style="width:15px;"> User: </td>
+                                    <td style="width:50px;">
+                                        <telerik:RadTextBox ReadOnly="true" ID="txt_UId" Width="60px" runat="server" BorderStyle="None" >
                                         </telerik:RadTextBox>
                                     </td>
                                     <td style="padding-left:15px"> Last Update: </td>

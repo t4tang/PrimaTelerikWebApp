@@ -23,15 +23,15 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
         {
             if (!IsPostBack)
             {
-                DateTime periode = DateTime.Parse(public_str.perstart);
+                DateTime periode = DateTime.Parse(public_str.Accstart);
 
                 lbl_form_name.Text = "JOURNAL POSTING";
                 cbMonth.Text = periode.ToString("MMMM");
                 cbMonth.SelectedValue = periode.ToString("MM");
                 cbYear.Text = periode.ToString("yyyy");
 
-                txtPerStart.Text = public_str.perstart;
-                txtPerEnd.Text = public_str.perend;
+                txtPerStart.Text = public_str.Accstart;
+                txtPerEnd.Text = public_str.Accperend;
             }
 
             if (Request.Browser.Browser == "Safari")
@@ -228,8 +228,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkCash.Checked == true)
                 {
@@ -241,11 +252,23 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkPurchase.Checked == true)
                 {
+
                     con.Open();
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -254,8 +277,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkGR.Checked == true)
                 {
@@ -267,8 +301,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkAP.Checked == true)
                 {
@@ -280,8 +325,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkAR.Checked == true)
                 {
@@ -293,8 +349,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkGI.Checked == true)
                 {
@@ -306,8 +373,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkSales.Checked == true)
                 {
@@ -319,8 +397,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkAsset.Checked == true)
                 {
@@ -332,8 +421,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
             }
             else
@@ -348,8 +448,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkCash.Checked == true)
                 {
@@ -361,8 +472,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkPurchase.Checked == true)
                 {
@@ -374,8 +496,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkGR.Checked == true)
                 {
@@ -387,8 +520,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkAP.Checked == true)
                 {
@@ -400,8 +544,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkAR.Checked == true)
                 {
@@ -413,8 +568,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkGI.Checked == true)
                 {
@@ -426,8 +592,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkSales.Checked == true)
                 {
@@ -439,8 +616,19 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
                     cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
                 if (chkAsset.Checked == true)
                 {
@@ -449,15 +637,24 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
                     cmd.CommandText = "sp_unposting_fixed_asset";
-                    cmd.Parameters.AddWithValue("@month", 12);
-                    cmd.Parameters.AddWithValue("@year", 2020);
+                    cmd.Parameters.AddWithValue("@month", Convert.ToInt32(cbMonth.SelectedValue));
+                    cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cbYear.Text));
                     cmd.Parameters.AddWithValue("@uid", public_str.uid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        UpdateProgressContext();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
             }
-
-            UpdateProgressContext();
 
         }
         private void UpdateProgressContext()
