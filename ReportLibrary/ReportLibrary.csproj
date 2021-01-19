@@ -141,9 +141,7 @@
     <Compile Include="Reports\Inventory\rpt_goods_receive.Designer.cs">
       <DependentUpon>rpt_goods_receive.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Inventory\rpt_gr_by_values.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Reports\Inventory\rpt_gr_by_values.cs" />
     <Compile Include="Reports\Inventory\rpt_gr_by_values.Designer.cs">
       <DependentUpon>rpt_gr_by_values.cs</DependentUpon>
     </Compile>

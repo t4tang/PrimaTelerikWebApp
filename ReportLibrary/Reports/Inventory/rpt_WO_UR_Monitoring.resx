@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="sqlDataSourceWOURMonitoring.ParameterValues" xml:space="preserve">
-    <value>{"@PeriodeAwal":"2017-04-01","@PeriodeAkhir":"2017-04-01","@project":"SMB"}</value>
+    <value>{"@PeriodeAwal":"20170401","@PeriodeAkhir":"20170401","@project":"SMB"}</value>
   </metadata>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>

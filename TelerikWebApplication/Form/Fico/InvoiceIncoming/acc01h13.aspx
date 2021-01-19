@@ -166,7 +166,7 @@
     <div class="scroller" runat="server">
         <div runat="server" style=" overflow-x:auto; padding-top: 5px;">
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
-                AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="7"
+                AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="5"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnPreRender="RadGrid1_PreRender"
                 OnDeleteCommand="RadGrid1_DeleteCommand"
                 OnItemCreated="RadGrid1_ItemCreated"

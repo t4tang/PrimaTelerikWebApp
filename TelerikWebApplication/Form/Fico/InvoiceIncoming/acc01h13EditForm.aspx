@@ -55,9 +55,9 @@
                 <telerik:AjaxUpdatedControl ControlID="cb_tax1"></telerik:AjaxUpdatedControl>
                 <telerik:AjaxUpdatedControl ControlID="cb_tax2"></telerik:AjaxUpdatedControl>
                 <telerik:AjaxUpdatedControl ControlID="cb_tax3"></telerik:AjaxUpdatedControl>
-                <%--<telerik:AjaxUpdatedControl ControlID="txt_curr"></telerik:AjaxUpdatedControl>
-                <telerik:AjaxUpdatedControl ControlID="txt_kurs"></telerik:AjaxUpdatedControl>
-                <telerik:AjaxUpdatedControl ControlID="txt_tax_kurs"></telerik:AjaxUpdatedControl>--%>
+               <%-- <telerik:AjaxUpdatedControl ControlID="txt_pppn"></telerik:AjaxUpdatedControl>
+                <telerik:AjaxUpdatedControl ControlID="txt_po_tax"></telerik:AjaxUpdatedControl>
+                <telerik:AjaxUpdatedControl ControlID="txt_ppph"></telerik:AjaxUpdatedControl>--%>
             </UpdatedControls>                
         </telerik:AjaxSetting>  
         <telerik:AjaxSetting AjaxControlID="RadGrid2">
@@ -233,15 +233,15 @@
                                     <telerik:RadLabel runat="server" Text="Supplier" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
-                                    <%--<asp:UpdatePanel ID="UpdatePanel8" runat="server">
-                                        <ContentTemplate>--%>
-                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="300px" CausesValidation="false"
+                                    <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                                        <ContentTemplate>
+                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="300px" 
                                             EnableLoadOnDemand="True" ShowMoreResultsBox="true" AutoPostBack="true"
-                                            OnItemsRequested="cb_supplier_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" MarkFirstMatch="true"
+                                            OnItemsRequested="cb_supplier_ItemsRequested" OnSelectedIndexChanged="cb_supplier_SelectedIndexChanged" MarkFirstMatch="true"
                                             EnableVirtualScrolling="true" >
                                         </telerik:RadComboBox>
-                                        <%--</ContentTemplate>
-                                    </asp:UpdatePanel>--%>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </td>
                             </tr>
                 
@@ -463,8 +463,7 @@
                                     </asp:UpdatePanel>
                                 </td>
                             </tr>
-                           
-                             <tr>
+                            <tr>
                                 <td class="tdLabel">
                                     <telerik:RadLabel runat="server" Text="Remark" CssClass="lbObject"></telerik:RadLabel>
                                 </td>                

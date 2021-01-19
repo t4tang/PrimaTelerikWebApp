@@ -276,7 +276,7 @@ html .scroller {
   -webkit-box-sizing: border-box;   
   box-sizing: border-box;
   height:auto;
-  overflow:scroll;
+  /*overflow:auto;*/
   margin: 5px; 
   padding-left:5px;
   
@@ -498,7 +498,7 @@ html .RadNavigation {
     margin-right: 60px; }
 
 .scroller {
-  overflow-y:auto;
+  /*overflow:;*/
   overflow-x: hidden;
   font-size:11px;
 
