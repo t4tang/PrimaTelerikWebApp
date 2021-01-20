@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="sqlDataSourceGRReport.ParameterValues" xml:space="preserve">
-    <value>{"@project":"SMB","@tglawal":"2018-08-01","@tglakhir":"2018-08-18"}</value>
+  <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
+    <value>{"@project":"LJN","@tglawal":"2017-10-17","@tglakhir":"2017-10-17"}</value>
   </metadata>
-  <metadata name="$this.Zoom" type="System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>0.6666667</value>
+  <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
+    <value>0.1cm</value>
   </metadata>
 </root>

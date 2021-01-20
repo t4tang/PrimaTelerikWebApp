@@ -262,7 +262,7 @@ namespace ReportLibrary.Reports.Inventory
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.98750060796737671D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.3000010251998901D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.2270842790603638D)));
-            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.24166664481163025D)));
+            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.24166665971279144D)));
             this.table1.Body.SetCellContent(0, 0, this.textBox11);
             this.table1.Body.SetCellContent(0, 1, this.textBox12);
             this.table1.Body.SetCellContent(0, 2, this.textBox13);
@@ -443,12 +443,11 @@ namespace ReportLibrary.Reports.Inventory
             // sqlDataSourceWOURMonitoring
             // 
             this.sqlDataSourceWOURMonitoring.CommandTimeout = 0;
-            this.sqlDataSourceWOURMonitoring.ConnectionString = "Data Source=PSGHONB036;Initial Catalog=PSG_DEV;Persist Security Info=True;User ID" +
-    "=IT;Password=PSGPRO";
+            this.sqlDataSourceWOURMonitoring.ConnectionString = "Data Source=PSGHONB036;Initial Catalog=PSG_DEV;User ID=IT;Password=PSGPRO";
             this.sqlDataSourceWOURMonitoring.Name = "sqlDataSourceWOURMonitoring";
             this.sqlDataSourceWOURMonitoring.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
-            new Telerik.Reporting.SqlDataSourceParameter("@PeriodeAwal", System.Data.DbType.Decimal, null),
-            new Telerik.Reporting.SqlDataSourceParameter("@PeriodeAkhir", System.Data.DbType.Decimal, null),
+            new Telerik.Reporting.SqlDataSourceParameter("@PeriodeAwal", System.Data.DbType.DateTime, null),
+            new Telerik.Reporting.SqlDataSourceParameter("@PeriodeAkhir", System.Data.DbType.DateTime, null),
             new Telerik.Reporting.SqlDataSourceParameter("@project", System.Data.DbType.AnsiString, null)});
             this.sqlDataSourceWOURMonitoring.ProviderName = "System.Data.SqlClient";
             this.sqlDataSourceWOURMonitoring.SelectCommand = "dbo.spr_wo_ur_Monitoring";
