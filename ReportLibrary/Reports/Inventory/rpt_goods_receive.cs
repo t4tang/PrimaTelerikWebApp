@@ -11,12 +11,12 @@ namespace ReportLibrary.Reports.Inventory
     /// Summary description for rpt_goods_receive.
     /// </summary>
     [Description("Menampilkan seluruh transaksi Penerimaan Barang Per Transaksi sesuai project dan periode tertentu")]
-    public partial class GoodsReceiveReport : Telerik.Reporting.Report
+    public partial class ListOfGoodsReceive : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
-        public GoodsReceiveReport()
+        public ListOfGoodsReceive()
         {
             //
             // Required for telerik Reporting designer support
