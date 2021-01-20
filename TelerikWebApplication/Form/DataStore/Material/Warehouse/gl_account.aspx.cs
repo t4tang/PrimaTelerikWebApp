@@ -483,6 +483,9 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void RadGridGLAcc_UpdateCommand(object sender, GridCommandEventArgs e)
         {
+            //var whCode = ((GridEditFormItem)e.Item).GetDataKeyValue("wh_code");
+            var kindCode = ((GridEditFormItem)e.Item).GetDataKeyValue("kind_code");
+
             try
             {
                 if (e.CommandName == RadGrid.UpdateCommandName)
@@ -498,8 +501,8 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                                       "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
                                       "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
                                       "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code",con);
-                        //cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("txt_code") as RadTextBox).Text);
-                        //cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("cb_category") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@wh_code", wh_code);
+                        cmd.Parameters.AddWithValue("@kind_code", kindCode);
                         cmd.Parameters.AddWithValue("@AccCOGS", (item.FindControl("cb_sales_cogs") as RadComboBox).Text);
                         cmd.Parameters.AddWithValue("@AccSales", (item.FindControl("cb_sales_acc") as RadComboBox).Text);
                         cmd.Parameters.AddWithValue("@AccReturn", (item.FindControl("cb_sales_return") as RadComboBox).Text);
