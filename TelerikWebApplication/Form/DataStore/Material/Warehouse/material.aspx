@@ -1,7 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="material.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Material.Warehouse.material" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-</asp:Content>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+    <body>
+        <form id="form1" runat="server">
+            <telerik:RadScriptManager runat="server" ID="RadScriptManager1"></telerik:RadScriptManager>
+            <div>
+
+            </div>
+        </form>
+    </body>
+</html>
