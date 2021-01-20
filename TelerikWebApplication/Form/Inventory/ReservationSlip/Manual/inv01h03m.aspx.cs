@@ -38,14 +38,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                 cb_proj_prm.Text = public_str.sitename;
 
                 tr_code = null;
-                //label_teks_default();
-                //dtp_rs.SelectedDate = DateTime.Now;
                 Session["action"] = "firstLoad";
-                //RadGrid2.Enabled = false;
-                //btnSave.Enabled = false;
-                //btnSave.ImageUrl = "~/Images/simpan-gray.png";
-                //btnPrint.Enabled = false;
-                //btnPrint.ImageUrl = "~/Images/cetak-gray.png";
             }
 
         }

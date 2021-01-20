@@ -28,6 +28,10 @@ namespace TelerikWebApplication.Class
 
         public static string perstart;
         public static string perend;
+        public static string Accstart;
+        public static string Accperend;
+        public static string Fuelstart;
+        public static string Fuelend;
         public static string company_code;
         public static string company_name;
         public static string modul;

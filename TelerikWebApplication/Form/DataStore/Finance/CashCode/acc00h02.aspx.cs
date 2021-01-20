@@ -97,14 +97,14 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
 
         protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            var productId = ((GridDataItem)e.Item).GetDataKeyValue("");
+            var KoKas = ((GridDataItem)e.Item).GetDataKeyValue("KoKas");
 
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "Update acc00h02 SET stEdit = 4 where KoKas = @KoKas";
-            cmd.Parameters.AddWithValue("@KoKas", productId);
+            cmd.Parameters.AddWithValue("@KoKas", KoKas);
             cmd.ExecuteNonQuery();
             con.Close();
         }

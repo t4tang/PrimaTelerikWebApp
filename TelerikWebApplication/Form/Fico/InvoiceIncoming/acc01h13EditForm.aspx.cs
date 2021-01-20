@@ -176,6 +176,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         }
         #endregion
 
+        #region From Type
         protected void cb_from_type_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
             if ((sender as RadComboBox).Text == "Purchase Order")
@@ -205,6 +206,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 (sender as RadComboBox).SelectedValue = "2";
             }
         }
+        #endregion
 
         #region Supplier
         private static DataTable GetSupplier(string text)
@@ -233,22 +235,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
-        protected void cb_supplier_PreRender(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_code FROM pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                (sender as RadComboBox).SelectedValue = dr[0].ToString();
-            }
-            dr.Close();
-            con.Close();
-        }
+        
         protected void cb_supplier_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
@@ -330,6 +317,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         }
         #endregion
 
+        #region Term
         protected void cb_term_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             if ((sender as RadComboBox).Text == "Cash")
@@ -369,6 +357,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             (sender as RadComboBox).Items.Add("COD");
         }
 
+        #endregion
         #region Project
         private static DataTable GetProject(string text)
         {
@@ -519,6 +508,11 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cb_tax1.Text = dr["PPNName"].ToString();
                 cb_tax2.Text = dr["OtaxName"].ToString();
                 cb_tax3.Text = dr["PPHName"].ToString();
+                txt_pppn.Text = dr["PPNPerc"].ToString();
+                txt_po_tax.Text = dr["OtaxPerc"].ToString();
+                txt_ppph.Text = dr["PPHPerc"].ToString();
+                txt_ppph.Text = dr["PPHPerc"].ToString();
+                chk_ppn_incl.Text = dr["PPNIncl"].ToString();
             }
 
             //dr.Close();
@@ -906,6 +900,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
         }
 
+        #region Edt_ChkTax
         protected void edt_chkTax1_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ntb = (CheckBox)sender;
@@ -1025,6 +1020,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 pph_check = "0";
             }
         }
+        #endregion
 
         #region Approval
         protected void LoadManPower(string name, string projectID, RadComboBox cb)
@@ -1186,10 +1182,10 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h13.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h13 WHERE LEFT(acc01h13.po_code, 4) = 'BL03' " +
-                        "AND SUBSTRING(acc01h13.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(acc01h13.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h13.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM acc01h13 WHERE LEFT(acc01h13.NoBuk, 4) = 'BL03' " +
+                        "AND SUBSTRING(acc01h13.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(acc01h13.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -1221,7 +1217,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.Parameters.AddWithValue("@PPN", cb_tax1.SelectedValue);
                 cmd.Parameters.AddWithValue("@PPNIncl", chk_ppn_incl.Checked);
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Value));
-                cmd.Parameters.AddWithValue("@pay_code", cb_term.SelectedValue);
+                cmd.Parameters.AddWithValue("@pay_code", cb_term.SelectedValue); //10
                 cmd.Parameters.AddWithValue("@JTempo", Convert.ToDouble(txt_term_days.Value));
                 cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
                 cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
@@ -1231,49 +1227,49 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.Parameters.AddWithValue("@JOTax", Convert.ToDouble(txt_tax2_value.Value));
                 cmd.Parameters.AddWithValue("@Net", Convert.ToDouble(txt_total.Value));
                 cmd.Parameters.AddWithValue("@Freight", 0);
-                cmd.Parameters.AddWithValue("@DP", 0);
+                cmd.Parameters.AddWithValue("@DP", 0); //20
                 cmd.Parameters.AddWithValue("@OTax", cb_tax2.SelectedValue);
                 cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
                 cmd.Parameters.AddWithValue("@pph", cb_tax3.SelectedValue);
                 cmd.Parameters.AddWithValue("@pphIncl", 0);
                 cmd.Parameters.AddWithValue("@Owner", txt_owner.Text);
+                cmd.Parameters.AddWithValue("@OwnStamp", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
                 cmd.Parameters.AddWithValue("@tFullSupply", 0);
                 cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
                 cmd.Parameters.AddWithValue("@KursTax", Convert.ToDouble(txt_tax_kurs.Value));
-                cmd.Parameters.AddWithValue("@Ket", txt_remark.Text);
-                cmd.Parameters.AddWithValue("@NoPO", cb_reff.Text);
-                cmd.Parameters.AddWithValue("@KoSub", cb_supplier.SelectedValue);
-                cmd.Parameters.AddWithValue("@NamSub", cb_supplier.Text);
-                cmd.Parameters.AddWithValue("@KoMat", txt_curr.Text);
-                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-                cmd.Parameters.AddWithValue("@OTaxIncl", 0);
-                cmd.Parameters.AddWithValue("@Jpph", Convert.ToDouble(txt_tax3_value.Value));
-                cmd.Parameters.AddWithValue("@Ppph", Convert.ToDouble(txt_ppph.Value));
-                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble(txt_sub_total.Value));
-                cmd.Parameters.AddWithValue("@Ass", 0);
-                cmd.Parameters.AddWithValue("@OwnStamp", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
+                cmd.Parameters.AddWithValue("@Ket", txt_remark.Text); //30
                 cmd.Parameters.AddWithValue("@Kode", "BL");
                 cmd.Parameters.AddWithValue("@Nomor", 0);
+                cmd.Parameters.AddWithValue("@NoPO", cb_reff.Text);
+                cmd.Parameters.AddWithValue("@KoSup", cb_supplier.SelectedValue);
+                cmd.Parameters.AddWithValue("@NamSup", cb_supplier.Text);
+                cmd.Parameters.AddWithValue("@KoMat", txt_curr.Text);
                 cmd.Parameters.AddWithValue("@Selisih", 0);
+                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble(txt_sub_total.Value));
                 cmd.Parameters.AddWithValue("@PDisc", 0);
-                cmd.Parameters.AddWithValue("@Otorisasi", 0);
+                cmd.Parameters.AddWithValue("@Otorisasi", 0); //40
                 cmd.Parameters.AddWithValue("@Printed", 0);
                 cmd.Parameters.AddWithValue("@Batal", 0);
                 cmd.Parameters.AddWithValue("@Stamp", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@debt_rema", Convert.ToDouble(txt_total.Value));
                 cmd.Parameters.AddWithValue("@debt_netto", Convert.ToDouble(txt_total.Value));
                 cmd.Parameters.AddWithValue("@tot_disc", 0);
                 cmd.Parameters.AddWithValue("@tot_ret", 0);
                 cmd.Parameters.AddWithValue("@tot_pay", 0);
-                cmd.Parameters.AddWithValue("@tot_pay_num", 0);
+                cmd.Parameters.AddWithValue("@tot_pay_num", 0); //50
                 cmd.Parameters.AddWithValue("@posting", 0);
                 cmd.Parameters.AddWithValue("@tLunas", 0);
+                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+                cmd.Parameters.AddWithValue("@Jpph", Convert.ToDouble(txt_tax3_value.Value));
                 cmd.Parameters.AddWithValue("@PreJPPN", 0);
                 cmd.Parameters.AddWithValue("@PreJPPH", 0);
                 cmd.Parameters.AddWithValue("@PreJOTAX", 0);
                 cmd.Parameters.AddWithValue("@Edited", 0);
-
+                cmd.Parameters.AddWithValue("@tax_invoice", 0);
+                cmd.Parameters.AddWithValue("@Ass", 0); //60
+                cmd.Parameters.AddWithValue("@OTaxIncl", 0);
+                cmd.Parameters.AddWithValue("@Ppph", Convert.ToDouble(txt_ppph.Value));
                 cmd.ExecuteNonQuery();
 
 
@@ -1312,18 +1308,18 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     }
                     else
                     {
-                        cmd.Parameters.AddWithValue("@tpph", 0);
+                        cmd.Parameters.AddWithValue("@tpph", 0); //10
                     }
-                    cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
-                    cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lbl_Prod_code_ori") as Label).Text);
+                    cmd.Parameters.AddWithValue("@harga2", (item.FindControl("txt_harga") as RadNumericTextBox).Value);
+                    cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
                     cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as Label).Text);
                     cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("txt_factor") as RadNumericTextBox).Value));
                     cmd.Parameters.AddWithValue("@Asscost", 0);
                     cmd.Parameters.AddWithValue("@noref", cb_reff.SelectedValue);
-                    cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
-                    cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
-                    cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
-                    cmd.Parameters.AddWithValue("@KoRek", 0);
+                    //cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
+                    //cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
+                    //cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
+                    cmd.Parameters.AddWithValue("@KoRek", 0); //20
                     cmd.Parameters.AddWithValue("@KvrsiQty", 1);
                     cmd.Parameters.AddWithValue("@SatHrg", 0);
                     cmd.Parameters.AddWithValue("@KvrsiHrg", 1);
@@ -1333,8 +1329,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@tfactor", 0);
                     //cmd.Parameters.AddWithValue("@RefTransID", 0);
-                    cmd.Parameters.AddWithValue("@KoBarH", 0);
-
+                    cmd.Parameters.AddWithValue("@KoBarH", 0);  //29
                     cmd.ExecuteNonQuery();
 
                 }

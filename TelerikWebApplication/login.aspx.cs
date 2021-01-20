@@ -38,7 +38,9 @@ namespace TelerikWebApplication
                 con.Open();
                 //SqlCommand cmd = new SqlCommand("SELECT USER_NAME, REGION_CODE, [LEVEL], sec_group FROM SEC_USER WHERE user_id='" + txt_uid.Text + "'", con);
                 SqlCommand cmd = new SqlCommand("SELECT  A.USER_NAME, E.REGION_CODE, B.REGION_NAME, A.Level, A.sec_group, CONVERT(varchar, D.perstart, 103) perstart, " +
-                    "CONVERT(varchar, D.perend, 103) perend, UPPER(D.company_name) as company, D.company_code, A.def_modul, UPPER(A.user_id) as user_id FROM SEC_USER A, inv00h09 B, inv00h15 D, " +
+                    "CONVERT(varchar, D.perend, 103) perend, UPPER(D.company_name) as company, D.company_code, A.def_modul, UPPER(A.user_id) as user_id, " +
+                    "CONVERT(varchar, D.Accstart, 103) Accstart, CONVERT(varchar, D.Accperend, 103) Accperend,  CONVERT(varchar, D.Fuelstart, 103) Fuelstart, " +
+                    "CONVERT(varchar, D.Fuelend, 103) Fuelend FROM SEC_USER A, inv00h09 B, inv00h15 D, " +
                     "inv00h26 E WHERE A.user_id='" + txt_uid.Text + "' AND E.REGION_CODE=B.REGION_CODE AND A.user_id=E.NIK", con);
 
                 dr = cmd.ExecuteReader();
@@ -59,7 +61,10 @@ namespace TelerikWebApplication
                     public_str.company_name = dr[7].ToString();
                     public_str.company_code = dr[8].ToString();
                     public_str.modul = dr["def_modul"].ToString();
-
+                    public_str.Accstart = dr["Accstart"].ToString();
+                    public_str.Accperend = dr["Accperend"].ToString();
+                    public_str.Fuelstart = dr["Fuelstart"].ToString();
+                    public_str.Fuelend = dr["Fuelend"].ToString();
                     Session["UID"] = txt_uid.Text;
                     Response.Redirect("~/default.aspx");
                 }
