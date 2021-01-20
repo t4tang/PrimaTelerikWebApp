@@ -93,6 +93,12 @@
                     <td style="width:70px">
                         <asp:CheckBox ID="chkPurchase" runat="server" Text="Purchase" Checked="true" />
                     </td>
+                    <td style="width:60px">
+                        <asp:CheckBox ID="chkAP" runat="server" Text="A/P" Checked="true" />
+                    </td>
+                    <td style="width:60px">
+                        <asp:CheckBox ID="chkAR" runat="server" Text="A/R" Checked="true" />
+                    </td>
                     <td style="width:80px">
                         <asp:CheckBox ID="chkAsset" runat="server" Text="Fixed Asset" Checked="true" />
                     </td>
