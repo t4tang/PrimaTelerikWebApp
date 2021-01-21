@@ -495,7 +495,7 @@
                     Width="1150px" Height="670px" Modal="true" AutoSize="True">
                 </telerik:RadWindow>
                 <telerik:RadWindow RenderMode="Lightweight" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
-                    Width="1300px" Height="720px" Modal="true" AutoSize="False">
+                    Width="1300px" Height="600px" Modal="true" AutoSize="False">
                 </telerik:RadWindow>
                 
             </Windows>
