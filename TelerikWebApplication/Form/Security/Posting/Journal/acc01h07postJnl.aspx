@@ -79,12 +79,6 @@
             <table>
                 <tr>
                     <td style="width:60px">
-                        <asp:CheckBox ID="chkCash" runat="server" Text="Cash" Checked="true" />
-                    </td>
-                    <td style="width:60px">
-                        <asp:CheckBox ID="chkBank" runat="server" Text="Bank" Checked="true" />
-                    </td>
-                    <td style="width:60px">
                         <asp:CheckBox ID="chkGR" runat="server" Text="GR" Checked="true" />
                     </td>
                     <td style="width:60px">
@@ -94,16 +88,26 @@
                         <asp:CheckBox ID="chkPurchase" runat="server" Text="Purchase" Checked="true" />
                     </td>
                     <td style="width:60px">
+                        <asp:CheckBox ID="chkSales" runat="server" Text="Sales" Checked="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:60px">
+                        <asp:CheckBox ID="chkCash" runat="server" Text="Cash" Checked="true" />
+                    </td>
+                    <td style="width:60px">
+                        <asp:CheckBox ID="chkBank" runat="server" Text="Bank" Checked="true" />
+                    </td>                    
+                    <td style="width:60px">
                         <asp:CheckBox ID="chkAP" runat="server" Text="A/P" Checked="true" />
                     </td>
                     <td style="width:60px">
                         <asp:CheckBox ID="chkAR" runat="server" Text="A/R" Checked="true" />
                     </td>
-                    <td style="width:80px">
-                        <asp:CheckBox ID="chkAsset" runat="server" Text="Fixed Asset" Checked="true" />
-                    </td>
+                </tr>
+                <tr>
                     <td style="width:60px">
-                        <asp:CheckBox ID="chkSales" runat="server" Text="Sales" Checked="true" />
+                        <asp:CheckBox ID="chkAsset" runat="server" Text="Asset" Checked="true" />
                     </td>
                 </tr>
             </table>
