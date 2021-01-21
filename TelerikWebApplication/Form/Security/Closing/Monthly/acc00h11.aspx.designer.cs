@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Security.Posting.Journal {
+namespace TelerikWebApplication.Form.Security.Closing.Monthly {
     
     
-    public partial class acc01h07postJnl {
+    public partial class acc00h11 {
         
         /// <summary>
         /// UpdatePanel2 control.
@@ -94,87 +94,6 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal {
         protected global::System.Web.UI.WebControls.RadioButtonList rblPost;
         
         /// <summary>
-        /// chkGR control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkGR;
-        
-        /// <summary>
-        /// chkGI control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkGI;
-        
-        /// <summary>
-        /// chkPurchase control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkPurchase;
-        
-        /// <summary>
-        /// chkSales control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSales;
-        
-        /// <summary>
-        /// chkCash control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkCash;
-        
-        /// <summary>
-        /// chkBank control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkBank;
-        
-        /// <summary>
-        /// chkAP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkAP;
-        
-        /// <summary>
-        /// chkAR control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkAR;
-        
-        /// <summary>
-        /// chkAsset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkAsset;
-        
-        /// <summary>
         /// RadAjaxManager1 control.
         /// </summary>
         /// <remarks>
@@ -209,5 +128,14 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadProgressArea RadProgressArea1;
+        
+        /// <summary>
+        /// Image1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image1;
     }
 }
