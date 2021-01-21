@@ -26,7 +26,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         public static string tax1 = null;
         public static string tax2 = null;
         public static string tax3 = null;
-        private object txtRemark_d;
+        //private object txtRemark_d;
 
         private static string GetStatusMessage(int offset, int total)
         {
@@ -87,7 +87,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 //cb_po_type.Text = sdr["TransName"].ToString();
                 //cb_po_type.SelectedValue = sdr["trans_code"].ToString();
                 //cb_priority.Text = sdr["prio_desc"].ToString();
-                cb_supplier.Text = sdr["supplier_name"].ToString();
+                cb_supplier.Text = sdr["vendor_name"].ToString();
+                cb_supplier.SelectedValue = sdr["vendor_code"].ToString();
                 txt_curr.Text = sdr["KoMat"].ToString();
                 txt_kurs.Value = Convert.ToDouble(sdr["Kurs"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(sdr["KursTax"].ToString());
@@ -107,24 +108,24 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 //DateTime ref_date = Convert.ToDateTime(sdr["ref_date"].ToString());
                 txt_remark.Text = sdr["Remark"].ToString();
                 txt_term_days.Value = Convert.ToDouble(sdr["JTempo"].ToString());
-                cb_prepared.Text = sdr["Order_by"].ToString();
-                cb_verified.Text = sdr["Prepare_by"].ToString();
-                cb_approved.Text = sdr["Order_by"].ToString();
+                cb_prepared.Text = sdr["prepare_by_name"].ToString();
+                cb_verified.Text = sdr["ack_by_name"].ToString();
+                cb_approved.Text = sdr["app_by_name"].ToString();
                 txt_owner.Text = sdr["Owner"].ToString();
                 txt_printed.Text = sdr["Printed"].ToString();
                 txt_edited.Text = sdr["Edited"].ToString();
-                txt_uid.Text = sdr["userid"].ToString();
+                txt_uid.Text = sdr["Usr"].ToString();
                 txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
                 cb_term.Text = sdr["payTerm"].ToString();
                 txt_pppn.Value = Convert.ToDouble(sdr["PPPN"]);
                 txt_ppph.Value = Convert.ToDouble(sdr["ppph"]);
                 txt_po_tax.Value = Convert.ToDouble(sdr["POTax"]);
                 txt_sub_total.Value = Convert.ToDouble(sdr["jumlah"]);
-                txt_tax1_value.Value = Convert.ToDouble(sdr["jtax1"]);
-                txt_tax2_value.Value = Convert.ToDouble(sdr["jtax2"]);
-                txt_tax3_value.Value = Convert.ToDouble(sdr["jtax3"]);
+                txt_tax1_value.Value = Convert.ToDouble(sdr["jTax1"]);
+                txt_tax2_value.Value = Convert.ToDouble(sdr["jTax2"]);
+                txt_tax3_value.Value = Convert.ToDouble(sdr["jTax3"]);
                 txt_total.Value = Convert.ToDouble(sdr["Net"]);
-                txt_other_value.Value = Convert.ToDouble(sdr["Othercost"]);
+                //txt_other_value.Value = Convert.ToDouble(sdr["Othercost"]);
 
             }
             con.Close();
@@ -137,8 +138,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT noref, prod_type, KoBar, Qty, SatQty, Harga, Disc, Jumlah, CAST(tTax AS Bit) AS tTax, CAST(tOtax AS Bit) AS tOtax, " +
-            "CAST(tpph AS Bit) AS tpph, dept_code, Prod_code_ori, jTax1, jTax2, jTax3, Nomor, ref_date, Ket, Asscost  FROM acc01h14 WHERE NoBuk = '" + NoBuk + "'";
+            cmd.CommandText = "SELECT noref, prod_type, KoBar AS Prod_code, Qty, SatQty, Harga, Disc, Jumlah, CAST(tTax AS Bit) AS tTax, CAST(tOtax AS Bit) AS tOtax, " +
+            "CAST(tpph AS Bit) AS tpph, dept_code, Prod_code_ori, jTax1, jTax2, jTax3, Nomor, ref_date, Ket, Asscost, isnull(tfactor,0) as factor, ref_date as lbm_date, ket as remark  FROM acc01h14 WHERE NoBuk = '" + NoBuk + "'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);

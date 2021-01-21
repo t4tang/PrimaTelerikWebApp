@@ -73,13 +73,19 @@
     </telerik:RadAjaxLoadingPanel>
 
     <telerik:RadScriptManager runat="server" ID="RadScriptManager1"></telerik:RadScriptManager>
-    <div>
+    <div style="overflow:auto">
         <div style="padding: 10px 5px 3px 15px;" class="lbObject">
             <table id="Table1" border="0" style="border-collapse: collapse; padding-top:5px; padding-left:15px; 
                 padding-right:15px; padding-bottom:0px; font-size:smaller ">    
                 <tr style="vertical-align: top">
                     <td style="vertical-align: top">
-                        <table id="Table2" width="Auto" border="0" class="module">                
+                        <table id="Table2" width="Auto" border="0" class="module">
+                            <tr>
+                                <td colspan="2">
+                                    <telerik:RadButton ID="btn_save" runat="server" Text="Save" CssClass="btn-wrapper" ForeColor="White"
+                                        Skin="Material" OnClick="btn_save_Click"></telerik:RadButton>
+                                </td>
+                            </tr>                
                             <tr>
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Reg Number" CssClass="lbObject"></telerik:RadLabel>
@@ -644,7 +650,7 @@
                             </tr>
                         </table>
                     </td>
-                </tr>    c
+                </tr> 
                 <tr>
                     <td colspan="3" style="padding-top:5px; padding-bottom:0px; "">
                         <table>
@@ -1024,8 +1030,7 @@
                             <telerik:RadLabel runat="server" ID="lbl_edited" Width="100px" Text="Edited: " CssClass="lbObject" Font-Size="Small"/>
                         </td>
                         <td colspan="2" style="padding-top:0px; text-align:left">
-                            <telerik:RadButton ID="btn_save" runat="server" Text="Save" CssClass="btn-wrapper" ForeColor="White"
-                                Skin="Material" OnClick="btn_save_Click"></telerik:RadButton>
+                            
                         </td>
                     </tr>                   
                 </table>

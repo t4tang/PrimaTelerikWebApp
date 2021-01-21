@@ -190,13 +190,13 @@
                     <telerik:GridDateTimeColumn UniqueName="lbm_date" HeaderText="Date" DataField="Tgl" ItemStyle-Width="80px"
                         EnableRangeFiltering="false" FilterControlWidth="100px" PickerType="DatePicker"
                         DataFormatString="{0:d}">
-                        <HeaderStyle Width="100px" ForeColor="Highlight" HorizontalAlign="Center"></HeaderStyle>
+                        <HeaderStyle Width="100px" ForeColor="Highlight" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridDateTimeColumn>
-                    <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project" DataField="region_name" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                    <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project" DataField="region_name" ItemStyle-Width="200px" FilterControlWidth="190px" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
+                        <HeaderStyle Width="80px" HorizontalAlign="Center"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="NoFP" HeaderText="Invoice No." DataField="NoFP" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        <telerik:GridBoundColumn UniqueName="NoFP" HeaderText="Invoice No." DataField="NoFP" ItemStyle-Width="100px" FilterControlWidth="90px" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
@@ -204,36 +204,36 @@
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="NamSup" HeaderText="Suplier" DataField="NamSup" ItemStyle-Width="200px" FilterControlWidth="190px" 
+                    <telerik:GridBoundColumn UniqueName="supplier_name" HeaderText="Suplier" DataField="supplier_name" ItemStyle-Width="200px" FilterControlWidth="190px" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="220px" HorizontalAlign="Left"></HeaderStyle>
+                        <HeaderStyle Width="220px" HorizontalAlign="Center"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="Jumlah" HeaderText="Sub Total" DataField="Jumlah" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="Jumlah" HeaderText="Sub Total" DataField="Jumlah" ItemStyle-Width="100px" FilterControlWidth="90px" 
+                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Center"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="DP" HeaderText="DP" DataField="DP" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
+                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="Tax1" HeaderText="Tax1" DataField="JPPN" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="JPPN" HeaderText="Tax1" DataField="JPPN" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="Tax2" HeaderText="Tax2" DataField="JOTax" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="JOTax" HeaderText="Tax2" DataField="JOTax" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="Tax3" HeaderText="Tax3" DataField="JPPH" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="Jpph" HeaderText="Tax3" DataField="Jpph" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>     
-                    <telerik:GridBoundColumn UniqueName="Total" HeaderText="Total" DataField="NET" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="NET" HeaderText="Total" DataField="NET" ItemStyle-Width="100px" FilterControlWidth="90px" 
+                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>                        
-                    <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true" ItemStyle-Width="340px" FilterControlWidth="340px">
-                        <HeaderStyle Width="370px" ForeColor="Highlight" HorizontalAlign="Left"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="Ket" HeaderText="Remark" DataField="Ket" ItemStyle-Wrap="true" ItemStyle-Width="340px" FilterControlWidth="340px">
+                        <HeaderStyle Width="370px" ForeColor="Highlight" HorizontalAlign="Center"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" AllowFiltering="False">
                     <ItemTemplate>                                
