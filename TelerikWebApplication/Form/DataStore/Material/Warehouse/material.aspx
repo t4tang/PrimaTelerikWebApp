@@ -6,12 +6,12 @@
 <head runat="server">
     <title></title>
 </head>
-    <body>
-        <form id="form1" runat="server">
-            <telerik:RadScriptManager runat="server" ID="RadScriptManager1"></telerik:RadScriptManager>
-            <div>
+<body>
+    <form id="form1" runat="server">
+        <telerik:RadScriptManager runat="server" ID="RadScriptManager1"></telerik:RadScriptManager>
+        <div>
 
-            </div>
-        </form>
-    </body>
+        </div>
+    </form>
+</body>
 </html>
