@@ -340,13 +340,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 tr_code = item["NoBuk"].Text;
                 reff_code = item["NoPO"].Text;
-                tax1 = item["tax1"].Text;
-                tax2 = item["tax2"].Text;
-                tax3 = item["tax3"].Text;
+                tax1 = item["jTax1"].Text;
+                tax2 = item["jTax2"].Text;
+                tax3 = item["jTax3"].Text;
             }
 
-            populate_detail();
-            Session["action"] = "list";
+            //populate_detail();
+            //Session["action"] = "list";
         }
         #endregion
 
