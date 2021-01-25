@@ -345,8 +345,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 tax3 = item["jTax3"].Text;
             }
 
-            //populate_detail();
-            //Session["action"] = "list";
+            populate_detail();
+            Session["action"] = "list";
         }
         #endregion
 
