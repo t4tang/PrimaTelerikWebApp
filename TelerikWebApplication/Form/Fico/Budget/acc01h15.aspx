@@ -169,7 +169,8 @@
                     <Scrolling AllowVerticalScroll="true"></Scrolling>
                     
                 </ClientSettings>
-            </telerik:RadPivotGrid>
+            </telerik:RadPivotGrid>           
+
         </div>
          <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
