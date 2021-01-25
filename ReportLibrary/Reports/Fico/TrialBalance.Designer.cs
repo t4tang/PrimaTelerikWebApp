@@ -9,12 +9,12 @@ namespace FicoReportLibrary
 		/// </summary>
 		private void InitializeComponent()
 		{
-            Telerik.Reporting.Group group1 = new Telerik.Reporting.Group();
-            Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
+            Telerik.Reporting.Group group3 = new Telerik.Reporting.Group();
+            Telerik.Reporting.Drawing.StyleRule styleRule3 = new Telerik.Reporting.Drawing.StyleRule();
             this.groupFooterSection = new Telerik.Reporting.GroupFooterSection();
             this.groupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.textBox1 = new Telerik.Reporting.TextBox();
-            this.sds_month = new Telerik.Reporting.SqlDataSource();
+            this.textBox2 = new Telerik.Reporting.TextBox();
             this.pageHeaderSection1 = new Telerik.Reporting.PageHeaderSection();
             this.textBox7 = new Telerik.Reporting.TextBox();
             this.textBox8 = new Telerik.Reporting.TextBox();
@@ -42,9 +42,7 @@ namespace FicoReportLibrary
             this.textBox42 = new Telerik.Reporting.TextBox();
             this.sqlDataSource1 = new Telerik.Reporting.SqlDataSource();
             this.pageFooterSection1 = new Telerik.Reporting.PageFooterSection();
-            this.sds_header = new Telerik.Reporting.SqlDataSource();
-            this.sds_year = new Telerik.Reporting.SqlDataSource();
-            this.textBox2 = new Telerik.Reporting.TextBox();
+            this.sds_month = new Telerik.Reporting.SqlDataSource();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // groupFooterSection
@@ -71,12 +69,16 @@ namespace FicoReportLibrary
             this.textBox1.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox1.Value = "= Fields.groupname";
             // 
-            // sds_month
+            // textBox2
             // 
-            this.sds_month.ConnectionString = "DbConString";
-            this.sds_month.Name = "sds_month";
-            this.sds_month.SelectCommand = "dbo.sp_get_month";
-            this.sds_month.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
+            this.textBox2.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.063876591622829437D), Telerik.Reporting.Drawing.Unit.Cm(0.0357326976954937D));
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(0.936123251914978D), Telerik.Reporting.Drawing.Unit.Cm(0.528535008430481D));
+            this.textBox2.Style.Font.Bold = true;
+            this.textBox2.Style.Font.Name = "Segoe UI Light";
+            this.textBox2.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Pixel(12D);
+            this.textBox2.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
+            this.textBox2.Value = "= Fields.accountgroup";
             // 
             // pageHeaderSection1
             // 
@@ -378,7 +380,7 @@ namespace FicoReportLibrary
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionString = "DbConString";
+            this.sqlDataSource1.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
             this.sqlDataSource1.Name = "sqlDataSource1";
             this.sqlDataSource1.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@Month", System.Data.DbType.AnsiStringFixedLength, null),
@@ -391,39 +393,22 @@ namespace FicoReportLibrary
             this.pageFooterSection1.Height = Telerik.Reporting.Drawing.Unit.Cm(1.1262338161468506D);
             this.pageFooterSection1.Name = "pageFooterSection1";
             // 
-            // sds_header
+            // sds_month
             // 
-            this.sds_header.ConnectionString = "DbConString";
-            this.sds_header.Name = "sds_header";
-            this.sds_header.SelectCommand = "SELECT company_name, address1,\'TRIAL BALANCE\' as ReportName\r\nFROM     inv00h15";
-            // 
-            // sds_year
-            // 
-            this.sds_year.ConnectionString = "DbConString";
-            this.sds_year.Name = "sds_year";
-            this.sds_year.SelectCommand = "dbo.sp_get_years";
-            this.sds_year.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.063876591622829437D), Telerik.Reporting.Drawing.Unit.Cm(0.0357326976954937D));
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(0.936123251914978D), Telerik.Reporting.Drawing.Unit.Cm(0.528535008430481D));
-            this.textBox2.Style.Font.Bold = true;
-            this.textBox2.Style.Font.Name = "Segoe UI Light";
-            this.textBox2.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Pixel(12D);
-            this.textBox2.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
-            this.textBox2.Value = "= Fields.accountgroup";
+            this.sds_month.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
+            this.sds_month.Name = "sds_month";
+            this.sds_month.SelectCommand = "dbo.sp_get_month";
+            this.sds_month.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
             // TrialBalance
             // 
             this.DataSource = this.sqlDataSource1;
-            group1.GroupFooter = this.groupFooterSection;
-            group1.GroupHeader = this.groupHeaderSection;
-            group1.Groupings.Add(new Telerik.Reporting.Grouping("= Fields.groupname"));
-            group1.Name = "group";
+            group3.GroupFooter = this.groupFooterSection;
+            group3.GroupHeader = this.groupHeaderSection;
+            group3.Groupings.Add(new Telerik.Reporting.Grouping("= Fields.groupname"));
+            group3.Name = "group";
             this.Groups.AddRange(new Telerik.Reporting.Group[] {
-            group1});
+            group3});
             this.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.groupHeaderSection,
             this.groupFooterSection,
@@ -436,13 +421,13 @@ namespace FicoReportLibrary
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(0D), Telerik.Reporting.Drawing.Unit.Mm(0D), Telerik.Reporting.Drawing.Unit.Mm(0D), Telerik.Reporting.Drawing.Unit.Mm(0D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A3;
             this.Style.Visible = true;
-            styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
+            styleRule3.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
             new Telerik.Reporting.Drawing.TypeSelector(typeof(Telerik.Reporting.TextItemBase)),
             new Telerik.Reporting.Drawing.TypeSelector(typeof(Telerik.Reporting.HtmlTextBox))});
-            styleRule1.Style.Padding.Left = Telerik.Reporting.Drawing.Unit.Point(2D);
-            styleRule1.Style.Padding.Right = Telerik.Reporting.Drawing.Unit.Point(2D);
+            styleRule3.Style.Padding.Left = Telerik.Reporting.Drawing.Unit.Point(2D);
+            styleRule3.Style.Padding.Right = Telerik.Reporting.Drawing.Unit.Point(2D);
             this.StyleSheet.AddRange(new Telerik.Reporting.Drawing.StyleRule[] {
-            styleRule1});
+            styleRule3});
             this.Width = Telerik.Reporting.Drawing.Unit.Cm(29.700000762939453D);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -455,10 +440,7 @@ namespace FicoReportLibrary
         private Telerik.Reporting.SqlDataSource sqlDataSource1;
         private Telerik.Reporting.TextBox textBox7;
         private Telerik.Reporting.TextBox textBox8;
-        private Telerik.Reporting.SqlDataSource sds_header;
         private Telerik.Reporting.TextBox textBox9;
-        private Telerik.Reporting.SqlDataSource sds_month;
-        private Telerik.Reporting.SqlDataSource sds_year;
         private Telerik.Reporting.TextBox textBox22;
         private Telerik.Reporting.TextBox textBox34;
         private Telerik.Reporting.TextBox textBox33;
@@ -483,5 +465,6 @@ namespace FicoReportLibrary
         private Telerik.Reporting.GroupFooterSection groupFooterSection;
         private Telerik.Reporting.TextBox textBox1;
         private Telerik.Reporting.TextBox textBox2;
+        private Telerik.Reporting.SqlDataSource sds_month;
     }
 }

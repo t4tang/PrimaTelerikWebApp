@@ -15,6 +15,8 @@ namespace FicoReportLibrary
 	{
         string currentYear = DateTime.Now.Year.ToString();
         string currentBulan = DateTime.Now.Month.ToString();
+        //string currentYear ="2019";
+        //string currentBulan = "11";
         public TrialBalance()
 		{
 			//
@@ -34,7 +36,7 @@ namespace FicoReportLibrary
             param1.AllowNull = false;
             param1.AvailableValues.DataSource = sds_month;
             param1.AvailableValues.DisplayMember = "Bulan";
-            param1.AvailableValues.ValueMember = "Value";
+            param1.AvailableValues.ValueMember = "ID";
             param1.Value = currentBulan;
             param1.Visible = true;
             param1.AutoRefresh = true;
