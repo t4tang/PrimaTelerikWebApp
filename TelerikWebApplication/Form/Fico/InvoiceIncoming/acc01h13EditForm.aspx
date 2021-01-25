@@ -432,7 +432,7 @@
                                 <td style="vertical-align:top; text-align:left">
                                     <asp:UpdatePanel ID="UpdatePanel10" runat="server">
                                         <ContentTemplate>
-                                           <telerik:RadNumericTextBox ID="txt_kurs" runat="server" Enabled="false" Width="100px" ReadOnly="true" RenderMode="Lightweight" 
+                                           <telerik:RadNumericTextBox ID="txt_kurs" runat="server" Enabled="true" Width="100px" ReadOnly="true" RenderMode="Lightweight" 
                                                    Skin="Telerik"   >
                                                 <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                 <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
@@ -441,7 +441,7 @@
                                                 <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
                                             </telerik:RadNumericTextBox>
                                           &nbsp                                                 
-                                            <asp:CheckBox ID="chk_ppn_incl" runat="server" AutoPostBack="false" Text="PPN Include" />
+                                            <asp:CheckBox ID="chk_ppn_incl" runat="server" AutoPostBack="true" Text="PPN Include" />
                                         </ContentTemplate>
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_supplier" EventName="SelectedIndexChanged">

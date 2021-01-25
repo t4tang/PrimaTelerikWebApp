@@ -289,8 +289,8 @@
                                         <asp:Label runat="server" ID="lblProdType" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>                                           
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn UniqueName="KoBar" HeaderText="Prod. Code" HeaderStyle-Width="150px" HeaderStyle-ForeColor="#009900" 
-                                    SortExpression="KoBar" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="Left">
+                                <telerik:GridTemplateColumn UniqueName="KoBar" HeaderText="Prod. Code" HeaderStyle-Width="300px" HeaderStyle-ForeColor="#009900" 
+                                    SortExpression="KoBar" ItemStyle-Width="300px" ItemStyle-HorizontalAlign="Left">
                                     <FooterTemplate>Template footer</FooterTemplate>
                                     <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
