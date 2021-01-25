@@ -49,6 +49,15 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// btn_save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btn_save;
+        
+        /// <summary>
         /// txt_reg_code control.
         /// </summary>
         /// <remarks>
@@ -596,15 +605,6 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadLabel lbl_edited;
-        
-        /// <summary>
-        /// btn_save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
         
         /// <summary>
         /// notif control.
