@@ -75,8 +75,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         {
             con.Open();
             SqlDataReader sdr;
-            SqlCommand cmd = new SqlCommand("SELECT a.*, b.* FROM v_invoice_incomingH a LEFT OUTER JOIN v_invoice_incoming_reff b ON " +
-                "a.NoPO=b.po_code WHERE a.NoBuk =  '" + id + "'", con);
+            //SqlCommand cmd = new SqlCommand("SELECT a.*, b.* FROM v_invoice_incomingH a LEFT OUTER JOIN v_invoice_incoming_reff b ON " +
+            //    "a.NoPO=b.po_code WHERE a.NoBuk =  '" + id + "'", con);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM v_invoice_incomingH WHERE NoBuk =  '" + id + "'", con);
             sdr = cmd.ExecuteReader();
             if (sdr.Read())
             {
@@ -87,12 +88,12 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 //cb_po_type.Text = sdr["TransName"].ToString();
                 //cb_po_type.SelectedValue = sdr["trans_code"].ToString();
                 //cb_priority.Text = sdr["prio_desc"].ToString();
-                cb_supplier.Text = sdr["vendor_name"].ToString();
-                cb_supplier.SelectedValue = sdr["vendor_code"].ToString();
+                cb_supplier.Text = sdr["NamSup"].ToString();
+                cb_supplier.SelectedValue = sdr["KoSup"].ToString();
                 txt_curr.Text = sdr["KoMat"].ToString();
                 txt_kurs.Value = Convert.ToDouble(sdr["Kurs"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(sdr["KursTax"].ToString());
-                if (sdr["ppnIncl"].ToString() == "1")
+                if (sdr["PPNIncl"].ToString() == "1")
                 {
                     chk_ppn_incl.Checked = true;
                 }
@@ -106,7 +107,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cb_project.Text = sdr["region_name"].ToString();
                 cb_cost_center.Text = sdr["CostCenterName"].ToString();
                 //DateTime ref_date = Convert.ToDateTime(sdr["ref_date"].ToString());
-                txt_remark.Text = sdr["Remark"].ToString();
+                txt_remark.Text = sdr["Ket"].ToString();
                 txt_term_days.Value = Convert.ToDouble(sdr["JTempo"].ToString());
                 cb_prepared.Text = sdr["prepare_by_name"].ToString();
                 cb_verified.Text = sdr["ack_by_name"].ToString();
@@ -116,14 +117,15 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 txt_edited.Text = sdr["Edited"].ToString();
                 txt_uid.Text = sdr["Usr"].ToString();
                 txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
-                cb_term.Text = sdr["pay_code"].ToString();
+                cb_term.Text = sdr["payTerm"].ToString();
+                cb_term.SelectedValue = sdr["pay_code"].ToString();
                 txt_pppn.Value = Convert.ToDouble(sdr["PPPN"]);
                 txt_ppph.Value = Convert.ToDouble(sdr["ppph"]);
                 txt_po_tax.Value = Convert.ToDouble(sdr["POTax"]);
                 txt_sub_total.Value = Convert.ToDouble(sdr["jumlah"]);
-                txt_tax1_value.Value = Convert.ToDouble(sdr["jTax1"]);
-                txt_tax2_value.Value = Convert.ToDouble(sdr["jTax2"]);
-                txt_tax3_value.Value = Convert.ToDouble(sdr["jTax3"]);
+                txt_tax1_value.Value = Convert.ToDouble(sdr["JPPN"]);
+                txt_tax2_value.Value = Convert.ToDouble(sdr["JOTax"]);
+                txt_tax3_value.Value = Convert.ToDouble(sdr["Jpph"]);
                 txt_total.Value = Convert.ToDouble(sdr["Net"]);
                 //txt_other_value.Value = Convert.ToDouble(sdr["Othercost"]);
 
@@ -243,7 +245,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph, a.pay_code, a.JTempo " +
+            cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " +
                                " FROM pur00h01 a LEFT OUTER JOIN acc00h05 AS b ON b.TAX_CODE = a.ppn LEFT OUTER JOIN acc00h05 AS c ON a.OTax = c.TAX_CODE LEFT OUTER JOIN " +
                                " acc00h05 AS d ON a.pph = d.TAX_CODE inner join acc00h04 e on a.cur_code = e.cur_code WHERE (e.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
                                " FROM acc00h04)) and a.supplier_name = '" + cb_supplier.Text + "'";
@@ -259,8 +261,6 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cb_tax1.SelectedValue = dr["ppn"].ToString();
                 cb_tax2.SelectedValue = dr["Otax"].ToString();
                 cb_tax3.SelectedValue = dr["pph"].ToString();
-                cb_term.Text = dr["pay_code"].ToString();
-                txt_term_days.Text = dr["JTempo"].ToString();
             }
 
             dr.Close();
@@ -339,6 +339,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
         protected void cb_term_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            (sender as RadComboBox).Items.Add("Cash");
+            (sender as RadComboBox).Items.Add("Credit");
+            (sender as RadComboBox).Items.Add("COD");
+        }
+
+        protected void cb_term_PreRender(object sender, EventArgs e)
+        {
             if ((sender as RadComboBox).Text == "Cash")
             {
                 (sender as RadComboBox).SelectedValue = "01";
@@ -351,13 +358,6 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 (sender as RadComboBox).SelectedValue = "03";
             }
-        }
-
-        protected void cb_term_PreRender(object sender, EventArgs e)
-        {
-            (sender as RadComboBox).Items.Add("Cash");
-            (sender as RadComboBox).Items.Add("Credit");
-            (sender as RadComboBox).Items.Add("COD");
         }
 
         #endregion
@@ -508,19 +508,14 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 txt_curr.Text = dr["cur_name"].ToString();
                 txt_kurs.Text = dr["kurs"].ToString();
                 txt_tax_kurs.Text = dr["kurs_tax"].ToString();
-                cb_tax1.Text = dr["ppnName"].ToString();
+                cb_tax1.Text = dr["PPNName"].ToString();
                 cb_tax2.Text = dr["OtaxName"].ToString();
-                cb_tax3.Text = dr["pphName"].ToString();
-                txt_pppn.Text = dr["ppnPerc"].ToString();
+                cb_tax3.Text = dr["PPHName"].ToString();
+                txt_pppn.Text = dr["PPNPerc"].ToString();
                 txt_po_tax.Text = dr["OtaxPerc"].ToString();
-                txt_ppph.Text = dr["pphPerc"].ToString();
-                txt_ppph.Text = dr["pphPerc"].ToString();
+                txt_ppph.Text = dr["PPHPerc"].ToString();
+                txt_ppph.Text = dr["PPHPerc"].ToString();
                 chk_ppn_incl.Text = dr["PPNIncl"].ToString();
-                txt_sub_total.Text = dr["tot_amount"].ToString();
-                txt_tax1_value.Text = dr["JPPN"].ToString();
-                txt_tax2_value.Text = dr["JOTax"].ToString();
-                txt_tax3_value.Text = dr["Jpph"].ToString();
-                txt_total.Text = dr["Net"].ToString();
             }
 
             //dr.Close();
@@ -529,6 +524,23 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
             RadGrid2.DataBind();
 
+            foreach (GridDataItem item in this.RadGrid2.Items)
+            {
+                CheckBox cTax1 = (CheckBox)item.FindControl("edt_chkTax1");
+                CheckBox cTax2 = (CheckBox)item.FindControl("edt_chkOTax");
+                CheckBox cTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+
+                if (cb_tax1.SelectedValue != "NON")
+                {
+                    cTax1.Checked = true;
+                    CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
+                }
+                else
+                {
+                    cTax1.Checked = false;
+                    CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
+                }
+            }
             //txt_sub_total.Value = 0;
             //txt_tax1_value.Value = 0;
             //txt_tax2_value.Value = 0;
@@ -1345,8 +1357,19 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             }
             catch (System.Exception ex)
             {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+
+                if (Session["actionEdit"].ToString() == "new")
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = con;
+                    cmd.CommandText = "Delete From acc01h13 Where NoBuk = @NoBuk";
+                    cmd.Parameters.AddWithValue("@NoBuk", run);
+                    cmd.ExecuteNonQuery();
+                }
+
                 con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
             }
             finally
             {
