@@ -48,6 +48,12 @@
                 <telerik:AjaxUpdatedControl ControlID="txt_remark"></telerik:AjaxUpdatedControl>
                 <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel2"></telerik:AjaxUpdatedControl>
                 <telerik:AjaxUpdatedControl ControlID="txt_po_date" />
+                <telerik:AjaxUpdatedControl ControlID="txt_sub_total" />
+                <telerik:AjaxUpdatedControl ControlID="txt_tax2_value" />
+                <telerik:AjaxUpdatedControl ControlID="txt_tax1_value" />
+                <telerik:AjaxUpdatedControl ControlID="txt_tax3_value" />
+                <telerik:AjaxUpdatedControl ControlID="txt_total" />
+                <telerik:AjaxUpdatedControl ControlID="txt_other_value" />
             </UpdatedControls>                
         </telerik:AjaxSetting>  
         <telerik:AjaxSetting AjaxControlID="cb_supplier">
@@ -198,8 +204,8 @@
                                 <td style="vertical-align:top; text-align:left">
                                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                         <ContentTemplate>
-                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_term" runat="server" Width="120" ShowMoreResultsBox="true"
-                                            EnableVirtualScrolling="true" EnableLoadOnDemand="true" 
+                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_term" runat="server" Width="120" ShowMoreResultsBox="false"
+                                            EnableVirtualScrolling="true" EnableLoadOnDemand="true" AutoPostBack="true" 
                                             OnItemsRequested="cb_term_ItemsRequested"
                                             OnSelectedIndexChanged="cb_term_SelectedIndexChanged"
                                             OnPreRender="cb_term_PreRender">
@@ -694,7 +700,7 @@
                                     </telerik:RadNumericTextBox>  
                                         </ContentTemplate>
                                         <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                            <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged" />
                                         </Triggers>
                                     </asp:UpdatePanel>
                                                                       
@@ -712,7 +718,7 @@
                                         </telerik:RadNumericTextBox>
                                         </ContentTemplate>
                                         <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                            <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged" />
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </td>
@@ -729,7 +735,7 @@
                                         </telerik:RadNumericTextBox>
                                         </ContentTemplate>
                                         <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                            <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged" />
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </td>
@@ -785,7 +791,7 @@
                                         </telerik:RadNumericTextBox>
                                         </ContentTemplate>
                                         <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                            <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged" />
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </td>
@@ -801,7 +807,7 @@
                                         </telerik:RadNumericTextBox>
                                         </ContentTemplate>
                                     <Triggers>
-                                        <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                        <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged" />
                                     </Triggers>
                                     </asp:UpdatePanel>
                                 </td>
@@ -819,7 +825,7 @@
                                         </telerik:RadNumericTextBox>
                                         </ContentTemplate>
                                         <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="RadGrid2" />
+                                            <asp:AsyncPostBackTrigger ControlID="cb_reff" EventName="SelectedIndexChanged" />
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </td>
