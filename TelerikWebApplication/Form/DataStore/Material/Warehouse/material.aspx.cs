@@ -51,15 +51,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
         }
         private void populate_detail()
         {
-            //if (selected_wh_code == null)
-            //{
-            //    RadGridGLAcc.DataSource = new string[] { };
-            //}
-            //else
-            //{
             RadGridMaterial.DataSource = GetDataDetailTable(wh_code);
-            //}
-
             RadGridMaterial.DataBind();
         }
 
