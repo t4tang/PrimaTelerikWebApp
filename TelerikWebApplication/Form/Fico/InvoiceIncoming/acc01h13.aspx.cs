@@ -340,9 +340,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 tr_code = item["NoBuk"].Text;
                 reff_code = item["NoPO"].Text;
-                tax1 = item["jTax1"].Text;
-                tax2 = item["jTax2"].Text;
-                tax3 = item["jTax3"].Text;
+                tax1 = item["JPPN"].Text;
+                tax2 = item["JOTax"].Text;
+                tax3 = item["Jpph"].Text;
             }
 
             populate_detail();
