@@ -141,7 +141,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "SELECT noref, prod_type, KoBar AS Prod_code, Qty, SatQty, Harga, Disc, Jumlah, CAST(tTax AS Bit) AS tTax, CAST(tOtax AS Bit) AS tOtax, " +
-            "CAST(tpph AS Bit) AS tpph, dept_code, Prod_code_ori, jTax1, jTax2, jTax3, Nomor, ref_date, Ket, Asscost, isnull(tfactor,0) as factor, ref_date as lbm_date, ket as remark  FROM acc01h14 WHERE NoBuk = '" + NoBuk + "'";
+                                "CAST(tpph AS Bit) AS tpph, dept_code, Prod_code_ori, jTax1, jTax2, jTax3, Nomor, ref_date, Ket, Asscost, isnull(tfactor,0) as factor, ref_date as lbm_date, ket as remark  FROM acc01h14 WHERE NoBuk = '" + NoBuk + "'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -1335,7 +1335,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as Label).Text);
                     cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("txt_factor") as RadNumericTextBox).Value));
                     cmd.Parameters.AddWithValue("@Asscost", 0);
-                    cmd.Parameters.AddWithValue("@noref", cb_reff.SelectedValue);
+                    cmd.Parameters.AddWithValue("@noref", cb_reff.Text);
                     //cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
                     //cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
                     //cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
