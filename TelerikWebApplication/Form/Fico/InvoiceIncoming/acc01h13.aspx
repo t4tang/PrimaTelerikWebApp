@@ -204,7 +204,7 @@
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="supplier_name" HeaderText="Suplier" DataField="supplier_name" ItemStyle-Width="200px" FilterControlWidth="190px" 
+                    <telerik:GridBoundColumn UniqueName="NamSup" HeaderText="Supplier" DataField="NamSup" ItemStyle-Width="200px" FilterControlWidth="190px" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="220px" HorizontalAlign="Center"></HeaderStyle>
                     </telerik:GridBoundColumn>
@@ -216,15 +216,15 @@
                         ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="jTax1" HeaderText="Tax1" DataField="jTax1" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                    <telerik:GridBoundColumn UniqueName="JPPN" HeaderText="Tax1" DataField="JPPN" ItemStyle-Width="60px" FilterControlWidth="50px" 
                         ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="jTax2" HeaderText="Tax2" DataField="jTax2" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                    <telerik:GridBoundColumn UniqueName="JOTax" HeaderText="Tax2" DataField="JOTax" ItemStyle-Width="60px" FilterControlWidth="50px" 
                         ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="jTax3" HeaderText="Tax3" DataField="jTax3" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                    <telerik:GridBoundColumn UniqueName="Jpph" HeaderText="Tax3" DataField="Jpph" ItemStyle-Width="60px" FilterControlWidth="50px" 
                         ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>     
