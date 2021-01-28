@@ -18,9 +18,9 @@
                         <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="prod_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
                                          EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                             <Columns>
-                                <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
+                                <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                                     <HeaderStyle Width="20px" />
-                                </telerik:GridEditCommandColumn>
+                                </telerik:GridEditCommandColumn>--%>
                                 <telerik:GridBoundColumn HeaderText ="Code" DataField="wh_code" FilterControlWidth="70px">
                                     <HeaderStyle Width="50px" />
                                     <ItemStyle Width="50px" />
