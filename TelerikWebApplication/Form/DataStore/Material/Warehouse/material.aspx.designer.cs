@@ -22,13 +22,22 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// panel2 control.
+        /// RadScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel panel2;
+        protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
+        
+        /// <summary>
+        /// panel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel panel1;
         
         /// <summary>
         /// RadGridMaterial control.

@@ -187,11 +187,11 @@
                     CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" 
                     CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl">
                     <Columns>
-                       <%-- <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="30px" ></telerik:GridClientSelectColumn> --%>
-                        <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
+                        <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="30px" ></telerik:GridClientSelectColumn> 
+                        <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                             <HeaderStyle Width="40px"/>
                             <ItemStyle Width="40px" />
-                        </telerik:GridEditCommandColumn>
+                        </telerik:GridEditCommandColumn>--%>
                         <telerik:GridBoundColumn UniqueName="trans_id" HeaderText="WO. Number" DataField="trans_id">
                             <HeaderStyle Width="140px"/>
                             <ItemStyle Width="140px" />
