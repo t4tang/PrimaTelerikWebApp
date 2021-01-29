@@ -122,7 +122,7 @@
                                         <FocusedStyle Resize="None"></FocusedStyle>
                                         <DisabledStyle Resize="None"></DisabledStyle>
                                         <InvalidStyle Resize="None"></InvalidStyle>
-wkw                                        <HoveredStyle Resize="None"></HoveredStyle>
+                                        <HoveredStyle Resize="None"></HoveredStyle>
                                         <EnabledStyle Resize="None"></EnabledStyle>
                                         </DateInput>
                                         <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4"></DatePopupButton>                            

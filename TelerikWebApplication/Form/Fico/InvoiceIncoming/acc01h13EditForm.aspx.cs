@@ -1349,7 +1349,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@tfactor", 0);
                     //cmd.Parameters.AddWithValue("@RefTransID", 0);
-                    cmd.Parameters.AddWithValue("@ref_date", (item.FindControl("dtpSroDate") as RadDatePicker).SelectedDate);
+                    //cmd.Parameters.AddWithValue("@ref_date", (item.FindControl("dtpSroDate") as RadDatePicker).SelectedDate);
                     cmd.Parameters.AddWithValue("@KoBarH", 0);  //29
                     cmd.ExecuteNonQuery();
 
