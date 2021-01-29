@@ -122,7 +122,7 @@
                                         <FocusedStyle Resize="None"></FocusedStyle>
                                         <DisabledStyle Resize="None"></DisabledStyle>
                                         <InvalidStyle Resize="None"></InvalidStyle>
-                                        <HoveredStyle Resize="None"></HoveredStyle>
+wkw                                        <HoveredStyle Resize="None"></HoveredStyle>
                                         <EnabledStyle Resize="None"></EnabledStyle>
                                         </DateInput>
                                         <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4"></DatePopupButton>                            
@@ -969,7 +969,7 @@
                                 <telerik:GridTemplateColumn HeaderText="Ctrl. Date" HeaderStyle-Width="110px"  ItemStyle-Width="110px" ItemStyle-HorizontalAlign="Center"
                                     HeaderStyle-HorizontalAlign="Center"  HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
                                     <ItemTemplate>
-                                        <telerik:RadDatePicker runat="server" ID="dtpSroDate" Width="110px" DbSelectedDate='<%#DataBinder.Eval(Container, "DataItem.lbm_date")%>' 
+                                        <telerik:RadDatePicker runat="server" ID="dtpSroDate" Width="110px" DbSelectedDate='<%#DataBinder.Eval(Container, "DataItem.ref_date")%>' 
                                             onkeydown="blurTextBox(this, event)" Type="Date">
                                             <DateInput DisplayDateFormat="dd-MM-yyyy" runat="server" ReadOnly="true" /> 
                                         </telerik:RadDatePicker>
