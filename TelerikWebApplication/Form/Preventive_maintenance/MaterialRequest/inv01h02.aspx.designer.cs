@@ -175,15 +175,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest {
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
         
         /// <summary>
-        /// btnInsertItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnInsertItem;
-        
-        /// <summary>
         /// RadGrid3 control.
         /// </summary>
         /// <remarks>
