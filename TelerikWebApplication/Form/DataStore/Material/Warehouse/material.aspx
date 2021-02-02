@@ -21,29 +21,29 @@
                                 <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                                     <HeaderStyle Width="20px" />
                                 </telerik:GridEditCommandColumn>--%>
-                                <telerik:GridBoundColumn HeaderText ="Code" DataField="wh_code" FilterControlWidth="70px">
+                                <telerik:GridBoundColumn HeaderText ="Material Code" DataField="prod_code" FilterControlWidth="70px" HeaderStyle-Width="50px">
                                     <HeaderStyle Width="50px" />
                                     <ItemStyle Width="50px" />
                                 </telerik:GridBoundColumn> 
-                                <telerik:GridBoundColumn HeaderText ="Material Category" DataField="spec">
-                                    <HeaderStyle Width="300px" />
-                                    <ItemStyle Width="300px" />
+                                <telerik:GridBoundColumn HeaderText ="Specification" DataField="spec">
+                                    <HeaderStyle Width="500px" />
+                                    <ItemStyle Width="500px" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText ="UoM" DataField="unit" FilterControlWidth="70px">
-                                    <HeaderStyle Width="300px" />
-                                    <ItemStyle Width="300px" />
+                                    <HeaderStyle Width="30px" />
+                                    <ItemStyle Width="30px" />
                                 </telerik:GridBoundColumn> 
                                 <telerik:GridBoundColumn HeaderText ="Qty Actual" DataField="QACT" FilterControlWidth="70px">
-                                    <HeaderStyle Width="300px" />
-                                    <ItemStyle Width="300px" />
+                                    <HeaderStyle Width="50px" />
+                                    <ItemStyle Width="50px" />
                                 </telerik:GridBoundColumn> 
                                 <telerik:GridBoundColumn HeaderText ="Qty Max" DataField="qtyMax" FilterControlWidth="70px">
-                                    <HeaderStyle Width="300px" />
-                                    <ItemStyle Width="300px" />
+                                    <HeaderStyle Width="50px" />
+                                    <ItemStyle Width="50px" />
                                 </telerik:GridBoundColumn> 
                                 <telerik:GridBoundColumn HeaderText ="Qty Min" DataField="qtyMin" FilterControlWidth="70px">
-                                    <HeaderStyle Width="300px" />
-                                    <ItemStyle Width="300px" />
+                                    <HeaderStyle Width="50px" />
+                                    <ItemStyle Width="50px" />
                                 </telerik:GridBoundColumn> 
                                                                            
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" ItemStyle-ForeColor="Red" 
