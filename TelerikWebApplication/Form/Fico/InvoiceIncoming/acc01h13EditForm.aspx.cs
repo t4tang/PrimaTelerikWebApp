@@ -83,7 +83,10 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 txt_reg_code.Text = sdr["NoBuk"].ToString();
                 dtp_reg.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
+                txt_inv_no.Text = sdr["NoFP"].ToString();
+                txt_inv_code.Text = sdr["InvCode"].ToString();
                 dtp_inv.SelectedDate = Convert.ToDateTime(sdr["TglFP"].ToString());
+                cb_from_type.Text = sdr["TransName"].ToString();
                 cb_reff.Text = sdr["NoPO"].ToString();
                 //cb_po_type.Text = sdr["TransName"].ToString();
                 //cb_po_type.SelectedValue = sdr["trans_code"].ToString();

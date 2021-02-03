@@ -303,7 +303,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h13 SET userid = @Usr, lastupdate = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
+                cmd.CommandText = "UPDATE acc01h13 SET Usr = @Usr, OwnStamp = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
                 cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
