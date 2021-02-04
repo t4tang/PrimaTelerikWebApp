@@ -301,6 +301,15 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses {
         protected global::Telerik.Web.UI.RadNumericTextBox txt_ppph;
         
         /// <summary>
+        /// UpdatePanel11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel11;
+        
+        /// <summary>
         /// cb_term control.
         /// </summary>
         /// <remarks>
@@ -515,15 +524,6 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid2;
-        
-        /// <summary>
-        /// RadNotification1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNotification RadNotification1;
         
         /// <summary>
         /// lbl_userId control.

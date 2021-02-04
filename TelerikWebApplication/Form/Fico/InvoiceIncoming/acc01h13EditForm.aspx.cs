@@ -87,7 +87,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 //cb_po_type.Text = sdr["TransName"].ToString();
                 //cb_po_type.SelectedValue = sdr["trans_code"].ToString();
                 //cb_priority.Text = sdr["prio_desc"].ToString();
-                cb_supplier.Text = sdr["NamSup"].ToString();
+                cb_supplier.Text = sdr["supplier_name"].ToString();
                 txt_curr.Text = sdr["KoMat"].ToString();
                 txt_kurs.Value = Convert.ToDouble(sdr["Kurs"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(sdr["KursTax"].ToString());
@@ -137,8 +137,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT noref, prod_type, KoBar, Qty, SatQty, Harga, Disc, Jumlah, CAST(tTax AS Bit) AS tTax, CAST(tOtax AS Bit) AS tOtax, " +
-            "CAST(tpph AS Bit) AS tpph, dept_code, Prod_code_ori, jTax1, jTax2, jTax3, Nomor, ref_date, Ket, Asscost  FROM acc01h14 WHERE NoBuk = '" + NoBuk + "'";
+            cmd.CommandText = "sp_get_invoice_incomingD";
+            cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -233,38 +233,38 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
         }
-        protected void cb_supplier_PreRender(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_code FROM pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                (sender as RadComboBox).SelectedValue = dr[0].ToString();
-            }
-            dr.Close();
-            con.Close();
-        }
+        //protected void cb_supplier_PreRender(object sender, EventArgs e)
+        //{
+        //    con.Open();
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.Connection = con;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.CommandText = "SELECT supplier_code FROM pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+        //    SqlDataReader dr;
+        //    dr = cmd.ExecuteReader();
+        //    while (dr.Read())
+        //    {
+        //        (sender as RadComboBox).SelectedValue = dr[0].ToString();
+        //    }
+        //    dr.Close();
+        //    con.Close();
+        //}
         protected void cb_supplier_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " +
-                               " FROM pur00h01 a LEFT OUTER JOIN acc00h05 AS b ON b.TAX_CODE = a.ppn LEFT OUTER JOIN acc00h05 AS c ON a.OTax = c.TAX_CODE LEFT OUTER JOIN " +
-                               " acc00h05 AS d ON a.pph = d.TAX_CODE inner join acc00h04 e on a.cur_code = e.cur_code WHERE (e.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
-                               " FROM acc00h04)) and a.supplier_name = '" + cb_supplier.Text + "'";
+            cmd.CommandText = "SELECT     pur00h01.supplier_code,acc00h04.KursRun, acc00h04.KursTax, pur00h01.cur_code, acc00h05.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " + 
+                                "FROM pur00h01 LEFT OUTER JOIN acc00h05 ON acc00h05.TAX_CODE = pur00h01.ppn LEFT OUTER JOIN acc00h05 AS c ON pur00h01.OTax = c.TAX_CODE LEFT OUTER JOIN " +
+                                "acc00h05 AS d ON pur00h01.pph = d.TAX_CODE inner join acc00h04 on pur00h01.cur_code = acc00h04.cur_code WHERE(acc00h04.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
+                                "FROM acc00h04)) and pur00h01.supplier_name = 'INDOTRUCK UTAMA, PT (IDR)' = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 //(sender as RadComboBox).Text = dr["doc_code"].ToString();
-                cb_supplier.SelectedValue = dr["supplier_code"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["supplier_code"].ToString();
                 txt_curr.Text = dr["cur_code"].ToString();
                 txt_kurs.Value = Convert.ToDouble(dr["KursRun"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(dr["KursTax"].ToString());

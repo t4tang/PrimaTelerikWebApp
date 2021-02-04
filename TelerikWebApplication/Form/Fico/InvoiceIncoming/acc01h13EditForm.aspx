@@ -233,15 +233,15 @@
                                     <telerik:RadLabel runat="server" Text="Supplier" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
                                 <td>
-                                    <asp:UpdatePanel ID="UpdatePanel8" runat="server">
-                                        <ContentTemplate>
+                                    <%--<asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                                        <ContentTemplate>--%>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="300px"
-                                                EnableLoadOnDemand="True" ShowMoreResultsBox="true" AutoPostBack="true" Skin="Telerik" CausesValidation="false"
-                                                OnItemsRequested="cb_supplier_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" OnPreRender="cb_supplier_PreRender"
+                                                EnableLoadOnDemand="true" ShowMoreResultsBox="true" AutoPostBack="true" Skin="Telerik" CausesValidation="false"
+                                                OnItemsRequested="cb_supplier_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
                                                 EnableVirtualScrolling="true" >
                                             </telerik:RadComboBox>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                        <%--</ContentTemplate>
+                                    </asp:UpdatePanel>--%>
                                 </td>
                             </tr>
                 
