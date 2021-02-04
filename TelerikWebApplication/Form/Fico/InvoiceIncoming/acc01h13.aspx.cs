@@ -303,7 +303,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h13 SET userid = @Usr, lastupdate = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
+                cmd.CommandText = "UPDATE acc01h13 SET Usr = @Usr, OwnStamp = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
                 cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -340,9 +340,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 tr_code = item["NoBuk"].Text;
                 reff_code = item["NoPO"].Text;
-                tax1 = item["tax1"].Text;
-                tax2 = item["tax2"].Text;
-                tax3 = item["tax3"].Text;
+                tax1 = item["JPPN"].Text;
+                tax2 = item["JOTax"].Text;
+                tax3 = item["Jpph"].Text;
             }
 
             populate_detail();

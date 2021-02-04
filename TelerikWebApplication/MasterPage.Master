@@ -76,7 +76,7 @@
             </telerik:RadMenu>--%>
         </div>
         <div class="page">
-            <div class="main-header clear" style="border-bottom-style:outset; border-bottom-color:#ffd800" >
+            <div class="main-header clear" style="border-bottom-style:outset; border-bottom-color:greenyellow" >
                 <div class="home-btn">
                     <span class="icon icon-Home"></span>
                     <span class="text"><%: Page.Title %></span>

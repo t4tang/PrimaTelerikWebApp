@@ -22,6 +22,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         public static string tr_code = null;
         public static string wo_code = null;
         public static string selected_project = null;
+        private static string sro_code = null;
+        private static string sro_date = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -253,13 +255,17 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         }
         protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (GridDataItem item in RadGrid1.SelectedItems)
+            if((sender as RadGrid).MasterTableView.IsItemInserted != true)
             {
-                tr_code = item["trans_id"].Text;
+                foreach (GridDataItem item in RadGrid1.SelectedItems)
+                {
+                    tr_code = item["trans_id"].Text;
+                    sro_date = string.Format("{0:dd/MM/yyyy}", item["trans_date"].Text);
+                }
+                populate_detail();
+                Session["action"] = "list";
             }
-
-            populate_detail();
-            Session["action"] = "list";
+            
         }
         private void populate_detail()
         {
@@ -404,7 +410,86 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             {
                 con.Close();
             }
-        }        
+        }
+        protected void cb_MR_operation_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT OprCode FROM mtc00h25 WHERE OprName = '" + (sender as RadComboBox).Text + "'";
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                    (sender as RadComboBox).SelectedValue = dr["OprCode"].ToString();
+                dr.Close();
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        protected void cb_MR_operation_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            string sql = "SELECT mtc01h03.chart_code, mtc00h25.OprName  FROM mtc00h25, mtc01h03 WHERE mtc01h03.trans_id= @trans_id AND mtc00h25.OprCode= mtc01h03.chart_code AND mtc00h25.OprName LIKE @text + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@trans_id", tr_code);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["OprName"].ToString();
+                item.Value = row["chart_code"].ToString();
+                item.Attributes.Add("OprName", row["OprName"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+        protected void cb_MR_operation_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT OprCode FROM mtc00h25 WHERE OprName = '" + (sender as RadComboBox).Text + "'";
+                
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                    (sender as RadComboBox).SelectedValue = dr["OprCode"].ToString();
+                dr.Close();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
         protected void RadGrid4_InsertCommand(object sender, GridCommandEventArgs e)
         {
             try
@@ -494,8 +579,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT trans_id, prod_type, part_code, part_desc, part_qty, part_unit, deliv_date, CAST(tWarranty AS Bit) AS tWarranty, remark, sro_code, trans_id " +
-                "FROM inv01d02  WHERE trans_id = @trans_id";
+            cmd.CommandText = "SELECT sro_code, prod_type, part_code, part_desc, part_qty, part_unit, deliv_date, CAST(tWarranty AS Bit) AS tWarranty, " +
+                "remark, sro_code, trans_id, chart_code, mtc00h25.OprName FROM inv01d02, mtc00h25  WHERE trans_id = @trans_id AND mtc00h25.OprCode=inv01d02.chart_code";
             cmd.Parameters.AddWithValue("@trans_id", trans_id);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -528,12 +613,85 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
 
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            string sql = "SELECT TOP (100)[prod_code], [spec], [unit] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
 
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["prod_code"].ToString();
+                item.Value = row["prod_code"].ToString();
+                item.Attributes.Add("spec", row["spec"].ToString());
+                item.Attributes.Add("unit", row["unit"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
         }
 
         protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT spec, unit FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+                    //Label lblQtyRs;
+                    Label lbl_UoM;
+                    Label lbl_prodType;
+                    RadNumericTextBox txtPartQty;
+
+                    if (RadGrid5.MasterTableView.IsItemInserted)
+                    {
+                        lbl_prodType = (Label)item.FindControl("lbl_prodType_insertTemp");
+                        txtPartQty = (RadNumericTextBox)item.FindControl("txt_qty_insertTemp");
+                        //lblQtyRs = (Label)item.FindControl("lbl_qtyRs");
+                        lbl_UoM = (Label)item.FindControl("lbl_UoM_insertTemp");
+                        txtPartQty.Value = 0;
+                    }
+                    else
+                    {
+                        lbl_prodType = (Label)item.FindControl("lbl_prodType_editTemp");
+                        txtPartQty = (RadNumericTextBox)item.FindControl("txtPartQty");
+                        //lblQtyRs = (Label)item.FindControl("lbl_qtyRs");
+                        lbl_UoM = (Label)item.FindControl("lbl_UoM_editTemp");
+                    }
+
+                    lbl_prodType.Text = "M1";
+                    //lblQtyRs.Text = "0";
+                    lbl_UoM.Text = dtr["unit"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
         }
         #endregion
 
@@ -764,11 +922,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
         #region DMBD
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            if (tr_code == null)
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-            }
-            else
+            //if (tr_code == null)
+            //{
+            //    (sender as RadGrid).DataSource = new string[] { };
+            //}
+            //else
+            //{
+            //    (sender as RadGrid).DataSource = GetDBMB(tr_code);
+            //}
+            if (tr_code != null)
             {
                 (sender as RadGrid).DataSource = GetDBMB(tr_code);
             }
@@ -953,7 +1115,260 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             RadGrid1.MasterTableView.IsItemInserted = true;
             RadGrid1.MasterTableView.Rebind();
 
-            //RadTabStrip1.Enabled = false;
+            RadGrid2.DataSource = new string[] { };
+            RadGrid2.DataBind();
+            RadGrid3.DataSource = new string[] { };
+            RadGrid3.DataBind();
+            RadGrid4.DataSource = new string[] { };
+            RadGrid4.DataBind();
+            RadGrid5.DataSource = new string[] { };
+            RadGrid5.DataBind();
+            tr_code = null;
+
+        }
+
+        protected void RadGrid5_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                long maxNo;
+                string run = null;
+                string project_code = null;
+                string unit_code = null;
+                string OrderType = null;
+                string job_status = null;
+                //string trDate = string.Format("{0:dd/MM/yyyy}", dtp_date.SelectedDate);
+
+                con.Open();
+                SqlDataReader dr;
+                cmd = new SqlCommand("select * from inv01h02 where trans_id ='" + tr_code + "' ", con);
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    sro_code = dr["sro_code"].ToString();
+                }
+                con.Close();
+
+                if (sro_code == null)
+                {
+                    con.Open();
+                    SqlDataReader sdr;
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h02.sro_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM inv01h02 WHERE LEFT(inv01h02.sro_code, 4) = 'MR03' " +
+                        "AND SUBSTRING(inv01h02.sro_code, 5, 2) = SUBSTRING('" + sro_date + "', 9, 2) " +
+                        "AND SUBSTRING(inv01h02.sro_code, 7, 2) = SUBSTRING('" + sro_date + "', 4, 2) ", con);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.HasRows == false)
+                    {
+                        //throw new Exception();
+                        run = "MR03" + sro_date.Substring(8,2) + sro_date.Substring(3, 2) + "0001";
+                    }
+                    else if (sdr.Read())
+                    {
+                        maxNo = Convert.ToInt32(sdr["maxNo"].ToString());
+                        run = "MR03" + sro_date.Substring(8,2) + sro_date.Substring(3,2) + ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
+                        sro_code = run;
+                    }
+                    sdr.Close();
+                    //con.Close();
+
+                    //SqlDataReader sdr1;
+                    //con.Open();
+                    //SqlCommand command = new SqlCommand();
+                    cmd = new SqlCommand("SELECT * FROM mtc01h01 WHERE trans_id =  '" + tr_code + "'", con);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.Read())
+                    {
+                        project_code = sdr["region_code"].ToString();
+                        unit_code = sdr["unit_code"].ToString();
+                        OrderType = sdr["OrderType"].ToString();
+                        job_status = sdr["job_status"].ToString();
+                    }
+                    sdr.Close();
+
+                    SqlCommand cmd1 = new SqlCommand();
+                    cmd1.CommandType = CommandType.StoredProcedure;
+                    cmd1.Connection = con;
+                    cmd1.CommandText = "sp_save_material_requestH";
+                    cmd1.Parameters.AddWithValue("@sro_code", run);
+                    cmd1.Parameters.AddWithValue("@region_code", project_code);
+                    cmd1.Parameters.AddWithValue("@trans_id", tr_code);
+                    cmd1.Parameters.AddWithValue("@sro_reason", "01");
+                    cmd1.Parameters.AddWithValue("@unit_code", unit_code);
+                    cmd1.Parameters.AddWithValue("@sro_date", sro_date);
+                    cmd1.Parameters.AddWithValue("@deliv_date", sro_date);
+                    cmd1.Parameters.AddWithValue("@sro_kind", 1);
+                    cmd1.Parameters.AddWithValue("@ordertype", OrderType);
+                    cmd1.Parameters.AddWithValue("@job_status", job_status);
+                    cmd1.Parameters.AddWithValue("@ord_by", DBNull.Value);
+                    cmd1.Parameters.AddWithValue("@userid", DBNull.Value);
+                    cmd1.Parameters.AddWithValue("@ack_by", DBNull.Value);
+                    cmd1.Parameters.AddWithValue("@sro_remark", DBNull.Value);
+                    cmd1.Parameters.AddWithValue("@LASTUSER", public_str.user_id);
+                    cmd1.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                    cmd1.Parameters.AddWithValue("@status", 1);
+                    cmd1.Parameters.AddWithValue("@Owner", public_str.user_id);
+                    cmd1.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
+                    cmd1.Parameters.AddWithValue("@Printed", 0);
+                    cmd1.Parameters.AddWithValue("@Edited", 0);
+                    cmd1.Parameters.AddWithValue("@void", 3);
+                    cmd1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                GridEditableItem item = (GridEditableItem)e.Item;
+                RadNumericTextBox lblQtyRs;
+                Label lbl_UoM;
+                Label lbl_prodType;
+                RadNumericTextBox txtPartQty;
+                RadComboBox cbProdCode;
+                RadComboBox cbChart;
+                CheckBox chkWaranty;
+                RadTextBox txtRemark;
+                Label lblChart;
+
+                if (RadGrid5.MasterTableView.IsItemInserted)
+                {
+                    lbl_prodType = (Label)item.FindControl("lbl_prodType_insertTemp");
+                    txtPartQty = (RadNumericTextBox)item.FindControl("txt_qty_insertTemp");
+                    //lblQtyRs = (RadNumericTextBox)item.FindControl("txt_qtyRs_insertTemp");
+                    lbl_UoM = (Label)item.FindControl("lbl_UoM_insertTemp");
+                    cbProdCode = (RadComboBox)item.FindControl("cb_prod_code_insertTemp");
+                    cbChart = (RadComboBox)item.FindControl("cb_operation_insertTemp");
+                    chkWaranty = (CheckBox)item.FindControl("chk_waranty_insertTemp");
+                    txtRemark = (RadTextBox)item.FindControl("txt_remark_insertTemp");
+                }
+                else
+                {
+                    lbl_prodType = (Label)item.FindControl("lbl_prodType_editTemp");
+                    txtPartQty = (RadNumericTextBox)item.FindControl("txtPartQty");
+                    //lblQtyRs = (RadNumericTextBox)item.FindControl("txt_qtyRs_editTemp");
+                    lbl_UoM = (Label)item.FindControl("lbl_UoM_editTemp");
+                    cbProdCode = (RadComboBox)item.FindControl("cb_prod_code");
+                    cbChart = (RadComboBox)item.FindControl("cb_operation");
+                    chkWaranty = (CheckBox)item.FindControl("chk_waranty_editTemp");
+                    txtRemark = (RadTextBox)item.FindControl("txt_remark_editTemp");
+                    lblChart = (Label)item.FindControl("lbl_operation");
+                }
+
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_material_requestD";
+                cmd.Parameters.AddWithValue("@prod_type", lbl_prodType.Text);
+                cmd.Parameters.AddWithValue("@item", DBNull.Value);
+                cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble(txtPartQty.Text));
+                cmd.Parameters.AddWithValue("@sro_code", sro_code);
+                cmd.Parameters.AddWithValue("@part_code", cbProdCode.Text);
+                cmd.Parameters.AddWithValue("@part_unit", lbl_UoM.Text);
+                cmd.Parameters.AddWithValue("@chart_code", cbChart.SelectedValue);
+                cmd.Parameters.AddWithValue("@trans_id", tr_code);
+                cmd.Parameters.AddWithValue("@deliv_date", DBNull.Value);
+                if (chkWaranty.Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@tWarranty", 1);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@tWarranty", 0);
+                }
+                cmd.Parameters.AddWithValue("@remark", txtRemark.Text);
+                cmd.ExecuteNonQuery();
+
+
+                //notif.Show();
+
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+            finally
+            {
+                con.Close();
+                //RadGrid3.DataSource = GetDataDetailByChartCode(txt_mr_number.Text, chart_code);
+                //RadGrid3.DataBind();
+            }
+        }
+
+        protected void RadGrid5_EditCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
+
+        protected void RadGrid5_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            var partCode = ((GridDataItem)e.Item).GetDataKeyValue("part_code");
+            var sroCode = ((GridDataItem)e.Item).GetDataKeyValue("sro_code");
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "Delete inv01d02 Where sro_code = @sro_code And part_code = @part_code";
+                cmd.Parameters.AddWithValue("@sro_code", sroCode);
+                cmd.Parameters.AddWithValue("@part_code", partCode);
+                cmd.ExecuteNonQuery();
+                
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
+                e.Canceled = true;
+            }
+            finally
+            {
+                con.Close();
+                RadGrid5.DataBind();
+            }
+        }
+
+        protected void cb_operation_inserttTemp_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            string sql = "SELECT DISTINCT(mtc01h03.chart_code), mtc00h25.OprName FROM mtc01h03 INNER JOIN mtc00h25 ON mtc00h25.OprCode = mtc01h03.chart_code  WHERE mtc01h03.trans_id = @wo_code " +
+                " AND OprName LIKE @OprName + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@wo_code", tr_code);
+            adapter.SelectCommand.Parameters.AddWithValue("@OprName", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["OprName"].ToString();
+                item.Value = row["chart_code"].ToString();
+                item.Attributes.Add("spec", row["OprName"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                if (tr_code == null)
+                {
+                    //if(RadGrid1.MasterTableView.IsItemInserted == true)
+                    //{
+                        RadWindowManager1.RadAlert("Please save the header data first", 300, 150, "Alert", null);
+                    //}                    
+                }
+            }
         }
     }
 }

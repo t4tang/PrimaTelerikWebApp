@@ -678,8 +678,20 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
             }
             catch (Exception ex)
             {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+
+                if (Session["actionEdit"].ToString() == "new")
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = con;
+                    cmd.CommandText = "Delete From inv01h05 Where do_code = @do_code";
+                    cmd.Parameters.AddWithValue("@do_code", run);
+                    cmd.ExecuteNonQuery();
+                }
+
                 con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
+                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
             }
             finally
             {

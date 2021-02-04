@@ -137,7 +137,7 @@
                 </tr>
             </table>
         </div>--%>
-        <div style=" padding-left:15px; width:100%; border-bottom-color: #FF6600; border-bottom-width: 1px; border-bottom-style: inset;">
+        <div style=" padding-left:15px; width:100%; border-bottom-color: #FF6600; border-bottom-width: 1px; border-bottom-style: inset;background-color:#e2e6e6;">
             <table id="tbl_control">
                 <tr>
                     <td  style="text-align:right;">

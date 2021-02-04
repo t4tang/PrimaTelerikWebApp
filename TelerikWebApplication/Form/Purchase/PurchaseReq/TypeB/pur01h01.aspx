@@ -165,7 +165,7 @@
 
     <div class="scroller" runat="server">
 
-        <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Material"
+        <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
         AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="10" MasterTableView-GridLines="None" 
         OnNeedDataSource="RadGrid1_NeedDataSource" 
         OnDeleteCommand="RadGrid1_DeleteCommand" 
@@ -278,7 +278,7 @@
                             </ItemTemplate>                                        
                         </telerik:GridTemplateColumn>
 
-                        <telerik:GridTemplateColumn HeaderText="Order Qty" HeaderStyle-Width="60px" ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Right" 
+                        <telerik:GridTemplateColumn HeaderText="Order Qty" HeaderStyle-Width="70px" ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Right" 
                              HeaderStyle-ForeColor="#009900" DefaultInsertValue="0" HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPartQty" Width="60px"  ReadOnly="false" 

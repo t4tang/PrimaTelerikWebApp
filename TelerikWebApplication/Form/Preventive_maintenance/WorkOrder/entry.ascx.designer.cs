@@ -400,30 +400,12 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::Telerik.Web.UI.RadComboBox cb_mainType;
         
         /// <summary>
-        /// cb_orderBy control.
+        /// RadWindowManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_orderBy;
-        
-        /// <summary>
-        /// cb_recordBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_recordBy;
-        
-        /// <summary>
-        /// cb_acknowledgedBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_acknowledgedBy;
+        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
     }
 }

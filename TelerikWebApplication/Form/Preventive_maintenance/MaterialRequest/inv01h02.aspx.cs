@@ -65,7 +65,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     RadGrid3.Rebind();
                     
                     Session["action"] = "list";
-                    btnInsertItem.Enabled = true;
+                    //btnInsertItem.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -667,5 +667,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 con.Close();
             }
         }
+        
     }
 }

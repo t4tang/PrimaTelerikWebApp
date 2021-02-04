@@ -52,7 +52,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                     cb_status.SelectedValue = "00";
                     cb_priority.Text = "High/Urgent";
                     Session["actionEdit"] = "new";
-
+                    cb_project.Text = public_str.sitename;
+                    cb_project.SelectedValue = public_str.site;
                 }
             }
         }
@@ -71,9 +72,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 }
                 else
                 {
-                    btnUpdate.Text = "Update";
-                    btnCancel.Text = "Close";
-
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( mtc01h01.trans_id , 4 ) ) , 0 ) + 1 AS maxNo " +
@@ -105,8 +103,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 cmd.Parameters.AddWithValue("@trans_date", string.Format("{0:yyyy-MM-dd}", dtp_doc_date.SelectedDate.Value));
                 if(rtp_excStartTime.SelectedDate != null)
                 {
-                    cmd.Parameters.AddWithValue("@trans_down", Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Hours) +
-                    (Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                    //cmd.Parameters.AddWithValue("@trans_down", Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Hours) +
+                    //(Convert.ToDouble(rtp_excStartTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                    cmd.Parameters.AddWithValue("@trans_down", rtp_excStartTime.SelectedTime.Value);
                 }
                 else
                 {
@@ -120,18 +119,22 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 {
                     cmd.Parameters.AddWithValue("@tDown", 1);
                     cmd.Parameters.AddWithValue("@DBDate", string.Format("{0:yyyy-MM-dd}", dtp_breakdownDate.SelectedDate.Value));
-                    cmd.Parameters.AddWithValue("@comp_down_time", Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Hours) +
-                    (Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                    cmd.Parameters.AddWithValue("@BDTime", Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Hours) +
-                    (Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                    //cmd.Parameters.AddWithValue("@comp_down_time", Convert.ToDouble(rtp_excFinishTime.SelectedDate.Value.TimeOfDay.Hours) +
+                    //(Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                    //cmd.Parameters.AddWithValue("@BDTime", Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Hours) +
+                    //(Convert.ToDouble(rtp_breakdownTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                    cmd.Parameters.AddWithValue("@BDTime",rtp_breakdownTime.SelectedTime.Value);
                 }
                 else
                 {
                     cmd.Parameters.AddWithValue("@tDown", 0);
                     cmd.Parameters.AddWithValue("@DBDate", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@comp_down_time", DBNull.Value);
+                    //cmd.Parameters.AddWithValue("@comp_down_time", DBNull.Value);
                     cmd.Parameters.AddWithValue("@BDTime", DBNull.Value);
                 }
+                //cmd.Parameters.AddWithValue("@comp_down_time", Convert.ToDouble(rtp_excFinishTime.SelectedDate.Value.TimeOfDay.Hours) +
+                //(Convert.ToDouble(rtp_excFinishTime.SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                cmd.Parameters.AddWithValue("@comp_down_time", rtp_excFinishTime.SelectedTime.Value);
                 cmd.Parameters.AddWithValue("@jsa_code", cb_jsa.SelectedValue);
                 cmd.Parameters.AddWithValue("@trans_status", "00");
                 cmd.Parameters.AddWithValue("@priority_code", cb_priority.SelectedValue);
@@ -157,21 +160,24 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 cmd.Parameters.AddWithValue("@DIAG_CODE", cb_diagnosis.SelectedValue);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
                 cmd.ExecuteNonQuery();
-
+                
+                txt_reg_number.Text = run;
+                mtc01h01.tr_code = run;
+                btnUpdate.Text = "Update";
+                btnCancel.Text = "Close";
             }
             catch (System.Exception ex)
             {
                 con.Close();
-                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                RadWindowManager1.RadAlert(ex.Message, 500, 200, "Error", null, "~/Images/error.png");
             }
             finally
             {
                 con.Close();
+
                 //notif.Text = "Data berhasil disimpan";
                 //notif.Title = "Notification";
                 //notif.Show();
-                txt_reg_number.Text = run;
-                
             }
         }
 
@@ -284,13 +290,14 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT model_no, mtc00h16.dept_code, inv00h11.CostCenterName FROM mtc00h16 INNER JOIN " +
-                "inv00h11 ON mtc00h16.dept_code = inv00h11.CostCenter WHERE unit_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT model_no, mtc00h16.dept_code, inv00h11.CostCenterName, ISNULL(MAX(mtc01h06.reading_amount1),0) AS HM_ACCUM FROM mtc00h16 INNER JOIN  " +
+                "inv00h11 ON mtc00h16.dept_code = inv00h11.CostCenter LEFT OUTER JOIN mtc01h06 ON mtc00h16.unit_code = mtc01h06.unit_code " +
+                "WHERE mtc00h16.unit_code = '" + (sender as RadComboBox).Text + "' GROUP BY model_no, mtc00h16.dept_code, inv00h11.CostCenterName";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                //(sender as RadComboBox).SelectedValue = dr[0].ToString();
+                txt_hmEstAccum.Text = dr["HM_ACCUM"].ToString();
                 txt_unit_name.Text = dr["model_no"].ToString();
             }
             dr.Close();
@@ -1183,10 +1190,37 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
             dr.Close();
             con.Close();
-        }        
+        }
+
 
         #endregion
 
-       
+        protected void chk_breakdown_CheckedChanged(object sender, EventArgs e)
+        {
+            if((sender as CheckBox).Checked == false)
+            {
+                dtp_breakdownDate.Enabled = false;
+                rtp_breakdownTime.Enabled = false;
+            }
+            else
+            {
+                dtp_breakdownDate.Enabled = true;
+                rtp_breakdownTime.Enabled = true;
+            }
+        }
+
+        protected void chk_breakdown_PreRender(object sender, EventArgs e)
+        {
+            if((sender as CheckBox).Checked == true)
+            {
+                dtp_breakdownDate.Enabled = true;
+                rtp_breakdownTime.Enabled = true;
+            }
+            else
+            {
+                dtp_breakdownDate.Enabled = false;
+                rtp_breakdownTime.Enabled = false;
+            }
+        }
     }
 }

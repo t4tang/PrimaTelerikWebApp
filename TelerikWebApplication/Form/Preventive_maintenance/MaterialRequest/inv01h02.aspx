@@ -162,8 +162,8 @@
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click" ToolTip="Add New"
                         Height="30px" Width="32px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
                 </td>
-                <td style="width: 93%; text-align: right">
-                    <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                <td style="width: 94%; text-align: right">
+                    <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight:normal; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
                         padding-bottom: 0px; font-size: x-large; color:deepskyblue;">
                     </telerik:RadLabel>
                 </td>
@@ -173,7 +173,7 @@
 
     <div  class="scroller" runat="server">
         <div style="width:100%; overflow-y:hidden;height:375px; ">
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="10" Skin="Material"
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="10" Skin="Telerik"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
                 OnNeedDataSource="RadGrid1_NeedDataSource" 
                 OnDeleteCommand="RadGrid1_DeleteCommand" 
@@ -183,19 +183,20 @@
                 <PagerStyle Mode="NumericPages"></PagerStyle>          
                 <ClientSettings EnablePostBackOnRowClick="true" />
                 <HeaderStyle Font-Size="12px" />
+                <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                 <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="sro_code" Font-Size="12px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                     CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" 
-                    CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl">
+                    CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl" InsertItemDisplay="Bottom">
                     <Columns>
-                        <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
+                        <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                             <HeaderStyle Width="40px"/>
                             <ItemStyle Width="40px" />
-                        </telerik:GridEditCommandColumn>--%>
-                        <telerik:GridClientSelectColumn UniqueName="SelectColumn" >
+                        </telerik:GridEditCommandColumn>
+                        <%--<telerik:GridClientSelectColumn UniqueName="SelectColumn" >
                             <HeaderStyle Width="30px" />
                             <ItemStyle Width="30px" />
-                        </telerik:GridClientSelectColumn> 
+                        </telerik:GridClientSelectColumn> --%>
                         <telerik:GridBoundColumn UniqueName="sro_code" HeaderText="MR. Number" DataField="sro_code" FilterControlWidth="110px" >
                             <HeaderStyle Width="150px" />
                             <ItemStyle Width="150px" />
@@ -254,16 +255,16 @@
             </telerik:RadGrid>                
         </div>
         
-        <div style=" width:100%; border-top-style:solid; border-top-width:thin; padding-top:28px">
-            <div runat="server" style="position:absolute; padding: 4px 0px 0px 5px; float:right;">
+        <div style=" width:100%; border-top-style:solid; border-top-width:thin; padding-top:5px">
+            <%--<div runat="server" style="position:absolute; padding: 4px 0px 0px 5px; float:right;">
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <asp:LinkButton runat="server" ID="btnInsertItem" BorderStyle="Outset" Text="Insert Item" Width="80px" Font-Size="Small"
                         ForeColor="White" BackColor="DeepSkyBlue" OnClick="btnInsertItem_Click" ></asp:LinkButton>
                     </ContentTemplate>
                 </asp:UpdatePanel>            
-            </div>            
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid3" GridLines="None" AutoGenerateColumns="false" PageSize="4"  Skin="Material"
+            </div>            --%>
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid3" GridLines="None" AutoGenerateColumns="false" PageSize="4"  Skin="Telerik"
                 AllowPaging="true" AllowSorting="true" runat="server" 
                 OnNeedDataSource="RadGrid3_NeedDataSource"
                 OnInsertCommand="RadGrid3_InsertCommand" 
@@ -273,10 +274,11 @@
                 ShowStatusBar="true">
                 <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                 <HeaderStyle CssClass="gridHeader"/>
-                <MasterTableView CommandItemDisplay="none" DataKeyNames="sro_code,part_code" Font-Size="12px" EditMode="InPlace" BorderStyle="Solid" BorderColor="Silver" bo BorderWidth="1px"
-                    ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" 
+                <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
+                <MasterTableView CommandItemDisplay="Top" DataKeyNames="sro_code,part_code" Font-Size="12px" EditMode="InPlace" BorderStyle="Solid" 
+                    BorderColor="Silver" BorderWidth="1px" ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" 
                     HeaderStyle-BorderStyle="Solid" HeaderStyle-BorderColor="Teal">
-                    <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" AddNewRecordText="Insert Item" />
+                    <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="true" AddNewRecordText="New" />
                     <%--<GroupByExpressions>
                         <telerik:GridGroupByExpression>
                             <SelectFields>
@@ -424,8 +426,7 @@
                                 </telerik:RadNumericTextBox>
                             </InsertItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridTemplateColumn HeaderText="QRS" HeaderStyle-Width="70px" ItemStyle-Width="70px" HeaderStyle-HorizontalAlign="Center" 
-                                >
+                        <telerik:GridTemplateColumn HeaderText="QRS" HeaderStyle-Width="70px" ItemStyle-Width="70px" HeaderStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lbl_qtyRs" Text='<%# DataBinder.Eval(Container.DataItem, "part_qty", "{0:#,###,###0.00}") %>'>
                                 </asp:Label>
@@ -488,7 +489,7 @@
                             </InsertItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" 
-                            ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px">
+                            ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px" ItemStyle-ForeColor="Red">
                         </telerik:GridButtonColumn>
                     </Columns>
                 </MasterTableView>

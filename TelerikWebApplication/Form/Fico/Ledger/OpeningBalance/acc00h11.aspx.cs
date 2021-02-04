@@ -27,7 +27,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.OpeningBalance
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ThnAwal - 1 FROM inv00h15";
+                cmd.CommandText = "SELECT ThnAwal FROM inv00h15";
                 SqlDataReader dr;
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
@@ -44,23 +44,24 @@ namespace TelerikWebApplication.Form.Fico.Ledger.OpeningBalance
 
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(cb_year.Text);
+            (sender as RadGrid).DataSource = GetDataTable(Convert.ToInt32(cb_year.Text));
             //(sender as RadGrid).DataSource = "";
         }
-        public DataTable GetDataTable(String periode)
+        public DataTable GetDataTable(int periode)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-
+            int last_periode = 0;
+            last_periode = periode - 1;
             cmd.CommandText = "SELECT acc00h11.account_no, acc00h11.month, acc00h11.year, acc00h12.balance, acc00h10.cur_code,  " +
                               "acc00h10.accountname,acc00h11.yearmonth, acc00h11.sl_credit_usd, acc00h11.sl_credit_idr, " +
                               "acc00h11.sl_debet_usd, acc00h11.sl_debet_idr, acc00h11.kurs " +
                               "FROM  acc00h11 INNER JOIN acc00h10 ON acc00h11.account_no = acc00h10.accountno INNER JOIN " +
                               "acc00h12 ON acc00h10.accountgroup = acc00h12.accountgroup " +
                               "WHERE  (acc00h11.month = 12)  " +
-                              "AND (acc00h11.year = " + periode + ") " +
+                              "AND (acc00h11.year = " + last_periode + ") " +
                               "ORDER BY acc00h11.account_no";
             //"WHERE  (acc00h11.month = MONTH(DATEADD(MONTH, DATEDIFF(MONTH, 0, '" + periode + "'), -1)))  " +
             //"AND (acc00h11.year = YEAR(DATEADD(MONTH, DATEDIFF(MONTH, 0, '" + periode + "'), -1))) " +
@@ -104,7 +105,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.OpeningBalance
                
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            RadGrid1.DataSource = GetDataTable(cb_year.Text);
+            RadGrid1.DataSource = GetDataTable(Convert.ToInt32(cb_year.Text));
             RadGrid1.DataBind();
             btnNew.Enabled = false;
             btnNew.ImageUrl = "~/Images/tambah-gray.png";
@@ -189,7 +190,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.OpeningBalance
                 cmd.Parameters.AddWithValue("@sa_credit_usd", Convert.ToDecimal((item.FindControl("lbl_credit_valas") as RadLabel).Text));
                 cmd.Parameters.AddWithValue("@account_no", (item.FindControl("lbl_account") as RadLabel).Text);
                 cmd.Parameters.AddWithValue("@month", 12);
-                cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cb_year.SelectedValue));
+                cmd.Parameters.AddWithValue("@year", Convert.ToInt32(cb_year.SelectedValue)-1);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 RadGrid1.DataBind();

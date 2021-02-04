@@ -94,24 +94,6 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal {
         protected global::System.Web.UI.WebControls.RadioButtonList rblPost;
         
         /// <summary>
-        /// chkCash control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkCash;
-        
-        /// <summary>
-        /// chkBank control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkBank;
-        
-        /// <summary>
         /// chkGR control.
         /// </summary>
         /// <remarks>
@@ -139,15 +121,6 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal {
         protected global::System.Web.UI.WebControls.CheckBox chkPurchase;
         
         /// <summary>
-        /// chkAsset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkAsset;
-        
-        /// <summary>
         /// chkSales control.
         /// </summary>
         /// <remarks>
@@ -155,6 +128,51 @@ namespace TelerikWebApplication.Form.Security.Posting.Journal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkSales;
+        
+        /// <summary>
+        /// chkCash control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkCash;
+        
+        /// <summary>
+        /// chkBank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkBank;
+        
+        /// <summary>
+        /// chkAP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkAP;
+        
+        /// <summary>
+        /// chkAR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkAR;
+        
+        /// <summary>
+        /// chkAsset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkAsset;
         
         /// <summary>
         /// RadAjaxManager1 control.

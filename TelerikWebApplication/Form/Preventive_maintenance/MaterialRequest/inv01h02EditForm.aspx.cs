@@ -759,7 +759,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "MR03" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
+                        //run = "MR03" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
+                        run = "MR03" + (dtp_date.SelectedDate.Value.Year.ToString()).Substring(dtp_date.SelectedDate.Value.Year.ToString().Length - 2) +
+                            ("0000" + dtp_date.SelectedDate.Value.Month).Substring(("0000" + dtp_date.SelectedDate.Value.Month).Length - 2, 2) +("0001");
                     }
                     else if (sdr.Read())
                     {
@@ -795,7 +797,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd.Parameters.AddWithValue("@status", 1);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
-                cmd.Parameters.AddWithValue("@Printed", 1);
+                cmd.Parameters.AddWithValue("@Printed", 0);
                 cmd.Parameters.AddWithValue("@Edited", 0);
                 cmd.Parameters.AddWithValue("@void", 3);
                 cmd.ExecuteNonQuery();

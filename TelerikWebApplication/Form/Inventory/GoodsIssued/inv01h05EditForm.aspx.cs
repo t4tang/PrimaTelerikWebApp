@@ -287,7 +287,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     }
                     cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@type_out", "N");
-                    cmd.Parameters.AddWithValue("@date", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@date", string.Format("{0:yyyy-MM-dd}", dtp_date.SelectedDate.Value));
                     cmd.ExecuteNonQuery();
                 }
 
