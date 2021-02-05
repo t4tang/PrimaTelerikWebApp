@@ -436,19 +436,35 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from v_invoice_incoming_reff where po_code = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            if (cb_from_type.Text == "Purchase Order")
             {
-                (sender as RadComboBox).Text = dr["po_code"].ToString();
-                cb_cost_center.SelectedValue = dr["dept_code"].ToString();
-                cb_cost_center.Text = dr["CostCenterName"].ToString();
-                txt_remark.Text = dr["remark"].ToString();
-                //txt_po_date.Text = dr["Po_date"].ToString();
+                cmd.CommandText = "select * from v_invoice_incoming_reff where po_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    (sender as RadComboBox).Text = dr["po_code"].ToString();
+                    cb_cost_center.SelectedValue = dr["dept_code"].ToString();
+                    cb_cost_center.Text = dr["CostCenterName"].ToString();
+                    txt_remark.Text = dr["remark"].ToString();
+                    //txt_po_date.Text = dr["Po_date"].ToString();
+                }
+            }
+            else
+            {
+                cmd.CommandText = "select * from v_invoice_incoming_reffC where po_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    (sender as RadComboBox).Text = dr["po_code"].ToString();
+                    cb_cost_center.SelectedValue = dr["region_code"].ToString();
+                    cb_cost_center.Text = dr["CostCenterName"].ToString();
+                    txt_remark.Text = dr["remark"].ToString();
+                    //txt_po_date.Text = dr["Po_date"].ToString();
+                }
             }
 
-            //dr.Close();
+            dr.Close();
             con.Close();
 
             RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
@@ -463,28 +479,43 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
         #region PO_Refference
 
-        protected void LoadRef(string po_code, string project, RadComboBox cb)
+        protected void LoadRef(string po_code, string project, string fromtype, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_invoice_incoming_reff WHERE PlantCode = @region_code " +
-                "AND po_code LIKE @text + '%' ORDER BY po_code",
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
-            adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+
+            if (fromtype == "Purchase Order") 
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_invoice_incoming_reff WHERE PlantCode = @region_code " +
+                "AND po_code LIKE @text + '%' ORDER BY po_code",
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
+                adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
+                //DataTable dt = new DataTable();
+                adapter.Fill(dt); 
+            }
+            else
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Tgl, remark FROM v_invoice_incoming_reffC WHERE region_code = @region_code " +
+                "AND po_code LIKE @text + '%' ORDER BY po_code",
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
+                adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
+                //DataTable dt = new DataTable();
+                adapter.Fill(dt);
+            }
 
             cb.DataTextField = "po_code";
             cb.DataValueField = "po_code";
             cb.DataSource = dt;
             cb.DataBind();
+            
         }
         protected void cb_reff_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            LoadRef(e.Text, cb_project.SelectedValue, cb_from_type.Text, (sender as RadComboBox));
         }
 
         public DataTable GetDataRefDetailTable(string po_code)
