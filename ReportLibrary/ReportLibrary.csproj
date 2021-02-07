@@ -81,6 +81,12 @@
     <Compile Include="Reports\Fico\ProfitAndLostDetailAllSite.Designer.cs">
       <DependentUpon>ProfitAndLostDetailAllSite.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Fico\BalanceSheet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\BalanceSheet.Designer.cs">
+      <DependentUpon>BalanceSheet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Fico\ReportCatalog.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,6 +122,18 @@
     </Compile>
     <Compile Include="Reports\Fico\rpt_payment_request_monitoring.Designer.cs">
       <DependentUpon>rpt_payment_request_monitoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\SubReport\balance_sheet_passiva.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\SubReport\balance_sheet_passiva.Designer.cs">
+      <DependentUpon>balance_sheet_passiva.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\SubReport\balance_sheet_activa.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\SubReport\balance_sheet_activa.Designer.cs">
+      <DependentUpon>balance_sheet_activa.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Fico\TrialBalance.cs">
       <SubType>Component</SubType>
@@ -233,6 +251,9 @@
     <EmbeddedResource Include="Reports\Fico\ProfitAndLostDetailAllSite.resx">
       <DependentUpon>ProfitAndLostDetailAllSite.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\BalanceSheet.resx">
+      <DependentUpon>BalanceSheet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Fico\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
     </EmbeddedResource>
@@ -250,6 +271,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Fico\rpt_payment_request_monitoring.resx">
       <DependentUpon>rpt_payment_request_monitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\SubReport\balance_sheet_passiva.resx">
+      <DependentUpon>balance_sheet_passiva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\SubReport\balance_sheet_activa.resx">
+      <DependentUpon>balance_sheet_activa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Fico\TrialBalance.resx">
       <DependentUpon>TrialBalance.cs</DependentUpon>
