@@ -152,7 +152,7 @@
                     <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
                         Height="20px" Width="23px" ImageUrl="~/Images/filter.png"></asp:ImageButton>
                 </td>
-                <td style="width: 97%; text-align: right">
+                <td style="width: 97%; text-align: right; padding-right:17px"">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
                         padding-bottom: 0px; font-size: x-large; color:#7cca05; font-weight:normal">
                     </telerik:RadLabel>
@@ -161,26 +161,27 @@
         </table>
     </div>    
 
-    <div class="scroller" runat="server">
-        <div runat="server" style="height:365px">
+    <div class="scroller" runat="server" style="overflow-y:scroll; height:620px">
+        <div runat="server" style="height:470px;">
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
-                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="7" MasterTableView-GridLines="None" 
+                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="10" MasterTableView-GridLines="None"  
                 OnNeedDataSource="RadGrid1_NeedDataSource" 
                 OnDeleteCommand="RadGrid1_DeleteCommand" 
                 OnItemCreated="RadGrid1_ItemCreated"
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged"
                 OnPreRender="RadGrid1_PreRender">
-                <PagerStyle Mode="Slider" VerticalAlign="NotSet" PageSizeControlType="RadComboBox"></PagerStyle>                
+                <PagerStyle Mode="NextPrevAndNumeric" VerticalAlign="NotSet" PageSizeControlType="RadComboBox"></PagerStyle>                
                 <HeaderStyle CssClass="gridHeader" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                 <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
                 <SortingSettings EnableSkinSortStyles="false" />
+                <ClientSettings EnablePostBackOnRowClick="true" />
                 <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="lbm_code" Font-Size="11px"
-                EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowRefreshButton="False" 
-                CommandItemSettings-ShowAddNewRecordButton="False">
-                <SortExpressions >
+                EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
+                CommandItemSettings-ShowRefreshButton="false">
+                <%--<SortExpressions >
                     <telerik:GridSortExpression FieldName="lbm_code" SortOrder="Ascending" />
-                </SortExpressions>                
+                </SortExpressions>  --%>              
                 <Columns>
                     <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="20px" ></telerik:GridClientSelectColumn> 
                     <telerik:GridBoundColumn UniqueName="lbm_code" HeaderText="GR No." DataField="lbm_code" ItemStyle-Width="100px" FilterControlWidth="90px" 

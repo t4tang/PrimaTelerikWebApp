@@ -263,6 +263,11 @@
                                         </asp:UpdatePanel>
                                     </td>
                                 </tr>
+                               <tr>
+                                   <td>
+                                       <asp:CheckBox ID="chk_posting" runat="server" Checked="false" Text="Posting" CssClass="lbObject"/>
+                                   </td>
+                               </tr>   
                             </table>
                         </td>
                     </tr>

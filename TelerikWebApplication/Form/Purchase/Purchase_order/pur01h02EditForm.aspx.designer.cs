@@ -49,15 +49,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
-        /// btn_save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
-        
-        /// <summary>
         /// txt_po_code control.
         /// </summary>
         /// <remarks>
@@ -490,6 +481,60 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::System.Web.UI.WebControls.CheckBox cb_mon_order;
         
         /// <summary>
+        /// txt_sub_total control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_sub_total;
+        
+        /// <summary>
+        /// txt_tax1_value control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_tax1_value;
+        
+        /// <summary>
+        /// txt_tax2_value control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_tax2_value;
+        
+        /// <summary>
+        /// txt_tax3_value control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_tax3_value;
+        
+        /// <summary>
+        /// txt_other_value control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_other_value;
+        
+        /// <summary>
+        /// txt_total control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_total;
+        
+        /// <summary>
         /// txt_uid control.
         /// </summary>
         /// <remarks>
@@ -506,33 +551,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTextBox txt_lastUpdate;
-        
-        /// <summary>
-        /// txt_sub_total control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox txt_sub_total;
-        
-        /// <summary>
-        /// txt_tax2_value control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox txt_tax2_value;
-        
-        /// <summary>
-        /// txt_other_value control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox txt_other_value;
         
         /// <summary>
         /// txt_owner control.
@@ -562,31 +580,13 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadTextBox txt_edited;
         
         /// <summary>
-        /// txt_tax1_value control.
+        /// btn_save control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox txt_tax1_value;
-        
-        /// <summary>
-        /// txt_tax3_value control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox txt_tax3_value;
-        
-        /// <summary>
-        /// txt_total control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox txt_total;
+        protected global::Telerik.Web.UI.RadButton btn_save;
         
         /// <summary>
         /// panel2 control.
@@ -614,42 +614,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadNotification RadNotification1;
-        
-        /// <summary>
-        /// lbl_userId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_userId;
-        
-        /// <summary>
-        /// lbl_lastUpdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_lastUpdate;
-        
-        /// <summary>
-        /// lbl_Owner control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_Owner;
-        
-        /// <summary>
-        /// lbl_edited control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_edited;
         
         /// <summary>
         /// notif control.

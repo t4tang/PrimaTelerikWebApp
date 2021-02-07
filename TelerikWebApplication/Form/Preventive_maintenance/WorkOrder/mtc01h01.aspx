@@ -286,76 +286,7 @@
                 </telerik:RadTab>               
             </Tabs>
             </telerik:RadTabStrip>
-            <telerik:RadMultiPage runat="server" ID="RadMultiPage1"  SelectedIndex="0" Width="98.5%" >
-                <%--<telerik:RadPageView runat="server" ID="RadPageView1" Height="190px">
-                    <table>
-                        <tr>
-                            <td>
-                                <telerik:RadLabel runat="server" Text="Comp. Group:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                                <asp:RequiredFieldValidator runat="server" ID="projectValidator" ControlToValidate="cb_compGroup" ForeColor="Red" 
-                                Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
-                            </td>
-                            <td>
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_compGroup" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
-                                    Font-Size="Small" >
-                                </telerik:RadComboBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <telerik:RadLabel runat="server" Text="Comp.:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="cb_comp" ForeColor="Red" 
-                                Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
-                            </td>
-                            <td>
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_comp" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
-                                    Font-Size="Small" >
-                                </telerik:RadComboBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <telerik:RadLabel runat="server" Text="Diagnosis :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="cb_diagnosis" ForeColor="Red" 
-                                Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
-                            </td>
-                            <td>
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_diagnosis" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
-                                    Font-Size="Small" >
-                                </telerik:RadComboBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <telerik:RadLabel runat="server" Text="Symptom :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ControlToValidate="cb_symptom" ForeColor="Red" 
-                                Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
-                            </td>
-                            <td>
-                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_symptom" runat="server" Width="300" DropDownWidth="300px"
-                                    AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
-                                    Font-Size="13px" >
-                                </telerik:RadComboBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <telerik:RadLabel runat="server" Text="Job Description :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="txt_jobDesc" ForeColor="Red" 
-                                Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
-                            </td>
-                            <td>
-                                <telerik:RadTextBox ID="txt_jobDesc"
-                                    runat="server" TextMode="MultiLine" Font-Size="13px"
-                                    Width="450px" Rows="0" TabIndex="5" Resize="Both">
-                                </telerik:RadTextBox>
-                            </td>
-                        </tr>
-                    </table>                    
-                </telerik:RadPageView>--%>
+            <telerik:RadMultiPage runat="server" ID="RadMultiPage1"  SelectedIndex="0" Width="98.5%" >                
                 <telerik:RadPageView runat="server" ID="RadPageView2" Height="270px">
                     <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="3"  Skin="Telerik"
                         AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True"  

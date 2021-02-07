@@ -858,5 +858,48 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
                 e.Canceled = true;
             }
         }
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Session["actionEdit"].ToString() == "edit")
+            {
+                (sender as RadGrid).DataSource = GetDataTable(txt_gr_number.Text);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+        }
+        public DataTable GetDataTable(string doc_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_goods_receive_journal";
+            cmd.Parameters.AddWithValue("@doc_code", doc_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return DT;
+        }
+        protected void RadGrid3_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+        }
     }
 }

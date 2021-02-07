@@ -200,7 +200,21 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
             try
             {
-                lblErrorDescription.Text = "";
+                string x = dtp_date.SelectedDate.Value.ToString("MM");
+                string y = public_str.perend.Substring(3, 2);
+
+                if (chk_posting.Checked == true)
+                {
+                    RadWindowManager1.RadAlert("This transaction has been posted", 500, 200, "Error", null, "~/Images/error.png");
+                    return;
+                }
+                else if (x != y)
+                {
+                    RadWindowManager1.RadAlert("Transaction date outside the transaction period", 500, 200, "Error", null, "~/Images/error.png");
+                    return;
+                }
+
+                //lblErrorDescription.Text = "";
 
                 if (Session["actionEdit"].ToString() == "edit")
                 {
@@ -300,8 +314,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             }
             catch (Exception ex)
             {
-                lblErrorDescription.Text = "Error: " + prod_code +" " + ex.Message.ToString();
-                //RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "");
+                //lblErrorDescription.Text = "Error: " + prod_code +" " + ex.Message.ToString();
+                RadWindowManager1.RadAlert(ex.Message, 500, 200, "Error",null);
                 //notif.Text = "Error: " + ex;
                 //notif.ForeColor = System.Drawing.Color.Red;
                 //notif.Title = "Notification";
@@ -819,8 +833,57 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             dr.Close();
             con.Close();
         }
+
         #endregion
 
-       
+        protected void btnJournal_Click(object sender, EventArgs e)
+        {
+            //btnJournal.Attributes["OnClick"] = String.Format("return ShowJournal('{0}');", txt_gi_number.Text);
+        }
+
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if(Session["actionEdit"].ToString() == "edit")
+            {
+                (sender as RadGrid).DataSource = GetDataTable(txt_gi_number.Text);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource=new string[] { };
+            }
+        }
+        public DataTable GetDataTable(string doc_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_goods_issued_journal";
+            cmd.Parameters.AddWithValue("@doc_code", doc_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return DT;
+        }
+
+        protected void RadGrid3_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+        }
     }
 }

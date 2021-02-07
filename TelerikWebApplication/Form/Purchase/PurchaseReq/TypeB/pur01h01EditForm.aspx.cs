@@ -95,7 +95,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             {
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
                 //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
-                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 263;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 230;
             }
         }
 

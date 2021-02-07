@@ -1536,5 +1536,43 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
             (sender as RadComboBox).Items.Add("Credit");
             (sender as RadComboBox).Items.Add("COD");
         }
+
+        protected void cb_tax2_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax2.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb_tax1.SelectedValue = dr["TAX_CODE"].ToString();
+                txt_po_tax.Value = Convert.ToDouble(dr["TAX_PERC"].ToString());
+            }
+
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_tax3_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax3.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb_tax1.SelectedValue = dr["TAX_CODE"].ToString();
+                txt_ppph.Value = Convert.ToDouble(dr["TAX_PERC"].ToString());
+            }
+
+            dr.Close();
+            con.Close();
+        }
     }
 }

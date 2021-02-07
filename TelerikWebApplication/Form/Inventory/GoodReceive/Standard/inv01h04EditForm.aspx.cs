@@ -69,7 +69,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
                 lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
                 lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
-                //chk_posting.Text = sdr["status_post"].ToString();
+                chk_posting.Checked = Convert.ToBoolean(sdr["status_post"].ToString());
 
             }
             con.Close();
@@ -121,9 +121,24 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
 
             try
             {
+                string x = dtp_gr.SelectedDate.Value.ToString("MM");
+                string y = public_str.perend.Substring(3, 2);
+
+                if (chk_posting.Checked == true)
+                {
+                    RadWindowManager2.RadAlert("This transaction has been posted", 500, 200, "Error", null, "~/Images/error.png");
+                    return;
+                }                
+                else if (x != y)
+                {
+                    RadWindowManager2.RadAlert("Transaction date outside the transaction period", 500, 200, "Error", null, "~/Images/error.png");
+                    return;
+                }
+
                 if (Session["actionEdit"].ToString() == "edit")
                 {
                     run = txt_gr_number.Text;
+                    
                 }
                 else
                 {
@@ -204,6 +219,23 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                     }
 
                     cmd.ExecuteNonQuery();
+
+                    con.Close();
+                    notif.Text = "Data berhasil disimpan";
+                    notif.Title = "Notification";
+                    notif.Show();
+                    txt_gr_number.Text = run;
+
+                    if (Session["actionEdit"].ToString() == "edit")
+                    {
+                        ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    }
+                    inv01h04.tr_code = run;
+                    inv01h04.selected_project = cb_project.SelectedValue;
                 }
             }
             catch (System.Exception ex)
@@ -211,25 +243,25 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 con.Close();
                 RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
             }
-            finally
-            {
-                con.Close();
-                notif.Text = "Data berhasil disimpan";
-                notif.Title = "Notification";
-                notif.Show();
-                txt_gr_number.Text = run;
+            //finally
+            //{
+            //    con.Close();
+            //    notif.Text = "Data berhasil disimpan";
+            //    notif.Title = "Notification";
+            //    notif.Show();
+            //    txt_gr_number.Text = run;
 
-                if (Session["actionEdit"].ToString() == "edit")
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                }
-                else
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                }
-                inv01h04.tr_code = run;
-                inv01h04.selected_project = cb_project.SelectedValue;
-            }
+            //    if (Session["actionEdit"].ToString() == "edit")
+            //    {
+            //        ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+            //    }
+            //    else
+            //    {
+            //        ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+            //    }
+            //    inv01h04.tr_code = run;
+            //    inv01h04.selected_project = cb_project.SelectedValue;
+            //}
         }
 
         #region Supplier
@@ -833,12 +865,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
-            else
-            {
-                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
-                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
-                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 225;
-            }
+            //else
+            //{
+            //    (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+            //    //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+            //    (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 225;
+            //}
         }
 
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
@@ -897,6 +929,50 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             LoadLocation(e.Text, cb_warehouse.SelectedValue, (sender as RadComboBox));
         }
         #endregion
-        
+
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Session["actionEdit"].ToString() == "edit")
+            {
+                (sender as RadGrid).DataSource = GetDataTable(txt_gr_number.Text);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+        }
+        public DataTable GetDataTable(string doc_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_goods_receive_journal";
+            cmd.Parameters.AddWithValue("@doc_code", doc_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return DT;
+        }
+
+        protected void RadGrid3_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+        }
     }
 }

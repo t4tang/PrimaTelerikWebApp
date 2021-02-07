@@ -65,6 +65,7 @@ namespace TelerikWebApplication
                     public_str.Accperend = dr["Accperend"].ToString();
                     public_str.Fuelstart = dr["Fuelstart"].ToString();
                     public_str.Fuelend = dr["Fuelend"].ToString();
+
                     Session["UID"] = txt_uid.Text;
                     Response.Redirect("~/default.aspx");
                 }

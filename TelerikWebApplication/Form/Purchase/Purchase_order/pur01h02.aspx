@@ -165,7 +165,7 @@
     </div>   
 
     <div class="scroller" runat="server">        
-        <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Material"
+        <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
             AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="7"
             OnNeedDataSource="RadGrid1_NeedDataSource" 
             OnPreRender="RadGrid1_PreRender" 
@@ -233,9 +233,11 @@
                                 <asp:ImageButton ID="PrintLink" runat="server" Height="20px" Width="20px" ImageUrl="~/Images/cetak.png" ToolTip="Print" />
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
+                        <%--<telerik:GridClientDeleteColumn ConfirmText="Are you sure you want to delete the selected row?" UniqueName="DeleteColumn" 
+                                HeaderStyle-Width="35px" ButtonType="ImageButton" CommandName="Delete" />--%>
                         <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete"
                             ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="25px"
-                            ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton" ItemStyle-ForeColor="#66CCFF">
+                            ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="Classic" ButtonType="FontIconButton" ItemStyle-ForeColor="Red">
                         </telerik:GridButtonColumn>
                     </Columns>
                 </MasterTableView>
@@ -255,14 +257,14 @@
                     OnUpdateCommand="RadGrid2_UpdateCommand"
                     OnDeleteCommand="RadGrid2_DeleteCommand"> 
                     <PagerStyle Mode="NumericPages" BackColor="Yellow" />  
-                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="11px" EditMode="InPlace"
+                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="po_code,Prod_code" Font-Size="11px" EditMode="InPlace"
                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="false" />                                                 
                         <Columns>
-                            <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  HeaderStyle-ForeColor="#009900"
+                           <%-- <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  HeaderStyle-ForeColor="#009900"
                                 HeaderText="Edit" HeaderStyle-Width="30px" ItemStyle-Width="70px" ItemStyle-HorizontalAlign="Left" UpdateText="Update" HeaderStyle-HorizontalAlign="Left">
-                            </telerik:GridEditCommandColumn>
-                            <telerik:GridTemplateColumn HeaderText="Type" HeaderStyle-HorizontalAlign="Left" HeaderStyle-Width="40px" ItemStyle-HorizontalAlign="Left"  ItemStyle-Width="40px" 
+                            </telerik:GridEditCommandColumn>--%>
+                            <telerik:GridTemplateColumn HeaderText="Type" HeaderStyle-HorizontalAlign="Left" HeaderStyle-Width="40px" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="40px" 
                                 HeaderStyle-ForeColor="#009900">
                                 <ItemTemplate>  
                                     <%#DataBinder.Eval(Container.DataItem, "prod_type")%>
@@ -458,7 +460,7 @@
                                     </asp:Label>
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridButtonColumn ConfirmText="Delete this product?" ConfirmDialogType="RadWindow"
+                            <telerik:GridButtonColumn ConfirmText="Delete this product?" ConfirmDialogType="Classic" ItemStyle-ForeColor="Red"
                                 ConfirmTitle="Delete" HeaderStyle-Width="20px" ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center"
                                 CommandName="Delete" Text="Delete" UniqueName="DeleteColumn">
                             </telerik:GridButtonColumn>

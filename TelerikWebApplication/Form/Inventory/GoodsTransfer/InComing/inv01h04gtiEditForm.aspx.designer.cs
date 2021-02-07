@@ -292,6 +292,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::Telerik.Web.UI.RadTextBox txt_remark;
         
         /// <summary>
+        /// chk_posting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk_posting;
+        
+        /// <summary>
         /// panel2 control.
         /// </summary>
         /// <remarks>

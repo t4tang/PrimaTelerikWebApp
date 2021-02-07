@@ -186,6 +186,20 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
             {
                 lblErrorDescription.Text = "";
 
+                string x = dtp_date.SelectedDate.Value.ToString("MM");
+                string y = public_str.perend.Substring(3, 2);
+
+                if (chk_posting.Checked == true)
+                {
+                    RadWindowManager2.RadAlert("This transaction has been posted", 500, 200, "Error", null, "~/Images/error.png");
+                    return;
+                }
+                else if (x != y)
+                {
+                    RadWindowManager2.RadAlert("Transaction date outside the transaction period", 500, 200, "Error", null, "~/Images/error.png");
+                    return;
+                }
+
                 if (Session["actionEdit"].ToString() == "edit")
                 {
                     run = txt_gi_number.Text;

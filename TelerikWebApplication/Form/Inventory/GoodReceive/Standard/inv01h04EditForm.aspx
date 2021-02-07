@@ -43,7 +43,7 @@
          font-size:11px;
          color:black;
          font-style:italic;
-         background-color:greenyellow;
+         /*background-color:greenyellow;*/
          font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif;
        }
    </style>
@@ -85,8 +85,10 @@
                         <table>
                             <tr>
                                 <td colspan="2" style="padding:0px 0px 5px 5px">
-                                    <telerik:RadButton ID="btn_save" runat="server" Text="Save" BackColor="#ff6600" ForeColor="White" Width="80px" Height="28px"
-                                    OnClick="btnSave_Click" Skin="Material"></telerik:RadButton>
+                                    <%--<telerik:RadButton ID="btn_save" runat="server" Text="Save" BackColor="#ff6600" ForeColor="White" Width="80px" Height="28px"
+                                    OnClick="btnSave_Click" Skin="Material"></telerik:RadButton>--%>
+                                    <asp:ImageButton runat="server" ID="btnSave" AlternateText="New" OnClick="btnSave_Click" ToolTip="Save" Visible="true"
+                                    Height="30px" Width="32px" ImageUrl="~/Images/simpan.png"></asp:ImageButton>
                                 </td>
                             </tr>
                             <tr style="vertical-align: top; width:auto">                               
@@ -147,7 +149,7 @@
                                <td>
                                    <telerik:RadLabel runat="server" Text="Supplier:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                               </td>
-                                <td style="width:380px">  
+                                <td style="width:310px">  
                                      <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                         <ContentTemplate>
                                          <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="250px" DropDownWidth="250px"
@@ -160,6 +162,11 @@
                                     </asp:UpdatePanel>
                                 </td>
                            </tr>
+                        </table>
+                    </td>
+                    <td style="vertical-align:top; width:auto">
+                        <table>
+                            
                             <tr>
                                <td style="width:auto">
                                    <telerik:RadLabel runat="server" Text="PO Refference:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
@@ -230,10 +237,6 @@
                                 </asp:UpdatePanel>
                                 </td>
                             </tr>
-                        </table>
-                    </td>
-                    <td style="vertical-align:top; width:auto">
-                        <table>
                             <tr>
                                 <td>
                                    <telerik:RadLabel runat="server" Text="Cost Center:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
@@ -314,12 +317,12 @@
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Remark:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                 </td>
-                                <td>
+                                <td style="width:350px">
                                     <asp:UpdatePanel ID="UpdatePanel7" runat="server">
                                         <ContentTemplate>
                                             <telerik:RadTextBox ID="txt_remark"
                                                 runat="server" TextMode="MultiLine"
-                                                Width="350px" Rows="0" TabIndex="5" Resize="Both">
+                                                Width="300px" Rows="0" TabIndex="5" Resize="Both">
                                             </telerik:RadTextBox>
                                         </ContentTemplate>
                                         <Triggers>
@@ -327,7 +330,12 @@
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </td>
-                            </tr>              
+                            </tr>                           
+                        </table>
+                    </td>
+                    <td style="vertical-align:top; width:auto">
+                        <table>
+                                          
                             <tr>
                                 <td style="vertical-align: top; text-align: left">
                                     <telerik:RadLabel runat="server" Text="Created By:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
@@ -465,23 +473,61 @@
                                     </Triggers>
                                     </asp:UpdatePanel>  
                                 </td>
-                            </tr>                            
+                            </tr> 
+                            <tr>
+                                <td colspan="2" style="vertical-align:central">
+                                    <asp:CheckBox ID="chk_posting" runat="server" Checked="false" Text="Posting" Enabled="false" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="padding-top:15px"> 
+                                    <telerik:RadLabel runat="server" ID="lbl_userId" Width="100px" Text="User: " CssClass="lblEditInfo" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <telerik:RadLabel runat="server" ID="lbl_lastUpdate" Width="220px" Text="Last Update: " CssClass="lblEditInfo"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> 
+                                    <telerik:RadLabel runat="server" ID="lbl_Owner" Width="100px" Text="Owner: " CssClass="lblEditInfo"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <telerik:RadLabel runat="server" ID="lbl_edited" Width="100px" Text="Edited: " CssClass="lblEditInfo"/>
+                                </td>
+                            </tr>        
                         </table>
                     </td>
                 </tr>                  
                </table>
             </div>            
             
-            <div style="padding: 25px 15px 15px 15px; height:250px">
+            <div style="padding: 5px 15px 15px 15px; height:360px">
+            <telerik:RadTabStrip RenderMode="Lightweight" runat="server" ID="RadTabStrip1"  Orientation="HorizontalTop" Width="98.5%" 
+            SelectedIndex="0" MultiPageID="RadMultiPage1" Skin="Telerik" CausesValidation="false">
+                <Tabs>
+                    <telerik:RadTab Text="Detail" Height="10px" >
+                    </telerik:RadTab>
+                    <telerik:RadTab Text="Journal" Height="10px"> 
+                    </telerik:RadTab>            
+                </Tabs>
+            </telerik:RadTabStrip>
+            <telerik:RadMultiPage runat="server" SelectedIndex="0" ID="RadMultiPage1" >
+                <telerik:RadPageView runat="server" ID="PageView1" Height="350px">
                  <asp:UpdatePanel ID="panel2" runat="server" UpdateMode="Always">
                       <ContentTemplate>
-                            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
-                            AllowPaging="false" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" Width="1200px"
+                            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" PageSize="10" runat="server" Skin="Telerik"
+                                HeaderStyle-Font-Size="Small" HeaderStyle-Font-Bold="true" ItemStyle-Font-Size="small" Font-Size="Small"
+                                Font-Names="Segoe UI" CellSpacing="0" 
                                 OnNeedDataSource="RadGrid2_NeedDataSource"
-                                OnPreRender="RadGrid2_PreRender" OnDeleteCommand="RadGrid2_DeleteCommand">
+                                OnPreRender="RadGrid2_PreRender" 
+                                OnDeleteCommand="RadGrid2_DeleteCommand">
                                 <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="11px" EditMode="Batch"
-                                  AllowAutomaticUpdates="true" AllowAutomaticInserts="true" AllowAutomaticDeletes="true"
+                                  AllowAutomaticUpdates="true" AllowAutomaticInserts="true" AllowAutomaticDeletes="true" HeaderStyle-Font-Bold="false"
                                 ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item" 
                                 CommandItemSettings-ShowRefreshButton="False" ItemStyle-ForeColor="#006600">
                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="False" ShowCancelChangesButton="false" />
@@ -581,7 +627,7 @@
                                     </Columns>
                                 </MasterTableView>  
                                 <ClientSettings>
-                                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="192px" />
+                                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="310px" />
                                     <Selecting AllowRowSelect="true"></Selecting>                    
                                 </ClientSettings>
                             </telerik:RadGrid>
@@ -593,9 +639,56 @@
                         <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged"></asp:AsyncPostBackTrigger>
                     </Triggers>
                     </asp:UpdatePanel>
+                </telerik:RadPageView>
+                <telerik:RadPageView runat="server" ID="RadPageView1" Height="350px">
+                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid3" GridLines="None" PageSize="10" runat="server" Skin="Telerik"  
+                        HeaderStyle-Font-Size="Small" HeaderStyle-Font-Bold="true" ItemStyle-Font-Size="small" Font-Size="Small"
+                        Font-Names="Segoe UI" CellSpacing="0" 
+                        OnNeedDataSource="RadGrid3_NeedDataSource" 
+                        OnPreRender="RadGrid3_PreRender">
+                        <MasterTableView DataKeyNames="nomor" HeaderStyle-ForeColor="Teal"
+                            HorizontalAlign="NotSet" AutoGenerateColumns="False">
+                            <SortExpressions>
+                                <telerik:GridSortExpression FieldName="nomor" SortOrder="Descending" />
+                            </SortExpressions>
+                            <ColumnGroups>
+                                <telerik:GridColumnGroup Name="IDR" HeaderText="IDR"
+                                    HeaderStyle-HorizontalAlign="Center" />
+                                <telerik:GridColumnGroup Name="Valas" HeaderText="Valas"
+                                    HeaderStyle-HorizontalAlign="Center" />
+                            </ColumnGroups>
+                            <Columns>
+                                <telerik:GridBoundColumn DataField="accountcode" HeaderStyle-Width="100px" HeaderText="Account No." SortExpression="accountcode"
+                                    UniqueName="accountcode" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="70px" 
+                                    HeaderStyle-BackColor="#00ABE3" >                                
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="accountname" HeaderStyle-Width="250px" HeaderText="Account Name" SortExpression="accountname"
+                                    UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center"
+                                    HeaderStyle-BackColor="#00ABE3" >                                
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="debet" HeaderStyle-Width="100px" HeaderText="Debet" SortExpression="debet"
+                                    UniqueName="debet" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#00ABE3" 
+                                    DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="credit" HeaderStyle-Width="100px" HeaderText="Credit" SortExpression="credit"
+                                    UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#00ABE3" 
+                                    DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#FF6600">                                
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="remark" HeaderStyle-Width="200px" HeaderText="Remark" SortExpression="remark"
+                                    UniqueName="remark" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#00ABE3" >
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                        </MasterTableView>
+                        <ClientSettings AllowKeyboardNavigation="true">
+                            <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="310px" />
+                            <Selecting AllowRowSelect="true"></Selecting>     
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                </telerik:RadPageView>
+            </telerik:RadMultiPage>
             </div>
 
-            <div style="padding: 5px 15px 5px 15px;" runat="server" >
+            <%--<div style="padding: 5px 15px 5px 15px;" runat="server" >
                 <table>
                     <tr>
                         <td style="padding: 0px 10px 0px 10px" > 
@@ -615,7 +708,7 @@
                         </td>
                     </tr>                   
                 </table>
-            </div>
+            </div>--%>
             
     </div>
         <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Data telah disimpan" Position="Center" Skin="Windows7"

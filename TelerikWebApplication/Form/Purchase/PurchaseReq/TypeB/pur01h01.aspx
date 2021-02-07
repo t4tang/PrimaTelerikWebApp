@@ -222,7 +222,7 @@
                 </telerik:GridTemplateColumn>
                 <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete"
                     ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="25px"
-                    ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton" ItemStyle-ForeColor="#66CCFF">
+                    ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton" ItemStyle-ForeColor="#ff0000">
                 </telerik:GridButtonColumn>
             </Columns>
 
@@ -359,7 +359,7 @@
                     Width="1150px" Height="670px" Modal="true" AutoSize="True">
                 </telerik:RadWindow>
                 <telerik:RadWindow RenderMode="Lightweight" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
-                    Width="1500px" Height="720px" Modal="true" AutoSize="False">
+                    Width="1300px" Height="670px" Modal="true" AutoSize="False">
                 </telerik:RadWindow>
                 
             </Windows>

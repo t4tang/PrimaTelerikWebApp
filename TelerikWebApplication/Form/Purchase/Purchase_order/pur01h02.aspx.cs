@@ -119,7 +119,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         }
         protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            var doc_code = ((GridDataItem)e.Item).GetDataKeyValue("pr_code");
+            var doc_code = ((GridDataItem)e.Item).GetDataKeyValue("po_code");
 
             try
             {
@@ -265,7 +265,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as factor, jumlah, CAST(tTax AS Bit) AS tTax, " +
+            cmd.CommandText = "SELECT po_code, prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as factor, jumlah, CAST(tTax AS Bit) AS tTax, " +
                 "CAST(tOtax AS Bit) AS tOtax, CAST(tpph AS Bit) AS tpph, " +
                 "dept_code, Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM pur01d02 WHERE po_code = '" + po_no + "'";
             cmd.CommandTimeout = 0;

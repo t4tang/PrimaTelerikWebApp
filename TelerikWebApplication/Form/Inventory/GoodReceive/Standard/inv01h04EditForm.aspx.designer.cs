@@ -49,13 +49,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
-        /// btn_save control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
+        protected global::System.Web.UI.WebControls.ImageButton btnSave;
         
         /// <summary>
         /// txt_gr_number control.
@@ -328,31 +328,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         protected global::Telerik.Web.UI.RadComboBox cb_approved;
         
         /// <summary>
-        /// panel2 control.
+        /// chk_posting control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel panel2;
-        
-        /// <summary>
-        /// RadGrid2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid2;
-        
-        /// <summary>
-        /// RadNotification1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNotification RadNotification1;
+        protected global::System.Web.UI.WebControls.CheckBox chk_posting;
         
         /// <summary>
         /// lbl_userId control.
@@ -389,6 +371,78 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadLabel lbl_edited;
+        
+        /// <summary>
+        /// RadTabStrip1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        
+        /// <summary>
+        /// RadMultiPage1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
+        
+        /// <summary>
+        /// PageView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadPageView PageView1;
+        
+        /// <summary>
+        /// panel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel panel2;
+        
+        /// <summary>
+        /// RadGrid2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid RadGrid2;
+        
+        /// <summary>
+        /// RadNotification1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNotification RadNotification1;
+        
+        /// <summary>
+        /// RadPageView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadPageView RadPageView1;
+        
+        /// <summary>
+        /// RadGrid3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid RadGrid3;
         
         /// <summary>
         /// notif control.

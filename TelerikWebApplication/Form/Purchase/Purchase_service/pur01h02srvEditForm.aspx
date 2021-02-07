@@ -331,7 +331,8 @@
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax2" runat="server" Width="150" AutoPostBack="true"
                                                 EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
-                                                OnItemsRequested="cb_tax2_ItemsRequested" OnSelectedIndexChanged="cb_tax2_SelectedIndexChanged"
+                                                OnItemsRequested="cb_tax2_ItemsRequested" 
+                                                OnSelectedIndexChanged="cb_tax2_SelectedIndexChanged" OnPreRender="cb_tax2_PreRender"
                                                 EnableVirtualScrolling="true">
                                             </telerik:RadComboBox>
                                             &nbsp Tax2 % 
@@ -355,7 +356,7 @@
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_tax3" runat="server" Width="150" AutoPostBack="true"
                                                 EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
-                                                OnItemsRequested="cb_tax3_ItemsRequested" OnSelectedIndexChanged="cb_tax3_SelectedIndexChanged"
+                                                OnItemsRequested="cb_tax3_ItemsRequested" OnSelectedIndexChanged="cb_tax3_SelectedIndexChanged" OnPreRender="cb_tax3_PreRender"
                                                 EnableVirtualScrolling="true" >
                                             </telerik:RadComboBox>  
                                             &nbsp Tax3 % 

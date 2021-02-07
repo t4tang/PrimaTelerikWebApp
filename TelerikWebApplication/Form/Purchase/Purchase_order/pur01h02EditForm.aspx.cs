@@ -43,6 +43,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     RadGrid2.DataSource = GetDataDetailTable(txt_po_code.Text);
                     RadGrid2.DataBind();
                     Session["actionEdit"] = "edit";
+                    RadGrid2.Enabled = true;
+                    //btn_edit_item.Enabled = true;
                 }
                 else
                 {
@@ -163,7 +165,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as factor, " +
+            cmd.CommandText = "SELECT po_code, prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as factor, " +
                 "jumlah, CAST(tTax AS Bit) AS tTax, CAST(tOtax AS Bit) AS tOtax, CAST(tpph AS Bit) AS tpph, " +
                 "dept_code, Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM pur01d02 WHERE po_code = '" + po_code + "'";
             cmd.CommandTimeout = 0;
@@ -224,7 +226,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             else if (Session["actionEdit"].ToString() == "edit")
             {
                 (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text, cb_project.SelectedValue,cb_supplier.SelectedValue);
+                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text, cb_project.SelectedValue, cb_supplier.SelectedValue);
+                
             }
         }
         #endregion
@@ -431,7 +434,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             while (dr.Read())
             {
                 //(sender as RadComboBox).Text = dr["doc_code"].ToString();
-                cb_supplier.SelectedValue = dr["supplier_code"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["supplier_code"].ToString();
                 txt_curr.Text = dr["cur_code"].ToString();
                 txt_kurs.Value = Convert.ToDouble(dr["KursRun"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(dr["KursTax"].ToString());
@@ -445,7 +448,23 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
 
             get_supp_info(cb_supplier.SelectedValue);
         }
+        protected void cb_supplier_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT a.supplier_code FROM pur00h01 a WHERE a.supplier_name = '" + cb_supplier.Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
 
+            dr.Close();
+            con.Close();
+        }
         private void get_supp_info1(string supp_code)
         {
             con.Open();
@@ -661,7 +680,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax2.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -732,7 +751,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax3.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1051,7 +1070,10 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
         protected void cb_reff_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            if (Session["actionEdit"].ToString() == "new")
+            {
+                LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            }
 
             //DataTable data = GetReff(e.Text, cb_project.SelectedValue);
 
@@ -1368,6 +1390,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 txt_sub_price.Value = (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value)) - (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value) * txt_disc.Value / 100) + (txt_factor.Value);
 
                 CalculateSubTotal(chkTax1.Checked, chkTax2.Checked, chkTax3.Checked);
+                txt_sub_price.Text = txt_sub_price.Value.ToString();
                 //CalculateSubTotal();
                 //CalculateTotal();
             }
@@ -1584,8 +1607,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 
                 cmd.ExecuteNonQuery();
 
-                
-                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+
+                foreach (GridEditableItem item in RadGrid2.MasterTableView.Items)
                 {
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1627,7 +1650,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as Label).Text);
                     cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("txt_factor") as RadNumericTextBox).Value));
                     cmd.Parameters.AddWithValue("@Asscost", 0);
-                    cmd.Parameters.AddWithValue("@reff_no", cb_reff.SelectedValue);
+                    cmd.Parameters.AddWithValue("@reff_no", cb_reff.Text);
                     cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
                     cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
                     cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
@@ -1645,7 +1668,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     cmd.ExecuteNonQuery();
 
                 }
-                
+
             }
             catch (System.Exception ex)
             {
@@ -1666,9 +1689,10 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 }
                 else
                 {
+                    RadGrid2.Enabled = true;
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
                 }
-
+                
                 //pur01h02.tr_code = run;
                 //pur01h02.selected_project = cb_project.SelectedValue;
             }
@@ -1712,7 +1736,64 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             (sender as RadComboBox).Items.Add("Credit");
             (sender as RadComboBox).Items.Add("COD");
         }
-
         
+        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
+        {
+            con.Open();
+            GridEditableItem item = (GridEditableItem)e.Item;
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_save_purchase_orderD";
+            cmd.Parameters.AddWithValue("@po_code", txt_po_code.Text);
+            cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
+            cmd.Parameters.AddWithValue("@Prod_code", (item.FindControl("lblProdCode") as Label).Text);
+            cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Value));
+            cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("cb_uom_d") as RadComboBox).Text);
+            cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
+            cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("txt_disc") as RadNumericTextBox).Value));
+            if ((item.FindControl("edt_chkTax1") as CheckBox).Checked == true)
+            {
+                cmd.Parameters.AddWithValue("@tTax", 1);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@tTax", 0);
+            }
+            if ((item.FindControl("edt_chkOTax") as CheckBox).Checked == true)
+            {
+                cmd.Parameters.AddWithValue("@tOTax", 1);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@tOTax", 0);
+            }
+            if ((item.FindControl("edt_chkTpph") as CheckBox).Checked == true)
+            {
+                cmd.Parameters.AddWithValue("@tpph", 1);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@tpph", 0);
+            }
+            cmd.Parameters.AddWithValue("@harga", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
+            cmd.Parameters.AddWithValue("@Prod_code_ori", (item.FindControl("lbl_Prod_code_ori") as Label).Text);
+            cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as Label).Text);
+            cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("txt_factor") as RadNumericTextBox).Value));
+            cmd.Parameters.AddWithValue("@Asscost", 0);
+            cmd.Parameters.AddWithValue("@reff_no", cb_reff.SelectedValue);
+            cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
+            cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
+            cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+
+        //protected void btn_edit_item_Click(object sender, EventArgs e)
+        //{
+        //    RadGrid2.Enabled = true;
+        //}
     }
 }
