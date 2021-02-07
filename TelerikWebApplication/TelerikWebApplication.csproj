@@ -951,6 +951,13 @@
     <Compile Include="Form\Inventory\GoodsIssued\inv01h05EditForm.aspx.designer.cs">
       <DependentUpon>inv01h05EditForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\inv01h05journal.aspx.cs">
+      <DependentUpon>inv01h05journal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\GoodsIssued\inv01h05journal.aspx.designer.cs">
+      <DependentUpon>inv01h05journal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Inventory\GoodsIssued\inv01h05_slip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -1017,6 +1024,13 @@
     </Compile>
     <Compile Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto_slip.Designer.cs">
       <DependentUpon>inv01h05gto_slip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Inventory\ListGoodsAvailable\inv00h01.aspx.cs">
+      <DependentUpon>inv00h01.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Inventory\ListGoodsAvailable\inv00h01.aspx.designer.cs">
+      <DependentUpon>inv00h01.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form\Inventory\Reports\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -1374,6 +1388,13 @@
     <Compile Include="Form\Sales\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Form\Security\Closing\Monthly\acc00h11.aspx.cs">
+      <DependentUpon>acc00h11.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\Security\Closing\Monthly\acc00h11.aspx.designer.cs">
+      <DependentUpon>acc00h11.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Form\Security\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1632,6 +1653,7 @@
     <Content Include="Form\Inventory\GoodsIssued\Consignment\ReportViewer_inv01h05c.aspx" />
     <Content Include="Form\Inventory\GoodsIssued\inv01h05.aspx" />
     <Content Include="Form\Inventory\GoodsIssued\inv01h05EditForm.aspx" />
+    <Content Include="Form\Inventory\GoodsIssued\inv01h05journal.aspx" />
     <Content Include="Form\Inventory\GoodsIssued\ReportViewer_inv01h05.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gti.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\InComing\inv01h04gtiEditForm.aspx" />
@@ -1639,6 +1661,7 @@
     <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gto.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoEditForm.aspx" />
     <Content Include="Form\Inventory\GoodsTransfer\OutGoing\inv01h05gtoReportViewer.aspx" />
+    <Content Include="Form\Inventory\ListGoodsAvailable\inv00h01.aspx" />
     <Content Include="Form\Inventory\Reports\Default.aspx" />
     <Content Include="Form\Inventory\ReservationSlip\Manual\inv01h03m.aspx" />
     <Content Include="Form\Inventory\ReservationSlip\Manual\inv01h03mEditForm.aspx" />
@@ -1684,6 +1707,7 @@
     <Content Include="Form\Purchase\Purchase_service\pur01h02srvEditForm.aspx" />
     <Content Include="Form\Purchase\Reports\Default.aspx" />
     <Content Include="Form\Sales\Default.aspx" />
+    <Content Include="Form\Security\Closing\Monthly\acc00h11.aspx" />
     <Content Include="Form\Security\Default.aspx" />
     <Content Include="Form\Security\Master_menu\master_menu.aspx" />
     <Content Include="Form\Security\Posting\Inventory\Fluid\acc01h07postFld.aspx" />
@@ -1704,6 +1728,7 @@
     <Content Include="Images\edit.png" />
     <Content Include="Images\edit2.png" />
     <Content Include="Images\error.png" />
+    <Content Include="Images\exca.jpg" />
     <Content Include="Images\filter.png" />
     <Content Include="Images\filter1.png" />
     <Content Include="Images\giphy.gif" />
@@ -1719,6 +1744,7 @@
     <Content Include="Images\loading.gif" />
     <Content Include="Images\loading_animated.gif" />
     <Content Include="Images\modify.png" />
+    <Content Include="Images\month-end.jpg" />
     <Content Include="Images\multi_entry.png" />
     <Content Include="Images\New.png" />
     <Content Include="Images\prima-logo.jpg" />
@@ -1891,6 +1917,7 @@
     <Folder Include="Form\Fico\PaymentRequest\Payment\" />
     <Folder Include="Form\Fico\PaymentRequest\Register\" />
     <Folder Include="Form\Security\ApprovalSetup\" />
+    <Folder Include="Form\Security\Closing\Yearly\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReportLibrary\ReportLibrary.csproj">
@@ -1929,7 +1956,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
