@@ -12,7 +12,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("reportViewer.aspx?po_code=" + id, "PreviewDialog");
+                window.radopen("acc01h13ReportViewer.aspx?NoBuk=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
@@ -32,7 +32,7 @@
                 var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
                 grid.get_masterTableView().selectItem(rowControl, true);
  
-                window.radopen("acc01h13EditForm.aspx?po_code=" + id, "EditDialogWindows");
+                window.radopen("acc01h13EditForm.aspx?NoBuk=" + id, "EditDialogWindows");
                 return false;
             }
 

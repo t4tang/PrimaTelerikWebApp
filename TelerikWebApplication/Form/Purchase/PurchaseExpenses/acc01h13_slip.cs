@@ -1,4 +1,4 @@
-namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
+namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
 {
     using System;
     using System.ComponentModel;
@@ -8,13 +8,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
     using Telerik.Reporting.Drawing;
 
     /// <summary>
-    /// Summary description for inv01h05gto_slip.
+    /// Summary description for acc01h13_slip.
     /// </summary>
-    public partial class inv01h05gto_slip : Telerik.Reporting.Report
+    public partial class acc01h13_slip : Telerik.Reporting.Report
     {
         public static string _tr_code;
-
-        public inv01h05gto_slip()
+        public acc01h13_slip()
         {
             //
             // Required for telerik Reporting designer support
@@ -25,15 +24,16 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.OutGoing
             // TODO: Add any constructor code after InitializeComponent call
             //
             Telerik.Reporting.ReportParameter param = new ReportParameter();
-            param.Name = "do_code";
+            param.Name = "NoBuk";
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = _tr_code;
+            param.Value = "EP0319000432";
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
-            sqlDataSource1.Parameters[0].Value = "=Parameters.do_code.Value";
+            sqlDataSource1.Parameters[0].Value = "=Parameters.NoBuk.Value";
+
         }
     }
 }

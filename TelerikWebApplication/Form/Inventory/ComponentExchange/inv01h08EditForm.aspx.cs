@@ -477,14 +477,14 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
         #endregion
 
         #region RadGrid 2
-        public DataTable GetDataDetailTableD(string wip_code) 
+        public DataTable GetDataDetailTableD(string nobuk)  
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_comexDout";
-            cmd.Parameters.AddWithValue("@wip_code", wip_code);
+            cmd.Parameters.AddWithValue("@nobuk", nobuk);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);

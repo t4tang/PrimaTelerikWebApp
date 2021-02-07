@@ -290,13 +290,14 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT model_no, mtc00h16.dept_code, inv00h11.CostCenterName FROM mtc00h16 INNER JOIN " +
-                "inv00h11 ON mtc00h16.dept_code = inv00h11.CostCenter WHERE unit_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT model_no, mtc00h16.dept_code, inv00h11.CostCenterName, ISNULL(MAX(mtc01h06.reading_amount1),0) AS HM_ACCUM FROM mtc00h16 INNER JOIN  " +
+                "inv00h11 ON mtc00h16.dept_code = inv00h11.CostCenter LEFT OUTER JOIN mtc01h06 ON mtc00h16.unit_code = mtc01h06.unit_code " +
+                "WHERE mtc00h16.unit_code = '" + (sender as RadComboBox).Text + "' GROUP BY model_no, mtc00h16.dept_code, inv00h11.CostCenterName";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                //(sender as RadComboBox).SelectedValue = dr[0].ToString();
+                txt_hmEstAccum.Text = dr["HM_ACCUM"].ToString();
                 txt_unit_name.Text = dr["model_no"].ToString();
             }
             dr.Close();

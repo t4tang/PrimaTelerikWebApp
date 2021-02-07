@@ -134,9 +134,8 @@
                     <tr style="height:50px">   
                         <td>
                             <telerik:RadButton ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Filter" Width="95%" Height="25px"
-                             Skin="Material" ForeColor="DeepSkyBlue"></telerik:RadButton>
+                             Skin="Material" ForeColor="DeepSkyBlue"></telerik:RadButton> 
                         </td>
-
                     </tr>
                 </table>
             </div>
@@ -164,16 +163,16 @@
     </div>    
 
     <div class="scroller" runat="server">
-        <div runat="server" style="overflow-x:auto">
-             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
-                AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="5"
+        <div runat="server" style=" overflow-x:auto; padding-top: 5px;">
+            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
+                AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="7"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnPreRender="RadGrid1_PreRender"
                 OnDeleteCommand="RadGrid1_DeleteCommand"
-                OnItemCreated="RadGrid1_ItemCreated" 
-                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" >
+                OnItemCreated="RadGrid1_ItemCreated"
+                OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                 <HeaderStyle CssClass="gridHeader" />
-                <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
+                <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
                 <SortingSettings EnableSkinSortStyles="false" />
                 <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="NoBuk" Font-Size="11px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowRefreshButton="False" 
@@ -190,13 +189,13 @@
                     <telerik:GridDateTimeColumn UniqueName="lbm_date" HeaderText="Date" DataField="Tgl" ItemStyle-Width="80px"
                         EnableRangeFiltering="false" FilterControlWidth="100px" PickerType="DatePicker"
                         DataFormatString="{0:d}">
-                        <HeaderStyle Width="100px" ForeColor="Highlight" HorizontalAlign="Left"></HeaderStyle>
+                        <HeaderStyle Width="100px" ForeColor="Highlight" HorizontalAlign="Center"></HeaderStyle>
                     </telerik:GridDateTimeColumn>
-                    <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project" DataField="region_name" ItemStyle-Width="200px" FilterControlWidth="190px" 
+                    <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project" DataField="region_name" ItemStyle-Width="60px" FilterControlWidth="50px" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Center"></HeaderStyle>
+                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="NoFP" HeaderText="Invoice No." DataField="NoFP" ItemStyle-Width="100px" FilterControlWidth="90px" 
+                        <telerik:GridBoundColumn UniqueName="NoFP" HeaderText="Invoice No." DataField="NoFP" ItemStyle-Width="60px" FilterControlWidth="50px" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
@@ -204,37 +203,37 @@
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="NamSup" HeaderText="Supplier" DataField="NamSup" ItemStyle-Width="200px" FilterControlWidth="190px" 
+                    <telerik:GridBoundColumn UniqueName="NamSup" HeaderText="Suplier" DataField="NamSup" ItemStyle-Width="200px" FilterControlWidth="190px" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="220px" HorizontalAlign="Center"></HeaderStyle>
+                        <HeaderStyle Width="220px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="Jumlah" HeaderText="Sub Total" DataField="Jumlah" ItemStyle-Width="100px" FilterControlWidth="90px" 
-                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Center"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="Jumlah" HeaderText="Sub Total" DataField="Jumlah" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="DP" HeaderText="DP" DataField="DP" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
+                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="JPPN" HeaderText="Tax1" DataField="JPPN" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="Tax1" HeaderText="Tax1" DataField="JPPN" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="JOTax" HeaderText="Tax2" DataField="JOTax" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="Tax2" HeaderText="Tax2" DataField="JOTax" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="Jpph" HeaderText="Tax3" DataField="Jpph" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="Tax3" HeaderText="Tax3" DataField="JPPH" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
                     </telerik:GridBoundColumn>     
-                    <telerik:GridBoundColumn UniqueName="NET" HeaderText="Total" DataField="NET" ItemStyle-Width="100px" FilterControlWidth="90px" 
-                        ItemStyle-HorizontalAlign="Right" HeaderStyle-ForeColor="Highlight">
-                        <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
+                    <telerik:GridBoundColumn UniqueName="Total" HeaderText="Total" DataField="NET" ItemStyle-Width="60px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        <HeaderStyle Width="80px" HorizontalAlign="Right"></HeaderStyle>
                     </telerik:GridBoundColumn>                        
-                    <telerik:GridBoundColumn UniqueName="Ket" HeaderText="Remark" DataField="Ket" ItemStyle-Wrap="true" ItemStyle-Width="340px" FilterControlWidth="340px">
-                        <HeaderStyle Width="370px" ForeColor="Highlight" HorizontalAlign="Center"></HeaderStyle>
-                    </telerik:GridBoundColumn> 
+                    <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true" ItemStyle-Width="340px" FilterControlWidth="340px">
+                        <HeaderStyle Width="370px" ForeColor="Highlight" HorizontalAlign="Left"></HeaderStyle>
+                    </telerik:GridBoundColumn>
                     <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" AllowFiltering="False">
                     <ItemTemplate>                                
                         <asp:ImageButton ID="EditLink" runat="server" Height="22px" Width="25px" ImageUrl="~/Images/edit.png" ToolTip="Edit" />
@@ -250,7 +249,7 @@
                         ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="50px" HeaderStyle-Width="50px"
                         ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">                                
                         <ItemStyle ForeColor="Red" />
-                    </telerik:GridButtonColumn> 
+                    </telerik:GridButtonColumn>  
                                               
                 </Columns>
                 </MasterTableView>
@@ -260,24 +259,25 @@
                 </ClientSettings>
             </telerik:RadGrid>
         </div>
-         <div runat="server" style="width: 100%; border-top-color:yellowgreen; border-top-width: 1px; border-top-style: inset; padding-top: 8px; overflow-x:auto;">   
+
+        <div runat="server" style="width: 100%; border-top-width: 1px; border-top-style: inset; padding-top: 5px;">
             <asp:UpdatePanel ID="panel2" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                   <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Telerik" PageSize="6"
-                    AllowPaging="true" AllowSorting="true" runat="server" ShowStatusBar="true"  ClientSettings-Selecting-AllowRowSelect="true"
-                    OnNeedDataSource="RadGrid2_NeedDataSource"
-                    OnUpdateCommand="RadGrid2_UpdateCommand"
-                    OnDeleteCommand="RadGrid2_DeleteCommand" >
-                    <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
+                    <telerik:RadGrid runat="server" RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik" 
+                        AllowPaging="true" AllowSorting="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" AllowAutomaticUpdates="true"  
+                        OnNeedDataSource="RadGrid2_NeedDataSource" 
+                        OnUpdateCommand="RadGrid2_UpdateCommand"
+                        OnDeleteCommand="RadGrid2_DeleteCommand">
+                        <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                         <HeaderStyle CssClass="gridHeader" BackColor="YellowGreen" />
-                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="KoBar" Font-Size="11px" EditMode="InPlace"
-                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >
-                            <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="False" ShowCancelChangesButton="false" />
+                        <MasterTableView CommandItemDisplay="None" DataKeyNames="KoBar" Font-Size="11px" EditMode="InPlace" 
+                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
+                            <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="false" />
                             <Columns>
                                 <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  HeaderStyle-ForeColor="#009900"
                                     HeaderText="Edit" HeaderStyle-Width="30px" UpdateText="Update" HeaderStyle-HorizontalAlign="Center">
                                 </telerik:GridEditCommandColumn>
-                                <telerik:GridTemplateColumn HeaderText="Reff. No" HeaderStyle-Width="120px" ItemStyle-Width="120px"
+                                <telerik:GridTemplateColumn HeaderText="Refference No" HeaderStyle-Width="120px" ItemStyle-Width="120px"
                                     HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Left">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblRefCode" Text='<%# DataBinder.Eval(Container.DataItem, "noref") %>'></asp:Label>                        
@@ -289,8 +289,8 @@
                                         <asp:Label runat="server" ID="lblProdType" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>                                           
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn UniqueName="KoBar" HeaderText="Prod. Code" HeaderStyle-Width="300px" HeaderStyle-ForeColor="#009900" 
-                                    SortExpression="KoBar" ItemStyle-Width="300px" ItemStyle-HorizontalAlign="Left">
+                                <telerik:GridTemplateColumn UniqueName="KoBar" HeaderText="Material Code" HeaderStyle-Width="150px" HeaderStyle-ForeColor="#009900" 
+                                    SortExpression="KoBar" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="Left">
                                     <FooterTemplate>Template footer</FooterTemplate>
                                     <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -352,7 +352,7 @@
                                 <telerik:GridTemplateColumn HeaderText="Price" HeaderStyle-Width="90px" ItemStyle-Width="90px" ItemStyle-HorizontalAlign="Right" 
                                     HeaderStyle-ForeColor="#009900" DefaultInsertValue="0" HeaderStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label runat="server" ID="lblPrice" Text='<%# DataBinder.Eval(Container.DataItem, "Harga", "{0:#,###,###0.00}") %>'></asp:Label>
+                                        <asp:Label runat="server" ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "Harga", "{0:#,###,###0.00}") %>'></asp:Label>
                                     </ItemTemplate>
                                     <EditItemTemplate>
                                         <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPrice" Width="90px"  ReadOnly="false" 
@@ -431,7 +431,7 @@
                                             Checked='<%# DataBinder.Eval(Container.DataItem, "tpph") %>' />
                                     </EditItemTemplate>                                        
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="Cost Ctr" HeaderStyle-Width="100px" ItemStyle-Width="100px" 
+                                <telerik:GridTemplateColumn HeaderText="Cost Center" HeaderStyle-Width="100px" ItemStyle-Width="100px" 
                                     HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Left">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblCostCtr" Text='<%# DataBinder.Eval(Container.DataItem, "dept_code") %>'></asp:Label>
@@ -464,7 +464,7 @@
                                         <asp:Label runat="server" ID="lblRS" Text='<%# DataBinder.Eval(Container.DataItem, "nocontr") %>'></asp:Label>
                                     </ItemTemplate>                                        
                                 </telerik:GridTemplateColumn>                
-                                <telerik:GridTemplateColumn HeaderText="Ori. Prod" HeaderStyle-Width="120px" ItemStyle-Width="120px" 
+                                <telerik:GridTemplateColumn HeaderText="Ori. Material Code" HeaderStyle-Width="120px" ItemStyle-Width="120px" 
                                     HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Left">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblProdOri" Enabled="false"></asp:Label>
@@ -472,14 +472,13 @@
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" 
                                     HeaderStyle-ForeColor="#009900" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton" 
-                                    ItemStyle-Width="30px" HeaderStyle-Width="30px">
+                                    ItemStyle-Width="40px" HeaderStyle-Width="40px">
                                     <ItemStyle ForeColor="Red" />
                                 </telerik:GridButtonColumn>
                             </Columns>
                         </MasterTableView> 
-                        <ClientSettings>                         
-                            <%--<Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="203px" />--%>
-                            <Selecting AllowRowSelect="true"></Selecting>    
+                        <ClientSettings>
+                            <Selecting AllowRowSelect="true"></Selecting>                          
                         </ClientSettings>
                     </telerik:RadGrid>
                     <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Data tersimpan" Position="BottomRight"
@@ -495,7 +494,7 @@
                     Width="1150px" Height="670px" Modal="true" AutoSize="True">
                 </telerik:RadWindow>
                 <telerik:RadWindow RenderMode="Lightweight" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
-                    Width="1300px" Height="600px" Modal="true" AutoSize="False">
+                    Width="1500px" Height="720px" Modal="true" AutoSize="False">
                 </telerik:RadWindow>
                 
             </Windows>

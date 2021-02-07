@@ -45,7 +45,6 @@
                                     <HeaderStyle Width="50px" />
                                     <ItemStyle Width="50px" />
                                 </telerik:GridBoundColumn> 
-                                                                           
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" ItemStyle-ForeColor="Red" 
                                     ConfirmText="Are you sure you want to delete this row or record?">
                                         <HeaderStyle Width="20px"></HeaderStyle>
