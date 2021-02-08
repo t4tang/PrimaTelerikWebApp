@@ -59,5 +59,75 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
         {
             (sender as RadGrid).DataSource = GetDataDetailTable(wh_code);
         }
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            string sql = "SELECT TOP (100)[prod_code], [spec],[unit] FROM [inv00h01]  WHERE [stEdit] != '4' AND [spec] LIKE @spec + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["Prod_code"].ToString();
+                item.Value = row["Prod_code"].ToString();
+                item.Attributes.Add("spec", row["spec"].ToString());
+                item.Attributes.Add("unit", row["unit"].ToString());
+                //item.Attributes.Add("stMainNm", row["stMainNm"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            Session["action"] = "list";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT [prod_code], [spec],[unit] FROM " +
+                    "[inv00h01] WHERE [prod_code] = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    Label lb_uom = (Label)item.FindControl("lblUom_insertTemp");
+                    Label lbl_spec = (Label)item.FindControl("lblSpec_insertTemp");
+                   
+                    lb_uom.Text = dtr["unit"].ToString();
+                    lbl_spec.Text = dtr["spec"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        protected void RadGridMaterial_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
     }
 }

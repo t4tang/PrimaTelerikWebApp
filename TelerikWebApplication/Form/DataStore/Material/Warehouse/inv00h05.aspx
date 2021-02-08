@@ -55,7 +55,7 @@
         <%--PAGE CONTENT--%>
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="true" ShowFooter="false" AllowSorting="true" PageSize="20"
             AutoGenerateColumns="false"
-            OnDeleteCommand="RadGrid1_DeleteCommand" Skin="Material" 
+            OnDeleteCommand="RadGrid1_DeleteCommand" Skin="Telerik" 
             OnNeedDataSource="RadGrid1_NeedDataSource"
             OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="true" 
             OnInsertCommand="RadGrid1_InsertCommand" 
@@ -248,7 +248,7 @@
             <Windows>
                 
                 <telerik:RadWindow RenderMode="Lightweight" ID="dialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
-                    Width="950px" Height="600px" Modal="true" AutoSize="False">
+                    Width="1050px" Height="600px" Modal="true" AutoSize="False">
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
