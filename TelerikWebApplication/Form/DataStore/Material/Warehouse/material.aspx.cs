@@ -127,7 +127,58 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void RadGridMaterial_InsertCommand(object sender, GridCommandEventArgs e)
         {
+            var kindCode = ((GridEditFormItem)e.Item).GetDataKeyValue("kind_code");
 
+            try
+            {
+                if (e.CommandName == RadGrid.UpdateCommandName)
+                {
+                    if (e.Item is GridEditFormItem)
+                    {
+                        GridEditFormItem item = (GridEditFormItem)e.Item;
+                        //cmd = new SqlCommand(con);
+                        //cmd.CommandType = CommandType.Text;
+                        //cmd.Connection = con;
+                        con.Open();
+                        cmd = new SqlCommand("UPDATE inv00d01 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
+                                      "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
+                                      "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
+                                      "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code", con);
+                        cmd.Parameters.AddWithValue("@wh_code", wh_code);
+                        cmd.Parameters.AddWithValue("@kind_code", kindCode);
+                        cmd.Parameters.AddWithValue("@KoLok", (item.FindControl("cb_sales_cogs") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@QACT", (item.FindControl("cb_sales_acc") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@Cogs", (item.FindControl("cb_sales_return") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@Stamp", (item.FindControl("cb_sales_disc") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@Usr", (item.FindControl("cb_pur_return") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@Owner", (item.FindControl("cb_pur_discount") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@OwnStamp", (item.FindControl("cb_other_assembly") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@topname", (item.FindControl("cb_other_rev") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@qtyMax", (item.FindControl("cb_other_consumption") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@qtyMin", (item.FindControl("cb_other_consign") as RadComboBox).Text);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+                        RadGridMaterial.DataBind();
+                    }
+
+                }
+
+                Label lblsuccess = new Label();
+                lblsuccess.Text = "Data updated successfully";
+                lblsuccess.ForeColor = System.Drawing.Color.Blue;
+                RadGridMaterial.Controls.Add(lblsuccess);
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to update data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGridMaterial.Controls.Add(lblError);
+                e.Canceled = true;
+            }
         }
     }
 }
