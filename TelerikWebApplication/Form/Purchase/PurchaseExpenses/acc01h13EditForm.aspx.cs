@@ -867,106 +867,6 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
         }
         #endregion
 
-        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-        {
-            if (tr_code == null)
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-            }
-            else if (Session["actionEdit"].ToString() == "new")
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataDetailTableD(tr_code);
-            }
-        }
-
-        protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
-        {
-            var code_biaya = ((GridDataItem)e.Item).GetDataKeyValue("code_biaya");
-
-            try
-            {
-                GridEditableItem item = (GridEditableItem)e.Item;
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = con;
-                cmd.CommandText = "delete from acc01h16 where code_biaya = @code_biaya and NoBuk = @NoBuk";
-                cmd.Parameters.AddWithValue("@NoBuk", txt_doc_code.Text);
-                cmd.Parameters.AddWithValue("@code_biaya", code_biaya);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                //RadGrid2.DataBind();
-
-                Label lblsuccess = new Label();
-                lblsuccess.Text = "Data deleted";
-                lblsuccess.ForeColor = System.Drawing.Color.DarkGray;
-                //RadGrid2.Controls.Add(lblsuccess);
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                //RadGrid2.Controls.Add(lblError);
-                e.Canceled = true;
-            }
-        }
-
-        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
-        {
-            try
-            {
-                con.Open();
-                GridEditableItem item = (GridEditableItem)e.Item;
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
-                cmd.CommandText = "sp_save_purchase_expensesD";
-                cmd.Parameters.AddWithValue("@NoBuk", tr_code);
-                cmd.Parameters.AddWithValue("@nomor", (item.FindControl("lblNomor") as Label).Text);
-                cmd.Parameters.AddWithValue("@code_biaya", (item.FindControl("cb_CodeBiaya") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@sub_price", Convert.ToDouble((item.FindControl("txtSubPrice") as RadNumericTextBox).Value));
-                if ((item.FindControl("chk_tax1") as CheckBox).Checked == true)
-                {
-                    cmd.Parameters.AddWithValue("@tTax", 1);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@tTax", 0);
-                }
-                if ((item.FindControl("chk_tax2") as CheckBox).Checked == true)
-                {
-                    cmd.Parameters.AddWithValue("@tOTax", 1);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@tOTax", 0);
-                }
-                if ((item.FindControl("chk_tax3") as CheckBox).Checked == true)
-                {
-                    cmd.Parameters.AddWithValue("@tpph", 1);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@tpph", 0);
-                }
-                cmd.Parameters.AddWithValue("@pay_tot", Convert.ToDouble((item.FindControl("lblTotal") as RadNumericTextBox).Value));
-                //cmd.Parameters.AddWithValue("@debt_rema", 0);
-                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
-                cmd.Parameters.AddWithValue("@remark", Convert.ToDouble((item.FindControl("txtRemark_d") as RadNumericTextBox).Value));
-
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
-                e.Canceled = true;
-            }
-        }
-
         protected void cb_CodeBiaya_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             string sql = "SELECT  acc00h28.code_biaya , acc00h28.remark , acc00h28.accountno FROM acc00h28 WHERE ( acc00h28.stEdit = '0' ) AND remark LIKE @remark + '%'";
@@ -994,52 +894,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             }
         }
 
-        protected void cb_CodeBiaya_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            Session["code_biaya"] = e.Value;
-
-            try
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT	code_biaya, remark FROM	acc00h28 WHERE	code_biaya = '" + (sender as RadComboBox).SelectedValue + "'";
-
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                foreach (DataRow dtr in dt.Rows)
-                {
-                    RadComboBox cb = (RadComboBox)sender;
-                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox D_remark = (RadTextBox)item.FindControl("txtRemark_d");
-                    //RadTextBox D_Amount = (RadTextBox)item.FindControl("txtSubPrice");
-                    //CheckBox D_Tax1 = (CheckBox)item.FindControl("chk_tax1");
-                    //CheckBox D_Tax2 = (CheckBox)item.FindControl("chk_tax2");
-                    //CheckBox D_Tax3 = (CheckBox)item.FindControl("chk_tax3");
-                    //RadTextBox D_Net = (RadTextBox)item.FindControl("lblTotal");
-                    Label D_CostCenter = (Label)item.FindControl("lblCostCtr");
-
-                    D_remark.Text = dtr["remark"].ToString();
-                    //D_Amount.Text = dtr["sub_price"].ToString();
-                    //D_Tax1.Checked = cb_tax1.CheckBoxes;
-                    //D_Tax2.Checked = cb_tax2.CheckBoxes;
-                    //D_Tax3.Checked = cb_tax3.CheckBoxes;
-                    //D_Net.Text = string.Format("{0:#,###,##0.00}", dtr["pay_tot"].ToString());
-                    D_CostCenter.Text = cb_cost_center.SelectedValue;
-                }
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
-
+       
         protected void cb_CodeBiaya_PreRender(object sender, EventArgs e)
         {
             con.Open();
@@ -1146,48 +1001,48 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
 
                 cmd.ExecuteNonQuery();
 
-                //foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
-                //{
-                //    cmd = new SqlCommand();
-                //    cmd.CommandType = CommandType.StoredProcedure;
-                //    cmd.Connection = con;
-                //    cmd.CommandText = "sp_save_purchase_expensesD";
-                //    cmd.Parameters.AddWithValue("@NoBuk", run);
-                //    cmd.Parameters.AddWithValue("@nomor", Convert.ToDouble((item.FindControl("txt_nomor") as RadNumericTextBox).Value));
-                //    cmd.Parameters.AddWithValue("@code_biaya", (item.FindControl("cb_CodeBiaya") as RadComboBox).Text);
-                //    cmd.Parameters.AddWithValue("@sub_price", Convert.ToDouble((item.FindControl("txtSubPrice") as RadNumericTextBox).Value));
-                //    if ((item.FindControl("chk_tax1") as CheckBox).Checked == true)
-                //    {
-                //        cmd.Parameters.AddWithValue("@tTax", 1);
-                //    }
-                //    else
-                //    {
-                //        cmd.Parameters.AddWithValue("@tTax", 0);
-                //    }
-                //    if ((item.FindControl("chk_tax2") as CheckBox).Checked == true)
-                //    {
-                //        cmd.Parameters.AddWithValue("@tOTax", 1);
-                //    }
-                //    else
-                //    {
-                //        cmd.Parameters.AddWithValue("@tOTax", 0);
-                //    }
-                //    if ((item.FindControl("chk_tax3") as CheckBox).Checked == true)
-                //    {
-                //        cmd.Parameters.AddWithValue("@tpph", 1);
-                //    }
-                //    else
-                //    {
-                //        cmd.Parameters.AddWithValue("@tpph", 0);
-                //    }
-                //    cmd.Parameters.AddWithValue("@pay_tot", Convert.ToDouble((item.FindControl("lblTotal") as RadNumericTextBox).Value));
-                //    //cmd.Parameters.AddWithValue("@debt_rema", 0);
-                //    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
-                //    cmd.Parameters.AddWithValue("@remark", Convert.ToDouble((item.FindControl("txtRemark_d") as RadNumericTextBox).Value));
+                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                {
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_save_purchase_expensesD";
+                    cmd.Parameters.AddWithValue("@NoBuk", run);
+                    cmd.Parameters.AddWithValue("@nomor", Convert.ToDouble((item.FindControl("txt_nomor") as RadNumericTextBox).Value));
+                    cmd.Parameters.AddWithValue("@code_biaya", (item.FindControl("cb_CodeBiaya") as RadComboBox).Text);
+                    cmd.Parameters.AddWithValue("@sub_price", Convert.ToDouble((item.FindControl("txtSubPrice") as RadNumericTextBox).Value));
+                    if ((item.FindControl("chk_tax1") as CheckBox).Checked == true)
+                    {
+                        cmd.Parameters.AddWithValue("@tTax", 1);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@tTax", 0);
+                    }
+                    if ((item.FindControl("chk_tax2") as CheckBox).Checked == true)
+                    {
+                        cmd.Parameters.AddWithValue("@tOTax", 1);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@tOTax", 0);
+                    }
+                    if ((item.FindControl("chk_tax3") as CheckBox).Checked == true)
+                    {
+                        cmd.Parameters.AddWithValue("@tpph", 1);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@tpph", 0);
+                    }
+                    cmd.Parameters.AddWithValue("@pay_tot", Convert.ToDouble((item.FindControl("lblTotal") as RadNumericTextBox).Value));
+                    //cmd.Parameters.AddWithValue("@debt_rema", 0);
+                    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
+                    cmd.Parameters.AddWithValue("@remark", Convert.ToDouble((item.FindControl("txtRemark_d") as RadNumericTextBox).Value));
 
-                //    cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
 
-                //}
+                }
             }
 
             catch (System.Exception ex)
@@ -1214,6 +1069,102 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             }
         }
 
+        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+            else if (Session["actionEdit"].ToString() == "new")
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+                (sender as RadGrid).DataSource = GetDataDetailTableD(txt_doc_code.Text);
+            }
+        }
+
+        protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            var BiayaCode = ((GridDataItem)e.Item).GetDataKeyValue("code_biaya");
+
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "delete from acc01h16 where code_biaya = @code_biaya and NoBuk = @NoBuk";
+                cmd.Parameters.AddWithValue("@NoBuk", txt_doc_code.Text);
+                cmd.Parameters.AddWithValue("@code_biaya", BiayaCode);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                RadGrid2.DataBind();
+
+                notif.Text = "Data berhasil dihapus";
+                notif.Title = "Notification";
+                notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
+                e.Canceled = true;
+            }
+        }
+
+        protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                GridEditableItem item = (GridEditableItem)e.Item;
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.CommandText = "sp_save_purchase_expensesD";
+                cmd.Parameters.AddWithValue("@NoBuk", txt_doc_code.Text);
+                cmd.Parameters.AddWithValue("@nomor", (item.FindControl("lblNomor") as Label).Text);
+                cmd.Parameters.AddWithValue("@code_biaya", (item.FindControl("cb_CodeBiaya") as RadComboBox).Text);
+                cmd.Parameters.AddWithValue("@sub_price", Convert.ToDouble((item.FindControl("txtSubPrice") as RadNumericTextBox).Value));
+                if ((item.FindControl("chk_tax1") as CheckBox).Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@tTax", 1);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@tTax", 0);
+                }
+                if ((item.FindControl("chk_tax2") as CheckBox).Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@tOTax", 1);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@tOTax", 0);
+                }
+                if ((item.FindControl("chk_tax3") as CheckBox).Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@tpph", 1);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@tpph", 0);
+                }
+                cmd.Parameters.AddWithValue("@pay_tot", Convert.ToDouble((item.FindControl("lblTotal") as RadNumericTextBox).Value));
+                //cmd.Parameters.AddWithValue("@debt_rema", (item.FindControl("lbl_Prod_code_ori") as Label).Text);
+                cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lblCostCtr") as Label).Text);
+                cmd.Parameters.AddWithValue("@remark", Convert.ToDouble((item.FindControl("txtRemark_d") as RadNumericTextBox).Value));
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+        }
+
         protected void RadGrid2_PreRender(object sender, EventArgs e)
         {
             if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
@@ -1221,11 +1172,97 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
-            else
+        }
+
+        protected void cb_CodeBiaya_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            Session["code_biaya"] = e.Value;
+
+            try
             {
-                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
-                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
-                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 295;
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT	code_biaya, remark FROM	acc00h28 WHERE	code_biaya = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox D_remark = (RadTextBox)item.FindControl("txtRemark_d");
+                    //RadTextBox D_Amount = (RadTextBox)item.FindControl("txtSubPrice");
+                    //CheckBox D_Tax1 = (CheckBox)item.FindControl("chk_tax1");
+                    //CheckBox D_Tax2 = (CheckBox)item.FindControl("chk_tax2");
+                    //CheckBox D_Tax3 = (CheckBox)item.FindControl("chk_tax3");
+                    //RadTextBox D_Net = (RadTextBox)item.FindControl("lblTotal");
+                    Label D_CostCenter = (Label)item.FindControl("lblCostCtr");
+
+                    D_remark.Text = dtr["remark"].ToString();
+                    //D_Amount.Text = dtr["sub_price"].ToString();
+                    //D_Tax1.Checked = cb_tax1.CheckBoxes;
+                    //D_Tax2.Checked = cb_tax2.CheckBoxes;
+                    //D_Tax3.Checked = cb_tax3.CheckBoxes;
+                    //D_Net.Text = string.Format("{0:#,###,##0.00}", dtr["pay_tot"].ToString());
+                    D_CostCenter.Text = cb_cost_center.SelectedValue;
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        protected void cb_CodeBiaya_SelectedIndexChanged1(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            Session["code_biaya"] = e.Value;
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT	code_biaya, remark FROM	acc00h28 WHERE	code_biaya = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox D_remark = (RadTextBox)item.FindControl("txtRemark_d");
+                    //RadTextBox D_Amount = (RadTextBox)item.FindControl("txtSubPrice");
+                    //CheckBox D_Tax1 = (CheckBox)item.FindControl("chk_tax1");
+                    //CheckBox D_Tax2 = (CheckBox)item.FindControl("chk_tax2");
+                    //CheckBox D_Tax3 = (CheckBox)item.FindControl("chk_tax3");
+                    //RadTextBox D_Net = (RadTextBox)item.FindControl("lblTotal");
+                    Label D_CostCenter = (Label)item.FindControl("lblCostCtr");
+
+                    D_remark.Text = dtr["remark"].ToString();
+                    //D_Amount.Text = dtr["sub_price"].ToString();
+                    //D_Tax1.Checked = cb_tax1.CheckBoxes;
+                    //D_Tax2.Checked = cb_tax2.CheckBoxes;
+                    //D_Tax3.Checked = cb_tax3.CheckBoxes;
+                    //D_Net.Text = string.Format("{0:#,###,##0.00}", dtr["pay_tot"].ToString());
+                    D_CostCenter.Text = cb_cost_center.SelectedValue;
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
             }
         }
     }
