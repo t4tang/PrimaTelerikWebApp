@@ -164,8 +164,12 @@
         <div runat="server" style="height:465px;">
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="10" MasterTableView-GridLines="None" 
+                OnNeedDataSource="RadGrid1_NeedDataSource"
+                OnDeleteCommand="RadGrid1_DeleteCommand"
+                OnItemCreated="RadGrid1_ItemCreated"
+                OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged"
+                OnPreRender="RadGrid1_PreRender">
                 
-                >
                 <PagerStyle Mode="NextPrevAndNumeric" VerticalAlign="NotSet" PageSizeControlType="RadComboBox"></PagerStyle>                
                 <HeaderStyle CssClass="gridHeader" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
@@ -176,8 +180,42 @@
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                 CommandItemSettings-ShowRefreshButton="false">
                 <Columns>
-                    
-                                              
+                     <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="20px" ></telerik:GridClientSelectColumn> 
+                    <telerik:GridBoundColumn UniqueName="info_code" HeaderText="Info Number" DataField="info_code" ItemStyle-Width="100px" FilterControlWidth="90px" 
+                        ItemStyle-HorizontalAlign="Left" >
+                        <HeaderStyle Width="120px" HorizontalAlign="Left"></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="supplier_name" HeaderText="Suplier" DataField="supplier_name" ItemStyle-Width="150px" FilterControlWidth="150px" 
+                        ItemStyle-HorizontalAlign="Left" >
+                        <HeaderStyle Width="150px" HorizontalAlign="Left"></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="type_infoname" HeaderText="Type" DataField="type_infoname" ItemStyle-Width="150px" FilterControlWidth="150px" 
+                        ItemStyle-HorizontalAlign="Left" >
+                        <HeaderStyle Width="150px" HorizontalAlign="Left"></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="cur_code" HeaderText="Curr" DataField="cur_code" ItemStyle-Width="50px" FilterControlWidth="50px" 
+                        ItemStyle-HorizontalAlign="Left" >
+                        <HeaderStyle Width="50px" HorizontalAlign="Left"></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true" ItemStyle-Width="300px" FilterControlWidth="300px">
+                        <HeaderStyle Width="300px" HorizontalAlign="Left"></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" HeaderStyle-Width="25px" ItemStyle-Width="20px" AllowFiltering="False" ItemStyle-HorizontalAlign="Center">
+                    <ItemTemplate>                                
+                        <asp:ImageButton ID="EditLink" runat="server" Height="22px" Width="20px" ImageUrl="~/Images/edit.png" ToolTip="Edit" />
+                    </ItemTemplate>
+                    </telerik:GridTemplateColumn>
+                    <telerik:GridTemplateColumn UniqueName="TemplatePrintColumn" HeaderStyle-Width="25px" ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center"
+                            AllowFiltering="False">
+                        <ItemTemplate>
+                            <asp:ImageButton ID="PrintLink" runat="server" Height="20px" Width="20px" ImageUrl="~/Images/cetak.png" ToolTip="Print" />
+                        </ItemTemplate>
+                    </telerik:GridTemplateColumn>
+                    <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete" 
+                        ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="20px" HeaderStyle-Width="20px"
+                        ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">                                
+                        <ItemStyle ForeColor="Red" />
+                    </telerik:GridButtonColumn>                            
                 </Columns>
                 </MasterTableView>
                 <ClientSettings>                         
@@ -191,7 +229,10 @@
             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Telerik"
             AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" 
             
-                >
+            OnNeedDataSource="RadGrid2_NeedDataSource"
+            OnDeleteCommand="RadGrid2_DeleteCommand"
+            OnInsertCommand="RadGrid2_InsertCommand" 
+           >
             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
             <HeaderStyle CssClass="gridHeader" BackColor="YellowGreen" />
             <MasterTableView CommandItemDisplay="None" DataKeyNames="" Font-Size="11px" EditMode="InPlace"
