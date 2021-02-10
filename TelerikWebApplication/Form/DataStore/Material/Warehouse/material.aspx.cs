@@ -127,7 +127,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void RadGridMaterial_InsertCommand(object sender, GridCommandEventArgs e)
         {
-            var kindCode = ((GridEditFormItem)e.Item).GetDataKeyValue("kind_code");
+            var kindCode = ((GridEditFormItem)e.Item).GetDataKeyValue("wh_code");
 
             try
             {
@@ -147,7 +147,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                         cmd.Parameters.AddWithValue("@wh_code", wh_code);
                         cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lbl_prod_code") as DropDownList).Text);
                         //cmd.Parameters.AddWithValue("@KoLok", (item.FindControl("lbl_prod_code") as DropDownList).Text);
-                        cmd.Parameters.AddWithValue("@QACT", (item.FindControl("lblSpec") as RadLabel).Text);
+                        cmd.Parameters.AddWithValue("@QACT", (item.FindControl("txt_qtyAct") as RadTextBox).Text);
                         //cmd.Parameters.AddWithValue("@Cogs", (item.FindControl("cb_sales_return") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@Stamp", (item.FindControl("cb_sales_disc") as RadComboBox).Text);
@@ -155,8 +155,8 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                         //cmd.Parameters.AddWithValue("@Owner", (item.FindControl("cb_pur_discount") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@OwnStamp", (item.FindControl("cb_other_assembly") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@topname", (item.FindControl("cb_other_rev") as RadComboBox).Text);
-                        cmd.Parameters.AddWithValue("@qtyMax", (item.FindControl("cb_other_consumption") as RadComboBox).Text);
-                        cmd.Parameters.AddWithValue("@qtyMin", (item.FindControl("cb_other_consign") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@qtyMax", (item.FindControl("txt_qtyMax") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@qtyMin", (item.FindControl("txt_qtyMin") as RadTextBox).Text);
                         cmd.ExecuteNonQuery();
                         con.Close();
 
