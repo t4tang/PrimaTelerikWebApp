@@ -185,11 +185,11 @@
                 <Columns>
                     <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="20px" ></telerik:GridClientSelectColumn> 
                     <telerik:GridBoundColumn UniqueName="lbm_code" HeaderText="GR No." DataField="lbm_code" ItemStyle-Width="100px" FilterControlWidth="90px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        ItemStyle-HorizontalAlign="Left" >
                         <HeaderStyle Width="120px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="ref_code" HeaderText="Reff No." DataField="ref_code" ItemStyle-Width="100px" FilterControlWidth="90px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        ItemStyle-HorizontalAlign="Left" >
                         <HeaderStyle Width="120px"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridDateTimeColumn UniqueName="lbm_date" HeaderText="GR. Date" DataField="lbm_date" ItemStyle-Width="80px"
@@ -198,15 +198,15 @@
                         <HeaderStyle Width="100px" ForeColor="Highlight" HorizontalAlign="Center"></HeaderStyle>
                     </telerik:GridDateTimeColumn>
                     <telerik:GridBoundColumn UniqueName="region_code" HeaderText="Project" DataField="region_code" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        ItemStyle-HorizontalAlign="Left" >
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="warehouse" HeaderText="WH Code" DataField="wh_code" ItemStyle-Width="60px" FilterControlWidth="50px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        ItemStyle-HorizontalAlign="Left" >
                         <HeaderStyle Width="80px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="cust_name" HeaderText="Suplier" DataField="cust_name" ItemStyle-Width="200px" FilterControlWidth="190px" 
-                        ItemStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Highlight">
+                        ItemStyle-HorizontalAlign="Left" >
                         <HeaderStyle Width="220px" HorizontalAlign="Left"></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true" ItemStyle-Width="250px" FilterControlWidth="290px">
