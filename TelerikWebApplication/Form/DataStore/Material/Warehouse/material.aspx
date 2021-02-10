@@ -101,18 +101,19 @@
                                         <asp:Label runat="server" ID="lblUom_insertTemp" ></asp:Label>
                                     </InsertItemTemplate>                                         
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridBoundColumn HeaderText ="Qty Actual" DataField="QACT" AllowFiltering="false">
+                                <telerik:GridTemplateColumn HeaderText ="Qty Actual" HeaderStyle-Width="60px" ItemStyle-Width="60px"
+                                    headers DataField="QACT" AllowFiltering="false">
                                     <HeaderStyle Width="50px" />
                                     <ItemStyle Width="50px" />
-                                </telerik:GridBoundColumn> 
-                                <telerik:GridBoundColumn HeaderText ="Qty Max" DataField="qtyMax" AllowFiltering="false">
+                                </telerik:GridTemplateColumn> 
+                                <telerik:GridTemplateColumn HeaderText ="Qty Max" DataField="qtyMax" AllowFiltering="false">
                                     <HeaderStyle Width="50px" />
                                     <ItemStyle Width="50px" />
-                                </telerik:GridBoundColumn> 
-                                <telerik:GridBoundColumn HeaderText ="Qty Min" DataField="qtyMin" AllowFiltering="false">
+                                </telerik:GridTemplateColumn> 
+                                <telerik:GridTemplateColumn HeaderText ="Qty Min" DataField="qtyMin" AllowFiltering="false">
                                     <HeaderStyle Width="50px" />
                                     <ItemStyle Width="50px" />
-                                </telerik:GridBoundColumn> 
+                                </telerik:GridTemplateColumn> 
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" ItemStyle-ForeColor="Red" 
                                     ConfirmText="Are you sure you want to delete this row or record?">
                                         <HeaderStyle Width="20px"></HeaderStyle>
