@@ -42,7 +42,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 if (Request.QueryString["NoBuk"] != null)
                 {
                     fill_object(Request.QueryString["NoBuk"].ToString());
-                    RadGrid2.DataSource = GetDataDetailTable(txt_reg_code.Text);
+                    RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["NoBuk"].ToString());
                     Session["actionEdit"] = "edit";
                 }
                 else
@@ -56,11 +56,11 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     cb_project.SelectedValue = public_str.site;
                     cb_project.Text = public_str.sitename;
 
-                    txt_uid.Text = public_str.user_id;
-                    txt_owner.Text = public_str.user_id;
-                    txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
-                    txt_printed.Text = "0";
-                    txt_edited.Text = "0";
+                    lbl_userId.Text = lbl_userId.Text+" "+ public_str.user_id;
+                    lbl_Owner.Text = lbl_Owner + " "+ public_str.user_id;
+                    lbl_lastUpdate.Text = lbl_lastUpdate +" "+ string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+                    //txt_printed.Text = "0";
+                    lbl_edited.Text = lbl_edited.Text +" "+ "0";
                     txt_sub_total.Value = 0;
                     txt_tax1_value.Value = 0;
                     txt_tax2_value.Value = 0;
@@ -75,8 +75,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         {
             con.Open();
             SqlDataReader sdr;
-            SqlCommand cmd = new SqlCommand("SELECT a.*, b.* FROM v_invoice_incomingH a LEFT OUTER JOIN v_invoice_incoming_reff b ON " +
-                "a.NoPO=b.po_code WHERE a.NoBuk =  '" + id + "'", con);
+            //SqlCommand cmd = new SqlCommand("SELECT a.*, b.* FROM v_invoice_incomingH a LEFT OUTER JOIN v_invoice_incoming_reff b ON " +
+            //    "a.NoPO=b.po_code WHERE a.NoBuk =  '" + id + "'", con);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM v_invoice_incomingH WHERE NoBuk =  '" + id + "'", con);
             sdr = cmd.ExecuteReader();
             if (sdr.Read())
             {
@@ -84,10 +85,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 dtp_reg.SelectedDate = Convert.ToDateTime(sdr["Tgl"].ToString());
                 dtp_inv.SelectedDate = Convert.ToDateTime(sdr["TglFP"].ToString());
                 cb_reff.Text = sdr["NoPO"].ToString();
+                cb_from_type.Text = sdr["trans_code_desc"].ToString();
+                txt_inv_no.Text= sdr["NoFP"].ToString();
+                txt_inv_code.Text= sdr["invCode"].ToString();
                 //cb_po_type.Text = sdr["TransName"].ToString();
                 //cb_po_type.SelectedValue = sdr["trans_code"].ToString();
                 //cb_priority.Text = sdr["prio_desc"].ToString();
-                cb_supplier.Text = sdr["supplier_name"].ToString();
+                cb_supplier.Text = sdr["NamSup"].ToString();
                 txt_curr.Text = sdr["KoMat"].ToString();
                 txt_kurs.Value = Convert.ToDouble(sdr["Kurs"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(sdr["KursTax"].ToString());
@@ -105,24 +109,24 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cb_project.Text = sdr["region_name"].ToString();
                 cb_cost_center.Text = sdr["CostCenterName"].ToString();
                 //DateTime ref_date = Convert.ToDateTime(sdr["ref_date"].ToString());
-                txt_remark.Text = sdr["Remark"].ToString();
+                txt_remark.Text = sdr["Ket"].ToString();
                 txt_term_days.Value = Convert.ToDouble(sdr["JTempo"].ToString());
-                cb_prepared.Text = sdr["Order_by"].ToString();
-                cb_verified.Text = sdr["Prepare_by"].ToString();
-                cb_approved.Text = sdr["Order_by"].ToString();
-                txt_owner.Text = sdr["Owner"].ToString();
-                txt_printed.Text = sdr["Printed"].ToString();
-                txt_edited.Text = sdr["Edited"].ToString();
-                txt_uid.Text = sdr["userid"].ToString();
-                txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
+                cb_prepared.Text = sdr["prepare_by_name"].ToString();
+                cb_verified.Text = sdr["ack_by_name"].ToString();
+                cb_approved.Text = sdr["app_by_name"].ToString();
+                lbl_Owner.Text = lbl_Owner.Text+" "+sdr["Owner"].ToString();
+                //txt_printed.Text = sdr["Printed"].ToString();
+                lbl_edited.Text = lbl_edited.Text+" "+ sdr["Edited"].ToString();
+                lbl_userId.Text = lbl_userId.Text+" "+ sdr["Usr"].ToString();
+                lbl_lastUpdate.Text = lbl_lastUpdate.Text+" "+string.Format("{0:dd/MM/yyyy}", sdr["lastupdate"].ToString());
                 cb_term.Text = sdr["payTerm"].ToString();
                 txt_pppn.Value = Convert.ToDouble(sdr["PPPN"]);
                 txt_ppph.Value = Convert.ToDouble(sdr["ppph"]);
                 txt_po_tax.Value = Convert.ToDouble(sdr["POTax"]);
                 txt_sub_total.Value = Convert.ToDouble(sdr["jumlah"]);
-                txt_tax1_value.Value = Convert.ToDouble(sdr["jtax1"]);
-                txt_tax2_value.Value = Convert.ToDouble(sdr["jtax2"]);
-                txt_tax3_value.Value = Convert.ToDouble(sdr["jtax3"]);
+                txt_tax1_value.Value = Convert.ToDouble(sdr["JPPN"]);
+                txt_tax2_value.Value = Convert.ToDouble(sdr["JOtax"]);
+                txt_tax3_value.Value = Convert.ToDouble(sdr["JPPH"]);
                 txt_total.Value = Convert.ToDouble(sdr["Net"]);
                 txt_other_value.Value = Convert.ToDouble(sdr["Othercost"]);
 
@@ -135,7 +139,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         {
             con.Open();
             cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
             cmd.CommandText = "sp_get_invoice_incomingD";
             cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
@@ -171,7 +175,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             else if (Session["actionEdit"].ToString() == "edit")
             {
                 (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text);
+                (sender as RadGrid).DataSource = GetDataDetailTable(txt_reg_code.Text);
             }
         }
         #endregion
@@ -1260,7 +1264,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
                 cmd.Parameters.AddWithValue("@pph", cb_tax3.SelectedValue);
                 cmd.Parameters.AddWithValue("@pphIncl", 0);
-                cmd.Parameters.AddWithValue("@Owner", txt_owner.Text);
+                cmd.Parameters.AddWithValue("@Owner", lbl_Owner.Text);
                 cmd.Parameters.AddWithValue("@tFullSupply", 0);
                 cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
                 cmd.Parameters.AddWithValue("@KursTax", Convert.ToDouble(txt_tax_kurs.Value));
@@ -1391,6 +1395,58 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             }
         }
 
-        
+        protected void RadGrid2_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+        }
+
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Session["actionEdit"].ToString() == "edit")
+            {
+                (sender as RadGrid).DataSource = GetDataTable(txt_reg_code.Text);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+        }
+        public DataTable GetDataTable(string doc_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_goods_receive_journal";
+            cmd.Parameters.AddWithValue("@doc_code", doc_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return DT;
+        }
+
+        protected void RadGrid3_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+        }
     }
 }

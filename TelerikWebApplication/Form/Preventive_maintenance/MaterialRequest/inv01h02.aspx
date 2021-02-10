@@ -187,7 +187,7 @@
                 <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="sro_code" Font-Size="12px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                     CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" 
-                    CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl" InsertItemDisplay="Bottom">
+                    CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl" InsertItemDisplay="Top">
                     <Columns>
                         <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                             <HeaderStyle Width="40px"/>
