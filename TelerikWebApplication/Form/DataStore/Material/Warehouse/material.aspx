@@ -93,7 +93,7 @@
                                     <ItemStyle Width="30px" />
                                 </telerik:GridBoundColumn> --%>
                                 <telerik:GridTemplateColumn HeaderText="UoM" HeaderStyle-Width="60px" ItemStyle-Width="60px" 
-                                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center"  HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
+                                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblUom" Text='<%# DataBinder.Eval(Container.DataItem, "unit") %>'></asp:Label>
                                     </ItemTemplate>
@@ -102,17 +102,31 @@
                                     </InsertItemTemplate>                                         
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridTemplateColumn HeaderText ="Qty Actual" HeaderStyle-Width="60px" ItemStyle-Width="60px"
-                                    headers DataField="QACT" AllowFiltering="false">
-                                    <HeaderStyle Width="50px" />
-                                    <ItemStyle Width="50px" />
+                                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
+                                    <ItemTemplate>
+                                        <asp:Label ID="txt_qtyAct" runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                    <InsertItemTemplate>
+                                        <telerik:RadTextBox runat="server" Width="100px" Enabled="true" RenderMode="Lightweight" Text='<%#DataBinder.Eval(Container, "DataItem.QACT") %>'></telerik:RadTextBox>
+                                    </InsertItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText ="Qty Max" DataField="qtyMax" AllowFiltering="false">
-                                    <HeaderStyle Width="50px" />
-                                    <ItemStyle Width="50px" />
+                                <telerik:GridTemplateColumn HeaderText ="Qty Max" HeaderStyle-Width="60px" ItemStyle-Width="60px"
+                                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
+                                    <ItemTemplate>
+                                        <asp:Label ID="txt_qtyMax" runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                    <InsertItemTemplate>
+                                        <telerik:RadTextBox runat="server" Width="100px" Enabled="true" RenderMode="Lightweight" Text='<%#DataBinder.Eval(Container, "DataItem.qtyMax") %>'></telerik:RadTextBox>
+                                    </InsertItemTemplate>
                                 </telerik:GridTemplateColumn> 
-                                <telerik:GridTemplateColumn HeaderText ="Qty Min" DataField="qtyMin" AllowFiltering="false">
-                                    <HeaderStyle Width="50px" />
-                                    <ItemStyle Width="50px" />
+                                <telerik:GridTemplateColumn HeaderText ="Qty Min" HeaderStyle-Width="60px" ItemStyle-Width="60px"
+                                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-BackColor="#3399cc" HeaderStyle-ForeColor="#009900">
+                                    <ItemTemplate>
+                                        <asp:Label ID="txt_qtymin" runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                    <InsertItemTemplate>
+                                        <telerik:RadTextBox runat="server" Width="100px" Enabled="true" RenderMode="Lightweight" Text='<%#DataBinder.Eval(Container, "DataItem.qtyMin") %>'></telerik:RadTextBox>
+                                    </InsertItemTemplate>
                                 </telerik:GridTemplateColumn> 
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" ItemStyle-ForeColor="Red" 
                                     ConfirmText="Are you sure you want to delete this row or record?">
