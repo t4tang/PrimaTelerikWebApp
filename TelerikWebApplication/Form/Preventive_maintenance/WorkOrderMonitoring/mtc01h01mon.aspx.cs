@@ -23,7 +23,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrderMonitoring
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lbl_form_name.Text = "Wprl Order Monitoring";
+            lbl_form_name.Text = "Work Order Monitoring";
             dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             dtp_to.SelectedDate = DateTime.Now;
             selected_project = public_str.site;
