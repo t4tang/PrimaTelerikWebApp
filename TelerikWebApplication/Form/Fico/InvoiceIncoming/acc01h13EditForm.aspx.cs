@@ -27,7 +27,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         public static string tax2 = null;
         public static string tax3 = null;
         private object txtRemark_d;
-
+        public DataTable dtbl = new DataTable();
         private static string GetStatusMessage(int offset, int total)
         {
             if (total <= 0)
@@ -43,6 +43,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 {
                     fill_object(Request.QueryString["NoBuk"].ToString());
                     RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["NoBuk"].ToString());
+                    //DataDetailTable(Request.QueryString["NoBuk"].ToString());
+                    //RadGrid2.DataSource = dtbl;
+                    RadGrid2.DataBind();
                     Session["actionEdit"] = "edit";
                 }
                 else
@@ -135,6 +138,32 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         }
 
         #region Detail
+        private void DataDetailTable(string NoBuk)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_invoice_incomingD";
+            cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+                //dtbl = new DataTable();
+                //sda.Fill(dtbl);
+            }
+            finally
+            {
+                con.Close();
+            }
+            
+        }
         public DataTable GetDataDetailTable(string NoBuk)
         {
             con.Open();
@@ -171,11 +200,17 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 (sender as RadGrid).DataSource = new string[] { };
                 (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text);
+                //RefDetailTable(cb_reff.Text);
+                //(sender as RadGrid).DataSource = dtbl;
+                //(sender as RadGrid).DataBind();
             }
             else if (Session["actionEdit"].ToString() == "edit")
             {
                 (sender as RadGrid).DataSource = new string[] { };
                 (sender as RadGrid).DataSource = GetDataDetailTable(txt_reg_code.Text);
+                //DataDetailTable(txt_reg_code.Text);
+                //(sender as RadGrid).DataSource = dtbl;
+                //(sender as RadGrid).DataBind();
             }
         }
         #endregion
@@ -441,44 +476,53 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
             SqlDataReader dr;
-            if (cb_from_type.Text == "Purchase Order")
+            cmd.CommandText = "select * from v_invoice_incoming_reff where po_code = '" + (sender as RadComboBox).SelectedValue + "'";
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
             {
-                cmd.CommandText = "select * from v_invoice_incoming_reff where po_code = '" + (sender as RadComboBox).SelectedValue + "'";
-                dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    (sender as RadComboBox).Text = dr["po_code"].ToString();
-                    cb_cost_center.SelectedValue = dr["dept_code"].ToString();
-                    cb_cost_center.Text = dr["CostCenterName"].ToString();
-                    txt_remark.Text = dr["remark"].ToString();
-                    //txt_po_date.Text = dr["Po_date"].ToString();
-                }
-            }
-            else
-            {
-                cmd.CommandText = "select * from v_invoice_incoming_reffC where po_code = '" + (sender as RadComboBox).SelectedValue + "'";
-                dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    (sender as RadComboBox).Text = dr["po_code"].ToString();
-                    cb_cost_center.SelectedValue = dr["region_code"].ToString();
-                    cb_cost_center.Text = dr["CostCenterName"].ToString();
-                    txt_remark.Text = dr["remark"].ToString();
-                    //txt_po_date.Text = dr["Po_date"].ToString();
-                }
+                (sender as RadComboBox).Text = dr["po_code"].ToString();
+                cb_cost_center.SelectedValue = dr["dept_code"].ToString();
+                cb_cost_center.Text = dr["CostCenterName"].ToString();
+                txt_remark.Text = dr["remark"].ToString();
+                txt_curr.Text = dr["cur_code"].ToString();
+                txt_kurs.Value = Convert.ToDouble(dr["kurs"].ToString());
+                txt_tax_kurs.Value = Convert.ToDouble(dr["kurs_tax"].ToString());
+                cb_tax1.Text= dr["ppn"].ToString();
+                cb_tax2.Text = dr["OTax"].ToString();
+                cb_tax3.Text = dr["pph"].ToString();
+                txt_pppn.Value = Convert.ToDouble(dr["pppn"].ToString());
+                txt_ppph.Value = Convert.ToDouble(dr["POTax"].ToString());
+                txt_po_tax.Value = Convert.ToDouble(dr["ppph"].ToString());
+                    
             }
 
             dr.Close();
             con.Close();
 
             RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
+            //RefDetailTable((sender as RadComboBox).SelectedValue);
+            //RadGrid2.DataSource = dtbl;
             RadGrid2.DataBind();
 
-            txt_sub_total.Value = 0;
-            txt_tax1_value.Value = 0;
-            txt_tax2_value.Value = 0;
-            txt_tax3_value.Value = 0;
-            txt_total.Value = 0;
+            foreach (GridDataItem item in this.RadGrid2.Items)
+            {
+                CheckBox cTax1 = (CheckBox)item.FindControl("edt_chkTax1");
+                CheckBox cTax2 = (CheckBox)item.FindControl("edt_chkOTax");
+                CheckBox cTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+
+                if (cb_tax1.SelectedValue != "NON")
+                {
+                    cTax1.Checked = true;
+                    CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
+                }
+                else
+                {
+                    cTax1.Checked = false;
+                    CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
+                }
+            }
+
+            CalculateTotal();
         }
 
         #region PO_Refference
@@ -489,8 +533,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             DataTable dt = new DataTable();
 
-            if (fromtype == "Purchase Order") 
-            {
+            //if (fromtype == "Purchase Order") 
+            //{
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_invoice_incoming_reff WHERE PlantCode = @region_code " +
                 "AND po_code LIKE @text + '%' ORDER BY po_code",
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -498,17 +542,17 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
                 //DataTable dt = new DataTable();
                 adapter.Fill(dt); 
-            }
-            else
-            {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Tgl, remark FROM v_invoice_incoming_reffC WHERE region_code = @region_code " +
-                "AND po_code LIKE @text + '%' ORDER BY po_code",
-                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-                adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
-                adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
-                //DataTable dt = new DataTable();
-                adapter.Fill(dt);
-            }
+            //}
+            //else
+            //{
+            //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Tgl, remark FROM v_invoice_incoming_reffC WHERE region_code = @region_code " +
+            //    "AND po_code LIKE @text + '%' ORDER BY po_code",
+            //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            //    adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
+            //    adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
+            //    //DataTable dt = new DataTable();
+            //    adapter.Fill(dt);
+            //}
 
             cb.DataTextField = "po_code";
             cb.DataValueField = "po_code";
@@ -522,6 +566,26 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             LoadRef(e.Text, cb_project.SelectedValue, cb_from_type.Text, (sender as RadComboBox));
         }
 
+        private void RefDetailTable(string po_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_invoice_incoming_ReffD";
+            cmd.Parameters.AddWithValue("@po_code", po_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+            try
+            {
+                sda.Fill(dtbl);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
         public DataTable GetDataRefDetailTable(string po_code)
         {
             con.Open();
@@ -540,10 +604,11 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             sda = new SqlDataAdapter(cmd);
 
             DataTable DT = new DataTable();
-
+            
             try
             {
                 sda.Fill(DT);
+                //sda.Fill(dtbl);
             }
             finally
             {
@@ -1214,10 +1279,10 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h13.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h13 WHERE LEFT(acc01h13.po_code, 4) = 'BL03' " +
-                        "AND SUBSTRING(acc01h13.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(acc01h13.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h13.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM acc01h13 WHERE LEFT(acc01h13.NoBuk, 4) = 'BL03' " +
+                        "AND SUBSTRING(acc01h13.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(acc01h13.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -1270,14 +1335,15 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.Parameters.AddWithValue("@KursTax", Convert.ToDouble(txt_tax_kurs.Value));
                 cmd.Parameters.AddWithValue("@Ket", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@NoPO", cb_reff.Text);
-                cmd.Parameters.AddWithValue("@KoSub", cb_supplier.SelectedValue);
-                cmd.Parameters.AddWithValue("@NamSub", cb_supplier.Text);
+                cmd.Parameters.AddWithValue("@KoSup", cb_supplier.SelectedValue);
+                cmd.Parameters.AddWithValue("@NamSup", cb_supplier.Text);
                 cmd.Parameters.AddWithValue("@KoMat", txt_curr.Text);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@OTaxIncl", 0);
                 cmd.Parameters.AddWithValue("@Jpph", Convert.ToDouble(txt_tax3_value.Value));
                 cmd.Parameters.AddWithValue("@Ppph", Convert.ToDouble(txt_ppph.Value));
+                cmd.Parameters.AddWithValue("@tax_invoice", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble(txt_sub_total.Value));
                 cmd.Parameters.AddWithValue("@Ass", 0);
                 cmd.Parameters.AddWithValue("@OwnStamp", string.Format("{0:yyyy-MM-dd}", DateTime.Now));
@@ -1304,67 +1370,114 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
                 cmd.ExecuteNonQuery();
 
+                //foreach(DataRow dr in dtbl.Rows)
+                //{
+                //    cmd = new SqlCommand();
+                //    cmd.CommandType = CommandType.StoredProcedure;
+                //    cmd.Connection = con;
+                //    cmd.CommandText = "sp_save_invoice_incomingD";
+                //    cmd.Parameters.AddWithValue("@NoBuk", run);
+                //    cmd.Parameters.AddWithValue("@prod_type", dr["prod_type"]);
+                //    cmd.Parameters.AddWithValue("@KoBar", dr["prod_code"]);
+                //    cmd.Parameters.AddWithValue("@Qty", Convert.ToDouble(dr["Qty"]));
+                //    cmd.Parameters.AddWithValue("@SatQty", dr["SatQty"]);
+                //    cmd.Parameters.AddWithValue("@Harga", Convert.ToDouble(dr["Harga"]));
+                //    cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble(dr["Disc"]));
+                //    cmd.Parameters.AddWithValue("@tTax", dr["tTax"]);
+                //    cmd.Parameters.AddWithValue("@tOTax", dr["tOTax"]);
+                //    cmd.Parameters.AddWithValue("@tpph", dr["tpph"]);                   
+                //    cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble(dr["harga2"]));
+                //    cmd.Parameters.AddWithValue("@prod_code_ori", dr["prod_code_ori"]);
+                //    cmd.Parameters.AddWithValue("@dept_code", dr["dept_code"]);
+                //    cmd.Parameters.AddWithValue("@factor", Convert.ToDouble(dr["factor"]));
+                //    cmd.Parameters.AddWithValue("@Asscost", 0);
+                //    cmd.Parameters.AddWithValue("@noref", cb_reff.SelectedValue);
+                //    cmd.Parameters.AddWithValue("@KoRek", 0);
+                //    cmd.Parameters.AddWithValue("@KvrsiQty", 1);
+                //    cmd.Parameters.AddWithValue("@SatHrg", 0);
+                //    cmd.Parameters.AddWithValue("@KvrsiHrg", 1);
+                //    cmd.Parameters.AddWithValue("@TDisc", "%");
+                //    cmd.Parameters.AddWithValue("@Freight", 0);
+                //    cmd.Parameters.AddWithValue("@Ass", 0);
+                //    cmd.Parameters.AddWithValue("@Ket", dr["remark"]);
+                //    cmd.Parameters.AddWithValue("@tfactor", 0);
+                //    cmd.Parameters.AddWithValue("@KoBarH", 0);
+
+                //    cmd.ExecuteNonQuery();
+                //    notif.Text = "Data berhasil disimpan";
+                //    notif.Title = "Notification";
+                //    notif.Show();
+                //    txt_reg_code.Text = run;
+                //}
+
 
                 foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
                 {
-                    cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = con;
-                    cmd.CommandText = "sp_save_invoice_incomingD";
-                    cmd.Parameters.AddWithValue("@NoBuk", run);
-                    cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
-                    cmd.Parameters.AddWithValue("@KoBar", (item.FindControl("lblProdCode") as Label).Text);
-                    cmd.Parameters.AddWithValue("@Qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Value));
-                    cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("cb_uom_d") as RadComboBox).Text);
-                    cmd.Parameters.AddWithValue("@Harga", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
-                    cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("txt_disc") as RadNumericTextBox).Value));
-                    if ((item.FindControl("edt_chkTax1") as CheckBox).Checked == true)
+                    if((item.FindControl("chk_select") as CheckBox).Checked)
                     {
-                        cmd.Parameters.AddWithValue("@tTax", 1);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@tTax", 0);
-                    }
-                    if ((item.FindControl("edt_chkOTax") as CheckBox).Checked == true)
-                    {
-                        cmd.Parameters.AddWithValue("@tOTax", 1);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@tOTax", 0);
-                    }
-                    if ((item.FindControl("edt_chkTpph") as CheckBox).Checked == true)
-                    {
-                        cmd.Parameters.AddWithValue("@tpph", 1);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@tpph", 0);
-                    }
-                    cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
-                    cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lbl_Prod_code_ori") as Label).Text);
-                    cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as Label).Text);
-                    cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("txt_factor") as RadNumericTextBox).Value));
-                    cmd.Parameters.AddWithValue("@Asscost", 0);
-                    cmd.Parameters.AddWithValue("@noref", cb_reff.SelectedValue);
-                    cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
-                    cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
-                    cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
-                    cmd.Parameters.AddWithValue("@KoRek", 0);
-                    cmd.Parameters.AddWithValue("@KvrsiQty", 1);
-                    cmd.Parameters.AddWithValue("@SatHrg", 0);
-                    cmd.Parameters.AddWithValue("@KvrsiHrg", 1);
-                    cmd.Parameters.AddWithValue("@TDisc", "%");
-                    cmd.Parameters.AddWithValue("@Freight", 0);
-                    cmd.Parameters.AddWithValue("@Ass", 0);
-                    cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txtRemark_d") as RadTextBox).Text);
-                    cmd.Parameters.AddWithValue("@tfactor", 0);
-                    //cmd.Parameters.AddWithValue("@RefTransID", 0);
-                    cmd.Parameters.AddWithValue("@KoBarH", 0);
+                        cmd = new SqlCommand();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = con;
+                        cmd.CommandText = "sp_save_invoice_incomingD";
+                        cmd.Parameters.AddWithValue("@NoBuk", run);
+                        cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
+                        cmd.Parameters.AddWithValue("@KoBar", (item.FindControl("lblProdCode") as Label).Text);
+                        cmd.Parameters.AddWithValue("@Qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Value));
+                        cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("cb_uom_d") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@Harga", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
+                        cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("txt_disc") as RadNumericTextBox).Value));
+                        if ((item.FindControl("edt_chkTax1") as CheckBox).Checked == true)
+                        {
+                            cmd.Parameters.AddWithValue("@tTax", 1);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@tTax", 0);
+                        }
+                        if ((item.FindControl("edt_chkOTax") as CheckBox).Checked == true)
+                        {
+                            cmd.Parameters.AddWithValue("@tOTax", 1);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@tOTax", 0);
+                        }
+                        if ((item.FindControl("edt_chkTpph") as CheckBox).Checked == true)
+                        {
+                            cmd.Parameters.AddWithValue("@tpph", 1);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@tpph", 0);
+                        }
+                        cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
+                        cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
+                        cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as Label).Text);
+                        cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("txt_factor") as RadNumericTextBox).Value));
+                        cmd.Parameters.AddWithValue("@Asscost", 0);
+                        cmd.Parameters.AddWithValue("@noref", cb_reff.SelectedValue);
+                        //cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
+                        //cmd.Parameters.AddWithValue("@tax2", cb_tax2.Text);
+                        //cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
+                        cmd.Parameters.AddWithValue("@KoRek", 0);
+                        cmd.Parameters.AddWithValue("@KvrsiQty", 1);
+                        cmd.Parameters.AddWithValue("@SatHrg", 0);
+                        cmd.Parameters.AddWithValue("@KvrsiHrg", 1);
+                        cmd.Parameters.AddWithValue("@TDisc", "%");
+                        cmd.Parameters.AddWithValue("@Freight", 0);
+                        cmd.Parameters.AddWithValue("@Ass", 0);
+                        cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txtRemark_d") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@tfactor", 0);
+                        //cmd.Parameters.AddWithValue("@RefTransID", 0);
+                        cmd.Parameters.AddWithValue("@KoBarH", 0);
 
-                    cmd.ExecuteNonQuery();
-
+                        cmd.ExecuteNonQuery();
+                    }
+                    
+                    notif.Text = "Data berhasil disimpan";
+                    notif.Title = "Notification";
+                    notif.Show();
+                    txt_reg_code.Text = run;
                 }
 
             }
@@ -1376,10 +1489,6 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             finally
             {
                 con.Close();
-                notif.Text = "Data berhasil disimpan";
-                notif.Title = "Notification";
-                notif.Show();
-                txt_reg_code.Text = run;
 
                 if (Session["actionEdit"].ToString() == "edit")
                 {
@@ -1395,6 +1504,38 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             }
         }
 
+        private void populate_dataTable()
+        {
+            //foreach(GridDataItem item in RadGrid2.Items)
+            //{
+            //    string prodType = (item.FindControl("lblProdType") as Label).Text;
+
+            //}
+            int columncount = 0;
+
+            foreach (GridColumn column in RadGrid2.MasterTableView.Columns)
+            {
+                if (!string.IsNullOrEmpty(column.UniqueName) && !string.IsNullOrEmpty(column.HeaderText))
+                {
+                    columncount++;
+                    dtbl.Columns.Add(column.UniqueName, typeof(string));
+                }
+            }
+
+            DataRow dr;
+            foreach (GridDataItem item in RadGrid2.Items)
+            {
+                dr = dtbl.NewRow();
+
+                for (int i = 0; i < columncount; i++)
+                {
+                    dr[i] = item[RadGrid2.MasterTableView.Columns[i].UniqueName].Text;
+                }
+
+                dtbl.Rows.Add(dr);
+            }
+
+        }
         protected void RadGrid2_PreRender(object sender, EventArgs e)
         {
             if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
@@ -1406,14 +1547,14 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
         protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            if (Session["actionEdit"].ToString() == "edit")
-            {
-                (sender as RadGrid).DataSource = GetDataTable(txt_reg_code.Text);
-            }
-            else
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-            }
+            //if (Session["actionEdit"].ToString() == "edit")
+            //{
+            //    (sender as RadGrid).DataSource = GetDataTable(txt_reg_code.Text);
+            //}
+            //else
+            //{
+            //    (sender as RadGrid).DataSource = new string[] { };
+            //}
         }
         public DataTable GetDataTable(string doc_code)
         {
@@ -1421,7 +1562,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_goods_receive_journal";
+            cmd.CommandText = "";
             cmd.Parameters.AddWithValue("@doc_code", doc_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -1448,5 +1589,25 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
         }
+
+        //protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
+        //{
+        //    populate_dataTable();
+        //    RadGrid1.DataSource = dtbl;
+        //    RadGrid1.DataBind();
+        //}
+
+        protected void btnJournal_Click(object sender, EventArgs e)
+        {
+            //populate_dataTable();
+            //RadGrid1.DataSource = dtbl;
+            //RadGrid1.DataBind();
+        }
+
+        protected void chk_select_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

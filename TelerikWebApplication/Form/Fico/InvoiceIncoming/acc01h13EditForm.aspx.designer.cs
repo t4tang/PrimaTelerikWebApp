@@ -58,6 +58,15 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         protected global::System.Web.UI.WebControls.ImageButton btnSave;
         
         /// <summary>
+        /// btnJournal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btnJournal;
+        
+        /// <summary>
         /// txt_reg_code control.
         /// </summary>
         /// <remarks>
