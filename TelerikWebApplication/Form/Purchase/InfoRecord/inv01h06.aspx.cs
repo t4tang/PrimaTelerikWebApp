@@ -91,7 +91,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.CommandText = "SELECT prod_code, qty, min_qty, max_qty, SatQty, harga, disc, validdate, remark  FROM v_info_recordD where info_code = @info_code";
-
+            cmd.Parameters.AddWithValue("@info_code", info_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -109,30 +109,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             return DT;
         }
        
-            public DataTable GetDataTable()
-        {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "SELECT info_code, supplier_name, type_infoname, cur_code, remark  FROM v_info_recordH where stedit != 4";
-
-            cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
-            sda = new SqlDataAdapter(cmd);
-            DataTable DT = new DataTable();
-
-            try
-            {
-                sda.Fill(DT);
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return DT;
-        }
+          
 
         #region project
         private static DataTable GetProjectPrm(string text)
@@ -178,6 +155,37 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             con.Close();
         }
         #endregion
+
+        public DataTable GetDataTable()
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT info_code, supplier_name, type_infoname, cur_code, remark  FROM v_info_recordH where stedit != 4";
+
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            RadGrid1.DataSource = GetDataTable();
+            RadGrid1.DataBind();
+        }
 
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
@@ -314,6 +322,5 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             }
         }
         #endregion
-
     }
 }

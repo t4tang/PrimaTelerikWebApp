@@ -164,9 +164,9 @@
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click" ToolTip="Add New" Visible="true"
                         Height="30px" Width="32px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
                 </td>--%>  
-                <td style="width: 94%; text-align: right">
-                    <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight:normal; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:deepskyblue;">
+                <td style="width: 97%; text-align: right">
+                    <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
                     </telerik:RadLabel>
                 </td>
             </tr>
@@ -175,7 +175,7 @@
 
     <div class="scroller" runat="server" style="overflow-y:scroll; height:620px;">
         <div style="width:100%; overflow-y:hidden;height:auto; scrollbar-highlight-color:#b6ff00">
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="10" Skin="Telerik"
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="15" Skin="Telerik"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" 
                 OnNeedDataSource="RadGrid1_NeedDataSource"
                 OnDeleteCommand="RadGrid1_DeleteCommand">
@@ -191,8 +191,8 @@
                     <Columns>
                         <%--<telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="30px"></telerik:GridClientSelectColumn>--%>
                         <telerik:GridBoundColumn UniqueName="trans_id" HeaderText="WO. Number" DataField="trans_id">
-                            <HeaderStyle Width="140px"/>
-                            <ItemStyle Width="140px" />
+                            <HeaderStyle Width="120px"/>
+                            <ItemStyle Width="120px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="trans_date" HeaderText="Date" DataField="trans_date" 
                                 EnableRangeFiltering="false" PickerType="DatePicker" DataFormatString="{0:d}" FilterControlWidth="103px" >
@@ -200,28 +200,28 @@
                             <ItemStyle Width="120px" />                        
                         </telerik:GridDateTimeColumn>
                         <telerik:GridBoundColumn UniqueName="unit_code" HeaderText="Unit Code" DataField="unit_code">
-                            <HeaderStyle Width="140px"/>
-                            <ItemStyle Width="140px" />
+                            <HeaderStyle Width="120px"/>
+                            <ItemStyle Width="120px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="model_no" HeaderText="Model No." DataField="model_no">
                             <HeaderStyle Width="140px"/>
                             <ItemStyle Width="120px" />                        
                         </telerik:GridDateTimeColumn>
                         <telerik:GridBoundColumn UniqueName="OrderName" HeaderText="Order Type" DataField="OrderName">
-                            <HeaderStyle Width="140px"/>
-                            <ItemStyle Width="140px" />
+                            <HeaderStyle Width="160px"/>
+                            <ItemStyle Width="160px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="wo_desc" HeaderText="Status" DataField="wo_desc">
-                            <HeaderStyle Width="140px"/>
-                            <ItemStyle Width="120px" />                        
+                            <HeaderStyle Width="120px"/>
+                            <ItemStyle Width="100px" HorizontalAlign="Center" />                        
                         </telerik:GridDateTimeColumn>
                         <telerik:GridBoundColumn UniqueName="time_reading" HeaderText="Unit HM" DataField="time_reading">
                             <HeaderStyle Width="140px"/>
                             <ItemStyle Width="140px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="unitstatus" HeaderText="Unit Status" DataField="unitstatus">
-                            <HeaderStyle Width="140px"/>
-                            <ItemStyle Width="120px" />                        
+                            <HeaderStyle Width="100px"/>
+                            <ItemStyle Width="80px" />                        
                         </telerik:GridDateTimeColumn>
                         <telerik:GridBoundColumn UniqueName="DBDate" HeaderText="B/D Date" DataField="DBDate">
                             <HeaderStyle Width="120px"/>
@@ -237,7 +237,7 @@
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
-                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="260px" />
+                    <%--<Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="360px" />--%>
                     <Selecting AllowRowSelect="true"></Selecting>  
                 </ClientSettings>
             </telerik:RadGrid>
