@@ -245,10 +245,10 @@
                  <telerik:GridTemplateColumn HeaderText="Material Code" HeaderStyle-Width="120px" ItemStyle-Width="120px"
                         HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Left">
                     <ItemTemplate>
-                        <asp:Label runat="server" ID="lblProdCode" Text='<%# DataBinder.Eval(Container.DataItem, "Prod_code") %>'></asp:Label>
+                        <asp:Label runat="server" ID="lblProdCode" Text='<%# DataBinder.Eval(Container.DataItem, "prod_code") %>'></asp:Label>
                         <telerik:RadToolTip RenderMode="Lightweight" ID="RadToolTip1" runat="server" TargetControlID="lblProdCode" RelativeTo="Element"
                         Position="BottomCenter" RenderInPageRoot="true" HideDelay="300" ShowEvent="OnMouseOver">
-                        <%# DataBinder.Eval(Container, "DataItem.Spec")%>                                                
+                        <%# DataBinder.Eval(Container, "DataItem.prod_code")%>                                                
                         </telerik:RadToolTip>
                     </ItemTemplate>                                        
                 </telerik:GridTemplateColumn>
@@ -366,7 +366,11 @@
                         </telerik:RadTextBox>
                     </EditItemTemplate>
                 </telerik:GridTemplateColumn>
-
+             <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" 
+                        HeaderStyle-ForeColor="#009900" ConfirmTitle="Delete" ConfirmDialogType="RadWindow"
+                    ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px">
+                    <ItemStyle ForeColor="Red" />
+                </telerik:GridButtonColumn>
             </Columns>
             </MasterTableView>
             <ClientSettings >
