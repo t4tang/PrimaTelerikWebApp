@@ -70,44 +70,6 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             }
         }
 
-        private void populate_detail()
-        {
-            if (tr_code == null)
-            {
-                RadGrid2.DataSource = new string[] { };
-            }
-            else
-            {
-                RadGrid2.DataSource = GetDataDetailTable(RadGrid1.MasterTableView.DataKeyNames.ToString());
-            }
-
-            RadGrid2.DataBind();
-        }
-        
-        public DataTable GetDataDetailTable(string info_code)
-        {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "SELECT prod_code, qty, min_qty, max_qty, SatQty, harga, disc, validdate, remark  FROM v_info_recordD where info_code = @info_code";
-            cmd.Parameters.AddWithValue("@info_code", info_code);
-            cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
-            sda = new SqlDataAdapter(cmd);
-            DataTable DT = new DataTable();
-
-            try
-            {
-                sda.Fill(DT);
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return DT;
-        }
        
           
 
@@ -247,6 +209,46 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
         }
 
         #region Detail
+
+        private void populate_detail()
+        {
+            if (tr_code == null)
+            {
+                RadGrid2.DataSource = new string[] { };
+            }
+            else
+            {
+                RadGrid2.DataSource = GetDataDetailTable(tr_code);
+            }
+
+            RadGrid2.DataBind();
+        }
+
+        public DataTable GetDataDetailTable(string info_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT prod_code, qty, min_qty, max_qty, SatQty, harga, disc, validdate, remark  FROM v_info_recordD where info_code = @info_code";
+            cmd.Parameters.AddWithValue("@info_code", info_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
+
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             if (tr_code == null)
@@ -255,7 +257,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             }
             else
             {
-                (sender as RadGrid).DataSource = GetDataDetailTable(RadGrid1.MasterTableView.DataKeyNames.ToString());
+                (sender as RadGrid).DataSource = GetDataDetailTable(tr_code);
             }
 
         }
@@ -298,17 +300,17 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_goods_receiveD";
+                cmd.CommandText = "sp_save_info_recordD";
                 cmd.Parameters.AddWithValue("@info_code", tr_code);
                 cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
-               
-                cmd.Parameters.AddWithValue("@qty_receive", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
-                
-                cmd.Parameters.AddWithValue("@koLok", (item.FindControl("cbKolok") as RadComboBox).Text);
-                cmd.Parameters.AddWithValue("@UID", public_str.uid);
+                cmd.Parameters.AddWithValue("@qty", Convert.ToDouble((item.FindControl("txt_qty") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@min_qty", Convert.ToDouble((item.FindControl("txt_qty_min") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@max_qty", Convert.ToDouble((item.FindControl("txt_qty_max") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@harga", Convert.ToDouble((item.FindControl("txt_harga") as RadTextBox).Text));
+                cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("txt_disc") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
                 cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
-                
+                cmd.Parameters.AddWithValue("@ValidDate", string.Format("{0:yyyy-MM-dd}", (item.FindControl("dtpDelivDate") as RadDatePicker).SelectedDate));
                 cmd.ExecuteNonQuery();
                 con.Close();
 
