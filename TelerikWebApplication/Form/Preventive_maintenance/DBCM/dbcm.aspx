@@ -192,7 +192,7 @@
                             <HeaderStyle Width="80px"></HeaderStyle>
                             <ItemStyle Width="80px" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="status" HeaderText="Status" DataField="status"FilterControlWidth="45px" >
+                        <telerik:GridBoundColumn UniqueName="status" HeaderText="Status" DataField="status" FilterControlWidth="45px" >
                             <HeaderStyle Width="60px"></HeaderStyle>
                             <ItemStyle Width="60px" />
                         </telerik:GridBoundColumn>
