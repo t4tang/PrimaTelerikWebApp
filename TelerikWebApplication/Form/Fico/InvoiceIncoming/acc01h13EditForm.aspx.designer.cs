@@ -13,6 +13,15 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
     public partial class acc01h13EditForm {
         
         /// <summary>
+        /// RadCodeBlock1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadCodeBlock RadCodeBlock1;
+        
+        /// <summary>
         /// form1 control.
         /// </summary>
         /// <remarks>
@@ -58,15 +67,6 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         protected global::System.Web.UI.WebControls.ImageButton btnSave;
         
         /// <summary>
-        /// btnJournal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btnJournal;
-        
-        /// <summary>
         /// txt_reg_code control.
         /// </summary>
         /// <remarks>
@@ -83,6 +83,15 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker dtp_reg;
+        
+        /// <summary>
+        /// UpdatePanel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel8;
         
         /// <summary>
         /// cb_from_type control.
@@ -319,13 +328,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         protected global::Telerik.Web.UI.RadComboBox cb_tax2;
         
         /// <summary>
-        /// txt_po_tax control.
+        /// txt_ppph control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox txt_po_tax;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_ppph;
         
         /// <summary>
         /// UpdatePanel7 control.
@@ -346,13 +355,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming {
         protected global::Telerik.Web.UI.RadComboBox cb_tax3;
         
         /// <summary>
-        /// txt_ppph control.
+        /// txt_po_tax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadNumericTextBox txt_ppph;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_po_tax;
         
         /// <summary>
         /// UpdatePanel11 control.

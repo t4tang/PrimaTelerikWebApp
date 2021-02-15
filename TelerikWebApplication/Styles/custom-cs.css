@@ -290,7 +290,9 @@ div.RadGrid_MetroTouch td.rgPagerCell
  {
      font-size:12px;
      font-weight:normal;
-     font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif;         
+     font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif; 
+     
+           
  }
  .lbSummary
  {
@@ -372,15 +374,18 @@ color:Black !important;
 border-bottom-color:White !important;
 }
 
+
+
 .gridHeader {
     /*position: relative;
     background-image: url(Images/btns.png);
     background-repeat: no-repeat;
     background-position: 100% -80px;
     padding-right: 161px;*/
-    font-size:13px;
+    font-size:medium;
     font-weight:bold;
-    color:firebrick;
+    color:white;
+    background-color:#FF9933;
     /*font-variant:small-caps;*/
 }
  
