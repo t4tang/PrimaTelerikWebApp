@@ -1,5 +1,7 @@
 ﻿html .main-header {
-  background-image: url("../Images/backgrounds/header_mail.gif"); }
+  /*background-image: url("../Images/backgrounds/header_mail.gif"); */
+  background-image: url("../Images/backgrounds/header_about.gif")
+      }
 
 html .sidebar .btn-new-node,
 html .help-menu .rmRootGroup {

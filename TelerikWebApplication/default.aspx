@@ -1,4 +1,4 @@
-﻿<%@ Page Title="PRIMA SYSTEM" MetaDescription="Telerik WebMail" MetaKeywords="telerik webmail,webmail,outlook inspired app" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="TelerikWebApplication.Default" %>
+﻿<%@ Page MetaDescription="Telerik WebMail" MetaKeywords="telerik webmail,webmail,outlook inspired app" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="TelerikWebApplication.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="Styles/mail.css" rel="stylesheet" />

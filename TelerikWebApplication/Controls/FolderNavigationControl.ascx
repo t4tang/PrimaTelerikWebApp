@@ -19,7 +19,7 @@
 <div class="btn-new-node">Add New</div>--%>
 
 <telerik:RadLabel ID="lbl_modul_name" runat="server" style="font-weight: bold; font-variant: small-caps; padding-left:10px; 
-padding-bottom:13px; font-size:x-large; color:deeppink"></telerik:RadLabel>
+padding-bottom:13px; font-size:x-large; color:yellowgreen"></telerik:RadLabel>
 
 <telerik:RadPanelBar RenderMode="Lightweight" runat="server" ID="RadPanelBar1" AutoPostBack="false" BackColor="White" BorderWidth="0" ForeColor="Teal"
 Height="100%" Width="237px" ExpandMode="SingleExpandedItem" Font-Names="Calibri" Font-Size="14px" OnItemClick="RadPanelBar1_ItemClick" 

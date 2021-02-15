@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title></title>
+    <title>PRIMA</title>
     <link rel="stylesheet" type="text/css" href="Styles/common.css" />
     <link href="Styles/custom-cs.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -37,7 +37,7 @@
               padding:2px 2px 0px 15px;
               /*left:50%;*/
               border-top-style:outset;
-              border-top-color:orangered;
+              border-top-color:darkorange;
             }
     </style>
 </head>
@@ -76,7 +76,7 @@
             </telerik:RadMenu>--%>
         </div>
         <div class="page">
-            <div class="main-header clear" style="border-bottom-style:outset; border-bottom-color:greenyellow" >
+            <div class="main-header clear" style="border-bottom-style:outset; border-bottom-color:yellowgreen" >
                 <div class="home-btn">
                     <span class="icon icon-Home"></span>
                     <span class="text"><%: Page.Title %></span>

@@ -49,22 +49,13 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
-        /// RadTabStrip1 control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
-        
-        /// <summary>
-        /// RadMultiPage1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
+        protected global::System.Web.UI.WebControls.ImageButton btnSave;
         
         /// <summary>
         /// txt_reg_number control.
@@ -481,6 +472,42 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         protected global::Telerik.Web.UI.RadComboBox cb_acknowledgedBy;
         
         /// <summary>
+        /// lbl_userId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_userId;
+        
+        /// <summary>
+        /// lbl_lastUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_lastUpdate;
+        
+        /// <summary>
+        /// lbl_Owner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_Owner;
+        
+        /// <summary>
+        /// lbl_edited control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_edited;
+        
+        /// <summary>
         /// RadTabStrip2 control.
         /// </summary>
         /// <remarks>
@@ -668,51 +695,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid5;
-        
-        /// <summary>
-        /// lbl_userId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_userId;
-        
-        /// <summary>
-        /// lbl_lastUpdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_lastUpdate;
-        
-        /// <summary>
-        /// lbl_Owner control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_Owner;
-        
-        /// <summary>
-        /// lbl_edited control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_edited;
-        
-        /// <summary>
-        /// btn_save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
         
         /// <summary>
         /// notif control.

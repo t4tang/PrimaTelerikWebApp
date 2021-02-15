@@ -42,9 +42,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 if (Request.QueryString["NoBuk"] != null)
                 {
                     fill_object(Request.QueryString["NoBuk"].ToString());
-                    RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["NoBuk"].ToString());
-                    //DataDetailTable(Request.QueryString["NoBuk"].ToString());
-                    //RadGrid2.DataSource = dtbl;
+                    //RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["NoBuk"].ToString());
+                    DataDetailTable(Request.QueryString["NoBuk"].ToString());
+                    RadGrid2.DataSource = dtbl;
                     RadGrid2.DataBind();
                     Session["actionEdit"] = "edit";
                 }
@@ -54,14 +54,14 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
                     dtp_reg.SelectedDate = DateTime.Now;
                     dtp_inv.SelectedDate = DateTime.Now;
-
-                    cb_from_type.SelectedValue = "1";
+                    
+                    cb_from_type.Text = "Purchase Order";
                     cb_project.SelectedValue = public_str.site;
                     cb_project.Text = public_str.sitename;
 
                     lbl_userId.Text = lbl_userId.Text+" "+ public_str.user_id;
-                    lbl_Owner.Text = lbl_Owner + " "+ public_str.user_id;
-                    lbl_lastUpdate.Text = lbl_lastUpdate +" "+ string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+                    lbl_Owner.Text = lbl_Owner.Text + " "+ public_str.user_id;
+                    lbl_lastUpdate.Text = lbl_lastUpdate.Text +" "+ string.Format("{0:dd/MM/yyyy}", DateTime.Now);
                     //txt_printed.Text = "0";
                     lbl_edited.Text = lbl_edited.Text +" "+ "0";
                     txt_sub_total.Value = 0;
@@ -154,9 +154,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
             try
             {
-                sda.Fill(DT);
-                //dtbl = new DataTable();
-                //sda.Fill(dtbl);
+                //sda.Fill(DT);
+                dtbl = new DataTable();
+                sda.Fill(dtbl);
             }
             finally
             {
@@ -196,22 +196,28 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 (sender as RadGrid).DataSource = new string[] { };
             }
-            else if (Session["actionEdit"].ToString() == "new")
+            else
             {
-                (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text);
-                //RefDetailTable(cb_reff.Text);
-                //(sender as RadGrid).DataSource = dtbl;
+                //(sender as RadGrid).DataSource = new string[] { };
+                (sender as RadGrid).DataSource = dtbl;
                 //(sender as RadGrid).DataBind();
             }
-            else if (Session["actionEdit"].ToString() == "edit")
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = GetDataDetailTable(txt_reg_code.Text);
-                //DataDetailTable(txt_reg_code.Text);
-                //(sender as RadGrid).DataSource = dtbl;
-                //(sender as RadGrid).DataBind();
-            }
+            //else if (Session["actionEdit"].ToString() == "new")
+            //{
+            //    (sender as RadGrid).DataSource = new string[] { };
+            //    (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text);
+            //    //RefDetailTable(cb_reff.Text);
+            //    //(sender as RadGrid).DataSource = dtbl;
+            //    //(sender as RadGrid).DataBind();
+            //}
+            //else if (Session["actionEdit"].ToString() == "edit")
+            //{
+            //    (sender as RadGrid).DataSource = new string[] { };
+            //    (sender as RadGrid).DataSource = GetDataDetailTable(txt_reg_code.Text);
+            //    //DataDetailTable(txt_reg_code.Text);
+            //    //(sender as RadGrid).DataSource = dtbl;
+            //    //(sender as RadGrid).DataBind();
+            //}
         }
         #endregion
 
@@ -220,10 +226,20 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             if ((sender as RadComboBox).Text == "Purchase Order")
             {
                 (sender as RadComboBox).SelectedValue = "1";
+                GridCommandItem cmdItem = (GridCommandItem)RadGrid2.MasterTableView.GetItems(GridItemType.CommandItem)[0];
+                LinkButton btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
+                btnAddNewItem.Enabled = false;
+                LinkButton btnDeleteItem = (LinkButton)cmdItem.FindControl("LinkButton3");
+                btnDeleteItem.Enabled = false;
             }
             else if ((sender as RadComboBox).Text == "Consignment")
             {
                 (sender as RadComboBox).SelectedValue = "2";
+                GridCommandItem cmdItem = (GridCommandItem)RadGrid2.MasterTableView.GetItems(GridItemType.CommandItem)[0];
+                LinkButton btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
+                btnAddNewItem.Enabled = true;
+                LinkButton btnDeleteItem = (LinkButton)cmdItem.FindControl("LinkButton3");
+                btnDeleteItem.Enabled = true;
             }
         }
 
@@ -297,7 +313,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd.CommandText = "SELECT     pur00h01.supplier_code,acc00h04.KursRun, acc00h04.KursTax, pur00h01.cur_code, acc00h05.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " + 
                                 "FROM pur00h01 LEFT OUTER JOIN acc00h05 ON acc00h05.TAX_CODE = pur00h01.ppn LEFT OUTER JOIN acc00h05 AS c ON pur00h01.OTax = c.TAX_CODE LEFT OUTER JOIN " +
                                 "acc00h05 AS d ON pur00h01.pph = d.TAX_CODE inner join acc00h04 on pur00h01.cur_code = acc00h04.cur_code WHERE(acc00h04.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
-                                "FROM acc00h04)) and pur00h01.supplier_name = 'INDOTRUCK UTAMA, PT (IDR)' = '" + (sender as RadComboBox).Text + "'";
+                                "FROM acc00h04)) and pur00h01.supplier_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -499,9 +515,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             dr.Close();
             con.Close();
 
-            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
-            //RefDetailTable((sender as RadComboBox).SelectedValue);
-            //RadGrid2.DataSource = dtbl;
+            //RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
+            RefDetailTable((sender as RadComboBox).SelectedValue);
+            RadGrid2.DataSource = dtbl;
             RadGrid2.DataBind();
 
             foreach (GridDataItem item in this.RadGrid2.Items)
@@ -1423,7 +1439,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                         cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
                         cmd.Parameters.AddWithValue("@KoBar", (item.FindControl("lblProdCode") as Label).Text);
                         cmd.Parameters.AddWithValue("@Qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Value));
-                        cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("cb_uom_d") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lbl_uom") as RadLabel).Text);
                         cmd.Parameters.AddWithValue("@Harga", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
                         cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("txt_disc") as RadNumericTextBox).Value));
                         if ((item.FindControl("edt_chkTax1") as CheckBox).Checked == true)
@@ -1543,6 +1559,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
+
+            if (cb_from_type.SelectedValue == "2")
+            {
+                GridCommandItem cmdItem = (GridCommandItem)RadGrid2.MasterTableView.GetItems(GridItemType.CommandItem)[0];
+                LinkButton btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
+                btnAddNewItem.Enabled = true;
+            }
         }
 
         protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
@@ -1606,8 +1629,189 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
         protected void chk_select_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox chk = sender as CheckBox;
+            GridDataItem item = (GridDataItem)chk.NamingContainer;
+            if (!chk.Checked)
+            {
+                //item.Enabled = false;
+                foreach (GridDataItem gdi in RadGrid2.SelectedItems)
+                {
+                    (gdi.FindControl("txt_qty") as RadNumericTextBox).ReadOnly = true;
+                    (gdi.FindControl("txt_harga") as RadNumericTextBox).ReadOnly = true;
+                    (gdi.FindControl("txt_disc") as RadNumericTextBox).ReadOnly = true;
+                    //(gdi.FindControl("lbl_uom") as RadLabel).Enabled = true;
+                    (gdi.FindControl("txt_factor") as RadNumericTextBox).ReadOnly = true;
+                    (gdi.FindControl("edt_chkTax1") as CheckBox).Enabled = true;
+                    (gdi.FindControl("edt_chkOTax") as CheckBox).Enabled = true;
+                    (gdi.FindControl("edt_chkTpph") as CheckBox).Enabled = true;
+                    (gdi.FindControl("dtpSroDate") as RadDatePicker).Enabled = true;
+                    (gdi.FindControl("txtRemark_d") as RadTextBox).ReadOnly = true;
+                }
+            }
+            else
+            {
+                foreach (GridDataItem gdi in RadGrid2.SelectedItems)
+                {
+                    (gdi.FindControl("txt_qty") as RadNumericTextBox).ReadOnly = false;
+                    (gdi.FindControl("txt_harga") as RadNumericTextBox).ReadOnly = false;
+                    (gdi.FindControl("txt_disc") as RadNumericTextBox).ReadOnly = false;
+                    //(gdi.FindControl("lbl_uom") as RadLabel).Enabled = false;
+                    (gdi.FindControl("txt_factor") as RadNumericTextBox).ReadOnly = false;
+                    (gdi.FindControl("edt_chkTax1") as CheckBox).Enabled = false;
+                    (gdi.FindControl("edt_chkOTax") as CheckBox).Enabled = false;
+                    (gdi.FindControl("edt_chkTpph") as CheckBox).Enabled = false;
+                    (gdi.FindControl("dtpSroDate") as RadDatePicker).Enabled = false;
+                    (gdi.FindControl("txtRemark_d") as RadTextBox).ReadOnly = false;
+                }
+            }
         }
 
+        protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                CheckBox chk = e.Item.FindControl("chk_select") as CheckBox;
+                chk.Attributes.Add("onclick", "Select('" + e.Item.ItemIndex + "');");
+            }
+        }
+
+        protected void RadGrid2_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if(e.Item is GridDataItem)
+            {
+                CheckBox chk = e.Item.FindControl("chk_select") as CheckBox;
+                chk.Attributes.Add("onclick", "Select('" + e.Item.ItemIndex + "');");   
+            }
+        }
+
+
+        protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            
+            if (e.CommandName == "RowClick" && cb_from_type.SelectedValue == "2")
+            {
+                GridCommandItem cmdItem = (GridCommandItem)RadGrid2.MasterTableView.GetItems(GridItemType.CommandItem)[0];
+                LinkButton btnDeleteSelected = (LinkButton)cmdItem.FindControl("LinkButton3");
+                btnDeleteSelected.Enabled = true;
+            }
+        }
+
+        protected void cb_prod_code_insertTemp_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            string sql = "SELECT TOP (100)[prod_code], [prod_spec], [unit_code], [qty_out], [disc], [price], [do_code], [Tgl], [info_code], [dept_code] " +
+                "FROM [v_invoice_incoming_from_consigment]  WHERE cust_code != @cust_code AND region_code = @region_code AND prod_spec LIKE @spec + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
+            adapter.SelectCommand.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["prod_code"].ToString();
+                item.Value = row["prod_code"].ToString();
+                item.Attributes.Add("prod_spec", row["prod_spec"].ToString());
+                item.Attributes.Add("unit_code", row["unit_code"].ToString());
+                item.Attributes.Add("qty_out", row["qty_out"].ToString());
+                item.Attributes.Add("disc", row["disc"].ToString());
+                item.Attributes.Add("price", row["price"].ToString());
+                item.Attributes.Add("do_code", row["do_code"].ToString());
+                item.Attributes.Add("Tgl", row["Tgl"].ToString());
+                item.Attributes.Add("info_code", row["info_code"].ToString());
+                item.Attributes.Add("dept_code", row["dept_code"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void cb_prod_code_insertTemp_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT [prod_code], [prod_spec], [unit_code], [qty_out], [disc], [price], [do_code], [Tgl], [info_code], [dept_code] " +
+                    "FROM [v_invoice_incoming_from_consigment] WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+                    //Label lblQtyRs;
+                    RadLabel lbl_UoM;
+                    RadLabel lbl_prodType;
+                    RadNumericTextBox txtPartQty;
+                    RadNumericTextBox txtPrice;
+                    RadNumericTextBox txtdisc;
+                    RadNumericTextBox txtSubPrice;
+                    RadLabel txtCostCtr;
+                    RadDatePicker Tgl;
+                    RadNumericTextBox txtFactor;
+                    CheckBox ttax1;
+                    CheckBox tOtax;
+                    CheckBox tpph;
+
+                    lbl_prodType = (RadLabel)item.FindControl("lblProdTypeInsert");
+                    txtPartQty = (RadNumericTextBox)item.FindControl("txt_qty_insert");
+                    lbl_UoM = (RadLabel)item.FindControl("lblUomInsert");
+                    txtPrice = (RadNumericTextBox)item.FindControl("txt_hargaInsert");
+                    txtdisc = (RadNumericTextBox)item.FindControl("txt_discInsert");
+                    txtSubPrice = (RadNumericTextBox)item.FindControl("txt_sub_priceInsert");
+                    txtCostCtr = (RadLabel)item.FindControl("lbl_cost_ctrInsert");
+                    Tgl = (RadDatePicker)item.FindControl("dtpSroDateInsert");
+                    txtFactor = (RadNumericTextBox)item.FindControl("txt_factorInsert");
+                    ttax1= (CheckBox)item.FindControl("chkTax1Insert");
+                    tOtax = (CheckBox)item.FindControl("chkOTaxInsert");
+                    tpph = (CheckBox)item.FindControl("chkTpphInsert");
+
+                    lbl_prodType.Text = "M1";
+                    txtPartQty.Value = Convert.ToDouble(dtr["qty_out"].ToString());
+                    lbl_UoM.Text = dtr["unit_code"].ToString();
+                    txtPrice.Value= Convert.ToDouble(dtr["price"].ToString());
+                    txtdisc.Value = Convert.ToDouble(dtr["disc"].ToString());
+                    txtSubPrice.Value = Convert.ToDouble(dtr["price"].ToString()) * Convert.ToDouble(dtr["qty_out"].ToString());
+                    txtCostCtr.Text = dtr["dept_code"].ToString();
+                    Tgl.SelectedDate= Convert.ToDateTime(dtr["Tgl"].ToString());
+                    txtFactor.Value = 0;
+                    if(cb_tax1.Text != "NON")
+                    {
+                        ttax1.Checked = true;
+                    }
+                    if (cb_tax2.Text != "NON")
+                    {
+                        tOtax.Checked = true;
+                    }
+                    if (cb_tax3.Text != "NON")
+                    {
+                        tpph.Checked = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
     }
 }
