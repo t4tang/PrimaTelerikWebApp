@@ -122,8 +122,6 @@
                                 <telerik:RadLabel runat="server" Text="Project :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
                                 <telerik:RadComboBox ID="cb_proj_prm" runat="server" RenderMode="Lightweight" AutoPostBack="true" CausesValidation="false"
                                     EnableLoadOnDemand="True"  Skin="Silk" 
-                                    OnItemsRequested="cb_proj_prm_ItemsRequested"
-                                    OnSelectedIndexChanged="cb_proj_prm_SelectedIndexChanged"
                                     EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="100%">
                                 </telerik:RadComboBox>                                    
                                 </ContentTemplate>
@@ -148,12 +146,12 @@
                         Height="25px" Width="28px" ImageUrl="~/Images/filter.png"></asp:ImageButton>
                 </td>                 
                 <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
-                    <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click" ToolTip="Add New" Visible="true"
+                    <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" ToolTip="Add New" Visible="false" 
                         Height="30px" Width="32px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
                 </td>  
-                <td style="width: 94%; text-align: right">
+                <td style="width: 96%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight:normal; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:deepskyblue;">
+                        padding-bottom: 0px; font-size: x-large; color:deepskyblue;" Text="Daily Breakdown Condition Monitoring">
                     </telerik:RadLabel>
                 </td>
             </tr>
@@ -163,7 +161,7 @@
         <div style="width:100%; overflow-y:hidden;height:auto; scrollbar-highlight-color:#b6ff00">
            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="14" Skin="Silk"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" 
-                 >
+                  OnNeedDataSource="RadGrid1_NeedDataSource">
                 <PagerStyle Mode="NumericPages"></PagerStyle>          
                 <ClientSettings EnablePostBackOnRowClick="true" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />

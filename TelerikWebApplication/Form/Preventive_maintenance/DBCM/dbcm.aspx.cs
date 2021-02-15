@@ -18,5 +18,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
         {
             
         }
+
+        protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
