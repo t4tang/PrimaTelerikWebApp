@@ -16,7 +16,7 @@
                         AutoGenerateColumns="false" Skin="Telerik" AllowFilteringByColumn="true" 
                         OnNeedDataSource="RadGridMaterial_NeedDataSource"
                          OnInsertCommand="RadGridMaterial_InsertCommand">
-                        <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="prod_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
+                        <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="wh_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
                                          EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                             <Columns>
                                 <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
