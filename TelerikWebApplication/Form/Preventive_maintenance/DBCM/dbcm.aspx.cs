@@ -13,5 +13,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
         {
 
         }
+
+        protected void RadAjaxManager1_AjaxRequest(object sender, Telerik.Web.UI.AjaxRequestEventArgs e)
+        {
+            
+        }
     }
 }
