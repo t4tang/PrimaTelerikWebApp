@@ -14,7 +14,7 @@
                 <ContentTemplate>
                     <telerik:RadGrid ID="RadGridGLAcc" runat="server" RenderMode="Lightweight" AllowPaging="false" ShowFooter="false" AllowSorting="true" 
                         AutoGenerateColumns="false" Skin="Telerik" AllowFilteringByColumn="true" 
-                        OnNeedDataSource="RadGridGLAcc_NeedDataSource" OnUpdateCommand="RadGridGLAcc_UpdateCommand" >
+                        OnNeedDataSource="RadGridGLAcc_NeedDataSource" OnUpdateCommand="RadGridGLAcc_UpdateCommand" OnDeleteCommand="RadGridGLAcc_DeleteCommand">
                         <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="kind_code, wh_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
                             EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                             <Columns>
