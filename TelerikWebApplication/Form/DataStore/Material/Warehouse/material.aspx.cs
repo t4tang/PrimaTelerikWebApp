@@ -127,12 +127,12 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         protected void RadGridMaterial_InsertCommand(object sender, GridCommandEventArgs e)
         {
-            var kindCode = ((GridEditFormItem)e.Item).GetDataKeyValue("wh_code");
+            //var kindCode = ((GridEditFormItem)e.Item).GetDataKeyValue("wh_code");
 
             try
             {
-                if (e.CommandName == RadGrid.UpdateCommandName)
-                {
+                //if (e.CommandName == RadGrid.inser)
+                //{
                     if (e.Item is GridEditFormItem)
                     {
                         GridEditFormItem item = (GridEditFormItem)e.Item;
@@ -140,30 +140,28 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                         //cmd.CommandType = CommandType.Text;
                         //cmd.Connection = con;
                         con.Open();
-                        cmd = new SqlCommand("UPDATE inv00d01 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
-                                      "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
-                                      "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
-                                      "AccConsign = @AccConsign where wh_code = @wh_code", con);
+                        cmd = new SqlCommand("INSERT into inv00d01 (wh_code, prod_code, QACT, qtyMax, qtyMin, Cogs) VALUES " +
+                                           "(@wh_code, @prod_code, @QACT, @qtyMax, @qtyMin, 0)", con);
                         cmd.Parameters.AddWithValue("@wh_code", wh_code);
-                        cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lbl_prod_code") as DropDownList).Text);
+                        cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@KoLok", (item.FindControl("lbl_prod_code") as DropDownList).Text);
-                        cmd.Parameters.AddWithValue("@QACT", (item.FindControl("txt_qtyAct") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@QACT", Convert.ToDouble((item.FindControl("txt_qtyActInsert") as RadTextBox).Text));
                         //cmd.Parameters.AddWithValue("@Cogs", (item.FindControl("cb_sales_return") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@AccInventory", (item.FindControl("cb_pur_inventory") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@Stamp", (item.FindControl("cb_sales_disc") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@Usr", (item.FindControl("cb_pur_return") as RadComboBox).Text);
                         //cmd.Parameters.AddWithValue("@Owner", (item.FindControl("cb_pur_discount") as RadComboBox).Text);
-                        //cmd.Parameters.AddWithValue("@OwnStamp", (item.FindControl("cb_other_assembly") as RadComboBox).Text);
+                        //cmd.Parameters.AddWithValue("@OwnStamp", (DATE).Text);
                         //cmd.Parameters.AddWithValue("@topname", (item.FindControl("cb_other_rev") as RadComboBox).Text);
-                        cmd.Parameters.AddWithValue("@qtyMax", (item.FindControl("txt_qtyMax") as RadTextBox).Text);
-                        cmd.Parameters.AddWithValue("@qtyMin", (item.FindControl("txt_qtyMin") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@qtyMax", Convert.ToDouble((item.FindControl("txt_qtyMaxInsert") as RadTextBox).Text));
+                        cmd.Parameters.AddWithValue("@qtyMin", Convert.ToDouble((item.FindControl("txt_qtyMinInsert") as RadTextBox).Text));
                         cmd.ExecuteNonQuery();
                         con.Close();
 
                         RadGridMaterial.DataBind();
                     }
 
-                }
+                //}
 
                 Label lblsuccess = new Label();
                 lblsuccess.Text = "Data updated successfully";
@@ -177,6 +175,36 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 lblError.Text = "Unable to update data. Reason: " + ex.Message;
                 lblError.ForeColor = System.Drawing.Color.Red;
                 RadGridMaterial.Controls.Add(lblError);
+                e.Canceled = true;
+            }
+        }
+
+        protected void RadGridMaterial_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            var prodCode = ((GridDataItem)e.Item).GetDataKeyValue("prod_code");
+
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "delete from inv00d01 where wh_code = @wh_code and prod_code = @prod_code";
+                cmd.Parameters.AddWithValue("@wh_code", wh_code);
+                cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lbl_prod_code") as Label).Text);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                RadGridMaterial.DataBind();
+
+                //notif.Text = "Data berhasil dihapus";
+                //notif.Title = "Notification";
+                //notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                //RadGridMaterial.RadAlert(ex.Message, 500, 200, "Error", "");
                 e.Canceled = true;
             }
         }
