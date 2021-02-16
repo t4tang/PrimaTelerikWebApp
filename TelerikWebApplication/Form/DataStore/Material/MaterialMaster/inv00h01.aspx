@@ -48,15 +48,15 @@
     <telerik:RadFormDecorator RenderMode="Native" ID="RadFormDecorator1" runat="server" DecorationZoneID="demo" DecoratedControls="All" 
         EnableRoundedCorners="false" Visible="false" />
 
-    <div class="scroller">        
+    <div class="scroller" runat="server" style="overflow-y:scroll; height:640px;" >        
         <!-- Page Content -->
-             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" Skin="MetroTouch"
+             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" Skin="Silk" PageSize="14"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated"
                 OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" CssClass="RadGridFormTemplate" 
                  AllowFilteringByColumn="true" >
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Names="Calibri" Font-Size="13px"
+                    <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Names="Calibri" Font-Size="12px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true">                        
                     <Columns>
                         <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
@@ -284,6 +284,40 @@
 
                             </table>
                             
+                            <div style="padding: 5px 15px 10px 15px;">
+                                 <telerik:RadTabStrip RenderMode="Lightweight" runat="server" ID="RadTabStrip2" 
+                                    SelectedIndex="1" MultiPageID="RadMultiPage2" Skin="Silk" CausesValidation="False">
+                                    <Tabs>
+                                        <telerik:RadTab Text="Storage" Height="20px" Visible="true" Selected="True" > 
+                                        </telerik:RadTab>
+                                        <telerik:RadTab Text="Assembly Formulation" Height="20px"  Visible="true" >
+                                        </telerik:RadTab>
+                                        <telerik:RadTab Text="Interchange" Height="20px"  Visible="true"> 
+                                        </telerik:RadTab>
+                                    </Tabs>
+                                </telerik:RadTabStrip>
+
+                                <telerik:RadMultiPage runat="server" ID="RadMultiPage2"  SelectedIndex="0" >
+
+                                    <telerik:RadPageView runat="server" ID="RadPageView1" Height="290px" >
+                                        <div style="padding: 10px 10px 10px 10px;">
+
+                                        </div>
+                                    </telerik:RadPageView>
+                                    <telerik:RadPageView runat="server" ID="RadPageView2" Height="290px" >
+                                        <div style="padding: 10px 10px 10px 10px;">
+
+                                        </div>
+                                    </telerik:RadPageView>
+                                    <telerik:RadPageView runat="server" ID="RadPageView3" Height="290px" >
+                                        <div style="padding: 10px 10px 10px 10px;">
+
+                                        </div>
+                                    </telerik:RadPageView>
+                                </telerik:RadMultiPage>
+
+
+                            </div>
                         </FormTemplate>
                     </EditFormSettings>
                         </MasterTableView>
@@ -291,6 +325,7 @@
                             <ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" />
                         </ClientSettings>
                 </telerik:RadGrid>
-       
+            
+             
     </div>
 </asp:Content>

@@ -731,9 +731,9 @@
             <telerik:RadTabStrip RenderMode="Lightweight" runat="server" ID="RadTabStrip2" 
             SelectedIndex="1" MultiPageID="RadMultiPage2" Skin="Silk" CausesValidation="False">
             <Tabs>
-                <telerik:RadTab Text="Component" Height="20px" Visible="true"> 
+                <telerik:RadTab Text="Component" Height="20px" Visible="true" Selected="True" > 
                 </telerik:RadTab>
-                <telerik:RadTab Text="DMBD" Height="20px"  Visible="true" Selected="True" >
+                <telerik:RadTab Text="DMBD" Height="20px"  Visible="true" >
                 </telerik:RadTab>
                 <telerik:RadTab Text="External Service" Height="20px"  Visible="true"> 
                 </telerik:RadTab>
@@ -743,7 +743,7 @@
                 </telerik:RadTab>             
             </Tabs>
             </telerik:RadTabStrip>
-            <telerik:RadMultiPage runat="server" ID="RadMultiPage2"  SelectedIndex="1" >
+            <telerik:RadMultiPage runat="server" ID="RadMultiPage2"  SelectedIndex="0" >
                 <telerik:RadPageView runat="server" ID="RadPageView1" Height="290px" >
                     <table>
                         <tr>
@@ -994,7 +994,8 @@
                                         </telerik:RadTextBox>
                                     </InsertItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" 
+                                <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmTitle="Delete" ConfirmDialogType="Classic" 
+                                     ConfirmText="Data yang telah dihapus tidak bisa dikembalikan. Yakin akan menghapus?" 
                                     ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px">
                                 </telerik:GridButtonColumn>
                             </Columns>
