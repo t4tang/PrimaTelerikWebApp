@@ -227,24 +227,9 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
 
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
         {
-            long maxNo;
-            string run = null;
-            
             try
             {
-                //string x = dtp_gr.SelectedDate.Value.ToString("MM");
-                //string y = public_str.perend.Substring(3, 2);
-
-                //if (chk_posting.Checked == true)
-                //{
-                //    RadWindowManager2.RadAlert("This transaction has been posted", 500, 200, "Error", null, "~/Images/error.png");
-                //    return;
-                //}
-                //else if (x != y)
-                //{
-                //    RadWindowManager2.RadAlert("Transaction date outside the transaction period", 500, 200, "Error", null, "~/Images/error.png");
-                //    return;
-                //}
+                string run;
 
                 if (Session["actionEdit"].ToString() == "edit")
                 {
@@ -253,27 +238,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 }
                 else
                 {
-                    con.Open();
-                    SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h06.info_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                       "FROM inv01h06 WHERE (inv01h06.region_code) +-+ " +
-                       "AND (inv01h06.supplier_code) +-+" +
-                       "AND (inv01h06.type_info) ", con);
-                    sdr = cmd.ExecuteReader();
-                    //if (sdr.HasRows == false)
-                    //{
-                    //    //throw new Exception();
-                    //    run = "GR03" + dtp_gr.SelectedDate.Value.Year + dtp_gr.SelectedDate.Value.Month + "0001";
-                    //}
-                    //else if (sdr.Read())
-                    //{
-                    //    maxNo = Convert.ToInt32(sdr[0].ToString());
-                    //    run = "GR03" +
-                    //        (dtp_gr.SelectedDate.Value.Year.ToString()).Substring(dtp_gr.SelectedDate.Value.Year.ToString().Length - 2) +
-                    //        ("0000" + dtp_gr.SelectedDate.Value.Month).Substring(("0000" + dtp_gr.SelectedDate.Value.Month).Length - 2, 2) +
-                    //        ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
-                    //}
-                    con.Close();
+                    run = cb_project.SelectedValue + "-" + cb_supplier.SelectedValue + "-" + cb_type.SelectedValue;
                 }
                 txt_info_record.Text = run;
 
