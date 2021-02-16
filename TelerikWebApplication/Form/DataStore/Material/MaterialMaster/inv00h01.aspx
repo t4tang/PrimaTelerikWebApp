@@ -299,17 +299,17 @@
 
                                 <telerik:RadMultiPage runat="server" ID="RadMultiPage2"  SelectedIndex="0" >
 
-                                    <telerik:RadPageView runat="server" ID="RadPageView1" Height="290px" >
+                                    <telerik:RadPageView runat="server" ID="RadPageView1" Height="280px" >
                                         <div style="padding: 10px 10px 10px 10px;">
 
                                         </div>
                                     </telerik:RadPageView>
-                                    <telerik:RadPageView runat="server" ID="RadPageView2" Height="290px" >
+                                    <telerik:RadPageView runat="server" ID="RadPageView2" Height="280px" >
                                         <div style="padding: 10px 10px 10px 10px;">
 
                                         </div>
                                     </telerik:RadPageView>
-                                    <telerik:RadPageView runat="server" ID="RadPageView3" Height="290px" >
+                                    <telerik:RadPageView runat="server" ID="RadPageView3" Height="280px" >
                                         <div style="padding: 10px 10px 10px 10px;">
 
                                         </div>
