@@ -122,7 +122,8 @@
                                 <telerik:RadLabel runat="server" Text="Project :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
                                 <telerik:RadComboBox ID="cb_proj_prm" runat="server" RenderMode="Lightweight" AutoPostBack="true" CausesValidation="false"
                                     EnableLoadOnDemand="True"  Skin="Silk" 
-                                    EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="100%">
+                                    EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="100%" 
+                                    OnItemsRequested="cb_proj_prm_ItemsRequested" OnSelectedIndexChanged="cb_proj_prm_SelectedIndexChanged">
                                 </telerik:RadComboBox>                                    
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -157,26 +158,30 @@
             </tr>
         </table>
     </div>
-    <div class="scroller" runat="server" style="overflow-y:scroll; height:620px;" >
-        <div style="width:100%; overflow-y:hidden;height:auto; scrollbar-highlight-color:#b6ff00">
-           <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="14" Skin="Silk"
-                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" 
+    <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px">
+        <div runat="server" style="overflow-x:auto;">
+           <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="13" Skin="Silk"
+                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" Width="1500px"
                   OnNeedDataSource="RadGrid1_NeedDataSource">
                 <PagerStyle Mode="NumericPages"></PagerStyle>          
                 <ClientSettings EnablePostBackOnRowClick="true" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                 <HeaderStyle ForeColor="White" BackColor="#0099cc" Font-Size="11px"  />
-                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="trans_id" Font-Size="12px"
+                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="trans_id" Font-Size="11px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                     CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" EditMode="EditForms" 
                     CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl" InsertItemDisplay="Bottom">
                     <ColumnGroups >
                         <telerik:GridColumnGroup HeaderStyle-HorizontalAlign="Center" Name="BDStart" HeaderText="BD Start" ></telerik:GridColumnGroup>
-                        <telerik:GridColumnGroup HeaderStyle-HorizontalAlign="Center" Name="EstimateRFU" ></telerik:GridColumnGroup>
-                        <telerik:GridColumnGroup HeaderStyle-HorizontalAlign="Center" Name="MaterialProcessStatus" ></telerik:GridColumnGroup>
+                        <telerik:GridColumnGroup HeaderStyle-HorizontalAlign="Center" Name="EstimateRFU" HeaderText="Estimate RFU"></telerik:GridColumnGroup>
+                        <telerik:GridColumnGroup HeaderStyle-HorizontalAlign="Center" Name="MaterialProcessStatus" HeaderText="Material Process Status"></telerik:GridColumnGroup>
                     </ColumnGroups>
                     <Columns>
-                        <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="30px" ></telerik:GridClientSelectColumn>
+                        <%--<telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="30px" ></telerik:GridClientSelectColumn>--%>
+                        <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
+                            <HeaderStyle Width="70px"/>
+                            <ItemStyle Width="70px" />
+                        </telerik:GridEditCommandColumn>
                         <telerik:GridBoundColumn UniqueName="trans_id" HeaderText="WO. Number" DataField="trans_id">
                             <HeaderStyle Width="140px"/>
                             <ItemStyle Width="140px" />
@@ -185,7 +190,7 @@
                             <HeaderStyle Width="140px"/>
                             <ItemStyle Width="140px" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="hm_bd" HeaderText="HM Breakdown" DataField="time_reading" ItemStyle-HorizontalAlign="Right"  
+                        <telerik:GridBoundColumn UniqueName="hm_bd" HeaderText="HM BD." DataField="time_reading" ItemStyle-HorizontalAlign="Right"  
                                AllowFiltering="false" >
                             <HeaderStyle Width="80px"></HeaderStyle>
                             <ItemStyle Width="80px" />
@@ -241,6 +246,21 @@
                             <HeaderStyle Width="250px"/>
                             <ItemStyle Width="250px" /> 
                         </telerik:GridBoundColumn>
+                        <telerik:GridTemplateColumn HeaderText="Run" HeaderStyle-Width="30px" ItemStyle-Width="30px" Visible="false">
+                            <ItemTemplate>                                        
+                                <asp:Label runat="server" ID="lbl_runItem" Text='<%# DataBinder.Eval(Container.DataItem, "run") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>                                        
+                                <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="lbl_runEdit" Width="30px"  ReadOnly="true"
+                                    Text='<%# DataBinder.Eval(Container.DataItem, "run") %>'>
+                                </telerik:RadTextBox>
+                            </EditItemTemplate>
+                            <InsertItemTemplate>                                        
+                                <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="lbl_runInsert" Width="30px" ReadOnly="true"
+                                    Text="0">
+                                </telerik:RadTextBox>
+                            </InsertItemTemplate>
+                        </telerik:GridTemplateColumn>
                     </Columns>
 
                 </MasterTableView>
