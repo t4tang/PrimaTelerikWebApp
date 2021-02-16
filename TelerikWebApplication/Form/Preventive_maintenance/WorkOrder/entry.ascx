@@ -565,8 +565,7 @@
                             <telerik:RadTimePicker ID="rtp_excFinishTime" runat="server" RenderMode="Lightweight" Width="80px" AutoPostBack="false"                               
                                 DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.ext_fnish_time") %>'></telerik:RadTimePicker>            
                         </td>
-                    </tr>
-                   
+                    </tr>                   
                     <tr>
                         <td class="tdLabel">
                             <telerik:RadLabel runat="server" Text="Maint. Type" CssClass="lbObject"></telerik:RadLabel>
