@@ -537,5 +537,35 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 e.Canceled = true;
             }
         }
+
+        protected void RadGridGLAcc_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            var kindCode = ((GridDataItem)e.Item).GetDataKeyValue("kind_code");
+
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "delete from inv00h23 where wh_code = @wh_code and kind_code = @kind_code";
+                cmd.Parameters.AddWithValue("@wh_code", wh_code);
+                cmd.Parameters.AddWithValue("@kind_code", kindCode);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                RadGridGLAcc.DataBind();
+
+                //notif.Text = "Data berhasil dihapus";
+                //notif.Title = "Notification";
+                //notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                //RadGridMaterial.RadAlert(ex.Message, 500, 200, "Error", "");
+                e.Canceled = true;
+            }
+        }
     }
 }
