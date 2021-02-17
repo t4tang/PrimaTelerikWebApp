@@ -24,17 +24,29 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
         {
             if (!IsPostBack)
             {
-                
                 if (Request.QueryString["info_code"] != null)
                 {
                     fill_object(Request.QueryString["info_code"].ToString());
                     RadGrid2.DataSource = GetDataDetailTable(txt_info_record.Text);
+                    RadGrid2.DataBind();
                     Session["actionEdit"] = "edit";
+                    RadGrid2.Enabled = true;
+                    //btn_edit_item.Enabled = true;
                 }
                 else
                 {
-                    cb_type.Text = "Standart";
                     Session["actionEdit"] = "new";
+
+                    cb_type.Text = "Standard";
+                    //cb_project.SelectedValue = public_str.site;
+                    //cb_project.Text = public_str.sitename;
+                    txt_uid.Text = public_str.user_id;
+                    txt_owner.Text = public_str.user_id;
+                    txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
+                    txt_printed.Text = "0";
+                    txt_edited.Text = "0";
+                    txt_disch.Value = 0;
+                    
                 }
             }
         }
@@ -51,14 +63,14 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 cb_project.Text = sdr["region_name"].ToString();
                 cb_supplier.Text = sdr["cust_name"].ToString();
                 txt_curr.Text = sdr["cur_code"].ToString();
-                txt_disc.Text = sdr["Disc"].ToString();
+                txt_disch.Text = sdr["Disc"].ToString();
                 txt_remark.Text = sdr["remark"].ToString();
-                
-                lbl_lastUpdate.Text = lbl_lastUpdate.Text + string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString());
-                lbl_userId.Text = lbl_userId.Text + sdr["userid"].ToString();
-                lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
-                lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
-                
+
+                txt_owner.Text = sdr["Owner"].ToString();
+                txt_printed.Text = sdr["Printed"].ToString();
+                txt_edited.Text = sdr["Edited"].ToString();
+                txt_uid.Text = sdr["userid"].ToString();
+                txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", sdr["LastUpdate"].ToString());              
 
             }
             con.Close();
@@ -68,13 +80,13 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
         #region Type
         protected void cb_type_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
-            (sender as RadComboBox).Items.Add("Standart");
+            (sender as RadComboBox).Items.Add("Standard");
             (sender as RadComboBox).Items.Add("Consigment");
         }
 
         protected void cb_type_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            if ((sender as RadComboBox).Text == "Standart")
+            if ((sender as RadComboBox).Text == "Standard")
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
@@ -86,7 +98,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
 
         protected void cb_type_PreRender(object sender, EventArgs e)
         {
-            if ((sender as RadComboBox).Text == "Standart")
+            if ((sender as RadComboBox).Text == "Standard")
             {
                 (sender as RadComboBox).SelectedValue = "1";
             }
@@ -190,17 +202,18 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select supplier_code from pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT     a.supplier_code, a.cur_code " +
+                               " FROM pur00h01 a inner join acc00h04 e on a.cur_code = e.cur_code WHERE a.supplier_name = '" + cb_supplier.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
+                //(sender as RadComboBox).Text = dr["doc_code"].ToString();
                 (sender as RadComboBox).SelectedValue = dr["supplier_code"].ToString();
+                txt_curr.Text = dr["cur_code"].ToString();
+            }
+
             dr.Close();
-
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
             con.Close();
         }
 
