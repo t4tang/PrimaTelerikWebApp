@@ -301,22 +301,26 @@
 
                                     <telerik:RadPageView runat="server" ID="RadPageView1" Height="280px" >
                                         <div style="padding: 10px 10px 10px 10px;">
+                                            <telerik:RadGrid runat="server" ID="RadGridPageView1">
 
+                                            </telerik:RadGrid>
                                         </div>
                                     </telerik:RadPageView>
                                     <telerik:RadPageView runat="server" ID="RadPageView2" Height="280px" >
                                         <div style="padding: 10px 10px 10px 10px;">
+                                            <telerik:RadGrid runat="server" ID="RadGridPageView2">
 
+                                            </telerik:RadGrid>
                                         </div>
                                     </telerik:RadPageView>
                                     <telerik:RadPageView runat="server" ID="RadPageView3" Height="280px" >
                                         <div style="padding: 10px 10px 10px 10px;">
+                                            <telerik:RadGrid runat="server" ID="RadGridPageView3">
 
+                                            </telerik:RadGrid>
                                         </div>
                                     </telerik:RadPageView>
                                 </telerik:RadMultiPage>
-
-
                             </div>
                         </FormTemplate>
                     </EditFormSettings>
@@ -325,7 +329,6 @@
                             <ClientEvents OnRowDblClick="RowDblClick" OnPopUpShowing="onPopUpShowing" />
                         </ClientSettings>
                 </telerik:RadGrid>
-            
-             
+
     </div>
 </asp:Content>
