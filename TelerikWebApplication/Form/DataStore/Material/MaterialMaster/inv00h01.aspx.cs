@@ -471,6 +471,34 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             e.PageView.Controls.Add(userControl);
         }
 
-        
+        protected void RadGridPageView1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+
+        }
+        public DataTable GetDataTablePageView(string prod_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "select inv00d01.KoLok, inv00d01.QACT, inv00h05.wh_name from inv00d01, inv00h05 " +
+                              "where prod_code = '" + prod_code + "' and inv00d01.wh_code = inv00h05.wh_code";
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
     }
 }        

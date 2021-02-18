@@ -301,7 +301,9 @@
 
                                     <telerik:RadPageView runat="server" ID="RadPageView1" Height="280px" >
                                         <div style="padding: 10px 10px 10px 10px;">
-                                            <telerik:RadGrid runat="server" ID="RadGridPageView1">
+                                            <telerik:RadGrid runat="server" ID="RadGridPageView1" RenderMode="Lightweight" AllowPaging="true"
+                                                             ShowFooter="false" AllowSorting="true" PageSize="20" AutoGenerateColumns="false"
+                                                             OnNeedDataSource="RadGridPageView1_NeedDataSource">
 
                                             </telerik:RadGrid>
                                         </div>
