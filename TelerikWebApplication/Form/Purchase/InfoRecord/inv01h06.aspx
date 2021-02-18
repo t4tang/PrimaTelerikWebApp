@@ -176,7 +176,7 @@
                 <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
                 <SortingSettings EnableSkinSortStyles="false" />
                 <ClientSettings EnablePostBackOnRowClick="true" />
-                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="" Font-Size="11px"
+                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="info_code" Font-Size="11px"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                 CommandItemSettings-ShowRefreshButton="false">
                 <Columns>

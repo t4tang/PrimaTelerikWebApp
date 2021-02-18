@@ -105,8 +105,7 @@
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="250px" DropDownWidth="250px"
                                                 AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
-                                                OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
-                                                OnPreRender="cb_project_PreRender">
+                                                OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" OnPreRender="cb_project_PreRender">
                                             </telerik:RadComboBox>
                                             <asp:RequiredFieldValidator runat="server" ID="projectValidator" ControlToValidate="cb_project" ForeColor="Red" 
                                                 Font-Size="X-Small" Text="Required!"></asp:RequiredFieldValidator>                             
@@ -169,7 +168,7 @@
                                             EnableVirtualScrolling="true" >
                                         </telerik:RadComboBox>&nbsp
                                             Disc 
-                                            <telerik:RadNumericTextBox ID="txt_disch" runat="server" Enabled="false" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
+                                            <telerik:RadNumericTextBox ID="txt_disch" runat="server" Enabled="true" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
                                                    Skin="Telerik"   >
                                                 <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                 <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>

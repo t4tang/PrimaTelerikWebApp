@@ -45,7 +45,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                     txt_lastUpdate.Text = string.Format("{0:dd/MM/yyyy}", DateTime.Now);
                     txt_printed.Text = "0";
                     txt_edited.Text = "0";
-                    txt_disch.Value = 0;
+                    txt_disch.Text = "0";
                     
                 }
             }
@@ -109,6 +109,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
         }
 
         #endregion
+
         #region Project
         private static DataTable GetProject(string text)
         {
@@ -266,12 +267,12 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@Disc", txt_disch.Text);
                 cmd.Parameters.AddWithValue("@userid", public_str.uid);
-                cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
-                cmd.Parameters.AddWithValue("@cust_name", cb_supplier.Text);
+                cmd.Parameters.AddWithValue("@supplier_code", cb_supplier.SelectedValue);
+                cmd.Parameters.AddWithValue("@supplier_name", cb_supplier.Text);
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@Owner", public_str.uid);
-                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                cmd.Parameters.AddWithValue("@doc_type", "1");
+                //cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                
 
                 cmd.ExecuteNonQuery();
 
@@ -313,6 +314,9 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                     inv01h06.tr_code = run;
                     inv01h06.selected_project = cb_project.SelectedValue;
                 }
+
+                con.Close();
+
             }
             catch (System.Exception ex)
             {

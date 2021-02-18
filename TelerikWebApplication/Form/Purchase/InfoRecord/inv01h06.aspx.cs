@@ -154,21 +154,33 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             (sender as RadGrid).DataSource = GetDataTable();
         }
 
-        protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
+        protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            var productId = ((GridDataItem)e.Item).GetDataKeyValue("info_code");
+            var code = ((GridDataItem)e.Item).GetDataKeyValue("info_code");
 
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            cmd.CommandText = "update inv01h06 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where info_code = @info_code";
-            cmd.Parameters.AddWithValue("@info_code", productId);
-            cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-            cmd.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "update inv01h06 set stEdit = 4, LastUpdate = getdate(), userid = @userid where info_code = @info_code";
+                cmd.Parameters.AddWithValue("@info_code", code);
+                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                notif.Text = "Data berhasil dihapus";
+                notif.Title = "Notification";
+                notif.Show();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
+                e.Canceled = true;
+            }
         }
-
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridEditableItem & e.Item.IsInEditMode)
