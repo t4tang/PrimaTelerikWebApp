@@ -54,7 +54,7 @@
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated"
                 OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" CssClass="RadGridFormTemplate" 
-                 AllowFilteringByColumn="true" >
+                 AllowFilteringByColumn="true" OnItemDataBound="RadGrid1_ItemDataBound">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Names="Calibri" Font-Size="12px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true">                        
@@ -296,7 +296,8 @@
                                         </telerik:RadTab>
                                     </Tabs>
                                 </telerik:RadTabStrip>
-
+                                <asp:Button ID="btnRetrieve" Text="Retrieve" runat="server" CausesValidation="False"
+                                            CommandName="Show" OnClick="btnRetrieve_Click"></asp:Button>
                                 <telerik:RadMultiPage runat="server" ID="RadMultiPage2"  SelectedIndex="0" >
 
                                     <telerik:RadPageView runat="server" ID="RadPageView1" Height="280px" >
@@ -304,7 +305,26 @@
                                             <telerik:RadGrid runat="server" ID="RadGridPageView1" RenderMode="Lightweight" AllowPaging="true"
                                                              ShowFooter="false" AllowSorting="true" PageSize="20" AutoGenerateColumns="false"
                                                              OnNeedDataSource="RadGridPageView1_NeedDataSource">
-
+                                                <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn= "false" DataKeyNames="prod_code, wh_code" Width="100%" Font-Names="Calibri" Font-Size="11px" 
+                                                                 CommandItemSettings-ShowAddNewRecordButton="false" EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
+                                                    <Columns>
+                                                        <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
+                                                            <HeaderStyle Width="40px" />
+                                                        </telerik:GridEditCommandColumn>
+                                                        <telerik:GridBoundColumn HeaderText ="Storage" DataField="wh_name" FilterControlWidth="60px">
+                                                            <HeaderStyle Width="60px" />
+                                                            <ItemStyle Width="50px" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText ="Location" DataField="KoLok">
+                                                            <HeaderStyle Width="150px" />
+                                                            <ItemStyle Width="150px" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText ="On Hand" DataField="QACT">
+                                                            <HeaderStyle Width="80px" />
+                                                            <ItemStyle Width="80px" />
+                                                        </telerik:GridBoundColumn>
+                                                    </Columns>
+                                                </MasterTableView>
                                             </telerik:RadGrid>
                                         </div>
                                     </telerik:RadPageView>
