@@ -473,7 +473,8 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
 
         protected void RadGridPageView1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTablePageView(RadGrid1.MasterTableView.DataKeyNames.ToString());
+
+            (sender as RadGrid).DataSource = GetDataTablePageView(prod_code);
         }
         public DataTable GetDataTablePageView(string prod_code)
         {
@@ -481,7 +482,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select inv00d01.KoLok, inv00d01.QACT, inv00h05.wh_name, inv00d01.wh_code from inv00d01, inv00h05 " +
+            cmd.CommandText = "select inv00d01.KoLok, inv00d01.QACT, inv00h05.wh_name, inv00d01.wh_code, inv00d01.prod_code  from inv00d01, inv00h05 " +
                               "where prod_code = '" + prod_code + "' and inv00d01.wh_code = inv00h05.wh_code";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -515,13 +516,26 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             //}
         }
 
+        private static string prod_code = null;
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            //string KodeBarang = (sender as RadGrid).MasterTableView.DataKeyNames.ToString();
-            //var KodeBarang = ((GridDataItem)e.Item).GetDataKeyValue("prod_code").ToString();
-            if (e.Item is GridEditableItem)
+            if (e.Item is GridEditableItem && e.Item.IsInEditMode)
             {
-                (e.Item.FindControl("RadGridPageView1") as RadGrid).DataSource = GetDataTablePageView((e.Item.FindControl("txt_material_code") as TextBox).Text);
+                GridEditableItem item = (GridEditableItem)e.Item;
+                RadGrid grid = (RadGrid)item.FindControl("RadGridPageView1");
+                grid.DataSource = GetDataTablePageView((item.FindControl("txt_material_code") as TextBox).Text);
+
+                
+            }
+        }
+
+        protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Edit")
+            {
+                GridDataItem item = e.Item as GridDataItem;
+                string kode = item["prod_code"].Text;
+                prod_code = kode;
             }
         }
     }
