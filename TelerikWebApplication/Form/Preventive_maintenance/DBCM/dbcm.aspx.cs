@@ -20,6 +20,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
 
         private const int ItemsPerRequest = 10;
         public static string selected_project = null;
+        public static string tr_code = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,6 +31,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
             cb_proj_prm.SelectedValue = public_str.site;
             cb_proj_prm.Text = public_str.sitename;
 
+            tr_code = null;
             Session["action"] = "firstLoad";
         }
 
@@ -110,6 +112,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
         protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -146,5 +149,46 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
             return DT;
         }
 
+        protected void RadGrid1_UpdateCommand(object sender, GridCommandEventArgs e)
+        {
+            //try
+            //{
+                con.Open();
+                GridEditableItem item = (GridEditableItem)e.Item;
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "UPDATE mtc01d01 SET remark = @remark, remark_activity = @remark_activity, esti_date = @esti_date, " +                                     "esti_time = @esti_time, no_part = @no_part, part_date = @part_date, part_eta = @part_eta "+                                    "WHERE trans_id = @trans_id AND status = @status AND down_date = @down_date AND down_time = @down_time";
+                cmd.Parameters.AddWithValue("@trans_id", (item.FindControl("txt_WO") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@remark_activity", (item.FindControl("txt_activ") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@esti_date", (item.FindControl("dp_estiDate") as RadDateTimePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@esti_time", (item.FindControl("txt_estiTime") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@no_part", (item.FindControl("txt_proNo") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@part_date", (item.FindControl("dp_partDate") as RadDateTimePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@part_eta", (item.FindControl("txt_eta") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@status", (item.FindControl("txt_status") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@down_date", Convert.ToDouble((item.FindControl("dp_Date") as RadDateTimePicker).SelectedDate));
+                cmd.Parameters.AddWithValue("@down_time", (item.FindControl("txt_time") as RadTextBox).Text);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            //}
+            //catch (Exception ex)
+            //{
+            //    con.Close();
+            //    RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+            //    e.Canceled = true;
+            //}
+        }
+
+        //protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    foreach (GridDataItem item in RadGrid1.SelectedItems)
+        //    {
+        //        tr_code = item["trans_id"].Text;
+        //    }
+
+        //    Session["action"] = "list";
+        //}
     }
 }
