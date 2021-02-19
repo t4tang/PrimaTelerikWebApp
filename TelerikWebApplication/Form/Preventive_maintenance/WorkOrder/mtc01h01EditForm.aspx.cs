@@ -1542,16 +1542,42 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             return dtValues;
         }
 
+        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+
+                dtValues = (DataTable)Session["TableOperation"];
+                DataRow drValue = dtValues.Rows[0];
+                drValue["trans_id"] = tr_code;
+                drValue["down_date"] = (item.FindControl("trans_date_edt") as RadDatePicker).SelectedDate;
+                drValue["down_time"] = (item.FindControl("rtp_breakdownTime") as RadDatePicker).SelectedDate.Value.TimeOfDay;
+                drValue["down_act"] = (item.FindControl("rtp_breakdownAct") as RadDatePicker).SelectedDate.Value.TimeOfDay;
+                drValue["down_up"] = (item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay;
+                drValue["remark_activity"] = (item.FindControl("txt_remark") as RadTextBox).Text;
+                drValue["status"] = (item.FindControl("cb_bd_status") as RadComboBox).Text;
+                //drValue["run"] = (item.FindControl("lbl_runInsert") as RadTextBox).Text;
+
+                drValue.EndEdit(); //editing row in datatable
+                dtValues.AcceptChanges();
+                Session["TableOperation"] = dtValues;
+                (sender as RadGrid).Rebind();
+
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+        }
         protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
         {
             try
             {
                 GridEditableItem item = (GridEditableItem)e.Item;
-                //DateTime down_time;
-                //down_time = DateTime.Parse((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.ToString());
-                //GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
-                //TimeSpan _time = down_time.TimeOfDay;
-
+                
                 dtValues = (DataTable)Session["TableOperation"];
                 DataRow drValue = dtValues.NewRow();
                 drValue["trans_id"] = tr_code;
@@ -1573,60 +1599,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 dtValues.AcceptChanges();
                 Session["TableOperation"] = dtValues;
                 (sender as RadGrid).Rebind();
-
-                //con.Open();
-                //GridEditableItem item = (GridEditableItem)e.Item;
-                //cmd = new SqlCommand();
-                //cmd.CommandType = CommandType.Text;
-                //cmd.Connection = con;
-                //cmd.CommandText = "INSERT INTO mtc01d01 ( down_date, down_time, down_act, down_up, remark_activity, trans_id, tot_time_down, status )  " +
-                //                    "VALUES (@down_date,@down_time,@down_act,@down_up,@remark_activity,@trans_id,@down_up - @down_time,@status)";
-                //cmd.Parameters.AddWithValue("@trans_id", tr_code);
-                //cmd.Parameters.AddWithValue("@down_date", (item.FindControl("trans_date_edt") as RadDatePicker).SelectedDate);
-                //cmd.Parameters.AddWithValue("@down_time", Convert.ToDouble((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                //(Convert.ToDouble((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                ////cmd.Parameters.AddWithValue("@down_time", (item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate);
-                //cmd.Parameters.AddWithValue("@down_act", Convert.ToDouble((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                //(Convert.ToDouble((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                ////cmd.Parameters.AddWithValue("@down_act", (item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate);
-                //cmd.Parameters.AddWithValue("@down_up", Convert.ToDouble((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                //(Convert.ToDouble((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                ////cmd.Parameters.AddWithValue("@down_up", (item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate);
-                //cmd.Parameters.AddWithValue("@remark_activity", (item.FindControl("txt_remark") as RadTextBox).Text);
-                //cmd.Parameters.AddWithValue("@status", (item.FindControl("cb_bd_status") as RadComboBox).Text);
-
-                //cmd.ExecuteNonQuery();
-
-                //DataTable dt = new DataTable();
-                //dt.Columns.AddRange(new DataColumn[3] { new DataColumn("Id", typeof(int)),
-                //    new DataColumn("Name", typeof(string)),
-                //    new DataColumn("Country",typeof(string)) });
-                //foreach (GridDataItem row in RadGrid2.Items)
-                //{
-                //    if ((row.FindControl("CheckBox1") as CheckBox).Checked)
-                //    {
-                //        int id = int.Parse(row.Cells[1].Text);
-                //        string name = row.Cells[2].Text;
-                //        string country = row.Cells[3].Text;
-                //        dt.Rows.Add(id, name, country);
-                //    }
-                //}
-                //if (dt.Rows.Count > 0)
-                //{
-                //    string consString = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
-                //    using (SqlConnection con = new SqlConnection(consString))
-                //    {
-                //        using (SqlCommand cmd = new SqlCommand("Insert_Customers"))
-                //        {
-                //            cmd.CommandType = CommandType.StoredProcedure;
-                //            cmd.Connection = con;
-                //            cmd.Parameters.AddWithValue("@tblCustomers", dt);
-                //            con.Open();
-                //            cmd.ExecuteNonQuery();
-                //            con.Close();
-                //        }
-                //    }
-                //}
+                
             }
             catch (Exception ex)
             {
@@ -1634,11 +1607,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
                 e.Canceled = true;
             }
-            finally
-            {
-                //con.Close();
-
-            }
+            
         }
 
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
@@ -1650,26 +1619,25 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "DELETE mtc01d01 WHERE trans_id = @trans_id AND status = @status  AND down_date = @down_date " +
-                    "AND down_time = (SELECT CAST(LEFT(@down_time,2)+'.'+SUBSTRING(@down_time,4,2) AS numeric(10,2)))";
+                cmd.CommandText = "DELETE mtc01d01 WHERE trans_id = @trans_id AND run = @run";
                 cmd.Parameters.AddWithValue("@trans_id", tr_code);
-                cmd.Parameters.AddWithValue("@status", (item.FindControl("lbl_status") as Label).Text);
-                cmd.Parameters.AddWithValue("@down_date", (item.FindControl("trans_date") as RadDatePicker).SelectedDate);
-                cmd.Parameters.AddWithValue("@down_time", (item.FindControl("lbl_down_time") as Label).Text);
+                cmd.Parameters.AddWithValue("@run", (item.FindControl("lbl_runItem") as Label).Text);
+                //cmd.Parameters.AddWithValue("@down_date", (item.FindControl("trans_date") as RadDatePicker).SelectedDate);
+                //cmd.Parameters.AddWithValue("@down_time", (item.FindControl("rtp_breakdownTimeitem") as RadTimePicker).SelectedDate);
 
                 cmd.ExecuteNonQuery();
 
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = con;
-                cmd.CommandText = "DELETE mtc01h03 WHERE trans_id = @trans_id AND chart_code = @status  AND down_date = @down_date " +
-                    "AND down_time = (SELECT CAST(LEFT(@down_time,2)+'.'+SUBSTRING(@down_time,4,2) AS numeric(10,2)))";
-                cmd.Parameters.AddWithValue("@trans_id", tr_code);
-                cmd.Parameters.AddWithValue("@status", (item.FindControl("lbl_status") as Label).Text);
-                cmd.Parameters.AddWithValue("@down_date", (item.FindControl("trans_date") as RadDatePicker).SelectedDate);
-                cmd.Parameters.AddWithValue("@down_time", (item.FindControl("lbl_down_time") as Label).Text);
+                //cmd = new SqlCommand();
+                //cmd.CommandType = CommandType.Text;
+                //cmd.Connection = con;
+                //cmd.CommandText = "DELETE mtc01h03 WHERE trans_id = @trans_id AND chart_code = @status  AND down_date = @down_date " +
+                //    "AND down_time = (SELECT CAST(LEFT(@down_time,2)+'.'+SUBSTRING(@down_time,4,2) AS numeric(10,2)))";
+                //cmd.Parameters.AddWithValue("@trans_id", tr_code);
+                //cmd.Parameters.AddWithValue("@status", (item.FindControl("lbl_status") as Label).Text);
+                //cmd.Parameters.AddWithValue("@down_date", (item.FindControl("trans_date") as RadDatePicker).SelectedDate);
+                //cmd.Parameters.AddWithValue("@down_time", (item.FindControl("lbl_down_time") as Label).Text);
 
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -1710,42 +1678,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 item.DataBind();
             }
         }
-        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
-        {
-            try
-            {
-                con.Open();
-                GridEditableItem item = (GridEditableItem)e.Item;
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = con;
-                cmd.CommandText = "UPDATE mtc01d01 SET down_act = @down_act, down_up = @down_up, remark_activity = @remark_activity, tot_time_down = @down_up - @down_time " +
-                                    "WHERE  (trans_id = @trans_id) AND (down_date = @down_date) AND (down_time = @down_time)";
-                cmd.Parameters.AddWithValue("@trans_id", tr_code);
-                cmd.Parameters.AddWithValue("@down_date", (item.FindControl("trans_date_edt") as RadDatePicker).SelectedDate);
-                cmd.Parameters.AddWithValue("@down_time", Convert.ToDouble((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                (Convert.ToDouble((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                cmd.Parameters.AddWithValue("@down_act", Convert.ToDouble((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                (Convert.ToDouble((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                cmd.Parameters.AddWithValue("@down_up", Convert.ToDouble((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                (Convert.ToDouble((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                cmd.Parameters.AddWithValue("@remark_activity", (item.FindControl("txt_remark") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@status", (item.FindControl("cb_bd_status") as RadComboBox).Text);
-
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
-                e.Canceled = true;
-            }
-            finally
-            {
-                con.Close();
-
-            }
-        }
+        
         #endregion
 
         protected void btnNew_Click(object sender, ImageClickEventArgs e)

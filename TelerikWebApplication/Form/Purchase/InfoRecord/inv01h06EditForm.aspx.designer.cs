@@ -121,6 +121,51 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator supplierValidator;
         
         /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
+        /// txt_curr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTextBox txt_curr;
+        
+        /// <summary>
+        /// UpdatePanel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
+        
+        /// <summary>
+        /// cb_type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_type;
+        
+        /// <summary>
+        /// txt_disch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_disch;
+        
+        /// <summary>
         /// UpdatePanel7 control.
         /// </summary>
         /// <remarks>
@@ -139,49 +184,49 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord {
         protected global::Telerik.Web.UI.RadTextBox txt_remark;
         
         /// <summary>
-        /// lbl_userId control.
+        /// txt_uid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_userId;
+        protected global::Telerik.Web.UI.RadTextBox txt_uid;
         
         /// <summary>
-        /// lbl_lastUpdate control.
+        /// txt_lastUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_lastUpdate;
+        protected global::Telerik.Web.UI.RadTextBox txt_lastUpdate;
         
         /// <summary>
-        /// lbl_Owner control.
+        /// txt_owner control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_Owner;
+        protected global::Telerik.Web.UI.RadTextBox txt_owner;
         
         /// <summary>
-        /// lbl_edited control.
+        /// txt_printed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_edited;
+        protected global::Telerik.Web.UI.RadTextBox txt_printed;
         
         /// <summary>
-        /// RadTabStrip1 control.
+        /// txt_edited control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        protected global::Telerik.Web.UI.RadTextBox txt_edited;
         
         /// <summary>
         /// RadMultiPage1 control.

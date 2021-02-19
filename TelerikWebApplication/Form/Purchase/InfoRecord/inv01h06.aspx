@@ -176,7 +176,7 @@
                 <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
                 <SortingSettings EnableSkinSortStyles="false" />
                 <ClientSettings EnablePostBackOnRowClick="true" />
-                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="" Font-Size="11px"
+                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="info_code" Font-Size="11px"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                 CommandItemSettings-ShowRefreshButton="false">
                 <Columns>
@@ -304,7 +304,7 @@
                         <asp:Label runat="server" ID="lblUom" Text='<%# DataBinder.Eval(Container.DataItem, "SatQty") %>'></asp:Label>
                     </ItemTemplate>                                        
                 </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn DataField="harga" HeaderText="Harga" HeaderStyle-Width="120px" ItemStyle-Width="120px"  SortExpression="harga" UniqueName="harga"
+                <telerik:GridTemplateColumn DataField="harga" HeaderText="Price" HeaderStyle-Width="120px" ItemStyle-Width="120px"  SortExpression="harga" UniqueName="harga"
                                 ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="#009900">
                                 <ItemTemplate>
                                     <asp:Label runat="server" ID="lblHarga" Text='<%# Eval("harga", "{0:#,###0.00;-#,###0.00;0}") %>'></asp:Label>
