@@ -181,6 +181,18 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
             //}
         }
 
+        protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                HyperLink vie_wo_link = (HyperLink)e.Item.FindControl("link_wo");
+                vie_wo_link.Attributes["href"] = "javascript:void(0);";
+                vie_wo_link.Attributes["onclick"] = String.Format("return ShowWoForm('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["trans_id"], e.Item.ItemIndex);
+
+               
+            }
+        }
+
         //protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    foreach (GridDataItem item in RadGrid1.SelectedItems)

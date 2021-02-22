@@ -246,7 +246,10 @@
 
             <telerik:RadWindowManager ID="RadWindowManager1" RenderMode="Lightweight" runat="server" EnableShadow="true">
             <Windows>
-                
+                <telerik:RadWindow RenderMode="Lightweight" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
+                    Width="1400px" Height="720px" Modal="true" AutoSize="False">
+                </telerik:RadWindow>  
+
                 <telerik:RadWindow RenderMode="Lightweight" ID="dialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
                     Width="1050px" Height="600px" Modal="true" AutoSize="False">
                 </telerik:RadWindow>

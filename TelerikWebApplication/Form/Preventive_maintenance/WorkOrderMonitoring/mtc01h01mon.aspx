@@ -220,20 +220,20 @@
                             <ItemStyle Width="140px" />
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="unitstatus" HeaderText="Unit Status" DataField="unitstatus">
-                            <HeaderStyle Width="100px"/>
+                            <HeaderStyle Width="110px"/>
                             <ItemStyle Width="80px" />                        
                         </telerik:GridDateTimeColumn>
-                        <telerik:GridBoundColumn UniqueName="DBDate" HeaderText="B/D Date" DataField="DBDate">
+                        <telerik:GridBoundColumn UniqueName="DBDate" HeaderText="B/D Date" DataField="DBDate" AllowFiltering="false">
                             <HeaderStyle Width="120px"/>
                             <ItemStyle Width="120px" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridDateTimeColumn UniqueName="remark" HeaderText="Job Description" DataField="remark">
+                        <telerik:GridDateTimeColumn UniqueName="remark" HeaderText="Job Description" DataField="remark" AllowFiltering="false">
                             <HeaderStyle Width="280px"/>
                             <ItemStyle Width="260px" />                        
                         </telerik:GridDateTimeColumn>
-                        <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete" ItemStyle-ForeColor="Red"
+                       <%-- <telerik:GridButtonColumn UniqueName="DeleteColumn" CommandName="Delete" ItemStyle-ForeColor="Red"
                             ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" ButtonType="FontIconButton">
-                        </telerik:GridButtonColumn>
+                        </telerik:GridButtonColumn>--%>
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
