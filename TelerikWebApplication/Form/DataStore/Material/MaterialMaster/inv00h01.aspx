@@ -298,40 +298,61 @@
                                 </telerik:RadTabStrip>
                                
                                 <telerik:RadMultiPage runat="server" ID="RadMultiPage2"  SelectedIndex="0" >
-
                                     <telerik:RadPageView runat="server" ID="RadPageView1" Height="280px" >
                                         <div style="padding: 5px 10px 10px 10px;">
                                             <telerik:RadGrid runat="server" ID="RadGridPageView1" RenderMode="Lightweight" AllowPaging="true"
                                                 ShowFooter="false" AllowSorting="false" PageSize="5" AutoGenerateColumns="false" Skin="Silk"
                                                 OnNeedDataSource="RadGridPageView1_NeedDataSource" >
-                                                <MasterTableView CommandItemDisplay="None" AllowFilteringByColumn= "false" DataKeyNames="prod_code, wh_code" Width="60%" 
-                                                Font-Names="Calibri" Font-Size="12px" CommandItemSettings-ShowAddNewRecordButton="false"  HeaderStyle-Font-Size="12px"
-                                                EditFormSettings-PopUpSettings-KeepInScreenBounds="true" HeaderStyle-Height="10px" HeaderStyle-ForeColor="Highlight" >
-                                                    <Columns>
-                                                        <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
-                                                            <HeaderStyle Width="40px" B/>
-                                                        </telerik:GridEditCommandColumn>--%>
-                                                        <telerik:GridBoundColumn HeaderText ="Storage" DataField="wh_name" FilterControlWidth="60px">
-                                                            <HeaderStyle Width="100px" HorizontalAlign="Center" />
-                                                            <ItemStyle Width="100px" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn HeaderText ="Location" DataField="KoLok">
-                                                            <HeaderStyle Width="80px" HorizontalAlign="Center" />
-                                                            <ItemStyle Width="80px" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn HeaderText ="On Hand" DataField="QACT">
-                                                            <HeaderStyle Width="50px" HorizontalAlign="Center" />
-                                                            <ItemStyle Width="50px" HorizontalAlign="Right" />
-                                                        </telerik:GridBoundColumn>
-                                                    </Columns>
-                                                </MasterTableView>
+                                                    <MasterTableView CommandItemDisplay="None" AllowFilteringByColumn= "false" DataKeyNames="prod_code, wh_code" Width="60%" 
+                                                    Font-Names="Calibri" Font-Size="12px" CommandItemSettings-ShowAddNewRecordButton="false"  HeaderStyle-Font-Size="12px"
+                                                    EditFormSettings-PopUpSettings-KeepInScreenBounds="true" HeaderStyle-Height="10px" HeaderStyle-ForeColor="Highlight" >
+                                                        <Columns>
+                                                            <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
+                                                                <HeaderStyle Width="40px" B/>
+                                                            </telerik:GridEditCommandColumn>--%>
+                                                            <telerik:GridBoundColumn HeaderText ="Storage" DataField="wh_name" FilterControlWidth="60px">
+                                                                <HeaderStyle Width="100px" HorizontalAlign="Center" />
+                                                                <ItemStyle Width="100px" />
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn HeaderText ="Location" DataField="KoLok">
+                                                                <HeaderStyle Width="80px" HorizontalAlign="Center" />
+                                                                <ItemStyle Width="80px" />
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn HeaderText ="On Hand" DataField="QACT">
+                                                                <HeaderStyle Width="50px" HorizontalAlign="Center" />
+                                                                <ItemStyle Width="50px" HorizontalAlign="Right" />
+                                                            </telerik:GridBoundColumn>
+                                                        </Columns>
+                                                    </MasterTableView>
                                             </telerik:RadGrid>
                                         </div>
                                     </telerik:RadPageView>
                                     <telerik:RadPageView runat="server" ID="RadPageView2" Height="280px" >
                                         <div style="padding: 10px 10px 10px 10px;">
-                                            <telerik:RadGrid runat="server" ID="RadGridPageView2">
-
+                                            <telerik:RadGrid runat="server" ID="RadGridPageView2" RenderMode="Lightweight" AllowPaging="true"
+                                                ShowFooter="false" AllowSorting="false" PageSize="5" AutoGenerateColumns="false" Skin="Silk">
+                                                <MasterTableView CommandItemDisplay="None" AllowFilteringByColumn= "false" DataKeyNames="prod_code, wh_code" Width="60%" 
+                                                    Font-Names="Calibri" Font-Size="12px" CommandItemSettings-ShowAddNewRecordButton="false"  HeaderStyle-Font-Size="12px"
+                                                    EditFormSettings-PopUpSettings-KeepInScreenBounds="true" HeaderStyle-Height="10px" HeaderStyle-ForeColor="Highlight">
+                                                    <Columns>
+                                                        <telerik:GridBoundColumn HeaderText ="Material Code" FilterControlWidth="60px">
+                                                            <HeaderStyle Width="100px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="100px" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText ="Specification">
+                                                            <HeaderStyle Width="80px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="80px" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText ="UoM">
+                                                            <HeaderStyle Width="50px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="50px" HorizontalAlign="Right" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderText ="Qty">
+                                                            <HeaderStyle Width="80px" HorizontalAlign="Center" />
+                                                            <ItemStyle Width="80px" />
+                                                        </telerik:GridBoundColumn>
+                                                    </Columns>
+                                                </MasterTableView>
                                             </telerik:RadGrid>
                                         </div>
                                     </telerik:RadPageView>
