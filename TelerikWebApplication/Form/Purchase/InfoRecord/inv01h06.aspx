@@ -232,7 +232,7 @@
             OnInsertCommand="RadGrid2_InsertCommand">
             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                                 <HeaderStyle CssClass="gridHeader" />
-                                <MasterTableView CommandItemDisplay="Top" DataKeyNames="pr_code" Font-Size="11px" EditMode="InPlace"
+                                <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="11px" EditMode="InPlace"
                                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" EditItemStyle-Height="15px" EditItemStyle-ForeColor="#3366CC" 
                                     InsertItemDisplay="Top" CommandItemSettings-AddNewRecordText="New item" CommandItemStyle-Height="20px">
                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="true" ShowCancelChangesButton="false" />                                      

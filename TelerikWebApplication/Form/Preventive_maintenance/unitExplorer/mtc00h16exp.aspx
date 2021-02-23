@@ -54,7 +54,7 @@
                     <telerik:AjaxUpdatedControl ControlID="txt_model7" />
                 </UpdatedControls>
             </telerik:AjaxSetting>          
-        </AjaxSettings>--%>
+        </AjaxSettings>
     </telerik:RadAjaxManager>--%>
 
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2500" BackgroundPosition="None" Skin="Material">
@@ -83,7 +83,7 @@
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
                     <telerik:RadTreeView RenderMode="Lightweight" ID="RadTreeView1" runat="server" OnNodeClick="RadTreeView1_NodeClick"  Width="200px" Height="570px"
-                         Skin="Telerik" Font-Size="11px">
+                         Skin="Silk"  Font-Size="11px">
                         <DataBindings>
                             <telerik:RadTreeNodeBinding Expanded="False"></telerik:RadTreeNodeBinding>
                         </DataBindings>
@@ -93,7 +93,7 @@
         </div>
         <div class="demo-container size-thin" style="display:inline; float:left; width:1050px;">
              <telerik:RadTabStrip RenderMode="Lightweight" runat="server" ID="RadTabStrip2" Font-Size="11px"
-            SelectedIndex="0" MultiPageID="RadMultiPage2" Skin="Telerik" CausesValidation="False">
+            SelectedIndex="0" MultiPageID="RadMultiPage2" Skin="Silk"  CausesValidation="False">
             <Tabs>
                 <telerik:RadTab Text="General Information" Height="15px" Visible="true"> 
                 </telerik:RadTab>
@@ -141,7 +141,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_eqp_type" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik" >
+                                                        Skin="Silk"  >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -156,7 +156,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_eqp_kind" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -171,7 +171,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_manufacture" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -186,7 +186,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_model" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -201,7 +201,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_status" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -216,7 +216,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_reading_type" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -226,7 +226,7 @@
                                                 &nbsp
                                                 <telerik:RadLabel runat="server" Text="Or" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_readType2" runat="server" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -241,7 +241,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_opr_hours" runat="server" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -265,7 +265,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_category" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -280,7 +280,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_class" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -300,7 +300,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_supplier" runat="server" Width="300px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -315,7 +315,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_purc_date" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -323,9 +323,9 @@
                                                     <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
                                                 </telerik:RadTextBox>
                                                 <%--<telerik:RadDatePicker ID="dtp_purc_date"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                    TabIndex="4" Skin="Telerik" > 
+                                                    TabIndex="4" Skin="Silk"  > 
                                                     <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
-                                                        EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Telerik"></Calendar>
+                                                        EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk" ></Calendar>
                                                     <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
                                                     <EmptyMessageStyle Resize="Both"></EmptyMessageStyle>
                                                     <ReadOnlyStyle Resize="None"></ReadOnlyStyle>
@@ -344,7 +344,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_arrived_date" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -352,9 +352,9 @@
                                                     <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
                                                 </telerik:RadTextBox>
                                                 <%--<telerik:RadDatePicker ID="dtp_arrived_date"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                    TabIndex="4" Skin="Telerik" > 
+                                                    TabIndex="4" Skin="Silk"  > 
                                                     <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
-                                                        EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Telerik"></Calendar>
+                                                        EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Silk" ></Calendar>
                                                     <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
                                                     <EmptyMessageStyle Resize="Both"></EmptyMessageStyle>
                                                     <ReadOnlyStyle Resize="None"></ReadOnlyStyle>
@@ -373,7 +373,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_engine_no" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -388,7 +388,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_engine_model" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -403,7 +403,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_sn" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -418,7 +418,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_condition" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -433,7 +433,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_project" runat="server" Width="250px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -448,7 +448,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_year" runat="server" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -457,7 +457,7 @@
                                                 </telerik:RadTextBox>
                                             &nbsp <telerik:RadLabel runat="server" Text="Seating Capacity" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_seat_cap" runat="server" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -476,7 +476,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_chasis" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -491,7 +491,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_no_cylinder" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -506,7 +506,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_transmission" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -521,7 +521,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_radio_no" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -536,7 +536,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_sn_sarana" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -551,7 +551,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_exp_lifetime" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -566,7 +566,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_unschedule_bd" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -581,7 +581,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_schedule_bd" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -596,7 +596,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_tank_capacity" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -625,7 +625,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_steer_size" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -634,7 +634,7 @@
                                                 </telerik:RadTextBox>
                                                 &nbsp<telerik:RadLabel runat="server" Text="No Of" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_noOf_steer_size" runat="server" Width="63px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -649,7 +649,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_tyre_size_drive" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -658,7 +658,7 @@
                                                 </telerik:RadTextBox>
                                                 &nbsp<telerik:RadLabel runat="server" Text="No Of" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_noOf_tyre_size_drive" runat="server" Width="63px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -673,7 +673,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_wheel_base" runat="server" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -682,7 +682,7 @@
                                                 </telerik:RadTextBox>
                                                 &nbsp<telerik:RadLabel runat="server" Text="Wheel Drive" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_wheel_drive" runat="server" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -697,7 +697,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_no_of_axles" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -722,7 +722,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_tare_weight" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -731,7 +731,7 @@
                                                 </telerik:RadTextBox>
                                                 &nbsp<telerik:RadLabel runat="server" Text="Height" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_height" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -746,7 +746,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_gross_weight" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -755,7 +755,7 @@
                                                 </telerik:RadTextBox>
                                                 &nbsp<telerik:RadLabel runat="server" Text="Width" CssClass="lbObject"></telerik:RadLabel>&nbsp
                                                 <telerik:RadTextBox ID="txt_width" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -770,7 +770,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_color" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -779,7 +779,7 @@
                                                 </telerik:RadTextBox>
                                                 &nbsp<telerik:RadLabel runat="server" Text="Lenght" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_lenght" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -804,7 +804,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_primary_fuel" runat="server" Width="80px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -813,7 +813,7 @@
                                                 </telerik:RadTextBox>
                                                 &nbsp<telerik:RadLabel runat="server" Text="Tank Capacity" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_primary_tank_capacity" runat="server" Width="60px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -828,7 +828,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_secondary_fuel" runat="server" Width="80px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -837,7 +837,7 @@
                                                 </telerik:RadTextBox>
                                                 &nbsp<telerik:RadLabel runat="server" Text="Tank Capacity" CssClass="lbObject"></telerik:RadLabel>
                                                 <telerik:RadTextBox ID="txt_secondary_fuel_capacity" runat="server" Width="60px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -852,7 +852,7 @@
                                             </td>
                                             <td>
                                                 <telerik:RadTextBox ID="txt_tank_unit" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  >
+                                                        Skin="Silk"   >
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                     <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -878,7 +878,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_inspect_done" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                            Skin="Telerik"  >
+                                            Skin="Silk"   >
                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -893,7 +893,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_certificate_no" runat="server" Width="70px" ReadOnly="true" RenderMode="Lightweight" 
-                                            Skin="Telerik"  >
+                                            Skin="Silk"   >
                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -908,7 +908,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadTextBox ID="txt_next_due" runat="server" Width="50px" ReadOnly="true" RenderMode="Lightweight" 
-                                            Skin="Telerik"  >
+                                            Skin="Silk"   >
                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -949,7 +949,7 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadTextBox runat="server" ID="txt_pur_date" Width="120px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik">
+                                                        Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -963,7 +963,7 @@
                                                     <telerik:RadLabel runat="server" Text="Arrived Purchase" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_arrived_pur" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_arrived_pur" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -977,7 +977,7 @@
                                                     <telerik:RadLabel runat="server" Text="Condition" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_con_pur" Width="100px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_con_pur" Width="100px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -991,7 +991,7 @@
                                                     <telerik:RadLabel runat="server" Text="Purchase Cost" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_pur_cost" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_pur_cost" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1005,7 +1005,7 @@
                                                     <telerik:RadLabel runat="server" Text="Order Number" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_ord_no" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_ord_no" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1029,7 +1029,7 @@
                                                     <telerik:RadLabel runat="server" Text="Expected Life(Yrs)" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_expect_life" Width="80px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_expect_life" Width="80px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1038,7 +1038,7 @@
                                                     </telerik:RadTextBox>
                                                     &nbsp
                                                     <telerik:RadLabel runat="server" Text="Or" CssClass="lbObject"></telerik:RadLabel>
-                                                    <telerik:RadTextBox runat="server" ID="txt_expect_life_hour" Width="50px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_expect_life_hour" Width="50px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1053,7 +1053,7 @@
                                                     <telerik:RadLabel runat="server" Text="Depreciation Type" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_depre_type" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_depre_type" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1067,7 +1067,7 @@
                                                     <telerik:RadLabel runat="server" Text="Salvage Value" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_sal_value" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_sal_value" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1081,7 +1081,7 @@
                                                     <telerik:RadLabel runat="server" Text="Appreciation" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_appre" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_appre" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1095,7 +1095,7 @@
                                                     <telerik:RadLabel runat="server" Text="Current Value" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_curr_value" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_curr_value" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1123,7 +1123,7 @@
                                                     <telerik:RadLabel runat="server" Text="Market Value" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_market_value" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_market_value" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1137,7 +1137,7 @@
                                                     <telerik:RadLabel runat="server" Text="Replacement Value" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_replace_value" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_replace_value" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1151,7 +1151,7 @@
                                                     <telerik:RadLabel runat="server" Text="Change Over Value" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_ch_over_value" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_ch_over_value" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1165,7 +1165,7 @@
                                                     <telerik:RadLabel runat="server" Text="Last Evaluation Date" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_last_eva_date" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_last_eva_date" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1179,7 +1179,7 @@
                                                     <telerik:RadLabel runat="server" Text="Next Evaluation Date" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_next_eva_date" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_next_eva_date" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1204,7 +1204,7 @@
                                                     <telerik:RadLabel runat="server" Text="Date Sold" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_date_sold" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_date_sold" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1218,7 +1218,7 @@
                                                     <telerik:RadLabel runat="server" Text="Actual Resale Value" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_resale_value" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_resale_value" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1232,7 +1232,7 @@
                                                     <telerik:RadLabel runat="server" Text="Replaced Vehicle" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_repla_vehic" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_repla_vehic" Width="180px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1275,7 +1275,7 @@
                                                     <telerik:RadLabel runat="server" Text="Reg No" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_reg_no" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_reg_no" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1289,7 +1289,7 @@
                                                     <telerik:RadLabel runat="server" Text="Inspect Date" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_inspect_date" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_inspect_date" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1303,7 +1303,7 @@
                                                     <telerik:RadLabel runat="server" Text="Date Due" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_date_due" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_date_due" Width="120px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1317,7 +1317,7 @@
                                                     <telerik:RadLabel runat="server" Text="Cost" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_cost" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_cost" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1331,7 +1331,7 @@
                                                     <telerik:RadLabel runat="server" Text="Licency Code" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_licen_code" Width="200px" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_licen_code" Width="200px" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1355,7 +1355,7 @@
                                                     <telerik:RadLabel runat="server" Text="Start" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_start" Width="100px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_start" Width="100px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1364,7 +1364,7 @@
                                                     </telerik:RadTextBox>
                                                     &nbsp
                                                     <telerik:RadLabel runat="server" Text="Finish" CssClass="lbObject"></telerik:RadLabel>
-                                                    <telerik:RadTextBox runat="server" ID="txt_finish" Width="100px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_finish" Width="100px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1378,7 +1378,7 @@
                                                     <telerik:RadLabel runat="server" Text="Hours" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_hours" Width="100px" RenderMode="Lightweight" ReadOnly="true" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_hours" Width="100px" RenderMode="Lightweight" ReadOnly="true" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1387,7 +1387,7 @@
                                                     </telerik:RadTextBox>
                                                     &nbsp
                                                     <telerik:RadLabel runat="server" Text="Or" CssClass="lbObject"></telerik:RadLabel>
-                                                    <telerik:RadTextBox runat="server" ID="txt_month" Width="100px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_month" Width="100px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1402,7 +1402,7 @@
                                                     <telerik:RadLabel runat="server" Text="Warranty Supplier" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_war_sup" Width="250px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_war_sup" Width="250px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1430,7 +1430,7 @@
                                                     <telerik:RadLabel runat="server" Text="Insurance Value" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_insur_value" Width="150px" RenderMode="Lightweight" ReadOnly="true" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_insur_value" Width="150px" RenderMode="Lightweight" ReadOnly="true" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1444,7 +1444,7 @@
                                                     <telerik:RadLabel runat="server" Text="Renewal" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_renewal" Width="150px" RenderMode="Lightweight" ReadOnly="true" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_renewal" Width="150px" RenderMode="Lightweight" ReadOnly="true" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1458,7 +1458,7 @@
                                                     <telerik:RadLabel runat="server" Text="Company" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_company" Width="200px" RenderMode="Lightweight" ReadOnly="true" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_company" Width="200px" RenderMode="Lightweight" ReadOnly="true" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1472,7 +1472,7 @@
                                                     <telerik:RadLabel runat="server" Text="Policy Number" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_policy_no" Width="180px" RenderMode="Lightweight" ReadOnly="true" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_policy_no" Width="180px" RenderMode="Lightweight" ReadOnly="true" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1486,7 +1486,7 @@
                                                     <telerik:RadLabel runat="server" Text="Premium" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_premium" Width="150px" RenderMode="Lightweight" ReadOnly="true" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_premium" Width="150px" RenderMode="Lightweight" ReadOnly="true" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1518,7 +1518,7 @@
                                                     <telerik:RadLabel runat="server" Text="FBT Rate" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadTextBox runat="server" ID="txt_fbtRate" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik">
+                                                    <telerik:RadTextBox runat="server" ID="txt_fbtRate" Width="150px" ReadOnly="true" RenderMode="Lightweight" Skin="Silk" >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1545,13 +1545,13 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Date From    :" ForeColor="DeepSkyBlue" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadDatePicker runat="server" ID="dtp_from" RenderMode="Lightweight" Width="150px" Skin="Telerik" DateInput-ReadOnly="false" 
+                                        <telerik:RadDatePicker runat="server" ID="dtp_from" RenderMode="Lightweight" Width="150px" Skin="Silk"  DateInput-ReadOnly="false" 
                                             DateInput-DateFormat="dd/MM/yyyy">
                                         </telerik:RadDatePicker>
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="To Date  :" ForeColor="DeepSkyBlue" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadDatePicker runat="server" ID="dtp_to" RenderMode="Lightweight" Width="150px" Skin="Telerik" DateInput-ReadOnly="false" 
+                                        <telerik:RadDatePicker runat="server" ID="dtp_to" RenderMode="Lightweight" Width="150px" Skin="Silk"  DateInput-ReadOnly="false" 
                                             DateInput-DateFormat="dd/MM/yyyy">
                                         </telerik:RadDatePicker>
                                     </td>
@@ -1566,7 +1566,7 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Unit Code    :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_unit2" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_unit2" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1576,7 +1576,7 @@
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Model No :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_model2" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_model2" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1590,7 +1590,7 @@
                                <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <telerik:RadGrid runat="server" ID="RadGrid2" RenderMode="Lightweight" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"  
-                                            PageSize="10" Skin="Telerik" ShowFooter="false" GridLines="None" Width="100%" 
+                                            PageSize="10" Skin="Silk"  ShowFooter="false" GridLines="None" Width="100%" 
                                             OnNeedDataSource="Radgrid2_NeedDataSource" 
                                             OnInsertCommand="RadGrid2_InsertCommand">
                                             <PagerStyle Mode="NumericPages" />
@@ -1671,7 +1671,7 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Unit Code    :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_unit3" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_unit3" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1681,7 +1681,7 @@
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Model No :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_model3" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_model3" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1700,7 +1700,7 @@
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <telerik:RadGrid runat="server" ID="RadGrid3" RenderMode="Lightweight" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"
-                                            PageSize="10" Skin="Telerik" ShowFooter="false" GridLines="None" Width="100%" 
+                                            PageSize="10" Skin="Silk"  ShowFooter="false" GridLines="None" Width="100%" 
                                             OnNeedDataSource="RadGrid3_NeedDataSource" 
                                             OnInsertCommand="RadGrid3_InsertCommand">
                                             <PagerStyle Mode="NumericPages" />
@@ -1752,7 +1752,7 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Unit Code    :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_unit4" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_unit4" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1762,7 +1762,7 @@
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Model No :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_model4" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_model4" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1781,7 +1781,7 @@
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <telerik:RadGrid runat="server" ID="RadGrid4" RenderMode="Lightweight" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false" 
-                                            PageSize="10" Skin="Telerik" ShowFooter="false" GridLines="None" Width="100%" 
+                                            PageSize="10" Skin="Silk"  ShowFooter="false" GridLines="None" Width="100%" 
                                             OnNeedDataSource="RadGrid4_NeedDataSource" 
                                             OnInsertCommand="RadGrid4_InsertCommand">
                                             <PagerStyle Mode="NumericPages" />
@@ -1858,13 +1858,13 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Date From    :" ForeColor="DeepSkyBlue" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadDatePicker runat="server" ID="dtp_from_ReadRecord" RenderMode="Lightweight" Width="150px" Skin="Telerik" DateInput-ReadOnly="false" 
+                                        <telerik:RadDatePicker runat="server" ID="dtp_from_ReadRecord" RenderMode="Lightweight" Width="150px" Skin="Silk"  DateInput-ReadOnly="false" 
                                             DateInput-DateFormat="dd/MM/yyyy">
                                         </telerik:RadDatePicker>
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="To Date  :" ForeColor="DeepSkyBlue" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadDatePicker runat="server" ID="dtp_to_ReadRecord" RenderMode="Lightweight" Width="150px" Skin="Telerik" DateInput-ReadOnly="false"  
+                                        <telerik:RadDatePicker runat="server" ID="dtp_to_ReadRecord" RenderMode="Lightweight" Width="150px" Skin="Silk"  DateInput-ReadOnly="false"  
                                             DateInput-DateFormat="dd/MM/yyyy">
                                         </telerik:RadDatePicker>
                                     </td>
@@ -1879,7 +1879,7 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Unit Code    :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_unit5" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_unit5" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1889,7 +1889,7 @@
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Model No    :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_model5" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_model5" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1903,7 +1903,7 @@
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <telerik:RadGrid runat="server" ID="RadGrid5" RenderMode="Lightweight" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"  
-                                            PageSize="10" Skin="Telerik" ShowFooter="false" GridLines="None" Width="100%" 
+                                            PageSize="10" Skin="Silk"  ShowFooter="false" GridLines="None" Width="100%" 
                                             OnNeedDataSource="RadGrid5_NeedDataSource" 
                                             OnInsertCommand="RadGrid5_InsertCommand">
                                             <PagerStyle Mode="NumericPages" />
@@ -1968,7 +1968,7 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Unit Code    :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_unit6" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_unit6" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1978,7 +1978,7 @@
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Model No    :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="txt_model6" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="txt_model6" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -1997,7 +1997,7 @@
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <telerik:RadGrid runat="server" ID="RadGrid6" RenderMode="Lightweight" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"  
-                                            PageSize="10" Skin="Telerik" ShowFooter="false" GridLines="None" Width="100%" 
+                                            PageSize="10" Skin="Silk"  ShowFooter="false" GridLines="None" Width="100%" 
                                             OnNeedDataSource="RadGrid6_NeedDataSource" 
                                             OnInsertCommand="RadGrid6_InsertCommand">
                                             <PagerStyle Mode="NumericPages" />
@@ -2074,13 +2074,13 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Date From    :" ForeColor="DeepSkyBlue" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadDatePicker runat="server" ID="RadDatePicker1" RenderMode="Lightweight" Width="150px" Skin="Telerik" DateInput-ReadOnly="false" 
+                                        <telerik:RadDatePicker runat="server" ID="RadDatePicker1" RenderMode="Lightweight" Width="150px" Skin="Silk"  DateInput-ReadOnly="false" 
                                             DateInput-DateFormat="dd/MM/yyyy">
                                         </telerik:RadDatePicker>
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="To Date  :" ForeColor="DeepSkyBlue" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadDatePicker runat="server" ID="RadDatePicker2" RenderMode="Lightweight" Width="150px" Skin="Telerik" DateInput-ReadOnly="false" 
+                                        <telerik:RadDatePicker runat="server" ID="RadDatePicker2" RenderMode="Lightweight" Width="150px" Skin="Silk"  DateInput-ReadOnly="false" 
                                             DateInput-DateFormat="dd/MM/yyyy">
                                         </telerik:RadDatePicker>
                                     </td>
@@ -2095,7 +2095,7 @@
                                 <tr>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Unit Code    :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="RadTextBox1" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="RadTextBox1" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -2105,7 +2105,7 @@
                                     </td>
                                     <td>
                                         <telerik:RadLabel runat="server" Text="Model No :" CssClass="lbObject"></telerik:RadLabel>
-                                        <telerik:RadTextBox runat="server" ID="RadTextBox2" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Telerik">
+                                        <telerik:RadTextBox runat="server" ID="RadTextBox2" RenderMode="Lightweight" Width="150px" ReadOnly="true" Skin="Silk" >
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -2119,7 +2119,7 @@
                                <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <telerik:RadGrid runat="server" ID="RadGrid7" RenderMode="Lightweight" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false" 
-                                            PageSize="10" Skin="Telerik" ShowFooter="false" GridLines="None" Width="100%" 
+                                            PageSize="10" Skin="Silk"  ShowFooter="false" GridLines="None" Width="100%" 
                                             OnNeedDataSource="RadGrid7_NeedDataSource" 
                                             OnInsertCommand="RadGrid7_InsertCommand">
                                             <PagerStyle Mode="NumericPages" />

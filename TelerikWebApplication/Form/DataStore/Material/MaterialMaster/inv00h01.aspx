@@ -228,7 +228,7 @@
                                             </tr>
                                         </table>
                                     </td>
-                                    <td style="border-collapse: collapse; padding-left:35px;; vertical-align:top">
+                                    <td style="border-collapse: collapse; padding-left:35px; vertical-align:top">
                                         <table>
                                              <tr>
                                                 <td>

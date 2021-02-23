@@ -73,7 +73,7 @@
                                         <telerik:RadLabel runat="server" RenderMode="Lightweight" CssClass="lbObject" Text="WO. Number" ForeColor="Black"></telerik:RadLabel>
                                     </td>
                                     <td>
-                                        <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_WO" ReadOnly="true" Skin="Telerik" EmptyMessage="Let it blank" Width="150px" Enabled="false">
+                                        <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_WO" ReadOnly="true" Skin="Telerik" Width="150px" Enabled="false">
                                             <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                             <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                             <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -159,7 +159,100 @@
                             </table>
                         </td>
                         <td style="vertical-align: top; padding-left:15px">
-                            <table id="Table3" border="0" class="module">
+                            <table id="Table3" border="0" class="module">                                
+                                <tr>
+                                    <td class="tdLabel">
+                                        <telerik:RadLabel runat="server" RenderMode="Lightweight" CssClass="lbObject" ForeColor="Black" Text="Comp.Group"></telerik:RadLabel>
+                                    </td>
+                                    <td style="vertical-align:top; text-align:left">
+                                        <asp:UpdatePanel runat="server" ID="UpdatePanel5">
+                                            <ContentTemplate>
+                                                <telerik:RadComboBox runat="server" RenderMode="Lightweight" ID="cb_group" Width="350" DropDownWidth="350px" Skin="Telerik" 
+                                                    AutoPostBack="false" EnableLoadOnDemand="true" EnableVirtualScrolling="true" HighlightTemplatedItems="true" ShowMoreResultsBox="true" 
+                                                    MarkFirstMatch="true" OnItemsRequested="cb_group_ItemsRequested"
+                                                    OnSelectedIndexChanged="cb_group_SelectedIndexChanged" 
+                                                    OnPreRender="cb_group_PreRender">
+                                                    <HeaderTemplate>
+                                                        <table style="width: 350px; font-size:smaller">
+                                                            <tr>
+                                                                <td style="width: 100px;">
+                                                                    Code
+                                                                </td>
+                                                                <td style="width: 250px;">
+                                                                    Group Name
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <table style="width: 350px; font-size:smaller">
+                                                            <tr>
+                                                                <td style="width: 100px;">
+                                                                    <%# DataBinder.Eval(Container, "DataItem.com_group")%>
+                                                                </td>
+                                                                <td style="width: 250px;">
+                                                                    <%# DataBinder.Eval(Container, "DataItem.com_group_name")%>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        A total of
+                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                        items
+                                                    </FooterTemplate>
+                                                </telerik:RadComboBox>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdLabel">
+                                        <telerik:RadLabel runat="server" RenderMode="Lightweight" CssClass="lbObject" ForeColor="Black" Text="Component"></telerik:RadLabel>
+                                    </td>
+                                    <td style="vertical-align:top; text-align:left">
+                                        <asp:UpdatePanel runat="server" ID="UpdatePanel6">
+                                            <ContentTemplate>
+                                                <telerik:RadComboBox runat="server" RenderMode="Lightweight" ID="cb_component" Width="350" DropDownWidth="350px" 
+                                                    Skin="Telerik" AutoPostBack="false" EnableLoadOnDemand="true" EnableVirtualScrolling="true" HighlightTemplatedItems="true" 
+                                                    ShowMoreResultsBox="true" MarkFirstMatch="true" 
+                                                    OnItemsRequested="cb_component_ItemsRequested" 
+                                                    OnSelectedIndexChanged="cb_component_SelectedIndexChanged" 
+                                                    OnPreRender="cb_component_PreRender">
+                                                    <HeaderTemplate>
+                                                        <table style="width: 350px; font-size:smaller">
+                                                            <tr>
+                                                                <td style="width: 100px;">
+                                                                    Code
+                                                                </td>
+                                                                <td style="width: 250px;">
+                                                                    Component Name
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <table style="width: 350px; font-size:smaller">
+                                                            <tr>
+                                                                <td style="width: 100px;">
+                                                                    <%# DataBinder.Eval(Container, "DataItem.com_code")%>
+                                                                </td>
+                                                                <td style="width: 250px;">
+                                                                    <%# DataBinder.Eval(Container, "DataItem.com_name")%>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        A total of
+                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                        items
+                                                    </FooterTemplate>
+                                                </telerik:RadComboBox>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td class="tdLabel">
                                         <telerik:RadLabel runat="server" RenderMode="Lightweight" CssClass="lbObject" Text="Project" ForeColor="Black"></telerik:RadLabel>
@@ -273,99 +366,6 @@
                                             Font-Size="X-Small" Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>
                                         &nbsp
                                         <telerik:RadNumericTextBox runat="server" RenderMode="Lightweight" Width="100px" ForeColor="Black" ID="txt_breakdown"></telerik:RadNumericTextBox>    
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tdLabel">
-                                        <telerik:RadLabel runat="server" RenderMode="Lightweight" CssClass="lbObject" ForeColor="Black" Text="Comp.Group"></telerik:RadLabel>
-                                    </td>
-                                    <td style="vertical-align:top; text-align:left">
-                                        <asp:UpdatePanel runat="server" ID="UpdatePanel5">
-                                            <ContentTemplate>
-                                                <telerik:RadComboBox runat="server" RenderMode="Lightweight" ID="cb_group" Width="350" DropDownWidth="350px" Skin="Telerik" 
-                                                    AutoPostBack="false" EnableLoadOnDemand="true" EnableVirtualScrolling="true" HighlightTemplatedItems="true" ShowMoreResultsBox="true" 
-                                                    MarkFirstMatch="true" OnItemsRequested="cb_group_ItemsRequested"
-                                                    OnSelectedIndexChanged="cb_group_SelectedIndexChanged" 
-                                                    OnPreRender="cb_group_PreRender">
-                                                    <HeaderTemplate>
-                                                        <table style="width: 350px; font-size:smaller">
-                                                            <tr>
-                                                                <td style="width: 100px;">
-                                                                    Code
-                                                                </td>
-                                                                <td style="width: 250px;">
-                                                                    Group Name
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <table style="width: 350px; font-size:smaller">
-                                                            <tr>
-                                                                <td style="width: 100px;">
-                                                                    <%# DataBinder.Eval(Container, "DataItem.com_group")%>
-                                                                </td>
-                                                                <td style="width: 250px;">
-                                                                    <%# DataBinder.Eval(Container, "DataItem.com_group_name")%>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </ItemTemplate>
-                                                    <FooterTemplate>
-                                                        A total of
-                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                        items
-                                                    </FooterTemplate>
-                                                </telerik:RadComboBox>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tdLabel">
-                                        <telerik:RadLabel runat="server" RenderMode="Lightweight" CssClass="lbObject" ForeColor="Black" Text="Component"></telerik:RadLabel>
-                                    </td>
-                                    <td style="vertical-align:top; text-align:left">
-                                        <asp:UpdatePanel runat="server" ID="UpdatePanel6">
-                                            <ContentTemplate>
-                                                <telerik:RadComboBox runat="server" RenderMode="Lightweight" ID="cb_component" Width="350" DropDownWidth="350px" 
-                                                    Skin="Telerik" AutoPostBack="false" EnableLoadOnDemand="true" EnableVirtualScrolling="true" HighlightTemplatedItems="true" 
-                                                    ShowMoreResultsBox="true" MarkFirstMatch="true" 
-                                                    OnItemsRequested="cb_component_ItemsRequested" 
-                                                    OnSelectedIndexChanged="cb_component_SelectedIndexChanged" 
-                                                    OnPreRender="cb_component_PreRender">
-                                                    <HeaderTemplate>
-                                                        <table style="width: 350px; font-size:smaller">
-                                                            <tr>
-                                                                <td style="width: 100px;">
-                                                                    Code
-                                                                </td>
-                                                                <td style="width: 250px;">
-                                                                    Component Name
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <table style="width: 350px; font-size:smaller">
-                                                            <tr>
-                                                                <td style="width: 100px;">
-                                                                    <%# DataBinder.Eval(Container, "DataItem.com_code")%>
-                                                                </td>
-                                                                <td style="width: 250px;">
-                                                                    <%# DataBinder.Eval(Container, "DataItem.com_name")%>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </ItemTemplate>
-                                                    <FooterTemplate>
-                                                        A total of
-                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                        items
-                                                    </FooterTemplate>
-                                                </telerik:RadComboBox>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
                                     </td>
                                 </tr>
                             </table>
