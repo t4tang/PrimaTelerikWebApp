@@ -177,6 +177,18 @@
     <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.designer.cs">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Maintenance\ReportCatalog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\ReportCatalog.Designer.cs">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_population_unit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_population_unit.Designer.cs">
+      <DependentUpon>rpt_population_unit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Purchase\ReportCatalog.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -295,6 +307,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_WO_UR_Monitoring.resx">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\ReportCatalog.resx">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\rpt_population_unit.resx">
+      <DependentUpon>rpt_population_unit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Purchase\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>

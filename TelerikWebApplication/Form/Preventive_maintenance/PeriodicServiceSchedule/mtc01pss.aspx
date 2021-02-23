@@ -134,59 +134,63 @@
         </table>
     </div>
 
-     <div  class="scroller" runat="server">
-         <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" ShowFooter="false" Skin="Windows7" AllowCustomPaging="False"
-             ShowStatusBar="true" PageSize="10" Width="1000px" 
-             AllowSorting="True" AllowMultiRowSelection="True" AllowPaging="True" ShowGroupPanel="False" GroupHeaderItemStyle-Font-Bold="true"
-            AutoGenerateColumns="False" GridLines="none"
-             OnNeedDataSource="RadGrid1_NeedDataSource" >
-             <PagerStyle Mode="NextPrevAndNumeric" ></PagerStyle>
-             <MasterTableView Width="100%" CommandItemDisplay="None" DataKeyNames="NextService" Font-Size="12px"
-                GroupHeaderItemStyle-Font-Size="X-Small">
-                 <GroupByExpressions>
-                    <telerik:GridGroupByExpression>
-                        <SelectFields>
-                            <telerik:GridGroupByField FieldAlias="Unit" FieldName="unit_code"></telerik:GridGroupByField>
-                        </SelectFields>
-                        <GroupByFields>
-                            <telerik:GridGroupByField FieldName="unit_code" ></telerik:GridGroupByField>
-                        </GroupByFields>
-                    </telerik:GridGroupByExpression>                                
-                </GroupByExpressions>
-                 <Columns>
-                     <telerik:GridBoundColumn UniqueName="hmAsOff" HeaderText="HM/KM Reading" DataField="hmAsOff">
-                         <HeaderStyle Width="100px" HorizontalAlign="Center" ForeColor="#0066cc" Font-Size="13px"></HeaderStyle>
-                         <ItemStyle Width="40px" HorizontalAlign="Right" />
-                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn UniqueName="NextService" HeaderText="Next Service" DataField="NextService">
-                         <HeaderStyle Width="120px"  HorizontalAlign="Center" ForeColor="#0066cc" Font-Size="13px" />
-                         <ItemStyle Width="80px" HorizontalAlign="Right"/>
-                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn UniqueName="hour_avai" HeaderText="Est. WH/Day" DataField="hour_avai" >
-                         <HeaderStyle Width="70px" HorizontalAlign="Center" ForeColor="#0066cc" Font-Size="13px" />
-                         <ItemStyle Width="50px" HorizontalAlign="Right" />
-                     </telerik:GridBoundColumn>
-                     <telerik:GridDateTimeColumn UniqueName="NextServiceDate" HeaderText="Service Date" DataField="NextServiceDate" ItemStyle-Width="80px" 
-                            EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
-                         DataFormatString="{0:d}" >
-                         <HeaderStyle Width="110px"  HorizontalAlign="Center" ForeColor="#0066cc" Font-Size="13px" />
-                         <ItemStyle Width="80px" HorizontalAlign="Center"/>
-                     </telerik:GridDateTimeColumn>
-                     <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project Area" DataField="region_name" 
-                         FilterControlWidth="120px" >
-                         <HeaderStyle Width="120px" HorizontalAlign="Center" ForeColor="#0066cc" Font-Size="13px" />
-                     </telerik:GridBoundColumn>
+     <div class="scroller" runat="server" style="overflow-y:scroll; height:620px;" >
+         <div style="width:100%; overflow-y:hidden;height:auto; scrollbar-highlight-color:#b6ff00">
+             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" ShowFooter="false" Skin="Silk" AllowCustomPaging="False"
+                 ShowStatusBar="true" PageSize="10"
+                 AllowSorting="True" AllowMultiRowSelection="True" AllowPaging="True" ShowGroupPanel="False" GroupHeaderItemStyle-Font-Bold="true"
+                AutoGenerateColumns="False" GridLines="none"
+                 OnNeedDataSource="RadGrid1_NeedDataSource" >
+                 <PagerStyle Mode="NumericPages"></PagerStyle>          
+                <ClientSettings EnablePostBackOnRowClick="true" />
+                <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
+                <HeaderStyle ForeColor="White" BackColor="#ff9966" Font-Size="11px" HorizontalAlign="Center"  />
+                 <MasterTableView Width="100%" CommandItemDisplay="None" DataKeyNames="NextService" Font-Size="12px"
+                    GroupHeaderItemStyle-Font-Size="X-Small">
+                     <GroupByExpressions>
+                        <telerik:GridGroupByExpression>
+                            <SelectFields>
+                                <telerik:GridGroupByField FieldAlias="Unit" FieldName="unit_code"></telerik:GridGroupByField>
+                            </SelectFields>
+                            <GroupByFields>
+                                <telerik:GridGroupByField FieldName="unit_code" ></telerik:GridGroupByField>
+                            </GroupByFields>
+                        </telerik:GridGroupByExpression>                                
+                    </GroupByExpressions>
+                     <Columns>
+                         <telerik:GridBoundColumn UniqueName="hmAsOff" HeaderText="HM/KM Reading" DataField="hmAsOff">
+                             <HeaderStyle Width="100px" HorizontalAlign="Center" Font-Size="13px"></HeaderStyle>
+                             <ItemStyle Width="40px" HorizontalAlign="Right" />
+                         </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn UniqueName="NextService" HeaderText="Next Service" DataField="NextService">
+                             <HeaderStyle Width="120px"  HorizontalAlign="Center" Font-Size="13px" />
+                             <ItemStyle Width="80px" HorizontalAlign="Right"/>
+                         </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn UniqueName="hour_avai" HeaderText="Est. WH/Day" DataField="hour_avai" >
+                             <HeaderStyle Width="70px" HorizontalAlign="Center" Font-Size="13px" />
+                             <ItemStyle Width="50px" HorizontalAlign="Right" />
+                         </telerik:GridBoundColumn>
+                         <telerik:GridDateTimeColumn UniqueName="NextServiceDate" HeaderText="Service Date" DataField="NextServiceDate" ItemStyle-Width="80px" 
+                                EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
+                             DataFormatString="{0:d}" >
+                             <HeaderStyle Width="110px"  HorizontalAlign="Center" Font-Size="13px" />
+                             <ItemStyle Width="80px" HorizontalAlign="Center"/>
+                         </telerik:GridDateTimeColumn>
+                         <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project Area" DataField="region_name" 
+                             FilterControlWidth="120px" >
+                             <HeaderStyle Width="120px" HorizontalAlign="Center" Font-Size="13px" />
+                         </telerik:GridBoundColumn>
                      
-                 </Columns>
-             </MasterTableView>
-             <ClientSettings ReorderColumnsOnClient="True" AllowDragToGroup="True" AllowColumnsReorder="True">
-                <Selecting AllowRowSelect="True"></Selecting>
-                <Resizing AllowRowResize="True" AllowColumnResize="True" EnableRealTimeResize="True"
-                    ResizeGridOnColumnResize="False"></Resizing>                 
-                 <ClientEvents OnRowDblClick="RowDblClick" />
-            </ClientSettings>
-         </telerik:RadGrid>
-
+                     </Columns>
+                 </MasterTableView>
+                 <ClientSettings ReorderColumnsOnClient="True" AllowDragToGroup="True" AllowColumnsReorder="True">
+                    <Selecting AllowRowSelect="True"></Selecting>
+                    <Resizing AllowRowResize="True" AllowColumnResize="True" EnableRealTimeResize="True"
+                        ResizeGridOnColumnResize="False"></Resizing>                 
+                     <ClientEvents OnRowDblClick="RowDblClick" />
+                </ClientSettings>
+             </telerik:RadGrid>
+        </div>
          <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true">
         </telerik:RadWindowManager>
 

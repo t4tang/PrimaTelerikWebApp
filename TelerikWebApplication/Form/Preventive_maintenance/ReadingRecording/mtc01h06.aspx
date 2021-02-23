@@ -94,6 +94,11 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel2" ></telerik:AjaxUpdatedControl>
                 </UpdatedControls>        
             </telerik:AjaxSetting> 
+            <%--<telerik:AjaxSetting AjaxControlID="RadGrid1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="cb_unit"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>        
+            </telerik:AjaxSetting> --%>
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
@@ -120,20 +125,20 @@
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
                 <div runat="server" style="padding: 20px 10px 10px 10px;">
-                    <div style="border-bottom-style:outset; border-bottom-width:thin">
+                    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:2px ">
                          <table style="padding: 0px 0px 2px 0px">
                             <tr>
                                 <td style="width:82%">
-                                    <telerik:RadLabel ID="RadLabel1" runat="server" Style="font-weight: lighter; font-size: 15px; font-variant: small-caps; padding-left: 10px; 
-                                    padding-bottom: 0px; color:deepskyblue;" Text="Reading Recording Single Entry"></telerik:RadLabel>
+                                    <telerik:RadLabel ID="RadLabel1" runat="server" Style="font-weight: lighter; font-size: 20px; font-variant: small-caps; padding-left: 10px; 
+                                    padding-bottom: 0px; color:white;" BackColor="DeepSkyBlue" Text="Reading Recording Single Entry"></telerik:RadLabel>
                                 </td>
                                 <td style="text-align:right">
                             
                                     <asp:ImageButton runat="server" ID="btnNew_single" AlternateText="New" ToolTip="Add New" Height="25px" OnClick="btnNew_Click" 
                                         Width="27px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
                                     &nbsp;
-                                    <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" Height="25px" Width="27px" OnClick="btnSave_Click" Enabled="false"
-                                        ImageUrl="~/Images/simpan-gray.png">
+                                    <asp:ImageButton runat="server" ID="btnSave" AlternateText="Save" Height="25px" Width="27px" OnClick="btnSave_Click"
+                                        ImageUrl="~/Images/simpan.png">
                                     </asp:ImageButton>
                                 </td> 
                             </tr>
@@ -146,12 +151,16 @@
                                      <telerik:RadLabel runat="server" Text="Project :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                  </td>
                                  <td>
-                                     <%--<telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_project" Width="280px" ReadOnly="true">
-                                    </telerik:RadTextBox>--%>
-                                    <telerik:RadComboBox ID="cb_project" runat="server" RenderMode="Lightweight" AutoPostBack="true" CausesValidation="false"
-                                        EnableLoadOnDemand="True"  Skin="Telerik" 
-                                        EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="280px">
-                                    </telerik:RadComboBox>
+                                     <asp:UpdatePanel runat="server">
+                                         <ContentTemplate>
+                                            <telerik:RadComboBox ID="cb_project" runat="server" RenderMode="Lightweight" AutoPostBack="true" CausesValidation="false"
+                                                EnableLoadOnDemand="True"  Skin="Silk" OnItemsRequested="cb_Project_ItemsRequested" OnSelectedIndexChanged="cb_Project_SelectedIndexChanged"
+                                                EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="280px">
+                                            </telerik:RadComboBox>                                             
+                                         <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="cb_project" ForeColor="Red" Font-Size="X-Small" 
+                                            Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>  
                                  </td>
                              </tr>
                              <tr>
@@ -159,12 +168,20 @@
                                      <telerik:RadLabel runat="server" Text="Equipment Code :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                  </td>
                                  <td>
-                                     <%--<telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_unit" Width="200px" ReadOnly="true">
-                                    </telerik:RadTextBox>--%>
-                                    <telerik:RadComboBox ID="cb_unit" runat="server" RenderMode="Lightweight" AutoPostBack="true" CausesValidation="false"
-                                        EnableLoadOnDemand="True"  Skin="Telerik" 
-                                        EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="200px">
-                                    </telerik:RadComboBox>
+                                 <asp:UpdatePanel runat="server">
+                                     <ContentTemplate>
+                                        <telerik:RadComboBox ID="cb_unit" runat="server" RenderMode="Lightweight" AutoPostBack="true" CausesValidation="false"
+                                            EnableLoadOnDemand="True"  Skin="Silk" 
+                                            OnItemsRequested="cb_unit_ItemsRequested" OnSelectedIndexChanged="cb_unit_SelectedIndexChanged"
+                                            EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="200px">
+                                        </telerik:RadComboBox>
+                                         <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ControlToValidate="cb_unit" ForeColor="Red" Font-Size="X-Small" 
+                                            Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>
+                                     </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cb_project" />
+                                    </Triggers>
+                                 </asp:UpdatePanel>                                     
                                  </td>
                              </tr>
                              <tr>
@@ -172,7 +189,7 @@
                                      <telerik:RadLabel runat="server" Text="Type :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                  </td>
                                  <td>
-                                     <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_type" Width="100px" ReadOnly="true">
+                                     <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_type" Width="100px" Skin="Silk" ReadOnly="true">
                                     </telerik:RadTextBox>
                                      &nbsp;&nbsp; <asp:CheckBox ID="chk_breakdown" runat="server" Text="Breakdown" />
                                  </td>
@@ -196,7 +213,7 @@
                                                  <%--<telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_last_reading_date" Width="100px" ReadOnly="true">
                                                     </telerik:RadTextBox>--%>
                                                  <telerik:RadDatePicker ID="dtp_last_reading_date" runat="server" MinDate="1/1/1900" Width="120px" RenderMode="Lightweight"
-                                                    TabIndex="4" Skin="Telerik"> 
+                                                    Font-Size="11px" TabIndex="4" Skin="Silk"> 
                                                     <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="MetroTouch" 
                                                         EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;"></Calendar>
                                                     <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
@@ -212,7 +229,8 @@
                                                 <%-- <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_last_HM_KM" Width="100px" ReadOnly="true">
                                                     </telerik:RadTextBox>--%>
                                                  <telerik:RadNumericTextBox ID="txt_last_HM_KM" runat="server" Width="120px" ReadOnly="true" RenderMode="Lightweight" 
-                                                    Skin="Telerik" CausesValidation="false"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" Value="0" 
+                                                    Font-Size="11px" Skin="Silk" CausesValidation="false"  NumberFormat-KeepNotRoundedValue="true" 
+                                                     AllowOutOfRangeAutoCorrect="false" Value="0" 
                                                     onkeydown="blurTextBox(this, event)" Type="Number" NumberFormat-DecimalDigits="2" AutoPostBack="true">
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox" HorizontalAlign="Right"></EnabledStyle>
@@ -230,7 +248,7 @@
                                                  <%--<telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_last_HM_KM_accum" Width="100px" ReadOnly="true">
                                                     </telerik:RadTextBox>--%>
                                                  <telerik:RadNumericTextBox ID="txt_last_HM_KM_accum" runat="server" Width="120px" ReadOnly="true" RenderMode="Lightweight" 
-                                                    Skin="Telerik" CausesValidation="false"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" Value="0" 
+                                                    Font-Size="11px" Skin="Silk" CausesValidation="false"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" Value="0" 
                                                     onkeydown="blurTextBox(this, event)" Type="Number" NumberFormat-DecimalDigits="2" AutoPostBack="true">
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox" HorizontalAlign="Right"></EnabledStyle>
@@ -256,12 +274,14 @@
                                              </td>
                                              <td>
                                                  <telerik:RadDatePicker ID="dtp_current_date" runat="server" MinDate="1/1/1900" Width="120px" RenderMode="Lightweight"
-                                                    TabIndex="4" Skin="Telerik"> 
+                                                    TabIndex="4" Skin="Silk" Font-Size="11px"> 
                                                     <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="MetroTouch" 
                                                         EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;"></Calendar>
                                                     <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
                                                     </DateInput>                        
                                                 </telerik:RadDatePicker>
+                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="dtp_current_date" ForeColor="Red" 
+                                                     Font-Size="X-Small" Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>
                                              </td>
                                          </tr>
                                          <tr>
@@ -270,7 +290,7 @@
                                              </td>
                                              <td>
                                                  <telerik:RadNumericTextBox ID="txt_HM" runat="server" Width="120px" ReadOnly="false" RenderMode="Lightweight" 
-                                                    Skin="Telerik" CausesValidation="false"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" Value="0" 
+                                                    Skin="Silk" CausesValidation="false"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" Value="0" 
                                                     onkeydown="blurTextBox(this, event)" Type="Number" NumberFormat-DecimalDigits="2" AutoPostBack="true">
                                                     <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                     <EnabledStyle CssClass="MyEnabledTextBox" HorizontalAlign="Right"></EnabledStyle>
@@ -278,6 +298,8 @@
                                                     <HoveredStyle CssClass="MyHoveredTextBox"></HoveredStyle>
                                                     <InvalidStyle CssClass="MyInvalidTextBox"></InvalidStyle>
                                                 </telerik:RadNumericTextBox>
+                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="txt_HM" ForeColor="Red" 
+                                                     Font-Size="X-Small" Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>
                                              </td>
                                          </tr>
                                      </table>
@@ -301,12 +323,12 @@
     </telerik:RadWindow>
 
 
-    <div style="padding: 5px 0px 0px 15px;">
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:2px ">
         <table id="tbl_control">
             <tr>                     
                 <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
-                    <asp:ImageButton runat="server" ID="btnSingleEntry" AlternateText="New" OnClientClick="openWinSingleEntryTemplate(); return false;" ToolTip="Single Entry"
-                        Height="30px" Width="32px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
+                    <asp:ImageButton runat="server" ID="btnSingleEntry" AlternateText="New" OnClick="btnNew_Click" OnClientClick="openWinSingleEntryTemplate(); return false;" 
+                        ToolTip="Single Entry" Height="30px" Width="32px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
                 </td>                 
                 <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
                     <asp:ImageButton runat="server" ID="btnMultiEntry" AlternateText="New" OnClientClick="openWinMultiEntryTemplate(); return false;" ToolTip="Multi Entry"
@@ -325,16 +347,16 @@
         </table>
     </div>   
 
-    <div class="scroller" runat="server" style="border-top-color:yellowgreen; border-top-style:solid; border-top-width:thin"> 
+    <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px;">
         <div style="float:left; width:37%" runat="server"> 
 
-            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Material" Width="425px"
+            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk" Width="425px"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="14"
                 OnNeedDataSource="RadGrid1_NeedDataSource"
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" >
-                <PagerStyle Mode="NumericPages"></PagerStyle>                
+                <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>                
                 <HeaderStyle CssClass="gridHeader" Font-Size="Small" ForeColor="Highlight" />
-                <ClientSettings EnablePostBackOnRowClick="false"></ClientSettings>
+                <ClientSettings EnablePostBackOnRowClick="True"></ClientSettings>
                 <SortingSettings EnableSkinSortStyles="false" />
                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="unit_code" Font-Size="12px" 
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="True" CommandItemSettings-ShowAddNewRecordButton="false"
@@ -368,26 +390,26 @@
                 <tr >
                     <td >
                         <telerik:RadLabel runat="server" Text="Date :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                        <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" Width="100px"  Skin="Telerik" DateInput-CausesValidation="false"
+                        <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" Width="100px"  Skin="Silk" DateInput-CausesValidation="false"
                             DateInput-ReadOnly="false" DateInput-DateFormat="dd/MM/yyyy">
                         </telerik:RadDatePicker>
                     </td>
                     <td >
                         <telerik:RadLabel runat="server" Text="To Date :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                        <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" Width="100px"  Skin="Telerik"  DateInput-CausesValidation="false"
+                        <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" Width="100px"  Skin="Silk"  DateInput-CausesValidation="false"
                             DateInput-ReadOnly="false" DateInput-DateFormat="dd/MM/yyyy">
                         </telerik:RadDatePicker>
                     </td>
                      <td >
                         <telerik:RadButton ID="btnSearch" runat="server" Text="Retrieve" Width="100px" Height="23px" CausesValidation="false" CssClass="btn-filter"
-                            Skin="Material" ForeColor="DeepSkyBlue" OnClick="btnSearch_Click"></telerik:RadButton>
+                            Skin="Silk" ForeColor="Orange" OnClick="btnSearch_Click"></telerik:RadButton>
                     </td>
                 </tr>
             </table>         
-            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid2"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik" Width="100%"
+            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid2"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk" Width="100%"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="12"
                 OnNeedDataSource="RadGrid2_NeedDataSource" >
-                <PagerStyle Mode="NumericPages" ></PagerStyle>                
+                <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>                
                 <HeaderStyle CssClass="gridHeader" />
                 <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
                 <SortingSettings EnableSkinSortStyles="false" />

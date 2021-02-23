@@ -14,10 +14,14 @@ namespace TelerikWebApplication
     {
 
         SqlConnection con = new SqlConnection(db_connection.koneksi);
+        public static string modul = null;
+        public static string uid = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                modul = public_str.modul;
+                uid = public_str.user_id;
 
                 string title = this.Page.Title;
                 RadMenuItem item = verticalMenu.FindItemByText(title);
@@ -32,7 +36,7 @@ namespace TelerikWebApplication
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "sp_get_user_menu_by_modul";
                 cmd.Parameters.AddWithValue("@uid", public_str.user_id);
-                cmd.Parameters.AddWithValue("@modul", public_str.modul);
+                cmd.Parameters.AddWithValue("@modul", modul);
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
 
                 DataSet links = new DataSet();
