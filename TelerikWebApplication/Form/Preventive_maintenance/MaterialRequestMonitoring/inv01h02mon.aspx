@@ -243,22 +243,34 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridTemplateColumn HeaderText="PR" HeaderStyle-Width="85px" ItemStyle-Width="85px" ColumnGroupName="Qty" AllowFiltering="false" ItemStyle-HorizontalAlign="Right">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lbl_PR"  Width="85px" Text='<%# DataBinder.Eval(Container.DataItem, "qtypr") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lbl_PR"  Width="85px" Text='<%# DataBinder.Eval(Container.DataItem, "qtypr", "{0:#,###,###0.00}") %>' NumberFormat-AllowRounding="true"
+                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" Type="Number"
+                                    NumberFormat-DecimalDigits="2">
+                                </asp:Label>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridTemplateColumn HeaderText="PO" HeaderStyle-Width="85px" ItemStyle-Width="85px" ColumnGroupName="Qty" AllowFiltering="false" ItemStyle-HorizontalAlign="Right">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lbl_PO" Width="85px" Text='<%# DataBinder.Eval(Container.DataItem, "qtypo") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lbl_PO" Width="85px" Text='<%# DataBinder.Eval(Container.DataItem, "qtypo", "{0:#,###,###0.00}") %>' NumberFormat-AllowRounding="true"
+                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" Type="Number"
+                                    NumberFormat-DecimalDigits="2">
+                                </asp:Label>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridTemplateColumn HeaderText="GR" HeaderStyle-Width="85px" ItemStyle-Width="85px" ColumnGroupName="Qty" AllowFiltering="false" ItemStyle-HorizontalAlign="Right">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lbl_GR" Width="85px" Text='<%# DataBinder.Eval(Container.DataItem, "qtygr") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lbl_GR" Width="85px" Text='<%# DataBinder.Eval(Container.DataItem, "qtygr", "{0:#,###,###0.00}") %>' NumberFormat-AllowRounding="true"
+                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" Type="Number"
+                                    NumberFormat-DecimalDigits="2">
+                                </asp:Label>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridTemplateColumn HeaderText="GI" HeaderStyle-Width="85px" ItemStyle-Width="85px" ColumnGroupName="Qty" AllowFiltering="false" ItemStyle-HorizontalAlign="Right">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lbl_GI" Width="85px" Text='<%# DataBinder.Eval(Container.DataItem, "QtySupp") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lbl_GI" Width="85px" Text='<%# DataBinder.Eval(Container.DataItem, "QtySupp", "{0:#,###,###0.00}") %>' NumberFormat-AllowRounding="true"
+                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" Type="Number"
+                                    NumberFormat-DecimalDigits="2">
+                                </asp:Label>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridTemplateColumn HeaderText="Status" HeaderStyle-Width="100px" ItemStyle-Width="100px" AllowFiltering="false" ItemStyle-HorizontalAlign="Center">
