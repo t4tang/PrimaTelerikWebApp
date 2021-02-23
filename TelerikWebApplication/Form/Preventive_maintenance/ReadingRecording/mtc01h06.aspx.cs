@@ -18,6 +18,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
 
+        private const int ItemsPerRequest = 10;
+
         public static string unit_code = null;
         public static string tr_name { get; set; }
         protected void Page_Load(object sender, EventArgs e)
@@ -71,6 +73,32 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             {
                 unit_code = item["unit_code"].Text;
             }
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT mtc01h06.unit_code, mtc01h06.region_code, reading_date2, reading_amount1, reading_amount2, wh, reading_km1, reading_km2, " +
+                               "reading_date, broken_hm, reading_amount3, mtc01h06.lastupdate, mtc00h16.reading_code, inv00h09.region_name " +
+                               "FROM mtc01h06, mtc00h16, inv00h09 WHERE mtc01h06.unit_code = mtc00h16.unit_code AND inv00h09.region_code = mtc01h06.region_code " +
+                               "AND(mtc01h06.unit_code = '" + unit_code + "') AND (reading_date = (SELECT Max(mtc01h06.reading_date) " +
+                               "FROM mtc01h06 WHERE mtc01h06.unit_code = '" + unit_code + "'))";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb_unit.Text = unit_code;
+                cb_project.Text = dr["region_name"].ToString();
+                cb_project.SelectedValue = dr["region_code"].ToString();
+                txt_type.Text = dr["reading_code"].ToString();
+                dtp_last_reading_date.SelectedDate = Convert.ToDateTime(dr["reading_date"].ToString());
+                txt_last_HM_KM.Value = Convert.ToDouble(dr["reading_amount3"].ToString());
+                txt_last_HM_KM_accum.Value = Convert.ToDouble(dr["reading_amount3"].ToString());
+                dtp_current_date.SelectedDate = DateTime.Now;
+            }
+            dr.Close();
+            con.Close();
+            
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
         {
@@ -179,6 +207,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             {
                 get_last_reading(cb_unit.Text);
                 txt_HM.Value = 0;
+                RadGrid2.DataSource = GetDataReading(unit_code);
+                RadGrid2.DataBind();
             }
         }
         
@@ -201,7 +231,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
                 cb_unit.Text = unit;
                 txt_type.Text = "Hours";
                 dtp_last_reading_date.SelectedDate = Convert.ToDateTime(dr["reading_date"].ToString());
-                txt_last_HM_KM.Value = Convert.ToDouble(dr["reading_amount1"].ToString());
+                txt_last_HM_KM.Value = Convert.ToDouble(dr["reading_amount3"].ToString());
                 txt_last_HM_KM_accum.Value = Convert.ToDouble(dr["reading_amount3"].ToString());
                 dtp_current_date.SelectedDate = DateTime.Now;
             }
@@ -210,7 +240,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
         }
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-
+            //GridDataItem item = e.Item as GridDataItem;
             string selected_unit = null;
             foreach (GridDataItem item in RadGrid1.SelectedItems)
             {
@@ -221,9 +251,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             {
                 get_last_reading(selected_unit);
 
-                txt_HM.Value = 0;
-                btnSave.Enabled = true;
-                btnSave.ImageUrl = "~/Images/simpan.png";
+                //txt_HM.Value = 0;
+                //btnSave.Enabled = true;
+                //btnSave.ImageUrl = "~/Images/simpan.png";
             }
             else
             {
@@ -241,5 +271,133 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             }
             
         }
+
+        #region project
+        private static DataTable GetProject(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+        protected void cb_Project_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetProject(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+            }
+        }
+
+        protected void cb_Project_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_Project_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+        #endregion
+
+        #region unit
+        protected void LoadUnit(string unit_code, string projectID, RadComboBox cb)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, unit_name, model_no, region_code, CostCenterName FROM v_notification_H_reff " +
+               "WHERE region_code = @project AND unit_code LIKE @text + '%'", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", unit_code);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cb.DataTextField = "unit_code";
+            cb.DataValueField = "unit_code";
+            cb.DataSource = dt;
+            cb.DataBind();
+        }
+        protected void cb_unit_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Text = "";
+            LoadUnit(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+        }
+
+        protected void cb_unit_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT mtc01h06.unit_code, mtc01h06.region_code, reading_date2, reading_amount1, reading_amount2, wh, reading_km1, reading_km2, " +
+                               "reading_date, broken_hm, reading_amount3, mtc01h06.lastupdate, mtc00h16.reading_code, inv00h09.region_name " +
+                               "FROM mtc01h06, mtc00h16, inv00h09 WHERE mtc01h06.unit_code = mtc00h16.unit_code AND inv00h09.region_code = mtc01h06.region_code " +
+                               "AND(mtc01h06.unit_code = '" + (sender as RadComboBox).SelectedValue + "') AND (reading_date = (SELECT Max(mtc01h06.reading_date) " +
+                               "FROM mtc01h06 WHERE mtc01h06.unit_code = '" + (sender as RadComboBox).SelectedValue + "'))";
+            //cmd.CommandText = "SELECT * FROM mtc00h16 WHERE unit_code = '" + (sender as RadComboBox).SelectedValue + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb_project.Text= dr["region_name"].ToString();
+                cb_project.SelectedValue = dr["region_code"].ToString();
+                txt_type.Text = dr["reading_code"].ToString();
+                dtp_last_reading_date.SelectedDate= Convert.ToDateTime(dr["reading_date"].ToString());
+                txt_last_HM_KM.Value = Convert.ToDouble(dr["reading_amount3"].ToString());
+                txt_last_HM_KM_accum.Value = Convert.ToDouble(dr["reading_amount1"].ToString());
+                dtp_current_date.SelectedDate = DateTime.Now;
+            }
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_unit_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT * FROM v_notification_H_reff WHERE unit_code = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
+            dr.Close();
+            con.Close();
+        }
+        #endregion
     }
 }

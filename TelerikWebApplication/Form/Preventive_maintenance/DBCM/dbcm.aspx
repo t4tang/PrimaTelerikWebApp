@@ -65,7 +65,7 @@
                 var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
                 grid.get_masterTableView().selectItem(rowControl, true);
  
-                window.radopen("~/mtc01h01EditForm.aspx?trans_id=" + id, "dialogWindows");
+                window.radopen("../WorkOrder/mtc01h01EditForm.aspx?trans_id=" + id, "DialogWindows");
                 return false;
             }
 
@@ -282,7 +282,7 @@
                                 <asp:Label runat="server" ID="lbl_matProDateEta" Text='<%# DataBinder.Eval(Container.DataItem, "part_date") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>                                
-                                <telerik:RadDatePicker ID="dtp_matProEta"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                <telerik:RadDatePicker ID="dtp_matProDate"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
                                     DbSelectedDate='<%# DataBinder.Eval(Container.DataItem, "part_date") %>'
                                     TabIndex="4" Skin="Telerik" > 
                                     <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
@@ -296,16 +296,24 @@
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lbl_matProTimeEta" Text='<%# DataBinder.Eval(Container.DataItem, "part_eta") %>'></asp:Label>
                             </ItemTemplate>
-                            <EditItemTemplate>
-                                <telerik:RadTimePicker runat="server" ID="rtp_matProEtaTime" RenderMode="Lightweight" Width="110px" 
-                                  DbSelectedDate='<%# DataBinder.Eval(Container.DataItem, "part_eta") %>'></telerik:RadTimePicker>
-                                
+                            <EditItemTemplate>                                
+                                 <telerik:RadDatePicker ID="dtp_matProEta"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                    DbSelectedDate='<%# DataBinder.Eval(Container.DataItem, "part_eta") %>'
+                                    TabIndex="4" Skin="Telerik" > 
+                                    <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" 
+                                        EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" Skin="Telerik"></Calendar>
+                                    <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%"> 
+                                    </DateInput>                         
+                                </telerik:RadDatePicker>
                             </EditItemTemplate>
                         </telerik:GridTemplateColumn>                        
                         <telerik:GridTemplateColumn HeaderText="Run" HeaderStyle-Width="30px" ItemStyle-Width="30px" Visible="false">
                             <ItemTemplate>                                        
-                                <asp:Label runat="server" ID="lbl_runItem" Text='<%# DataBinder.Eval(Container.DataItem, "run_num") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lbl_run" Text='<%# DataBinder.Eval(Container.DataItem, "run") %>'></asp:Label>
                             </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:Label runat="server" ID="lbl_run2" Text='<%# DataBinder.Eval(Container.DataItem, "run") %>'></asp:Label>
+                            </EditItemTemplate>
                         </telerik:GridTemplateColumn>
                     </Columns>
 
@@ -317,4 +325,11 @@
             </telerik:RadGrid>
         </div>
     </div>
+    <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
+            <Windows>
+                <telerik:RadWindow RenderMode="Lightweight" ID="DialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
+                    Width="1400px" Height="720px" Modal="true" AutoSize="False">
+                </telerik:RadWindow>        
+            </Windows>
+        </telerik:RadWindowManager>
 </asp:Content>
