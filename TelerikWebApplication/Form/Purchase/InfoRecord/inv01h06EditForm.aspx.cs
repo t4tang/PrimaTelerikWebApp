@@ -59,10 +59,10 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             if (sdr.Read())
             {
                 txt_info_record.Text = sdr["info_code"].ToString();
-                cb_type.Text = sdr["type_info"].ToString();
+                cb_type.Text = sdr["type_infoname"].ToString();
                 cb_project.Text = sdr["region_name"].ToString();
-                cb_supplier.Text = sdr["cust_name"].ToString();
-                txt_curr.Text = sdr["cur_code"].ToString();
+                cb_supplier.Text = sdr["supplier_name"].ToString();
+                txt_curr.Text = sdr["supplier_code"].ToString();
                 txt_disch.Text = sdr["Disc"].ToString();
                 txt_remark.Text = sdr["remark"].ToString();
 
@@ -405,5 +405,83 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             }
         }
 
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            string sql = "SELECT c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and spec LIKE @spec + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["Prod_code"].ToString();
+                item.Value = row["Prod_code"].ToString();
+                item.Attributes.Add("spec", row["spec"].ToString());
+                item.Attributes.Add("unit", row["unit"].ToString());
+                item.Attributes.Add("Disc", row["Disc"].ToString());
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            Session["Prod_code"] = e.Value;
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    RadTextBox tx_qty = (RadTextBox)item.FindControl("txt_qty");
+                    RadTextBox tx_qty_min = (RadTextBox)item.FindControl("txt_qty_min");
+                    RadTextBox tx_qty_max = (RadTextBox)item.FindControl("txt_qty_max");
+                    Label lb_uom = (Label)item.FindControl("lblUom");
+                    RadTextBox tx_disc = (RadTextBox)item.FindControl("txt_disch");
+                    //RadTextBox tx_harga = (RadTextBox)item.FindControl("txt_harga"); ;
+                    //RadDatePicker dt_valid_date = (RadDatePicker)item.FindControl("dtpValidDate");
+                    //RadTextBox tx_remark = (RadTextBox)item.FindControl("txtRemark_d");
+
+                    tx_qty.Text = "1";
+                    tx_qty_min.Text = "1";
+                    tx_qty_max.Text = "999999";
+                    lb_uom.Text = dtr["unit"].ToString();
+                    tx_disc.Text = dtr["Disc"].ToString();
+                    //tx_harga.Text = dtr["harga"].ToString();
+                    //dt_valid_date.SelectedDate = Convert.ToDateTime(dtr["ValidDate"].ToString());
+                    //tx_remark.Text = dtr["remark"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
     }
 }
