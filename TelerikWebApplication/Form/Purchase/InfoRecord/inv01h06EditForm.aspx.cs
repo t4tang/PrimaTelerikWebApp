@@ -405,10 +405,11 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             }
         }
 
-        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
-                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and spec LIKE @spec + '%'";
+            string sql = "SELECT top (100) c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.spec LIKE @spec + '%'";
+          
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
@@ -434,18 +435,18 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             }
         }
 
-        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             Session["Prod_code"] = e.Value;
 
             try
             {
-                con.Open();
+                //con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
-                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, b.qty, b.max_qty, b.min_qty, b.SatQty, b.harga, b.ValidDate, b.remark, ISNULL( a.Disc,0) AS disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+               " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -454,11 +455,11 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox tx_qty = (RadTextBox)item.FindControl("txt_qty");
-                    RadTextBox tx_qty_min = (RadTextBox)item.FindControl("txt_qty_min");
-                    RadTextBox tx_qty_max = (RadTextBox)item.FindControl("txt_qty_max");
-                    Label lb_uom = (Label)item.FindControl("lblUom");
-                    RadTextBox tx_disc = (RadTextBox)item.FindControl("txt_disch");
+                    RadTextBox tx_qty = (item.FindControl("txt_qty") as RadTextBox);
+                    RadTextBox tx_qty_min = (item.FindControl("txt_qty_min") as RadTextBox); 
+                    RadTextBox tx_qty_max = (item.FindControl("txt_qty_max") as RadTextBox); 
+                    Label lb_uom = (item.FindControl("lblUom") as Label); 
+                    RadTextBox tx_disc = (item.FindControl("txt_disch") as RadTextBox); 
                     //RadTextBox tx_harga = (RadTextBox)item.FindControl("txt_harga"); ;
                     //RadDatePicker dt_valid_date = (RadDatePicker)item.FindControl("dtpValidDate");
                     //RadTextBox tx_remark = (RadTextBox)item.FindControl("txtRemark_d");
@@ -483,5 +484,6 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 con.Close();
             }
         }
+    
     }
 }
