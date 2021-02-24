@@ -445,7 +445,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, b.qty, b.max_qty, b.min_qty, b.SatQty, b.harga, b.ValidDate, b.remark, ISNULL( a.Disc,0) AS disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, b.qty, b.max_qty, b.min_qty, b.SatQty, b.harga, b.ValidDate, b.remark, ISNULL( a.Disc,0) AS Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
