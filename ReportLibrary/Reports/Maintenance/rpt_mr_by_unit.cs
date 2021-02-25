@@ -33,7 +33,7 @@ namespace ReportLibrary.Reports.Maintenance
             param1.AllowNull = false; param1.AvailableValues.DataSource = Jobsite;
             param1.AvailableValues.DisplayMember = "region_name";
             param1.AvailableValues.ValueMember = "region_code";
-            param1.Value = _project;
+            param1.Value = "ATM";
             param1.Visible = true;
             this.Report.ReportParameters.Add(param1);
 
@@ -43,7 +43,7 @@ namespace ReportLibrary.Reports.Maintenance
             param2.Type = ReportParameterType.DateTime;
             param2.AllowBlank = false;
             param2.AllowNull = false;
-            param2.Value = string.Format("{0:yyyy-MM-dd}", _tglawal);
+            param2.Value = "10/1/2019";
             param2.Visible = true;
             this.Report.ReportParameters.Add(param2);
 
@@ -53,7 +53,7 @@ namespace ReportLibrary.Reports.Maintenance
             param3.Type = ReportParameterType.DateTime;
             param3.AllowBlank = false;
             param3.AllowNull = false;
-            param3.Value = string.Format("{0:yyyy-MM-dd}", _tglakhir);
+            param3.Value = "10/31/2019";
             param3.Visible = true;
             this.Report.ReportParameters.Add(param3);
 
