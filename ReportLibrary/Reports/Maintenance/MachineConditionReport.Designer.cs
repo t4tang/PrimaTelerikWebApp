@@ -9,7 +9,11 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
         /// </summary>
         private void InitializeComponent()
         {
+            Telerik.Reporting.Group group1 = new Telerik.Reporting.Group();
             Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
+            this.groupFooterSection = new Telerik.Reporting.GroupFooterSection();
+            this.groupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
+            this.textBox22 = new Telerik.Reporting.TextBox();
             this.pageHeaderSection1 = new Telerik.Reporting.PageHeaderSection();
             this.textBox2 = new Telerik.Reporting.TextBox();
             this.textBox1 = new Telerik.Reporting.TextBox();
@@ -36,6 +40,36 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
             this.sqlDataSource1 = new Telerik.Reporting.SqlDataSource();
             this.Jobsite = new Telerik.Reporting.SqlDataSource();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            // 
+            // groupFooterSection
+            // 
+            this.groupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Inch(0.0520833320915699D);
+            this.groupFooterSection.Name = "groupFooterSection";
+            // 
+            // groupHeaderSection
+            // 
+            this.groupHeaderSection.Height = Telerik.Reporting.Drawing.Unit.Inch(0.30000010132789612D);
+            this.groupHeaderSection.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
+            this.textBox22});
+            this.groupHeaderSection.Name = "groupHeaderSection";
+            // 
+            // textBox22
+            // 
+            this.textBox22.CanGrow = false;
+            this.textBox22.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0D), Telerik.Reporting.Drawing.Unit.Inch(0.1000000610947609D));
+            this.textBox22.Multiline = false;
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.9000003337860107D), Telerik.Reporting.Drawing.Unit.Inch(0.20000004768371582D));
+            this.textBox22.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox22.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox22.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox22.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox22.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox22.Style.Font.Bold = true;
+            this.textBox22.Style.Font.Name = "Calibri";
+            this.textBox22.Style.LineWidth = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox22.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
+            this.textBox22.Value = "= Fields.pmact_name";
             // 
             // pageHeaderSection1
             // 
@@ -75,14 +109,14 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
             // 
             // textBox17
             // 
-            this.textBox17.Format = "{0:dd/MM/yyyy}";
+            this.textBox17.Format = "{0:d}";
             this.textBox17.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(3.9418537198798731E-05D), Telerik.Reporting.Drawing.Unit.Inch(0.29996061325073242D));
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.80000054836273193D), Telerik.Reporting.Drawing.Unit.Inch(0.20000004768371582D));
             this.textBox17.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox17.Style.Font.Bold = false;
             this.textBox17.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox17.Value = "= Fields.trans_date";
+            this.textBox17.Value = "= Now()";
             // 
             // textBox14
             // 
@@ -404,7 +438,15 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
             // MachineConditionReport
             // 
             this.DataSource = this.sqlDataSource1;
+            group1.GroupFooter = this.groupFooterSection;
+            group1.GroupHeader = this.groupHeaderSection;
+            group1.Groupings.Add(new Telerik.Reporting.Grouping("= Fields.pmact_name"));
+            group1.Name = "PMact";
+            this.Groups.AddRange(new Telerik.Reporting.Group[] {
+            group1});
             this.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
+            this.groupHeaderSection,
+            this.groupFooterSection,
             this.pageHeaderSection1,
             this.detail});
             this.Name = "MachineConditionReport";
@@ -448,5 +490,8 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
         private Telerik.Reporting.TextBox textBox12;
         private Telerik.Reporting.TextBox textBox11;
         private Telerik.Reporting.SqlDataSource Jobsite;
+        private Telerik.Reporting.GroupHeaderSection groupHeaderSection;
+        private Telerik.Reporting.TextBox textBox22;
+        private Telerik.Reporting.GroupFooterSection groupFooterSection;
     }
 }
