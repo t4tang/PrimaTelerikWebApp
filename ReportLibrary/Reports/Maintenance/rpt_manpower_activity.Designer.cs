@@ -473,7 +473,7 @@ namespace ReportLibrary.Reports.Maintenance
             // 
             // textBox29
             // 
-            this.textBox29.Format = "{0:G}";
+            this.textBox29.Format = "{0:d}";
             this.textBox29.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(7.8519187809433788E-05D), Telerik.Reporting.Drawing.Unit.Inch(0.79988211393356323D));
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.499921441078186D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
