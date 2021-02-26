@@ -53,7 +53,7 @@
     
     <div class="scroller" style="overflow-y:scroll; height:620px"> 
 
-        <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" ShowFooter="true" AutoGenerateColumns="false" 
+        <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" ShowFooter="false" AutoGenerateColumns="false" 
         MasterTableView-AllowFilteringByColumn="true" MasterTableView-DataKeyNames="KdLok" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
         MasterTableView-ClientDataKeyNames="KdLok" MasterTableView-CommandItemDisplay="Top" 
         AllowPaging="true" AllowSorting="true" OnNeedDataSource="RadGrid1_NeedDataSource" 
