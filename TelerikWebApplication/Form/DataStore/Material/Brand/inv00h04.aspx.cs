@@ -155,7 +155,9 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
            
         }
 
-        
+        protected void btn_new_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
