@@ -691,6 +691,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
         protected void cb_from_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("Supplier");
+            //(sender as RadComboBox).Items.Add("Overhaul");
             (sender as RadComboBox).Items.Add("Consigment");
             (sender as RadComboBox).Items.Add("Return");
             (sender as RadComboBox).Items.Add("Assembly");
@@ -714,6 +715,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             {
                 (sender as RadComboBox).SelectedValue = "4";
             }
+            //else if ((sender as RadComboBox).Text == "Overhaul")
+            //{
+            //    (sender as RadComboBox).SelectedValue = "5";
+            //}
         }
 
         protected void cb_from_PreRender(object sender, EventArgs e)
@@ -734,6 +739,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             {
                 (sender as RadComboBox).SelectedValue = "4";
             }
+            //else if ((sender as RadComboBox).Text == "Overhaul")
+            //{
+            //    (sender as RadComboBox).SelectedValue = "5";
+            //}
         }
         #endregion
 
@@ -759,13 +768,23 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             if (typeRef == "Supplier")
             {
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_goods_receiveH_reff WHERE vendor_code = '" + vendor + "' " +
-                    "AND PlantCode = '" + project + "' AND po_code LIKE @text + '%' ", con);
+                    "AND PlantCode = '" + project + "' AND po_code LIKE @text + '%' AND overhaul != 1  ", con);
                 adapter.SelectCommand.Parameters.AddWithValue("@vendor_code", vendor);
                 adapter.SelectCommand.Parameters.AddWithValue("@project", project);
                 adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
                 //DataTable dt = new DataTable();
                 adapter.Fill(dt);
             }
+            //else if (typeRef == "Overhaul")
+            //{
+            //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_goods_receiveH_reff WHERE vendor_code = '" + vendor + "' " +
+            //        "AND PlantCode = '" + project + "' AND po_code LIKE @text + '%' AND overhaul = 1 ", con);
+            //    adapter.SelectCommand.Parameters.AddWithValue("@vendor_code", vendor);
+            //    adapter.SelectCommand.Parameters.AddWithValue("@project", project);
+            //    adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
+            //    //DataTable dt = new DataTable();
+            //    adapter.Fill(dt);
+            //}
             cb.DataTextField = "po_code";
             cb.DataValueField = "po_code";
             cb.DataSource = dt;

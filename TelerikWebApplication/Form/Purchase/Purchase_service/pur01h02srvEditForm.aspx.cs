@@ -146,6 +146,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
                 {
                     cb_po_status.Text = "HOLD";
                 }
+                txt_att_name.Text = sdr["attname"].ToString();
                 //pur01h02_slip._tot_amount = Convert.ToDouble(sdr["tot_amount"]);
                 //pur01h02_slip._unit_code = sdr["unit_code"].ToString();
             }
@@ -1406,6 +1407,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
                 cmd.Parameters.AddWithValue("@valid_period", 0);
                 cmd.Parameters.AddWithValue("@ppph", Convert.ToDouble(txt_ppph.Value));
                 cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
+                cmd.Parameters.AddWithValue("@overhaul", false);
 
                 cmd.ExecuteNonQuery();
 

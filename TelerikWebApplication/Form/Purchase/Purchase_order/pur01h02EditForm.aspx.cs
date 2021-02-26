@@ -78,6 +78,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     cb_po_status.Text = "OPEN";
                     cb_po_status.SelectedValue = "0";
                     dtp_share_date.Enabled = false;
+                    chk_overhoul.Enabled = true;
                 }
             }
         }
@@ -152,6 +153,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 {
                     cb_po_status.Text = "HOLD";
                 }
+                txt_att_name.Text = sdr["attname"].ToString();
                 //pur01h02_slip._tot_amount = Convert.ToDouble(sdr["tot_amount"]);
                 //pur01h02_slip._unit_code = sdr["unit_code"].ToString();
             }
@@ -1604,7 +1606,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cmd.Parameters.AddWithValue("@valid_period", 0);
                 cmd.Parameters.AddWithValue("@ppph", Convert.ToDouble(txt_ppph.Value));
                 cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
-                
+                cmd.Parameters.AddWithValue("@overhaul", chk_overhoul.Checked);
+
                 cmd.ExecuteNonQuery();
 
 

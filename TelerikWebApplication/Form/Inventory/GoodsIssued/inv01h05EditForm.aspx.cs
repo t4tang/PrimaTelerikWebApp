@@ -188,7 +188,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             {
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
                 //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
-                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 295;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 262;
             }
         }
 
@@ -241,10 +241,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                             ("0000" + dtp_date.SelectedDate.Value.Month).Substring(("0000" + dtp_date.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
-                    con.Close();
+                    sdr.Close();
+                    //con.Close();
                 }
 
-                con.Open();
+                //con.Open();
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
@@ -283,8 +284,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     cmd.Connection = con;
                     cmd.CommandText = "sp_save_goods_issuedD";
                     cmd.Parameters.AddWithValue("@do_code", run);
-                    cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("txt_ProdCode") as RadTextBox).Text);
-                    prod_code = "Part Code " +(item.FindControl("txt_ProdCode") as RadTextBox).Text;
+                    cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lbl_ProdCode") as Label).Text);
+                    prod_code = "Part Code " +(item.FindControl("lbl_ProdCode") as Label).Text;
                     cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lblProdCodeOri") as Label).Text);
                     cmd.Parameters.AddWithValue("@qty_out", Convert.ToDouble((item.FindControl("txt_Part_Qty") as RadTextBox).Text));
                     cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("lblUom") as Label).Text);
@@ -305,7 +306,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     cmd.ExecuteNonQuery();
                 }
 
-                con.Close();
+                //con.Close();
                 notif.Text = "Data berhasil disimpan";
                 notif.Title = "Notification";
                 notif.Show();
@@ -315,7 +316,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             catch (Exception ex)
             {
                 //lblErrorDescription.Text = "Error: " + prod_code +" " + ex.Message.ToString();
-                RadWindowManager1.RadAlert(ex.Message, 500, 200, "Error",null);
+                //RadWindowManager1.RadAlert(ex.Message, 500, 200, "Error",null);
+                RadWindowManager1.RadAlert("Error : " + ex, 500, 200, "Error", null, "~/Images/error.png");
                 //notif.Text = "Error: " + ex;
                 //notif.ForeColor = System.Drawing.Color.Red;
                 //notif.Title = "Notification";
@@ -326,8 +328,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 cmd.Connection = con;
                 cmd.CommandText = "DELETE inv01h05 WHERE do_code = '" + run + "'";
                 cmd.ExecuteNonQuery();
-                con.Close();
+                //con.Close();
 
+            }
+            finally
+            {
+                con.Close();
             }
         }
 
@@ -335,6 +341,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
         protected void cb_type_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             cb_type_ref.Items.Add("Consumption");
+            cb_type_ref.Items.Add("Overhaul");
             cb_type_ref.Items.Add("Stock Taking");
         }
 
@@ -348,6 +355,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             {
                 cb_type_ref.SelectedValue = "7";
             }
+            else if (cb_type_ref.Text == "Overhaul")
+            {
+                cb_type_ref.SelectedValue = "8";
+            }
         }
 
         protected void cb_type_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -360,6 +371,21 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             {
                 cb_type_ref.SelectedValue = "7";
             }
+            else if (cb_type_ref.Text == "Overhaul")
+            {
+                cb_type_ref.SelectedValue = "8";
+            }
+
+            cb_ref.Text = string.Empty;
+            cb_Project.Text = string.Empty;
+            cb_CostCenter.Text = string.Empty;
+            cb_ref.SelectedValue = null;
+            cb_Project.SelectedValue = null;
+            cb_CostCenter.SelectedValue = null;
+            txt_CostCenterName.Text = string.Empty;
+            txt_unit.Text = string.Empty;
+            txt_remark.Text = string.Empty;
+            lbl_reff_no.Text = string.Empty;
         }
         #endregion
 
@@ -407,6 +433,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
         protected void cb_CustSupp_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -464,6 +491,17 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
         protected void cb_Project_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+
+            cb_ref.Text = string.Empty;
+            //cb_Project.Text = string.Empty;
+            cb_CostCenter.Text = string.Empty;
+            cb_ref.SelectedValue = null;
+            //cb_Project.SelectedValue = null;
+            cb_CostCenter.SelectedValue = null;
+            txt_CostCenterName.Text = string.Empty;
+            txt_unit.Text = string.Empty;
+            txt_remark.Text = string.Empty;
+
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -589,6 +627,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 cb_warehouse.SelectedValue = dr["wh_code"].ToString();
             dr.Close();
             con.Close();
+
+            foreach (GridDataItem item in this.RadGrid2.Items)
+            {
+                Label lblWh = (Label)item.FindControl("lblstorage");
+                lblWh.Text = cb_warehouse.SelectedValue;
+            }
         }
         #endregion
 
@@ -613,8 +657,17 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
             if (typeRef == "Consumption")
             {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, doc_remark FROM v_gi_reff " +
-                "WHERE status_doc <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT TOP(20) doc_code, doc_remark FROM v_gi_reff " +
+                "WHERE region_code = @project AND doc_code LIKE '%' + @text + '%'", con);
+                adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
+                //DataTable dt = new DataTable();
+                adapter.Fill(dt);
+            }
+            else if (typeRef == "Overhaul")
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, doc_remark, lbm_code FROM v_gi_reff_with_ovh " +
+                "WHERE overhaul = 1 AND status_doc <> '4' AND region_code = @project AND doc_code LIKE '%' + @text + '%'", con);
                 adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
                 adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
                 //DataTable dt = new DataTable();
@@ -623,7 +676,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             else
             {
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, doc_remark FROM v_gi_reffStock " +
-                "WHERE status_doc <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
+                "WHERE status_doc <> '4' AND region_code = @project AND doc_code LIKE '%' + @text + '%'", con);
                 adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
                 adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
                 //DataTable dt = new DataTable();
@@ -667,6 +720,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             if (cb_type_ref.Text == "Consumption")
             {
                 cmd.CommandText = "SELECT * FROM v_gi_reff WHERE doc_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandTimeout = 0;
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
@@ -675,11 +729,28 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     cb_CostCenter.Text = dr["dept_code"].ToString();
                     txt_CostCenterName.Text = dr["CostCenterName"].ToString();
                     txt_remark.Text = dr["doc_remark"].ToString();
+                    lbl_reff_no.Text = string.Empty;
+                }
+            }
+            else if (cb_type_ref.Text == "Overhaul")
+            {
+                cmd.CommandText = "SELECT * FROM v_gi_reff_with_ovh WHERE doc_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandTimeout = 0;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    (sender as RadComboBox).Text = dr["doc_code"].ToString();
+                    txt_unit.Text = dr["unit_code"].ToString();
+                    cb_CostCenter.Text = dr["dept_code"].ToString();
+                    txt_CostCenterName.Text = dr["CostCenterName"].ToString();
+                    txt_remark.Text = dr["doc_remark"].ToString();
+                    lbl_reff_no.Text= "GR No. : " + dr["lbm_code"].ToString();
                 }
             }
             else
             {
                 cmd.CommandText = "SELECT * FROM v_gi_reffStock WHERE doc_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandTimeout = 0;
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
@@ -743,6 +814,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
         protected void cb_receipt_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            
+
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -879,11 +952,20 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
         protected void RadGrid3_PreRender(object sender, EventArgs e)
         {
+            
             if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
             {
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 262;
+            }
         }
+
+        
     }
 }
