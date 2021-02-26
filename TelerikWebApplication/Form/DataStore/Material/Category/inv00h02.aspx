@@ -31,7 +31,7 @@
         <table id="tbl_control">
             <tr>       
                 <td style="vertical-align: middle; margin-left: 10px; padding:0px 0px 0px 0px">
-                    <telerik:RadButton ID="btn_new" runat="server" ForeColor="#33ccff" BackColor="#33ccff" Text="New" Width="80px" Height="30px"
+                    <telerik:RadButton ID="btn_new" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="New" Width="80px" Height="30px"
                         Skin="Telerik" OnClick="btn_new_Click" ></telerik:RadButton>
                 </td>                    
                 <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
@@ -41,7 +41,7 @@
                      <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                                padding-bottom: 0px; font-size: x-large; color:yellowgreen; font-weight:normal">
+                                padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
                             </telerik:RadLabel>
                         </ContentTemplate>
                     </asp:UpdatePanel>
