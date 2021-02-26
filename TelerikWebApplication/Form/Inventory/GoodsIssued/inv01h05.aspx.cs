@@ -228,18 +228,18 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 cmd.ExecuteNonQuery();
                 con.Close();
 
-                Label lblOk = new Label();
-                lblOk.Text = "Data deleted successfully";
-                lblOk.ForeColor = System.Drawing.Color.Teal;
-                RadGrid1.Controls.Add(lblOk);
+                //Label lblOk = new Label();
+                //lblOk.Text = "Data deleted successfully";
+                //lblOk.ForeColor = System.Drawing.Color.Teal;
+                //RadGrid1.Controls.Add(lblOk);
             }
             catch (Exception ex)
             {
                 con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
+                //Label lblError = new Label();
+                //lblError.Text = "Unable to delete data. Reason: " + ex.Message;
+                //lblError.ForeColor = System.Drawing.Color.Red;
+                //RadGrid1.Controls.Add(lblError);
                 e.Canceled = true;
             }
         }

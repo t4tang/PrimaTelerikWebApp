@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -20,7 +21,10 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
         private const int ItemsPerRequest = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                lbl_form_name.Text = "Material Category";
+            }
         }
 
         private static string GetStatusMessage(int offset, int total)
@@ -282,6 +286,15 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                     txt.Enabled = false;
             }
         }
+
+        protected void btn_new_Click(object sender, EventArgs e)
+        {
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
+        }
+
+        
+
     }
 
 }
