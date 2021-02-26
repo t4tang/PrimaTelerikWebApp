@@ -40,7 +40,7 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="GridLoadingPanel1" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
+            <telerik:AjaxSetting AjaxControlID="btn_new">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
@@ -51,17 +51,40 @@
     <telerik:RadAjaxLoadingPanel runat="server" ID="GridLoadingPanel1">
     </telerik:RadAjaxLoadingPanel>
 
-    <div class="scroller" runat="server">
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
+        <table id="tbl_control">
+            <tr>       
+                <td style="vertical-align: middle; margin-left: 10px; padding:0px 0px 0px 0px">
+                    <telerik:RadButton ID="btn_new" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="New" Width="80px" Height="30px"
+                        Skin="Telerik" OnClick="btn_new_Click" ></telerik:RadButton>
+                </td>                    
+                <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
+                     
+                </td>                           
+                <td style="width: 98%; text-align: right; padding-right:17px">
+                     <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <telerik:RadLabel ID="lbl_form_name" Text="Storage Location" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                                padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
+                            </telerik:RadLabel>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+        </table>
+    </div> 
+
+    <div class="scroller" style="overflow-y:scroll; height:620px">
         <%--PAGE CONTENT--%>
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="true" ShowFooter="false" AllowSorting="true" PageSize="20"
-            AutoGenerateColumns="false"
-            OnDeleteCommand="RadGrid1_DeleteCommand" Skin="Telerik" 
+            AutoGenerateColumns="false" AllowFilteringByColumn="true" Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
+            OnDeleteCommand="RadGrid1_DeleteCommand" 
             OnNeedDataSource="RadGrid1_NeedDataSource"
-            OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="true" 
+            OnUpdateCommand="RadGrid1_UpdateCommand"
             OnInsertCommand="RadGrid1_InsertCommand" 
             OnItemCreated="RadGrid1_ItemCreated">
-            <PagerStyle Mode="Slider"></PagerStyle>
-            <MasterTableView CommandItemDisplay="Top" AllowFilteringByColumn="true" DataKeyNames="wh_code" Width="100%" Font-Names="Calibri" Font-Size="13px" 
+            <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
+            <MasterTableView CommandItemDisplay="None" AllowFilteringByColumn="true" DataKeyNames="wh_code" Width="100%" Font-Names="Century Gothic" Font-Size="11px" 
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
@@ -234,9 +257,9 @@
                     </FormTemplate>
                 </EditFormSettings>
             </MasterTableView>
-            <ClientSettings>
+            <%--<ClientSettings>
                 <Scrolling UseStaticHeaders="true" AllowScroll="true" ScrollHeight="480px" />
-            </ClientSettings>
+            </ClientSettings>--%>
         </telerik:RadGrid>
                            <%-- </telerik:RadPageView>
                         </telerik:RadMultiPage>
