@@ -126,7 +126,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_notificationH";
+            cmd.CommandText = "sp_get_notification_entryH";
             cmd.Parameters.AddWithValue("@date", fromDate);
             cmd.Parameters.AddWithValue("@todate", toDate);
             cmd.Parameters.AddWithValue("@project", project);

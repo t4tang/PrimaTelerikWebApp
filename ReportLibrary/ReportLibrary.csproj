@@ -182,9 +182,7 @@
     <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.designer.cs">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Maintenance\Machine Condition\MachineConditionReport.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Reports\Maintenance\Machine Condition\MachineConditionReport.cs" />
     <Compile Include="Reports\Maintenance\Machine Condition\MachineConditionReport.Designer.cs">
       <DependentUpon>MachineConditionReport.cs</DependentUpon>
     </Compile>
@@ -200,9 +198,7 @@
     <Compile Include="Reports\Maintenance\rpt_population_unit.Designer.cs">
       <DependentUpon>rpt_population_unit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Maintenance\WO Outstanding Report\rpt_wo_outstanding.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Reports\Maintenance\WO Outstanding Report\rpt_wo_outstanding.cs" />
     <Compile Include="Reports\Maintenance\WO Outstanding Report\rpt_wo_outstanding.Designer.cs">
       <DependentUpon>rpt_wo_outstanding.cs</DependentUpon>
     </Compile>
