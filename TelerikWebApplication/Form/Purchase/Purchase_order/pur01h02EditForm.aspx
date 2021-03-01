@@ -77,12 +77,12 @@
                 <tr style="vertical-align: top">
                     <td style="vertical-align: top">
                         <table id="Table2" width="Auto" border="0" class="module">  
-                            <%--<tr>
+                            <tr>
                                 <td colspan="2" style="padding-bottom:12px">
-                                    
-                                    
+                                    <telerik:RadButton ID="btn_save" runat="server" Text="Save" BackColor="#ff6600" ForeColor="White" Width="80px" Height="28px"
+                                    OnClick="btn_save_Click" Skin="Material"></telerik:RadButton>
                                 </td>
-                            </tr>      --%>        
+                            </tr>              
                             <tr>
                                 <td>
                                     <telerik:RadLabel runat="server" Text="PO Number" CssClass="lbObject"></telerik:RadLabel>
@@ -451,8 +451,8 @@
                             </tr>
                         </table>           
                     </td>
-                    <td >
-                            <table id="Table4" border="0" class="module">
+                    <td style="padding-left:15px" >
+                         <table id="Table4" border="0" class="module">
                                 <tr>
                                 <td class="tdLabel">
                                     <telerik:RadLabel runat="server" Text="Term" CssClass="lbObject"></telerik:RadLabel>
@@ -707,15 +707,17 @@
                                 <tr>
                                 <td colspan="2">
                                     
-                                    <asp:CheckBox ID="cb_fullSupply" runat="server" AutoPostBack="false" Text="Full Supply"/>
+                                    <asp:CheckBox ID="chk_fullSupply" runat="server" AutoPostBack="false" Text="Full Supply"/>
                                     &nbsp
-                                    <asp:CheckBox ID="cb_mon_order" runat="server" AutoPostBack="false" Text="Monitoring Order"/>
+                                    <asp:CheckBox ID="chk_mon_order" runat="server" AutoPostBack="false" Text="Monitoring Order"/>
+                                    &nbsp
+                                    <asp:CheckBox ID="chk_overhoul" runat="server" AutoPostBack="false" Text="Overhaul" Enabled="false"/>
                                 </td>
                      
                             </tr>
                         </table>
                     </td>
-                    <td>
+                    <td style="padding-left:15px">
                         <table>
                             <tr>
                                 <td >
@@ -818,7 +820,7 @@
                                 <td>
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
-                                        <telerik:RadNumericTextBox ReadOnly="true" EnabledStyle-HorizontalAlign="Right"  ID="txt_total" Width="150px" runat="server" 
+                                        <telerik:RadNumericTextBox ReadOnly="true" EnabledStyle-HorizontalAlign="Right"  ID="txt_total" Width="130px" runat="server" 
                                             ItemStyle-HorizontalAlign="Right" NumberFormat-AllowRounding="true"
                                             onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
                                             AutoPostBack="true" MaxLength="11" Type="Number"
@@ -909,18 +911,7 @@
             </table>
         <%--</div>
         <div>--%>
-            <table  border="0" style="padding-top:10px;">    
-                <tr >
-                    <td>
-                        <telerik:RadButton ID="btn_save" runat="server" Text="Save" BackColor="#ff6600" ForeColor="White" Width="80px" Height="28px"
-                        OnClick="btn_save_Click" Skin="Material"></telerik:RadButton>
-                    </td>                    
-                    <%--<td>
-                        <telerik:RadButton ID="btn_edit_item" runat="server" Text="Edit Item" BackColor="#ff6600" ForeColor="White" Width="80px" Height="28px"
-                         OnClick="btn_edit_item_Click" Enabled="false" Skin="Material"></telerik:RadButton>
-                    </td>--%>
-                </tr>
-            </table>
+            
         </div>
         <div style="padding: 5px 15px 10px 15px;">
                 <asp:UpdatePanel ID="panel2" runat="server" UpdateMode="Always">

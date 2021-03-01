@@ -172,6 +172,12 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
             dr.Close();
             con.Close();
         }
+
+        protected void btn_new_Click(object sender, EventArgs e)
+        {
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
+        }
     }
     
 }

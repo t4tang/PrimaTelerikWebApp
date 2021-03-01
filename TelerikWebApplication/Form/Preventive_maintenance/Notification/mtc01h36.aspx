@@ -78,13 +78,13 @@
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
-    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel" runat="server" Skin="Windows7" MinDisplayTime="2000" BackgroundPosition="Center"></telerik:RadAjaxLoadingPanel>
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel" runat="server" Skin="Silk" MinDisplayTime="2000" BackgroundPosition="Center"></telerik:RadAjaxLoadingPanel>
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2500" BackgroundPosition="None" Skin="Material">
         <img alt="Loading..." src="../../../Images/loaderpage.gif" style="border: 0px; width:100px; height:75px; position: absolute; top: 170px; left:600px" />
     </telerik:RadAjaxLoadingPanel>
 
-    <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="FilterDialogWindows" RestrictionZoneID="ContentTemplateZone"
-        Modal="true" Width="450px" Height="350px" VisibleStatusbar="False" AutoSize="True">
+    <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="FilterDialogWindows" RestrictionZoneID="ContentTemplateZone" VisibleOnPageLoad="true"
+        Modal="false" Width="450px" Height="350px" VisibleStatusbar="False" AutoSize="True" Skin="Silk" BackColor="Transparent">
         <ContentTemplate>
             <div runat="server" style="padding: 20px 10px 10px 10px;" id="Div2">
                 <table>
@@ -127,7 +127,7 @@
         </ContentTemplate>
     </telerik:RadWindow>
 
-    <div style="padding-left: 15px; ">
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:2px ">
         <table id="tbl_control">
             <tr>
                 <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
@@ -138,8 +138,8 @@
                     <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
                         Height="25px" Width="28px" ImageUrl="~/Images/filter.png" />
                 </td>
-                <td style="width: 93%; text-align: right">
-                    <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                <td style="width: 96%; text-align: right">
+                    <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight:normal; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
                         padding-bottom: 0px; font-size: x-large; color:deepskyblue;">
                     </telerik:RadLabel>
                 </td>
@@ -147,16 +147,19 @@
         </table>
     </div>
 
-    <div  class="scroller" runat="server">
+    <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px;">
+        <div style="width:100%; overflow-y:hidden;height:auto; scrollbar-highlight-color:#b6ff00">
         <telerik:RadGrid runat="server" RenderMode="Lightweight" ID="RadGrid1" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false" 
-            Skin="Telerik" ShowFooter="false" ShowStatusBar="true" PageSize="10" 
+            Skin="Silk" ShowFooter="false" ShowStatusBar="true" PageSize="14" 
             OnNeedDataSource="RadGrid1_NeedDataSource" 
             OnDeleteCommand="RadGrid1_DeleteCommand" 
             OnItemCreated="RadGrid1_ItemCreated" 
             OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" 
             OnPreRender="RadGrid1_PreRender">
-            <PagerStyle Mode="NextPrevNumericAndAdvanced" />
-            <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
+            <PagerStyle Mode="NumericPages"></PagerStyle>          
+            <ClientSettings EnablePostBackOnRowClick="true" />
+            <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
+            <HeaderStyle ForeColor="White" BackColor="#ff9933" Font-Size="11px"  />
             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="PM_id" Font-Size="12px"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                 CommandItemSettings-ShowRefreshButton="false">
@@ -166,56 +169,56 @@
                         <HeaderStyle Width="150px" />
                         <ItemStyle Width="150px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="trans_id" HeaderText="WO. Number" DataField="trans_id">
-                        <HeaderStyle Width="150px" />
-                        <ItemStyle Width="150px" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="wo_desc" HeaderText="Status" DataField="wo_desc" ItemStyle-HorizontalAlign="Left" 
-                        FilterControlWidth="50px">
-                        <HeaderStyle Width="50px" />
-                        <ItemStyle Width="50px" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="unit_code" HeaderText="Unit Code" DataField="unit_code" ItemStyle-HorizontalAlign="Left" 
-                        FilterControlWidth="100px">
+                  <telerik:GridBoundColumn UniqueName="trans_id" HeaderText="WO. Number" DataField="trans_id">
                         <HeaderStyle Width="100px" />
                         <ItemStyle Width="100px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="model_no" HeaderText="Model" DataField="model_no" ItemStyle-HorizontalAlign="Left" 
+                     <%-- <telerik:GridBoundColumn UniqueName="wo_desc" HeaderText="Status" DataField="wo_desc" ItemStyle-HorizontalAlign="Left" 
+                        FilterControlWidth="50px">
+                        <HeaderStyle Width="50px" />
+                        <ItemStyle Width="50px" />
+                    </telerik:GridBoundColumn>--%>
+                    <telerik:GridBoundColumn UniqueName="unit_code" HeaderText="Unit Code" DataField="unit_code" ItemStyle-HorizontalAlign="Left" 
+                        FilterControlWidth="80px">
+                        <HeaderStyle Width="80px" />
+                        <ItemStyle Width="80px" />
+                    </telerik:GridBoundColumn>
+                    <%--<telerik:GridBoundColumn UniqueName="model_no" HeaderText="Model" DataField="model_no" ItemStyle-HorizontalAlign="Left" 
                         FilterControlWidth="120px">
                         <HeaderStyle Width="120px" />
                         <ItemStyle Width="120px" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="time_reading" HeaderText="HM" DataField="time_reading" ItemStyle-HorizontalAlign="Left">
+                    </telerik:GridBoundColumn>--%>
+                    <telerik:GridBoundColumn UniqueName="time_reading" AllowFiltering="false" HeaderText="HM" DataField="time_reading" ItemStyle-HorizontalAlign="Left">
                         <HeaderStyle Width="50px" />
-                        <ItemStyle Width="50px" />
+                        <ItemStyle Width="50px" HorizontalAlign="Right" />
                     </telerik:GridBoundColumn>
                     <telerik:GridDateTimeColumn UniqueName="Req_date" HeaderText="Date Req" DataField="Req_date" ItemStyle-Width="100px" 
                         EnableRangeFiltering="false" FilterControlWidth="100px" PickerType="DatePicker" DataFormatString="{0:d}">
                         <HeaderStyle Width="100px" />
-                        <ItemStyle Width="100px" />
+                        <ItemStyle Width="100px"  HorizontalAlign="Center" />
                     </telerik:GridDateTimeColumn>
                     <telerik:GridDateTimeColumn UniqueName="trans_date" HeaderText="Date Exec" DataField="trans_date" ItemStyle-Width="100px" 
                         EnableRangeFiltering="false" FilterControlWidth="100px" PickerType="DatePicker" DataFormatString="{0:d}">
                         <HeaderStyle Width="100px" />
-                        <ItemStyle Width="100px" />
+                        <ItemStyle Width="100px" HorizontalAlign="Center" />
                     </telerik:GridDateTimeColumn>
-                    <telerik:GridBoundColumn UniqueName="Notif_type_name" HeaderText="Type" DataField="Notif_type_name" ItemStyle-HorizontalAlign="Left" 
+                    <%--<telerik:GridBoundColumn UniqueName="Notif_type_name" HeaderText="Type" DataField="Notif_type_name" ItemStyle-HorizontalAlign="Left" 
                         FilterControlWidth="120px" >
                         <HeaderStyle Width="120px" />
                         <ItemStyle Width="120px" />
+                    </telerik:GridBoundColumn>--%>
+                    <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project" DataField="region_code" ItemStyle-HorizontalAlign="Left" 
+                        FilterControlWidth="70px">
+                        <HeaderStyle Width="70px" />
+                        <ItemStyle Width="70px" HorizontalAlign="Center"  />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="region_name" HeaderText="Project Area" DataField="region_name" ItemStyle-HorizontalAlign="Left" 
-                        FilterControlWidth="150px">
-                        <HeaderStyle Width="150px" />
-                        <ItemStyle Width="150px" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true" FilterControlWidth="200px">
-                        <HeaderStyle Width="200px" />
-                        <ItemStyle Width="200px" />
+                    <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" AllowFiltering="false" DataField="remark" ItemStyle-Wrap="true" FilterControlWidth="200px">
+                        <HeaderStyle Width="320px" />
+                        <ItemStyle Width="320px" />
                     </telerik:GridBoundColumn>
                     <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" AllowFiltering="False">
                         <ItemTemplate>
-                            <asp:ImageButton ID="EditLink" runat="server" Height="22px" Width="25px" ImageUrl="~/Images/edit.png" ToolTip="Edit" />
+                            <asp:ImageButton ID="EditLink" ImageAlign="Right" runat="server" Height="22px" Width="25px" ImageUrl="~/Images/edit.png" ToolTip="Edit" />
                         </ItemTemplate>
                     </telerik:GridTemplateColumn>
                     <telerik:GridTemplateColumn UniqueName="TemplatePrintColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right"
@@ -234,20 +237,20 @@
                 <Selecting AllowRowSelect="true" />
             </ClientSettings>
         </telerik:RadGrid>
-
-        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
-            <Windows>
-                <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
-                    Width="1150px" Height="670px" Modal="true" AutoSize="True">
-                </telerik:RadWindow>
-                <telerik:RadWindow RenderMode="Auto" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="true"
-                    Width="1400px" Height="720px" AutoSize="False">
-                </telerik:RadWindow>
-            </Windows>
-        </telerik:RadWindowManager>
-
-        <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true"></telerik:RadWindowManager>
-
+        </div>
     </div>
+    
+    <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
+        <Windows>
+            <telerik:RadWindow RenderMode="Lightweight" ID="PreviewDialog" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
+                Width="1150px" Height="670px" Modal="true" AutoSize="True">
+            </telerik:RadWindow>
+            <telerik:RadWindow RenderMode="Auto" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="true"
+                Width="1400px" Height="720px" AutoSize="False">
+            </telerik:RadWindow>
+        </Windows>
+    </telerik:RadWindowManager>
+
+    <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true"></telerik:RadWindowManager>
 
 </asp:Content>

@@ -130,6 +130,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording {
         protected global::Telerik.Web.UI.RadComboBox cb_project;
         
         /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// cb_unit control.
         /// </summary>
         /// <remarks>
@@ -137,6 +146,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_unit;
+        
+        /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
         /// txt_type control.
@@ -193,6 +211,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording {
         protected global::Telerik.Web.UI.RadDatePicker dtp_current_date;
         
         /// <summary>
+        /// RequiredFieldValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        
+        /// <summary>
         /// txt_HM control.
         /// </summary>
         /// <remarks>
@@ -200,6 +227,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadNumericTextBox txt_HM;
+        
+        /// <summary>
+        /// RequiredFieldValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// BreakdownEntryDialogWindows control.

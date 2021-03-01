@@ -67,15 +67,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued {
         protected global::Telerik.Web.UI.RadTextBox txt_gi_number;
         
         /// <summary>
-        /// cb_type_ref control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_type_ref;
-        
-        /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
@@ -85,13 +76,22 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// cb_CustSupp control.
+        /// UpdatePanel12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_CustSupp;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel12;
+        
+        /// <summary>
+        /// cb_type_ref control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_type_ref;
         
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -103,13 +103,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
-        /// cb_Project control.
+        /// cb_CustSupp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_Project;
+        protected global::Telerik.Web.UI.RadComboBox cb_CustSupp;
         
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -119,6 +119,33 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        
+        /// <summary>
+        /// UpdatePanel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        
+        /// <summary>
+        /// cb_Project control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_Project;
+        
+        /// <summary>
+        /// RequiredFieldValidator6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
         
         /// <summary>
         /// UpdatePanel6 control.
@@ -139,13 +166,22 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued {
         protected global::Telerik.Web.UI.RadComboBox cb_ref;
         
         /// <summary>
-        /// RequiredFieldValidator6 control.
+        /// lbl_reff_no control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        protected global::Telerik.Web.UI.RadLabel lbl_reff_no;
+        
+        /// <summary>
+        /// RequiredFieldValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
         /// UpdatePanel9 control.
@@ -164,15 +200,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadComboBox cb_CostCenter;
-        
-        /// <summary>
-        /// RequiredFieldValidator4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
         /// UpdatePanel10 control.

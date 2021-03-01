@@ -244,7 +244,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT prod_code, qty, min_qty, max_qty, SatQty, harga, disc, validdate, remark  FROM v_info_recordD where info_code = @info_code";
+            cmd.CommandText = "SELECT prod_code, spec, qty, min_qty, max_qty, SatQty, harga, disc, validdate, remark  FROM v_info_recordD where info_code = @info_code";
             cmd.Parameters.AddWithValue("@info_code", info_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -337,11 +337,12 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 e.Canceled = true;
             }
         }
+
         #endregion
 
-        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+            string sql = "SELECT top (100) c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
                 " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and spec LIKE @spec + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -368,7 +369,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             }
         }
 
-        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             Session["Prod_code"] = e.Value;
 
@@ -379,8 +380,8 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
-                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
-
+               " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+               
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);

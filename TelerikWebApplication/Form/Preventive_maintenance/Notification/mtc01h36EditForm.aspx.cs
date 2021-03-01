@@ -340,34 +340,43 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
 
         protected void fill_object(string id)
         {
-            con.Open();
-            SqlDataReader sdr;
-            SqlCommand cmd = new SqlCommand("SELECT * FROM v_notification_H WHERE PM_id = '" + id + "'", con);
-            sdr = cmd.ExecuteReader();
-            if (sdr.Read())
+            try
             {
-                txt_notif.Text = sdr["PM_id"].ToString();
-                //txt_WO.Text = sdr["trans_id"].ToString();
-                dtp_req.SelectedDate = Convert.ToDateTime(sdr["Req_date"].ToString());
-                cb_notif.Text = sdr["Notif_type_name"].ToString();
-                cb_notif.SelectedValue = sdr["Notif_type"].ToString();
-                cb_status.Text = sdr["wo_desc"].ToString();
-                cb_status.SelectedValue = sdr["trans_status"].ToString();
-                txt_report.Text = sdr["reportby"].ToString();
-                txt_problem.Text = sdr["remark"].ToString();
-                cb_Project.Text = sdr["region_name"].ToString();
-                cb_unit.Text = sdr["unit_code"].ToString();
-                txt_model.Text = sdr["model_no"].ToString();
-                txt_reading.Text = sdr["time_reading"].ToString();
-                dtp_time.SelectedDate = Convert.ToDateTime(sdr["trans_date"].ToString());
-                txt_breakdown.Text = sdr["status_time"].ToString();
-                cb_group.Text = sdr["com_group_name"].ToString();
-                cb_group.SelectedValue = sdr["com_group"].ToString();
-                cb_component.Text = sdr["com_name"].ToString();
-                cb_component.Text = sdr["com_code"].ToString();
-            }
-            con.Close();
+                con.Open();
+                SqlDataReader sdr;
+                SqlCommand cmd = new SqlCommand("SELECT * FROM v_notification WHERE PM_id = '" + id + "'", con);
+                sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    txt_notif.Text = sdr["PM_id"].ToString();
+                    //txt_WO.Text = sdr["trans_id"].ToString();
+                    dtp_req.SelectedDate = Convert.ToDateTime(sdr["Req_date"].ToString());
+                    cb_notif.Text = sdr["Notif_type_name"].ToString();
+                    cb_notif.SelectedValue = sdr["Notif_type"].ToString();
+                    cb_status.Text = sdr["trans_status"].ToString();
+                    cb_status.SelectedValue = sdr["trans_status"].ToString();
+                    txt_report.Text = sdr["reportby"].ToString();
+                    txt_problem.Text = sdr["remark"].ToString();
+                    cb_Project.Text = sdr["region_name"].ToString();
+                    cb_unit.Text = sdr["unit_code"].ToString();
+                    txt_model.Text = sdr["model_no"].ToString();
+                    txt_reading.Text = sdr["time_reading"].ToString();
+                    if (sdr["trans_date"].ToString() != null) { dtp_time.SelectedDate = (DateTime?)(sdr.IsDBNull(5) ? null : sdr["trans_date"]);}
+                    if (sdr["status_time"].ToString() != null) { Convert.ToDateTime(sdr["status_time"].ToString()); }
+                    cb_group.Text = sdr["com_group_name"].ToString();
+                    cb_group.SelectedValue = sdr["com_group"].ToString();
+                    cb_component.Text = sdr["com_name"].ToString();
+                    cb_component.Text = sdr["com_code"].ToString();
+                }
+                con.Close();
 
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+            }
+            
         }
 
         protected void btn_save_Click(object sender, EventArgs e)

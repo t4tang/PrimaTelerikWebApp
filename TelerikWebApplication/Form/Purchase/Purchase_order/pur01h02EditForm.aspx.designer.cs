@@ -49,6 +49,15 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// btn_save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btn_save;
+        
+        /// <summary>
         /// txt_po_code control.
         /// </summary>
         /// <remarks>
@@ -463,22 +472,31 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         protected global::Telerik.Web.UI.RadDatePicker dtp_share_date;
         
         /// <summary>
-        /// cb_fullSupply control.
+        /// chk_fullSupply control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cb_fullSupply;
+        protected global::System.Web.UI.WebControls.CheckBox chk_fullSupply;
         
         /// <summary>
-        /// cb_mon_order control.
+        /// chk_mon_order control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cb_mon_order;
+        protected global::System.Web.UI.WebControls.CheckBox chk_mon_order;
+        
+        /// <summary>
+        /// chk_overhoul control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk_overhoul;
         
         /// <summary>
         /// txt_sub_total control.
@@ -578,15 +596,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTextBox txt_edited;
-        
-        /// <summary>
-        /// btn_save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_save;
         
         /// <summary>
         /// panel2 control.
