@@ -3,10 +3,12 @@
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
     <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
     <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
@@ -37,6 +39,7 @@
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
+
     <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
         <table id="tbl_control">
             <tr>       
@@ -64,9 +67,10 @@
         <!-- Page Content -->
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true"
-                OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="true"
+                OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_UpdateCommand" AllowFilteringByColumn="true" OnItemCreated="RadGrid1_ItemCreated"
                 OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" BorderStyle="Solid" Font-Names="Calibri">
-                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="brand_code" Font-Size="13px">                        
+                 <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
+                <MasterTableView Width="100%" CommandItemDisplay="none" DataKeyNames="brand_code" Font-Size="11px" Font-Names="Century Gothic">                        
                     <Columns>
                         <telerik:GridEditCommandColumn UniqueName="EditCommandColumn"><HeaderStyle Width="20px"></HeaderStyle>
                         </telerik:GridEditCommandColumn>
