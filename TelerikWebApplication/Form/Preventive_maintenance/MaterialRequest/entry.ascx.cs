@@ -41,19 +41,19 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             //if (!IsPostBack)
             //{
             //    dtp_date.SelectedDate = DateTime.Now;
+            //    tr_code = _dataItem.ToString();
+            //    //if (Request.QueryString["trans_id"] != null)
+            //    //{
+            //    //    tr_code = Request.QueryString["trans_id"].ToString();
+            //    //    Session["actionEdit"] = "edit";
 
-            //    if (Request.QueryString["trans_id"] != null)
-            //    {
-            //        tr_code = Request.QueryString["trans_id"].ToString();
-            //        Session["actionEdit"] = "edit";
+            //    //}
+            //    //else
+            //    //{
+            //    //    cb_priority.Text = "High/Urgent";
+            //    //    Session["actionEdit"] = "new";
 
-            //    }
-            //    else
-            //    {
-            //        cb_priority.Text = "High/Urgent";
-            //        Session["actionEdit"] = "new";
-
-            //    }
+            //    //}
             //}
         }
 
@@ -680,6 +680,44 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             }
 
 
+        }
+
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (tr_code == null)
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = GetDataDetailTable(tr_code);
+                //RadGrid3.MasterTableView.CommandItemSettings.ShowAddNewRecordButton = true;
+            }
+        }
+        public DataTable GetDataDetailTable(string sro_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_material_requestD";
+            cmd.Parameters.AddWithValue("@sro_code", sro_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
         }
     }
 }

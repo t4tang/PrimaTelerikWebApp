@@ -440,15 +440,16 @@ a.RadButton_MetroTouch.rbImageButton:focus {
     border-bottom-color: #FF9933; 
     border-bottom-width: 1px; 
     border-bottom-style: inset;
-    background-color: deeppink !important;
+    background-color: #489ecb !important;
    }
 
-.btn-filter {
-    min-width:105px;
-    min-height: 25px;
-    padding-left:15px; 
-    border-style:inherit;
-    border-color:greenyellow;
+.btn-top {
+    height: 27px;
+    width:100px;
+    font-size:10px;
+    border-bottom-width: 1px; 
+    border-bottom-style: inset;
+    background-color: #489ecb !important;
    }
 
 .btn-style1 {
