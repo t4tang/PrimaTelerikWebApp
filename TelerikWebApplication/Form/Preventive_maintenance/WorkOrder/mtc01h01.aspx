@@ -166,18 +166,22 @@
         </ContentTemplate>
     </telerik:RadWindow>
 
-    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:orangered; border-bottom-width:thin ">
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
         <table id="tbl_control">
-            <tr>                   
-                <td style="vertical-align: middle; margin-left: 10px; padding: 5px 0px 0px 13px;">
-                    <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
-                        Height="25px" Width="28px" ImageUrl="~/Images/filter.png"></asp:ImageButton>
-                </td>                 
-                <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
+            <tr>                     
+                <td style="vertical-align: bottom; margin-left: 10px; padding-left: 8px">
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClientClick="ShowInsertForm(); return false;" ToolTip="Add New" Visible="true"
-                        Height="30px" Width="32px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
-                </td>  
-                <td style="width: 94%; text-align: right">
+                        Height="26px" Width="27px" ImageUrl="~/Images/tambah.png" ImageAlign="Bottom" ></asp:ImageButton>
+                    <%--<telerik:RadButton RenderMode="Lightweight" ID="btn_new" runat="server" Text="New" CssClass="btn-top" AutoPostBack="false"
+                       Skin="Silk"  OnClientClicked="ShowInsertForm(); return false;" ></telerik:RadButton>--%>
+                </td>                
+                <td style="vertical-align: bottom; margin-left: 0px; padding: 0px 0px 0px 0px;">
+                    <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter" 
+                        Height="29px" Width="30px" ImageUrl="~/Images/search.png"></asp:ImageButton>
+                    <%--<telerik:RadButton RenderMode="Lightweight" ID="btn_filter" runat="server" Text="Filter" CssClass="btn-top"
+                       Skin="Silk" OnClientClick="openWinFiterTemplate(); return false;" ></telerik:RadButton>--%>
+                </td> 
+                <td style="width: 96%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight:normal; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
                         padding-bottom: 0px; font-size: x-large; color:#0099dc;">
                     </telerik:RadLabel>
@@ -191,7 +195,7 @@
             <%--<asp:UpdatePanel runat="server">
                 <ContentTemplate>--%>
                     <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="14" Skin="Silk"
-                        AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" 
+                        AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" CssClass="RadGrid_ModernBrowsers" 
                         OnNeedDataSource="RadGrid1_NeedDataSource"
                         OnDeleteCommand="RadGrid1_DeleteCommand"
                         OnItemCreated="RadGrid1_ItemCreated"
@@ -199,8 +203,8 @@
                         <PagerStyle Mode="NumericPages"></PagerStyle>          
                         <ClientSettings EnablePostBackOnRowClick="true" />
                         <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
-                        <HeaderStyle ForeColor="White" BackColor="#0099dc" Font-Size="11px"  />
-                        <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="trans_id" Font-Size="12px"
+                        <HeaderStyle ForeColor="Highlight" Font-Size="11px" />
+                        <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="trans_id" Font-Size="11px" Font-Names="Century Gothic"
                             EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                             CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" EditMode="EditForms" 
                             CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl" InsertItemDisplay="Bottom">

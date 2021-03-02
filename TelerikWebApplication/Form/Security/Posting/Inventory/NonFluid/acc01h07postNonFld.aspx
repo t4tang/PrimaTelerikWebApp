@@ -18,14 +18,14 @@
             <tr> 
                 <td style="text-align: right; width:1300px">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:#7cca05; font-weight:normal">
+                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
                     </telerik:RadLabel>
                 </td>
             </tr>
         </table>
     </div>
      <div class="scroller" runat="server">  
-         <div runat="server" style="width: 100%; border-top-color:yellowgreen; border-top-width: 1px; border-top-style: inset; padding-top: 8px;height:100%; overflow-y:auto; overflow-x:hidden">   
+         <div runat="server" style="width: 100%; border-top-color:gainsboro; border-top-width: 1px; border-top-style: inset; padding-top: 8px;height:100%; overflow-y:auto; overflow-x:hidden">   
             
             <div runat="server" title="Period Process">
                 <table>
@@ -78,7 +78,7 @@
                 <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
                 </telerik:RadAjaxManager>
                 <telerik:RadButton RenderMode="Lightweight" ID="btnProcessing" runat="server" Text="Start Posting Process" CssClass="btn-wrapper" ForeColor="White"
-                   Skin="Material"  OnClick="btnProcessing_Click">
+                   Skin="Material" Width="160px" OnClick="btnProcessing_Click">
                 </telerik:RadButton>
                 <telerik:RadProgressManager ID="RadProgressManager1" runat="server" />
                 <telerik:RadProgressArea RenderMode="Lightweight" ID="RadProgressArea1" runat="server" Width="500px" />

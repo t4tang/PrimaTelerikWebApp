@@ -139,15 +139,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest {
         protected global::Telerik.Web.UI.RadButton btnSearch;
         
         /// <summary>
-        /// btnFilter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnFilter;
-        
-        /// <summary>
         /// btnNew control.
         /// </summary>
         /// <remarks>
@@ -155,6 +146,15 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnNew;
+        
+        /// <summary>
+        /// btnFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnFilter;
         
         /// <summary>
         /// lbl_form_name control.
@@ -173,15 +173,6 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
-        
-        /// <summary>
-        /// RadGrid3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid3;
         
         /// <summary>
         /// RadWindowManager1 control.

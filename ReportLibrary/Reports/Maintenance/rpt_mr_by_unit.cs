@@ -10,12 +10,12 @@ namespace ReportLibrary.Reports.Maintenance
     /// <summary>
     /// Summary description for rpt_mr_by_unit.
     /// </summary>
-    public partial class rpt_mr_by_unit : Telerik.Reporting.Report
+    public partial class MaterialRequestByUnit : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
-        public rpt_mr_by_unit()
+        public MaterialRequestByUnit()
         {
             //
             // Required for telerik Reporting designer support

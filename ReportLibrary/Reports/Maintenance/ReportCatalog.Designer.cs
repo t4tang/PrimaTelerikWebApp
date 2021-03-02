@@ -81,7 +81,7 @@ namespace ReportLibrary.Reports.Maintenance
             // 
             // textBox1
             // 
-            this.textBox1.Anchoring = ((Telerik.Reporting.AnchoringStyles)(((Telerik.Reporting.AnchoringStyles.Top | Telerik.Reporting.AnchoringStyles.Left)
+            this.textBox1.Anchoring = ((Telerik.Reporting.AnchoringStyles)(((Telerik.Reporting.AnchoringStyles.Top | Telerik.Reporting.AnchoringStyles.Left) 
             | Telerik.Reporting.AnchoringStyles.Right)));
             this.textBox1.CanShrink = false;
             this.textBox1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(0.00010012308484874666D));
@@ -215,7 +215,7 @@ namespace ReportLibrary.Reports.Maintenance
             this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(5.3905510902404785D), Telerik.Reporting.Drawing.Unit.Inch(0.39992132782936096D));
             this.textBox9.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(20D);
             this.textBox9.StyleName = "Header";
-            this.textBox9.Value = "Finance - Controling Report Dashboard";
+            this.textBox9.Value = "Preventive Maintenance Report Dashboard";
             // 
             // ReportCatalog
             // 

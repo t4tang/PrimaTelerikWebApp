@@ -200,5 +200,14 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chk_close;
+        
+        /// <summary>
+        /// RadGrid3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid RadGrid3;
     }
 }

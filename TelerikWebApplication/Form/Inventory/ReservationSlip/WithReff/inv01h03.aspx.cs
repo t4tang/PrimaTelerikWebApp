@@ -38,14 +38,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 cb_proj_prm.Text = public_str.sitename;
 
                 tr_code = null;
-                //label_teks_default();
-                //dtp_rs.SelectedDate = DateTime.Now;
                 Session["action"] = "firstLoad";
-                //RadGrid2.Enabled = false;
-                //btnSave.Enabled = false;
-                //btnSave.ImageUrl = "~/Images/simpan-gray.png";
-                //btnPrint.Enabled = false;
-                //btnPrint.ImageUrl = "~/Images/cetak-gray.png";
             }
 
         }
@@ -65,13 +58,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                     RadGrid1.MasterTableView.GroupByExpressions.Clear();
                     RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
                     RadGrid1.DataBind();
-                    //RadGrid1.Rebind();
                     RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
-                    RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
-                    //RadGrid2.DataSource = new string[] { };
-                    //RadGrid2.DataSource = GetDataRefDetailTable(selected_reff_no);
-                    RadGrid2.DataSource = GetDataDetailTable(tr_code);
-                    RadGrid2.Rebind();
+                    //RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
                     Session["action"] = "list";
                 }
             }
@@ -216,7 +204,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 tr_code = item["doc_code"].Text;
             }
 
-            populate_detail();
+            //populate_detail();
             Session["action"] = "list";
         }
         protected void RadGrid1_PreRender(object sender, EventArgs e)
@@ -230,42 +218,36 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 {
                     tr_code = gItem["doc_code"].Text;
                 }
-                populate_detail();
+                //populate_detail();
             }
         }
         #endregion
 
         #region Detail
-        private void populate_detail()
-        {
-            //foreach (GridDataItem item in RadGrid1.SelectedItems)
-            //{
-            //    tr_code = item["doc_code"].Text;
-            //    //selected_cost_ctr = item["dept_code"].Text;
-            //}
+        //private void populate_detail()
+        //{
+        //    if (tr_code == null)
+        //    {
+        //        RadGrid2.DataSource = new string[] { };
+        //    }
+        //    else
+        //    {
+        //        RadGrid2.DataSource = GetDataDetailTable(tr_code);
+        //    }
 
-            if (tr_code == null)
-            {
-                RadGrid2.DataSource = new string[] { };
-            }
-            else
-            {
-                RadGrid2.DataSource = GetDataDetailTable(tr_code);
-            }
-
-            RadGrid2.DataBind();
-        }
-        protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-        {
-            if (tr_code == null)
-            {
-                (sender as RadGrid).DataSource = new string[] { };
-            }
-            else
-            {
-                RadGrid2.DataSource = GetDataDetailTable(tr_code);
-            }
-        }
+        //    RadGrid2.DataBind();
+        //}
+        //protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        //{
+        //    if (tr_code == null)
+        //    {
+        //        (sender as RadGrid).DataSource = new string[] { };
+        //    }
+        //    else
+        //    {
+        //        RadGrid2.DataSource = GetDataDetailTable(tr_code);
+        //    }
+        //}
         public DataTable GetDataDetailTable(string doc_code)
         {
             con.Open();
@@ -307,11 +289,11 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 cmd.Parameters.AddWithValue("@part_code", partCode);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                RadGrid2.DataBind();
+                //RadGrid2.DataBind();
 
-                notif.Text = "Data berhasil dihapus";
-                notif.Title = "Notification";
-                notif.Show();
+                //notif.Text = "Data berhasil dihapus";
+                //notif.Title = "Notification";
+                //notif.Show();
             }
             catch (Exception ex)
             {
@@ -343,7 +325,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 cmd.ExecuteNonQuery();
                 con.Close();
 
-                notif.Show();
+                //notif.Show();
             }
             catch (Exception ex)
             {

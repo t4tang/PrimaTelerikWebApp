@@ -56,6 +56,13 @@
                 }
 
             }
+            function RowDblClick(sender, eventArgs) {
+                sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
+            }
+
+            function onPopUpShowing(sender, args) {
+                args.get_popUp().className += " popUpEditForm";
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -143,16 +150,16 @@
         </ContentTemplate>
     </telerik:RadWindow>
 
-    <div style="padding-left: 15px;">
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
         <table id="tbl_control">
             <tr>                  
                 <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClientClick="ShowInsertForm(); return false;" ToolTip="Add New"
-                        Height="25px" Width="27px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
+                         Height="26px" Width="27px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
                 </td>                    
                 <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                     <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
-                        Height="20px" Width="23px" ImageUrl="~/Images/filter.png"></asp:ImageButton>
+                        Height="29px" Width="30px" ImageUrl="~/Images/search.png"></asp:ImageButton>
                 </td>
                 <td style="width: 97%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
@@ -163,26 +170,23 @@
         </table>
     </div>    
 
-    <div class="scroller" runat="server">
+    <div class="scroller" runat="server" style="overflow-y:scroll; height:620px;" >  
 
-        <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
-        AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="10" MasterTableView-GridLines="None" 
+        <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
+        AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="14" MasterTableView-GridLines="None" 
         OnNeedDataSource="RadGrid1_NeedDataSource" 
         OnDeleteCommand="RadGrid1_DeleteCommand" 
         OnItemCreated="RadGrid1_ItemCreated" 
         OnPreRender="RadGrid1_PreRender"
         OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" >
         <PagerStyle Mode="NumericPages" ForeColor="#0099CC"></PagerStyle>               
-        <HeaderStyle Font-Size="Small" BackColor="WhiteSmoke" ForeColor="#666666" BorderColor="OrangeRed" BorderStyle="Inset" />
+        <HeaderStyle ForeColor="Highlight" Font-Size="12px" />
         <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
         <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
         <SortingSettings EnableSkinSortStyles="false" />
-        <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="pr_code" Font-Size="11px"
-            EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowRefreshButton="False" 
-            CommandItemSettings-ShowAddNewRecordButton="False">
-            <SortExpressions >
-                <telerik:GridSortExpression FieldName="pr_code" SortOrder="Ascending" />
-            </SortExpressions>
+        <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="pr_code" Font-Size="11px" Font-Names="Century Gothic"
+        EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
+        CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight">
             <Columns>
                 <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="40px" HeaderStyle-Width="40px"></telerik:GridClientSelectColumn>
                 <telerik:GridBoundColumn UniqueName="pr_code" HeaderText="PR Number" DataField="pr_code" ItemStyle-Width="150px" FilterControlWidth="110px" 
