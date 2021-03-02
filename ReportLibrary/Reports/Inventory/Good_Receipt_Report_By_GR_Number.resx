@@ -117,21 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
-    <value>SELECT a.unit_code, a.model_no, b.tgl1, d.reading_amount3 AS hmfirst, c.tgl2, e.reading_amount3 AS hmlast, e.reading_amount1 AS accum, a.region_code,
-                      (SELECT region_name
-                       FROM      dbo.ms_jobsite
-                       WHERE   (region_code = a.region_code)) AS region_name
-FROM     dbo.mtc00h16 AS a LEFT OUTER JOIN
-                      (SELECT unit_code, MIN(reading_date) AS tgl1
-                       FROM      dbo.mtc01h06
-                       GROUP BY unit_code) AS b ON a.unit_code = b.unit_code LEFT OUTER JOIN
-                      (SELECT unit_code, MAX(reading_date) AS tgl2
-                       FROM      dbo.mtc01h06 AS mtc01h06_1
-                       GROUP BY unit_code) AS c ON a.unit_code = c.unit_code INNER JOIN
-                  dbo.mtc01h06 AS d ON b.unit_code = d.unit_code AND b.tgl1 = d.reading_date INNER JOIN
-                  dbo.mtc01h06 AS e ON c.unit_code = e.unit_code AND c.tgl2 = e.reading_date</value>
-  </data>
+  <metadata name="sqlGoodReceiptReportByGRNumber.ParameterValues" xml:space="preserve">
+    <value>{"@project":"ALL","@tglawal":"2018-08-01","@tglakhir":"2018-08-31"}</value>
+  </metadata>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>
   </metadata>

@@ -7,90 +7,90 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.DataStore.Material.Uom {
+namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM {
     
     
-    public partial class inv00h08 {
+    public partial class entry {
         
         /// <summary>
-        /// FolderNavigationControl control.
+        /// btnUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TelerikWebApplication.Controls.FolderNavigationControl FolderNavigationControl;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
         
         /// <summary>
-        /// MobileNavigation control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TelerikWebApplication.Controls.MobileNavigation MobileNavigation;
+        protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
-        /// RadAjaxManager1 control.
+        /// txt_wo_number control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
+        protected global::Telerik.Web.UI.RadTextBox txt_wo_number;
         
         /// <summary>
-        /// RadAjaxLoadingPanel1 control.
+        /// txt_unit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
+        protected global::Telerik.Web.UI.RadTextBox txt_unit;
         
         /// <summary>
-        /// btn_new control.
+        /// txt_hm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btn_new;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_hm;
         
         /// <summary>
-        /// lbl_form_name control.
+        /// txt_status control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadLabel lbl_form_name;
+        protected global::Telerik.Web.UI.RadTextBox txt_status;
         
         /// <summary>
-        /// RadGrid1 control.
+        /// dtp_date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_date;
         
         /// <summary>
-        /// RadWindowManager1 control.
+        /// txt_time control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
+        protected global::Telerik.Web.UI.RadNumericTextBox txt_time;
         
         /// <summary>
-        /// UserListDialog control.
+        /// txt_trouble control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow UserListDialog;
+        protected global::Telerik.Web.UI.RadTextBox txt_trouble;
     }
 }
