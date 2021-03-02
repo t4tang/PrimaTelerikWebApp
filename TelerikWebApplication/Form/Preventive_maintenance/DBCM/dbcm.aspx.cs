@@ -24,7 +24,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lbl_form_name.Text = "Daily Breakdown Condition Monitoring";
+            lbl_form_name.Text = "Daily Monitoring Condition Breakdown";
             dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             dtp_to.SelectedDate = DateTime.Now;
             selected_project = public_str.site;
@@ -158,20 +158,18 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE mtc01d01 SET remark_activity = @remark_activity, esti_date = @esti_date, " +                                     "esti_time = @esti_time, no_part = @no_part, part_date = @part_date, part_eta = @part_eta "+                                    "WHERE trans_id = @trans_id AND run = @run";
-                cmd.Parameters.AddWithValue("@trans_id", (item.FindControl("lbl_WO2") as Label).Text);
-                //cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
+                cmd.CommandText = "UPDATE mtc01d01 SET remark = @remark, remark_activity = @remark_activity, esti_date = @esti_date, " +                                     "esti_time = @esti_time, no_part = @no_part, part_date = @part_date, part_eta = @part_eta "+                                    "WHERE trans_id = @trans_id AND status = @status AND down_date = @down_date AND down_time = @down_time";
+                cmd.Parameters.AddWithValue("@trans_id", (item.FindControl("txt_WO") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@remark_activity", (item.FindControl("txt_activ") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@esti_date", (item.FindControl("dtp_estiRFUDate") as RadDatePicker).SelectedDate.Value);
-                //cmd.Parameters.AddWithValue("@esti_time", (item.FindControl("dp_estiRFUTime") as RadTimePicker).SelectedTime.Value);
-                cmd.Parameters.AddWithValue("@esti_time", Convert.ToDouble((item.FindControl("dp_estiRFUTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-                    (Convert.ToDouble((item.FindControl("dp_estiRFUTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
+                cmd.Parameters.AddWithValue("@esti_date", (item.FindControl("dp_estiDate") as RadDateTimePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@esti_time", (item.FindControl("txt_estiTime") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@no_part", (item.FindControl("txt_proNo") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@part_date", (item.FindControl("dtp_matProDate") as RadDatePicker).SelectedDate.Value);
-                cmd.Parameters.AddWithValue("@part_eta", (item.FindControl("dtp_matProEta") as RadDatePicker).SelectedDate.Value);
-            //cmd.Parameters.AddWithValue("@part_eta", Convert.ToDouble((item.FindControl("rtp_matProEtaTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
-            //            (Convert.ToDouble((item.FindControl("rtp_matProEtaTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100));
-                cmd.Parameters.AddWithValue("@run", (item.FindControl("lbl_run2") as Label).Text);
+                cmd.Parameters.AddWithValue("@part_date", (item.FindControl("dp_partDate") as RadDateTimePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@part_eta", (item.FindControl("txt_eta") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@status", (item.FindControl("txt_status") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@down_date", Convert.ToDouble((item.FindControl("dp_Date") as RadDateTimePicker).SelectedDate));
+                cmd.Parameters.AddWithValue("@down_time", (item.FindControl("txt_time") as RadTextBox).Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
             //}
