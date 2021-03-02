@@ -56,7 +56,7 @@
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" Skin="Silk"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand"
-                 OnDeleteCommand="RadGrid1_DeleteCommand" OnItemCreated="RadGrid1_ItemCreated"
+                 OnDeleteCommand="RadGrid1_DeleteCommand" OnItemCreated="RadGrid1_ItemCreated" CssClass="RadGrid_ModernBrowsers"
                 AllowFilteringByColumn="true" BorderStyle="Solid" Font-Names="Calibri" Font-Size="Small">
                 <%--<PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>--%>
                  <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
