@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv00h08.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Material.Uom.inv00h08" %>
+﻿<%@ Page Title="PRIMA SYSTEM" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv00h08.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Material.Uom.inv00h08" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <link href="../../../../Styles/common.css" rel="stylesheet" />
         <link href="../../../../Styles/mail.css" rel="stylesheet" />
@@ -10,14 +10,56 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="scroller">
-        <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" AutoGenerateColumns="false"
-            ShowFooter="True" MasterTableView-AllowFilteringByColumn="true" AllowSorting="True" 
-            MasterTableView-DataKeyNames="unit_code" MasterTableView-ClientDataKeyNames="unit_code"
-             OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand" 
-            MasterTableView-CommandItemDisplay="Top" OnUpdateCommand="RadGrid1_EditCommand" OnInsertCommand="RadGrid1_InsertCommand" >
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+        <AjaxSettings>
+            <telerik:AjaxSetting AjaxControlID="RadGrid1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btn_new">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+        </AjaxSettings>
+    </telerik:RadAjaxManager>
 
-            <MasterTableView>
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
+    </telerik:RadAjaxLoadingPanel>
+
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
+        <table id="tbl_control">
+            <tr>       
+                <td style="vertical-align: middle; margin-left: 10px; padding:0px 0px 0px 0px">
+                    <telerik:RadButton ID="btn_new" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="New" Width="80px" Height="30px"
+                        Skin="Telerik" OnClick="btn_new_Click" ></telerik:RadButton>
+                </td>                    
+                <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
+                     
+                </td>                           
+                <td style="width: 98%; text-align: right; padding-right:17px">
+                     <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <telerik:RadLabel ID="lbl_form_name" Text="UoM" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                                padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
+                            </telerik:RadLabel>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+        </table>
+    </div> 
+
+    <div class="scroller" style="overflow-y:scroll; height:620px">
+
+        <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" ShowFooter="false" AutoGenerateColumns="false" 
+            MasterTableView-AllowFilteringByColumn="true" MasterTableView-DataKeyNames="unit_code" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
+            MasterTableView-ClientDataKeyNames="unit_code" MasterTableView-CommandItemDisplay="Top" 
+            AllowPaging="true" AllowSorting="true" OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand" 
+            OnUpdateCommand="RadGrid1_EditCommand" OnInsertCommand="RadGrid1_InsertCommand" >
+            <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
+            <MasterTableView CommandItemDisplay="None" Font-Size="11px" Font-Names="Century Gothic">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
