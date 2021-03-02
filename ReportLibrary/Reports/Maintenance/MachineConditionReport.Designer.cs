@@ -39,7 +39,6 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
             this.textBox11 = new Telerik.Reporting.TextBox();
             this.sqlDataSource1 = new Telerik.Reporting.SqlDataSource();
             this.Jobsite = new Telerik.Reporting.SqlDataSource();
-            this.textBox39 = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // groupFooterSection
@@ -74,7 +73,7 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
             // 
             // pageHeaderSection1
             // 
-            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(0.8002360463142395D);
+            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(0.800000011920929D);
             this.pageHeaderSection1.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox2,
             this.textBox1,
@@ -87,8 +86,7 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
             this.textBox8,
             this.textBox9,
             this.textBox10,
-            this.textBox4,
-            this.textBox39});
+            this.textBox4});
             this.pageHeaderSection1.Name = "pageHeaderSection1";
             // 
             // textBox2
@@ -201,7 +199,7 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
             // 
             // textBox9
             // 
-            this.textBox9.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(9.100001335144043D), Telerik.Reporting.Drawing.Unit.Inch(0.60023599863052368D));
+            this.textBox9.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(9.100001335144043D), Telerik.Reporting.Drawing.Unit.Inch(0.59996062517166138D));
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.79992103576660156D), Telerik.Reporting.Drawing.Unit.Inch(0.20000004768371582D));
             this.textBox9.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
@@ -214,7 +212,7 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
             // 
             // textBox10
             // 
-            this.textBox10.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(9.90000057220459D), Telerik.Reporting.Drawing.Unit.Inch(0.60023599863052368D));
+            this.textBox10.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(9.90000057220459D), Telerik.Reporting.Drawing.Unit.Inch(0.59996062517166138D));
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(3.6999988555908203D), Telerik.Reporting.Drawing.Unit.Inch(0.20000004768371582D));
             this.textBox10.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
@@ -437,14 +435,6 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
     "(stEdit <> \'4\')\r\nUNION ALL\r\nSELECT        \'ALL\' AS region_code, \'ALL\' AS region_" +
     "name";
             // 
-            // textBox39
-            // 
-            this.textBox39.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(10.920077323913574D), Telerik.Reporting.Drawing.Unit.Inch(0.40015736222267151D));
-            this.textBox39.Name = "textBox39";
-            this.textBox39.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.6798446178436279D), Telerik.Reporting.Drawing.Unit.Inch(0.19999997317790985D));
-            this.textBox39.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox39.Value = "= \'Page \' + PageNumber + \' of \' + PageCount";
-            // 
             // MachineConditionReport
             // 
             this.DataSource = this.sqlDataSource1;
@@ -503,6 +493,5 @@ namespace ReportLibrary.Reports.Maintenance.Machine_Condition
         private Telerik.Reporting.GroupHeaderSection groupHeaderSection;
         private Telerik.Reporting.TextBox textBox22;
         private Telerik.Reporting.GroupFooterSection groupFooterSection;
-        private Telerik.Reporting.TextBox textBox39;
     }
 }
