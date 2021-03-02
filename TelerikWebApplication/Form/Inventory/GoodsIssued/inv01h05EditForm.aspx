@@ -693,7 +693,7 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="credit" HeaderStyle-Width="100px" HeaderText="Credit" SortExpression="credit"
                                     UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" 
-                                    DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#FF6600">                                
+                                    DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" >                                
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="remark" HeaderStyle-Width="200px" HeaderText="Remark" SortExpression="remark"
                                     UniqueName="remark" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >

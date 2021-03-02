@@ -1365,5 +1365,12 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 }
             }
         }
+
+        protected void btn_new_Click(object sender, EventArgs e)
+        {
+            string script = "<script type=\"text/javascript\"> ShowInsertForm(); </script>";
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "myscript", script);
+
+        }
     }
 }

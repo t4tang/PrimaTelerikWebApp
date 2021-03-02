@@ -493,7 +493,7 @@
             <div style="padding: 5px 15px 15px 15px; height:280px">
                  <asp:UpdatePanel ID="panel2" runat="server" UpdateMode="Always">
                       <ContentTemplate>
-                            <telerik:RadGrid RenderMode="Lightweight" ID="RadGridDetail" GridLines="None" AutoGenerateColumns="false" Skin="Telerik"
+                            <telerik:RadGrid RenderMode="Lightweight" ID="RadGridDetail" GridLines="None" AutoGenerateColumns="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
                             AllowPaging="true" PageSize="10" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" 
                             OnNeedDataSource="RadGridDetail_NeedDataSource" OnPreRender="RadGridDetail_PreRender">
                             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
