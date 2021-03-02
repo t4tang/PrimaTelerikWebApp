@@ -97,7 +97,7 @@ namespace ReportLibrary.Reports.Maintenance
             this.textBox34.Name = "textBox34";
             this.textBox34.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.81999498605728149D), Telerik.Reporting.Drawing.Unit.Inch(0.20000012218952179D));
             this.textBox34.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox34.Value = "= (Sum(Fields.part_qty)) - (Sum(Fields.qtysupply))";
+            this.textBox34.Value = "= Sum(Fields.qtysupply)";
             // 
             // groupHeaderSection
             // 
@@ -150,7 +150,7 @@ namespace ReportLibrary.Reports.Maintenance
             this.textBox32.Name = "textBox32";
             this.textBox32.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.81999498605728149D), Telerik.Reporting.Drawing.Unit.Inch(0.20000012218952179D));
             this.textBox32.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox32.Value = "= (Sum(Fields.part_qty)) - (Sum(Fields.qtysupply))";
+            this.textBox32.Value = "= (sum(Fields.part_qty)) - (sum(Fields.qtysupply))";
             // 
             // groupHeaderSection1
             // 
@@ -525,7 +525,7 @@ namespace ReportLibrary.Reports.Maintenance
             this.textBox35.Name = "textBox35";
             this.textBox35.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.81999498605728149D), Telerik.Reporting.Drawing.Unit.Inch(0.20000012218952179D));
             this.textBox35.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox35.Value = "= (Sum(Fields.part_qty)) - (Sum(Fields.qtysupply))";
+            this.textBox35.Value = "= Sum(Fields.qtysupply)";
             // 
             // rpt_mr_analyst
             // 
