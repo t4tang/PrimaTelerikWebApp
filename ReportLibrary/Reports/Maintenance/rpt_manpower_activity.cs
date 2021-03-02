@@ -10,13 +10,13 @@ namespace ReportLibrary.Reports.Maintenance
     /// <summary>
     /// Summary description for rpt_manpower_activity.
     [Description("Menampilkan seluruh Manpower Activity")]
-    public partial class rpt_manpower_activity : Telerik.Reporting.Report
+    public partial class MechanicActivityReport : Telerik.Reporting.Report
     {
         public static string _project;
         public static string _manpower;
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
-        public rpt_manpower_activity()
+        public MechanicActivityReport()
         {
             InitializeComponent();
            

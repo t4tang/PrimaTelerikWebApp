@@ -1,6 +1,6 @@
 namespace ReportLibrary.Reports.Maintenance
 {
-    partial class rpt_mr_by_unit
+    partial class MaterialRequestByUnit
     {
         #region Component Designer generated code
         /// <summary>
@@ -515,7 +515,7 @@ namespace ReportLibrary.Reports.Maintenance
             this.textBox3.Value = "Periode : From {Format(\"{{0:dd/MM/yyyy}}\",Parameters.tglawal.Value.Date)} To {For" +
     "mat(\"{{0:dd/MM/yyyy}}\",Parameters.tglakhir.Value.Date)}";
             // 
-            // rpt_mr_by_unit
+            // MaterialRequestByUnit
             // 
             this.DataSource = this.sqlDataSource1;
             group1.GroupFooter = this.groupFooterSection2;
@@ -548,7 +548,7 @@ namespace ReportLibrary.Reports.Maintenance
             this.pageHeaderSection1,
             this.detail,
             this.reportFooterSection1});
-            this.Name = "rpt_mr_by_unit";
+            this.Name = "MaterialRequestByUnit";
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.Letter;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {

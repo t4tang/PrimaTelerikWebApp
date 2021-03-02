@@ -169,13 +169,13 @@
     <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px">
         <div runat="server" style="height:465px;">
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" PageSize="10" ShowFooter="false" Skin="Silk"
-                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" MasterTableView-GridLines="None"
+                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" MasterTableView-GridLines="None" CssClass="RadGrid_ModernBrowsers"
                 OnNeedDataSource="RadGrid1_NeedDataSource" 
                 OnDeleteCommand="RadGrid1_DeleteCommand" 
                 OnItemCreated="RadGrid1_ItemCreated" 
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged">
-                <PagerStyle Mode="NextPrevAndNumeric" VerticalAlign="NotSet" PageSizeControlType="RadComboBox"></PagerStyle>                
-                <HeaderStyle CssClass="gridHeader" BackColor="Orange" ForeColor="White" Font-Size="10px" />
+                <PagerStyle Mode="NumericPages" PageButtonCount="5" ></PagerStyle>                
+                <HeaderStyle CssClass="gridHeader" BackColor="#999999" ForeColor="White" Font-Size="10px" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                 <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
                 <SortingSettings EnableSkinSortStyles="false" />
@@ -247,7 +247,7 @@
             
        <div runat="server" style="width: 100%; border-top-width: 1px; border-top-style: inset; padding-top: 5px;">             
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Silk"
-                AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True"  
+                AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" CssClass="RadGrid_ModernBrowsers"  
                  OnNeedDataSource="RadGrid2_NeedDataSource" 
                  OnDeleteCommand="RadGrid2_DeleteCommand" ShowStatusBar="true" >
                 <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
@@ -351,7 +351,7 @@
                     Width="1150px" Height="670px" Modal="true" AutoSize="True">
                 </telerik:RadWindow>
                 <telerik:RadWindow RenderMode="Lightweight" ID="EditDialogWindows" runat="server" ReloadOnShow="true" ShowContentDuringLoad="false"
-                    Width="1250px" Height="720px" Modal="true" AutoSize="False" Skin="Telerik" Font-Names="Century Gothic">
+                    Width="1250px" Height="720px" Modal="true" AutoSize="False" Skin="Silk" Font-Names="Century Gothic">
                 </telerik:RadWindow>
                 
             </Windows>

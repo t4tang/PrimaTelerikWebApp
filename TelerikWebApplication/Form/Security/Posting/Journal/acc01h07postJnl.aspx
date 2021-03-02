@@ -19,7 +19,7 @@
             <tr> 
                 <td style="text-align: right; width:1300px">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:#7cca05; font-weight:bold; text-align:right">
+                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:bold; text-align:right">
                     </telerik:RadLabel>
                 </td>
             </tr>
@@ -27,7 +27,7 @@
     </div>
     <div class="scroller" runat="server">   
 
-        <div runat="server" style="width: 100%; border-top-color:yellowgreen; border-top-width: 1px; border-top-style: inset; padding-top: 8px;height:100%; overflow-y:auto; overflow-x:hidden">   
+        <div runat="server" style="width: 100%; border-top-color:gainsboro; border-top-width: 1px; border-top-style: inset; padding-top: 8px;height:100%; overflow-y:auto; overflow-x:hidden">   
         
         <div runat="server" title="Period Process">
             <table>
