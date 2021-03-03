@@ -77,6 +77,7 @@
                 OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" CssClass="RadGrid_ModernBrowsers" 
                  AllowFilteringByColumn="true" OnItemCommand="RadGrid1_ItemCommand" >
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
+                 <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
                     <MasterTableView Width="100%" CommandItemDisplay="None" DataKeyNames="prod_code" Font-Names="Century Gothic" Font-Size="11px"
                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true">                        
                     <Columns>
