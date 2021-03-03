@@ -13,13 +13,13 @@ namespace ReportLibrary.Reports.Inventory
     /// 
     [Description("Display Work Order or User Request status in a given periode")]
 
-    public partial class Good_Receipt_Report_By_GR_Number : Telerik.Reporting.Report
+    public partial class GoodReceiptReportByGRNumber : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _endDate = DateTime.Now;
 
-        public Good_Receipt_Report_By_GR_Number()
+        public GoodReceiptReportByGRNumber()
         {
             //
             // Required for telerik Reporting designer support
