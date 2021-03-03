@@ -8,18 +8,18 @@ namespace ReportLibrary.Reports.Inventory
     using Telerik.Reporting.Drawing;
 
     /// <summary>
-    /// Summary description for Good_Receipt_Report_By_GR_Number.
+    /// Summary description for Good_Receipt_Report_Group_By_Category.
     /// </summary>
     /// 
     [Description("Display Work Order or User Request status in a given periode")]
 
-    public partial class Good_Receipt_Report_By_GR_Number : Telerik.Reporting.Report
+    public partial class GoodReceiptReportGroupByCategory : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _endDate = DateTime.Now;
 
-        public Good_Receipt_Report_By_GR_Number()
+        public GoodReceiptReportGroupByCategory()
         {
             //
             // Required for telerik Reporting designer support
@@ -62,9 +62,9 @@ namespace ReportLibrary.Reports.Inventory
             param3.Visible = true;
             this.Report.ReportParameters.Add(param3);
 
-            sqlGoodReceiptReportByGRNumber.Parameters[1].Value = "=Parameters.tglawal.Value";
-            sqlGoodReceiptReportByGRNumber.Parameters[2].Value = "=Parameters.tglakhir.Value";
-            sqlGoodReceiptReportByGRNumber.Parameters[0].Value = "=Parameters.project.Value";
+            GoodReceiptReportGroupByCategory.Parameters[1].Value = "=Parameters.tglawal.Value";
+            GoodReceiptReportGroupByCategory.Parameters[2].Value = "=Parameters.tglakhir.Value";
+            GoodReceiptReportGroupByCategory.Parameters[0].Value = "=Parameters.project.Value";
         }
     }
 }

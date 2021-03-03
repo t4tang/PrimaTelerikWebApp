@@ -10,9 +10,9 @@ namespace ReportLibrary.Reports.Maintenance
     /// <summary>
     /// Summary description for Summary_HM_Report.
     /// </summary>
-    public partial class Summary_HM_Report : Telerik.Reporting.Report
+    public partial class SummaryHMReport : Telerik.Reporting.Report
     {
-        public Summary_HM_Report()
+        public SummaryHMReport()
         {
             //
             // Required for telerik Reporting designer support
