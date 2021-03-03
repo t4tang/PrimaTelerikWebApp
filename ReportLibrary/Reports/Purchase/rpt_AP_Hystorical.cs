@@ -10,11 +10,11 @@ namespace ReportLibrary.Reports.Purchase
     /// <summary>
     /// Summary description for rpt_AP_Hystorical.
     /// </summary>
-    public partial class rpt_AP_Hystorical : Telerik.Reporting.Report
+    public partial class AccountPayableHystorical : Telerik.Reporting.Report
     {
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
-        public rpt_AP_Hystorical()
+        public AccountPayableHystorical()
         {
             //
             // Required for telerik Reporting designer support
