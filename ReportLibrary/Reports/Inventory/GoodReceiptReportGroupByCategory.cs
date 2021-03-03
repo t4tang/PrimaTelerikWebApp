@@ -13,13 +13,13 @@ namespace ReportLibrary.Reports.Inventory
     /// 
     [Description("Display Work Order or User Request status in a given periode")]
 
-    public partial class Good_Receipt_Report_Group_By_Category : Telerik.Reporting.Report
+    public partial class GoodReceiptReportGroupByCategory : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _endDate = DateTime.Now;
 
-        public Good_Receipt_Report_Group_By_Category()
+        public GoodReceiptReportGroupByCategory()
         {
             //
             // Required for telerik Reporting designer support

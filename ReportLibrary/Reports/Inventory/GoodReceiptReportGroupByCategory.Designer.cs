@@ -1,6 +1,6 @@
 namespace ReportLibrary.Reports.Inventory
 {
-    partial class Good_Receipt_Report_Group_By_Category
+    partial class GoodReceiptReportGroupByCategory
     {
         #region Component Designer generated code
         /// <summary>
