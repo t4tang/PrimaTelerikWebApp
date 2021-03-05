@@ -58,7 +58,7 @@
                 <PagerStyle Mode="NextPrevNumericAndAdvanced" />
                 <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
                 <MasterTableView CommandItemDisplay="None" AllowFilteringByColumn="true" DataKeyNames="status_code" Font-Size="11px" 
-                EditFormSettings-PopUpSettings-KeepInScreenBounds="true" Width="100%">
+                EditFormSettings-PopUpSettings-KeepInScreenBounds="true" Width="100%" Font-Names="Century Gothic">
                     <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="20px" />
