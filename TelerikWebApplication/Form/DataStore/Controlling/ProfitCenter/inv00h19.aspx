@@ -54,7 +54,7 @@
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" ShowFooter="false" AutoGenerateColumns="false" 
             MasterTableView-DataKeyNames="ProfitCtr" MasterTableView-ClientDataKeyNames="ProfitCtr" MasterTableView-CommandItemDisplay="Top" 
             AllowPaging="true" AllowSorting="true" OnNeedDataSource="RadGrid1_NeedDataSource" 
-            OnItemCreated="RadGrid1_ItemCreated" OnDeleteCommand="RadGrid1_DeleteCommand" 
+            OnItemCreated="RadGrid1_ItemCreated" OnDeleteCommand="RadGrid1_DeleteCommand" Skin="Silk"
             OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand"
             CssClass="RadGrid_ModernBrowsers">
             <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
