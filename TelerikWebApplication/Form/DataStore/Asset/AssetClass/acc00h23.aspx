@@ -27,6 +27,7 @@
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
+
     <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
         <table id="tbl_control">
             <tr>       
@@ -49,6 +50,7 @@
             </tr>
         </table>
     </div> 
+
     <div class="scroller" style="overflow-y:scroll; height:620px">
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" ShowFooter="true" 
             AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false" 
