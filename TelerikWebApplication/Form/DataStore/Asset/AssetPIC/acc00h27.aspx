@@ -57,7 +57,7 @@
                          AutoGenerateColumns="false" Skin="Silk" AllowFilteringByColumn="true" Font-Names="Calibri" OnDeleteCommand="RadGrid1_DeleteCommand"
                          OnNeedDataSource="RadGrid1_NeedDataSource" OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCreated="RadGrid1_ItemCreated">
             <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
-            <MasterTableView CommandItemDisplay="None" AllowFilteringByColumn="true" DataKeyNames="Pic_Code" Font-Size="11px" 
+            <MasterTableView CommandItemDisplay="None" AllowFilteringByColumn="true" DataKeyNames="Pic_Code" Font-Size="11px" Font-Names="Century Gothic"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" Width="100%">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
