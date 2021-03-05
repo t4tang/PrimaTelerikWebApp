@@ -29,7 +29,7 @@
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
 
-    <div style="padding-left: 15px; /*border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin"*/>
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin">
         <table id="tbl_control">
             <tr>       
                 <td style="vertical-align: middle; margin-left: 10px; padding:0px 0px 0px 0px">
