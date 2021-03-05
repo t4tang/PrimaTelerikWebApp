@@ -67,7 +67,7 @@
         ShowFooter ="False" CssClass="RadGrid_ModernBrowsers"
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
          OnNeedDataSource ="RadGrid1_NeedDataSource"   OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
-        OnDeleteCommand="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
+        OnDeleteCommand="RadGrid1_DeleteCommand" Skin ="Silk" OnItemCreated ="RadGrid1_ItemCreated"
          MasterTableView-CommandItemDisplay="None" MasterTableView-DataKeyNames="region_code" MasterTableView-ClientDataKeyNames="region_code" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
             <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
