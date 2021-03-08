@@ -24,14 +24,15 @@ namespace TelerikWebApplication.Form.Purchase
         string tr_code = null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //transaction = Request.QueryString["TRANSAKSI"];
-            ////RadListBox1.DataSource = GetDataTable(transaction);
-            ////RadListBox1.DataBind();
             tr_code = Request.QueryString["po_code"];
-            this.Title = tr_code;
-            this.reportViewer1.ViewMode = ViewMode.PrintPreview;
-            initBtnOk(tr_code);
-            //pur01h02_slip._tr_code = tr_code;
+
+            if (!IsPostBack)
+            {
+                this.Title = tr_code;
+                this.reportViewer1.ViewMode = ViewMode.PrintPreview;
+                initBtnOk(tr_code);
+                pur01h02_slip._tr_code = tr_code;
+            }
         }
 
         private void initBtnOk(string tr_code)
@@ -40,7 +41,7 @@ namespace TelerikWebApplication.Form.Purchase
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, AppBy FROM pur01h02 WHERE po_code = '" + tr_code + "'";
+            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, AppBy, CONVERT(char(1),overhaul) as overhaul FROM pur01h02 WHERE po_code = '" + tr_code + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -48,17 +49,26 @@ namespace TelerikWebApplication.Form.Purchase
                 if(dr["status_pur"].ToString() == "0" && dr["FreBy"].ToString() == public_str.uid)
                 {
                     btnOk.Enabled = true;
-                    btnOk.ImageUrl = "~/Images/ok-hand.png";
+                    //btnOk.ImageUrl = "~/Images/ok-hand.png";
                 }
                 else if (dr["status_pur"].ToString() == "1" && dr["OrdBy"].ToString() == public_str.uid)
                 {
                     btnOk.Enabled = true;
-                    btnOk.ImageUrl = "~/Images/ok-hand.png";
+                    //btnOk.ImageUrl = "~/Images/ok-hand.png";
                 }
                 else if (dr["status_pur"].ToString() == "2" && dr["AppBy"].ToString() == public_str.uid)
                 {
                     btnOk.Enabled = true;
-                    btnOk.ImageUrl = "~/Images/ok-hand.png";
+                    //btnOk.ImageUrl = "~/Images/ok-hand.png";
+                }
+
+                if (dr["overhaul"].ToString() == "1")
+                {
+                    chk_overhaul.Checked = true;
+                }
+                else
+                {
+                    chk_overhaul.Checked = false;
                 }
             }
             con.Close();
@@ -137,6 +147,60 @@ namespace TelerikWebApplication.Form.Purchase
                 con.Close();
             }
 
+        }
+
+        protected void btnOk_Click1(object sender, EventArgs e)
+        {
+            double nominal = 0;
+            string status_pur = null;
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT Net, status_pur FROM pur01h02 WHERE po_code = '" + tr_code + "'";
+            SqlDataReader sdr;
+            sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                nominal = Convert.ToDouble(sdr[0]);
+                status_pur = sdr[1].ToString();
+            }
+            sdr.Close();
+
+            try
+            {
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                if (nominal >= 50000000 && status_pur == "2")
+                {
+                    cmd.CommandText = "UPDATE pur01h02 SET status_pur = '" + status_pur + "' WHERE po_code ='" + tr_code + "'";
+                }
+                else
+                {
+                    cmd.CommandText = "UPDATE pur01h02 SET status_pur = '" + status_pur + "' + 1 WHERE po_code ='" + tr_code + "'";
+                }
+            }
+            catch (Exception)
+            {
+                con.Close();
+            }
+            finally
+            {
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        protected void chk_overhaul_CheckedChanged(object sender, EventArgs e)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.CommandText = "UPDATE pur01h02 SET overhaul = '" + (sender as CheckBox).Checked + "' userid='" + public_str.user_id + "' lastupdate=GETDATE() WHERE po_code ='" + tr_code + "'";
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
     }
 }

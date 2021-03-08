@@ -151,30 +151,30 @@
             <tr>                  
                 <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClientClick="ShowInsertForm(); return false;" ToolTip="Add New"
-                        Height="25px" Width="27px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
+                        Height="26px" Width="27px" ImageUrl="~/Images/tambah.png"></asp:ImageButton>
                 </td>                    
                 <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                     <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
-                        Height="20px" Width="23px" ImageUrl="~/Images/filter.png"></asp:ImageButton>
+                        Height="29px" Width="30px" ImageUrl="~/Images/search.png"></asp:ImageButton>
                 </td>
-                <td style="width: 96%; text-align: right; padding-right:17px">
+                <td style="width: 97%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:yellowgreen; font-weight:normal">
+                        padding-bottom: 0px; font-size: x-large; color:#0099dc; font-weight:normal">
                     </telerik:RadLabel>
                 </td>
             </tr>
         </table>
-    </div>    
+    </div>     
     
     <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px">
-        <div runat="server" style="height:465px;">
-            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" PageSize="10" ShowFooter="false" Skin="Silk"
+        <div runat="server" style="width:100%; overflow-y:hidden; min-height:280px; scrollbar-highlight-color:#b6ff00;border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin;">
+            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" PageSize="5" ShowFooter="false" Skin="Silk"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" MasterTableView-GridLines="None" CssClass="RadGrid_ModernBrowsers"
                 OnNeedDataSource="RadGrid1_NeedDataSource" 
                 OnDeleteCommand="RadGrid1_DeleteCommand" 
                 OnItemCreated="RadGrid1_ItemCreated" 
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged">
-                <PagerStyle Mode="NumericPages" PageButtonCount="5" ></PagerStyle>                
+                <PagerStyle Mode="NextPrevNumericAndAdvanced" ForeColor="#0099CC" VerticalAlign="Middle"></PagerStyle>               
                 <HeaderStyle CssClass="gridHeader" BackColor="#999999" ForeColor="White" Font-Size="10px" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                 <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
@@ -249,9 +249,11 @@
              <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" PageSize="5"  Skin="Silk"
                 AllowPaging="true" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" CssClass="RadGrid_ModernBrowsers"  
                  OnNeedDataSource="RadGrid2_NeedDataSource" 
-                 OnDeleteCommand="RadGrid2_DeleteCommand" ShowStatusBar="true" >
+                 OnDeleteCommand="RadGrid2_DeleteCommand" ShowStatusBar="true" >            
                 <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
-                <HeaderStyle Font-Size="10px" />
+                <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
+                <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
+                <HeaderStyle Font-Size="11px" /> 
                 <MasterTableView CommandItemDisplay="None" DataKeyNames="prod_code" Font-Size="11px" EditMode="InPlace"
                  ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
                 <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" /> 

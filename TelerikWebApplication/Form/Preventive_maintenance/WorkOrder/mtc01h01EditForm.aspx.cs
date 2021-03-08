@@ -72,7 +72,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                     cb_project.Text = sdr["region_name"].ToString();
                     cb_project.SelectedValue = sdr["region_code"].ToString();
                     cb_reff.Text = sdr["pm_id"].ToString();
-                    if (sdr["Req_date"].ToString() == null)
+                    if (sdr["Req_date"] == null)
                     {
                         txt_reqDate.Text = null;
                     }
@@ -95,7 +95,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                     if (sdr["tDown"].ToString() == "1")
                     {
                         chk_breakdown.Checked = true;
-                        dtp_breakdownDate.SelectedDate = Convert.ToDateTime(sdr["DBDate"].ToString());
+                        dtp_breakdownDate.SelectedDate = Convert.ToDateTime(sdr["BDDate"].ToString());
                         rtp_breakdownTime.SelectedDate = Convert.ToDateTime(sdr["breakdown_time"].ToString());
                     }
                     else
@@ -1496,56 +1496,54 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                     //con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h02.sro_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM inv01h02 WHERE LEFT(inv01h02.sro_code, 4) = 'MR03' " +
+                        "FROM inv01h02 WHERE LEFT(inv01h02.sro_code, 4) = 'MR01' " +
                         "AND SUBSTRING(inv01h02.sro_code, 5, 2) = SUBSTRING('" + Date + "', 9, 2) " +
                         "AND SUBSTRING(inv01h02.sro_code, 7, 2) = SUBSTRING('" + Date + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
-                        run = "MR03" + sro_date.Substring(8, 2) + sro_date.Substring(3, 2) + "0001";
+                        run = "MR01" + sro_date.Substring(8, 2) + sro_date.Substring(3, 2) + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr["maxNo"].ToString());
-                        run = "MR03" + string.Format("{0:dd/MM/yyyy}", dtp_doc_date.SelectedDate).Substring(8, 2) +
-                                        string.Format("{0:dd/MM/yyyy}", dtp_doc_date.SelectedDate).Substring(3, 2) + 
+                        run = "MR01" + string.Format("{0:dd/MM/yyyy}", dtp_doc_date.SelectedDate).Substring(8, 2) +
+                                        string.Format("{0:dd/MM/yyyy}", dtp_doc_date.SelectedDate).Substring(3, 2) +
                                         ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                         sro_code = run;
                     }
                     sdr.Close();
-                    
-
-                    SqlCommand cmd1 = new SqlCommand();
-                    cmd1.CommandType = CommandType.StoredProcedure;
-                    cmd1.Connection = con;
-                    cmd1.CommandText = "sp_save_material_requestH";
-                    cmd1.Parameters.AddWithValue("@sro_code", sro_code);
-                    cmd1.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-                    cmd1.Parameters.AddWithValue("@trans_id", wo_code);
-                    cmd1.Parameters.AddWithValue("@sro_reason", "01");
-                    cmd1.Parameters.AddWithValue("@unit_code", cb_unit.SelectedValue);
-                    cmd1.Parameters.AddWithValue("@sro_date", Date);
-                    cmd1.Parameters.AddWithValue("@deliv_date", Date);
-                    cmd1.Parameters.AddWithValue("@sro_kind", 1);
-                    cmd1.Parameters.AddWithValue("@ordertype", cb_orderType.SelectedValue);
-                    cmd1.Parameters.AddWithValue("@job_status", cb_jobType.SelectedValue);
-                    cmd1.Parameters.AddWithValue("@ord_by", DBNull.Value);
-                    cmd1.Parameters.AddWithValue("@userid", DBNull.Value);
-                    cmd1.Parameters.AddWithValue("@ack_by", DBNull.Value);
-                    cmd1.Parameters.AddWithValue("@sro_remark", DBNull.Value);
-                    cmd1.Parameters.AddWithValue("@LASTUSER", public_str.user_id);
-                    cmd1.Parameters.AddWithValue("@lastupdate", DateTime.Today);
-                    cmd1.Parameters.AddWithValue("@status", 1);
-                    cmd1.Parameters.AddWithValue("@Owner", public_str.user_id);
-                    cmd1.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
-                    cmd1.Parameters.AddWithValue("@Printed", 0);
-                    cmd1.Parameters.AddWithValue("@Edited", 0);
-                    cmd1.Parameters.AddWithValue("@void", 3);
-                    cmd1.ExecuteNonQuery();
-                    //con.Close();
                 }
 
-                
+                SqlCommand cmd1 = new SqlCommand();
+                cmd1.CommandType = CommandType.StoredProcedure;
+                cmd1.Connection = con;
+                cmd1.CommandText = "sp_save_material_requestH";
+                cmd1.Parameters.AddWithValue("@sro_code", sro_code);
+                cmd1.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+                cmd1.Parameters.AddWithValue("@trans_id", wo_code);
+                cmd1.Parameters.AddWithValue("@sro_reason", "01");
+                cmd1.Parameters.AddWithValue("@unit_code", cb_unit.Text);
+                cmd1.Parameters.AddWithValue("@sro_date", Date);
+                cmd1.Parameters.AddWithValue("@deliv_date", Date);
+                cmd1.Parameters.AddWithValue("@sro_kind", 1);
+                cmd1.Parameters.AddWithValue("@ordertype", cb_orderType.SelectedValue);
+                cmd1.Parameters.AddWithValue("@job_status", cb_jobType.SelectedValue);
+                cmd1.Parameters.AddWithValue("@ord_by", DBNull.Value);
+                cmd1.Parameters.AddWithValue("@userid", DBNull.Value);
+                cmd1.Parameters.AddWithValue("@ack_by", DBNull.Value);
+                cmd1.Parameters.AddWithValue("@sro_remark", DBNull.Value);
+                cmd1.Parameters.AddWithValue("@LASTUSER", public_str.user_id);
+                cmd1.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                cmd1.Parameters.AddWithValue("@status", 1);
+                cmd1.Parameters.AddWithValue("@Owner", public_str.user_id);
+                cmd1.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
+                cmd1.Parameters.AddWithValue("@Printed", 0);
+                cmd1.Parameters.AddWithValue("@Edited", 0);
+                cmd1.Parameters.AddWithValue("@void", 3);
+                cmd1.ExecuteNonQuery();
+                    //con.Close();
+                               
                 CheckBox chkWaranty;
 
                 foreach (GridDataItem item in RadGrid5.MasterTableView.Items)
@@ -1563,7 +1561,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                     cmd2.Parameters.AddWithValue("@sro_code", sro_code); 
                     cmd2.Parameters.AddWithValue("@part_code", (item.FindControl("lbl_partCode") as Label).Text);
                     cmd2.Parameters.AddWithValue("@part_unit", (item.FindControl("lbl_UoM") as Label).Text);
-                    cmd2.Parameters.AddWithValue("@chart_code", (item.FindControl("lbl_oprCode") as Label).Text); 
+                    cmd2.Parameters.AddWithValue("@chart_code", (item.FindControl("lbl_operation") as Label).Text); 
                     cmd2.Parameters.AddWithValue("@trans_id", wo_code);
                     cmd2.Parameters.AddWithValue("@deliv_date", Date);
                     if (chkWaranty.Checked == true)
@@ -2600,7 +2598,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
 
                 if(RadGrid5.MasterTableView.Items.Count > 0)
                 {
-                    sava_materialRequest(string.Format("{0:yyyy-MM-dd}", dtp_doc_date.SelectedDate.Value), txt_reg_number.Text);
+                    sava_materialRequest(string.Format("{0:yyyy-MM-dd}", dtp_doc_date.SelectedDate.Value), run);
                 }
                 //save_operation(run);
 

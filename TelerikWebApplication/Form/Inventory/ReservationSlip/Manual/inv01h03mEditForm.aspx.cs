@@ -709,19 +709,19 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h03.doc_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM inv01h03 WHERE LEFT(inv01h03.doc_code, 4) = 'RS03' " +
+                        "FROM inv01h03 WHERE LEFT(inv01h03.doc_code, 4) = 'RS01' " +
                         "AND SUBSTRING(inv01h03.doc_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                         "AND SUBSTRING(inv01h03.doc_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "RS03" + dtp_rs.SelectedDate.Value.Year + dtp_rs.SelectedDate.Value.Month + "0001";
+                        run = "RS01" + dtp_rs.SelectedDate.Value.Year + dtp_rs.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "RS03" + (dtp_rs.SelectedDate.Value.Year.ToString()).Substring(dtp_rs.SelectedDate.Value.Year.ToString().Length - 2) +
+                        run = "RS01" + (dtp_rs.SelectedDate.Value.Year.ToString()).Substring(dtp_rs.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_rs.SelectedDate.Value.Month).Substring(("0000" + dtp_rs.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }

@@ -927,19 +927,19 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h13.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h13 WHERE LEFT(acc01h13.NoBuk, 4) = 'EP03' " +
+                        "FROM acc01h13 WHERE LEFT(acc01h13.NoBuk, 4) = 'EP01' " +
                         "AND SUBSTRING(acc01h13.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                         "AND SUBSTRING(acc01h13.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "EP03" + dtp_purex.SelectedDate.Value.Year + dtp_purex.SelectedDate.Value.Month + "0001";
+                        run = "EP01" + dtp_purex.SelectedDate.Value.Year + dtp_purex.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "EP03" + (dtp_purex.SelectedDate.Value.Year.ToString()).Substring(dtp_purex.SelectedDate.Value.Year.ToString().Length - 2) +
+                        run = "EP01" + (dtp_purex.SelectedDate.Value.Year.ToString()).Substring(dtp_purex.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_purex.SelectedDate.Value.Month).Substring(("0000" + dtp_purex.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }

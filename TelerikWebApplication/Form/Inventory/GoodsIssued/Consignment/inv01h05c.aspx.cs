@@ -31,7 +31,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
                 lbl_form_name.Text = "Goods Issued Consignment";
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
-                selected_project = public_str.site;
+                cb_proj_prm.SelectedValue = public_str.site;
                 cb_proj_prm.Text = public_str.sitename;
 
                 tr_code = null;
@@ -56,7 +56,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
                 {
                     RadGrid1.MasterTableView.SortExpressions.Clear();
                     RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                    RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
+                    RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
                     RadGrid1.DataBind();
                     RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
                     RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;

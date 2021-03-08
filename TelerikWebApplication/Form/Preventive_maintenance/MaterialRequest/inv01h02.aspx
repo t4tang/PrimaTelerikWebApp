@@ -186,7 +186,7 @@
             <PagerStyle Mode="NumericPages"></PagerStyle>          
             <ClientSettings EnablePostBackOnRowClick="true" />
             <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
-            <HeaderStyle ForeColor="Highlight" Font-Size="12px" />
+            <HeaderStyle ForeColor="Highlight" Font-Size="11px" />
             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="sro_code" Font-Size="11px" Font-Names="Century Gothic"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                 CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" 
@@ -196,10 +196,6 @@
                         <HeaderStyle Width="40px"/>
                         <ItemStyle Width="40px" />
                     </telerik:GridEditCommandColumn>
-                    <%--<telerik:GridClientSelectColumn UniqueName="SelectColumn" >
-                        <HeaderStyle Width="30px" />
-                        <ItemStyle Width="30px" />
-                    </telerik:GridClientSelectColumn> --%>
                     <telerik:GridBoundColumn UniqueName="sro_code" HeaderText="MR. Number" DataField="sro_code" FilterControlWidth="110px" >
                         <HeaderStyle Width="150px" />
                         <ItemStyle Width="150px" />
@@ -790,7 +786,7 @@
                                             </telerik:GridTemplateColumn>
                                             <telerik:GridTemplateColumn HeaderText="QRS" HeaderStyle-Width="70px" ItemStyle-Width="70px" HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
-                                                    <asp:Label runat="server" ID="lbl_qtyRs" Text='<%# DataBinder.Eval(Container.DataItem, "part_qty", "{0:#,###,###0.00}") %>'>
+                                                    <asp:Label runat="server" ID="lbl_qtyRs" Text='<%# DataBinder.Eval(Container.DataItem, "qty_pr", "{0:#,###,###0.00}") %>'>
                                                     </asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>                                        
@@ -831,7 +827,7 @@
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <asp:CheckBox runat="server" ID="chk_waranty_editTemp" Text="Warranty"
-                                                        Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' Enabled="false" />
+                                                        Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' Enabled="true" />
                                                 </EditItemTemplate>  
                                                 <InsertItemTemplate>
                                                     <asp:CheckBox runat="server" ID="chk_waranty_insertTemp" Text="Warranty" Enabled="true" />

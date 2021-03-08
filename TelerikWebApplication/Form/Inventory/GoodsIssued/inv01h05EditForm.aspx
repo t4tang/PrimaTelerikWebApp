@@ -562,18 +562,17 @@
                 <telerik:RadPageView runat="server" ID="PageView1" Height="300px" Selected="true">
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                         <ContentTemplate>
-                            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Silk"
-                            AllowPaging="false" PageSize="5" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" 
+                            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
+                            AllowPaging="false" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" ShowStatusBar="true" 
                             OnNeedDataSource="RadGrid2_NeedDataSource"
                             OnDeleteCommand="RadGrid2_DeleteCommand"
-                            OnPreRender="RadGrid2_PreRender" 
-                            ShowStatusBar="true" >
+                            OnPreRender="RadGrid2_PreRender" >
                             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
-                            <HeaderStyle Font-Size="11px" />
-                            <MasterTableView CommandItemDisplay="None"  DataKeyNames="prod_code" Font-Size="11px"
-                            AllowAutomaticUpdates="true" AllowAutomaticInserts="true" AllowAutomaticDeletes="true"
+                            <HeaderStyle Font-Size="12px" ForeColor="Highlight" />
+                            <MasterTableView CommandItemDisplay="None"  DataKeyNames="prod_code" Font-Size="11px" 
                             ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item" 
-                            CommandItemSettings-ShowRefreshButton="False" >
+                            CommandItemSettings-ShowRefreshButton="False" ItemStyle-ForeColor="#006600">
+                                <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="False" ShowCancelChangesButton="false" />
                                 <Columns>
                                         <telerik:GridTemplateColumn HeaderText="Material Code" HeaderStyle-Width="150px" ItemStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" 
                                             >
@@ -662,13 +661,14 @@
                     </asp:UpdatePanel>
                 </telerik:RadPageView>
                 <telerik:RadPageView runat="server" ID="RadPageView1" Height="300px" >
-                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid3" GridLines="None" runat="server" Skin="Silk"  
-                        PageSize="10" HeaderStyle-Font-Size="Small" HeaderStyle-Font-Bold="true" ItemStyle-Font-Size="small" Font-Size="Small"
-                        Font-Names="Segoe UI" CellSpacing="0" 
-                        OnNeedDataSource="RadGrid3_NeedDataSource" OnPreRender="RadGrid3_PreRender">
-                        <HeaderStyle Font-Size="10px" />
-                        <MasterTableView DataKeyNames="nomor" 
-                            HorizontalAlign="NotSet" AutoGenerateColumns="False">
+                   <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid3" GridLines="None" AutoGenerateColumns="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
+                        AllowPaging="false" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" ShowStatusBar="true"        
+                        OnNeedDataSource="RadGrid3_NeedDataSource" 
+                        OnPreRender="RadGrid3_PreRender">
+                            <HeaderStyle Font-Size="12px" />
+                            <AlternatingItemStyle Font-Size="10px" Font-Names="Comic Sans MS" />
+                            <MasterTableView DataKeyNames="nomor" HeaderStyle-ForeColor="Highlight" ItemStyle-Font-Size="10px" ItemStyle-Font-Names="Comic Sans MS"
+                                HorizontalAlign="NotSet" AutoGenerateColumns="False">
                             <SortExpressions>
                                 <telerik:GridSortExpression FieldName="nomor" SortOrder="Descending" />
                             </SortExpressions>

@@ -25,6 +25,22 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         public static string chartCode_selected;
         DataTable dtValues;
 
+        public DataTable DetailDtbl()
+        {
+            dtValues = new DataTable();
+            dtValues.Columns.Add("chart_code", typeof(string));
+            dtValues.Columns.Add("OprName", typeof(string));
+            dtValues.Columns.Add("prod_type", typeof(string));
+            dtValues.Columns.Add("part_code", typeof(string));
+            dtValues.Columns.Add("part_qty", typeof(double));
+            dtValues.Columns.Add("qty_pr", typeof(double));
+            dtValues.Columns.Add("part_unit", typeof(string));
+            dtValues.Columns.Add("tWarranty", typeof(bool));
+            dtValues.Columns.Add("remark", typeof(string));
+            dtValues.Columns.Add("run", typeof(int));
+
+            return dtValues;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -364,6 +380,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         //    }
         //}
 
+        
         protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             //if (tr_code == null && Session["TableDetail"] == null)
@@ -379,19 +396,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     (sender as RadGrid).DataSource = GetDataDetailTable(tr_code);                   
                 }
                 else if(Session["TableDetail"] == null)
-                {
-                    dtValues = new DataTable();
-                    dtValues.Columns.Add("chart_code", typeof(string));
-                    dtValues.Columns.Add("OprName", typeof(string));
-                    dtValues.Columns.Add("prod_type", typeof(string));
-                    dtValues.Columns.Add("part_code", typeof(string));
-                    dtValues.Columns.Add("part_qty", typeof(double));
-                    dtValues.Columns.Add("part_qty_rs", typeof(double));
-                    dtValues.Columns.Add("part_unit", typeof(string));
-                    dtValues.Columns.Add("tWarranty", typeof(bool));
-                    dtValues.Columns.Add("remark", typeof(string));
-                    dtValues.Columns.Add("run", typeof(int));
+                {                   
 
+                    DetailDtbl();
                     //dtValues = (DataTable)Session["TableDetail"];
 
                 }
@@ -436,18 +443,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             //if (Session["actionEdit"].ToString() == "new" && Session["TableDetail"] == null)
             if (Session["actionDetail"].ToString() == "detailNew" && Session["TableDetail"] == null )
             {
-                dtValues = new DataTable();
-                dtValues.Columns.Add("sro_code", typeof(string));
-                dtValues.Columns.Add("OprName", typeof(string));
-                dtValues.Columns.Add("chart_code", typeof(string));
-                dtValues.Columns.Add("prod_type", typeof(string));
-                dtValues.Columns.Add("part_code", typeof(string));
-                dtValues.Columns.Add("part_qty", typeof(double));
-                dtValues.Columns.Add("part_qty_rs", typeof(double));
-                dtValues.Columns.Add("part_unit", typeof(string));
-                dtValues.Columns.Add("tWarranty", typeof(bool));
-                dtValues.Columns.Add("remark", typeof(string));
-                dtValues.Columns.Add("run", typeof(int));
+                DetailDtbl();
 
                 (sender as RadGrid).DataSource = dtValues; //populate RadGrid with datatable
                 Session["TableDetail"] = dtValues;
@@ -461,7 +457,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             drValue["prod_type"] = (item.FindControl("lbl_prodType_insertTemp") as Label).Text;
             drValue["part_code"] = (item.FindControl("cb_prod_code_insertTemp") as RadComboBox).Text;
             drValue["part_qty"] = (item.FindControl("txt_qty_insertTemp") as RadNumericTextBox).Text;
-            drValue["part_qty_rs"] = (item.FindControl("txt_qtyRs_insertTemp") as RadNumericTextBox).Text;
+            drValue["qty_pr"] = (item.FindControl("txt_qtyRs_insertTemp") as RadNumericTextBox).Text;
             drValue["part_unit"] = (item.FindControl("lbl_UoM_insertTemp") as Label).Text;
             drValue["tWarranty"] = (item.FindControl("chk_waranty_insertTemp") as CheckBox).Checked;
             drValue["remark"] = (item.FindControl("txt_remark_insertTemp") as RadTextBox).Text;
@@ -486,7 +482,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             drValue["prod_type"] = (item.FindControl("lbl_prodType_editTemp") as Label).Text;
             drValue["part_code"] = (item.FindControl("cb_prod_code_editTemp") as RadComboBox).Text;
             drValue["part_qty"] = (item.FindControl("txt_qty_editTemp") as RadNumericTextBox).Text;
-            drValue["part_qty_rs"] = (item.FindControl("txt_qtyRs_editTemp") as RadNumericTextBox).Text;
+            drValue["qty_pr"] = (item.FindControl("txt_qtyRs_editTemp") as RadNumericTextBox).Text;
             drValue["part_unit"] = (item.FindControl("lbl_UoM_editTemp") as Label).Text;
             drValue["tWarranty"] = (item.FindControl("chk_waranty_editTemp") as CheckBox).Checked;
             drValue["remark"] = (item.FindControl("txt_remark_editTemp") as RadTextBox).Text;

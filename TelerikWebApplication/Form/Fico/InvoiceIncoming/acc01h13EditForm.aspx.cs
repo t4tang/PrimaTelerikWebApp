@@ -19,6 +19,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         SqlCommand cmd = new SqlCommand();
         private const int ItemsPerRequest = 10;
 
+        LinkButton btnAddNewItem;
 
         public static string tax_check = null;
         public static string oTax_check = null;
@@ -28,6 +29,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         public static string tax3 = null;
         private object txtRemark_d;
         public DataTable dtbl = new DataTable();
+        DataTable dtDetail;
+
+
         private static string GetStatusMessage(int offset, int total)
         {
             if (total <= 0)
@@ -43,8 +47,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 {
                     fill_object(Request.QueryString["NoBuk"].ToString());
                     //RadGrid2.DataSource = GetDataDetailTable(Request.QueryString["NoBuk"].ToString());
-                    DataDetailTable(Request.QueryString["NoBuk"].ToString());
-                    RadGrid2.DataSource = dtbl;
+                    GetDataDetailTable(Request.QueryString["NoBuk"].ToString());
+                    RadGrid2.DataSource = dtDetail;
                     RadGrid2.DataBind();
                     Session["actionEdit"] = "edit";
                 }
@@ -70,6 +74,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     txt_tax3_value.Value = 0;
                     txt_other_value.Value = 0;
                     txt_total.Value = 0;
+                    Session["TableDetail"] = null;
+                    Session["actionDetail"] = "None"; 
+
                 }
             }
         }
@@ -94,6 +101,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 //cb_po_type.Text = sdr["TransName"].ToString();
                 //cb_po_type.SelectedValue = sdr["trans_code"].ToString();
                 //cb_priority.Text = sdr["prio_desc"].ToString();
+                cb_supplier.SelectedValue = sdr["KoSup"].ToString();
                 cb_supplier.Text = sdr["NamSup"].ToString();
                 txt_curr.Text = sdr["KoMat"].ToString();
                 txt_kurs.Value = Convert.ToDouble(sdr["Kurs"].ToString());
@@ -176,18 +184,42 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
 
-            DataTable DT = new DataTable();
+            //DataTable DT = new DataTable();
+            dtDetail = new DataTable();
 
             try
             {
-                sda.Fill(DT);
+                sda.Fill(dtDetail);
             }
             finally
             {
                 con.Close();
             }
 
-            return DT;
+            Session["TableDetail"] = dtDetail;
+            return dtDetail;
+        }
+
+        public DataTable detailTable()
+        {
+            dtDetail = new DataTable();
+            dtDetail.Columns.Add("prod_type", typeof(string));
+            dtDetail.Columns.Add("Prod_code", typeof(string));
+            dtDetail.Columns.Add("qty", typeof(double));
+            dtDetail.Columns.Add("part_unit", typeof(string));
+            dtDetail.Columns.Add("harga", typeof(double));
+            dtDetail.Columns.Add("Disc", typeof(double));
+            dtDetail.Columns.Add("jumlah", typeof(double));
+            dtDetail.Columns.Add("factor", typeof(double));
+            dtDetail.Columns.Add("tTax", typeof(bool));
+            dtDetail.Columns.Add("tOtax", typeof(bool));
+            dtDetail.Columns.Add("tpph", typeof(bool));
+            dtDetail.Columns.Add("dept_code", typeof(string));
+            dtDetail.Columns.Add("ref_date", typeof(DateTime));
+            dtDetail.Columns.Add("remark", typeof(string));
+            dtDetail.Columns.Add("run", typeof(int));
+
+            return dtDetail;
         }
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
@@ -198,27 +230,113 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             }
             else
             {
-                //(sender as RadGrid).DataSource = new string[] { };
-                (sender as RadGrid).DataSource = dtbl;
-                //(sender as RadGrid).DataBind();
+                if ((Session["actionDetail"].ToString() == "detailNew" || Session["actionDetail"].ToString() == "detailEdit") && Session["TableDetail"] != null)
+                {
+                    dtDetail = (DataTable)Session["TableDetail"];
+                    (sender as RadGrid).DataSource = dtDetail;
+                    Session["TableDetail"] = dtDetail;
+                }
+                else if (Session["actionDetail"].ToString() == "detailNew" && Session["TableDetail"] == null)
+                {
+                    detailTable();
+                    (sender as RadGrid).DataSource = dtDetail;
+                    Session["TableDetail"] = dtDetail;
+                }
+                else
+                {
+                    //(sender as RadGrid).DataSource = dtDetail;
+                    dtDetail = (DataTable)Session["TableDetail"];
+                    (sender as RadGrid).DataSource = dtDetail;
+                    Session["TableDetail"] = dtDetail;
+                }
+
             }
-            //else if (Session["actionEdit"].ToString() == "new")
-            //{
-            //    (sender as RadGrid).DataSource = new string[] { };
-            //    (sender as RadGrid).DataSource = GetDataRefDetailTable(cb_reff.Text);
-            //    //RefDetailTable(cb_reff.Text);
-            //    //(sender as RadGrid).DataSource = dtbl;
-            //    //(sender as RadGrid).DataBind();
-            //}
-            //else if (Session["actionEdit"].ToString() == "edit")
-            //{
-            //    (sender as RadGrid).DataSource = new string[] { };
-            //    (sender as RadGrid).DataSource = GetDataDetailTable(txt_reg_code.Text);
-            //    //DataDetailTable(txt_reg_code.Text);
-            //    //(sender as RadGrid).DataSource = dtbl;
-            //    //(sender as RadGrid).DataBind();
-            //}
+            
         }
+        protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (Session["actionDetail"].ToString() == "detailNew" && Session["TableDetail"] == null)
+                {
+                    detailTable();
+
+                    (sender as RadGrid).DataSource = dtDetail; //populate RadGrid with datatable
+                    Session["TableDetail"] = dtDetail;
+                }
+                GridEditableItem item = (GridEditableItem)e.Item;
+                /*detailTable();*/
+                dtDetail = (DataTable)Session["TableDetail"];
+                DataRow drValue = dtDetail.NewRow();
+                drValue["prod_type"] = (item.FindControl("lblProdTypeInsert") as RadLabel).Text;
+                drValue["Prod_code"] = (item.FindControl("cb_prod_code_insertTemp") as RadComboBox).Text;
+                drValue["qty"] = (item.FindControl("txt_qty_insert") as RadNumericTextBox).Value;
+                drValue["part_unit"] = (item.FindControl("lblUomInsert") as RadLabel).Text;
+                drValue["harga"] = (item.FindControl("txt_hargaInsert") as RadNumericTextBox).Value;
+                drValue["Disc"] = (item.FindControl("txt_discInsert") as RadNumericTextBox).Value;
+                drValue["jumlah"] = (item.FindControl("txt_sub_priceInsert") as RadNumericTextBox).Value;
+                drValue["factor"] = (item.FindControl("txt_factorInsert") as RadNumericTextBox).Value;
+                drValue["tTax"] = (item.FindControl("chkTax1Insert") as CheckBox).Checked;
+                drValue["tOtax"] = (item.FindControl("chkOTaxInsert") as CheckBox).Checked;
+                drValue["tpph"] = (item.FindControl("chkTpphInsert") as CheckBox).Checked;
+                drValue["dept_code"] = (item.FindControl("lbl_cost_ctrInsert") as RadLabel).Text;
+                drValue["ref_date"] = (item.FindControl("dtpSroDateInsert") as RadDatePicker).SelectedDate;
+                drValue["remark"] = (item.FindControl("txtRemark_d_Insert") as RadTextBox).Text;
+                drValue["run"] = 0;
+
+                dtDetail.Rows.Add(drValue); //adding new row into datatable
+                dtDetail.AcceptChanges();
+                Session["TableDetail"] = dtDetail;
+                //Session["actionDetail"] = "detailList";
+                //dtDetail = (DataTable)Session["TableDetail"];
+
+                RadGrid2.Rebind();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+        }
+
+        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                GridEditableItem item = (GridEditableItem)e.Item;
+
+                dtDetail = (DataTable)Session["TableDetail"];
+                DataRow drValue = dtDetail.Rows[0];
+                drValue["prod_type"] = (item.FindControl("lblProdTypeEdit") as RadLabel).Text;
+                drValue["Prod_code"] = (item.FindControl("cb_prod_code_editTemp") as RadComboBox).Text;
+                drValue["qty"] = (item.FindControl("txt_qty_edit") as RadNumericTextBox).Value;
+                drValue["part_unit"] = (item.FindControl("lblUomEdit") as RadLabel).Text;
+                drValue["harga"] = (item.FindControl("txt_hargaEdit") as RadNumericTextBox).Value;
+                drValue["Disc"] = (item.FindControl("txt_discEdit") as RadNumericTextBox).Value;
+                drValue["jumlah"] = (item.FindControl("txt_sub_priceEdit") as RadNumericTextBox).Value;
+                drValue["factor"] = (item.FindControl("txt_factorEdit") as RadNumericTextBox).Value;
+                drValue["tTax"] = (item.FindControl("chkTax1Edit") as CheckBox).Checked;
+                drValue["tOtax"] = (item.FindControl("chkOTaxEdit") as CheckBox).Checked;
+                drValue["tpph"] = (item.FindControl("chkTpphEdit") as CheckBox).Checked;
+                drValue["dept_code"] = (item.FindControl("lbl_cost_ctrEdit") as RadLabel).Text;
+                drValue["ref_date"] = (item.FindControl("dtpSroDateEdit") as RadDatePicker).SelectedDate;
+                drValue["remark"] = (item.FindControl("txtRemark_d_edit") as RadTextBox).Text;
+                drValue["run"] = 0;
+
+                drValue.EndEdit(); //editing row in datatable
+                dtDetail.AcceptChanges();
+                Session["TableDetail"] = dtDetail;
+                (sender as RadGrid).Rebind();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                e.Canceled = true;
+            }
+        }
+        
         #endregion
 
         protected void cb_from_type_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
@@ -227,7 +345,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 (sender as RadComboBox).SelectedValue = "1";
                 GridCommandItem cmdItem = (GridCommandItem)RadGrid2.MasterTableView.GetItems(GridItemType.CommandItem)[0];
-                LinkButton btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
+                //LinkButton btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
+                btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
                 btnAddNewItem.Enabled = false;
                 LinkButton btnDeleteItem = (LinkButton)cmdItem.FindControl("LinkButton3");
                 btnDeleteItem.Enabled = false;
@@ -236,7 +355,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 (sender as RadComboBox).SelectedValue = "2";
                 GridCommandItem cmdItem = (GridCommandItem)RadGrid2.MasterTableView.GetItems(GridItemType.CommandItem)[0];
-                LinkButton btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
+                //LinkButton btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
+                btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
                 btnAddNewItem.Enabled = true;
                 LinkButton btnDeleteItem = (LinkButton)cmdItem.FindControl("LinkButton3");
                 btnDeleteItem.Enabled = true;
@@ -310,10 +430,11 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT     pur00h01.supplier_code,acc00h04.KursRun, acc00h04.KursTax, pur00h01.cur_code, acc00h05.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " + 
-                                "FROM pur00h01 LEFT OUTER JOIN acc00h05 ON acc00h05.TAX_CODE = pur00h01.ppn LEFT OUTER JOIN acc00h05 AS c ON pur00h01.OTax = c.TAX_CODE LEFT OUTER JOIN " +
-                                "acc00h05 AS d ON pur00h01.pph = d.TAX_CODE inner join acc00h04 on pur00h01.cur_code = acc00h04.cur_code WHERE(acc00h04.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
-                                "FROM acc00h04)) and pur00h01.supplier_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT     pur00h01.supplier_code,acc00h04.KursRun, acc00h04.KursTax, pur00h01.cur_code, acc00h05.TAX_NAME as ppnName, " +
+                "c.TAX_NAME AS OtaxName, d.TAX_NAME AS pphName, acc00h05.TAX_CODE ppn, d.TAX_CODE AS Otax, c.TAX_CODE AS pph " + 
+                "FROM pur00h01 LEFT OUTER JOIN acc00h05 ON acc00h05.TAX_CODE = pur00h01.ppn LEFT OUTER JOIN acc00h05 AS c ON pur00h01.OTax = c.TAX_CODE LEFT OUTER JOIN " +
+                "acc00h05 AS d ON pur00h01.pph = d.TAX_CODE inner join acc00h04 on pur00h01.cur_code = acc00h04.cur_code WHERE(acc00h04.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
+                "FROM acc00h04)) and pur00h01.supplier_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -326,6 +447,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cb_tax1.SelectedValue = dr["ppn"].ToString();
                 cb_tax2.SelectedValue = dr["Otax"].ToString();
                 cb_tax3.SelectedValue = dr["pph"].ToString();
+                cb_tax1.Text = dr["ppnName"].ToString();
+                cb_tax2.Text = dr["OtaxName"].ToString();
+                cb_tax3.Text = dr["pphName"].ToString();
             }
 
             dr.Close();
@@ -503,9 +627,12 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 txt_curr.Text = dr["cur_code"].ToString();
                 txt_kurs.Value = Convert.ToDouble(dr["kurs"].ToString());
                 txt_tax_kurs.Value = Convert.ToDouble(dr["kurs_tax"].ToString());
-                cb_tax1.Text= dr["ppn"].ToString();
-                cb_tax2.Text = dr["OTax"].ToString();
-                cb_tax3.Text = dr["pph"].ToString();
+                cb_tax1.Text= dr["PPNName"].ToString();
+                cb_tax2.Text = dr["OTaxName"].ToString();
+                cb_tax3.Text = dr["PPHName"].ToString();
+                cb_tax1.SelectedValue = dr["ppn"].ToString();
+                cb_tax2.SelectedValue = dr["OTax"].ToString();
+                cb_tax3.SelectedValue = dr["pph"].ToString();
                 txt_pppn.Value = Convert.ToDouble(dr["pppn"].ToString());
                 txt_ppph.Value = Convert.ToDouble(dr["POTax"].ToString());
                 txt_po_tax.Value = Convert.ToDouble(dr["ppph"].ToString());
@@ -517,14 +644,14 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
             //RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
             RefDetailTable((sender as RadComboBox).SelectedValue);
-            RadGrid2.DataSource = dtbl;
+            RadGrid2.DataSource = dtDetail;
             RadGrid2.DataBind();
 
             foreach (GridDataItem item in this.RadGrid2.Items)
             {
-                CheckBox cTax1 = (CheckBox)item.FindControl("edt_chkTax1");
-                CheckBox cTax2 = (CheckBox)item.FindControl("edt_chkOTax");
-                CheckBox cTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+                CheckBox cTax1 = (CheckBox)item.FindControl("chkTax1");
+                CheckBox cTax2 = (CheckBox)item.FindControl("chkOTax");
+                CheckBox cTax3 = (CheckBox)item.FindControl("chkTpph");
 
                 if (cb_tax1.SelectedValue != "NON")
                 {
@@ -549,16 +676,15 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             DataTable dt = new DataTable();
 
-            //if (fromtype == "Purchase Order") 
-            //{
+            if (fromtype == "Purchase Order")
+            {
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_invoice_incoming_reff WHERE PlantCode = @region_code " +
                 "AND po_code LIKE @text + '%' ORDER BY po_code",
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
                 adapter.SelectCommand.Parameters.AddWithValue("@text", po_code);
                 adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
-                //DataTable dt = new DataTable();
-                adapter.Fill(dt); 
-            //}
+                adapter.Fill(dt);
+            }
             //else
             //{
             //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Tgl, remark FROM v_invoice_incoming_reffC WHERE region_code = @region_code " +
@@ -582,7 +708,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             LoadRef(e.Text, cb_project.SelectedValue, cb_from_type.Text, (sender as RadComboBox));
         }
 
-        private void RefDetailTable(string po_code)
+        public DataTable RefDetailTable(string po_code)
         {
             con.Open();
             cmd = new SqlCommand();
@@ -593,14 +719,21 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
+
+            dtDetail = new DataTable();
+
             try
             {
-                sda.Fill(dtbl);
+                //sda.Fill(dtbl);
+                sda.Fill(dtDetail);
             }
             finally
             {
                 con.Close();
             }
+
+            Session["TableDetail"] = dtDetail;
+            return dtDetail;
         }
         public DataTable GetDataRefDetailTable(string po_code)
         {
@@ -619,11 +752,12 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
 
-            DataTable DT = new DataTable();
-            
+            //DataTable DT = new DataTable();
+            dtDetail = new DataTable();
+
             try
             {
-                sda.Fill(DT);
+                sda.Fill(dtDetail);
                 //sda.Fill(dtbl);
             }
             finally
@@ -631,7 +765,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 con.Close();
             }
 
-            return DT;
+            return dtDetail;
         }
         protected void cb_reff_ItemDataBound(object sender, RadComboBoxItemEventArgs e)
         {
@@ -723,7 +857,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_tax1.Items.Add(new RadComboBoxItem(data.Rows[i]["TAX_NAME"].ToString(), data.Rows[i]["TAX_NAME"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["TAX_NAME"].ToString(), data.Rows[i]["TAX_NAME"].ToString()));
             }
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
@@ -751,24 +885,24 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                cb_tax1.SelectedValue = dr["TAX_CODE"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["TAX_CODE"].ToString();
             }
 
             dr.Close();
             con.Close();
 
-            get_tax_perc(cb_tax1.SelectedValue, txt_pppn);
+            get_tax_perc((sender as RadComboBox).SelectedValue, txt_pppn);
 
             foreach (GridDataItem item in this.RadGrid2.Items)
             {
-                CheckBox cTax1 = (CheckBox)item.FindControl("edt_chkTax1");
-                CheckBox cTax2 = (CheckBox)item.FindControl("edt_chkOTax");
-                CheckBox cTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+                CheckBox cTax1 = (CheckBox)item.FindControl("chkTax1");
+                CheckBox cTax2 = (CheckBox)item.FindControl("chkOTax");
+                CheckBox cTax3 = (CheckBox)item.FindControl("chkTpph");
 
                 if (cb_tax1.SelectedValue != "NON")
                 {
@@ -789,12 +923,12 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                cb_tax1.SelectedValue = dr["TAX_CODE"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["TAX_CODE"].ToString();
             }
 
             dr.Close();
@@ -811,7 +945,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_tax2.Items.Add(new RadComboBoxItem(data.Rows[i]["TAX_NAME"].ToString(), data.Rows[i]["TAX_NAME"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["TAX_NAME"].ToString(), data.Rows[i]["TAX_NAME"].ToString()));
             }
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
@@ -823,25 +957,25 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + cb_tax2.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                cb_tax2.SelectedValue = dr[0].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             }
             dr.Close();
             con.Close();
 
-            get_tax_perc(cb_tax2.SelectedValue, txt_po_tax);
+            get_tax_perc((sender as RadComboBox).SelectedValue, txt_po_tax);
 
             foreach (GridDataItem item in this.RadGrid2.Items)
             {
-                CheckBox cTax1 = (CheckBox)item.FindControl("edt_chkTax1");
-                CheckBox cTax2 = (CheckBox)item.FindControl("edt_chkOTax");
-                CheckBox cTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+                CheckBox cTax1 = (CheckBox)item.FindControl("chkTax1");
+                CheckBox cTax2 = (CheckBox)item.FindControl("chkOTax");
+                CheckBox cTax3 = (CheckBox)item.FindControl("chkTpph");
 
-                if (cb_tax2.SelectedValue != "NON")
+                if ((sender as RadComboBox).SelectedValue != "NON")
                 {
                     cTax2.Checked = true;
                     CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
@@ -864,7 +998,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_tax3.Items.Add(new RadComboBoxItem(data.Rows[i]["TAX_NAME"].ToString(), data.Rows[i]["TAX_NAME"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["TAX_NAME"].ToString(), data.Rows[i]["TAX_NAME"].ToString()));
             }
 
             e.Message = GetStatusMessage(endOffset, data.Rows.Count);
@@ -876,24 +1010,24 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + cb_tax3.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                cb_tax3.SelectedValue = dr[0].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
             }
             //txt_ppph.Text = dr["TAX_PERC"].ToString();
             dr.Close();
             con.Close();
 
-            get_tax_perc(cb_tax3.SelectedValue, txt_ppph);
+            get_tax_perc((sender as RadComboBox).SelectedValue, txt_ppph);
 
             foreach (GridDataItem item in this.RadGrid2.Items)
             {
-                CheckBox cTax1 = (CheckBox)item.FindControl("edt_chkTax1");
-                CheckBox cTax2 = (CheckBox)item.FindControl("edt_chkOTax");
-                CheckBox cTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+                CheckBox cTax1 = (CheckBox)item.FindControl("chkTax1");
+                CheckBox cTax2 = (CheckBox)item.FindControl("chkOTax");
+                CheckBox cTax3 = (CheckBox)item.FindControl("chkTpph");
 
                 if (cb_tax3.SelectedValue != "NON")
                 {
@@ -908,27 +1042,60 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             }
         }
         #endregion
-        protected void calculate_sub_price(object sender, EventArgs e)
+        //protected void calculate_sub_price(object sender, EventArgs e)
+        //{
+        //    RadNumericTextBox ntb = (RadNumericTextBox)sender;
+        //    GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
+
+        //    RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
+        //    RadNumericTextBox txt_harga = (RadNumericTextBox)item.FindControl("txt_harga");
+        //    RadNumericTextBox txt_disc = (RadNumericTextBox)item.FindControl("txt_disc");
+        //    RadNumericTextBox txt_factor = (RadNumericTextBox)item.FindControl("txt_factor");
+        //    RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
+        //    CheckBox chkTax1 = (CheckBox)item.FindControl("edt_chkTax1");
+        //    CheckBox chkTax2 = (CheckBox)item.FindControl("edt_chkOTax");
+        //    CheckBox chkTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+
+        //    txt_sub_price.Value = (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value)) - (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value) * txt_disc.Value / 100) + (txt_factor.Value);
+
+        //    CalculateSubTotal(chkTax1.Checked, chkTax2.Checked, chkTax3.Checked);
+        //}
+        protected void calculate_sub_price_new(object sender, EventArgs e)
         {
             RadNumericTextBox ntb = (RadNumericTextBox)sender;
             GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
 
-            RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
-            RadNumericTextBox txt_harga = (RadNumericTextBox)item.FindControl("txt_harga");
-            RadNumericTextBox txt_disc = (RadNumericTextBox)item.FindControl("txt_disc");
-            RadNumericTextBox txt_factor = (RadNumericTextBox)item.FindControl("txt_factor");
-            RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
-            CheckBox chkTax1 = (CheckBox)item.FindControl("edt_chkTax1");
-            CheckBox chkTax2 = (CheckBox)item.FindControl("edt_chkOTax");
-            CheckBox chkTax3 = (CheckBox)item.FindControl("edt_chkTpph");
+            RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty_insert");
+            RadNumericTextBox txt_harga = (RadNumericTextBox)item.FindControl("txt_hargaInsert");
+            RadNumericTextBox txt_disc = (RadNumericTextBox)item.FindControl("txt_discInsert");
+            RadNumericTextBox txt_factor = (RadNumericTextBox)item.FindControl("txt_factorInsert");
+            RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_priceInsert");
+            CheckBox chkTax1 = (CheckBox)item.FindControl("chkTax1Insert");
+            CheckBox chkTax2 = (CheckBox)item.FindControl("chkOTaxInsert");
+            CheckBox chkTax3 = (CheckBox)item.FindControl("chkTpphInsert");
 
             txt_sub_price.Value = (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value)) - (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value) * txt_disc.Value / 100) + (txt_factor.Value);
 
             CalculateSubTotal(chkTax1.Checked, chkTax2.Checked, chkTax3.Checked);
-            //CalculateSubTotal();
-            //CalculateTotal();
         }
+        protected void calculate_sub_price_edit(object sender, EventArgs e)
+        {
+            RadNumericTextBox ntb = (RadNumericTextBox)sender;
+            GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
 
+            RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty_edit");
+            RadNumericTextBox txt_harga = (RadNumericTextBox)item.FindControl("txt_hargaEdit");
+            RadNumericTextBox txt_disc = (RadNumericTextBox)item.FindControl("txt_discEdit");
+            RadNumericTextBox txt_factor = (RadNumericTextBox)item.FindControl("txt_factorEdit");
+            RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_priceEdit");
+            CheckBox chkTax1 = (CheckBox)item.FindControl("chkTax1Edit");
+            CheckBox chkTax2 = (CheckBox)item.FindControl("chkOTaxEdit");
+            CheckBox chkTax3 = (CheckBox)item.FindControl("chkTpphEdit");
+
+            txt_sub_price.Value = (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value)) - (Convert.ToDouble(txt_harga.Value) * Convert.ToDouble(txt_qty.Value) * txt_disc.Value / 100) + (txt_factor.Value);
+
+            CalculateSubTotal(chkTax1.Checked, chkTax2.Checked, chkTax3.Checked);
+        }
         private void CalculateSubTotal(bool tax1, bool tax2, bool tax3)
         //private void CalculateSubTotal(CheckBox chkb)
         {
@@ -945,9 +1112,22 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             {
                 try
                 {
-                    //amount = (RadNumericTextBox)item.Item("txt_sub_price").Controls(1).Value;
-                    RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_price");
-                    amount = (Convert.ToDouble(txt_sub_price.Value));
+                    if (Session["actionDetail"].ToString() == "detailNew")
+                    {
+                        RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_priceInsert");
+                        amount = (Convert.ToDouble(txt_sub_price.Value));
+                    }
+                    else if (Session["actionDetail"].ToString() == "detailEdit")
+                    {
+                        RadNumericTextBox txt_sub_price = (RadNumericTextBox)item.FindControl("txt_sub_priceEdit");
+                        amount = (Convert.ToDouble(txt_sub_price.Value));
+                    }
+                    else
+                    {
+                        RadLabel lbl_sub_price = (RadLabel)item.FindControl("lbl_sub_price");
+                        amount = (Convert.ToDouble(lbl_sub_price.Text));
+                    }
+                   
 
                     if (tax1 == true)
                     {
@@ -1296,19 +1476,19 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h13.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h13 WHERE LEFT(acc01h13.NoBuk, 4) = 'BL03' " +
+                        "FROM acc01h13 WHERE LEFT(acc01h13.NoBuk, 4) = 'BL01' " +
                         "AND SUBSTRING(acc01h13.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                         "AND SUBSTRING(acc01h13.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "BL03" + dtp_reg.SelectedDate.Value.Year + dtp_reg.SelectedDate.Value.Month + "0001";
+                        run = "BL01" + dtp_reg.SelectedDate.Value.Year + dtp_reg.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "BL03" + (dtp_reg.SelectedDate.Value.Year.ToString()).Substring(dtp_reg.SelectedDate.Value.Year.ToString().Length - 2) +
+                        run = "BL01" + (dtp_reg.SelectedDate.Value.Year.ToString()).Substring(dtp_reg.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_reg.SelectedDate.Value.Month).Substring(("0000" + dtp_reg.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
@@ -1327,27 +1507,34 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.Parameters.AddWithValue("@TglFP", string.Format("{0:yyyy-MM-dd}", dtp_inv.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@InvCode", txt_inv_code.Text);
                 cmd.Parameters.AddWithValue("@trans_code", cb_from_type.SelectedValue);
-                cmd.Parameters.AddWithValue("@PPN", cb_tax1.SelectedValue);
-                cmd.Parameters.AddWithValue("@PPNIncl", chk_ppn_incl.Checked);
                 cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Value));
                 cmd.Parameters.AddWithValue("@pay_code", cb_term.SelectedValue);
                 cmd.Parameters.AddWithValue("@JTempo", Convert.ToDouble(txt_term_days.Value));
                 cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
                 cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
                 cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
+
+                cmd.Parameters.AddWithValue("@PPN", cb_tax1.SelectedValue);
                 cmd.Parameters.AddWithValue("@PPPN", Convert.ToDouble(txt_pppn.Value));
                 cmd.Parameters.AddWithValue("@JPPN", Convert.ToDouble(txt_tax1_value.Value));
+                cmd.Parameters.AddWithValue("@PPNIncl", chk_ppn_incl.Checked);
+
+                cmd.Parameters.AddWithValue("@OTax", cb_tax2.SelectedValue);
                 cmd.Parameters.AddWithValue("@JOTax", Convert.ToDouble(txt_tax2_value.Value));
+                cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
+                cmd.Parameters.AddWithValue("@OTaxIncl", 0);
+
+                cmd.Parameters.AddWithValue("@pph", cb_tax3.SelectedValue);
+                cmd.Parameters.AddWithValue("@Jpph", Convert.ToDouble(txt_tax3_value.Value));
+                cmd.Parameters.AddWithValue("@Ppph", Convert.ToDouble(txt_ppph.Value));
+                cmd.Parameters.AddWithValue("@pphIncl", 0);
+
                 cmd.Parameters.AddWithValue("@Net", Convert.ToDouble(txt_total.Value));
                 cmd.Parameters.AddWithValue("@Freight", 0);
                 cmd.Parameters.AddWithValue("@DP", 0);
-                cmd.Parameters.AddWithValue("@OTax", cb_tax2.SelectedValue);
                 cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
-                cmd.Parameters.AddWithValue("@pph", cb_tax3.SelectedValue);
-                cmd.Parameters.AddWithValue("@pphIncl", 0);
-                cmd.Parameters.AddWithValue("@Owner", lbl_Owner.Text);
+                cmd.Parameters.AddWithValue("@Owner",public_str.user_id);
                 cmd.Parameters.AddWithValue("@tFullSupply", 0);
-                cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
                 cmd.Parameters.AddWithValue("@KursTax", Convert.ToDouble(txt_tax_kurs.Value));
                 cmd.Parameters.AddWithValue("@Ket", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@NoPO", cb_reff.Text);
@@ -1356,9 +1543,6 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.Parameters.AddWithValue("@KoMat", txt_curr.Text);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-                cmd.Parameters.AddWithValue("@OTaxIncl", 0);
-                cmd.Parameters.AddWithValue("@Jpph", Convert.ToDouble(txt_tax3_value.Value));
-                cmd.Parameters.AddWithValue("@Ppph", Convert.ToDouble(txt_ppph.Value));
                 cmd.Parameters.AddWithValue("@tax_invoice", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDouble(txt_sub_total.Value));
                 cmd.Parameters.AddWithValue("@Ass", 0);
@@ -1436,13 +1620,13 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                         cmd.Connection = con;
                         cmd.CommandText = "sp_save_invoice_incomingD";
                         cmd.Parameters.AddWithValue("@NoBuk", run);
-                        cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as Label).Text);
-                        cmd.Parameters.AddWithValue("@KoBar", (item.FindControl("lblProdCode") as Label).Text);
-                        cmd.Parameters.AddWithValue("@Qty", Convert.ToDouble((item.FindControl("txt_qty") as RadNumericTextBox).Value));
+                        cmd.Parameters.AddWithValue("@prod_type", (item.FindControl("lblProdType") as RadLabel).Text);
+                        cmd.Parameters.AddWithValue("@KoBar", (item.FindControl("lblProdCode") as RadLabel).Text);
+                        cmd.Parameters.AddWithValue("@Qty", Convert.ToDouble((item.FindControl("lbl_qty") as RadLabel).Text));
                         cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lbl_uom") as RadLabel).Text);
-                        cmd.Parameters.AddWithValue("@Harga", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
-                        cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("txt_disc") as RadNumericTextBox).Value));
-                        if ((item.FindControl("edt_chkTax1") as CheckBox).Checked == true)
+                        cmd.Parameters.AddWithValue("@Harga", Convert.ToDouble((item.FindControl("lbl_harga") as RadLabel).Text));
+                        cmd.Parameters.AddWithValue("@Disc", Convert.ToDouble((item.FindControl("lbl_disc") as RadLabel).Text));
+                        if ((item.FindControl("chkTax1") as CheckBox).Checked == true)
                         {
                             cmd.Parameters.AddWithValue("@tTax", 1);
                         }
@@ -1450,7 +1634,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                         {
                             cmd.Parameters.AddWithValue("@tTax", 0);
                         }
-                        if ((item.FindControl("edt_chkOTax") as CheckBox).Checked == true)
+                        if ((item.FindControl("chkOTax") as CheckBox).Checked == true)
                         {
                             cmd.Parameters.AddWithValue("@tOTax", 1);
                         }
@@ -1458,7 +1642,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                         {
                             cmd.Parameters.AddWithValue("@tOTax", 0);
                         }
-                        if ((item.FindControl("edt_chkTpph") as CheckBox).Checked == true)
+                        if ((item.FindControl("chkTpph") as CheckBox).Checked == true)
                         {
                             cmd.Parameters.AddWithValue("@tpph", 1);
                         }
@@ -1466,10 +1650,10 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                         {
                             cmd.Parameters.AddWithValue("@tpph", 0);
                         }
-                        cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble((item.FindControl("txt_harga") as RadNumericTextBox).Value));
-                        cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lblProdCode") as Label).Text);
-                        cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as Label).Text);
-                        cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("txt_factor") as RadNumericTextBox).Value));
+                        cmd.Parameters.AddWithValue("@harga2", Convert.ToDouble((item.FindControl("lbl_sub_price") as RadLabel).Text));
+                        cmd.Parameters.AddWithValue("@prod_code_ori", (item.FindControl("lblProdCode") as RadLabel).Text);
+                        cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("lbl_cost_ctr") as RadLabel).Text);
+                        cmd.Parameters.AddWithValue("@factor", Convert.ToDouble((item.FindControl("lbl_factor") as RadLabel).Text));
                         cmd.Parameters.AddWithValue("@Asscost", 0);
                         cmd.Parameters.AddWithValue("@noref", cb_reff.SelectedValue);
                         //cmd.Parameters.AddWithValue("@tax1", cb_tax1.Text);
@@ -1477,7 +1661,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                         //cmd.Parameters.AddWithValue("@tax3", cb_tax3.Text);
                         cmd.Parameters.AddWithValue("@KoRek", 0);
                         cmd.Parameters.AddWithValue("@KvrsiQty", 1);
-                        cmd.Parameters.AddWithValue("@SatHrg", 0);
+                        cmd.Parameters.AddWithValue("@SatHrg", DBNull.Value);
                         cmd.Parameters.AddWithValue("@KvrsiHrg", 1);
                         cmd.Parameters.AddWithValue("@TDisc", "%");
                         cmd.Parameters.AddWithValue("@Freight", 0);
@@ -1485,7 +1669,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                         cmd.Parameters.AddWithValue("@Ket", (item.FindControl("txtRemark_d") as RadTextBox).Text);
                         cmd.Parameters.AddWithValue("@tfactor", 0);
                         //cmd.Parameters.AddWithValue("@RefTransID", 0);
-                        cmd.Parameters.AddWithValue("@KoBarH", 0);
+                        cmd.Parameters.AddWithValue("@KoBarH", DBNull.Value);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -1560,33 +1744,36 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
 
-            if (cb_from_type.SelectedValue == "2")
+
+            if (cb_from_type.SelectedValue == "2" && (sender as RadGrid).MasterTableView.IsItemInserted == false)
             {
                 GridCommandItem cmdItem = (GridCommandItem)RadGrid2.MasterTableView.GetItems(GridItemType.CommandItem)[0];
                 LinkButton btnAddNewItem = (LinkButton)cmdItem.FindControl("LinkButton1");
                 btnAddNewItem.Enabled = true;
+
+                
             }
         }
 
         protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            //if (Session["actionEdit"].ToString() == "edit")
-            //{
-            //    (sender as RadGrid).DataSource = GetDataTable(txt_reg_code.Text);
-            //}
-            //else
-            //{
-            //    (sender as RadGrid).DataSource = new string[] { };
-            //}
+            if (Session["actionEdit"].ToString() == "edit")
+            {
+                (sender as RadGrid).DataSource = GetJournalTable(txt_reg_code.Text);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
         }
-        public DataTable GetDataTable(string doc_code)
+        public DataTable GetJournalTable(string doc_code)
         {
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "";
-            cmd.Parameters.AddWithValue("@doc_code", doc_code);
+            cmd.CommandText = "sp_get_invoice_incoming_journal";
+            cmd.Parameters.AddWithValue("@NoBuk", doc_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -1682,6 +1869,25 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 CheckBox chk = e.Item.FindControl("chk_select") as CheckBox;
                 chk.Attributes.Add("onclick", "Select('" + e.Item.ItemIndex + "');");   
             }
+
+            //if (Session["actionDetail"].ToString() == "detailNew")
+            //{
+            //    if (cb_from_type.SelectedValue == "2")
+            //    {
+            //        GridDataItem item = (GridDataItem)e.Item;
+            //        RadComboBox cb_prodcode = (RadComboBox)item.FindControl("cb_prod_code_insertTemp");
+            //        cb_prodcode.Enabled = true;
+            //    }
+            //}
+            //else if (Session["actionDetail"].ToString() == "detailNew")
+            //{
+            //    if (cb_from_type.SelectedValue == "2")
+            //    {
+            //        GridDataItem item = (GridDataItem)e.Item;
+            //        RadComboBox cb_prodcode = (RadComboBox)item.FindControl("cb_prod_code_editTemp");
+            //        cb_prodcode.Enabled = true;
+            //    }
+            //}
         }
 
 
@@ -1694,44 +1900,65 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 LinkButton btnDeleteSelected = (LinkButton)cmdItem.FindControl("LinkButton3");
                 btnDeleteSelected.Enabled = true;
             }
+
+            if (e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                Session["actionDetail"] = "detailNew";
+            }
+            else if (e.CommandName == RadGrid.EditCommandName)
+            {
+                Session["actionDetail"] = "detailEdit";
+            }
         }
 
         protected void cb_prod_code_insertTemp_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [prod_spec], [unit_code], [qty_out], [disc], [price], [do_code], [Tgl], [info_code], [dept_code] " +
-                "FROM [v_invoice_incoming_from_consigment]  WHERE cust_code != @cust_code AND region_code = @region_code AND prod_spec LIKE @spec + '%'";
-            SqlDataAdapter adapter = new SqlDataAdapter(sql,
-                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
-            adapter.SelectCommand.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
-
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
-            RadComboBox comboBox = (RadComboBox)sender;
-            // Clear the default Item that has been re-created from ViewState at this point.
-            comboBox.Items.Clear();
-
-            foreach (DataRow row in dt.Rows)
+            try
             {
-                RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = row["prod_code"].ToString();
-                item.Value = row["prod_code"].ToString();
-                item.Attributes.Add("prod_spec", row["prod_spec"].ToString());
-                item.Attributes.Add("unit_code", row["unit_code"].ToString());
-                item.Attributes.Add("qty_out", row["qty_out"].ToString());
-                item.Attributes.Add("disc", row["disc"].ToString());
-                item.Attributes.Add("price", row["price"].ToString());
-                item.Attributes.Add("do_code", row["do_code"].ToString());
-                item.Attributes.Add("Tgl", row["Tgl"].ToString());
-                item.Attributes.Add("info_code", row["info_code"].ToString());
-                item.Attributes.Add("dept_code", row["dept_code"].ToString());
+                if (cb_from_type.SelectedValue == "2")
+                {
+                    string sql = "SELECT TOP (100)[prod_code], [prod_spec], [unit_code], [qty_out], [disc], [price], [do_code], [Tgl], [info_code], [dept_code] " +
+                    "FROM [v_invoice_incoming_from_consigment]  WHERE cust_code != @cust_code AND region_code = @region_code AND prod_spec LIKE @spec + '%'";
+                    SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                        ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+                    adapter.SelectCommand.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
+                    adapter.SelectCommand.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+                    adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
 
-                comboBox.Items.Add(item);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
 
-                item.DataBind();
+                    RadComboBox comboBox = (RadComboBox)sender;
+                    // Clear the default Item that has been re-created from ViewState at this point.
+                    comboBox.Items.Clear();
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        RadComboBoxItem item = new RadComboBoxItem();
+                        item.Text = row["prod_code"].ToString();
+                        item.Value = row["prod_code"].ToString();
+                        item.Attributes.Add("prod_spec", row["prod_spec"].ToString());
+                        item.Attributes.Add("unit_code", row["unit_code"].ToString());
+                        item.Attributes.Add("qty_out", row["qty_out"].ToString());
+                        item.Attributes.Add("disc", row["disc"].ToString());
+                        item.Attributes.Add("price", row["price"].ToString());
+                        item.Attributes.Add("do_code", row["do_code"].ToString());
+                        item.Attributes.Add("Tgl", row["Tgl"].ToString());
+                        item.Attributes.Add("info_code", row["info_code"].ToString());
+                        item.Attributes.Add("dept_code", row["dept_code"].ToString());
+
+                        comboBox.Items.Add(item);
+
+                        item.DataBind();
+                    }
+                }
+                
             }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            
         }
 
         protected void cb_prod_code_insertTemp_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -1811,7 +2038,126 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             finally
             {
                 con.Close();
+                foreach (GridDataItem item in this.RadGrid2.Items)
+                {
+                    CheckBox cTax1 = (CheckBox)item.FindControl("chkTax1Insert");
+                    CheckBox cTax2 = (CheckBox)item.FindControl("chkOTaxInsert");
+                    CheckBox cTax3 = (CheckBox)item.FindControl("chkTpphInsert");
+
+                    if (cb_tax1.SelectedValue != "NON")
+                    {
+                        cTax1.Checked = true;
+                        CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
+                    }
+                    else
+                    {
+                        cTax1.Checked = false;
+                        CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
+                    }
+                }
+
+                CalculateTotal();
             }
         }
+
+        protected void cb_prod_code_editTemp_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT [prod_code], [prod_spec], [unit_code], [qty_out], [disc], [price], [do_code], [Tgl], [info_code], [dept_code] " +
+                    "FROM [v_invoice_incoming_from_consigment] WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+                    //Label lblQtyRs;
+                    RadLabel lbl_UoM;
+                    RadLabel lbl_prodType;
+                    RadNumericTextBox txtPartQty;
+                    RadNumericTextBox txtPrice;
+                    RadNumericTextBox txtdisc;
+                    RadNumericTextBox txtSubPrice;
+                    RadLabel txtCostCtr;
+                    RadDatePicker Tgl;
+                    RadNumericTextBox txtFactor;
+                    CheckBox ttax1;
+                    CheckBox tOtax;
+                    CheckBox tpph;
+
+                    lbl_prodType = (RadLabel)item.FindControl("lblProdTypeEdit");
+                    txtPartQty = (RadNumericTextBox)item.FindControl("txt_qty_Edit");
+                    lbl_UoM = (RadLabel)item.FindControl("lblUomEdit");
+                    txtPrice = (RadNumericTextBox)item.FindControl("txt_hargaEdit");
+                    txtdisc = (RadNumericTextBox)item.FindControl("txt_discEdit");
+                    txtSubPrice = (RadNumericTextBox)item.FindControl("txt_sub_priceEdit");
+                    txtCostCtr = (RadLabel)item.FindControl("lbl_cost_ctrEdit");
+                    Tgl = (RadDatePicker)item.FindControl("dtpSroDateEdit");
+                    txtFactor = (RadNumericTextBox)item.FindControl("txt_factorEdit");
+                    ttax1 = (CheckBox)item.FindControl("chkTax1Edit");
+                    tOtax = (CheckBox)item.FindControl("chkOTaxEdit");
+                    tpph = (CheckBox)item.FindControl("chkTpphEdit");
+
+                    lbl_prodType.Text = "M1";
+                    txtPartQty.Value = Convert.ToDouble(dtr["qty_out"].ToString());
+                    lbl_UoM.Text = dtr["unit_code"].ToString();
+                    txtPrice.Value = Convert.ToDouble(dtr["price"].ToString());
+                    txtdisc.Value = Convert.ToDouble(dtr["disc"].ToString());
+                    txtSubPrice.Value = Convert.ToDouble(dtr["price"].ToString()) * Convert.ToDouble(dtr["qty_out"].ToString());
+                    txtCostCtr.Text = dtr["dept_code"].ToString();
+                    Tgl.SelectedDate = Convert.ToDateTime(dtr["Tgl"].ToString());
+                    txtFactor.Value = 0;
+                    if (cb_tax1.Text != "NON")
+                    {
+                        ttax1.Checked = true;
+                    }
+                    if (cb_tax2.Text != "NON")
+                    {
+                        tOtax.Checked = true;
+                    }
+                    if (cb_tax3.Text != "NON")
+                    {
+                        tpph.Checked = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+                foreach (GridDataItem item in this.RadGrid2.Items)
+                {
+                    CheckBox cTax1 = (CheckBox)item.FindControl("chkTax1Edit");
+                    CheckBox cTax2 = (CheckBox)item.FindControl("chkOTaxEdit");
+                    CheckBox cTax3 = (CheckBox)item.FindControl("chkTpphEdit");
+
+                    if (cb_tax1.SelectedValue != "NON")
+                    {
+                        cTax1.Checked = true;
+                        CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
+                    }
+                    else
+                    {
+                        cTax1.Checked = false;
+                        CalculateSubTotal(cTax1.Checked, cTax2.Checked, cTax3.Checked);
+                    }
+                }
+
+                CalculateTotal();
+            }
+        }
+
     }
 }

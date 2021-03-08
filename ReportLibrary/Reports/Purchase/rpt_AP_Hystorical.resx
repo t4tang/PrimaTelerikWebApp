@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
-    <value>{"@po_code":"PO0319010632"}</value>
+    <value>{"@tglawal":"2019-09-01","@tglakhir":"2019-10-17"}</value>
   </metadata>
 </root>
