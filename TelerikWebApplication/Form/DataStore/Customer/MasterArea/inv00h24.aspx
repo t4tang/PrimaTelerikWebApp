@@ -41,7 +41,7 @@
                 <td style="width: 98%; text-align: right; padding-right:17px">
                      <asp:UpdatePanel runat="server">
                         <ContentTemplate>
-                            <telerik:RadLabel ID="lbl_form_name" Text="Location Of Product" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                            <telerik:RadLabel ID="lbl_form_name" Text="Master Area" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
                                 padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
                             </telerik:RadLabel>
                         </ContentTemplate>
