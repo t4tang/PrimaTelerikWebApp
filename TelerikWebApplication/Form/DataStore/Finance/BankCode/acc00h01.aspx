@@ -1,14 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc00h01.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Finance.BankCode.acc00h01" %>
+﻿<%@ Page Title="PRIMA SYSTEM" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc00h01.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Finance.BankCode.acc00h01" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="FolderContent" runat="server">
     <nav:FolderNavigationControl runat="server" ID="FolderNavigationControl" />
     <nav:MobileNavigation runat="server" ID="MobileNavigation"></nav:MobileNavigation>
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="RadGrid1">
@@ -16,7 +17,7 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="cb_koRek">
+            <telerik:AjaxSetting AjaxControlID="btn_new">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="txt_ko_rek" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
@@ -24,19 +25,43 @@
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
-    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" RenderMode="Lightweight">
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
 
-    <div class="scroller">        
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
+        <table id="tbl_control">
+            <tr>       
+                <td style="vertical-align: middle; margin-left: 10px; padding:0px 0px 0px 0px">
+                    <telerik:RadButton ID="btn_new" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="New" Width="80px" Height="30px"
+                        Skin="Telerik" OnClick="btn_new_Click" ></telerik:RadButton>
+                </td>                    
+                <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
+                     
+                </td>                           
+                <td style="width: 98%; text-align: right; padding-right:17px">
+                     <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <telerik:RadLabel ID="lbl_form_name" Text="Location Of Product" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                                padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
+                            </telerik:RadLabel>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+        </table>
+    </div> 
+    
+    <div class="scroller" style="overflow-y:scroll; height:620px">     
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
             ShowFooter ="false" 
             AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False" 
              OnNeedDataSource ="RadGrid1_NeedDataSource" OnItemCreated="RadGrid1_ItemCreated"
              OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-             Skin ="MetroTouch"
+             Skin ="Silk" CssClass="RadGrid_ModernBrowsers"
              MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="CostCenter"  
             MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-            <MasterTableView Font-Names="Calibri" Font-Size="13px" DataKeyNames="KoBank">
+            <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
+            <MasterTableView CommandItemDisplay="None" Font-Size="11px" Font-Names="Century Gothic" DataKeyNames="KoBank">
                 <Columns>               
                     <telerik:GridEditCommandColumn UniqueName ="EditCommandColumn">
                         <HeaderStyle Width ="15px" ></HeaderStyle>
@@ -98,7 +123,7 @@
                                         Text='<%# DataBinder.Eval(Container, "DataItem.project_name") %>'
                                         OnItemsRequested="cb_project_ItemsRequested" OnPreRender="cb_project_PreRender" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"                                 
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true" AutoPostBack="false" Skin ="MetroTouch"
-                                        Height="200" MarkFirstMatch="true" EnableLoadOnDemand="True">                                        
+                                        Height="150" MarkFirstMatch="true" EnableLoadOnDemand="True">                                        
                                     </telerik:RadComboBox>
                                 </td>
                                 
@@ -146,7 +171,7 @@
                                         OnSelectedIndexChanged="cb_koRek_SelectedIndexChanged"
                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true"
                                          AutoPostBack="true" Skin ="MetroTouch" EnableLoadOnDemand="true"
-                                        Height="200" MarkFirstMatch="true">
+                                        Height="150" MarkFirstMatch="true">
                                     </telerik:RadComboBox>
                                 </td>
                                
