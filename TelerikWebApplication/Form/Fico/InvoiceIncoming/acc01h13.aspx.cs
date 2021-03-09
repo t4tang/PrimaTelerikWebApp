@@ -64,8 +64,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
                     RadGrid1.MasterTableView.Items[0].Selected = true;
 
-                    RadGrid2.DataSource = GetDataDetailTable(tr_code);
-                    RadGrid2.Rebind();
+                    //RadGrid2.DataSource = GetDataDetailTable(tr_code);
+                    //RadGrid2.Rebind();
                 }
                 else if (e.Argument == "RebindAndNavigate")
                 {
@@ -76,8 +76,8 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                     //RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
                     //RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
                     RadGrid1.MasterTableView.Items[0].Selected = true;
-                    RadGrid2.DataSource = GetDataDetailTable(tr_code);
-                    RadGrid2.Rebind();
+                    //RadGrid2.DataSource = GetDataDetailTable(tr_code);
+                    //RadGrid2.Rebind();
                     Session["action"] = "list";
                 }
             }
@@ -161,19 +161,19 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
         }
         #endregion
 
-        private void populate_detail()
-        {
-            if (tr_code == null)
-            {
-                RadGrid2.DataSource = new string[] { };
-            }
-            else
-            {
-                RadGrid2.DataSource = GetDataDetailTable(tr_code);
-            }
+        //private void populate_detail()
+        //{
+        //    if (tr_code == null)
+        //    {
+        //        RadGrid2.DataSource = new string[] { };
+        //    }
+        //    else
+        //    {
+        //        RadGrid2.DataSource = GetDataDetailTable(tr_code);
+        //    }
 
-            RadGrid2.DataBind();
-        }
+        //    RadGrid2.DataBind();
+        //}
 
         private void clear_text(ControlCollection ctrls)
         {
@@ -309,9 +309,9 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.ExecuteNonQuery();
                 con.Close();
 
-                notif.Text = "Data berhasil dihapus";
-                notif.Title = "Notification";
-                notif.Show();
+                //notif.Text = "Data berhasil dihapus";
+                //notif.Title = "Notification";
+                //notif.Show();
             }
             catch (Exception ex)
             {
@@ -345,7 +345,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 tax3 = item["Tax3"].Text;
             }
 
-            populate_detail();
+            //populate_detail();
             Session["action"] = "list";
         }
         #endregion
@@ -384,7 +384,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
             }
             else
             {
-                RadGrid2.DataSource = GetDataDetailTable(tr_code);
+                //RadGrid2.DataSource = GetDataDetailTable(tr_code);
             }
         }
 
@@ -404,11 +404,11 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
                 cmd.Parameters.AddWithValue("@KoBar", KoBar);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                RadGrid2.DataBind();
+                //RadGrid2.DataBind();
 
-                notif.Text = "Data berhasil dihapus";
-                notif.Title = "Notification";
-                notif.Show();
+                //notif.Text = "Data berhasil dihapus";
+                //notif.Title = "Notification";
+                //notif.Show();
             }
             catch (Exception ex)
             {
@@ -460,7 +460,7 @@ namespace TelerikWebApplication.Form.Fico.InvoiceIncoming
 
                 con.Close();
 
-                notif.Show();
+                //notif.Show();
             }
             catch (Exception ex)
             {

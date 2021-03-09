@@ -1,0 +1,227 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterDefault.master.cs" Inherits="TelerikWebApplication.MasterDefault" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>PRIMA</title>
+    <link rel="stylesheet" type="text/css" href="Styles/common.css" />
+    <link href="Styles/custom-cs.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <style>
+        body {
+            font: 14px/1.4 Helvetica, Arial, sans-serif;
+        }
+ 
+        button.RadButton span.rbIcon {
+            vertical-align: sub;
+        }
+ 
+        .rdfLabel.rdfBlock {
+            margin-top: 6px;
+        }        
+        .someDiv {
+              position:fixed;
+              width:100%;
+              height:27px;
+              /*margin-left:-25%;*/
+              background:#f4efef;
+              bottom:0px;   
+              font-family:'Century Gothic';
+              font-size:smaller;
+              color:#282b4f;
+              padding:2px 2px 0px 15px;
+              /*left:50%;*/
+              border-top-style:outset;
+              border-top-color:yellowgreen;
+            }
+    </style>
+</head>
+<body>
+    <form id="form1" class="clear" runat="server" >
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server" EnablePageMethods="True">
+            <Scripts>
+                <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
+                <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQuery.js" />
+                <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQueryInclude.js" />
+            </Scripts>
+        </telerik:RadScriptManager>
+
+       <%-- <div id="about" class="slider">
+            <header class="tm-header" id="logo"></header>
+            <h2 class="logo">
+            </h2>
+            <telerik:RadMenu runat="server" ID="verticalMenu" Skin="BlackMetroTouch" Flow="Vertical" CssClass="main-menu" EnableImageSprites="true" RenderMode="Lightweight">
+                <Items>
+                    <telerik:RadMenuItem Text="Master Data" NavigateUrl="Form/DataStore/Default.aspx" CssClass="notes" />
+                    <telerik:RadMenuItem Text="Fico" NavigateUrl="Form/Fico/Default.aspx" CssClass="notes" />
+                    <telerik:RadMenuItem Text="Inventory" NavigateUrl="Form/Inventory/Default.aspx" CssClass="notes" />
+                    <telerik:RadMenuItem Text="Purchase" NavigateUrl="Form/Purchase/Default.aspx" CssClass="notes" />
+                    <telerik:RadMenuItem Text="Maintenance" NavigateUrl="Form/Preventive_maintenance/Default.aspx" CssClass="notes" />                    
+                    <telerik:RadMenuItem Text="Security" NavigateUrl="Form/Security/Default.aspx" CssClass="notes" />
+                </Items>
+            </telerik:RadMenu>
+
+        </div>--%>
+        <div class="page">
+            <div class="main-header clear"  >
+                <div class="home-btn">
+                    <span class="icon icon-Home"></span>
+                    <span class="text"><%: Page.Title %></span>
+                </div>
+
+                <telerik:RadNavigation ID="mainNavigation" runat="server" CssClass="header-info" EnableEmbeddedSkins="false">
+                    <Nodes>
+                        <telerik:NavigationNode ID="NavNode1" CssClass="user" SpriteCssClass="icon icon-Arrow-South"></telerik:NavigationNode>
+                    </Nodes>
+                </telerik:RadNavigation>
+            </div>
+            <div class="container clear" style="border-top-color:orange; border-top-style:solid; border-top-width:3px; margin-top:2px">
+                <%--<div class="sidebar" id="sidebar" style="height:680px; background-color:white; padding-right:5px; border-right-style:inset; border-right-color:lavender; border-right-width:2px">
+                    <div class="sidebar">
+                        <asp:ContentPlaceHolder ID="FolderContent" runat="server">
+                        
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>--%>
+                <div class="section bottom">
+                    <telerik:RadNavigation runat="server" ID="contactNavigation" Skin="BlackMetroTouch" CssClass="secondaryMenu">
+                        <Nodes>
+                            
+                        </Nodes>
+                    </telerik:RadNavigation>
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+
+                    </asp:ContentPlaceHolder>
+
+                </div>
+            </div>
+            <div class="tm-click-overlay"></div>
+            <telerik:RadToolTip runat="server" ID="UserProfile" IsClientID="true" EnableShadow="true" HideEvent="FromCode" Visible="true" TargetControlID="aa">
+                <%--<img src="Images/user-s.png" alt="" />--%>
+                <div class="content">
+                    <%--<span>moroni@telerik.com</span>--%>
+                    <span class="addBtn">
+                        <span class="icon icon-Close"></span>
+                        <span class="text">
+                            <asp:HyperLink id="hl1"  NavigateUrl="~/Login.aspx" Text="Log out" Target="_parent" runat="server"/>
+                        </span>
+                    </span>
+                    <%--<telerik:RadButton runat="server" ID="SignOut" ButtonType="LinkButton" Text="Sign Out"></telerik:RadButton>--%>
+                </div>
+            </telerik:RadToolTip>
+            <div id="info" class="someDiv">
+                <table>
+                    <tr>
+                        <td style="width:20%"><asp:Label ID="lblServer" runat="server"></asp:Label></td>
+                        <td style="width:30%"><asp:Label ID="lblPeriode" runat="server"></asp:Label></td>
+                        <td style="width:40%"><asp:Label ID="lblUserInfo" runat="server"></asp:Label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <asp:HiddenField runat="server" ID="nav" />
+
+        <script type="text/javascript">
+            var nav = $get("<%= nav.ClientID %>").value;
+
+            function pageLoad() {
+                if (nav === "mobile") {
+                    $itemMenu = $(".item.menu");
+
+                    $('.rmRootToggle').on("click", function () {
+                        var open = $itemMenu.hasClass("expanded");
+                        if (!open)
+                            $itemMenu.addClass("expanded");
+                        else
+                            $itemMenu.removeClass("expanded");
+                    });
+                }
+
+                $('.home-btn').on("click", function () {
+                    $('form').toggleClass('expandedSlider');
+                });
+
+                setNavigationsMinWidth();
+                initializeInteractions();
+            }
+
+            function initializeInteractions() {
+                $(".user").on("click", function (e) {
+                    toggleToolTip(e);
+                })
+
+                $(".searchBtn").on("click", function () {
+                    showSearch();
+                })
+            }
+
+            function setNavigationsMinWidth() {
+                $(".RadNavigation").each(function () {
+                    var navigation = $find($(this).attr("id"));
+                    navigation._minWidth = 0;
+                    navigation.repaint()
+                })
+            }
+
+            function toggleToolTip(e) {
+                var tooltip = $find("<%=UserProfile.ClientID %>");
+
+                if (!tooltip.isVisible() == true) {
+                    var $node = $(e.currentTarget);
+                    var arrowPosition = $node.offset();
+
+                    tooltip.show();
+                    var popup = tooltip.get_popupElement();
+
+                    positionX = arrowPosition.left - $(popup).outerWidth(true) + $node.outerWidth(true) + 5;
+                    positionY = arrowPosition.top + $node.outerHeight(true) + 3;
+
+                    setTimeout(function () {
+                        $telerik.setLocation(popup, { x: positionX, y: positionY });
+                    }, 20)
+
+                    $("html").on("click", function (e) {
+                    })
+                }
+                else {
+                    tooltip.hide();
+                }
+            }
+
+            function showSearch() {
+                var search = $find($('div.RadSearchBox').attr('id'));
+                var $search = $(search.get_element());
+                var $searchInput = $search.find(".rsbInput");
+                $search.removeClass("hidden");
+                $searchInput.focus();
+
+                setTimeout(function () {
+                    search.repaint();
+
+                    $('html').on("click", function (e) {
+                        hideSearch(e, $search);
+                    });
+                }, 300);
+
+            }
+
+            function hideSearch(e, $search) {
+                var isSearchBoxClicked = $(e.target).parents(".RadSearchBox").length == 1;
+                var isSearchBoxItemClicked = $(e.target).parents(".rsbPopup").length == 1;
+
+                if (isSearchBoxClicked || isSearchBoxItemClicked) {
+                    return
+                }
+
+                $search.addClass("hidden");
+                $('html').off("click");
+            }
+        </script>
+    </form>
+</body>
+</html>

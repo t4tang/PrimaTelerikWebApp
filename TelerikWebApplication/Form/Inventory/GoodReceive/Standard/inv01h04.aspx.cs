@@ -32,7 +32,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 lbl_form_name.Text = "Goods Receipt";
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
-                selected_project = public_str.site;
+                cb_proj_prm.SelectedValue = public_str.site;
                 cb_proj_prm.Text = public_str.sitename;
 
                 tr_code = null;
@@ -130,7 +130,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
         #region Header
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
         }
         public DataTable GetDataTable(string date, string todate, string project)
         {
@@ -222,6 +222,12 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                     tr_code = gItem["lbm_code"].Text;
                 }
                 populate_detail();
+            }
+
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
         }
         #endregion
@@ -376,6 +382,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             else
             {
                 tWarannty_check = "0";
+            }
+        }
+
+        protected void RadGrid2_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
         }
     }

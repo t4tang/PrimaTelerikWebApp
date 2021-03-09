@@ -8,7 +8,23 @@
     <title></title>
     <link href="../../Styles/common.css" rel="stylesheet" />
     <link href="../../Styles/custom-cs.css" rel="stylesheet" />
-    <script src="../../Script/jqueri-1.9.1.min.js"></script>
+    <script src="../../Script/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../Script/Script.js"></script>
+
+    <script src="jquery-1.3.2.min.js"></script>  
+    <script src="jquery.dimensions.js"></script>  
+    <script>  
+        var name = "#floatDiv";  
+        var menuYloc = null;  
+        $(document).ready(function () {  
+            menuYloc = parseInt($(name).css("top").substring(0, $(name).css("top").indexOf("px")))  
+            $(window).scroll(function () {  
+                offset = menuYloc + $(document).scrollTop() + "px";  
+                $(name).animate({ top: offset }, { duration: 500, queue: false });  
+            });  
+        });  
+    </script> 
+
     <style>
 		#reportViewer1 {
 			position:absolute;
@@ -20,6 +36,20 @@
 			font-family: Verdana, Arial;
             text-align:center;
 		}
+        #floatDiv {  
+            position: absolute;  
+            top: 550px;  
+            /*left: 50%;  */  
+            margin-left: 105px;
+            margin-bottom:3px;
+            width: 300px;  
+            height: 50px;  
+            border: 1px solid black;  
+            float:right;
+            /*background-color:white;*/
+            border-style:none;
+            border-width:0px;
+        }  
 	</style>
 </head>
 <body>
@@ -32,19 +62,30 @@
 			    Height="600px"                
 			    EnableAccessibility="false"
                 runat="server">
-                <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Forms.Purchase.Purchase_order.pur01h02_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Purchase.Purchase_order.pur01h02_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
                 </ReportSource>                
             </telerik:ReportViewer>
         </div>
-        <div style="position:absolute; padding: 15px 5px 25px 15px; text-align:right; width:950px" >
-            <%--<telerik:RadRadioButtonList ID="RadRadioButtonList1" runat="server">
-                <Items>
-                    <telerik:ButtonListItem Text="Approve" Value="1" />
-                </Items>
-            </telerik:RadRadioButtonList>
-            <asp:Button ID="Button1" runat="server" Text="Button" />--%>
-            <asp:ImageButton ID="btnOk" runat="server" ImageUrl="~/Images/ok-hand-gray.png" Enabled="false" Height="20px" Width="22px" ToolTip="OK to Sign" OnClick="btnOk_Click" />
-        </div>
+        <%--<div id="FloatDiv" style="position:absolute; padding: 15px 5px 25px 15px; text-align:right; width:950px; float:right" >--%>
+        <div id="floatDiv" >
+            <table>
+                <tr>
+                    <td style="width:135px">
+                        <telerik:RadButton ID="btnOk" runat="server" Text="Sign" OnClick="btnOk_Click1" CssClass="btn-wrapper" ForeColor="White" 
+                            BackColor="#ff5050" Width="120px" Skin="Material" Enabled="false"></telerik:RadButton>
+                    </td>
+                    <td>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <asp:CheckBox ID="chk_overhaul" runat="server" Text="Overhaul" OnCheckedChanged="chk_overhaul_CheckedChanged" 
+                                    AutoPostBack="true" BackColor="White"  ForeColor="Highlight" Font-Bold="true" ></asp:CheckBox>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        </td>
+                </tr>
+            </table>
+            
+            </div>
         <div style="clear:both; font-size:1px;"></div>
     </form>
 </body>
