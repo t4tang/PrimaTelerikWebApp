@@ -22,6 +22,15 @@ namespace TelerikWebApplication.Form.DataStore.Finance.AcountExplorer {
         protected global::TelerikWebApplication.Controls.FolderNavigationControl FolderNavigationControl;
         
         /// <summary>
+        /// MobileNavigation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TelerikWebApplication.Controls.MobileNavigation MobileNavigation;
+        
+        /// <summary>
         /// RadAjaxManager1 control.
         /// </summary>
         /// <remarks>
@@ -31,13 +40,31 @@ namespace TelerikWebApplication.Form.DataStore.Finance.AcountExplorer {
         protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
         
         /// <summary>
-        /// gridLoadingPanel control.
+        /// RadAjaxLoadingPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxLoadingPanel gridLoadingPanel;
+        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
+        
+        /// <summary>
+        /// btn_new control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btn_new;
+        
+        /// <summary>
+        /// lbl_form_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel lbl_form_name;
         
         /// <summary>
         /// RadTreeView1 control.

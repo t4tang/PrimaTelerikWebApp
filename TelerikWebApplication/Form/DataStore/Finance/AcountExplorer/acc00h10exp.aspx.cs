@@ -84,6 +84,12 @@ namespace TelerikWebApplication.Form.DataStore.Finance.AcountExplorer
             selectCommand.Parameters.AddWithValue("@kdparent", parentId);
             return GetData(selectCommand);
         }
+
+        protected void btn_new_Click(object sender, EventArgs e)
+        {
+            //RadGrid1.MasterTableView.IsItemInserted = true;
+            //RadGrid1.MasterTableView.Rebind();
+        }
         //private static void BindToDataSet(RadTreeView treeView)
         //{
         //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT acc_code, acc_name, kdparent FROM v_account_number",
