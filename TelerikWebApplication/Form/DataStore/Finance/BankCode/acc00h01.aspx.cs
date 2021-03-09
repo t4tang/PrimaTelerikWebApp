@@ -349,5 +349,11 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             }
             con.Close();
         }
+
+        protected void btn_new_Click(object sender, EventArgs e)
+        {
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
+        }
     }
 }
