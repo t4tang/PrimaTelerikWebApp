@@ -38,7 +38,7 @@
 		}
         #floatDiv {  
             position: absolute;  
-            top: 550px;  
+            top: 535px;  
             /*left: 50%;  */  
             margin-left: 105px;
             margin-bottom:3px;
@@ -72,7 +72,7 @@
                 <tr>
                     <td style="width:135px">
                         <telerik:RadButton ID="btnOk" runat="server" Text="Sign" OnClick="btnOk_Click1" CssClass="btn-wrapper" ForeColor="White" 
-                            BackColor="#ff5050" Width="120px" Skin="Material" Enabled="false"></telerik:RadButton>
+                            BackColor="#ff6600" Width="120px" Skin="Material" Enabled="false"></telerik:RadButton>
                     </td>
                     <td>
                         <asp:UpdatePanel runat="server">

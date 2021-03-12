@@ -589,14 +589,14 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     
-                                        <%--<telerik:GridTemplateColumn HeaderText="Superior" HeaderStyle-Width="150px" ItemStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" 
-                                            >
+                                        <telerik:GridTemplateColumn HeaderText="SOH" HeaderStyle-Width="70px" ItemStyle-Width="70px" HeaderStyle-HorizontalAlign="Center" 
+                                            ItemStyle-HorizontalAlign="Right" >
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblSuperior" ></asp:Label>
+                                                <asp:Label runat="server" ID="lblSOH" Text='<%# DataBinder.Eval(Container.DataItem, "SOH", "{0:#,###,###0.00}") %>'></asp:Label>
                                             </ItemTemplate>
-                                        </telerik:GridTemplateColumn>--%>
+                                        </telerik:GridTemplateColumn>
                                     
-                                        <telerik:GridTemplateColumn HeaderText="Qty" HeaderStyle-Width="90px" ItemStyle-Width="90px" ItemStyle-HorizontalAlign="Right" 
+                                        <telerik:GridTemplateColumn HeaderText="Qty Out" HeaderStyle-Width="90px" ItemStyle-Width="90px" ItemStyle-HorizontalAlign="Right" 
                                             HeaderStyle-HorizontalAlign="Center" DefaultInsertValue="0"  >
                                             <ItemTemplate>
                                                 <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Part_Qty" Width="85px"  ReadOnly="false" EnabledStyle-HorizontalAlign="Right"
@@ -636,7 +636,7 @@
                                             HeaderStyle-HorizontalAlign="Center" >
                                             <ItemTemplate>
                                                 <%--<asp:Label runat="server" ID="lblWarranty" Text='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>'></asp:Label>--%>
-                                                <asp:CheckBox runat="server" ID="chkWarranty" Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' />
+                                                <asp:CheckBox runat="server" ID="chkWarranty" Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' Enabled="false" />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     
@@ -665,19 +665,19 @@
                         AllowPaging="false" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" ShowStatusBar="true"        
                         OnNeedDataSource="RadGrid3_NeedDataSource" 
                         OnPreRender="RadGrid3_PreRender">
-                            <HeaderStyle Font-Size="12px" />
-                            <AlternatingItemStyle Font-Size="10px" Font-Names="Comic Sans MS" />
-                            <MasterTableView DataKeyNames="nomor" HeaderStyle-ForeColor="Highlight" ItemStyle-Font-Size="10px" ItemStyle-Font-Names="Comic Sans MS"
-                                HorizontalAlign="NotSet" AutoGenerateColumns="False">
-                            <SortExpressions>
-                                <telerik:GridSortExpression FieldName="nomor" SortOrder="Descending" />
-                            </SortExpressions>
-                            <ColumnGroups>
-                                <telerik:GridColumnGroup Name="IDR" HeaderText="IDR"
-                                    HeaderStyle-HorizontalAlign="Center" />
-                                <telerik:GridColumnGroup Name="Valas" HeaderText="Valas"
-                                    HeaderStyle-HorizontalAlign="Center" />
-                            </ColumnGroups>
+                        <HeaderStyle Font-Size="12px" />
+                        <AlternatingItemStyle Font-Size="10px" Font-Names="Comic Sans MS" />
+                        <MasterTableView DataKeyNames="nomor" HeaderStyle-ForeColor="Highlight" ItemStyle-Font-Size="10px" ItemStyle-Font-Names="Comic Sans MS"
+                            HorizontalAlign="NotSet" AutoGenerateColumns="False">
+                        <SortExpressions>
+                            <telerik:GridSortExpression FieldName="nomor" SortOrder="Descending" />
+                        </SortExpressions>
+                        <ColumnGroups>
+                            <telerik:GridColumnGroup Name="IDR" HeaderText="IDR"
+                                HeaderStyle-HorizontalAlign="Center" />
+                            <telerik:GridColumnGroup Name="Valas" HeaderText="Valas"
+                                HeaderStyle-HorizontalAlign="Center" />
+                        </ColumnGroups>
                             <Columns>
                                 <telerik:GridBoundColumn DataField="accountcode" HeaderStyle-Width="100px" HeaderText="Account No." SortExpression="accountcode"
                                     UniqueName="accountcode" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="70px" 

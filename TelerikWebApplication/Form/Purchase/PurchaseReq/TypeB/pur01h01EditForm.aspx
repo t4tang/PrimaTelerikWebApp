@@ -102,8 +102,8 @@
                                         <telerik:RadLabel runat="server" Text="PR Source:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                     </td>
                                     <td> 
-                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_type_ref" runat="server" Width="150"
-                                            EnableLoadOnDemand="True" ShowMoreResultsBox="false" Skin="Telerik" EnableVirtualScrolling="true"
+                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_type_ref" runat="server" Width="150" AutoPostBack="true"
+                                            EnableLoadOnDemand="True" ShowMoreResultsBox="false" Skin="Telerik" EnableVirtualScrolling="true" CausesValidation="false"
                                             OnItemsRequested="cb_type_ref_ItemsRequested" OnPreRender="cb_type_ref_PreRender" OnSelectedIndexChanged="cb_type_ref_SelectedIndexChanged">
                                         </telerik:RadComboBox>
                                         <asp:RequiredFieldValidator runat="server" ID="prSourceValidator" ControlToValidate="cb_type_ref" ForeColor="Red" 
@@ -248,8 +248,8 @@
                                             <telerik:RadTextBox ID="txt_unit_code" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" Font-Size="Small"
                                                 Skin="Telerik">
                                             </telerik:RadTextBox>
-                                            <asp:RequiredFieldValidator runat="server" ID="unitCodeValidator" ControlToValidate="txt_unit_code" ForeColor="Red" 
-                                            Font-Size="X-Small" Text="Required!"></asp:RequiredFieldValidator>
+                                            <%--<asp:RequiredFieldValidator runat="server" ID="unitCodeValidator" ControlToValidate="txt_unit_code" ForeColor="Red" 
+                                            Font-Size="X-Small" Text="Required!"></asp:RequiredFieldValidator>--%>
                                             </ContentTemplate>
                                             <Triggers>
                                                 <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged"></asp:AsyncPostBackTrigger>
@@ -267,8 +267,8 @@
                                             <telerik:RadTextBox ID="txt_unit_name" runat="server" Width="150px" ReadOnly="true" RenderMode="Lightweight" Font-Size="Small"
                                             Skin="Telerik">
                                             </telerik:RadTextBox> 
-                                            <asp:RequiredFieldValidator runat="server" ID="unitNameValidator" ControlToValidate="txt_unit_name" ForeColor="Red" 
-                                            Font-Size="X-Small" Text="Required!"></asp:RequiredFieldValidator>
+                                            <%--<asp:RequiredFieldValidator runat="server" ID="unitNameValidator" ControlToValidate="txt_unit_name" ForeColor="Red" 
+                                            Font-Size="X-Small" Text="Required!"></asp:RequiredFieldValidator>--%>
                                         </ContentTemplate>
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged"></asp:AsyncPostBackTrigger>
@@ -387,22 +387,22 @@
                                     <asp:UpdatePanel ID="UpdatePanel14" runat="server">
                                     <ContentTemplate>
                                     <telerik:RadComboBox ID="cb_prepare_by" runat="server" Width="250px"
-                                                    DropDownWidth="650px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                    DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                     MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                                         OnItemsRequested="cb_prepare_by_ItemsRequested"
                                                     OnSelectedIndexChanged="cb_prepare_by_SelectedIndexChanged" OnPreRender="cb_prepare_by_PreRender">
                                                         <HeaderTemplate>
-                                                        <table style="width: 550px; font-size: smaller">
+                                                        <table style="width: 450px; font-size: smaller">
                                                             <tr>
                                                                 <td style="width: 200px;">Name
                                                                 </td>
-                                                                <td style="width: 350px;">Position
+                                                                <td style="width: 250px;">Position
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <table style="width: 550px; font-size: smaller">
+                                                        <table style="width: 450px; font-size: smaller">
                                                             <tr>
                                                                 <td style="width: 200px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.name")%>
@@ -432,28 +432,28 @@
                                         <asp:UpdatePanel ID="UpdatePanel13" runat="server">
                                         <ContentTemplate>
                                         <telerik:RadComboBox ID="cb_orderBy" runat="server" Width="250px"
-                                                    DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                    DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                     MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                                     OnItemsRequested="cb_orderBy_ItemsRequested"
                                                     OnSelectedIndexChanged="cb_orderBy_SelectedIndexChanged"
                                                     OnPreRender="cb_orderBy_PreRender">
                                                 <HeaderTemplate>
-                                                <table style="width: 550px; font-size: smaller">
+                                                <table style="width: 450px; font-size: smaller">
                                                     <tr>
                                                         <td style="width: 200px;">Name
                                                         </td>
-                                                        <td style="width: 350px;">Position
+                                                        <td style="width: 250px;">Position
                                                         </td>
                                                     </tr>
                                                 </table>
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <table style="width: 550px; font-size: smaller">
+                                                <table style="width: 450px; font-size: smaller">
                                                     <tr>
                                                         <td style="width: 200px;">
                                                             <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                         </td>
-                                                        <td style="width: 350px;">
+                                                        <td style="width: 250px;">
                                                             <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                         </td>
                                                     </tr>
@@ -478,28 +478,28 @@
                                     <asp:UpdatePanel ID="UpdatePanel10" runat="server">
                                     <ContentTemplate>
                                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_checked" runat="server" Width="250px"
-                                            DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                            DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                             MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                             OnItemsRequested="cb_received_ItemsRequested"
                                             OnSelectedIndexChanged="cb_received_SelectedIndexChanged"
                                             OnPreRender="cb_received_PreRender">
                                             <HeaderTemplate>
-                                                <table style="width: 550px; font-size: smaller">
+                                                <table style="width: 450px; font-size: smaller">
                                                     <tr>
                                                         <td style="width: 200px;">Name
                                                         </td>
-                                                        <td style="width: 350px;">Position
+                                                        <td style="width: 250px;">Position
                                                         </td>
                                                     </tr>
                                                 </table>
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <table style="width: 550px; font-size: smaller">
+                                                <table style="width: 450px; font-size: smaller">
                                                     <tr>
                                                         <td style="width: 200px;">
                                                             <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                         </td>
-                                                        <td style="width: 350px;">
+                                                        <td style="width: 250px;">
                                                             <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                         </td>
                                                     </tr>
@@ -524,28 +524,28 @@
                                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                     <ContentTemplate>
                                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250px"
-                                            DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                            DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                             MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true"
                                             OnItemsRequested="cb_approved_ItemsRequested"
                                             OnSelectedIndexChanged="cb_approved_SelectedIndexChanged"
                                             OnPreRender="cb_approved_PreRender" >
                                             <HeaderTemplate>
-                                                <table style="width: 550px; font-size: smaller">
+                                                <table style="width: 450px; font-size: smaller">
                                                     <tr>
                                                         <td style="width: 200px;">Name
                                                         </td>
-                                                        <td style="width: 350px;">Position
+                                                        <td style="width: 250px;">Position
                                                         </td>
                                                     </tr>
                                                 </table>
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <table style="width: 550px; font-size: smaller">
+                                                <table style="width: 450px; font-size: smaller">
                                                     <tr>
                                                         <td style="width: 200px;">
                                                             <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                         </td>
-                                                        <td style="width: 350px;">
+                                                        <td style="width: 250px;">
                                                             <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                         </td>
                                                     </tr>
@@ -590,11 +590,11 @@
                 </table>
             </div>
 
-            <div style="padding: 5px 15px 15px 15px; height:160px">
+            <div style="padding: 5px 15px 15px 15px; height:190px">
                  <asp:UpdatePanel ID="panel2" runat="server" UpdateMode="Always">
                       <ContentTemplate>
                         <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
-                        AllowPaging="false" PageSize="5" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" 
+                        AllowPaging="false" PageSize="5" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" ShowStatusBar="true" 
                             OnNeedDataSource="RadGrid2_NeedDataSource"
                             OnPreRender="RadGrid2_PreRender" >
                             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
@@ -604,7 +604,7 @@
                             CommandItemSettings-ShowRefreshButton="False" ItemStyle-ForeColor="#006600">
                                 <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="False" ShowCancelChangesButton="false" />
                                 <Columns>
-                                    <telerik:GridTemplateColumn HeaderText="Type" ItemStyle-Width="30px" HeaderStyle-Width="40px" ItemStyle-HorizontalAlign="Center" 
+                                    <telerik:GridTemplateColumn HeaderText="Type" ItemStyle-Width="30px" HeaderStyle-Width="30px" ItemStyle-HorizontalAlign="Center" 
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:Label runat="server" Width="30px" ID="lblProdType" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>                                           
@@ -625,14 +625,14 @@
                                         </ItemTemplate>                                        
                                     </telerik:GridTemplateColumn>
 
-                                    <telerik:GridTemplateColumn HeaderText="OH Qty" HeaderStyle-Width="80px" ItemStyle-Width="70px" ItemStyle-HorizontalAlign="Right"
+                                    <telerik:GridTemplateColumn HeaderText="OH Qty" HeaderStyle-Width="70px" ItemStyle-Width="70px" ItemStyle-HorizontalAlign="Right"
                                          HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblSoh" Width="70px" Text='<%# DataBinder.Eval(Container.DataItem, "stock_hand", "{0:#,###,###0.00}") %>'></asp:Label>
                                         </ItemTemplate>                                        
                                     </telerik:GridTemplateColumn>
 
-                                    <telerik:GridTemplateColumn HeaderText="Order Qty" HeaderStyle-Width="80px" ItemStyle-Width="80px" ItemStyle-HorizontalAlign="Right" 
+                                    <telerik:GridTemplateColumn HeaderText="Order Qty" HeaderStyle-Width="70px" ItemStyle-Width="70px" ItemStyle-HorizontalAlign="Right" 
                                         DefaultInsertValue="0" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPartQty" Width="70px"  ReadOnly="false" 
@@ -647,7 +647,7 @@
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
 
-                                    <telerik:GridTemplateColumn HeaderText="PO Qty" HeaderStyle-Width="70px" ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Right"
+                                    <telerik:GridTemplateColumn HeaderText="PO Qty" HeaderStyle-Width="70px" ItemStyle-Width="70px" ItemStyle-HorizontalAlign="Right"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblQtyPo" Text='<%# DataBinder.Eval(Container.DataItem, "qtypo", "{0:#,###,###0.00}") %>'></asp:Label>
@@ -660,16 +660,16 @@
                                         </ItemTemplate>                                        
                                     </telerik:GridTemplateColumn>
 
-                                    <telerik:GridTemplateColumn HeaderText="Cost Center" HeaderStyle-Width="100px" ItemStyle-Width="90px" 
+                                    <telerik:GridTemplateColumn HeaderText="Cost Center" HeaderStyle-Width="80px" ItemStyle-Width="80px" 
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblCostCtr" Width="90px" Text='<%# DataBinder.Eval(Container.DataItem, "dept_code") %>'></asp:Label>
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
-                                    <telerik:GridTemplateColumn HeaderText="Delivery Date" HeaderStyle-Width="110px"  ItemStyle-Width="110px" ItemStyle-HorizontalAlign="Center"
+                                    <telerik:GridTemplateColumn HeaderText="Delivery Date" HeaderStyle-Width="110px"  ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>  
-                                            <telerik:RadDatePicker runat="server" ID="dtpDelivDate" Width="110px"
+                                            <telerik:RadDatePicker runat="server" ID="dtpDelivDate" Width="100px"
                                                 SelectedDate='<%#DataBinder.Eval(Container, "DataItem.DeliDate")%>' 
                                                 onkeydown="blurTextBox(this, event)" Type="Date">
                                                 <DateInput DisplayDateFormat="dd-MM-yyyy" runat="server" /> 
@@ -677,10 +677,10 @@
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn> 
                             
-                                    <telerik:GridTemplateColumn HeaderText="Remark" HeaderStyle-Width="250px" ItemStyle-Width="240px"
+                                    <telerik:GridTemplateColumn HeaderText="Remark" HeaderStyle-Width="220px" ItemStyle-Width="220px"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
-                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtRemark_d" Width="240px"
+                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtRemark_d" Width="220px"
                                                 Text='<%# DataBinder.Eval(Container, "DataItem.Remark") %>'>
                                             </telerik:RadTextBox>
                                         </ItemTemplate>
@@ -695,7 +695,7 @@
                                 </Columns>
                             </MasterTableView>
                             <ClientSettings >
-                                <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="50px" />  
+                                <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="150px" />  
                                 <Selecting AllowRowSelect="true"></Selecting>                          
                             </ClientSettings>
                         </telerik:RadGrid>

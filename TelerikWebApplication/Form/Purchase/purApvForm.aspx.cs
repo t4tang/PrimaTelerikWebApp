@@ -41,7 +41,7 @@ namespace TelerikWebApplication.Form.Purchase
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, AppBy, CONVERT(char(1),overhaul) as overhaul FROM pur01h02 WHERE po_code = '" + tr_code + "'";
+            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, OrdBy2, AppBy, CONVERT(char(1),overhaul) as overhaul FROM pur01h02 WHERE po_code = '" + tr_code + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -52,6 +52,11 @@ namespace TelerikWebApplication.Form.Purchase
                     //btnOk.ImageUrl = "~/Images/ok-hand.png";
                 }
                 else if (dr["status_pur"].ToString() == "1" && dr["OrdBy"].ToString() == public_str.uid)
+                {
+                    btnOk.Enabled = true;
+                    //btnOk.ImageUrl = "~/Images/ok-hand.png";
+                }
+                else if (dr["status_pur"].ToString() == "2" && dr["OrdBy2"].ToString() == public_str.uid)
                 {
                     btnOk.Enabled = true;
                     //btnOk.ImageUrl = "~/Images/ok-hand.png";
@@ -128,7 +133,8 @@ namespace TelerikWebApplication.Form.Purchase
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                if(nominal >= 50000000 && status_pur == "2")
+              
+                if (nominal >= 50000000 && status_pur == "2")
                 {
                     cmd.CommandText = "UPDATE pur01h02 SET status_pur = '" + status_pur + "' WHERE po_code ='"+ tr_code + "'";                    
                 }
@@ -153,17 +159,25 @@ namespace TelerikWebApplication.Form.Purchase
         {
             double nominal = 0;
             string status_pur = null;
+            string FreBy = null;
+            string OrdBy = null;
+            string OrdBy2 = null;
+            string AppBy = null;
             con.Open();
             cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Net, status_pur FROM pur01h02 WHERE po_code = '" + tr_code + "'";
+            cmd.CommandText = "SELECT Net, status_pur, FreBy, OrdBy, OrdBy2, AppBy FROM pur01h02 WHERE po_code = '" + tr_code + "'";
             SqlDataReader sdr;
             sdr = cmd.ExecuteReader();
             while (sdr.Read())
             {
                 nominal = Convert.ToDouble(sdr[0]);
                 status_pur = sdr[1].ToString();
+                FreBy = sdr[2].ToString();
+                OrdBy = sdr[3].ToString();
+                OrdBy2 = sdr[4].ToString();
+                AppBy = sdr[5].ToString();
             }
             sdr.Close();
 
@@ -172,9 +186,24 @@ namespace TelerikWebApplication.Form.Purchase
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                if (nominal >= 50000000 && status_pur == "2")
+                if (nominal >= 50000000)
                 {
-                    cmd.CommandText = "UPDATE pur01h02 SET status_pur = '" + status_pur + "' WHERE po_code ='" + tr_code + "'";
+                    if (status_pur == "0" && FreBy == public_str.user_id)
+                    {
+                        cmd.CommandText = "UPDATE pur01h02 SET status_pur = '" + status_pur + "' + 1 WHERE po_code ='" + tr_code + "'";
+                    }
+                    else if ( status_pur == "1" && OrdBy == public_str.user_id)
+                    {
+                        cmd.CommandText = "UPDATE pur01h02 SET status_pur = '" + status_pur + "' + 1, OrdBy_chk = 0 WHERE po_code ='" + tr_code + "'";
+                    }
+                    else if(status_pur == "2" && OrdBy2 == public_str.user_id)
+                    {
+                        cmd.CommandText = "UPDATE pur01h02 SET status_pur = '" + status_pur + "', OrdBy_chk = 1 WHERE po_code ='" + tr_code + "'";
+                    }
+                    else if (status_pur == "2" && AppBy == public_str.user_id)
+                    {
+                        cmd.CommandText = "UPDATE pur01h02 SET status_pur = '" + status_pur + "' + 1 WHERE po_code ='" + tr_code + "'";
+                    }
                 }
                 else
                 {
@@ -198,7 +227,7 @@ namespace TelerikWebApplication.Form.Purchase
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pur01h02 SET overhaul = '" + (sender as CheckBox).Checked + "' userid='" + public_str.user_id + "' lastupdate=GETDATE() WHERE po_code ='" + tr_code + "'";
+            cmd.CommandText = "UPDATE pur01h02 SET overhaul = '" + (sender as CheckBox).Checked + "', userid='" + public_str.user_id + "', lastupdate=GETDATE() WHERE po_code ='" + tr_code + "'";
             cmd.ExecuteNonQuery();
             con.Close();
         }

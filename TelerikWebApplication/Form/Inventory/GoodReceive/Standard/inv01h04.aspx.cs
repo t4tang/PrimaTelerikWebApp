@@ -179,11 +179,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             {
                 con.Open();
                 cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv01h04 SET userid = @Usr, lastupdate = GETDATE(), status_lbm = '4' WHERE (lbm_code = @lbm_code)";
+                cmd.CommandText = "sp_delete_goods_receive";
                 cmd.Parameters.AddWithValue("@lbm_code", doc_code);
-                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                cmd.Parameters.AddWithValue("@uid", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
 

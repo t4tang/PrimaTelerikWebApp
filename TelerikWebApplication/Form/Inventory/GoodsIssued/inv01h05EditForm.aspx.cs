@@ -214,7 +214,21 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     return;
                 }
 
-                //lblErrorDescription.Text = "";
+                foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+                {
+                    Label lblSOH;
+                    RadTextBox txt_Part_Qty;
+                    lblSOH = (item.FindControl("lblSOH") as Label);
+                    txt_Part_Qty = (item.FindControl("txt_Part_Qty") as RadTextBox);
+
+                    if((Convert.ToDouble(lblSOH.Text)-Convert.ToDouble(txt_Part_Qty.Text) < 0) && cb_type_ref.SelectedValue != "8")
+                    {
+                        txt_Part_Qty.Style.Add("color", "Red");
+                        return;
+                    }
+
+                }
+
 
                 if (Session["actionEdit"].ToString() == "edit")
                 {
@@ -730,6 +744,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     txt_CostCenterName.Text = dr["CostCenterName"].ToString();
                     txt_remark.Text = dr["doc_remark"].ToString();
                     lbl_reff_no.Text = string.Empty;
+                    cb_warehouse.SelectedValue = dr["wh_code"].ToString();
+                    cb_warehouse.Text = dr["wh_name"].ToString();
                 }
             }
             else if (cb_type_ref.Text == "Overhaul")
@@ -745,6 +761,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                     txt_CostCenterName.Text = dr["CostCenterName"].ToString();
                     txt_remark.Text = dr["doc_remark"].ToString();
                     lbl_reff_no.Text= "GR No. : " + dr["lbm_code"].ToString();
+                    cb_warehouse.SelectedValue = dr["wh_code"].ToString();
+                    cb_warehouse.Text = dr["wh_name"].ToString();
                 }
             }
             else

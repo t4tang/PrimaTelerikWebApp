@@ -613,7 +613,7 @@
                                         <telerik:GridTemplateColumn HeaderText="Warranty" HeaderStyle-Width="50px" ItemStyle-Width="50px" ItemStyle-HorizontalAlign="Center"
                                              HeaderStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
-                                                <asp:CheckBox runat="server" ID="chkWarranty" Width="50px" Checked='<%# DataBinder.Eval(Container.DataItem, "twarranty") %>' />
+                                                <asp:CheckBox runat="server" ID="chkWarranty" Width="50px" Enabled="false" Checked='<%# DataBinder.Eval(Container.DataItem, "twarranty") %>' />
                                             </ItemTemplate>                                        
                                         </telerik:GridTemplateColumn>
 
