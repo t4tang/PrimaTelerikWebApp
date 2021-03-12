@@ -159,5 +159,11 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
                 (sender as RadComboBox).SelectedValue = "03";
             }
         }
+
+        protected void btn_new_Click(object sender, EventArgs e)
+        {
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
+        }
     }
 }
