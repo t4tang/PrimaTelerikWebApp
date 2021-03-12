@@ -113,5 +113,10 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Syntom
                     txt.Enabled = false;
             }
         }
+
+        protected void btn_new_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
