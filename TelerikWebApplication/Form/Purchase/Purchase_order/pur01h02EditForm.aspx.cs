@@ -78,7 +78,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     cb_po_status.Text = "OPEN";
                     cb_po_status.SelectedValue = "0";
                     dtp_share_date.Enabled = false;
-                    chk_overhoul.Enabled = true;
+                    //chk_overhoul.Enabled = true;
                 }
             }
         }
@@ -121,12 +121,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 txt_pr_date.Text = ref_date.ToString("dd/MM/yyyy");
                 txt_remark.Text = sdr["Remark"].ToString();
                 txt_term_days.Value = Convert.ToDouble(sdr["JTempo"].ToString());
-                cb_prepared.SelectedValue = sdr["FreBy"].ToString();
-                cb_verified.SelectedValue = sdr["OrdBy"].ToString();
-                cb_approved.SelectedValue = sdr["AppBy"].ToString();
-                cb_prepared.Text = sdr["Prepare_by"].ToString();
-                cb_verified.Text = sdr["Order_by"].ToString();
-                cb_approved.Text = sdr["Approve_by"].ToString();
                 txt_owner.Text = sdr["Owner"].ToString();
                 txt_printed.Text = sdr["Printed"].ToString();
                 txt_edited.Text = sdr["Edited"].ToString();
@@ -157,8 +151,68 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     cb_po_status.Text = "HOLD";
                 }
                 txt_att_name.Text = sdr["attname"].ToString();
-                //pur01h02_slip._tot_amount = Convert.ToDouble(sdr["tot_amount"]);
-                //pur01h02_slip._unit_code = sdr["unit_code"].ToString();
+
+                if(Convert.ToDouble(sdr["Net"]) < 50000000)
+                {
+                    lbl_verify2.Text = "Approved By";
+                    lbl_approved.Text = "";
+                    cb_approved.Visible = false;
+
+                    cb_prepared.SelectedValue = sdr["FreBy"].ToString();
+                    cb_verified.SelectedValue = sdr["OrdBy"].ToString();
+                    cb_verified2.SelectedValue = sdr["AppBy"].ToString();
+                    cb_prepared.Text = sdr["Prepare_by"].ToString();
+                    cb_verified.Text = sdr["Order_by"].ToString();
+                    cb_verified2.Text = sdr["Approve_by"].ToString();
+                }
+                else
+                {
+                    lbl_verify2.Text = "";
+                    lbl_approved.Text = "Approved By";
+                    cb_verified2.Visible = true;
+                    cb_approved.Visible = true;
+
+                    cb_prepared.SelectedValue = sdr["FreBy"].ToString();
+                    cb_verified.SelectedValue = sdr["OrdBy"].ToString();
+                    cb_verified2.SelectedValue = sdr["OrdBy2"].ToString();
+                    cb_approved.SelectedValue = sdr["AppBy"].ToString();
+                    cb_prepared.Text = sdr["Prepare_by"].ToString();
+                    cb_verified.Text = sdr["Order_by"].ToString();
+                    cb_verified2.Text = sdr["Order_by2"].ToString();
+                    cb_approved.Text = sdr["Approve_by"].ToString();
+                }
+                chk_overhoul.Checked = Convert.ToBoolean(sdr["overhaul"].ToString());
+
+                if(sdr["status_pur"].ToString() == "1" )
+                {
+                    btn_prepare_checked.Visible = true;
+                    cb_prepared.Enabled = false;
+                }
+                if (sdr["status_pur"].ToString() == "2")
+                {
+                    btn_prepare_checked.Visible = true;
+                    cb_prepared.Enabled = false;
+                    btn_verified_checked.Visible = true;
+                    cb_verified.Enabled = false;
+                }
+                if (sdr["status_pur"].ToString() == "2" && sdr["OrdBy_chk"].ToString() == "1")
+                {
+                    btn_prepare_checked.Visible = true;
+                    cb_prepared.Enabled = false;
+                    btn_verified_checked.Visible = true;
+                    cb_verified.Enabled = false;
+                    btn_verified2_checked.Visible = true;
+                    cb_verified2.Enabled = false;
+                }
+                if (sdr["status_pur"].ToString() == "3" && sdr["OrdBy_chk"].ToString() != "1")
+                {
+                    btn_prepare_checked.Visible = true;
+                    cb_prepared.Enabled = false;
+                    btn_verified_checked.Visible = true;
+                    cb_verified.Enabled = false;
+                    btn_verified2_checked.Visible = true;
+                    cb_verified2.Enabled = false;
+                }
             }
             con.Close();
         }
@@ -213,8 +267,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             else
             {
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
-                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
-                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 192;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 290;
             }
         }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
@@ -1059,14 +1113,14 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, Pr_date, remark FROM v_purchase_order_reff WHERE region_code = @region_code " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT top 10 pr_code, Pr_date, remark FROM v_purchase_order_reff WHERE region_code = @region_code " +
                 "AND pr_code LIKE @text + '%' ORDER BY pr_code",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", pr_code);
             adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-
+    
             cb.DataTextField = "pr_code";
             cb.DataValueField = "pr_code";
             cb.DataSource = dt;
@@ -1500,6 +1554,21 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                     (Convert.ToDouble(txt_other_value.Value));
 
                 txt_total.Text = sum.ToString();
+
+                if(sum >= 50000000)
+                {
+                    lbl_verify2.Visible = false;
+                    lbl_approved.Text = "Approved By";
+                    lbl_verify2.Text = "";
+                    cb_approved.Visible = true;
+                }
+                else
+                {
+                    lbl_verify2.Text = "Approved By";
+                    lbl_approved.Text = "";
+                    lbl_approved.Visible = false;
+                    cb_approved.Visible = false;
+                }
             }
             catch (Exception)
             {
@@ -1566,9 +1635,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cmd.Parameters.AddWithValue("@JTempo", Convert.ToDouble(txt_term_days.Value));
                 cmd.Parameters.AddWithValue("@attname", txt_att_name.Text);
                 cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
-                cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
-                cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
-                cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
                 cmd.Parameters.AddWithValue("@vendor_code", cb_supplier.SelectedValue);
                 cmd.Parameters.AddWithValue("@vendor_name", cb_supplier.Text);
                 cmd.Parameters.AddWithValue("@cur_code", txt_curr.Text);
@@ -1610,6 +1676,20 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cmd.Parameters.AddWithValue("@ppph", Convert.ToDouble(txt_ppph.Value));
                 cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
                 cmd.Parameters.AddWithValue("@overhaul", chk_overhoul.Checked);
+                if(txt_total.Value < 50000000)
+                {
+                    cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
+                    cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
+                    cmd.Parameters.AddWithValue("@OrdBy2", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@AppBy", cb_verified2.SelectedValue);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
+                    cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
+                    cmd.Parameters.AddWithValue("@OrdBy2", cb_verified2.SelectedValue);
+                    cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
+                }
 
                 cmd.ExecuteNonQuery();
 

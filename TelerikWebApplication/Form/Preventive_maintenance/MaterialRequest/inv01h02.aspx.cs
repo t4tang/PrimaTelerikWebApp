@@ -28,6 +28,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         public DataTable DetailDtbl()
         {
             dtValues = new DataTable();
+            dtValues.Columns.Add("sro_code", typeof(string));
             dtValues.Columns.Add("chart_code", typeof(string));
             dtValues.Columns.Add("OprName", typeof(string));
             dtValues.Columns.Add("prod_type", typeof(string));
@@ -167,23 +168,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         {
             RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
             RadGrid1.DataBind();
-        }
-
-        private void populate_detail()
-        {
-            //RadGrid3.DataSource = new string[] { };
-
-            //if (tr_code == null || RadGrid1.MasterTableView.IsItemInserted == true)
-            //{
-            //    RadGrid3.DataSource = new string[] { };
-            //}           
-            //else
-            //{                
-            //    RadGrid3.DataSource = GetDataDetailTable(tr_code);
-            //}
-            
-            //RadGrid3.DataBind();
-        }
+        }               
 
         private static string GetStatusMessage(int offset, int total)
         {
@@ -281,8 +266,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 tr_code = item["sro_code"].Text;
                 wo_code = item["trans_id"].Text;
             }
-
-            populate_detail();
+            
             Session["actionEdit"] = "list";
         }
 
@@ -650,11 +634,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             dr.Close();
             con.Close();
         }
-        
-        protected void RadGrid1_UpdateCommand(object sender, GridCommandEventArgs e)
-        {
-            populate_detail();
-        }
+                
 
         protected void RadGrid1_EditCommand(object sender, GridCommandEventArgs e)
         {
@@ -834,7 +814,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     cmd.Parameters.AddWithValue("@part_unit", lbl_UoM.Text);
                     cmd.Parameters.AddWithValue("@chart_code", lbl_operation_code.Text);
                     cmd.Parameters.AddWithValue("@trans_id", wo_code);
-                    cmd.Parameters.AddWithValue("@deliv_date", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@deliv_date", string.Format("{0:yyyy-MM-dd}", dtp_deliv.SelectedDate.Value));
                     if (chkWaranty.Checked == true)
                     {
                         cmd.Parameters.AddWithValue("@tWarranty", 1);
@@ -880,6 +860,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             {
                 con.Close();
                 txt_mr_number.Text = run;
+                notif.Text = "Data telah disimpan";
+                notif.Show();
 
                 if ((sender as Button).Text == "Update")
                 {
@@ -893,6 +875,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     (sender as Button).Text = "Update";
                     btnCancel.Text = "Close";
                 }
+
+                RadGrid1.MasterTableView.IsItemInserted = false;
 
             }
 

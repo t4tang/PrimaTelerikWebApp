@@ -219,24 +219,27 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                     }
 
                     cmd.ExecuteNonQuery();
-
-                    con.Close();
-                    notif.Text = "Data berhasil disimpan";
-                    notif.Title = "Notification";
-                    notif.Show();
-                    txt_gr_number.Text = run;
-
-                    if (Session["actionEdit"].ToString() == "edit")
-                    {
-                        ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                    }
-                    else
-                    {
-                        ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                    }
-                    inv01h04.tr_code = run;
-                    inv01h04.selected_project = cb_project.SelectedValue;
+                   
                 }
+
+                con.Close();
+
+                notif.Text = "Data berhasil disimpan";
+                notif.Title = "Notification";
+                notif.Show();
+                txt_gr_number.Text = run;
+
+                if (Session["actionEdit"].ToString() == "edit")
+                {
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                }
+                inv01h04.tr_code = run;
+                inv01h04.selected_project = cb_project.SelectedValue;
+
             }
             catch (System.Exception ex)
             {
@@ -434,6 +437,31 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
             }
             dr.Close();
+
+            foreach (GridDataItem item in RadGrid2.MasterTableView.Items)
+            {
+                Label lblProdCode;
+                RadComboBox cbKolok;
+                lblProdCode = (item.FindControl("lblProdCode") as Label);
+                cbKolok = (item.FindControl("cbKolok") as RadComboBox);
+
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "SELECT inv00h12.KdLok, inv00h12.NmLok, inv00h12.lastupdate, inv00h12.userid, inv00h12.stEdit, inv00h12.wh_code " +
+                                "FROM inv00h12 LEFT OUTER JOIN inv00d01 ON inv00h12.NmLok = inv00d01.KoLok " +
+                                "WHERE  (inv00h12.wh_code = '" + (sender as RadComboBox).SelectedValue + "') AND "+
+                                "inv00h12.stEdit <> '4' AND inv00d01.prod_code = '" + lblProdCode.Text + "' ";
+                //SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbKolok.Text = dr["NmLok"].ToString();
+                    cbKolok.Enabled = false;
+                }
+                dr.Close();
+
+            }
             con.Close();
         }
 

@@ -85,11 +85,6 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls> 
             </telerik:AjaxSetting>
-            <%--<telerik:AjaxSetting AjaxControlID="RadGrid3">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="RadGrid3"></telerik:AjaxUpdatedControl>
-                </UpdatedControls> 
-            </telerik:AjaxSetting>--%>
             <telerik:AjaxSetting AjaxControlID="btnInsertItem">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid3"></telerik:AjaxUpdatedControl>
@@ -155,8 +150,6 @@
         <table id="tbl_control">
             <tr>                       
                 <td style="vertical-align: bottom; margin-left: 10px; padding-left: 8px">
-                    <%--<asp:ImageButton runat="server" ID="btnNew" AlternateText="New"  OnClientClick="ShowInsertForm(); return false;" ToolTip="Add New" Visible="true"
-                        Height="26px" Width="27px" ImageUrl="~/Images/tambah.png" ImageAlign="Bottom" ></asp:ImageButton>--%>
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click" ToolTip="Add New" Visible="true"
                         Height="26px" Width="27px" ImageUrl="~/Images/tambah.png" ImageAlign="Bottom" ></asp:ImageButton>
                 </td>                
@@ -190,7 +183,7 @@
             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="sro_code" Font-Size="11px" Font-Names="Century Gothic"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                 CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" 
-                CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl" InsertItemDisplay="Bottom">
+                CommandItemSettings-AddNewRecordText="New" EditFormSettings-EditFormType="WebUserControl" InsertItemDisplay="Top">
                 <Columns>
                     <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                         <HeaderStyle Width="40px"/>
@@ -261,7 +254,7 @@
                                                         runat="server" CausesValidation="False" CommandName="Cancel" CssClass="btn-entryFrm"></asp:Button>
                                                 </td>
                                             </tr>   
-                                                <tr>
+                                            <tr>
                                                 <td>
                                                     <telerik:RadLabel runat="server" Text="MR Number" CssClass="lbObject"></telerik:RadLabel>
                                                 </td>
@@ -277,7 +270,7 @@
                                                     </telerik:RadTextBox>
                                                 </td>
                                             </tr>
-                                                <tr>
+                                            <tr>
                                                 <td class="tdLabel">
                                                     <telerik:RadLabel runat="server" Text="Project Area" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                                 </td>
@@ -304,61 +297,51 @@
                                                     <telerik:RadLabel runat="server" Text="WO. Number" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                
-                                                    <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                                        <ContentTemplate>--%>
-                                                            <telerik:RadComboBox RenderMode="Lightweight" ID="cb_wo" runat="server" Width="200px" AutoPostBack="true" CausesValidation="false"
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.trans_id") %>' 
-                                                                DropDownWidth="600px" EnableLoadOnDemand="true" ShowMoreResultsBox="true"
-                                                                MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="trans_id" DataValueField="trans_id"
-                                                                OnItemsRequested="cb_wo_ItemsRequested" 
-                                                                OnSelectedIndexChanged="cb_wo_SelectedIndexChanged" 
-                                                                OnPreRender="cb_wo_PreRender">
-                                                                <HeaderTemplate>
-                                                                    <table style="width: 600px; font-size: smaller">
-                                                                        <tr>
-                                                                            <td style="width: 80px; font-variant:small-caps; color: #3399FF;">Wo Number
-                                                                            </td>
-                                                                            <td style="width: 80px; font-variant:small-caps; color: #3399FF;">Date
-                                                                            </td>
-                                                                            <td style="width: 80px; font-variant:small-caps; color: #3399FF;">Unit Code 
-                                                                            </td>                                                    
-                                                                            <td style="width: 250px; font-variant:small-caps; color: #3399FF;">Problem
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </HeaderTemplate>
-                                                                <ItemTemplate>
-                                                                    <table style="width: 600px; font-size: smaller">
-                                                                        <tr>
-                                                                            <td style="width: 80px;">
-                                                                                <%# DataBinder.Eval(Container, "DataItem.trans_id")%>
-                                                                            </td>
-                                                                            <td style="width: 80px;">
-                                                                                <%# DataBinder.Eval(Container, "DataItem.trans_date")%>
-                                                                            </td>
-                                                                            <td style="width: 80px;">
-                                                                                <%# DataBinder.Eval(Container, "DataItem.unit_code")%>
-                                                                            </td>
-                                                                            <td style="width: 250px;">
-                                                                                <%# DataBinder.Eval(Container, "DataItem.remark")%>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </ItemTemplate>
-                                                                <FooterTemplate>
-                                                                </FooterTemplate>
-                                                            </telerik:RadComboBox>
-                                                            <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="cb_wo" ForeColor="Red" 
-                                                        Font-Size="X-Small" Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>
-                                                        <%--</ContentTemplate>
-                                                        <Triggers>
-                                                            <asp:AsyncPostBackTrigger ControlID="cb_Project" EventName="SelectedIndexChanged"></asp:AsyncPostBackTrigger>
-                                                        </Triggers>
-                                                    </asp:UpdatePanel>--%>
-                                                
-                                                </td>
-            
+                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_wo" runat="server" Width="200px" AutoPostBack="true" CausesValidation="false"
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.trans_id") %>' 
+                                                        DropDownWidth="600px" EnableLoadOnDemand="true" ShowMoreResultsBox="true"
+                                                        MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="trans_id" DataValueField="trans_id"
+                                                        OnItemsRequested="cb_wo_ItemsRequested" 
+                                                        OnSelectedIndexChanged="cb_wo_SelectedIndexChanged" 
+                                                        OnPreRender="cb_wo_PreRender">
+                                                        <HeaderTemplate>
+                                                            <table style="width: 600px; font-size: smaller">
+                                                                <tr>
+                                                                    <td style="width: 80px; font-variant:small-caps; color: #3399FF;">Wo Number
+                                                                    </td>
+                                                                    <td style="width: 80px; font-variant:small-caps; color: #3399FF;">Date
+                                                                    </td>
+                                                                    <td style="width: 80px; font-variant:small-caps; color: #3399FF;">Unit Code 
+                                                                    </td>                                                    
+                                                                    <td style="width: 250px; font-variant:small-caps; color: #3399FF;">Problem
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <table style="width: 600px; font-size: smaller">
+                                                                <tr>
+                                                                    <td style="width: 80px;">
+                                                                        <%# DataBinder.Eval(Container, "DataItem.trans_id")%>
+                                                                    </td>
+                                                                    <td style="width: 80px;">
+                                                                        <%# DataBinder.Eval(Container, "DataItem.trans_date")%>
+                                                                    </td>
+                                                                    <td style="width: 80px;">
+                                                                        <%# DataBinder.Eval(Container, "DataItem.unit_code")%>
+                                                                    </td>
+                                                                    <td style="width: 250px;">
+                                                                        <%# DataBinder.Eval(Container, "DataItem.remark")%>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </ItemTemplate>
+                                                        <FooterTemplate>
+                                                        </FooterTemplate>
+                                                    </telerik:RadComboBox>
+                                                    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="cb_wo" ForeColor="Red" 
+                                                    Font-Size="X-Small" Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>                                                        
+                                                </td>            
                                             </tr>
                                             <tr>
                                                 <td class="tdLabel">
@@ -819,21 +802,33 @@
                                                     <asp:Label runat="server" ID="lbl_UoM_insertTemp" ></asp:Label>
                                                 </InsertItemTemplate>
                                             </telerik:GridTemplateColumn>
-                                            <telerik:GridTemplateColumn HeaderText="Waranty" HeaderStyle-Width="50px" ItemStyle-Width="40px" ItemStyle-HorizontalAlign="Center" 
+                                            <telerik:GridTemplateColumn HeaderText="Waranty" HeaderStyle-Width="50px" ItemStyle-Width="65px" ItemStyle-HorizontalAlign="Center" 
                                                     HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
-                                                    <asp:CheckBox runat="server" ID="chk_waranty" Text="Warranty"
+                                                    <asp:CheckBox runat="server" ID="chk_waranty"
                                                         Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' Enabled="false" />
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:CheckBox runat="server" ID="chk_waranty_editTemp" Text="Warranty"
-                                                        Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' Enabled="true" />
+                                                    <asp:CheckBox runat="server" ID="chk_waranty_editTemp"
+                                                        Checked='<%# DataBinder.Eval(Container.DataItem, "tWarranty") %>' Enabled="false" />
                                                 </EditItemTemplate>  
                                                 <InsertItemTemplate>
-                                                    <asp:CheckBox runat="server" ID="chk_waranty_insertTemp" Text="Warranty" Enabled="true" />
+                                                    <asp:CheckBox runat="server" ID="chk_waranty_insertTemp" Enabled="false" />
                                                 </InsertItemTemplate>                                      
                                             </telerik:GridTemplateColumn>
-                                            <telerik:GridTemplateColumn HeaderText="Remark" HeaderStyle-Width="250px" ItemStyle-Width="250px" HeaderStyle-HorizontalAlign="Center">
+                                            <%--<telerik:GridTemplateColumn HeaderText="Delivery Date" HeaderStyle-Width="110px"  ItemStyle-Width="110px" ItemStyle-HorizontalAlign="Center"
+                                                HeaderStyle-HorizontalAlign="Center"  >
+                                                <ItemTemplate>
+                                                    <asp:RequiredFieldValidator runat="server" ID="unitNameValidator" ControlToValidate="dtpDelivDate" ForeColor="Red" 
+                                                       Text="*"></asp:RequiredFieldValidator>  
+                                                    <telerik:RadDatePicker runat="server" ID="dtpDelivDate" Width="100px"
+                                                        DbSelectedDate='<%#DataBinder.Eval(Container, "DataItem.deliv_date")%>' 
+                                                        onkeydown="blurTextBox(this, event)" Type="Date">
+                                                        <DateInput DisplayDateFormat="dd-MM-yyyy" runat="server" /> 
+                                                    </telerik:RadDatePicker>
+                                                </ItemTemplate>
+                                            </telerik:GridTemplateColumn>--%> 
+                                            <telerik:GridTemplateColumn HeaderText="Remark" HeaderStyle-Width="250px" ItemStyle-Width="220px" HeaderStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <asp:Label runat="server" ID="lbl_remark" Width="250px" Text='<%# DataBinder.Eval(Container.DataItem, "remark") %>'></asp:Label>
                                                 </ItemTemplate>
@@ -900,5 +895,7 @@
 
     <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true">
     </telerik:RadWindowManager>
-
+    <telerik:RadNotification RenderMode="Lightweight" ID="notif" Text="Data telah disimpan" runat="server" Position="BottomRight" Skin="Silk"
+                AutoCloseDelay="10000" Width="350" Height="110" Title="Confirmation" EnableRoundedCorners="true">
+    </telerik:RadNotification>
 </asp:Content>

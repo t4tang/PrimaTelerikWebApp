@@ -203,10 +203,10 @@
                 FilterControlWidth="90px">
                 <HeaderStyle Width="125px"  HorizontalAlign="Center"></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="reff_no" HeaderText="Reff Number" DataField="wo_no" ItemStyle-Width="150px" FilterControlWidth="120px">
+                <telerik:GridBoundColumn UniqueName="reff_no" HeaderText="Reff Number" DataField="reff_no" ItemStyle-Width="150px" FilterControlWidth="120px">
                     <HeaderStyle Width="150px"  HorizontalAlign="Center"></HeaderStyle>
                 </telerik:GridBoundColumn>   
-                <telerik:GridBoundColumn UniqueName="wo_no" HeaderText="WO Number" DataField="reff_no" ItemStyle-Width="150px" FilterControlWidth="120px" >
+                <telerik:GridBoundColumn UniqueName="wo_no" HeaderText="WO Number" DataField="wo_no" ItemStyle-Width="150px" FilterControlWidth="120px" >
                     <HeaderStyle Width="150px"  HorizontalAlign="Center"></HeaderStyle>
                 </telerik:GridBoundColumn>                    
                 <telerik:GridBoundColumn UniqueName="remark" HeaderText="Remark" DataField="remark" ItemStyle-Wrap="true"  

@@ -55,7 +55,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_save;
+        protected global::Telerik.Web.UI.RadButton btn_save;
         
         /// <summary>
         /// txt_doc_code control.
@@ -229,15 +229,6 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadTextBox txt_unit_code;
         
         /// <summary>
-        /// unitCodeValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitCodeValidator;
-        
-        /// <summary>
         /// UpdatePanel9 control.
         /// </summary>
         /// <remarks>
@@ -256,15 +247,6 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         protected global::Telerik.Web.UI.RadTextBox txt_unit_name;
         
         /// <summary>
-        /// unitNameValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitNameValidator;
-        
-        /// <summary>
         /// UpdatePanel11 control.
         /// </summary>
         /// <remarks>
@@ -281,15 +263,6 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadNumericTextBox txt_hm1;
-        
-        /// <summary>
-        /// hmValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator hmValidator;
         
         /// <summary>
         /// UpdatePanel7 control.

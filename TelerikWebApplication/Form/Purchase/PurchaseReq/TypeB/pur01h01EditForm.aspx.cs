@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             else
             {
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
-                //(sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
                 (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 230;
             }
         }
@@ -103,14 +103,15 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
 
         #region Refferences
                 
-        protected void LoadRef(string sro_code, string projectID, RadComboBox cb)
+        protected void LoadRef(string sro_code, string projectID, string type_reff, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, doc_date, doc_remark FROM v_purcahse_request_reff " +
-                "WHERE region_code = @project AND doc_code LIKE @text + '%'", con);
+                "WHERE region_code = @project AND type_ref = @type_ref AND doc_code LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+            adapter.SelectCommand.Parameters.AddWithValue("@type_ref", type_reff);
             adapter.SelectCommand.Parameters.AddWithValue("@text", sro_code);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -123,7 +124,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         protected void cb_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            LoadRef(e.Text, cb_project.SelectedValue, cb_type_ref.SelectedValue, (sender as RadComboBox));
         }
 
         protected void cb_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -220,10 +221,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             {
                 txt_doc_code.Text = sdr["pr_code"].ToString();
                 dtp_pr.SelectedDate = Convert.ToDateTime(sdr["Pr_date"].ToString());
-                txt_reff_date.Text = String.Format("{0:dd-MM-yyyy}", sdr["DateRef"]);
+                txt_reff_date.Text = String.Format("{0:dd-MM-yyyy}", sdr["reff_date"]);
                 //dtp_ref.Text = sdr["ref_date"].ToString();
                 cb_type_ref.Text = sdr["type_source"].ToString();
-                cb_ref.Text = sdr["wo_no"].ToString();
+                cb_ref.Text = sdr["reff_no"].ToString();
                 txt_unit_code.Text = sdr["unit_code"].ToString();
                 txt_unit_name.Text = sdr["model_no"].ToString();
                 cb_project.Text = sdr["region_name"].ToString();

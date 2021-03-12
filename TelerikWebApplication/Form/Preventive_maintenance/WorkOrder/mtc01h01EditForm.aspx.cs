@@ -1985,7 +1985,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             //{
             GridEditableItem item = (GridEditableItem)e.Item;
 
-            if ( Session["actionEdit"].ToString()=="new" && Session[2] == null)
+            if ( Session["actionEdit"].ToString()=="new" && Session["TableDMBD"] == null)
             {
                 dtValues = new DataTable();
                 dtValues.Columns.Add("trans_id", typeof(string));
@@ -2007,14 +2007,14 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 DataRow drValue = dtValues.NewRow();
                 drValue["trans_id"] = tr_code;
                 drValue["down_date"] = (item.FindControl("trans_dateInsert") as RadDatePicker).SelectedDate;
-                drValue["down_time"] = (item.FindControl("rtp_breakdownTimeInsert") as RadDatePicker).SelectedDate;
+                drValue["down_time"] = (item.FindControl("rtp_breakdownTimeInsert") as RadTimePicker).SelectedTime;
             //drValue["down_time"] = Convert.ToInt32((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
             //(Convert.ToInt32((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100);
             //drValue["down_act"] = (item.FindControl("rtp_breakdownActInsert") as RadDatePicker).SelectedDate.Value.TimeOfDay;
-            drValue["down_act"] = (item.FindControl("rtp_breakdownActInsert") as RadDatePicker).SelectedDate;
+            drValue["down_act"] = (item.FindControl("rtp_breakdownActInsert") as RadTimePicker).SelectedTime;
             //drValue["down_act"] = Convert.ToInt32((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
             //(Convert.ToInt32((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100);
-            drValue["down_up"] = (item.FindControl("rtp_breakdownUpInsert") as RadTimePicker).SelectedDate;
+            drValue["down_up"] = (item.FindControl("rtp_breakdownUpInsert") as RadTimePicker).SelectedTime;
                 //drValue["down_up"] = Convert.ToInt32((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
                 //(Convert.ToInt32((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100);
                 drValue["remark_activity"] = (item.FindControl("txt_remarkInsert") as RadTextBox).Text;
