@@ -65,7 +65,7 @@ namespace ReportLibrary.Reports.Inventory
             // 
             // groupFooterSection
             // 
-            this.groupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(1.3000005483627319D);
+            this.groupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(1.1000006198883057D);
             this.groupFooterSection.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.shape2,
             this.textBox31,
@@ -462,12 +462,12 @@ namespace ReportLibrary.Reports.Inventory
             // 
             // detail
             // 
-            this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(0.30000033974647522D);
+            this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(0.19999998807907105D);
             this.detail.Name = "detail";
             // 
             // pageFooterSection1
             // 
-            this.pageFooterSection1.Height = Telerik.Reporting.Drawing.Unit.Cm(0.89999997615814209D);
+            this.pageFooterSection1.Height = Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D);
             this.pageFooterSection1.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox38,
             this.textBox37,
