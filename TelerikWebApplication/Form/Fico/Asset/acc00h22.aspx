@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc00h22.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Asset.acc00h22" %>
+﻿<%@ Page Title="PRIMA SYSTEM" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc00h22.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Asset.acc00h22" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../Styles/common.css" rel="stylesheet" />
@@ -56,6 +56,16 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid2" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>                
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="RadGrid1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btn_new">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:RadAjaxManager>
 
@@ -70,14 +80,14 @@
                      <tr>                         
                          <td style="width:320px">
                               <telerik:RadComboBox ID="cb_project_prm" runat="server" RenderMode="Lightweight" Label="Project" AutoPostBack="false"
-                                EnableLoadOnDemand="True" Skin="MetroTouch"  EnableVirtualScrolling="true"  ShowMoreResultsBox="true"
+                                EnableLoadOnDemand="True" Skin="Silk"  EnableVirtualScrolling="true"  ShowMoreResultsBox="true"
                                 Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px" 
                                 OnItemsRequested="cb_project_prm_ItemsRequested" OnSelectedIndexChanged="cb_project_prm_SelectedIndexChanged" 
                                 OnPreRender="cb_project_prm_PreRender" BorderStyle="NotSet"></telerik:RadComboBox>
                          </td>
                          <td style="width:320px">
                               <telerik:RadComboBox ID="cb_status_prm" runat="server" RenderMode="Lightweight" Label="Status" AutoPostBack="false"
-                                EnableLoadOnDemand="True" Skin="MetroTouch"  OnItemsRequested="cb_status_prm_ItemsRequested" EnableVirtualScrolling="true" 
+                                EnableLoadOnDemand="True" Skin="Silk"  OnItemsRequested="cb_status_prm_ItemsRequested" EnableVirtualScrolling="true" 
                                 Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="320px"
                                 OnSelectedIndexChanged="cb_status_prm_SelectedIndexChanged" BorderStyle="NotSet"></telerik:RadComboBox>
                          </td>
@@ -92,12 +102,35 @@
                      </tr>
                  </table>  
             </div>
+            <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
+                <table id="tbl_control2">
+                    <tr>       
+                        <td style="vertical-align: middle; margin-left: 10px; padding:0px 0px 0px 0px">
+                            <telerik:RadButton ID="btn_new" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="New" Width="80px" Height="30px"
+                                Skin="Telerik" OnClick="btn_new_Click" ></telerik:RadButton>
+                        </td>                    
+                        <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
+                     
+                        </td>                           
+                        <td style="width: 98%; text-align: right; padding-right:17px">
+                                <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <telerik:RadLabel ID="RadLabel1" Text="Asset" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                                        padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
+                                    </telerik:RadLabel>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                    </tr>
+                </table>
+            </div> 
             <div runat="server" style="margin-right:10px" id="Div2">
-                <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="MetroTouch"
-                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="12"
+                <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk"
+                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="12" CssClass="RadGrid_ModernBrowsers"
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-                <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="asset_id" Font-Size="12px"
+                <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
+                <MasterTableView CommandItemDisplay="None" Font-Size="11px" Font-Names="Century Gothic" DataKeyNames="asset_id"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                      CommandItemSettings-ShowRefreshButton="false" >  
                     <ColumnGroups>
@@ -178,8 +211,8 @@
             </div>
         </ContentTemplate>
     </telerik:RadWindow>
-
-    <div class="scroller" runat="server">
+    
+    <div class="scroller" style="overflow-y:scroll; height:620px" runat="server"> 
 
         <div style=" padding-left:15px; width:100%; border-bottom-color: #FF9933; border-bottom-width: 1px; border-bottom-style: inset;">
             <table id="tbl_control">
@@ -234,7 +267,7 @@
                                 <td colspan="5">
                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ur_number" runat="server" Width="250px"  ReadOnly="true"
                                     DropDownWidth="900px" EmptyMessage="- Select Document Number -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" AutoPostBack="true" 
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="true" 
                                        OnItemsRequested="cb_ur_number_ItemsRequested" OnSelectedIndexChanged="cb_ur_number_SelectedIndexChanged" >
                                         <HeaderTemplate>
                                             <table style="width: 900px; font-size:smaller">
@@ -311,7 +344,7 @@
                                 </td>
                                 <td>
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_uom" runat="server" Width="100px" ReadOnly="true" 
-                                        AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="MetroTouch"
+                                        AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Silk"
                                          OnItemsRequested="cb_uom_ItemsRequested" OnSelectedIndexChanged="cb_uom_SelectedIndexChanged" OnPreRender="cb_uom_PreRender">
                                     </telerik:RadComboBox>
                                 </td>
@@ -333,7 +366,7 @@
                                 <td colspan="5">
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_asset_class" runat="server" Width="250px"  ReadOnly="true"
                                     DropDownWidth="700px" EmptyMessage="- Select Asset Class -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" AutoPostBack="true"
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="true"
                                         OnItemsRequested="cb_asset_class_ItemsRequested" OnSelectedIndexChanged="cb_asset_class_SelectedIndexChanged"
                                         OnPreRender="cb_asset_class_PreRender">
                                         <HeaderTemplate>
@@ -386,7 +419,7 @@
                                 <td colspan="5">
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_asset_type" runat="server" Width="250px"  ReadOnly="true"
                                     EmptyMessage="- Select Asset Type -" ShowMoreResultsBox="true"  EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" AutoPostBack="false"
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="false"
                                         OnItemsRequested="cb_asset_type_ItemsRequested" OnSelectedIndexChanged="cb_asset_type_SelectedIndexChanged"
                                          OnPreRender="cb_asset_type_PreRender">
                                     </telerik:RadComboBox>
@@ -405,7 +438,7 @@
                                 <td colspan="5">
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_asset_status" runat="server" Width="250px"  ReadOnly="true"
                                     DropDownWidth="300px" EmptyMessage="- Select Asset Status -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" AutoPostBack="False"
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="False"
                                         OnItemsRequested="cb_asset_status_ItemsRequested" OnSelectedIndexChanged="cb_asset_status_SelectedIndexChanged"
                                         OnPreRender="cb_asset_status_PreRender"></telerik:RadComboBox>
                                 </td>
@@ -417,7 +450,7 @@
                                 <td colspan="5">
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_taxx_group" runat="server" Width="250px"  ReadOnly="true"
                                     DropDownWidth="300px" EmptyMessage="- Select Tax Group -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" AutoPostBack="False"
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="False"
                                         OnItemsRequested="cb_taxx_group_ItemsRequested" OnSelectedIndexChanged="cb_taxx_group_SelectedIndexChanged"
                                         OnPreRender="cb_taxx_group_PreRender">
                                     </telerik:RadComboBox>
@@ -440,7 +473,7 @@
                                 <td>   
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="350px" ReadOnly="true"
                                     DropDownWidth="650px" EmptyMessage="- Select a Project -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" AutoPostBack="true"
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="true"
                                         OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged"
                                         OnPreRender="cb_project_PreRender">
                                         <HeaderTemplate>
@@ -480,7 +513,7 @@
                                 <td style="vertical-align:top; text-align:left">                                   
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_cost_center" runat="server" Width="350px"  ReadOnly="true"
                                     DropDownWidth="650px" EmptyMessage="- Select a Cost Center -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" AutoPostBack="true" 
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="true" 
                                         OnItemsRequested="cb_cost_center_ItemsRequested" OnSelectedIndexChanged="cb_cost_center_SelectedIndexChanged"
                                         OnPreRender="cb_cost_center_PreRender">
                                         <HeaderTemplate>
@@ -520,7 +553,7 @@
                                 <td style="vertical-align:top; text-align:left">                                   
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_unit" runat="server" Width="350px"  ReadOnly="true"
                                     DropDownWidth="650px" EmptyMessage="- Select a Unit -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" AutoPostBack="true" 
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="true" 
                                         OnItemsRequested="cb_unit_ItemsRequested" >
                                         <HeaderTemplate>
                                             <table style="width: 550px; font-size:smaller">
@@ -573,7 +606,7 @@
                                         <ContentTemplate>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_pic" runat="server" Width="250px"  ReadOnly="true"
                                             EmptyMessage="- Select PIC     -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
-                                             MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" 
+                                             MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" 
                                              OnItemsRequested="cb_pic_ItemsRequested" OnSelectedIndexChanged="cb_pic_SelectedIndexChanged"
                                                 OnPreRender="cb_pic_PreRender">                                                                                                     
                                             </telerik:RadComboBox>
@@ -595,7 +628,7 @@
 
         <div style=" width:100%; border-top-color: #336600; border-top-width: 1px; border-top-style: inset; padding-top: 5px;" class="table_trx">
             <telerik:RadTabStrip RenderMode="Lightweight" runat="server" ID="RadTabStrip1"  Orientation="HorizontalTop" Width="97%" 
-            SelectedIndex="0" MultiPageID="RadMultiPage1" Skin="MetroTouch">
+            SelectedIndex="0" MultiPageID="RadMultiPage1" Skin="Silk">
             <Tabs>
                 <telerik:RadTab Text="Purchase Detail" Height="15px"> 
                 </telerik:RadTab>
@@ -624,7 +657,7 @@
                                                 </telerik:RadTextBox>--%>
                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_currency" runat="server" Width="120px"
                                                 EnableLoadOnDemand="True" HighlightTemplatedItems="true" AutoPostBack="true"
-                                                MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" 
+                                                MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" 
                                                 OnItemsRequested="cb_currency_ItemsRequested" OnSelectedIndexChanged="cb_currency_SelectedIndexChanged"
                                                 OnPreRender="cb_currency_PreRender">                                                                                                     
                                             </telerik:RadComboBox>
@@ -677,8 +710,8 @@
                                         </td>
                                         <td colspan="3">
                                             <telerik:RadDatePicker ID="dtp_order_date"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                TabIndex="4" Skin="MetroTouch"> 
-                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="MetroTouch" 
+                                                TabIndex="4" Skin="Silk"> 
+                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Silk" 
                                                     EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;"></Calendar>
                                                 <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
                                                 </DateInput>
@@ -834,8 +867,8 @@
                                         </td>
                                         <td colspan="3">
                                             <telerik:RadDatePicker ID="dtp_depre_start"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                TabIndex="4" Skin="MetroTouch"> 
-                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="MetroTouch" 
+                                                TabIndex="4" Skin="Silk"> 
+                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Silk" 
                                                     EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;"></Calendar>
                                                 <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
                                                 </DateInput>
@@ -849,8 +882,8 @@
                                         </td>
                                         <td colspan="3">
                                             <telerik:RadDatePicker ID="dtp_depre_last_post"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                TabIndex="4" Skin="MetroTouch"> 
-                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="MetroTouch" 
+                                                TabIndex="4" Skin="Silk"> 
+                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Silk" 
                                                     EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;"></Calendar>
                                                 <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
                                                 </DateInput>
@@ -950,8 +983,8 @@
                                         </td>
                                         <td>
                                             <telerik:RadDatePicker ID="dtp_sold_date"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                TabIndex="4" Skin="MetroTouch" DateInput-ReadOnly="true" Enabled="false"> 
-                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="MetroTouch" 
+                                                TabIndex="4" Skin="Silk" DateInput-ReadOnly="true" Enabled="false"> 
+                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Silk" 
                                                     EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;"></Calendar>
                                                 <DateInput runat="server" TabIndex="4" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%">                            
                                                 </DateInput>
@@ -982,7 +1015,7 @@
                                 <td>
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_depre_by_prm" runat="server" Width="120px"
                                         EnableLoadOnDemand="True" HighlightTemplatedItems="true" AutoPostBack="true"
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" 
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" 
                                         OnItemsRequested="cb_depre_prm_ItemsRequested" OnSelectedIndexChanged="cb_depre_by_prm_SelectedIndexChanged">                                                                                                     
                                     </telerik:RadComboBox>
                                 </td>
@@ -990,7 +1023,7 @@
                                     
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_years_depre_prm" runat="server" Width="120px" 
                                         EnableLoadOnDemand="True" HighlightTemplatedItems="true" Label="Year :" ShowMoreResultsBox="true"
-                                        MarkFirstMatch="true" Skin="MetroTouch" EnableVirtualScrolling="true" 
+                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" 
                                         OnItemsRequested="cb_years_depre_prm_ItemsRequested" >                                                                                                     
                                     </telerik:RadComboBox>
                                         
@@ -1002,7 +1035,7 @@
                                
                             </tr>
                         </table>
-                            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid2"  runat="server" AllowPaging="true" ShowFooter="false" Skin="MetroTouch" Width="1200px"
+                            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid2"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk" Width="1200px"
                         AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="6" OnNeedDataSource="RadGrid2_NeedDataSource" >
                        <PagerStyle ShowPagerText="false" />                         
                             <MasterTableView CommandItemDisplay="Top" DataKeyNames="bulan_tahun" Font-Size="12px"

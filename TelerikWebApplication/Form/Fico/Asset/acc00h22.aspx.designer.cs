@@ -112,6 +112,24 @@ namespace TelerikWebApplication.Form.Fico.Asset {
         protected global::System.Web.UI.WebControls.Button btnOk;
         
         /// <summary>
+        /// btn_new control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadButton btn_new;
+        
+        /// <summary>
+        /// RadLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadLabel RadLabel1;
+        
+        /// <summary>
         /// Div2 control.
         /// </summary>
         /// <remarks>

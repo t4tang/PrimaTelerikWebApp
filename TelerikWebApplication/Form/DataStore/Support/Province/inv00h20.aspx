@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv00h20.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Support.Province.inv00h20" %>
+﻿<%@ Page Title="PRIMA SYSTEM" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv00h20.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Support.Province.inv00h20" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
       <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="ConfiguratorPanel">
+            <telerik:AjaxSetting AjaxControlID="btn_new">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls>
@@ -25,21 +25,40 @@
 
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
     </telerik:RadAjaxLoadingPanel>
-    <div class="scroller">
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
+        <table id="tbl_control">
+            <tr>       
+                <td style="vertical-align: middle; margin-left: 10px; padding:0px 0px 0px 0px">
+                    <telerik:RadButton ID="btn_new" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="New" Width="80px" Height="30px"
+                        Skin="Telerik" OnClick="btn_new_Click" ></telerik:RadButton>
+                </td>                    
+                <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
+                     
+                </td>                           
+                <td style="width: 98%; text-align: right; padding-right:17px">
+                     <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <telerik:RadLabel ID="lbl_form_name" Text="Master Province" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
+                                padding-bottom: 0px; font-size: x-large; color:deepskyblue; font-weight:normal">
+                            </telerik:RadLabel>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+        </table>
+    </div> 
+    
+    <div class="scroller" style="overflow-y:scroll; height:620px"> 
         <telerik:RadGrid ID="RadGrid1" runat="server" RenderMode="Lightweight" AllowPaging="True" 
-        ShowFooter ="true" 
+        ShowFooter ="False" CssClass="RadGrid_ModernBrowsers"
         AutoGenerateColumns="False" MasterTableView-AutoGenerateColumns="False"
          OnNeedDataSource ="RadGrid1_NeedDataSource" OnInsertCommand ="RadGrid1_InsertCommand" OnUpdateCommand ="RadGrid1_UpdateCommand"
-        OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="MetroTouch" OnItemCreated ="RadGrid1_ItemCreated"
+        OnDeleteCommand ="RadGrid1_DeleteCommand" Skin ="Silk" OnItemCreated ="RadGrid1_ItemCreated"
          MasterTableView-CommandItemDisplay="Top" MasterTableView-DataKeyNames="prov_code" MasterTableView-ClientDataKeyNames="prov_code" 
         MasterTableView-AllowFilteringByColumn="True" AllowSorting="True">
-        <MasterTableView Font-Names="Calibri" Font-Size="13px">
-            <Columns>
-           <%-- <telerik:GridTemplateColumn UniqueName="TemplateEditColumn" AllowFiltering="False" 
-                ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
-                <ItemTemplate>
-                <asp:LinkButton ID="EditLink" runat="server" Text="Edit"></asp:LinkButton>
-                    </ItemTemplate> </telerik:GridTemplateColumn>--%>
+        <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
+            <MasterTableView CommandItemDisplay="None" Font-Size="11px" Font-Names="Century Gothic">
+                <Columns>
                 <telerik:GridEditCommandColumn UniqueName ="EditCommandColumn">
                     <HeaderStyle Width ="15px" ></HeaderStyle>
                     <ItemStyle Width = "15px" />
