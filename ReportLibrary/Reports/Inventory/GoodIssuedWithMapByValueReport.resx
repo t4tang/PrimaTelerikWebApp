@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="sqlInventoryAnalysisReport.ParameterValues" xml:space="preserve">
-    <value>{"@project":"ALL","@tglawal":"2018-01-01","@tglakhir":"2018-01-31"}</value>
+  <metadata name="sqlGoodIssuedByValueReport.ParameterValues" xml:space="preserve">
+    <value>{"@project":"ALL","@tglawal":"2018-08-01","@tglakhir":"2018-08-18"}</value>
   </metadata>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>
