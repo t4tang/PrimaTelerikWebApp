@@ -407,7 +407,7 @@ namespace ReportLibrary.Reports.Inventory
             this.GoodReceiptReportGroupBySupplier.SelectCommand = "dbo.spr_good_receive";
             this.GoodReceiptReportGroupBySupplier.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
-            // Good_Receipt_Report_By_Supplier
+            // GoodReceiptReportBySupplier
             // 
             this.DataSource = this.GoodReceiptReportGroupBySupplier;
             group1.GroupFooter = this.groupFooterSection;
