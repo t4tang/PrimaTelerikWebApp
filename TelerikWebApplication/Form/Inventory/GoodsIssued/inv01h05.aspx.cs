@@ -220,11 +220,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             {
                 con.Open();
                 cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv01h05 SET userid = @userid, lastupdate = GETDATE(), status_do = '4' WHERE (do_code = @do_code)";
+                cmd.CommandText = "sp_delete_goods_issued";
                 cmd.Parameters.AddWithValue("@do_code", do_code);
-                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                cmd.Parameters.AddWithValue("@uid", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
 

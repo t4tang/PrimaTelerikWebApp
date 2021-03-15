@@ -238,15 +238,6 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         protected global::Telerik.Web.UI.RadTextBox txt_unit_code;
         
         /// <summary>
-        /// unitCodeValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitCodeValidator;
-        
-        /// <summary>
         /// UpdatePanel9 control.
         /// </summary>
         /// <remarks>
@@ -263,15 +254,6 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTextBox txt_unit_name;
-        
-        /// <summary>
-        /// unitNameValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator unitNameValidator;
         
         /// <summary>
         /// UpdatePanel11 control.
