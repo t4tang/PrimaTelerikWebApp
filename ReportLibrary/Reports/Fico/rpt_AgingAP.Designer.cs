@@ -79,11 +79,22 @@ namespace ReportLibrary.Reports.Fico
             this.textBox61 = new Telerik.Reporting.TextBox();
             this.textBox58 = new Telerik.Reporting.TextBox();
             this.textBox60 = new Telerik.Reporting.TextBox();
+            this.textBox62 = new Telerik.Reporting.TextBox();
+            this.textBox63 = new Telerik.Reporting.TextBox();
+            this.textBox64 = new Telerik.Reporting.TextBox();
+            this.textBox65 = new Telerik.Reporting.TextBox();
+            this.textBox66 = new Telerik.Reporting.TextBox();
+            this.textBox67 = new Telerik.Reporting.TextBox();
+            this.textBox68 = new Telerik.Reporting.TextBox();
+            this.textBox69 = new Telerik.Reporting.TextBox();
+            this.textBox70 = new Telerik.Reporting.TextBox();
+            this.textBox71 = new Telerik.Reporting.TextBox();
+            this.textBox72 = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // groupFooterSection
             // 
-            this.groupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D);
+            this.groupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Inch(0.599999725818634D);
             this.groupFooterSection.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox53,
             this.textBox28,
@@ -95,7 +106,18 @@ namespace ReportLibrary.Reports.Fico
             this.textBox59,
             this.textBox61,
             this.textBox58,
-            this.textBox60});
+            this.textBox60,
+            this.textBox62,
+            this.textBox63,
+            this.textBox64,
+            this.textBox65,
+            this.textBox66,
+            this.textBox67,
+            this.textBox68,
+            this.textBox69,
+            this.textBox70,
+            this.textBox71,
+            this.textBox72});
             this.groupFooterSection.Name = "groupFooterSection";
             // 
             // groupHeaderSection
@@ -923,6 +945,138 @@ namespace ReportLibrary.Reports.Fico
             this.textBox60.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox60.Value = "= Sum(Fields.[121-180])";
             // 
+            // textBox62
+            // 
+            this.textBox62.Format = "{0:N0}";
+            this.textBox62.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(10.899407386779785D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
+            this.textBox62.Name = "textBox62";
+            this.textBox62.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.1005922555923462D), Telerik.Reporting.Drawing.Unit.Inch(0.20000012218952179D));
+            this.textBox62.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox62.Style.Font.Bold = true;
+            this.textBox62.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox62.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox62.Value = "Total (IDR) =";
+            // 
+            // textBox63
+            // 
+            this.textBox63.Format = "{0:N2}";
+            this.textBox63.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(12.000079154968262D), Telerik.Reporting.Drawing.Unit.Inch(0.30000019073486328D));
+            this.textBox63.Name = "textBox63";
+            this.textBox63.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.1998400688171387D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox63.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox63.Style.Font.Bold = true;
+            this.textBox63.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox63.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox63.Value = "=(Sum (Fields.Jumlah_Tax1))* Fields.kurs";
+            // 
+            // textBox64
+            // 
+            this.textBox64.Format = "{0:N2}";
+            this.textBox64.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(13.700000762939453D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
+            this.textBox64.Name = "textBox64";
+            this.textBox64.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.1998400688171387D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox64.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox64.Style.Font.Bold = true;
+            this.textBox64.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox64.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox64.Value = "=(Sum (Fields.Jumlah_Tax2))* Fields.kurs";
+            // 
+            // textBox65
+            // 
+            this.textBox65.Format = "{0:N2}";
+            this.textBox65.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(15.4000825881958D), Telerik.Reporting.Drawing.Unit.Inch(0.30000019073486328D));
+            this.textBox65.Name = "textBox65";
+            this.textBox65.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.1998400688171387D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox65.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox65.Style.Font.Bold = true;
+            this.textBox65.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox65.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox65.Value = "=(Sum (Fields.Jumlah_Tax3))* Fields.kurs";
+            // 
+            // textBox66
+            // 
+            this.textBox66.Format = "{0:N2}";
+            this.textBox66.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(16.700159072875977D), Telerik.Reporting.Drawing.Unit.Inch(0.30000019073486328D));
+            this.textBox66.Name = "textBox66";
+            this.textBox66.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.1998400688171387D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox66.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox66.Style.Font.Bold = true;
+            this.textBox66.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox66.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox66.Value = "=(Sum (Fields.tot_Aging_AP))* Fields.kurs";
+            // 
+            // textBox67
+            // 
+            this.textBox67.Format = "{0:N2}";
+            this.textBox67.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(17.900079727172852D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
+            this.textBox67.Name = "textBox67";
+            this.textBox67.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2999987602233887D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox67.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox67.Style.Font.Bold = true;
+            this.textBox67.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox67.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox67.Value = "=(Sum (Fields.[1-30]))* Fields.kurs";
+            // 
+            // textBox68
+            // 
+            this.textBox68.Format = "{0:N2}";
+            this.textBox68.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(19.200153350830078D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
+            this.textBox68.Name = "textBox68";
+            this.textBox68.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2999987602233887D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox68.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox68.Style.Font.Bold = true;
+            this.textBox68.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox68.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox68.Value = "=(Sum (Fields.[31-60]))* Fields.kurs";
+            // 
+            // textBox69
+            // 
+            this.textBox69.Format = "{0:N2}";
+            this.textBox69.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(20.50023078918457D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
+            this.textBox69.Name = "textBox69";
+            this.textBox69.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2999987602233887D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox69.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox69.Style.Font.Bold = true;
+            this.textBox69.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox69.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox69.Value = "=(Sum (Fields.[61-90]))* Fields.kurs";
+            // 
+            // textBox70
+            // 
+            this.textBox70.Format = "{0:N2}";
+            this.textBox70.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(21.800308227539062D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
+            this.textBox70.Name = "textBox70";
+            this.textBox70.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2999987602233887D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox70.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox70.Style.Font.Bold = true;
+            this.textBox70.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox70.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox70.Value = "=(Sum (Fields.[91-120]))* Fields.kurs";
+            // 
+            // textBox71
+            // 
+            this.textBox71.Format = "{0:N2}";
+            this.textBox71.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(23.100385665893555D), Telerik.Reporting.Drawing.Unit.Inch(0.30000019073486328D));
+            this.textBox71.Name = "textBox71";
+            this.textBox71.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2999987602233887D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox71.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox71.Style.Font.Bold = true;
+            this.textBox71.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox71.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox71.Value = "=(Sum (Fields.[121-180]))* Fields.kurs";
+            // 
+            // textBox72
+            // 
+            this.textBox72.Format = "{0:N2}";
+            this.textBox72.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(24.40049934387207D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
+            this.textBox72.Name = "textBox72";
+            this.textBox72.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2999987602233887D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox72.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox72.Style.Font.Bold = true;
+            this.textBox72.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
+            this.textBox72.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox72.Value = "=(Sum (Fields.[>180]))* Fields.kurs";
+            // 
             // rpt_AgingAP
             // 
             this.DataSource = this.sqlDataSource1;
@@ -1022,5 +1176,16 @@ namespace ReportLibrary.Reports.Fico
         private Telerik.Reporting.TextBox textBox61;
         private Telerik.Reporting.TextBox textBox58;
         private Telerik.Reporting.TextBox textBox60;
+        private Telerik.Reporting.TextBox textBox62;
+        private Telerik.Reporting.TextBox textBox63;
+        private Telerik.Reporting.TextBox textBox64;
+        private Telerik.Reporting.TextBox textBox65;
+        private Telerik.Reporting.TextBox textBox66;
+        private Telerik.Reporting.TextBox textBox67;
+        private Telerik.Reporting.TextBox textBox68;
+        private Telerik.Reporting.TextBox textBox69;
+        private Telerik.Reporting.TextBox textBox70;
+        private Telerik.Reporting.TextBox textBox71;
+        private Telerik.Reporting.TextBox textBox72;
     }
 }
