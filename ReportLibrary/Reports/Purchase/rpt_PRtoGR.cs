@@ -10,12 +10,12 @@ namespace ReportLibrary.Reports.Purchase
     /// <summary>
     /// Summary description for rpt_PRtoGR.
     /// </summary>
-    public partial class rpt_PRtoGR : Telerik.Reporting.Report
+    public partial class PurchaseRequestToGoodsReceiptMonitoringBaseOnPR : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
-        public rpt_PRtoGR()
+        public PurchaseRequestToGoodsReceiptMonitoringBaseOnPR()
         {
             InitializeComponent();
 

@@ -258,7 +258,7 @@ namespace ReportLibrary.Reports.Fico
             this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.6881632804870605D)));
             this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.5399990081787109D)));
             this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.4021649360656738D)));
-            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.7408337593078613D)));
+            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.7408339977264404D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.49999985098838806D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.49999985098838806D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.49999985098838806D)));
@@ -742,7 +742,7 @@ namespace ReportLibrary.Reports.Fico
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionString = "DbConString";
+            this.sqlDataSource1.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
             this.sqlDataSource1.Name = "sqlDataSource1";
             this.sqlDataSource1.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@month", System.Data.DbType.Int16, null),
@@ -785,7 +785,7 @@ namespace ReportLibrary.Reports.Fico
             // 
             // sds_month
             // 
-            this.sds_month.ConnectionString = "DbConString";
+            this.sds_month.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
             this.sds_month.Name = "sds_month";
             this.sds_month.SelectCommand = "dbo.sp_get_month";
             this.sds_month.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;

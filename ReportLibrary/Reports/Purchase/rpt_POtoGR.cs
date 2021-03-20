@@ -10,12 +10,12 @@ namespace ReportLibrary.Reports.Purchase
     /// <summary>
     /// Summary description for rpt_POtoGR.
     /// </summary>
-    public partial class rpt_POtoGR : Telerik.Reporting.Report
+    public partial class POToGRMonitoring : Telerik.Reporting.Report
     {
         public static string _project;
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
-        public rpt_POtoGR()
+        public POToGRMonitoring()
         {
             InitializeComponent();
 
