@@ -22,6 +22,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         public static string tr_code = null;
         //public static string wo_code = null;
         public static string selected_project = null;
+        public static string selected_cost_ctr = null;
         public static string chartCode_selected;
         DataTable dtValues;
 
@@ -33,7 +34,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             dtValues.Columns.Add("spec", typeof(string));
             dtValues.Columns.Add("part_qty", typeof(double));
             dtValues.Columns.Add("part_unit", typeof(string));
-            dtValues.Columns.Add("dept_code", typeof(double));
+            dtValues.Columns.Add("dept_code", typeof(string));
             dtValues.Columns.Add("remark", typeof(string));
             dtValues.Columns.Add("run", typeof(int));
 
@@ -127,7 +128,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
             try
             {
-                if (Session["action"].ToString() == "edit")
+                if ((sender as Button).Text == "Update")
                 {
                     run = txt_ur_number.Text;
                 }
@@ -178,6 +179,36 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
                 cmd.ExecuteNonQuery();
 
+                foreach (GridDataItem itemD in Grid2.MasterTableView.Items)
+                {
+                    Label lbl_prod_code;
+                    Label lbl_part_name;
+                    Label lbl_part_qty;
+                    Label lbl_uom;
+                    Label lbl_remark;
+                    Label lbl_dept_code;
+
+                    lbl_prod_code = (Label)itemD.FindControl("lbl_prod_code");
+                    lbl_part_name = (Label)itemD.FindControl("lbl_part_name");
+                    lbl_part_qty = (Label)itemD.FindControl("lbl_qty");
+                    lbl_uom = (Label)itemD.FindControl("lbl_uom_d");
+                    lbl_remark = (Label)itemD.FindControl("lbl_remark_d");
+                    lbl_dept_code = (Label)itemD.FindControl("lbl_dept_d");
+                                  
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_save_urD";
+                    cmd.Parameters.AddWithValue("@doc_code", run);
+                    cmd.Parameters.AddWithValue("@part_code", lbl_prod_code.Text);
+                    cmd.Parameters.AddWithValue("@part_qty", Convert.ToDecimal(lbl_part_qty.Text));
+                    cmd.Parameters.AddWithValue("@part_unit", lbl_uom.Text);
+                    cmd.Parameters.AddWithValue("@remark", lbl_remark.Text);
+                    cmd.Parameters.AddWithValue("@dept_code", lbl_dept_code.Text);
+                    cmd.ExecuteNonQuery();
+                   
+                }
+
 
             }
             catch (Exception ex)
@@ -219,9 +250,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                     (sender as RadGrid).MasterTableView.Items[0].Selected = true;
                 foreach (GridDataItem item in RadGrid1.SelectedItems)
                 {
-                    if (tr_code == null)
+                    foreach (GridDataItem gItem in (sender as RadGrid).SelectedItems)
                     {
-                        tr_code = item["doc_code"].Text;
+                        tr_code = gItem["doc_code"].Text;
                     }
                 }
 
@@ -295,7 +326,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             {
                 ImageButton printLink = (ImageButton)e.Item.FindControl("PrintLink");
                 printLink.Attributes["href"] = "javascript:void(0);";
-                printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["sro_code"], e.Item.ItemIndex);
+                printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["doc_code"], e.Item.ItemIndex);
 
             }
         }
@@ -304,6 +335,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         {
             if (e.CommandName == "Edit")
             {
+                tr_code = null;
                 GridDataItem item = e.Item as GridDataItem;
                 string kode = item["doc_code"].Text;
                 tr_code = kode;
@@ -326,6 +358,31 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         #endregion
 
         #region Detail Grid
+
+        protected void RadGrid2_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 195;
+            }
+        }
+        protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                Session["actionDetail"] = "detailNew";
+            }
+            else if (e.CommandName == RadGrid.EditCommandName)
+            {
+                Session["actionDetail"] = "detailEdit";
+            }
+        }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             if (Session["TableDetail"] == null && Session["actionHeader"].ToString() != "headerEdit") // Insert Session
@@ -393,18 +450,15 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
                 dtValues = (DataTable)Session["TableDetail"];
                 DataRow drValue = dtValues.NewRow();
-                drValue["sro_code"] = tr_code;
-                drValue["OprName"] = (item.FindControl("cb_operation_insertTemp") as RadComboBox).Text;
-                drValue["chart_code"] = (item.FindControl("lbl_operation_code_insertTemp") as Label).Text;
-                drValue["prod_type"] = (item.FindControl("lbl_prodType_insertTemp") as Label).Text;
-                drValue["part_code"] = (item.FindControl("cb_prod_code_insertTemp") as RadComboBox).Text;
-                drValue["part_qty"] = (item.FindControl("txt_qty_insertTemp") as RadNumericTextBox).Text;
-                drValue["qty_pr"] = (item.FindControl("txt_qtyRs_insertTemp") as RadNumericTextBox).Text;
-                drValue["part_unit"] = (item.FindControl("lbl_UoM_insertTemp") as Label).Text;
-                drValue["tWarranty"] = (item.FindControl("chk_waranty_insertTemp") as CheckBox).Checked;
-                drValue["remark"] = (item.FindControl("txt_remark_insertTemp") as RadTextBox).Text;
+                drValue["doc_code"] = tr_code;
+                drValue["part_code"] = (item.FindControl("cb_prod_code_insert") as RadComboBox).Text;
+                drValue["spec"] = (item.FindControl("txt_prod_name_insert") as RadTextBox).Text;
+                drValue["part_qty"] = (item.FindControl("txt_qty_insert") as RadNumericTextBox).Value;
+                drValue["part_unit"] = (item.FindControl("cb_uom_d_insert") as RadComboBox).Text;
+                drValue["dept_code"] = (item.FindControl("cb_dept_d_insert") as RadComboBox).Text;
+                drValue["remark"] = (item.FindControl("txt_remark_d_insert") as RadTextBox).Text;
                 drValue["run"] = 0;
-
+                
                 dtValues.Rows.Add(drValue); //adding new row into datatable
                 dtValues.AcceptChanges();
                 Session["TableDetail"] = dtValues;
@@ -429,16 +483,13 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
             dtValues = (DataTable)Session["TableDetail"];
             DataRow drValue = dtValues.Rows[0];
-            drValue["sro_code"] = tr_code;
-            drValue["OprName"] = (item.FindControl("cb_operation_editTemp") as RadComboBox).Text;
-            drValue["chart_code"] = (item.FindControl("lbl_operation_code_editTemp") as Label).Text;
-            drValue["prod_type"] = (item.FindControl("lbl_prodType_editTemp") as Label).Text;
-            drValue["part_code"] = (item.FindControl("cb_prod_code_editTemp") as RadComboBox).Text;
-            drValue["part_qty"] = (item.FindControl("txt_qty_editTemp") as RadNumericTextBox).Text;
-            drValue["qty_pr"] = (item.FindControl("txt_qtyRs_editTemp") as RadNumericTextBox).Text;
-            drValue["part_unit"] = (item.FindControl("lbl_UoM_editTemp") as Label).Text;
-            drValue["tWarranty"] = (item.FindControl("chk_waranty_editTemp") as CheckBox).Checked;
-            drValue["remark"] = (item.FindControl("txt_remark_editTemp") as RadTextBox).Text;
+            drValue["doc_code"] = tr_code;
+            drValue["part_code"] = (item.FindControl("cb_prod_code") as RadComboBox).Text;
+            drValue["spec"] = (item.FindControl("txt_prod_name") as RadTextBox).Text;
+            drValue["part_qty"] = (item.FindControl("txt_qty") as RadNumericTextBox).Value;
+            drValue["part_unit"] = (item.FindControl("cb_uom_d") as RadComboBox).Text;
+            drValue["dept_code"] = (item.FindControl("cb_dept_d") as RadComboBox).Text;
+            drValue["remark"] = (item.FindControl("txt_remark_d") as RadTextBox).Text;
             drValue["run"] = 0;
 
             drValue.EndEdit(); //editing row in datatable
@@ -563,7 +614,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                selected_project = dr[0].ToString();
+            }
+                
             dr.Close();
             con.Close();
             
@@ -645,13 +700,30 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox t_spec = (RadTextBox)item.FindControl("txt_prod_name");
-                    RadComboBox cb_prodType = (RadComboBox)item.FindControl("cb_uom_d");
-                    RadComboBox cbDept_d = (RadComboBox)item.FindControl("cb_dept_d");
+                    if (Session["actionDetail"].ToString() == "detailNew")
+                    {
+                        RadTextBox t_spec = (RadTextBox)item.FindControl("txt_prod_name_insert");
+                        RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty_insert");
+                        RadComboBox cb_uom = (RadComboBox)item.FindControl("cb_uom_d_insert");
+                        RadComboBox cbDept_d = (RadComboBox)item.FindControl("cb_dept_d_insert");
 
-                    t_spec.Text = dtr["spec"].ToString();
-                    cb_prodType.Text = dtr["unit"].ToString();
-                    //cbDept_d.Text = cb_cost_center.SelectedValue;
+                        t_spec.Text = dtr["spec"].ToString();
+                        cb_uom.Text = dtr["unit"].ToString();
+                        txt_qty.Value = 0;
+                        cbDept_d.Text = selected_cost_ctr;
+                    }
+                    else if (Session["actionDetail"].ToString() == "detailEdit")
+                    {
+                        RadTextBox t_spec = (RadTextBox)item.FindControl("txt_prod_name");
+                        RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
+                        RadComboBox cb_uom = (RadComboBox)item.FindControl("cb_uom_d");
+                        RadComboBox cbDept_d = (RadComboBox)item.FindControl("cb_dept_d");
+
+                        t_spec.Text = dtr["spec"].ToString();
+                        cb_uom.Text = dtr["unit"].ToString();
+                        txt_qty.Value = 0;
+                        cbDept_d.Text = selected_cost_ctr;
+                    }
                 }
 
             }
@@ -722,7 +794,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             RadComboBox cb_project = (RadComboBox)item.FindControl("cb_project");
 
             (sender as RadComboBox).Text = "";
-            LoadCostCtr(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            LoadCostCtr(e.Text, selected_project, (sender as RadComboBox));
 
         }
         protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -735,7 +807,11 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                selected_cost_ctr= dr["CostCenter"].ToString();
+            }
+                
             dr.Close();
             con.Close();
         }
@@ -749,7 +825,10 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                selected_cost_ctr = dr["CostCenter"].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -942,8 +1021,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             }
         }
 
+
+
         #endregion
 
-       
     }
 }
