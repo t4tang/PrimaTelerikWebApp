@@ -46,7 +46,6 @@ namespace ReportLibrary.Reports.Purchase
             this.textBox6 = new Telerik.Reporting.TextBox();
             this.detail = new Telerik.Reporting.DetailSection();
             this.textBox14 = new Telerik.Reporting.TextBox();
-            this.textBox7 = new Telerik.Reporting.TextBox();
             this.textBox10 = new Telerik.Reporting.TextBox();
             this.textBox11 = new Telerik.Reporting.TextBox();
             this.textBox4 = new Telerik.Reporting.TextBox();
@@ -54,6 +53,7 @@ namespace ReportLibrary.Reports.Purchase
             this.textBox19 = new Telerik.Reporting.TextBox();
             this.textBox20 = new Telerik.Reporting.TextBox();
             this.textBox22 = new Telerik.Reporting.TextBox();
+            this.textBox7 = new Telerik.Reporting.TextBox();
             this.pageFooterSection1 = new Telerik.Reporting.PageFooterSection();
             this.textBox38 = new Telerik.Reporting.TextBox();
             this.textBox37 = new Telerik.Reporting.TextBox();
@@ -430,7 +430,7 @@ namespace ReportLibrary.Reports.Purchase
             this.textBox12.Style.Font.Bold = true;
             this.textBox12.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox12.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox12.Value = "PO ";
+            this.textBox12.Value = "Quantity";
             // 
             // textBox5
             // 
@@ -484,16 +484,6 @@ namespace ReportLibrary.Reports.Purchase
             this.textBox14.Style.Font.Bold = false;
             this.textBox14.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox14.Value = "= Fields.po_code";
-            // 
-            // textBox7
-            // 
-            this.textBox7.Format = "{0:N0}";
-            this.textBox7.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(1.3001184463500977D), Telerik.Reporting.Drawing.Unit.Inch(3.9418537198798731E-05D));
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.9002370834350586D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
-            this.textBox7.Style.Font.Bold = false;
-            this.textBox7.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
-            this.textBox7.Value = "= Fields.Prod_code";
             // 
             // textBox10
             // 
@@ -564,6 +554,16 @@ namespace ReportLibrary.Reports.Purchase
             this.textBox22.Style.Font.Bold = false;
             this.textBox22.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox22.Value = "= Fields.qty";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Format = "{0:N0}";
+            this.textBox7.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(1.3001184463500977D), Telerik.Reporting.Drawing.Unit.Inch(3.9418537198798731E-05D));
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.9002370834350586D), Telerik.Reporting.Drawing.Unit.Inch(0.19999980926513672D));
+            this.textBox7.Style.Font.Bold = false;
+            this.textBox7.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
+            this.textBox7.Value = "= Fields.Prod_code";
             // 
             // pageFooterSection1
             // 
