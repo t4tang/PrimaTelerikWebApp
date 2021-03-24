@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
-    <value>{"@tglawal":"2011-09-01","@tglakhir":"2021-10-20"}</value>
+    <value>{"@tglawal":"2017-09-01","@tglakhir":"2021-10-20"}</value>
   </metadata>
 </root>

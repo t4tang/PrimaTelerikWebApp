@@ -10,11 +10,11 @@ namespace ReportLibrary.Reports.Fico
     /// <summary>
     /// Summary description for rpt_AgingAP_Summary.
     /// </summary>
-    public partial class rpt_AgingAP_Summary : Telerik.Reporting.Report
+    public partial class AgingAPSummaryReport : Telerik.Reporting.Report
     {
         public static string _supplier;
         public static DateTime _tgl = DateTime.Now;
-        public rpt_AgingAP_Summary()
+        public AgingAPSummaryReport()
         {
             InitializeComponent();
 

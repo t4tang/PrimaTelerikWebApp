@@ -16,8 +16,6 @@ namespace ReportLibrary.Reports.Purchase
             Telerik.Reporting.NavigateToReportAction navigateToReportAction1 = new Telerik.Reporting.NavigateToReportAction();
             Telerik.Reporting.TypeReportSource typeReportSource1 = new Telerik.Reporting.TypeReportSource();
             Telerik.Reporting.NavigateToUrlAction navigateToUrlAction1 = new Telerik.Reporting.NavigateToUrlAction();
-            Telerik.Reporting.NavigateToUrlAction navigateToUrlAction2 = new Telerik.Reporting.NavigateToUrlAction();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportCatalog));
             Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule2 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule3 = new Telerik.Reporting.Drawing.StyleRule();
@@ -32,8 +30,6 @@ namespace ReportLibrary.Reports.Purchase
             this.objectDataSource1 = new Telerik.Reporting.ObjectDataSource();
             this.pageFooterSection1 = new Telerik.Reporting.PageFooterSection();
             this.textBox6 = new Telerik.Reporting.TextBox();
-            this.textBox5 = new Telerik.Reporting.TextBox();
-            this.shape1 = new Telerik.Reporting.Shape();
             this.textBox7 = new Telerik.Reporting.TextBox();
             this.pageHeaderSection1 = new Telerik.Reporting.PageHeaderSection();
             this.shape3 = new Telerik.Reporting.Shape();
@@ -124,9 +120,7 @@ namespace ReportLibrary.Reports.Purchase
             this.pageFooterSection1.Action = null;
             this.pageFooterSection1.Height = Telerik.Reporting.Drawing.Unit.Cm(2.1260001659393311D);
             this.pageFooterSection1.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
-            this.textBox6,
-            this.textBox5,
-            this.shape1});
+            this.textBox6});
             this.pageFooterSection1.Name = "pageFooterSection1";
             // 
             // textBox6
@@ -141,42 +135,10 @@ namespace ReportLibrary.Reports.Purchase
             this.textBox6.StyleName = "ExampleHeader";
             this.textBox6.Value = "Get Greater Value!";
             // 
-            // textBox5
-            // 
-            navigateToUrlAction2.Url = "http://www.telerik.com/purchase";
-            this.textBox5.Action = navigateToUrlAction2;
-            this.textBox5.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(6.3000006675720215D), Telerik.Reporting.Drawing.Unit.Inch(0.299999862909317D));
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3699995279312134D), Telerik.Reporting.Drawing.Unit.Inch(0.3608449399471283D));
-            this.textBox5.Style.BackgroundImage.ImageData = ((System.Drawing.Image)(resources.GetObject("textBox5.Style.BackgroundImage.ImageData")));
-            this.textBox5.Style.BackgroundImage.MimeType = "image/png";
-            this.textBox5.Style.BackgroundImage.Repeat = Telerik.Reporting.Drawing.BackgroundRepeat.NoRepeat;
-            this.textBox5.Style.Color = System.Drawing.Color.White;
-            this.textBox5.Style.Font.Name = "Segoe UI";
-            this.textBox5.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(14D);
-            this.textBox5.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
-            this.textBox5.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox5.Style.Visible = false;
-            this.textBox5.Value = "Read more";
-            // 
-            // shape1
-            // 
-            this.shape1.Anchoring = ((Telerik.Reporting.AnchoringStyles)((Telerik.Reporting.AnchoringStyles.Left | Telerik.Reporting.AnchoringStyles.Right)));
-            this.shape1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.502708375453949D), Telerik.Reporting.Drawing.Unit.Inch(0.1000000610947609D));
-            this.shape1.Name = "shape1";
-            this.shape1.ShapeType = new Telerik.Reporting.Drawing.Shapes.LineShape(Telerik.Reporting.Drawing.Shapes.LineDirection.EW);
-            this.shape1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(18.973798751831055D), Telerik.Reporting.Drawing.Unit.Point(3.75D));
-            this.shape1.Stretch = true;
-            this.shape1.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(54)))), ((int)(((byte)(33)))));
-            this.shape1.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.shape1.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Point(0.5D);
-            this.shape1.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Point(1.5D);
-            this.shape1.Style.Color = System.Drawing.Color.Transparent;
-            // 
             // textBox7
             // 
             this.textBox7.Action = navigateToUrlAction1;
-            this.textBox7.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(10.341832160949707D), Telerik.Reporting.Drawing.Unit.Cm(1.4000000953674316D));
+            this.textBox7.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(20.799999237060547D), Telerik.Reporting.Drawing.Unit.Cm(1.3000000715255737D));
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.13996696472168D), Telerik.Reporting.Drawing.Unit.Cm(0.56659996509552D));
             this.textBox7.Style.Font.Italic = true;
@@ -202,7 +164,7 @@ namespace ReportLibrary.Reports.Purchase
             this.shape3.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.50800001621246338D), Telerik.Reporting.Drawing.Unit.Inch(0.8399999737739563D));
             this.shape3.Name = "shape3";
             this.shape3.ShapeType = new Telerik.Reporting.Drawing.Shapes.LineShape(Telerik.Reporting.Drawing.Shapes.LineDirection.EW);
-            this.shape3.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(18.973798751831055D), Telerik.Reporting.Drawing.Unit.Point(2D));
+            this.shape3.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(29.690000534057617D), Telerik.Reporting.Drawing.Unit.Point(2D));
             this.shape3.Stretch = true;
             this.shape3.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.shape3.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
@@ -227,7 +189,7 @@ namespace ReportLibrary.Reports.Purchase
             this.pageHeaderSection1});
             this.Name = "ReportCatalog";
             this.PageSettings.ContinuousPaper = false;
-            this.PageSettings.Landscape = false;
+            this.PageSettings.Landscape = true;
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Inch(0.20000000298023224D), Telerik.Reporting.Drawing.Unit.Inch(0.20000000298023224D), Telerik.Reporting.Drawing.Unit.Inch(0.30000001192092896D), Telerik.Reporting.Drawing.Unit.Inch(0.40000000596046448D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
@@ -267,7 +229,7 @@ namespace ReportLibrary.Reports.Purchase
             styleRule3,
             styleRule4,
             styleRule5});
-            this.Width = Telerik.Reporting.Drawing.Unit.Cm(19.983798980712891D);
+            this.Width = Telerik.Reporting.Drawing.Unit.Cm(30.700000762939453D);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -283,8 +245,6 @@ namespace ReportLibrary.Reports.Purchase
         private Crosstab crosstab1;
         private Panel panel5;
         private Shape shape3;
-        private TextBox textBox5;
-        private Shape shape1;
         private TextBox textBox9;
         private TextBox textBox2;
         private TextBox textBox3;

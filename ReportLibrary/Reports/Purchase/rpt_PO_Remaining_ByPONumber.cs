@@ -10,11 +10,11 @@ namespace ReportLibrary.Reports.Purchase
     /// <summary>
     /// Summary description for rpt_PO_Remaining_ByPONumber.
     /// </summary>
-    public partial class rpt_PO_Remaining_ByPONumber : Telerik.Reporting.Report
+    public partial class PORemainingByPONumber : Telerik.Reporting.Report
     {
         public static DateTime _tglawal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _tglakhir = DateTime.Now;
-        public rpt_PO_Remaining_ByPONumber()
+        public PORemainingByPONumber()
         {
             InitializeComponent();
             Telerik.Reporting.ReportParameter param1 = new ReportParameter();
