@@ -200,6 +200,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
             this.shape1.Name = "shape1";
             this.shape1.ShapeType = new Telerik.Reporting.Drawing.Shapes.LineShape(Telerik.Reporting.Drawing.Shapes.LineDirection.EW);
             this.shape1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.199800491333008D), Telerik.Reporting.Drawing.Unit.Cm(0.30000039935112D));
+            this.shape1.Style.Color = System.Drawing.Color.Orange;
             this.shape1.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             // 
             // textBox4
@@ -207,7 +208,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
             this.textBox4.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.00010141499660676345D), Telerik.Reporting.Drawing.Unit.Cm(2.6004011631011963D));
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(6.0998988151550293D), Telerik.Reporting.Drawing.Unit.Cm(0.49969884753227234D));
-            this.textBox4.Style.BackgroundColor = System.Drawing.Color.LightSlateGray;
+            this.textBox4.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
             this.textBox4.Style.Color = System.Drawing.Color.White;
             this.textBox4.Style.Font.Bold = true;
             this.textBox4.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
@@ -239,7 +240,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
             this.textBox7.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(6.4999995231628418D), Telerik.Reporting.Drawing.Unit.Cm(2.6004011631011963D));
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(5.9008011817932129D), Telerik.Reporting.Drawing.Unit.Cm(0.49969884753227234D));
-            this.textBox7.Style.BackgroundColor = System.Drawing.Color.LightSlateGray;
+            this.textBox7.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
             this.textBox7.Style.Color = System.Drawing.Color.White;
             this.textBox7.Style.Font.Bold = true;
             this.textBox7.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
@@ -288,7 +289,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order {
             // 
             this.textBox9.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(9.9477132607717067E-05D), Telerik.Reporting.Drawing.Unit.Cm(0.00010012308484874666D));
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(5.499600887298584D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(6.2989993095397949D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.textBox9.Style.BackgroundColor = System.Drawing.Color.Transparent;
             this.textBox9.Style.Color = System.Drawing.Color.Black;
             this.textBox9.Style.Font.Bold = true;
