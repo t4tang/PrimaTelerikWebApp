@@ -364,6 +364,7 @@
                                                 </td>
                                                 <td colspan="3">
                                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_pic" runat="server" Width="120px" DropDownWidth="300px"
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.pic") %>'      
                                                             EnableLoadOnDemand="true" ShowMoreResultsBox="true" EnableVirtualScrolling="true" Skin="Silk" >
                                                     </telerik:RadComboBox>   
                                                 </td>
@@ -377,7 +378,7 @@
                                                 </td>
                                                 <td >
                                                    <telerik:RadDatePicker ID="dtp_purchase" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                        Skin="Silk" >
+                                                        Skin="Silk">
                                                         <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
                                                             EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" >
                                                         </Calendar>
@@ -409,7 +410,7 @@
                                                 </td>
                                                 <td >
                                                     <telerik:RadComboBox ID="cb_condition" runat="server" RenderMode="Lightweight" Width ="250px"
-                                                        
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.con_status") %>'
                                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true" AutoPostBack="false" Skin ="Silk"
                                                         Height="200" MarkFirstMatch="true" EnableLoadOnDemand="True">                                        
                                                     </telerik:RadComboBox>
@@ -423,7 +424,7 @@
                                                     <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_tank_capacity" Width="70px" NumberFormat-AllowRounding="true"
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                         onkeydown="blurTextBox(this, event)" ReadOnly="true"
-                                                        
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.con_status") %>'
                                                         AutoPostBack="true" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
                                                     </telerik:RadNumericTextBox>
