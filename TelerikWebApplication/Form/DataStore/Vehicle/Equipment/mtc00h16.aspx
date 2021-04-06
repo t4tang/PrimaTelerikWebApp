@@ -854,7 +854,7 @@
                                                         </td>
                                                         <td>
                                                             <telerik:RadDatePicker ID="dtp_machinery_inspect_done" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                            Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.arr_date") %>'>
+                                                            Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.mechin_inspect_done") %>'>
                                                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
                                                                 EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" >
                                                             </Calendar>
@@ -869,7 +869,7 @@
                                                         </td>
                                                         <td>
                                                             <telerik:RadTextBox ID="txt_certifice_no" runat="server" Width="300px" ReadOnly="true"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.tyre_no_steer") %>'     
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.certi_no") %>'     
                                                             RenderMode="Lightweight" >
                                                         </telerik:RadTextBox>
                                                         </td>
@@ -880,7 +880,7 @@
                                                         </td>
                                                         <td>
                                                             <telerik:RadDatePicker ID="dtp_next_due" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                            Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.arr_date") %>'
+                                                            Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.next_due") %>'
                                                             >
                                                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
                                                                 EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" >
