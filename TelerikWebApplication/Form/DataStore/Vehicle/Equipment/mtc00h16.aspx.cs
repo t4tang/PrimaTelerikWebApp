@@ -135,5 +135,33 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             //dr.Close();
             con.Close();
         }
+
+        protected void cb_color_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Items.Add("Blue");
+            (sender as RadComboBox).Items.Add("Red");
+            (sender as RadComboBox).Items.Add("White");
+            (sender as RadComboBox).Items.Add("Yellow");
+        }
+
+        protected void cb_color_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if((sender as RadComboBox).Text == "Blue")
+            {
+                (sender as RadComboBox).SelectedValue = "01";
+            }
+            else if ((sender as RadComboBox).Text == "Red")
+            {
+                (sender as RadComboBox).SelectedValue = "02";
+            }
+            else if ((sender as RadComboBox).Text == "White")
+            {
+                (sender as RadComboBox).SelectedValue = "03";
+            }
+            else 
+            {
+                (sender as RadComboBox).SelectedValue = "04";
+            }
+        }
     }
 }

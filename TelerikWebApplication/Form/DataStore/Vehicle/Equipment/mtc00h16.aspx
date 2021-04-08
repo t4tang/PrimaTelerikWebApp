@@ -545,12 +545,12 @@
                                                             VIN/Chasis
                                                         </td>
                                                         <td>
-                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox1" Width="120px" NumberFormat-AllowRounding="true"
+                                                            <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox1" Width="120px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>'
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>' 
                                                                 AutoPostBack="false" MaxLength="11" Type="Number">
-                                                            </telerik:RadNumericTextBox> 
+                                                            </telerik:RadTextBox> 
                                                         </td>
                                                     </tr>
 
@@ -750,7 +750,7 @@
                                                             Text='<%# DataBinder.Eval(Container, "DataItem.color") %>'     
                                                             DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                             MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
-                                                            >
+                                                            OnItemsRequested="cb_color_ItemsRequested" OnSelectedIndexChanged="cb_color_SelectedIndexChanged" >
                                                             </telerik:RadComboBox>                                                        
                                                         </td>
                                                         <td style="width:50px;padding-left:25px">
@@ -893,6 +893,62 @@
                                                 </table>
                                             </div>
                                         </telerik:RadPageView>
+                                </telerik:RadMultiPage>
+                                <telerik:RadMultiPage runat="server" ID="RadMultiPage2" SelectedIndex="0" Width="100%">
+                                    <telerik:RadPageView runat="server" ID="RadPageView2" Height="300px">
+                                         <div runat="server" style="padding:15px 15px 15px 15px; float:left; width:15%">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <telerik:RadLabel runat="server" Text="Purchase Detail" Font-Size="14px" Font-Names="Calibri" Font-Bold="true" 
+                                                                ForeColor="#ffffff" BackColor="#0099cc">
+                                                            </telerik:RadLabel>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Purchase Cost
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox2" Width="70px" NumberFormat-AllowRounding="true"
+                                                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                                onkeydown="blurTextBox(this, event)" 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.v_year") %>'
+                                                                AutoPostBack="false" MaxLength="11" Type="Number">
+                                                            </telerik:RadNumericTextBox> 
+                                                        </td>
+                                                    </tr>
+                                                                                                        
+                                                    <tr>
+                                                        <td>
+                                                            Order Number
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox3" Width="70px" NumberFormat-AllowRounding="true"
+                                                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                                onkeydown="blurTextBox(this, event)" 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.seat_capa") %>'
+                                                                AutoPostBack="false" MaxLength="11" Type="Number">
+                                                            </telerik:RadNumericTextBox> 
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            IBO (Rp)
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="RadTextBox1" Width="120px" NumberFormat-AllowRounding="true"
+                                                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                                onkeydown="blurTextBox(this, event)" 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>' 
+                                                                AutoPostBack="false" MaxLength="11" Type="Number">
+                                                            </telerik:RadTextBox> 
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                    </telerik:RadPageView>
                                 </telerik:RadMultiPage>
                             </div>
                         </FormTemplate>
