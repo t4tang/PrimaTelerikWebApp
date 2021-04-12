@@ -992,13 +992,144 @@
                                                     </tr>
                                                 </table>
                                             </div>
-                                            <div runat="server" style="padding:15px 15px 15px 15px; float:left; width:15%">
+                                            <div runat="server" style="padding:15px 15px 15px 15px; float:left; width:20%">
                                                 <table>
                                                     <tr>
                                                         <td colspan="2">
                                                             <telerik:RadLabel runat="server" Text="Depreciation" Font-Size="14px" Font-Names="Calibri" Font-Bold="true" 
                                                                 ForeColor="#ffffff" BackColor="#0099cc">
                                                             </telerik:RadLabel>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 120px" >
+                                                            Expected Life (years)
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox4" Width="85px" NumberFormat-AllowRounding="true"
+                                                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                                onkeydown="blurTextBox(this, event)" 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.tyre_size_steer") %>'
+                                                                AutoPostBack="false" MaxLength="11" Type="Number">
+                                                            </telerik:RadNumericTextBox> 
+                                                            &nbsp Or &nbsp
+                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox5" Width="55px" NumberFormat-AllowRounding="true"
+                                                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                                onkeydown="blurTextBox(this, event)" 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.tyre_no_steer") %>'
+                                                                AutoPostBack="false" MaxLength="11" Type="Number">
+                                                            </telerik:RadNumericTextBox> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Depreciation Type
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadComboBox ID="RadComboBox1" runat="server" Width="170px" 
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.fuel_code") %>'       
+                                                            DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false">
+                                                            </telerik:RadComboBox>
+                                                       </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Salvage Value
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="RadTextBox5" Width="120px" NumberFormat-AllowRounding="true"
+                                                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                                onkeydown="blurTextBox(this, event)" 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>'
+                                                                AutoPostBack="false" MaxLength="11" Type="Number">
+                                                            </telerik:RadTextBox> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Last Evaluation Date
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadDatePicker ID="RadDatePicker1" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                                            Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.next_due") %>'
+                                                            >
+                                                            <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
+                                                                EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" >
+                                                            </Calendar>
+                                                            <DateInput runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%" >
+                                                            </DateInput>
+                                                        </telerik:RadDatePicker> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Next Evaluation Date
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadDatePicker ID="RadDatePicker2" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                                            Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.next_due") %>'
+                                                            >
+                                                            <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
+                                                                EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" >
+                                                            </Calendar>
+                                                            <DateInput runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%" >
+                                                            </DateInput>
+                                                        </telerik:RadDatePicker> 
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div runat="server" style="padding:15px 15px 15px 15px; float:left; width:18%">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <telerik:RadLabel runat="server" Text=" " Font-Size="14px" Font-Names="Calibri" Font-Bold="true" 
+                                                                ForeColor="#ffffff" BackColor="#0099cc">
+                                                            </telerik:RadLabel>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Hours Appreciation
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="RadTextBox6" Width="50px" NumberFormat-AllowRounding="true"
+                                                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                                onkeydown="blurTextBox(this, event)" 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>'
+                                                                AutoPostBack="false" MaxLength="11" Type="Number">
+                                                            </telerik:RadTextBox> &nbsp %
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Current Value
+                                                        </td>
+                                                        <td>
+                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="RadTextBox7" Width="120px" NumberFormat-AllowRounding="true"
+                                                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                                onkeydown="blurTextBox(this, event)" 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>'
+                                                                AutoPostBack="false" MaxLength="11" Type="Number">
+                                                            </telerik:RadTextBox>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <telerik:RadButton runat="server" Text="Current Value">
+
+                                                            </telerik:RadButton>
                                                         </td>
                                                     </tr>
                                                 </table>
