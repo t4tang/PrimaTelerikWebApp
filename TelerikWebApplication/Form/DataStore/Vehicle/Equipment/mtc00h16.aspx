@@ -1124,12 +1124,9 @@
                                                                 AutoPostBack="false" MaxLength="11" Type="Number">
                                                             </telerik:RadTextBox>
                                                         </td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>
-                                                            <telerik:RadButton runat="server" Text="Current Value">
-
-                                                            </telerik:RadButton>
+                                                            <telerik:RadButton ID="btn_current" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="Current Value" Width="80px" Height="30px"
+                                                             Skin="Telerik"></telerik:RadButton>
                                                         </td>
                                                     </tr>
                                                 </table>
