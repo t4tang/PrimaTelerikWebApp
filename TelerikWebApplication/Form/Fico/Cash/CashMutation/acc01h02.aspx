@@ -698,14 +698,14 @@
                                                 <asp:Label ID="lbl_kursD" Width="60px" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "kurs","{0:#,###,###0.00000000}")%>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadTextBox ID="txt_kursD" runat="server" Width="100px" Enabled="true" RenderMode="Lightweight"
-                                                    AutoPostBack="false" Text='<%# DataBinder.Eval(Container, "DataItem.kurs") %>' >
-                                                </telerik:RadTextBox>
+                                                <telerik:RadNumericTextBox ID="txt_kursD" runat="server" Width="100px" Enabled="true" RenderMode="Lightweight"
+                                                    AutoPostBack="false" Text='<%# DataBinder.Eval(Container, "DataItem.kurs") %>'  NumberFormat-DecimalDigits ="6">
+                                                </telerik:RadNumericTextBox>
                                             </EditItemTemplate>
                                             <InsertItemTemplate>
-                                                <telerik:RadTextBox ID="txt_kursD_insert" runat="server" Width="100px" Enabled="true" RenderMode="Lightweight"
+                                                <telerik:RadNumericTextBox ID="txt_kursD_insert" NumberFormat-DecimalDigits ="6" runat="server" Width="100px" Enabled="true" RenderMode="Lightweight"
                                                     AutoPostBack="false" >
-                                                </telerik:RadTextBox>
+                                                </telerik:RadNumericTextBox>
                                             </InsertItemTemplate>
                                    </telerik:GridTemplateColumn>
                                    <telerik:GridTemplateColumn HeaderText="Amount" ItemStyle-Width="180px" ItemStyle-HorizontalAlign="Center"  HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="180px">
@@ -713,12 +713,12 @@
                                                 <asp:Label ID="lbl_amount" Width="180px" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "Jumlah","{0:#,###,###0.00}")%>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_amount" Width="180px" Text='<%# DataBinder.Eval(Container, "DataItem.Jumlah","{0:#,###,###0.00}") %>'>
-                                                </telerik:RadTextBox>
+                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_amount" Width="180px" Text='<%# DataBinder.Eval(Container, "DataItem.Jumlah","{0:#,###,###0.00}") %>'>
+                                                </telerik:RadNumericTextBox>
                                             </EditItemTemplate>
                                             <InsertItemTemplate>
-                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_amount_insert" Width="180px" >
-                                                </telerik:RadTextBox>
+                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_amount_insert" Width="180px" >
+                                                </telerik:RadNumericTextBox>
                                             </InsertItemTemplate>
                                    </telerik:GridTemplateColumn>
                                    <telerik:GridTemplateColumn UniqueName="region_code" HeaderText="Project" HeaderStyle-Width="180px"  HeaderStyle-HorizontalAlign="Center"
