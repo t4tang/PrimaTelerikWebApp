@@ -19,6 +19,14 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
         private const int ItemsPerRequest = 10;
+
+        RadTextBox txt_equipment_Name;
+        RadComboBox cb_kind;
+        RadDatePicker dtp_purchase;
+        RadComboBox cb_project;
+        RadTextBox txt_asset_code;
+        RadComboBox cb_cost_center;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -33,16 +41,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT mtc00h16.unit_code, mtc00h16.unit_name, mtc00h16.equipment_code, mtc00h16.model_no, mtc00h16.class_name, mtc00h16.sup_code, " +
-            "Convert(varchar,mtc00h16.pur_date,105) as pur_date, Convert(varchar,mtc00h16.arr_date,105) as arr_date, mtc00h16.con_status, mtc00h16.engine_no, " +
-            "mtc00h16.engine_size, mtc00h16.key_no, mtc00h16.pur_cost, mtc00h16.order_number, inv00h13.manu_name, mtc00h04.equ_status, inv00h09.region_name, " +
-            "mtc00h03.description as kind_name, mtc00h05.description as type_name, mtc00h16.reading_code, mtc00h16.hour_avai, mtc00h16.dept_code, pur00h01.supplier_name FROM  mtc00h16 " + 
-            "INNER JOIN inv00h13 ON mtc00h16.manu_code = inv00h13.manu_code " +
-            "INNER JOIN mtc00h04 ON mtc00h16.status_code = mtc00h04.status_code " +
-            "INNER JOIN inv00h09 ON mtc00h16.region_code = inv00h09.region_code " + 
-            "INNER JOIN mtc00h03 ON mtc00h03.equipment_code = mtc00h16.equip_kind " +
-            "INNER JOIN mtc00h05 ON mtc00h05.equipment_code = mtc00h16.equipment_code "+
-            "INNER JOIN pur00h01 ON pur00h01.supplier_code = mtc00h16.sup_code WHERE(mtc00h16.stEdit <> '4') ";
+            cmd.CommandText = "SELECT * FROM v_equipment";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -64,11 +63,11 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             if (e.Item is GridEditableItem & e.Item.IsInEditMode)
             {
                 GridEditFormItem item = (GridEditFormItem)e.Item;
-                RadTextBox txt = (item.FindControl("txt_equipment_code") as RadTextBox);
+                RadComboBox cb_equipment_code = (item.FindControl("cb_equipment_code") as RadComboBox);
                 if (e.Item.OwnerTableView.IsItemInserted)
-                    txt.Enabled = true;
+                    cb_equipment_code.Enabled = true;
                 else
-                    txt.Enabled = false;
+                    cb_equipment_code.Enabled = false;
             }
         }
 
@@ -76,6 +75,93 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
         {
             RadGrid1.MasterTableView.IsItemInserted = true;
             RadGrid1.MasterTableView.Rebind();
+        }
+
+
+        protected void LoadAssetRegistered(string name, RadComboBox cb)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, AssetSpec, region_code FROM acc00h22 WHERE ak_code IN ('MET1','SET1','SET2','SET3')  " +
+                "AND unit_code IN (SELECT unit_code FROM mtc00h16 WHERE stEdit != 4) AND unit_code LIKE @text + '%'", con);
+            //adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cb.DataTextField = "unit_code";
+            cb.DataValueField = "unit_code";
+            cb.DataSource = dt;
+            cb.DataBind();
+        }
+        protected void cb_equipment_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Text = "";
+            LoadAssetRegistered(e.Text, (sender as RadComboBox));
+        }
+
+        protected void cb_equipment_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            RadComboBox btn = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)btn.NamingContainer;
+
+            txt_equipment_Name = (RadTextBox)item.FindControl("txt_equipment_Name");
+            cb_kind = (RadComboBox)item.FindControl("cb_kind");
+            dtp_purchase = (RadDatePicker)item.FindControl("dtp_purchase");
+            cb_project = (RadComboBox)item.FindControl("cb_project");
+            txt_asset_code = (RadTextBox)item.FindControl("txt_asset_code");
+            cb_cost_center = (RadComboBox)item.FindControl("cb_cost_center");
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT acc00h22.*,inv00h09.region_name, CASE AK_CODE_ORI WHEN 'SET' THEN 'Support Equipment' WHEN 'MET' THEN 'Main Equipment' END As Kind " +
+                "FROM acc00h22, inv00h09 WHERE inv00h09.region_code = acc00h22.region_code AND unit_code = '" + (sender as RadComboBox).SelectedValue + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).Text = dr["unit_code"].ToString();
+                txt_equipment_Name.Text = dr["AssetSpec"].ToString();
+                cb_kind.Text = dr["Kind"].ToString();
+                dtp_purchase.SelectedDate = Convert.ToDateTime(dr["tgl_beli"].ToString());
+                cb_project.Text = dr["region_name"].ToString();
+                txt_asset_code.Text = dr["asset_id"].ToString();
+                cb_cost_center.Text = dr["dept_code"].ToString();
+            }
+
+            //dr.Close();
+            con.Close();
+        }
+
+        protected void cb_color_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Items.Add("Blue");
+            (sender as RadComboBox).Items.Add("Red");
+            (sender as RadComboBox).Items.Add("White");
+            (sender as RadComboBox).Items.Add("Yellow");
+        }
+
+        protected void cb_color_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if((sender as RadComboBox).Text == "Blue")
+            {
+                (sender as RadComboBox).SelectedValue = "01";
+            }
+            else if ((sender as RadComboBox).Text == "Red")
+            {
+                (sender as RadComboBox).SelectedValue = "02";
+            }
+            else if ((sender as RadComboBox).Text == "White")
+            {
+                (sender as RadComboBox).SelectedValue = "03";
+            }
+            else 
+            {
+                (sender as RadComboBox).SelectedValue = "04";
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = "RO0318000173";
+            param.Value = _tr_code;
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
