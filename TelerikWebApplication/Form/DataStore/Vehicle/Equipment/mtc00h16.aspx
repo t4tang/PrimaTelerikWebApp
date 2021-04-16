@@ -910,7 +910,7 @@
                                                             <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox2" Width="70px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.v_year") %>'
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.pur_cost") %>'
                                                                 AutoPostBack="false" MaxLength="11" Type="Number">
                                                             </telerik:RadNumericTextBox> 
                                                         </td>
@@ -923,7 +923,7 @@
                                                             <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox3" Width="70px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.seat_capa") %>'
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.order_number") %>'
                                                                 AutoPostBack="false" MaxLength="11" Type="Number">
                                                             </telerik:RadNumericTextBox> 
                                                         </td>
@@ -959,7 +959,7 @@
                                                             <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="RadTextBox2" Width="120px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
-                                                               Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>'
+                                                               Text='<%# DataBinder.Eval(Container, "DataItem.market_value") %>'
                                                                 AutoPostBack="false" MaxLength="11" Type="Number">
                                                             </telerik:RadTextBox> 
                                                         </td>
@@ -972,7 +972,7 @@
                                                             <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="RadTextBox3" Width="120px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>' 
+                                                                Text='<%# DataBinder.Eval(Container, "DataItem.reple_value") %>' 
                                                                 AutoPostBack="false" MaxLength="11" Type="Number">
                                                             </telerik:RadTextBox> 
                                                         </td>
