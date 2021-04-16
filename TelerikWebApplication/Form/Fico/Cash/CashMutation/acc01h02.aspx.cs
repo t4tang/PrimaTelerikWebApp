@@ -36,9 +36,9 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             dtValues.Columns.Add("NoBuk", typeof(string));
             dtValues.Columns.Add("KoRek", typeof(string));
             dtValues.Columns.Add("Ket", typeof(string));
-            dtValues.Columns.Add("Mutasi", typeof(string));
-            dtValues.Columns.Add("kurs", typeof(double));
-            dtValues.Columns.Add("Jumlah", typeof(double));
+            dtValues.Columns.Add("Mutasi", typeof(double));
+            dtValues.Columns.Add("kurs", typeof(string));
+            dtValues.Columns.Add("Jumlah", typeof(string));
             dtValues.Columns.Add("region_code", typeof(string));
             dtValues.Columns.Add("dept_code", typeof(string));
             dtValues.Columns.Add("run", typeof(int));
@@ -414,7 +414,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 RadGrid1.MasterTableView.IsItemInserted = false;
             }
         }
-
+    
 
         #region KoTrans
         protected void cb_KoTrans_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -778,8 +778,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
 
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
-            var NoBuk = ((GridDataItem)e.Item).GetDataKeyValue("NoBuk");
-            var Korek = ((GridDataItem)e.Item).GetDataKeyValue("KoRek");
+            var KoRek = ((GridDataItem)e.Item).GetDataKeyValue("KoRek");
+
             try
             {
                 GridEditableItem item = (GridEditableItem)e.Item;
@@ -788,8 +788,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "delete from acc01d02 where KoRek = @KoRek and NoBuk = @NoBuk";
-                cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
-                cmd.Parameters.AddWithValue("@KoRek", Korek);
+                cmd.Parameters.AddWithValue("@NoBuk", KoRek);
+                cmd.Parameters.AddWithValue("@KoRek", KoRek);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 (sender as RadGrid).DataBind();
@@ -857,8 +857,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 drValue["KoRek"] = (item.FindControl("cb_KoRek_insert") as RadComboBox).Text;
                 drValue["Ket"] = (item.FindControl("txt_KetD_insert") as RadTextBox).Text;
                 drValue["Mutasi"] = (item.FindControl("cb_Mutasi_insert") as RadComboBox).Text;
-                drValue["kurs"] = (item.FindControl("txt_kursD_insert") as RadNumericTextBox).Text;
-                drValue["Jumlah"] = (item.FindControl("txt_amount_insert") as RadNumericTextBox).Text;
+                drValue["kurs"] = (item.FindControl("txt_kursD_insert") as RadTextBox).Text;
+                drValue["Jumlah"] = (item.FindControl("txt_amount_insert") as RadTextBox).Text;
                 drValue["region_code"] = (item.FindControl("cb_Project_Detail_insert") as RadComboBox).Text;
                 drValue["dept_code"] = (item.FindControl("cb_Cost_Center_insert") as RadComboBox).Text;
                 //drValue["run"] = 0;
@@ -891,8 +891,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             drValue["KoRek"] = (item.FindControl("cb_KoRek") as RadComboBox).Text;
             drValue["Ket"] = (item.FindControl("txt_KetD") as RadTextBox).Text;
             drValue["Mutasi"] = (item.FindControl("cb_Mutasi") as RadComboBox).Text;
-            drValue["kurs"] = (item.FindControl("txt_kursD") as RadNumericTextBox).Text;
-            drValue["Jumlah"] = (item.FindControl("txt_amount") as RadNumericTextBox).Text;
+            drValue["kurs"] = (item.FindControl("txt_kursD") as RadTextBox).Text;
+            drValue["Jumlah"] = (item.FindControl("txt_amount") as RadTextBox).Text;
             drValue["region_code"] = (item.FindControl("cb_Project_Detail") as RadComboBox).Text;
             drValue["dept_code"] = (item.FindControl("cb_Cost_Center") as RadComboBox).Text;
             //drValue["run"] = 0;
@@ -969,7 +969,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
                     if (Session["actionDetail"].ToString() == "detailNew")
                     {
-                        RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kursD_insert");
+                        RadTextBox t_kurs = (RadTextBox)item.FindControl("txt_kursD_insert");
                         RadComboBox c_mutasi = (RadComboBox)item.FindControl("cb_mutasi_insert");
                         RadComboBox c_project = (RadComboBox)item.FindControl("cb_project_detail_insert");
 
@@ -979,7 +979,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     }
                     else if (Session["actionDetail"].ToString() == "detailEdit")
                     {
-                        RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kursD");
+                        RadTextBox t_kurs = (RadTextBox)item.FindControl("txt_kursD");
                         RadComboBox c_mutasi = (RadComboBox)item.FindControl("cb_mutasi");
                         RadComboBox c_project = (RadComboBox)item.FindControl("cb_project_detail");
 
@@ -1130,7 +1130,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            cb.DataTextField = "code";
+            cb.DataTextField = "name";
             cb.DataValueField = "code";
             cb.DataSource = dt;
             cb.DataBind();
@@ -1139,7 +1139,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadComboBox cb_Project = (RadComboBox)item.FindControl("cb_Project");
+            RadComboBox cb_Project = (RadComboBox)item.FindControl("cb_Project"); 
 
             (sender as RadComboBox).Text = "";
             LoadCostCtr(e.Text, selected_project, (sender as RadComboBox));
