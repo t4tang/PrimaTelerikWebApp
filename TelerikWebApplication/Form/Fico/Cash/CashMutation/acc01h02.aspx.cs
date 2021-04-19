@@ -36,9 +36,9 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             dtValues.Columns.Add("NoBuk", typeof(string));
             dtValues.Columns.Add("KoRek", typeof(string));
             dtValues.Columns.Add("Ket", typeof(string));
-            dtValues.Columns.Add("Mutasi", typeof(double));
-            dtValues.Columns.Add("kurs", typeof(string));
-            dtValues.Columns.Add("Jumlah", typeof(string));
+            dtValues.Columns.Add("Mutasi", typeof(string));
+            dtValues.Columns.Add("kurs", typeof(double));
+            dtValues.Columns.Add("Jumlah", typeof(double));
             dtValues.Columns.Add("region_code", typeof(string));
             dtValues.Columns.Add("dept_code", typeof(string));
             dtValues.Columns.Add("run", typeof(int));
@@ -857,8 +857,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 drValue["KoRek"] = (item.FindControl("cb_KoRek_insert") as RadComboBox).Text;
                 drValue["Ket"] = (item.FindControl("txt_KetD_insert") as RadTextBox).Text;
                 drValue["Mutasi"] = (item.FindControl("cb_Mutasi_insert") as RadComboBox).Text;
-                drValue["kurs"] = (item.FindControl("txt_kursD_insert") as RadTextBox).Text;
-                drValue["Jumlah"] = (item.FindControl("txt_amount_insert") as RadTextBox).Text;
+                drValue["kurs"] = (item.FindControl("txt_kursD_insert") as RadNumericTextBox).Text;
+                drValue["Jumlah"] = (item.FindControl("txt_amount_insert") as RadNumericTextBox).Text;
                 drValue["region_code"] = (item.FindControl("cb_Project_Detail_insert") as RadComboBox).Text;
                 drValue["dept_code"] = (item.FindControl("cb_Cost_Center_insert") as RadComboBox).Text;
                 //drValue["run"] = 0;
@@ -969,7 +969,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
                     if (Session["actionDetail"].ToString() == "detailNew")
                     {
-                        RadTextBox t_kurs = (RadTextBox)item.FindControl("txt_kursD_insert");
+                        RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kursD_insert");
                         RadComboBox c_mutasi = (RadComboBox)item.FindControl("cb_mutasi_insert");
                         RadComboBox c_project = (RadComboBox)item.FindControl("cb_project_detail_insert");
 
@@ -979,7 +979,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                     }
                     else if (Session["actionDetail"].ToString() == "detailEdit")
                     {
-                        RadTextBox t_kurs = (RadTextBox)item.FindControl("txt_kursD");
+                        RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kursD");
                         RadComboBox c_mutasi = (RadComboBox)item.FindControl("cb_mutasi");
                         RadComboBox c_project = (RadComboBox)item.FindControl("cb_project_detail");
 
@@ -1130,7 +1130,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            cb.DataTextField = "name";
+            cb.DataTextField = "code";
             cb.DataValueField = "code";
             cb.DataSource = dt;
             cb.DataBind();
