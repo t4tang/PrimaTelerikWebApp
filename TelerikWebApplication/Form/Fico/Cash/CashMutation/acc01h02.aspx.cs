@@ -779,7 +779,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
             var KoRek = ((GridDataItem)e.Item).GetDataKeyValue("KoRek");
-
+            var Nobuk = ((GridDataItem)e.Item).GetDataKeyValue("Nobuk");
             try
             {
                 GridEditableItem item = (GridEditableItem)e.Item;
@@ -788,7 +788,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "delete from acc01d02 where KoRek = @KoRek and NoBuk = @NoBuk";
-                cmd.Parameters.AddWithValue("@NoBuk", KoRek);
+                cmd.Parameters.AddWithValue("@NoBuk", Nobuk);
                 cmd.Parameters.AddWithValue("@KoRek", KoRek);
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -857,8 +857,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 drValue["KoRek"] = (item.FindControl("cb_KoRek_insert") as RadComboBox).Text;
                 drValue["Ket"] = (item.FindControl("txt_KetD_insert") as RadTextBox).Text;
                 drValue["Mutasi"] = (item.FindControl("cb_Mutasi_insert") as RadComboBox).Text;
-                drValue["kurs"] = (item.FindControl("txt_kursD_insert") as RadNumericTextBox).Text;
-                drValue["Jumlah"] = (item.FindControl("txt_amount_insert") as RadNumericTextBox).Text;
+                drValue["kurs"] = (item.FindControl("txt_kursD_insert") as RadNumericTextBox).Value;
+                drValue["Jumlah"] = (item.FindControl("txt_amount_insert") as RadNumericTextBox).Value;
                 drValue["region_code"] = (item.FindControl("cb_Project_Detail_insert") as RadComboBox).Text;
                 drValue["dept_code"] = (item.FindControl("cb_Cost_Center_insert") as RadComboBox).Text;
                 //drValue["run"] = 0;

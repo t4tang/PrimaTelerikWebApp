@@ -702,26 +702,42 @@
                                                 <asp:Label ID="lbl_kursD" Width="100px" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "kurs","{0:#,###,###0.00000000}")%>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadNumericTextBox ID="txt_kursD" runat="server" Width="100px" Enabled="true" RenderMode="Lightweight"  NumberFormat-DecimalDigits ="6"
-                                                    AutoPostBack="false" dbValue='<%# DataBinder.Eval(Container, "DataItem.kurs") %>' >
+                                                <telerik:RadNumericTextBox ID="txt_kursD" runat="server"  Width="100px" NumberFormat-AllowRounding="true"
+                                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                    Text='<%#DataBinder.Eval(Container.DataItem, "kurs","{0:#,###,###0.00000000}")%>'
+                                                    onkeydown="blurTextBox(this, event)"
+                                                    AutoPostBack="true" MaxLength="11" Type="Number"
+                                                    NumberFormat-DecimalDigits="9" >
                                                 </telerik:RadNumericTextBox>
                                             </EditItemTemplate>
                                             <InsertItemTemplate>
-                                                <telerik:RadNumericTextBox ID="txt_kursD_insert" runat="server" Width="100px" Enabled="true" RenderMode="Lightweight"  NumberFormat-DecimalDigits ="6"
-                                                    AutoPostBack="false" >
+                                                <telerik:RadNumericTextBox ID="txt_kursD_insert" runat="server" Width="100px" NumberFormat-AllowRounding="true"
+                                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                    onkeydown="blurTextBox(this, event)"
+                                                    AutoPostBack="true" MaxLength="11" Type="Number"
+                                                    NumberFormat-DecimalDigits="9" >
                                                 </telerik:RadNumericTextBox>
                                             </InsertItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn HeaderText="Amount" ItemStyle-Width="120px" ItemStyle-HorizontalAlign="Right"  HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="100px">
                                             <ItemTemplate>  
-                                                <asp:Label ID="lbl_amount" Width="120px" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "Jumlah","{0:#,###,###0.00000000}")%>'></asp:Label>
+                                                <asp:Label ID="lbl_amount" Width="120px" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "Jumlah","{0:#,###,###0.00}")%>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_amount" Width="120px" dbValue='<%# DataBinder.Eval(Container, "DataItem.Jumlah","{0:#,###,###0.00}") %>'>
+                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_amount" NumberFormat-AllowRounding="true" Width="120px"
+                                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                    Text='<%#DataBinder.Eval(Container.DataItem, "Jumlah","{0:#,###,###0.00}")%>'
+                                                    onkeydown="blurTextBox(this, event)"
+                                                    AutoPostBack="true" MaxLength="11" Type="Number"
+                                                    NumberFormat-DecimalDigits="2">
                                                 </telerik:RadNumericTextBox>
                                             </EditItemTemplate>
                                             <InsertItemTemplate>
-                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_amount_insert" Width="120px" >
+                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_amount_insert" NumberFormat-AllowRounding="true" Width="120px"
+                                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
+                                                    onkeydown="blurTextBox(this, event)"
+                                                    AutoPostBack="true" MaxLength="11" Type="Number"
+                                                    NumberFormat-DecimalDigits="2" >
                                                 </telerik:RadNumericTextBox>
                                             </InsertItemTemplate>
                                         </telerik:GridTemplateColumn>
