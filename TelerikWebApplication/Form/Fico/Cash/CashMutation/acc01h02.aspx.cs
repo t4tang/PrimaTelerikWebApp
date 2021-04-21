@@ -891,8 +891,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             drValue["KoRek"] = (item.FindControl("cb_KoRek") as RadComboBox).Text;
             drValue["Ket"] = (item.FindControl("txt_KetD") as RadTextBox).Text;
             drValue["Mutasi"] = (item.FindControl("cb_Mutasi") as RadComboBox).Text;
-            drValue["kurs"] = (item.FindControl("txt_kursD") as RadNumericTextBox).Text;
-            drValue["Jumlah"] = (item.FindControl("txt_amount") as RadNumericTextBox).Text;
+            drValue["kurs"] = (item.FindControl("txt_kursD") as RadNumericTextBox).Value;
+            drValue["Jumlah"] = (item.FindControl("txt_amount") as RadNumericTextBox).Value;
             drValue["region_code"] = (item.FindControl("cb_Project_Detail") as RadComboBox).Text;
             drValue["dept_code"] = (item.FindControl("cb_Cost_Center") as RadComboBox).Text;
             //drValue["run"] = 0;
