@@ -64,7 +64,8 @@
 			    Height="600px"
 			    EnableAccessibility="true"
                 runat="server">
-                <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.GoodReceive.inv01h04_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <ReportSource IdentifierType="TypeReportSource" 
+                    Identifier="TelerikWebApplication.Form.Inventory.GoodReceive.inv01h04_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
                 </ReportSource>
             </telerik:ReportViewer>
         </div>

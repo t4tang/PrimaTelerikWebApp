@@ -163,7 +163,7 @@
 
    <div class="scroller" runat="server">
 
-        <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Material"
+        <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
         AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="10" MasterTableView-GridLines="None" 
         OnNeedDataSource="RadGrid1_NeedDataSource" 
         OnDeleteCommand="RadGrid1_DeleteCommand"
@@ -171,7 +171,7 @@
         OnPreRender="RadGrid1_PreRender"
         OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" >
         <PagerStyle Mode="NumericPages" ForeColor="#0099CC"></PagerStyle>               
-        <HeaderStyle Font-Size="Small" BackColor="WhiteSmoke" ForeColor="#666666" BorderColor="OrangeRed" BorderStyle="Inset" />
+        <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
         <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
         <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
         <SortingSettings EnableSkinSortStyles="false" />

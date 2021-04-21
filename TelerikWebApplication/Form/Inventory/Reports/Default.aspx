@@ -9,13 +9,8 @@
     <link href="../../../Styles/custom-cs.css" rel="stylesheet" />
     
     <script type="text/javascript" src="../../../Script/Script.js" ></script>
-
    <script src="../../../Script/jqueri-1.9.1.min.js"></script>
-   <%--<script src="Scripts/themeSwitcher.js"></script>--%>
-
-    <%--<link href="../../../Styles/kendo.common.min.css" rel="stylesheet" id="commonCss" />
-    <link href="../../../Styles/kendo.blueopal.min.css" rel="stylesheet" id="skinCss" />--%>
-
+   
     <style>
 
         #reportViewer1 {

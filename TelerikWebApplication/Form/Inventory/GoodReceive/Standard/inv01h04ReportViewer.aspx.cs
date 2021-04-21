@@ -27,6 +27,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
         protected void Page_Load(object sender, EventArgs e)
         {
             this.Title = Request.QueryString["lbm_code"];
+            tr_code = Request.QueryString["lbm_code"];
             if (!IsPostBack)
             {
                 this.Title = tr_code;

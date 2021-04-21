@@ -72,6 +72,7 @@
     </asp:UpdatePanel> 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
         <AjaxSettings>
             <telerik:AjaxSetting AjaxControlID="btnSearch">
@@ -79,12 +80,12 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="gridLoadingPanel"></telerik:AjaxUpdatedControl>
                 </UpdatedControls> 
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="RadGrid1">
+            <%--<telerik:AjaxSetting AjaxControlID="RadGrid1">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid3"></telerik:AjaxUpdatedControl>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid1"></telerik:AjaxUpdatedControl>
                 </UpdatedControls> 
-            </telerik:AjaxSetting>
+            </telerik:AjaxSetting>--%>
             <telerik:AjaxSetting AjaxControlID="btnInsertItem">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="RadGrid3"></telerik:AjaxUpdatedControl>
@@ -101,7 +102,7 @@
     </telerik:RadAjaxLoadingPanel>
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel" runat="server" Skin="Windows7" MinDisplayTime="2000" BackgroundPosition="Center"></telerik:RadAjaxLoadingPanel>
 
-    <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="FilterDialogWindows" RestrictionZoneID="ContentTemplateZone"
+    <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="FilterDialogWindows" RestrictionZoneID="ContentTemplateZone" Skin="Silk"
         Modal="true" Width="450px" Height="350px" VisibleStatusbar="False" AutoSize="True">
         <ContentTemplate>
             <div runat="server" style="padding: 20px 10px 10px 10px;" id="Div2">
@@ -146,14 +147,14 @@
         </ContentTemplate>
     </telerik:RadWindow>
 
-     <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
+    <div style="padding-left: 15px; border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin ">
         <table id="tbl_control">
             <tr>                       
-                <td style="vertical-align: bottom; margin-left: 10px; padding-left: 8px">
+                <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                     <asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClick="btnNew_Click" ToolTip="Add New" Visible="true"
                         Height="26px" Width="27px" ImageUrl="~/Images/tambah.png" ImageAlign="Bottom" ></asp:ImageButton>
                 </td>                
-                <td style="vertical-align: bottom; margin-left: 0px; padding: 0px 0px 0px 0px;">
+                <td style="vertical-align: middle; margin-left: 10px; padding:6px 0px 0px 13px">
                     <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter" 
                         Height="29px" Width="30px" ImageUrl="~/Images/search.png"></asp:ImageButton>
                 </td>
@@ -176,10 +177,9 @@
             OnItemCommand="RadGrid1_ItemCommand"
             OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged"
             OnPreRender="RadGrid1_PreRender">
-            <PagerStyle Mode="NumericPages"></PagerStyle>          
-            <ClientSettings EnablePostBackOnRowClick="true" />
-            <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
-            <HeaderStyle ForeColor="Highlight" Font-Size="11px" />
+            <PagerStyle Mode="NumericPages"></PagerStyle> 
+            <ClientSettings EnablePostBackOnRowClick="false" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
+            <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="sro_code" Font-Size="11px" Font-Names="Century Gothic"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                 CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" 
@@ -244,7 +244,8 @@
                                         <table id="Table2" width="Auto" border="0" class="module"> 
                                             <tr>
                                                 <td colspan="2" style="padding: 0px 0px 10px 0px; text-align:left">
-                                                    <asp:Button ID="btnUpdate" BorderStyle="None" BackColor="Orange" ForeColor="White" Width="90px" OnClick="btn_save_Click" Height="25px" 
+                                                    <asp:Button ID="btnUpdate" BorderStyle="None" BackColor="Orange" ForeColor="White" Width="90px" 
+                                                        OnClick="btn_save_Click" Height="25px" 
                                                         Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' runat="server" 
                                                         CssClass="btn-entryFrm" >
                                                     </asp:Button>&nbsp;
@@ -879,8 +880,7 @@
             </ClientSettings>
         </telerik:RadGrid> 
 
-    </div>
-    
+    </div>    
         
     <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server" EnableShadow="true">
         <Windows>
@@ -898,4 +898,5 @@
     <telerik:RadNotification RenderMode="Lightweight" ID="notif" Text="Data telah disimpan" runat="server" Position="BottomRight" Skin="Silk"
                 AutoCloseDelay="10000" Width="350" Height="110" Title="Confirmation" EnableRoundedCorners="true">
     </telerik:RadNotification>
+
 </asp:Content>

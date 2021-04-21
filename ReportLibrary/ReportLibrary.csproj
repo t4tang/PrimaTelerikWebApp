@@ -98,6 +98,24 @@
     <Compile Include="Reports\Fico\ReportCatalog.Designer.cs">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Fico\rpt_AgingAP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_AgingAP.Designer.cs">
+      <DependentUpon>rpt_AgingAP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_AgingAP_Summary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_AgingAP_Summary.Designer.cs">
+      <DependentUpon>rpt_AgingAP_Summary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_asset_depreciation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Fico\rpt_asset_depreciation.Designer.cs">
+      <DependentUpon>rpt_asset_depreciation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Fico\rpt_bank_mutation.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -146,11 +164,77 @@
     <Compile Include="Reports\Fico\TrialBalance.Designer.cs">
       <DependentUpon>TrialBalance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Inventory\ConsigmentByCustomerReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\ConsigmentByCustomerReport.Designer.cs">
+      <DependentUpon>ConsigmentByCustomerReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodIssuedReportByCategory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodIssuedReportByCategory.Designer.cs">
+      <DependentUpon>GoodIssuedReportByCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodIssuedReportByCustomer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodIssuedReportByCustomer.Designer.cs">
+      <DependentUpon>GoodIssuedReportByCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodIssuedReportByTransaction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodIssuedReportByTransaction.Designer.cs">
+      <DependentUpon>GoodIssuedReportByTransaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodIssuedWithMapByValueReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodIssuedWithMapByValueReport.Designer.cs">
+      <DependentUpon>GoodIssuedWithMapByValueReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodReceiptReportByGRNumber.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodReceiptReportByGRNumber.Designer.cs">
+      <DependentUpon>GoodReceiptReportByGRNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodReceiptReportBySupplier.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodReceiptReportBySupplier.Designer.cs">
+      <DependentUpon>GoodReceiptReportBySupplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodReceiptReportByTransactionValue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\GoodReceiptReportByTransactionValue.Designer.cs">
+      <DependentUpon>GoodReceiptReportByTransactionValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\InventoryAnalysisReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\InventoryAnalysisReport.Designer.cs">
+      <DependentUpon>InventoryAnalysisReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Inventory\ListOfGoodsIssued.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Inventory\ListOfGoodsIssued.Designer.cs">
       <DependentUpon>ListOfGoodsIssued.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\RecapitulationByGRNumberValue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\RecapitulationByGRNumberValue.Designer.cs">
+      <DependentUpon>RecapitulationByGRNumberValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\RecapitulationBySupplierValue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\RecapitulationBySupplierValue.Designer.cs">
+      <DependentUpon>RecapitulationBySupplierValue.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Inventory\ReportCatalog.cs">
       <SubType>Component</SubType>
@@ -182,9 +266,35 @@
     <Compile Include="Reports\Inventory\rpt_WO_UR_Monitoring.designer.cs">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Maintenance\Machine Condition\MachineConditionReport.cs" />
-    <Compile Include="Reports\Maintenance\Machine Condition\MachineConditionReport.Designer.cs">
+    <Compile Include="Reports\Inventory\StockCard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\StockCard.Designer.cs">
+      <DependentUpon>StockCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\SummaryStockInOutReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\SummaryStockInOutReport.Designer.cs">
+      <DependentUpon>SummaryStockInOutReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventory\TrackingRStoGIReports.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\TrackingRStoGIReports.Designer.cs">
+      <DependentUpon>TrackingRStoGIReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\MachineConditionReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\MachineConditionReport.Designer.cs">
       <DependentUpon>MachineConditionReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\ParetoProblemReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\ParetoProblemReport.Designer.cs">
+      <DependentUpon>ParetoProblemReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Maintenance\ReportCatalog.cs">
       <SubType>Component</SubType>
@@ -192,21 +302,131 @@
     <Compile Include="Reports\Maintenance\ReportCatalog.Designer.cs">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Maintenance\rpt_manpower_activity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_manpower_activity.Designer.cs">
+      <DependentUpon>rpt_manpower_activity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_mr_analyst.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_mr_analyst.Designer.cs">
+      <DependentUpon>rpt_mr_analyst.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_mr_by_unit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_mr_by_unit.Designer.cs">
+      <DependentUpon>rpt_mr_by_unit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\Rpt_MR_Supply.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\Rpt_MR_Supply.Designer.cs">
+      <DependentUpon>Rpt_MR_Supply.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Maintenance\rpt_population_unit.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Maintenance\rpt_population_unit.Designer.cs">
       <DependentUpon>rpt_population_unit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Maintenance\WO Outstanding Report\rpt_wo_outstanding.cs" />
-    <Compile Include="Reports\Maintenance\WO Outstanding Report\rpt_wo_outstanding.Designer.cs">
+    <Compile Include="Reports\Maintenance\rpt_WO_Hystorical.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_WO_Hystorical.Designer.cs">
+      <DependentUpon>rpt_WO_Hystorical.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_wo_outstanding.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\rpt_wo_outstanding.Designer.cs">
       <DependentUpon>rpt_wo_outstanding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Maintenance\Summary_HM_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Maintenance\Summary_HM_Report.Designer.cs">
+      <DependentUpon>Summary_HM_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Production\ReportCatalog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Production\ReportCatalog.Designer.cs">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Purchase\ReportCatalog.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Purchase\ReportCatalog.designer.cs">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_AP_Hystorical.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_AP_Hystorical.Designer.cs">
+      <DependentUpon>rpt_AP_Hystorical.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_POtoGR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_POtoGR.Designer.cs">
+      <DependentUpon>rpt_POtoGR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByDate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByDate.Designer.cs">
+      <DependentUpon>rpt_PO_Remaining_ByDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByPONumber.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByPONumber.Designer.cs">
+      <DependentUpon>rpt_PO_Remaining_ByPONumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupByDate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupByDate.Designer.cs">
+      <DependentUpon>rpt_PO_Remaining_ByProduct_SubGroupByDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupByPONumber.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupByPONumber.Designer.cs">
+      <DependentUpon>rpt_PO_Remaining_ByProduct_SubGroupByPONumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupBySupplier.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupBySupplier.Designer.cs">
+      <DependentUpon>rpt_PO_Remaining_ByProduct_SubGroupBySupplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_BySupllier_SubGroupDate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_BySupllier_SubGroupDate.Designer.cs">
+      <DependentUpon>rpt_PO_Remaining_BySupllier_SubGroupDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_BySupplier_SubGroupByProduct.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_BySupplier_SubGroupByProduct.Designer.cs">
+      <DependentUpon>rpt_PO_Remaining_BySupplier_SubGroupByProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_BySupplier_SubGroupPONumber.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PO_Remaining_BySupplier_SubGroupPONumber.Designer.cs">
+      <DependentUpon>rpt_PO_Remaining_BySupplier_SubGroupPONumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PRtoGR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Purchase\rpt_PRtoGR.Designer.cs">
+      <DependentUpon>rpt_PRtoGR.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Purchase\rpt_purchase_order.cs">
       <SubType>Component</SubType>
@@ -267,6 +487,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\Fico\ActualVsBudget.resx">
+      <DependentUpon>ActualVsBudget.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Fico\ActualVsBudgetYTD.resx">
       <DependentUpon>ActualVsBudgetYTD.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,6 +504,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Fico\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\rpt_AgingAP.resx">
+      <DependentUpon>rpt_AgingAP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\rpt_AgingAP_Summary.resx">
+      <DependentUpon>rpt_AgingAP_Summary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Fico\rpt_asset_depreciation.resx">
+      <DependentUpon>rpt_asset_depreciation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Fico\rpt_bank_mutation.resx">
       <DependentUpon>rpt_bank_mutation.cs</DependentUpon>
@@ -306,6 +538,15 @@
     <EmbeddedResource Include="Reports\Fico\TrialBalance.resx">
       <DependentUpon>TrialBalance.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\GoodReceiptReportByGRNumber.resx">
+      <DependentUpon>GoodReceiptReportByGRNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\GoodReceiptReportBySupplier.resx">
+      <DependentUpon>GoodReceiptReportBySupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\InventoryAnalysisReport.resx">
+      <DependentUpon>InventoryAnalysisReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
     </EmbeddedResource>
@@ -321,20 +562,83 @@
     <EmbeddedResource Include="Reports\Inventory\rpt_WO_UR_Monitoring.resx">
       <DependentUpon>rpt_WO_UR_Monitoring.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Maintenance\Machine Condition\MachineConditionReport.resx">
+    <EmbeddedResource Include="Reports\Inventory\StockCard.resx">
+      <DependentUpon>StockCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\SummaryStockInOutReport.resx">
+      <DependentUpon>SummaryStockInOutReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\MachineConditionReport.resx">
       <DependentUpon>MachineConditionReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\ParetoProblemReport.resx">
+      <DependentUpon>ParetoProblemReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Maintenance\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\rpt_manpower_activity.resx">
+      <DependentUpon>rpt_manpower_activity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\rpt_mr_analyst.resx">
+      <DependentUpon>rpt_mr_analyst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\rpt_mr_by_unit.resx">
+      <DependentUpon>rpt_mr_by_unit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\Rpt_MR_Supply.resx">
+      <DependentUpon>Rpt_MR_Supply.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\Maintenance\rpt_population_unit.resx">
       <DependentUpon>rpt_population_unit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Maintenance\WO Outstanding Report\rpt_wo_outstanding.resx">
+    <EmbeddedResource Include="Reports\Maintenance\rpt_WO_Hystorical.resx">
+      <DependentUpon>rpt_WO_Hystorical.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\rpt_wo_outstanding.resx">
       <DependentUpon>rpt_wo_outstanding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Maintenance\Summary_HM_Report.resx">
+      <DependentUpon>Summary_HM_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Production\ReportCatalog.resx">
+      <DependentUpon>ReportCatalog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Purchase\ReportCatalog.resx">
       <DependentUpon>ReportCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_AP_Hystorical.resx">
+      <DependentUpon>rpt_AP_Hystorical.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_POtoGR.resx">
+      <DependentUpon>rpt_POtoGR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PO_Remaining_ByDate.resx">
+      <DependentUpon>rpt_PO_Remaining_ByDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PO_Remaining_ByPONumber.resx">
+      <DependentUpon>rpt_PO_Remaining_ByPONumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupByDate.resx">
+      <DependentUpon>rpt_PO_Remaining_ByProduct_SubGroupByDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupByPONumber.resx">
+      <DependentUpon>rpt_PO_Remaining_ByProduct_SubGroupByPONumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PO_Remaining_ByProduct_SubGroupBySupplier.resx">
+      <DependentUpon>rpt_PO_Remaining_ByProduct_SubGroupBySupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PO_Remaining_BySupllier_SubGroupDate.resx">
+      <DependentUpon>rpt_PO_Remaining_BySupllier_SubGroupDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PO_Remaining_BySupplier_SubGroupByProduct.resx">
+      <DependentUpon>rpt_PO_Remaining_BySupplier_SubGroupByProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PO_Remaining_BySupplier_SubGroupPONumber.resx">
+      <DependentUpon>rpt_PO_Remaining_BySupplier_SubGroupPONumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Purchase\rpt_PRtoGR.resx">
+      <DependentUpon>rpt_PRtoGR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Purchase\rpt_purchase_order.resx">
       <DependentUpon>rpt_purchase_order.cs</DependentUpon>
@@ -372,6 +676,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />
+    <Folder Include="Reports\Sales\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

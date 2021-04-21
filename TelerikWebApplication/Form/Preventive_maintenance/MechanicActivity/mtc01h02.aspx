@@ -170,6 +170,7 @@
              OnItemCreated="RadGrid1_ItemCreated" 
              OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" OnPreRender="RadGrid1_PreRender">
              <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
+             <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
              <ClientSettings EnablePostBackOnRowClick="true" >
              </ClientSettings>
              <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="jobno" Font-Size="12px"

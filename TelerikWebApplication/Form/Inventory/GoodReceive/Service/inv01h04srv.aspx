@@ -172,7 +172,7 @@
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged"
                 OnPreRender="RadGrid1_PreRender">
                 <PagerStyle ForeColor="#0099CC" VerticalAlign="Middle" Mode="NextPrevAndNumeric"></PagerStyle>               
-                <HeaderStyle CssClass="gridHeader" BackColor="#999999" ForeColor="White" Font-Size="10px" />
+                <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                 <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
                 <SortingSettings EnableSkinSortStyles="false" />
@@ -252,9 +252,9 @@
                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
             <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
             <Columns>
-                <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  HeaderStyle-ForeColor="#009900"
+                <%--<telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  HeaderStyle-ForeColor="#009900"
                     HeaderText="Edit" HeaderStyle-Width="30px" UpdateText="Update" HeaderStyle-HorizontalAlign="Center">
-                </telerik:GridEditCommandColumn>
+                </telerik:GridEditCommandColumn>--%>
                 <telerik:GridTemplateColumn HeaderText="Type" ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center" 
                         HeaderStyle-ForeColor="#009900" HeaderStyle-HorizontalAlign="Center">
                     <ItemTemplate>

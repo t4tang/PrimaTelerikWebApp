@@ -253,7 +253,7 @@
                 <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                 <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
-                <HeaderStyle Font-Size="11px" /> 
+                <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
                 <MasterTableView CommandItemDisplay="None" DataKeyNames="prod_code" Font-Size="11px" EditMode="InPlace"
                  ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
                 <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" /> 

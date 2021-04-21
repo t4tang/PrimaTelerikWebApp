@@ -119,7 +119,7 @@
             <tr>                
                 <td style="vertical-align: middle; margin-left: 10px; padding: 5px 0px 0px 13px;">
                     <asp:ImageButton runat="server" ID="btnFilter" OnClientClick="openWinFiterTemplate(); return false;" ToolTip="Filter"
-                        Height="25px" Width="28px" ImageUrl="~/Images/filter.png"></asp:ImageButton>
+                        Height="25px" Width="28px" ImageUrl="~/Images/search.png"></asp:ImageButton>
                 </td>                  
                 <td style="vertical-align: middle; margin-left: 10px; padding-left: 8px">
                     <%--<asp:ImageButton runat="server" ID="btnNew" AlternateText="New" OnClientClick="ShowInsertForm(); return false;" ToolTip="Add New"
@@ -136,15 +136,15 @@
 
      <div class="scroller" runat="server" style="overflow-y:scroll; height:620px;" >
          <div style="width:100%; overflow-y:hidden;height:auto; scrollbar-highlight-color:#b6ff00">
-             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" ShowFooter="false" Skin="Silk" AllowCustomPaging="False"
-                 ShowStatusBar="true" PageSize="10"
+             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" ShowFooter="false" AllowCustomPaging="False"
+                 ShowStatusBar="true" PageSize="10" CssClass="RadGrid_ModernBrowsers" Skin="Silk" 
                  AllowSorting="True" AllowMultiRowSelection="True" AllowPaging="True" ShowGroupPanel="False" GroupHeaderItemStyle-Font-Bold="true"
                 AutoGenerateColumns="False" GridLines="none"
                  OnNeedDataSource="RadGrid1_NeedDataSource" >
                  <PagerStyle Mode="NumericPages"></PagerStyle>          
                 <ClientSettings EnablePostBackOnRowClick="true" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
-                <HeaderStyle ForeColor="White" BackColor="#ff9966" Font-Size="11px" HorizontalAlign="Center"  />
+                <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
                  <MasterTableView Width="100%" CommandItemDisplay="None" DataKeyNames="NextService" Font-Size="12px"
                     GroupHeaderItemStyle-Font-Size="X-Small">
                      <GroupByExpressions>

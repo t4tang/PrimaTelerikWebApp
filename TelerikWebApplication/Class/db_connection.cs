@@ -17,7 +17,7 @@ namespace TelerikWebApplication.Class
 
         public void open_koneksi()
         {
-            kon.Close();
+            //kon.Close();
             kon.Open();
         }
 

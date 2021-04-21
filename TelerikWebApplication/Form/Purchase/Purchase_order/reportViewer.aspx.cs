@@ -182,6 +182,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 cmd.ExecuteNonQuery();
                 con.Close();
+                btnOk.Enabled=false;
             }
         }
 

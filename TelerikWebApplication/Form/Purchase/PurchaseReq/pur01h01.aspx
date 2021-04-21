@@ -103,10 +103,11 @@
                     </tr>
                 </table>
             </div>
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="MetroTouch"
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
                 AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" PageSize="12" 
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand" >
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
+                <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
                 <ClientSettings EnablePostBackOnRowClick="true">
                 </ClientSettings>
                 <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="pr_code" Font-Size="12px"
@@ -171,7 +172,8 @@
                             Height="30px" Width="32px" ImageUrl="~/Images/cetak-gray.png"></asp:ImageButton>
                     </td>
                     <td style="width: 85%; text-align: right">
-                        <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; padding-bottom: 0px; font-size: x-large; color: Highlight">
+                        <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; 
+                        padding-left: 10px; padding-bottom: 0px; font-size: x-large; color:yellowgreen">
                         </telerik:RadLabel>
                     </td>
                 </tr>

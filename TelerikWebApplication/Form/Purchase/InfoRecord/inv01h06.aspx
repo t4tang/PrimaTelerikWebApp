@@ -169,14 +169,14 @@
                 OnDeleteCommand="RadGrid1_DeleteCommand" OnUpdateCommand="RadGrid2_InsertCommand"
                 OnItemCreated="RadGrid1_ItemCreated"
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged"
-                OnPreRender="RadGrid1_PreRender">
-                
+                OnPreRender="RadGrid1_PreRender">                
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-            <ClientSettings EnablePostBackOnRowClick="true" ></ClientSettings>
-            <SortingSettings EnableSkinSortStyles="false" />
-            <MasterTableView CommandItemDisplay="Top" DataKeyNames="info_code" Font-Size="12px"
-            EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
-            CommandItemSettings-ShowRefreshButton="false">
+                <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
+                <ClientSettings EnablePostBackOnRowClick="true" ></ClientSettings>
+                <SortingSettings EnableSkinSortStyles="false" />
+                <MasterTableView CommandItemDisplay="Top" DataKeyNames="info_code" Font-Size="12px"
+                EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
+                CommandItemSettings-ShowRefreshButton="false">
                 <Columns>
                      <telerik:GridClientSelectColumn UniqueName="SelectColumn" ItemStyle-Width="20px" ></telerik:GridClientSelectColumn> 
                     <telerik:GridBoundColumn UniqueName="info_code" HeaderText="Info Number" DataField="info_code" ItemStyle-Width="100px" FilterControlWidth="90px" 

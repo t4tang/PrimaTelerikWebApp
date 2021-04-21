@@ -462,6 +462,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
             return String.Format("Items <b>1</b>-<b>{0}</b> out of <b>{1}</b>", offset, total);
         }
+
     }
 
     //protected void btnPrint_Click(object sender, ImageClickEventArgs e)

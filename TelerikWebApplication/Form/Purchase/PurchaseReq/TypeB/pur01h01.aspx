@@ -163,7 +163,7 @@
                 </td>
                 <td style="width: 97%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight: lighter; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:#7cca05; font-weight:normal">
+                        padding-bottom: 0px; font-size: x-large; color:yellowgreen; font-weight:normal">
                     </telerik:RadLabel>
                 </td>
             </tr>
@@ -180,7 +180,7 @@
         OnPreRender="RadGrid1_PreRender"
         OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" >
         <PagerStyle Mode="NumericPages" ForeColor="#0099CC"></PagerStyle>               
-        <HeaderStyle ForeColor="White" Font-Size="12px" BackColor="#808080" />
+        <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
         <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
         <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
         <SortingSettings EnableSkinSortStyles="false" />

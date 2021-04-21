@@ -73,8 +73,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 //lbl_Owner.Text = lbl_Owner.Text + sdr["Owner"].ToString();
                 ////lbl_printed.Text = lbl_printed.Text + sdr["Printed"].ToString();
                 //lbl_edited.Text = lbl_edited.Text + sdr["Edited"].ToString();
-                cb_warehouse.SelectedValue = sdr["wh_code"].ToString();
-                cb_warehouse.Text = sdr["wh_name"].ToString();
+                //cb_warehouse.SelectedValue = sdr["wh_code"].ToString();
+                //cb_warehouse.Text = sdr["wh_name"].ToString();
                 Updatepanel12.ContentTemplateContainer.Controls.Add(new LiteralControl("Last Update : " + string.Format("{0:dd-MM-yyyy}", sdr["lastupdate"].ToString())));
                 Updatepanel12.ContentTemplateContainer.Controls.Add(new LiteralControl("<p>Updated : " + sdr["Edited"].ToString()));
                 Updatepanel12.ContentTemplateContainer.Controls.Add(new LiteralControl("<p>User Id : " + sdr["userid"].ToString()));
@@ -229,7 +229,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
             cmd.CommandText = "sp_get_reservation_slip_reffD";
             cmd.Parameters.AddWithValue("@doc_code", doc_code);
             cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
-            cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+            //cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -384,10 +384,10 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
             dr.Close();
             con.Close();
 
-            cb_warehouse.Text = string.Empty;
+            //cb_warehouse.Text = string.Empty;
             cb_ref.Text = string.Empty;
             cb_cost_ctr.Text = string.Empty;
-            cb_warehouse.SelectedValue = null;
+            //cb_warehouse.SelectedValue = null;
             cb_ref.SelectedValue = null;
             cb_cost_ctr.SelectedValue = null;
             txt_unit_code.Text = string.Empty;
@@ -782,8 +782,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
                 //cmd.Parameters.AddWithValue("@Printed", txt_printed.Text);
                 //cmd.Parameters.AddWithValue("@Edited", txt_edited.Text);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                //cmd.Parameters.AddWithValue("@wh_code", DBNull.Value);
                 cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
-                //cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
                 cmd.ExecuteNonQuery();
 
 
