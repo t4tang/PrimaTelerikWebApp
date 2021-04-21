@@ -171,6 +171,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 cmd.CommandText = "sp_save_goods_receiveH";
+                cmd.Parameters.AddWithValue("@trans_code", "1");
                 cmd.Parameters.AddWithValue("@lbm_code", run);
                 cmd.Parameters.AddWithValue("@lbm_date", string.Format("{0:yyyy-MM-dd}", dtp_gr.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
@@ -209,7 +210,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
                     cmd.Parameters.AddWithValue("@UID", public_str.uid);
                     cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
                     cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
-                    if((item.FindControl("chkWarranty") as CheckBox).Checked == true)
+                    cmd.Parameters.AddWithValue("@code", "GR");
+                    if ((item.FindControl("chkWarranty") as CheckBox).Checked == true)
                     {
                         cmd.Parameters.AddWithValue("@twarranty", 1);
                     }

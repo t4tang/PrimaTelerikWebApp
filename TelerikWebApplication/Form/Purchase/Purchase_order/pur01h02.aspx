@@ -165,16 +165,16 @@
     </div>   
 
     <div class="scroller" runat="server" style="overflow-y:scroll; height:620px;" >
-        <div style="width:100%; overflow-y:hidden;height:auto; scrollbar-highlight-color:#b6ff00">    
-            <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
-                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="7"
+        <div style="width:100%; overflow-y:hidden;height:285px; scrollbar-highlight-color:#b6ff00">    
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="5" Skin="Silk"
+            AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" CssClass="RadGrid_ModernBrowsers"
                 OnNeedDataSource="RadGrid1_NeedDataSource" 
                 OnPreRender="RadGrid1_PreRender" 
                 OnDeleteCommand="RadGrid1_DeleteCommand"
                 OnItemCreated="RadGrid1_ItemCreated"
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged">
                     <PagerStyle Mode="NumericPages" ForeColor="#0099CC"></PagerStyle>               
-                    <HeaderStyle ForeColor="White" Font-Size="12px" BackColor="#808080" />
+                    <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
                     <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                     <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
                     <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="po_code" Font-Size="11px" Font-Names="Century Gothic" 
@@ -243,7 +243,7 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
-                        <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="253px" />
+                        <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="290px" />
                         <Selecting AllowRowSelect="true"></Selecting>                    
                     </ClientSettings>
                 </telerik:RadGrid>
@@ -253,6 +253,7 @@
             <ContentTemplate>
                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Silk" PageSize="5"
                 AllowPaging="true" AllowSorting="true" runat="server" ShowStatusBar="true"  ClientSettings-Selecting-AllowRowSelect="true"
+                    CssClass="RadGrid_ModernBrowsers"
                     OnNeedDataSource="RadGrid2_NeedDataSource"
                     OnUpdateCommand="RadGrid2_UpdateCommand"
                     OnDeleteCommand="RadGrid2_DeleteCommand">

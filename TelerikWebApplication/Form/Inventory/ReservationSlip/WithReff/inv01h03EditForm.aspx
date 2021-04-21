@@ -144,11 +144,6 @@
 
                                 </td>
                            </tr>
-                        </table>
-                    </td>
-                    <td style="vertical-align:top; width:300px">
-                        <table>
-                            
                             <tr>
                                 <td  style="vertical-align: top;"> 
                                     <telerik:RadLabel runat="server" Text="Storage :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
@@ -171,7 +166,11 @@
                                     </asp:UpdatePanel>
 
                                 </td>
-                            </tr>                                                                    
+                            </tr>      
+                        </table>
+                    </td>
+                    <td style="vertical-align:top; width:300px">
+                        <table>                                                         
                             <tr>
                                <td  style="vertical-align: top"> 
                                    <telerik:RadLabel runat="server" Text="Refference:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
@@ -282,7 +281,7 @@
                                     </asp:UpdatePanel>
                                 </td>
                             </tr>
-                             <tr> 
+                            <tr> 
                                 <td  style="vertical-align: top; width:90px">  
                                    <telerik:RadLabel runat="server" Text="Unit Name :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                 </td>
@@ -325,10 +324,6 @@
 
                                 </td>
                             </tr>
-                            </table>
-                    </td>
-                    <td style="vertical-align:top; width:500px">
-                        <table>
                             <tr>
                                 <td  style="vertical-align: top">  
                                     <telerik:RadLabel runat="server" Text="Remark :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
@@ -344,7 +339,12 @@
                                     </asp:UpdatePanel>
 
                                 </td>
-                            </tr>                            
+                            </tr>     
+                            </table>
+                    </td>
+                    <td style="vertical-align:top; width:500px">
+                        <table>
+                                                   
                             <tr>
                                 <td style="vertical-align: top; text-align: left">
                                     <telerik:RadLabel runat="server" Text="Order By :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />

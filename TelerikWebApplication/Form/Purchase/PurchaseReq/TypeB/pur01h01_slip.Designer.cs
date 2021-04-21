@@ -990,10 +990,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox70.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox70.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox70.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox70.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox70.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox70.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox70.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox70.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox70.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox70.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox70.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox70.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox70.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox70.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -1002,7 +1002,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox70.Style.Font.Bold = true;
             this.textBox70.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox70.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox70.Value = "Checked By I";
+            this.textBox70.Value = "Order By";
             // 
             // textBox69
             // 
@@ -1013,10 +1013,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox69.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox69.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox69.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox69.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox69.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox69.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox69.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox69.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox69.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox69.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox69.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox69.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox69.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox69.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -1036,15 +1036,16 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox68.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox68.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox68.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox68.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox68.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox68.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox68.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox68.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox68.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox68.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox68.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox68.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox68.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox68.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox68.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox68.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox68.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox68.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox68.Value = "";
             // 
@@ -1058,17 +1059,19 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox67.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox67.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox67.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox67.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox67.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox67.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox67.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox67.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox67.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox67.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox67.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox67.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox67.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox67.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox67.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox67.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox67.Style.Font.Bold = true;
             this.textBox67.Style.Font.Name = "Calibri";
             this.textBox67.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
+            this.textBox67.Style.Font.Underline = true;
             this.textBox67.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox67.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox67.Value = "= Fields.NamePrepareBy";
@@ -1083,15 +1086,16 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox65.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox65.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox65.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox65.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox65.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox65.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox65.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox65.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox65.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox65.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox65.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox65.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox65.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox65.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox65.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox65.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox65.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox65.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox65.Value = "";
             // 
@@ -1106,17 +1110,19 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox64.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox64.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox64.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox64.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox64.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox64.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox64.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox64.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox64.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox64.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox64.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox64.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox64.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox64.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox64.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox64.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox64.Style.Font.Bold = true;
             this.textBox64.Style.Font.Name = "Calibri";
             this.textBox64.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
+            this.textBox64.Style.Font.Underline = true;
             this.textBox64.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox64.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox64.Value = "= Fields.NameOrderBy";
@@ -1131,10 +1137,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox63.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox63.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox63.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox63.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox63.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox63.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox63.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox63.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox63.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox63.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox63.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox63.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox63.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox63.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -1155,10 +1161,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox62.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox62.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox62.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox62.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox62.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox62.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox62.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox62.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox62.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox62.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox62.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox62.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox62.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox62.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -1167,7 +1173,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox62.Style.Font.Bold = true;
             this.textBox62.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox62.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox62.Value = "Checked By II";
+            this.textBox62.Value = "Verified By";
             // 
             // textBox61
             // 
@@ -1179,15 +1185,16 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox61.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox61.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox61.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox61.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox61.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox61.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox61.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox61.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox61.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox61.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox61.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox61.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox61.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox61.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox61.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox61.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox61.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox61.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox61.Value = "";
             // 
@@ -1210,17 +1217,19 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox60.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox60.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox60.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox60.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox60.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox60.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox60.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox60.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox60.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox60.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox60.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox60.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox60.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox60.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox60.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox60.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox60.Style.Font.Bold = true;
             this.textBox60.Style.Font.Name = "Calibri";
             this.textBox60.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
+            this.textBox60.Style.Font.Underline = true;
             this.textBox60.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox60.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox60.Value = "= Fields.NameCekBy";
@@ -1235,10 +1244,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox59.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox59.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox59.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox59.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox59.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox59.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox59.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox59.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox59.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox59.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox59.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox59.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox59.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox59.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -1259,10 +1268,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox76.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox76.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox76.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox76.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox76.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox76.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox76.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox76.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox76.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox76.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox76.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox76.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox76.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox76.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -1271,7 +1280,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox76.Style.Font.Bold = true;
             this.textBox76.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox76.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox76.Value = "Approval By";
+            this.textBox76.Value = "Approved By";
             // 
             // textBox75
             // 
@@ -1283,15 +1292,16 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox75.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox75.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox75.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox75.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox75.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox75.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox75.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox75.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox75.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox75.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox75.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox75.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox75.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox75.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox75.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox75.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox75.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox75.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox75.Value = "";
             // 
@@ -1306,17 +1316,19 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox74.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox74.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox74.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox74.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox74.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox74.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox74.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox74.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox74.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox74.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox74.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox74.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox74.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox74.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox74.Style.BorderWidth.Right = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox74.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox74.Style.Font.Bold = true;
             this.textBox74.Style.Font.Name = "Calibri";
             this.textBox74.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
+            this.textBox74.Style.Font.Underline = true;
             this.textBox74.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox74.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox74.Value = "= Fields.NameAppBy";
@@ -1331,10 +1343,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox73.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox73.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox73.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox73.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox73.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox73.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox73.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox73.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox73.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox73.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox73.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox73.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox73.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox73.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -1356,10 +1368,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.textBox66.Style.BorderColor.Left = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox66.Style.BorderColor.Right = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
             this.textBox66.Style.BorderColor.Top = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(36)))), ((int)(((byte)(62)))));
-            this.textBox66.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox66.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox66.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox66.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox66.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox66.Style.BorderStyle.Left = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox66.Style.BorderStyle.Right = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox66.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox66.Style.BorderWidth.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox66.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox66.Style.BorderWidth.Left = Telerik.Reporting.Drawing.Unit.Pixel(1D);
@@ -1376,7 +1388,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             this.sqlDataSource2.ConnectionString = "DbConString";
             this.sqlDataSource2.Name = "sqlDataSource2";
             this.sqlDataSource2.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
-            new Telerik.Reporting.SqlDataSourceParameter("@pr_code", System.Data.DbType.AnsiString, "PR0319006855")});
+            new Telerik.Reporting.SqlDataSourceParameter("@pr_code", System.Data.DbType.AnsiString, "PR0121030001")});
             this.sqlDataSource2.SelectCommand = "dbo.spr_print_prH";
             this.sqlDataSource2.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 

@@ -719,7 +719,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
+                
             dr.Close();
             con.Close();
         }

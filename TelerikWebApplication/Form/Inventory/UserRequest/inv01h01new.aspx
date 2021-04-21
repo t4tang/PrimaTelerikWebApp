@@ -173,7 +173,7 @@
                 </td>
                 <td style="width: 96%; text-align: right">
                     <telerik:RadLabel ID="lbl_form_name" runat="server" Style="font-weight:normal; font-size: 10px; font-variant: small-caps; padding-left: 10px; 
-                        padding-bottom: 0px; font-size: x-large; color:#0099dc;">
+                        padding-bottom: 0px; font-size: x-large; color:yellowgreen;">
                     </telerik:RadLabel>
                 </td>
             </tr>
@@ -192,7 +192,7 @@
             OnPreRender="RadGrid1_PreRender">
             <PagerStyle Mode="NumericPages"></PagerStyle>  
             <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
-            <HeaderStyle ForeColor="Highlight" Font-Size="11px" />
+            <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="doc_code" Font-Size="11px" Font-Names="Century Gothic"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
                 CommandItemSettings-ShowRefreshButton="false" CommandItemStyle-ForeColor="Highlight" 

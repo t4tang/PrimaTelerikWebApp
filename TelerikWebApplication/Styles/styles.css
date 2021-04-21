@@ -315,4 +315,15 @@ html body .RadInput_Focused_MetroTouch {
     content: "\e628";
 }
 
+.size-custom {
+    width: 640px;
+}
+.widePeek
+{
+    width: 290px;
+    height: 130px;
+    padding: 10px;
+    font-size: 14px;
+}
+
 /* FONT END */

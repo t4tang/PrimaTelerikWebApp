@@ -972,7 +972,7 @@
                             OnNeedDataSource="RadGrid2_NeedDataSource" 
                             OnPreRender="RadGrid2_PreRender" >
                             <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
-                            <HeaderStyle Font-Size="10px" Font-Bold="true" />
+                            <HeaderStyle Font-Size="10px" Font-Bold="true" ForeColor="White" BackColor="#999999" />
                             <MasterTableView CommandItemDisplay="None"  DataKeyNames="prod_code" Font-Size="11px" 
                             ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item" 
                             CommandItemSettings-ShowRefreshButton="False" ItemStyle-ForeColor="#006600">

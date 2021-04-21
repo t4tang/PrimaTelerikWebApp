@@ -320,14 +320,15 @@
                                 </telerik:RadTabStrip>
                                
                                 <telerik:RadMultiPage runat="server" ID="RadMultiPage2"  SelectedIndex="0" >
-                                    <telerik:RadPageView runat="server" ID="RadPageView1" Height="280px" >
+                                    <telerik:RadPageView runat="server" ID="RadPageView1" Height="300px" >
                                         <div style="padding: 5px 10px 10px 10px;">
-                                            <telerik:RadGrid runat="server" ID="RadGridPageView1" RenderMode="Lightweight" AllowPaging="true"
-                                                ShowFooter="false" AllowSorting="false" PageSize="5" AutoGenerateColumns="false" Skin="Silk"
+                                            <telerik:RadGrid runat="server" ID="RadGridPageView1" AllowPaging="False" ShowFooter="false" PageSize="5" Skin="Silk" 
+                                                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" CssClass="RadGrid_ModernBrowsers"
                                                 OnNeedDataSource="RadGridPageView1_NeedDataSource" >
                                                     <MasterTableView CommandItemDisplay="None" AllowFilteringByColumn= "false" DataKeyNames="prod_code, wh_code" Width="60%" 
                                                     Font-Names="Calibri" Font-Size="12px" CommandItemSettings-ShowAddNewRecordButton="false"  HeaderStyle-Font-Size="12px"
                                                     EditFormSettings-PopUpSettings-KeepInScreenBounds="true" HeaderStyle-Height="10px" HeaderStyle-ForeColor="Highlight" >
+                                                       
                                                         <Columns>
                                                             <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                                                                 <HeaderStyle Width="40px" B/>
@@ -346,10 +347,13 @@
                                                             </telerik:GridBoundColumn>
                                                         </Columns>
                                                     </MasterTableView>
+                                                    <ClientSettings>
+                                                        <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="220" />
+                                                    </ClientSettings>
                                             </telerik:RadGrid>
                                         </div>
                                     </telerik:RadPageView>
-                                    <telerik:RadPageView runat="server" ID="RadPageView2" Height="280px" >
+                                    <telerik:RadPageView runat="server" ID="RadPageView2" Height="300px" >
                                         <div style="padding: 10px 10px 10px 10px;">
                                             <telerik:RadGrid runat="server" ID="RadGridPageView2" RenderMode="Lightweight" AllowPaging="true"
                                                 ShowFooter="false" AllowSorting="false" PageSize="5" AutoGenerateColumns="false" Skin="Silk">
@@ -378,11 +382,9 @@
                                             </telerik:RadGrid>
                                         </div>
                                     </telerik:RadPageView>
-                                    <telerik:RadPageView runat="server" ID="RadPageView3" Height="280px" >
+                                    <telerik:RadPageView runat="server" ID="RadPageView3" Height="300px" >
                                         <div style="padding: 10px 10px 10px 10px;">
-                                            <telerik:RadGrid runat="server" ID="RadGridPageView3">
-
-                                            </telerik:RadGrid>
+                                            
                                         </div>
                                     </telerik:RadPageView>
                                 </telerik:RadMultiPage>

@@ -120,7 +120,4 @@
   <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
     <value>{"@region_code":"SMB"}</value>
   </metadata>
-  <metadata name="$this.Zoom" type="System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>0.6666667</value>
-  </metadata>
 </root>

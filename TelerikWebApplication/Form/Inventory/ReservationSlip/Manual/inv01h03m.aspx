@@ -184,6 +184,7 @@
     <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px">
         <div runat="server" style="width:100%; overflow-y:hidden; min-height:620px; scrollbar-highlight-color:#b6ff00;border-bottom-style:solid; 
         border-bottom-color:gainsboro; border-bottom-width:thin;">
+
         <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid1"  runat="server" AllowPaging="true" PageSize="14" ShowFooter="false" Skin="Silk"
             AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" MasterTableView-GridLines="None" CssClass="RadGrid_ModernBrowsers"
             OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" 
@@ -193,7 +194,7 @@
             OnDeleteCommand="RadGrid1_DeleteCommand" 
             OnItemCommand="RadGrid1_ItemCommand">
             <PagerStyle ForeColor="#0099CC" VerticalAlign="Middle" Mode="NextPrevAndNumeric"></PagerStyle>               
-            <HeaderStyle CssClass="gridHeader" BackColor="#999999" ForeColor="White" Font-Size="11px" />
+            <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
             <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
             <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
             <SortingSettings EnableSkinSortStyles="false" />
@@ -390,28 +391,28 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadComboBox ID="cb_unit" runat="server" Width="150px" AutoPostBack="true" CausesValidation="false"
-                                                        DropDownWidth="650px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                        DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.unit_code ") %>'
                                                         MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" Font-Size="Small"
                                                         OnItemsRequested="cb_unit_ItemsRequested" OnSelectedIndexChanged="cb_unit_SelectedIndexChanged"
                                                         OnPreRender="cb_unit_PreRender">
                                                             <HeaderTemplate>
-                                                                    <table style="width: 650px; font-size: smaller">
+                                                                    <table style="width: 450px; font-size: smaller">
                                                                         <tr>
-                                                                            <td style="width: 300px;">Unit Code
+                                                                            <td style="width: 200px;">Unit Code
                                                                             </td>
-                                                                            <td style="width: 350px;">Model No.
+                                                                            <td style="width: 250px;">Model No.
                                                                             </td>
                                                                         </tr>
                                                                     </table>
                                                                 </HeaderTemplate>
                                                                 <ItemTemplate>
-                                                                    <table style="width: 650px; font-size: smaller">
+                                                                    <table style="width: 450px; font-size: smaller">
                                                                         <tr>
-                                                                            <td style="width: 300px;">
+                                                                            <td style="width: 200px;">
                                                                                 <%# DataBinder.Eval(Container, "DataItem.unit_code")%>
                                                                             </td>
-                                                                            <td style="width: 350px;">
+                                                                            <td style="width: 250px;">
                                                                                 <%# DataBinder.Eval(Container, "DataItem.model_no")%>
                                                                             </td>
                                                                         </tr>
@@ -487,27 +488,27 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadComboBox ID="cb_orderBy" runat="server" Width="300px"
-                                                        DropDownWidth="650px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                        DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                         MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" Font-Size="Small"
                                                         OnItemsRequested="cb_orderBy_ItemsRequested" OnSelectedIndexChanged="cb_orderBy_SelectedIndexChanged"
                                                         OnPreRender="cb_orderBy_PreRender" Text='<%# DataBinder.Eval(Container, "DataItem.RequestBy") %>'>
                                                             <HeaderTemplate>
-                                                                    <table style="width: 650px; font-size: smaller">
+                                                                    <table style="width: 450px; font-size: smaller">
                                                                         <tr>
-                                                                            <td style="width: 300px;">Name
+                                                                            <td style="width: 200px;">Name
                                                                             </td>
-                                                                            <td style="width: 350px;">Position
+                                                                            <td style="width: 250px;">Position
                                                                             </td>
                                                                         </tr>
                                                                     </table>
                                                                 </HeaderTemplate>
                                                                 <ItemTemplate>
-                                                                    <table style="width: 650px; font-size: smaller">
+                                                                    <table style="width: 450px; font-size: smaller">
                                                                         <tr>
-                                                                            <td style="width: 300px;">
+                                                                            <td style="width: 200px;">
                                                                                 <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                                             </td>
-                                                                            <td style="width: 350px;">
+                                                                            <td style="width: 250px;">
                                                                                 <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                                             </td>
                                                                         </tr>
@@ -525,7 +526,7 @@
                                                 </td>
                                                 <td>
                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="300px"
-                                                    DropDownWidth="550px" EnableLoadOnDemand="True" HighlightTemplatedItems="true" Font-Size="Small"
+                                                    DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true" Font-Size="Small"
                                                     MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" 
                                                     OnItemsRequested="cb_approved_ItemsRequested"
                                                     OnSelectedIndexChanged="cb_approved_SelectedIndexChanged"
@@ -535,18 +536,18 @@
                                                             <tr>
                                                                 <td style="width: 200px;">Name
                                                                 </td>
-                                                                <td style="width: 350px;">Position
+                                                                <td style="width: 250px;">Position
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <table style="width: 550px; font-size: smaller">
+                                                        <table style="width: 450px; font-size: smaller">
                                                             <tr>
                                                                 <td style="width: 200px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                                 </td>
-                                                                <td style="width: 350px;">
+                                                                <td style="width: 250px;">
                                                                     <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                                 </td>
                                                             </tr>
@@ -564,27 +565,27 @@
                                                 </td>
                                                 <td>
                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_received" runat="server" Width="300px"
-                                                        DropDownWidth="650px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                        DropDownWidth="450px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                         MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" Font-Size="Small"
                                                         OnItemsRequested="cb_received_ItemsRequested" OnSelectedIndexChanged="cb_received_SelectedIndexChanged"
                                                         OnPreRender="cb_received_PreRender" Text='<%# DataBinder.Eval(Container, "DataItem.ApproveBy") %>'>
                                                         <HeaderTemplate>
-                                                            <table style="width: 650px; font-size: smaller">
+                                                            <table style="width: 450px; font-size: smaller">
                                                                 <tr>
-                                                                    <td style="width: 300px;">Name
+                                                                    <td style="width: 200px;">Name
                                                                     </td>
-                                                                    <td style="width: 350px;">Position
+                                                                    <td style="width: 250px;">Position
                                                                     </td>
                                                                 </tr>
                                                             </table>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <table style="width: 650px; font-size: smaller">
+                                                            <table style="width: 450px; font-size: smaller">
                                                                 <tr>
-                                                                    <td style="width: 300px;">
+                                                                    <td style="width: 200px;">
                                                                         <%# DataBinder.Eval(Container, "DataItem.name")%>
                                                                     </td>
-                                                                    <td style="width: 350px;">
+                                                                    <td style="width: 250px;">
                                                                         <%# DataBinder.Eval(Container, "DataItem.jabatan")%>
                                                                     </td>
                                                                 </tr>
@@ -951,6 +952,7 @@
                 <Scrolling AllowScroll="false" UseStaticHeaders="false" ScrollHeight="290" />
             </ClientSettings>
         </telerik:RadGrid>
+        
         </div>
 
         <div runat="server" style="width: 100%; border-top-width: 1px; border-top-style: inset; padding-top: 5px;"> 

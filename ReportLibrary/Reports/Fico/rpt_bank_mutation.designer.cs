@@ -354,8 +354,8 @@ namespace FicoReportLibrary
             // 
             this.sds_bank.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
             this.sds_bank.Name = "sds_bank";
-            this.sds_bank.SelectCommand = "SELECT        KoBank, NamBank\r\nFROM            KOBANK\r\nWHERE        (stEdit <> \'4" +
-    "\')";
+            this.sds_bank.SelectCommand = "SELECT        KoBank, NamBank\r\nFROM            acc00h01\r\nWHERE        (stEdit <> " +
+    "\'4\')";
             // 
             // pageHeaderSection1
             // 

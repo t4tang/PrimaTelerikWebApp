@@ -132,10 +132,11 @@
             </telerik:RadPivotGrid>--%>
 
             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowSorting="True" AllowMultiRowSelection="True" PageSize="20" 
-                AllowPaging="True" ShowGroupPanel="True" AutoGenerateColumns="False" GridLines="none" AllowFilteringByColumn="true" Skin="Telerik"
+                AllowPaging="True" ShowGroupPanel="True" AutoGenerateColumns="False" GridLines="none" AllowFilteringByColumn="true" 
+                Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
                 OnNeedDataSource="RadGrid1_NeedDataSource1">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-            <HeaderStyle Font-Size="Small" BackColor="WhiteSmoke" ForeColor="#666666" BorderColor="OrangeRed" BorderStyle="Inset" />
+            <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
             <ClientSettings EnablePostBackOnRowClick="false" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" AllowGroupExpandCollapse="False" />
             <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
             <SortingSettings EnableSkinSortStyles="false" />
