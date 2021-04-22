@@ -15,7 +15,7 @@
                 return false;
             }
             function ShowJournal(id) {
-                window.radopen("acc01h01journal.aspx?doc_code=" + id, "PreviewDialog");
+                window.radopen("acc01h01journal.aspx?NoBuk=" + id, "PreviewDialog");
                 return false;
             }
 
@@ -550,27 +550,32 @@
                                             <tr>
                                                 <td style="width:auto"> User : </td>
                                                 <td style="width:50px">
-                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_uid" Width="50px" runat="server" BorderStyle="None">
+                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_uid" Width="50px" runat="server" BorderStyle="None" 
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.Usr") %>'>
                                                     </telerik:RadTextBox>
                                                 </td>
                                                 <td style="padding-left:15px"> Last Update : </td>
                                                 <td style="width:50px">
-                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_LastUpdate" Width="140px" runat="server" BorderStyle="None">
+                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_LastUpdate" Width="140px" runat="server" BorderStyle="None" 
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.LastUpdate") %>'>
                                                     </telerik:RadTextBox>
                                                 </td>
                                                 <td style="padding-left:15px"> Owner : </td>
                                                 <td style="width:50px">
-                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_owner" Width="50px" runat="server" BorderStyle="None">
+                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_owner" Width="50px" runat="server" BorderStyle="None" 
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.Owner") %>'>
                                                     </telerik:RadTextBox>
                                                 </td>
                                                 <td style="padding-left:15px"> Printed : </td>
                                                 <td>
-                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_printed" Width="40px" runat="server" BorderStyle="None">
+                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_printed" Width="40px" runat="server" BorderStyle="None" 
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.Printed") %>'>
                                                     </telerik:RadTextBox>
                                                 </td>
                                                 <td style="padding-left:15px"> Edited : </td>
                                                 <td>
-                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_edited" Width="40px" runat="server" BorderStyle="None">
+                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_edited" Width="40px" runat="server" BorderStyle="None" 
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.Edited") %>'>
                                                     </telerik:RadTextBox>
                                                 </td>                        
                                             </tr>
@@ -725,12 +730,16 @@
                                                     <asp:Label ID="lbl_KursD" Width="100px" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.kurs") %>' ></asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_kursD" Width="100px"
+                                                    <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_kursD" Width="100px" ItemStyle-HorizontalAlign="Right" 
+                                                        NumberFormat-AllowRounding="true" onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" 
+                                                        AllowOutOfRangeAutoCorrect="false" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9" Skin="Telerik"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.kurs") %>'>
-                                                    </telerik:RadTextBox>
+                                                    </telerik:RadNumericTextBox>
                                                 </EditItemTemplate>
                                                 <InsertItemTemplate>
-                                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_kursD_insert" Width="100px"></telerik:RadTextBox>
+                                                    <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_kursD_insert" Width="100px" ItemStyle-HorizontalAlign="Right" 
+                                                        NumberFormat-AllowRounding="true" onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" 
+                                                        AllowOutOfRangeAutoCorrect="false" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9" Skin="Telerik"></telerik:RadNumericTextBox>
                                                 </InsertItemTemplate>
                                             </telerik:GridTemplateColumn>
 
@@ -741,12 +750,16 @@
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.Jumlah","{0:#,###,###0.00}") %>' ></asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Jumlah" Width="150px"
+                                                    <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_Jumlah" Width="150px" ItemStyle-HorizontalAlign="Right" 
+                                                        NumberFormat-AllowRounding="true" onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" 
+                                                        AllowOutOfRangeAutoCorrect="false" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9" Skin="Telerik"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.Jumlah","{0:#,###,###0.00}") %>'>
-                                                    </telerik:RadTextBox>
+                                                    </telerik:RadNumericTextBox>
                                                 </EditItemTemplate>
                                                 <InsertItemTemplate>
-                                                    <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_Jumlah_insert" Width="150px"></telerik:RadTextBox>
+                                                    <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_Jumlah_insert" Width="150px" ItemStyle-HorizontalAlign="Right" 
+                                                        NumberFormat-AllowRounding="true" onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" 
+                                                        AllowOutOfRangeAutoCorrect="false" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9" Skin="Telerik"></telerik:RadNumericTextBox>
                                                 </InsertItemTemplate>
                                             </telerik:GridTemplateColumn>
                            
@@ -831,7 +844,7 @@
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_cost_center" EnableLoadOnDemand="True" DataTextField="name"
-                                                        OnItemsRequested="cb_cost_center_ItemsRequested" DataValueField="code" AutoPostBack="false"
+                                                        OnItemsRequested="cb_cost_center_ItemsRequested" DataValueField="code" AutoPostBack="false" CausesValidation="false" 
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>'
                                                         HighlightTemplatedItems="true" Height="190px" Width="100px" DropDownWidth="300px"
                                                         OnPreRender="cb_cost_center_PreRender" OnSelectedIndexChanged="cb_cost_center_SelectedIndexChanged">
@@ -842,7 +855,7 @@
                                                                         Code
                                                                     </td>
                                                                     <td style="width: 200px;">
-                                                                        Cost Center
+                                                                        Name
                                                                     </td>                                                                
                                                                 </tr>
                                                             </table>
@@ -863,9 +876,9 @@
                                                 </EditItemTemplate>
                                                 <InsertItemTemplate>
                                                     <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_cost_center_insert" EnableLoadOnDemand="True" DataTextField="name"
-                                                        OnItemsRequested="cb_cost_center_ItemsRequested" DataValueField="code" AutoPostBack="false"
+                                                        OnItemsRequested="cb_cost_center_ItemsRequested" DataValueField="code" AutoPostBack="false" CausesValidation="false" 
                                                         HighlightTemplatedItems="true" Height="190px" Width="100px" DropDownWidth="300px"
-                                                        OnPreRender="cb_cost_center_PreRender">
+                                                        OnPreRender="cb_cost_center_PreRender" OnSelectedIndexChanged="cb_cost_center_SelectedIndexChanged">
                                                         <HeaderTemplate>
                                                              <table style="width: 300px; font-size:smaller">
                                                                 <tr>
@@ -873,7 +886,7 @@
                                                                         Code
                                                                     </td>
                                                                     <td style="width: 200px;">
-                                                                        Cost Center
+                                                                        Name
                                                                     </td>                                                                
                                                                 </tr>
                                                             </table>
@@ -904,6 +917,19 @@
                                         <ClientEvents OnRowDblClick="rowDblClick"/>
                                     </ClientSettings>
                                 </telerik:RadGrid>
+                                <table>
+                                    <tr>
+                                        <td class="tdLabel" colspan="2">
+                                            <telerik:RadLabel runat="server" Text="Total:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
+                                        </td>
+                                        <td>
+                                            <telerik:RadTextBox ID="txt_total" runat="server" Width="120px" RenderMode="Lightweight" ItemStyle-HorizontalAlign="Right" 
+                                                NumberFormat-AllowRounding="true" onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" 
+                                                AllowOutOfRangeAutoCorrect="false" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9" Skin="Telerik">
+                                            </telerik:RadTextBox>                  
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </FormTemplate>

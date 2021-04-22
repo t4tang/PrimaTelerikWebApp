@@ -27,8 +27,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
         DataTable dtValues;
         RadTextBox txt_cur_code;
-        RadTextBox txt_kurs;
+        RadNumericTextBox txt_kurs;
         RadComboBox cb_KoTrans;
+        RadNumericTextBox txt_Jumlah;
+        RadNumericTextBox txt_total;
 
         public DataTable DetailDtbl()
         {
@@ -37,7 +39,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             dtValues.Columns.Add("KoRek", typeof(string));
             //dtValues.Columns.Add("Nmr", typeof(string));
             dtValues.Columns.Add("kurs", typeof(double));
-            dtValues.Columns.Add("Jumlah", typeof(string));
+            dtValues.Columns.Add("Jumlah", typeof(double));
             dtValues.Columns.Add("mutasi", typeof(string));
             dtValues.Columns.Add("Ket", typeof(string));
             dtValues.Columns.Add("dept_code", typeof(string));
@@ -353,8 +355,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 DataRow drValue = dtValues.NewRow();
                 drValue["NoBuk"] = tr_code;
                 drValue["KoRek"] = (item.FindControl("cb_korek_insert") as RadComboBox).Text;
-                drValue["kurs"] = (item.FindControl("txt_kursD_insert") as RadTextBox).Text;
-                drValue["Jumlah"] = (item.FindControl("txt_Jumlah_insert") as RadTextBox).Text;
+                drValue["kurs"] = (item.FindControl("txt_kursD_insert") as RadNumericTextBox).Value;
+                drValue["Jumlah"] = (item.FindControl("txt_Jumlah_insert") as RadNumericTextBox).Value;
                 drValue["mutasi"] = (item.FindControl("cb_mutasi_insert") as RadComboBox).Text;
                 drValue["Ket"] = (item.FindControl("txt_KetD_insert") as RadTextBox).Text;
                 drValue["dept_code"] = (item.FindControl("cb_cost_center_insert") as RadComboBox).Text;
@@ -367,6 +369,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 (sender as RadGrid).Rebind();
                 Session["actionDetail"] = "detailList";
 
+                //CalculateTotal();
+                //RadTextBox txt_total = (RadTextBox)item.FindControl("txt_total");
+                //txt_total.Text = total.ToString();
             }
             catch (Exception ex)
             {
@@ -387,8 +392,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             DataRow drValue = dtValues.NewRow();
             drValue["NoBuk"] = tr_code;
             drValue["KoRek"] = (item.FindControl("cb_korek") as Label).Text;
-            drValue["kurs"] = (item.FindControl("txt_kursD") as RadTextBox).Text;
-            drValue["Jumlah"] = (item.FindControl("txt_Jumlah") as RadTextBox).Text;
+            drValue["kurs"] = (item.FindControl("txt_kursD") as RadNumericTextBox).Value;
+            drValue["Jumlah"] = (item.FindControl("txt_Jumlah") as RadNumericTextBox).Value;
             drValue["mutasi"] = (item.FindControl("cb_mutasi") as RadComboBox).Text;
             drValue["Ket"] = (item.FindControl("txt_KetD") as RadTextBox).Text;
             drValue["dept_code"] = (item.FindControl("cb_cost_center") as RadComboBox).Text;
@@ -399,6 +404,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             dtValues.AcceptChanges();
             Session["TableDetail"] = dtValues;
             (sender as RadGrid).Rebind();
+
+            //CalculateTotal();
         }
 
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
@@ -575,7 +582,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 txt_cur_code = (RadTextBox)item.FindControl("txt_cur_code");
                 txt_cur_code.Text = dr["cur_code"].ToString();
 
-                txt_kurs = (RadTextBox)item.FindControl("txt_kurs");
+                txt_kurs = (RadNumericTextBox)item.FindControl("txt_kurs");
                 txt_kurs.Text = dr["KursRun"].ToString();
             }
                 
@@ -792,7 +799,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
                     if (Session["actionDetail"].ToString() == "detailNew")
                     {
-                        RadTextBox t_kurs = (RadTextBox)item.FindControl("txt_kursD_insert");
+                        RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kursD_insert");
                         RadComboBox c_mutasi = (RadComboBox)item.FindControl("cb_mutasi_insert");
                         RadComboBox c_project = (RadComboBox)item.FindControl("cb_project_detail_insert");
 
@@ -802,7 +809,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                     }
                     else if (Session["actionDetail"].ToString() == "detailEdit")
                     {
-                        RadTextBox t_kurs = (RadTextBox)item.FindControl("txt_kursD");
+                        RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kursD");
                         RadComboBox c_mutasi = (RadComboBox)item.FindControl("cb_mutasi");
                         RadComboBox c_project = (RadComboBox)item.FindControl("cb_project_detail");
 
@@ -959,7 +966,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
         protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+          ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
                 "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
@@ -968,10 +975,20 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            cb.DataTextField = "name";
-            cb.DataValueField = "code";
-            cb.DataSource = dt;
-            cb.DataBind();
+            // Clear the default Item that has been re-created from ViewState at this point.
+            cb.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["code"].ToString();
+                item.Value = row["code"].ToString();
+                item.Attributes.Add("name", row["name"].ToString());
+
+                cb.Items.Add(item);
+
+                item.DataBind();
+            }
         }
 
         protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
@@ -995,7 +1012,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
                 selected_cost_ctr = dr["CostCenter"].ToString();
             }
             dr.Close();
@@ -1013,12 +1030,14 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
                 selected_cost_ctr = dr["CostCenter"].ToString();
             }
 
             dr.Close();
             con.Close();
+
+            //CalculateTotal();
         }
 
         #endregion
@@ -1029,6 +1048,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             Session["actionHeader"] = "headerNew";
             RadGrid1.MasterTableView.IsItemInserted = true;
             RadGrid1.MasterTableView.Rebind();
+            //CalculateTotal();
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -1191,8 +1211,24 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 RadGrid1.MasterTableView.IsItemInserted = false;
             }
         }
+        //private void CalculateTotal()
+        //{
+        //    //double amount = 0;
+        //    double sum = 0;
 
-        
+        //    sum = (Convert.ToDouble(txt_Jumlah));
+
+        //    txt_total.Text = sum.ToString();
+
+        //}
+
+        //public static double total()
+        //{
+        //    double sum = 0;
+        //    sum = (Convert.ToDouble(txt_Jumlah));            
+
+        //    return sum;
+        //}
     }
 
 }
