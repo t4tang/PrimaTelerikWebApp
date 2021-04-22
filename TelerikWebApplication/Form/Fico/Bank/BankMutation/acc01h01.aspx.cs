@@ -405,7 +405,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             Session["TableDetail"] = dtValues;
             (sender as RadGrid).Rebind();
 
-            CalculateTotal();
+            //CalculateTotal();
         }
 
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
@@ -1037,7 +1037,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             dr.Close();
             con.Close();
 
-            CalculateTotal();
+            //CalculateTotal();
         }
 
         #endregion
@@ -1211,16 +1211,16 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 RadGrid1.MasterTableView.IsItemInserted = false;
             }
         }
-        private void CalculateTotal()
-        {
-            //double amount = 0;
-            double sum = 0;
+        //private void CalculateTotal()
+        //{
+        //    //double amount = 0;
+        //    double sum = 0;
 
-            sum = (Convert.ToDouble(txt_Jumlah));
+        //    sum = (Convert.ToDouble(txt_Jumlah));
 
-            txt_total.Text = sum.ToString();
+        //    txt_total.Text = sum.ToString();
 
-        }
+        //}
 
         //public static double total()
         //{
