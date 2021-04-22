@@ -47,7 +47,7 @@
             $windowContentDemo.templateWindowID = "<%=FilterDialogWindows.ClientID %>";
             });--%>
 
-            function refreshGrid(arg) {
+            <%--function refreshGrid(arg) {
                 if (!arg) {
                     $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Rebind");
                 }
@@ -55,7 +55,7 @@
                     $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("RebindAndNavigate");
                 }
 
-            }
+            }--%>
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -143,7 +143,7 @@
                         <Selecting AllowRowSelect="true"></Selecting>
                         <ClientEvents OnRowDblClick="RowDblClick" />
                     </ClientSettings>
-                </telerik:RadGrid> --%>   
+                </telerik:RadGrid>   
             
             <telerik:RadListBox RenderMode="Lightweight" ID="RadListBox1" runat="server" Width="256px" Height="320" Skin="Telerik" BorderStyle="None" BorderWidth="0px"
                 AutoPostBack="true" DataKeyField="tr_name" DataValueField="cnt" OnSelectedIndexChanged="RadListBox1_SelectedIndexChanged"
@@ -153,14 +153,12 @@
                         <%# Container.Text %> &nbsp <%# Container.Value %>
                     </span>
                 </ItemTemplate>
-            </telerik:RadListBox>                
+            </telerik:RadListBox>     --%>            
         </div>
     
         <div style="float:right;width:72%;">                
             <telerik:RadGrid  RenderMode="Lightweight" ID="RadGrid2"  runat="server" AllowPaging="true" ShowFooter="false" Skin="Telerik"
-                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="12"
-                OnItemCreated="RadGrid2_ItemCreated" 
-                OnNeedDataSource="RadGrid2_NeedDataSource" >
+                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="12">
                 <PagerStyle Mode="Slider" VerticalAlign="NotSet" PageSizeControlType="RadComboBox"></PagerStyle>                
                 <HeaderStyle CssClass="gridHeader" />
                 <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>

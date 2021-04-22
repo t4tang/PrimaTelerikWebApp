@@ -484,7 +484,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph " +
+            cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as TAX1_NAME, c.TAX_NAME AS TAX2_NAME, d.TAX_NAME AS TAX3_NAME, a.ppn, a.OTax, a.pph " +
                                " FROM pur00h01 a LEFT OUTER JOIN acc00h05 AS b ON b.TAX_CODE = a.ppn LEFT OUTER JOIN acc00h05 AS c ON a.OTax = c.TAX_CODE LEFT OUTER JOIN " +
                                " acc00h05 AS d ON a.pph = d.TAX_CODE inner join acc00h04 e on a.cur_code = e.cur_code WHERE (e.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
                                " FROM acc00h04)) and a.supplier_name = '" + cb_supplier.Text + "'";
@@ -500,6 +500,9 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                 cb_tax1.SelectedValue = dr["ppn"].ToString();
                 cb_tax2.SelectedValue = dr["Otax"].ToString();
                 cb_tax3.SelectedValue = dr["pph"].ToString();
+                cb_tax1.Text = dr["TAX1_NAME"].ToString();
+                cb_tax2.Text = dr["TAX2_NAME"].ToString();
+                cb_tax3.Text = dr["TAX3_NAME"].ToString();
             }
 
             dr.Close();

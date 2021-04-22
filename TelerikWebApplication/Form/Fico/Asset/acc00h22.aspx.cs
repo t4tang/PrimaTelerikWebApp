@@ -20,20 +20,73 @@ namespace TelerikWebApplication.Form.Fico.Asset
         SqlCommand cmd = new SqlCommand();
 
         private const int ItemsPerRequest = 10;
+        RadComboBox cb_depre_by_prm;
+        RadComboBox cb_years_depre_prm;
+        RadComboBox cb_ur_number;
+        RadComboBox cb_uom;
+        RadComboBox cb_asset_class;
+        RadComboBox cb_asset_type;
+        RadComboBox cb_asset_status;
+        RadComboBox cb_taxx_group;
+        RadComboBox cb_project;
+        RadComboBox cb_cost_center;
+        RadComboBox cb_unit;
+        RadComboBox cb_pic;
+        RadComboBox cb_currency;
+        RadTextBox txt_doc_number;
+        RadTextBox txt_serial_number;
+        RadTextBox txt_asset_name;
+        RadTextBox txt_material_code;
+        RadNumericTextBox txt_qty;
+        RadTextBox txt_spec;
+        RadTextBox txt_use_life_year;
+        RadTextBox txt_dep_method;
+        RadTextBox txt_appreciation;
+        RadTextBox txt_status;
+        RadTextBox txt_acc_depre_no;
+        RadTextBox txt_acc_depre_desc;
+        RadTextBox txt_cost_depre_no;
+        RadTextBox txt_cost_depre_desc;
+        RadTextBox txt_acc_lost_no;
+        RadTextBox txt_acc_lost_desc;
+        RadTextBox txt_acc_gain_no;
+        RadTextBox txt_acc_gain_desc;
+        RadTextBox txt_acc_disposal_no;
+        RadTextBox txt_acc_disposal_desc;
+        RadTextBox txt_cost_accu_no;
+        RadTextBox txt_cost_accu_desc;
+        RadTextBox txt_tax_kurs;
+        RadNumericTextBox txt_pur_cost;
+        RadNumericTextBox txt_pur_cost_valas;
+        RadTextBox txt_order_no;
+        RadDatePicker dtp_order_date;
+        RadNumericTextBox txt_uselife_hour;
+        RadTextBox txt_pre_depre_month;
+        RadNumericTextBox txt_pre_depre_val;
+        RadNumericTextBox txt_acq_val;
+        RadNumericTextBox txt_salvage_val;
+        RadDatePicker dtp_depre_start;
+        RadDatePicker dtp_depre_last_post;
+        RadDatePicker dtp_sold_date;
+        RadNumericTextBox txt_actual_resale_val;
+        RadNumericTextBox txt_hm_min;
+        RadTabStrip RadTabStrip1;
+        RadGrid RadGrid2;
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
-            {                
-                //cb_project_prm.SelectedValue = public_str.site;
-                cb_project_prm.Text = "ALL";
+            {
+                lbl_form_name.Text = "Asset Register";
                 cb_status_prm.Text = "Registered";
                 cb_status_prm.SelectedValue = "B";
-                cb_depre_by_prm.Text = "Monthly";
-                cb_years_depre_prm.Text = (DateTime.Today.Year).ToString();
+                //cb_depre_by_prm.Text = "Monthly";
+                //cb_years_depre_prm.Text = (DateTime.Today.Year).ToString();
 
                 Session["action"] = "firstLoad";
-                cb_ur_number.Enabled = false;
+                //cb_ur_number.Enabled = false;
             }
         }
 
@@ -125,7 +178,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            RadGrid1.DataSource = GetDataTable(cb_project_prm.SelectedValue, cb_status_prm.SelectedValue);
+            RadGrid1.DataSource = GetDataTable(cb_project_prm.SelectedValue, cb_status_prm.Text);
             RadGrid1.DataBind();
         }
         public DataTable GetDataTable(string project, string sts)
@@ -136,13 +189,11 @@ namespace TelerikWebApplication.Form.Fico.Asset
             cmd.Connection = con;
             if(cb_project_prm.Text != "ALL")
             {
-                cmd.CommandText = "SELECT *, case mtd when 'S' then 'STRAIGHT LINE' WHEN 'D' THEN 'DOUBLE DECLINE' WHEN 'H' THEN 'HM' ELSE 'NONE' END AS Methode " +
-                    "FROM acc00h22 WHERE region_code = @project AND Status = @reg_status";
+                cmd.CommandText = "SELECT * FROM v_asset_list WHERE region_code = @project AND Status = @reg_status";
             }
             else
             {
-                cmd.CommandText = "SELECT *, case mtd when 'S' then 'STRAIGHT LINE' WHEN 'D' THEN 'DOUBLE DECLINE' WHEN 'H' THEN 'HM' ELSE 'NONE' END AS Methode " +
-                    "FROM acc00h22 WHERE Status = @reg_status";
+                cmd.CommandText = "SELECT * FROM v_asset_list WHERE Status = @reg_status";
             }
             cmd.Parameters.AddWithValue("@project", project);
             cmd.Parameters.AddWithValue("@reg_status", sts);
@@ -172,7 +223,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             }
             else
             {
-                (sender as RadGrid).DataSource = GetDataTable(cb_project_prm.SelectedValue, cb_status_prm.SelectedValue);
+                (sender as RadGrid).DataSource = GetDataTable(cb_project_prm.SelectedValue, cb_status_prm.Text);
             }
         }
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
@@ -770,94 +821,100 @@ namespace TelerikWebApplication.Form.Fico.Asset
 
         protected void btnOk_Click(object sender, EventArgs e)
         {
-            foreach (GridDataItem item in RadGrid1.SelectedItems)
-            {
-                con.Open();
-                SqlDataReader sdr;
-                SqlCommand cmd = new SqlCommand("SELECT * FROM v_asset_list WHERE asset_id = '" + item["asset_id"].Text + "'", con);
-                sdr = cmd.ExecuteReader();
-                if (sdr.Read())
-                {
-                    txt_doc_number.Text = sdr["asset_id"].ToString();
-                    cb_ur_number.Text = sdr["ur_no"].ToString();
-                    txt_asset_name.Text = sdr["AssetName"].ToString();
-                    txt_material_code.Text = sdr["prod_code"].ToString();
-                    txt_qty.Value = Convert.ToDouble(sdr["Qty"].ToString());
-                    cb_uom.Text = sdr["SatQty"].ToString();
-                    txt_spec.Text = sdr["AssetSpec"].ToString();
-                    cb_asset_class.Text = sdr["AK_NAME"].ToString();
-                    cb_asset_type.Text = sdr["AK_GROUP_NAME"].ToString();
-                    cb_asset_status.Text = sdr["status_name"].ToString();
-                    cb_taxx_group.Text = sdr["taxGroupName"].ToString();
-                    txt_serial_number.Text = sdr["SerialNumber"].ToString();
-                    cb_project.Text = sdr["region_name"].ToString();
-                    cb_cost_center.Text = sdr["CostCenterName"].ToString();
-                    cb_unit.Text = sdr["unit_code"].ToString();
-                    cb_pic.Text = sdr["dept_name"].ToString();
+            RadGrid1.DataSource = GetDataTable(cb_project_prm.SelectedValue, cb_status_prm.SelectedValue);
+            RadGrid1.DataBind();
 
-                    cb_currency.Text = sdr["cur_name"].ToString();
-                    txt_tax_kurs.Text = sdr["KursTax"].ToString();
-                    txt_pur_cost.Value = Convert.ToDouble(sdr["Harga"]);
-                    txt_pur_cost_valas.Value = Convert.ToDouble(sdr["jumlah"]);
-                    txt_order_no.Text = sdr["ordernumber"].ToString();
-                    dtp_order_date.SelectedDate = Convert.ToDateTime(sdr["tgl_beli"].ToString());
+            //foreach (GridDataItem item in RadGrid1.SelectedItems)
+            //{
+            //    con.Open();
+            //    SqlDataReader sdr;
+            //    SqlCommand cmd = new SqlCommand("SELECT * FROM v_asset_list WHERE asset_id = '" + item["asset_id"].Text + "'", con);
+            //    sdr = cmd.ExecuteReader();
+            //    if (sdr.Read())
+            //    {
+            //        txt_doc_number.Text = sdr["asset_id"].ToString();
+            //        cb_ur_number.Text = sdr["ur_no"].ToString();
+            //        txt_asset_name.Text = sdr["AssetName"].ToString();
+            //        txt_material_code.Text = sdr["prod_code"].ToString();
+            //        txt_qty.Value = Convert.ToDouble(sdr["Qty"].ToString());
+            //        cb_uom.Text = sdr["SatQty"].ToString();
+            //        txt_spec.Text = sdr["AssetSpec"].ToString();
+            //        cb_asset_class.Text = sdr["AK_NAME"].ToString();
+            //        cb_asset_type.Text = sdr["AK_GROUP_NAME"].ToString();
+            //        cb_asset_status.Text = sdr["status_name"].ToString();
+            //        cb_taxx_group.Text = sdr["taxGroupName"].ToString();
+            //        txt_serial_number.Text = sdr["SerialNumber"].ToString();
+            //        cb_project.Text = sdr["region_name"].ToString();
+            //        cb_cost_center.Text = sdr["CostCenterName"].ToString();
+            //        cb_unit.Text = sdr["unit_code"].ToString();
+            //        cb_pic.Text = sdr["dept_name"].ToString();
 
-                    txt_use_life_year.Text = sdr["exp_life_year"].ToString();
-                    txt_uselife_hour.Value = Convert.ToDouble(sdr["exp_life_hour"]);
-                    txt_dep_method.Text = sdr["mtd"].ToString();
-                    txt_appreciation.Text = sdr["mtd_per"].ToString();
-                    txt_pre_depre_month.Text = sdr["susut_month"].ToString();
-                    txt_pre_depre_val.Value = Convert.ToDouble(sdr["Susut"]);
-                    txt_acq_val.Value = Convert.ToDouble(sdr["aquis_value"]);
-                    txt_salvage_val.Value = Convert.ToDouble(sdr["harga_min"]);
-                    txt_status.Text = sdr["status"].ToString();
-                    dtp_depre_start.SelectedDate = Convert.ToDateTime(sdr["Depstart"].ToString());
-                    dtp_depre_last_post.SelectedDate = Convert.ToDateTime(sdr["depstart_pos"].ToString());
+            //        cb_currency.Text = sdr["cur_name"].ToString();
+            //        txt_tax_kurs.Text = sdr["KursTax"].ToString();
+            //        txt_pur_cost.Value = Convert.ToDouble(sdr["Harga"]);
+            //        txt_pur_cost_valas.Value = Convert.ToDouble(sdr["jumlah"]);
+            //        txt_order_no.Text = sdr["ordernumber"].ToString();
+            //        dtp_order_date.SelectedDate = Convert.ToDateTime(sdr["tgl_beli"].ToString());
 
-                    txt_acc_depre_no.Text = sdr["ak_rek"].ToString();
-                    txt_acc_depre_desc.Text = sdr["ak_rek_name"].ToString();
-                    txt_cost_depre_no.Text = sdr["ak_cum_rek"].ToString();
-                    txt_cost_depre_desc.Text = sdr["ak_cum_rek_name"].ToString();
-                    txt_acc_lost_no.Text = sdr["ak_ex_rek"].ToString();
-                    txt_acc_lost_desc.Text = sdr["ak_ex_rek_name"].ToString();
-                    txt_acc_gain_no.Text = sdr["ak_gain"].ToString();
-                    txt_acc_gain_desc.Text = sdr["ak_gain_name"].ToString();
-                    txt_acc_disposal_no.Text = sdr["ak_disposal"].ToString();
-                    txt_acc_disposal_desc.Text = sdr["ak_disposal_name"].ToString();
-                    txt_cost_accu_no.Text = sdr["asset_rek"].ToString();
-                    txt_cost_accu_desc.Text = sdr["asset_rek_name"].ToString();
+            //        txt_use_life_year.Text = sdr["exp_life_year"].ToString();
+            //        txt_uselife_hour.Value = Convert.ToDouble(sdr["exp_life_hour"]);
+            //        txt_dep_method.Text = sdr["mtd"].ToString();
+            //        txt_appreciation.Text = sdr["mtd_per"].ToString();
+            //        txt_pre_depre_month.Text = sdr["susut_month"].ToString();
+            //        txt_pre_depre_val.Value = Convert.ToDouble(sdr["Susut"]);
+            //        txt_acq_val.Value = Convert.ToDouble(sdr["aquis_value"]);
+            //        txt_salvage_val.Value = Convert.ToDouble(sdr["harga_min"]);
+            //        txt_status.Text = sdr["status"].ToString();
+            //        dtp_depre_start.SelectedDate = Convert.ToDateTime(sdr["Depstart"].ToString());
+            //        if(sdr["depstart_pos"] != null)
+            //        {
+            //            dtp_depre_last_post.SelectedDate=(DateTime?)DateTime.Parse(sdr["Depstart"].ToString());
+            //        }
 
-                    if (sdr["tgl_jual"].ToString() != "")
-                    {
-                        dtp_sold_date.SelectedDate = Convert.ToDateTime(sdr["tgl_jual"].ToString());
-                    }
-                    else
-                    {
-                        dtp_sold_date.Clear();
-                    }                    
-                    txt_actual_resale_val.Text = sdr["jumlah_jual"].ToString();
-                    txt_hm_min.Value = Convert.ToDouble(sdr["hm_min"]);
-                    //txt_hm_rate.Value = Convert.ToDouble(sdr["hm_rate"]);
-                }
-                con.Close();
+            //        txt_acc_depre_no.Text = sdr["ak_rek"].ToString();
+            //        txt_acc_depre_desc.Text = sdr["ak_rek_name"].ToString();
+            //        txt_cost_depre_no.Text = sdr["ak_cum_rek"].ToString();
+            //        txt_cost_depre_desc.Text = sdr["ak_cum_rek_name"].ToString();
+            //        txt_acc_lost_no.Text = sdr["ak_ex_rek"].ToString();
+            //        txt_acc_lost_desc.Text = sdr["ak_ex_rek_name"].ToString();
+            //        txt_acc_gain_no.Text = sdr["ak_gain"].ToString();
+            //        txt_acc_gain_desc.Text = sdr["ak_gain_name"].ToString();
+            //        txt_acc_disposal_no.Text = sdr["ak_disposal"].ToString();
+            //        txt_acc_disposal_desc.Text = sdr["ak_disposal_name"].ToString();
+            //        txt_cost_accu_no.Text = sdr["asset_rek"].ToString();
+            //        txt_cost_accu_desc.Text = sdr["asset_rek_name"].ToString();
 
-                Session["action"] = "edit";
-                btnSave.Enabled = true;
-                btnSave.ImageUrl = "~/Images/simpan.png";
-                RadTabStrip1.Tabs[4].Enabled = true;
-            }
+            //        if (sdr["tgl_jual"].ToString() != "")
+            //        {
+            //            dtp_sold_date.SelectedDate = Convert.ToDateTime(sdr["tgl_jual"].ToString());
+            //        }
+            //        else
+            //        {
+            //            dtp_sold_date.Clear();
+            //        }                    
+            //        txt_actual_resale_val.Text = sdr["jumlah_jual"].ToString();
+            //        txt_hm_min.Value = Convert.ToDouble(sdr["hm_min"]);
+            //        //txt_hm_rate.Value = Convert.ToDouble(sdr["hm_rate"]);
+            //    }
+            //    con.Close();
+
+            //    Session["action"] = "edit";
+            //    //btnSave.Enabled = true;
+            //    //btnSave.ImageUrl = "~/Images/simpan.png";
+            //    //RadTabStrip1.Tabs[4].Enabled = true;
+            //}
         }
 
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            if (Session["action"].ToString() != "firstLoad")
-            {
-                clear_text(Page.Controls);
-            }
-            Session["action"] = "new";
-            btnSave.Enabled = true;
-            btnSave.ImageUrl = "~/Images/simpan.png";
-            cb_ur_number.Enabled = true;
+            //if (Session["action"].ToString() != "firstLoad")
+            //{
+            //    clear_text(Page.Controls);
+            //}
+            //Session["action"] = "new";
+            //cb_ur_number.Enabled = true;
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
             RadTabStrip1.Tabs[4].Enabled = false;
         }
         private void clear_text(ControlCollection ctrls)
@@ -953,6 +1010,15 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         protected void btn_retrive_depre_Click(object sender, EventArgs e)
         {
+            System.Web.UI.WebControls.Button btn = (System.Web.UI.WebControls.Button)sender;
+            GridEditableItem item = (GridEditableItem)btn.NamingContainer;
+
+            RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
+            txt_doc_number = (RadTextBox)item.FindControl("txt_doc_number");
+            cb_years_depre_prm = (RadComboBox)item.FindControl("cb_years_depre_prm");
+            cb_depre_by_prm = (RadComboBox)item.FindControl("cb_depre_by_prm");
+            txt_dep_method = (RadTextBox)item.FindControl("txt_dep_method");
+
             GridColumn col_susut = RadGrid2.MasterTableView.GetColumn("susut");
             GridColumn tot_hm = RadGrid2.MasterTableView.GetColumn("tot_hm");
 
@@ -985,6 +1051,13 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         protected void cb_depre_by_prm_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+            RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
+            cb_years_depre_prm = (RadComboBox)item.FindControl("cb_years_depre_prm");
+
+
             GridColumn col_bulan = RadGrid2.MasterTableView.GetColumn("bulan_tahun");
             GridColumn col_status = RadGrid2.MasterTableView.GetColumn("status");
 
@@ -1014,6 +1087,11 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         protected void cb_years_depre_prm_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+            txt_doc_number = (RadTextBox)item.FindControl("txt_doc_number");
             DataTable data = GetYearDeprePrm(txt_doc_number.Text);
 
             int itemOffset = e.NumberOfItems;
@@ -1027,23 +1105,39 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
+            //(sender as RadGrid).DataSource = new string []{ };
+            RadGrid grid = (RadGrid)sender;
+            GridEditableItem item = (GridEditableItem)grid.NamingContainer;
+
+            RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
+            cb_depre_by_prm = (RadComboBox)item.FindControl("cb_depre_by_prm");
+            txt_doc_number = (RadTextBox)item.FindControl("txt_doc_number");
+            cb_years_depre_prm = (RadComboBox)item.FindControl("cb_years_depre_prm");
+
             if (cb_depre_by_prm.Text == "Monthly")
             {
-                RadGrid2.DataSource = GetDataDepre(txt_doc_number.Text, cb_years_depre_prm.Text);
+                (sender as RadGrid).DataSource = GetDataDepre(txt_doc_number.Text, cb_years_depre_prm.Text);
             }
             else
             {
-                RadGrid2.DataSource = GetDataDepreYearly(txt_doc_number.Text);
+                (sender as RadGrid).DataSource = GetDataDepreYearly(txt_doc_number.Text);
 
             }
         }
 
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
         {
+            System.Web.UI.WebControls.Button btn = (System.Web.UI.WebControls.Button)sender;
+            GridEditableItem item = (GridEditableItem)btn.NamingContainer;
+
+            txt_doc_number = (RadTextBox)item.FindControl("txt_doc_number");
+            cb_asset_class = (RadComboBox)item.FindControl("cb_asset_class");
+            txt_asset_name = (RadTextBox)item.FindControl("txt_asset_name");
+
+
             long maxNo;
             string run = null;
-            //string trDate = string.Format("{0:dd/MM/yyyy}", dtp_ur.SelectedDate);
-
+            
             try
             {
                 if (Session["action"].ToString() == "edit")
@@ -1145,12 +1239,9 @@ namespace TelerikWebApplication.Form.Fico.Asset
 
                 txt_doc_number.Text = run;
                 RadGrid2.Enabled = true;
-                btnSave.Enabled = false;
+                //btnSave.Enabled = false;
                 RadTabStrip1.Tabs[4].Enabled = true;
                 ScriptManager.RegisterClientScriptBlock(Page, typeof(Page), "ClientScript", "alert('Data saccessfully saved')", true);
-                //ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Data Saved');", false);
-                //RadWindowManager1.RadPrompt("Server RadPrompt: What is the answer of Life, Universe and Everything?", "promptCallBackFn", 350, 230, null, "Server RadPrompt", "42");
-
             }
             catch (Exception ex)
             {
@@ -1241,6 +1332,8 @@ namespace TelerikWebApplication.Form.Fico.Asset
             RadGrid1.MasterTableView.IsItemInserted = true;
             RadGrid1.MasterTableView.Rebind();
         }
+
+
     }
 
 }

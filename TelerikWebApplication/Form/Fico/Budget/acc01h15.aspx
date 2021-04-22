@@ -40,7 +40,7 @@
          
             <div>
                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" runat="server" AllowAutomaticDeletes="True"
-                    AllowAutomaticInserts="True" PageSize="14"  AllowAutomaticUpdates="True" AllowPaging="True" Skin="MetroTouch"
+                    AllowAutomaticInserts="True" PageSize="14"  AllowAutomaticUpdates="True" AllowPaging="True" Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
                     HeaderStyle-Font-Size="Small" ItemStyle-Font-Size="Small" Font-Names="Segoe UI"
                     AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
@@ -143,7 +143,7 @@
         </div>
         <div style=" width:100%; ">
             <telerik:RadPivotGrid RenderMode="Lightweight" runat="server" ID="RadPivotGrid1" AllowPaging="true"  PageSize="10" Height="640px"
-                OnNeedDataSource="RadPivotGrid1_NeedDataSource"  Skin="MetroTouch"
+                OnNeedDataSource="RadPivotGrid1_NeedDataSource"  Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
                 AllowSorting="true" AllowFiltering="false" ShowFilterHeaderZone="false" Font-Size="Small" Font-Names="Segoe UI" 
                 TotalsSettings-ColumnGrandTotalsPosition="None">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced" AlwaysVisible="true"></PagerStyle>

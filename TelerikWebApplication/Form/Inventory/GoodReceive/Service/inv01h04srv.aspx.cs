@@ -143,6 +143,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
             cmd.Parameters.AddWithValue("@todate", todate);
             cmd.Parameters.AddWithValue("@project", project);
             cmd.Parameters.AddWithValue("@doc_type", "2");
+            cmd.Parameters.AddWithValue("@trans_code", "1");
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);

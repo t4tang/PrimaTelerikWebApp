@@ -24,11 +24,11 @@ namespace TelerikWebApplication.Form.Purchase
             if (!Page.IsPostBack)
             {
                 public_str.modul = "Purchase";
-                lbl_form_name.Text = "Document Review";
-                RadListBox1.DataSource = GetDataTable();
-                RadListBox1.DataBind();
+                //lbl_form_name.Text = "Document Review";
+                //RadListBox1.DataSource = GetDataTable();
+                //RadListBox1.DataBind();
 
-                RadGrid2.DataSource = new string[] { };
+                //RadGrid2.DataSource = new string[] { };
             }
         }
         
@@ -76,12 +76,12 @@ namespace TelerikWebApplication.Form.Purchase
       
         protected void RadListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (RadListBoxItem item in RadListBox1.SelectedItems)
-            {
-                tr_name = item.Text;
-                RadGrid2.DataSource = GetDataDetailTable(item.Text);
-                RadGrid2.DataBind();
-            }
+            //foreach (RadListBoxItem item in RadListBox1.SelectedItems)
+            //{
+            //    tr_name = item.Text;
+            //    RadGrid2.DataSource = GetDataDetailTable(item.Text);
+            //    RadGrid2.DataBind();
+            //}
         }
         public DataTable GetDataDetailTable(string transaction_name)
         {

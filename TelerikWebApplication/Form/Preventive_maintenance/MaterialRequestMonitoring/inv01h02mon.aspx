@@ -180,7 +180,7 @@
                 <PagerStyle Mode="NumericPages"></PagerStyle>          
                 <ClientSettings EnablePostBackOnRowClick="true" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true"></ClientSettings>
-                <HeaderStyle ForeColor="White" BackColor="#0099cc" Font-Size="11px" HorizontalAlign="Center" />
+                <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
                 <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="trans_id" Font-Size="11px" EditFormSettings-PopUpSettings-KeepInScreenBounds="true" 
                     AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false" CommandItemSettings-ShowRefreshButton="false" 
                     CommandItemStyle-ForeColor="Highlight" EditMode="EditForms" CommandItemSettings-AddNewRecordText="New" InsertItemDisplay="Bottom">

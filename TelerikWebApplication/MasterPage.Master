@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>PRIMA</title>
+    <title></title>
     <link rel="stylesheet" type="text/css" href="Styles/common.css" />
     <link href="Styles/custom-cs.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -53,18 +53,20 @@
 
         <div id="about" class="slider">
             <header class="tm-header" id="logo"></header>
-            <h2 class="logo">
-               <%-- <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/progress.png" Width="50px" Height="55px"/>--%>
+            <h2 class="logo">                
+<%--                <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/home.png" Width="50px" Height="55px" />--%>
                  <%--<asp:Image ID="Image1" runat="server" Width="50px" Height="55px"/>--%>
             </h2>
             <telerik:RadMenu runat="server" ID="verticalMenu" Skin="BlackMetroTouch" Flow="Vertical" CssClass="main-menu" EnableImageSprites="true" RenderMode="Lightweight">
                 <Items>
-                    <telerik:RadMenuItem Text="Master Data" NavigateUrl="Form/DataStore/Default.aspx" CssClass="notes" />
-                    <telerik:RadMenuItem Text="Fico" NavigateUrl="Form/Fico/Default.aspx" CssClass="notes" />
-                    <telerik:RadMenuItem Text="Inventory" NavigateUrl="Form/Inventory/Default.aspx" CssClass="notes" />
-                    <telerik:RadMenuItem Text="Purchase" NavigateUrl="Form/Purchase/Default.aspx" CssClass="notes" />
-                    <telerik:RadMenuItem Text="Maintenance" NavigateUrl="Form/Preventive_maintenance/Default.aspx" CssClass="notes" />                    
-                    <telerik:RadMenuItem Text="Security" NavigateUrl="Form/Security/Default.aspx" CssClass="notes" />
+                    <telerik:RadMenuItem Text="Home" NavigateUrl="Home.aspx" />
+                    <telerik:RadMenuItem Text="Master Data" NavigateUrl="Form/DataStore/Default.aspx" />
+                    <telerik:RadMenuItem Text="Fico" NavigateUrl="Form/Fico/Default.aspx"/>
+                    <telerik:RadMenuItem Text="Inventory" NavigateUrl="Form/Inventory/Default.aspx" />
+                    <telerik:RadMenuItem Text="Purchase" NavigateUrl="Form/Purchase/Default.aspx" />
+                    <telerik:RadMenuItem Text="Maintenance" NavigateUrl="Form/Preventive_maintenance/Default.aspx"/>                    
+                    <telerik:RadMenuItem Text="Security" NavigateUrl="Form/Security/Default.aspx"/>                   
+                    <telerik:RadMenuItem Text="Reports" NavigateUrl="Form/Reports/ReportDashboard.aspx"/>
                 </Items>
             </telerik:RadMenu>
 
@@ -79,9 +81,11 @@
             <div class="main-header clear"  >
                 <div class="home-btn">
                     <span class="icon icon-Home"></span>
-                    <span class="text"><%: Page.Title %></span>
+                    <span class="text"><%: Page.Title %> </span>
                 </div>
-
+               <%-- <div style="padding: 15px 0px 0px 40px; position:absolute; background-color:transparent">
+                    <asp:HyperLink id="HyperLink1"  NavigateUrl="~/dashboard.aspx" ImageUrl="~/Images/home.png" ImageHeight="17px" ImageWidth="20px" Target="_parent" runat="server"/>
+                </div>--%>
                 <telerik:RadNavigation ID="mainNavigation" runat="server" CssClass="header-info" EnableEmbeddedSkins="false">
                     <Nodes>
                         <telerik:NavigationNode ID="NavNode1" CssClass="user" SpriteCssClass="icon icon-Arrow-South"></telerik:NavigationNode>
@@ -228,6 +232,74 @@
 
                 $search.addClass("hidden");
                 $('html').off("click");
+            }
+
+
+           <%--  function rowDblClick(sender, eventArgs) {
+                sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
+            }
+
+            function ShowPreview(id) {
+                window.radopen("GoodReceive/Standard/inv01h04ReportViewer.aspx?lbm_code=" + id, "PreviewDialog");
+                return false;
+            }
+            function RowDblClick(sender, eventArgs) {
+                Row = eventArgs.get_itemIndexHierarchical();
+            }
+            function callBackFn(arg) {
+                //alert("this is the client-side callback function. The RadAlert returned: " + arg);
+            }
+
+            function ShowInsertForm() {                
+                window.radopen("inv01h01EditForm.aspx", "EditDialogWindows");
+                return false;
+            }
+
+           function ShowEditForm(id, rowIndex) {
+                var grid = $find("<%= RadGrid1.ClientID %>");
+ 
+                var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
+                grid.get_masterTableView().selectItem(rowControl, true);
+ 
+                window.radopen("inv01h01EditForm.aspx?doc_code=" + id, "EditDialogWindows");
+                return false;
+            }
+
+            function openWinFiterTemplate() {
+                var filterDialog = $find("<%=FilterDialogWindows.ClientID%>");
+                filterDialog.show();
+            }
+
+            Sys.Application.add_load(function () {
+            $windowContentDemo.contentTemplateID = "<%=FilterDialogWindows.ClientID%>";
+            $windowContentDemo.templateWindowID = "<%=FilterDialogWindows.ClientID %>";
+            });
+
+           function refreshGrid(arg) {
+                if (!arg) {
+                    $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Rebind");
+                }
+                else {
+                    $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("RebindAndNavigate");
+                }
+
+            }--%>
+
+            function GetRadWindow() {
+                var oWindow = null;
+                if (window.radWindow)
+                    oWindow = window.RadWindow; //Will work in Moz in all cases, including clasic dialog     
+                else if (window.frameElement.radWindow)
+                    oWindow = window.frameElement.radWindow;//IE (and Moz as well)     
+                return oWindow;
+            }
+
+            function Close() {
+                GetRadWindow().Close();
+            }
+
+            function onPopUpShowing(sender, args) {
+                args.get_popUp().className += " popUpEditForm";
             }
         </script>
     </form>

@@ -116,6 +116,8 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+            
+            
         }
         protected void RadGrid1_DeleteCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
@@ -143,6 +145,8 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
                 e.Canceled = true;
             }
+
+            
         }
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
@@ -1137,6 +1141,18 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             {
                 this.RadGrid1.MasterTableView.Items[0].Edit = false;
                 this.RadGrid1.MasterTableView.Rebind();
+            }
+
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else if ((sender as RadGrid).MasterTableView.Items.Count > (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 290;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
             }
         }
 

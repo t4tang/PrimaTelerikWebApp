@@ -120,7 +120,4 @@
   <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
     <value>{"@pr_code":"PR0319000242"}</value>
   </metadata>
-  <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
-    <value>0.1cm</value>
-  </metadata>
 </root>
