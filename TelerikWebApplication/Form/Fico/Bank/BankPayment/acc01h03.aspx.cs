@@ -178,7 +178,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h03 SET userid = @userid, lastupdate = GETDATE(), status = '1' WHERE (slip_no = @slip_no)";
+                cmd.CommandText = "UPDATE acc01h03 SET userid = @userid, lastupdate = GETDATE(), status = '4' WHERE (slip_no = @slip_no)";
                 cmd.Parameters.AddWithValue("@slip_no", SlipNo);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
