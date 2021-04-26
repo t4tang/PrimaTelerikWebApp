@@ -38,13 +38,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         public DataTable DetailDtbl()
         {
             dtValues = new DataTable();
-            dtValues.Columns.Add("NoBuk", typeof(string));
-            dtValues.Columns.Add("KoRek", typeof(string));
-            //dtValues.Columns.Add("Nmr", typeof(string));
-            dtValues.Columns.Add("kurs", typeof(double));
-            dtValues.Columns.Add("Jumlah", typeof(string));
-            dtValues.Columns.Add("mutasi", typeof(string));
-            dtValues.Columns.Add("Ket", typeof(string));
+            dtValues.Columns.Add("slip_no", typeof(string));
+            dtValues.Columns.Add("inv_code", typeof(string));
+            dtValues.Columns.Add("fkno", typeof(string));
+            dtValues.Columns.Add("pay_amount", typeof(double));
+            dtValues.Columns.Add("slip_date", typeof(string));
+            dtValues.Columns.Add("remark", typeof(string));
+            //dtValues.Columns.Add("Ket", typeof(string));
             dtValues.Columns.Add("dept_code", typeof(string));
             dtValues.Columns.Add("region_code", typeof(string));
             dtValues.Columns.Add("run", typeof(int));
@@ -363,7 +363,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 {
                     Label lbl_NoBuk;
                     Label lbl_inv_code;
-                    //Label lbl_slip_date;
+                    Label lbl_slip_date;
                     Label lbl_remark;
                     Label lbl_pay_amount;
                     Label lbl_project_detail;
@@ -372,7 +372,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
 
                     lbl_NoBuk = (Label)itemD.FindControl("lbl_NoBuk");
                     lbl_inv_code = (Label)itemD.FindControl("lbl_inv_code");
-                    //lbl_slip_date = (Label)itemD.FindControl("lbl_slip_date");
+                    lbl_slip_date = (Label)itemD.FindControl("lbl_slip_date");
                     lbl_remark = (Label)itemD.FindControl("lbl_remark");
                     lbl_pay_amount = (Label)itemD.FindControl("lbl_pay_amount");
                     lbl_project_detail = (Label)itemD.FindControl("lbl_project_detail");
@@ -384,8 +384,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                     cmd.Connection = con;
                     cmd.CommandText = "sp_save_Bank_PaymentD";
                     cmd.Parameters.AddWithValue("@slip_no", run);
-                    cmd.Parameters.AddWithValue("@inv_code", lbl_inv_code.Text);
-                    //cmd.Parameters.AddWithValue("@Nmr", lbl_nomor.Text);
+                    cmd.Parameters.AddWithValue("@inv_code", lbl_NoBuk.Text);
+                    cmd.Parameters.AddWithValue("@fkno", lbl_inv_code.Text);
                     //cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", lbl_slip_date.Text));
                     cmd.Parameters.AddWithValue("@remark", lbl_remark.Text);
                     cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble(lbl_pay_amount.Text));
@@ -735,7 +735,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         #region Inv Code
         protected void cb_NoBuk_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "sp_get_bank_payment_refDnew";
+            string sql = "sp_get_bank_payment_refD";
             SqlDataAdapter adapter = new SqlDataAdapter(sql, ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
             adapter.SelectCommand.Parameters.AddWithValue("@kosup", selected_supplier);
@@ -773,8 +773,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT	v_bank_payment_refD.NoFP, v_bank_payment_refD.NoPO, v_bank_payment_refD.Tgl, v_bank_payment_refD.Ket, " +
                                     "v_bank_payment_refD.debt_rema, v_bank_payment_refD.region_code, v_bank_payment_refD.dept_code, v_bank_payment_refD.NoBuk " +
-                                    "FROM    v_bank_payment_refD INNER JOIN " +
-                                    "acc01d03 ON v_bank_payment_refD.NoBuk = acc01d03.inv_code  where v_bank_payment_refD.NoBuk = '" + (sender as RadComboBox).SelectedValue + "'";
+                                    "FROM    v_bank_payment_refD   where v_bank_payment_refD.NoBuk = '" + (sender as RadComboBox).SelectedValue + "'";
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -848,10 +847,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         {
             con.Open();
             cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_BankPaymentD";
-            cmd.Parameters.AddWithValue("@slip_no", SlipNo);
+            cmd.CommandText = "SELECT * FROM v_bank_paymentD where slip_no = @slipno";
+            cmd.Parameters.AddWithValue("@slipno", SlipNo);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -916,10 +915,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 DataRow drValue = dtValues.NewRow();
                 drValue["slip_no"] = tr_code;
                 drValue["inv_code"] = (item.FindControl("cb_NoBuk_insert") as RadComboBox).Text;
-                drValue["inv_code"] = (item.FindControl("txt_invCode_insert") as RadTextBox).Text;
-                drValue["slip_date"] = (item.FindControl("dtp_InvDate_insert") as RadDatePicker).SelectedDate;
+                drValue["fkno"] = (item.FindControl("txt_invCode_insert") as RadTextBox).Text;
+                drValue["slip_date"] = (item.FindControl("dtp_InvDate_insert") as RadTextBox).Text;
                 drValue["remark"] = (item.FindControl("txt_remark_insert") as RadTextBox).Text;
-                drValue["pay_amount"] = (item.FindControl("txt_amount_insert") as RadTextBox).Text;
+                drValue["pay_amount"] = (item.FindControl("txt_amount_insert") as RadNumericTextBox).Text;
                 drValue["region_code"] = (item.FindControl("txt_projectDetail_insert") as RadTextBox).Text;
                 drValue["dept_code"] = (item.FindControl("txt_CostCenter_insert") as RadTextBox).Text;
                 //drValue["run"] = 0;
@@ -950,10 +949,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
             DataRow drValue = dtValues.NewRow();
             drValue["slip_no"] = tr_code;
             drValue["inv_code"] = (item.FindControl("cb_NoBuk") as RadComboBox).Text;
-            drValue["inv_code"] = (item.FindControl("txt_invCode") as RadTextBox).Text;
-            drValue["slip_date"] = (item.FindControl("dtp_InvDate") as RadDatePicker).SelectedDate;
+            drValue["fkno"] = (item.FindControl("txt_invCode") as RadTextBox).Text;
+            drValue["slip_date"] = (item.FindControl("dtp_InvDate") as RadTextBox).Text;
             drValue["remark"] = (item.FindControl("txt_remark") as RadTextBox).Text;
-            drValue["pay_amount"] = (item.FindControl("txt_amount") as RadTextBox).Text;
+            drValue["pay_amount"] = (item.FindControl("txt_amount") as RadNumericTextBox).Text;
             drValue["region_code"] = (item.FindControl("txt_projectDetail") as RadTextBox).Text;
             drValue["dept_code"] = (item.FindControl("txt_CostCenter") as RadTextBox).Text;
             //drValue["run"] = 0;

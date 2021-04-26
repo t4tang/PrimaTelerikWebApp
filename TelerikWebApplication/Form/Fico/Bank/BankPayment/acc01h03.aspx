@@ -715,11 +715,11 @@
 
                                             <telerik:GridTemplateColumn HeaderText="Inv Number" ItemStyle-Width="100px" HeaderStyle-Width="100px" DataField="inv_code">
                                                 <ItemTemplate>  
-                                                    <asp:Label runat="server" ID="lbl_inv_code" Text='<%# Eval("inv_code") %>' Width="100px"></asp:Label>
+                                                    <asp:Label runat="server" ID="lbl_inv_code" Text='<%# DataBinder.Eval(Container, "DataItem.fkno") %>' Width="100px"></asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_invCode" Width="100px" ReadOnly="true"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.inv_code") %>'>
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.fkno") %>'>
                                                     </telerik:RadTextBox>
                                                 </EditItemTemplate>
                                                 <InsertItemTemplate>
