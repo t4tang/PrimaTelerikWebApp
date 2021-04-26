@@ -730,7 +730,7 @@
 
                                             <telerik:GridTemplateColumn HeaderText="Inv Date" ItemStyle-Width="120px" DataField="slip_date">
                                                 <ItemTemplate>  
-                                                    <asp:Label runat="server" ID="lbl_slip_date" Text='<%# Eval("slip_date","{0:dd-MM-yyyy}") %>' Width="120px"></asp:Label>
+                                                    <asp:Label runat="server" ID="lbl_slip_date" Text='<%# DataBinder.Eval(Container, "DataItem.slip_date") %>' Width="120px"></asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="dtp_InvDate" Width="100px" ReadOnly="true"
