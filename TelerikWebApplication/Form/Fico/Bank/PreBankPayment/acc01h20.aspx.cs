@@ -544,12 +544,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
             con.Close();
         }
 
-        protected void btnFind_Click(object sender, EventArgs e)
-        {
-            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_bank_prm.SelectedValue);
-            RadGrid1.DataBind();
-        }
-
         protected void btnOk_Click(object sender, EventArgs e)
         {
             foreach (GridDataItem item in RadGrid1.SelectedItems)
@@ -697,6 +691,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
             }
         }
 
-       
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_bank_prm.SelectedValue);
+            RadGrid1.DataBind();
+        }
     }
 }
