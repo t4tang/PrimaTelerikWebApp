@@ -270,7 +270,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
             RadTextBox txt_curr2 = (RadTextBox)item.FindControl("txt_curr2");
             RadNumericTextBox txt_kurs2 = (RadNumericTextBox)item.FindControl("txt_kurs2");
             RadDatePicker dtp_created = (RadDatePicker)item.FindControl("dtp_created");
-            RadTextBox txt_ctrl = (RadTextBox)item.FindControl("txt_ctrl");
+            //RadTextBox txt_ctrl = (RadTextBox)item.FindControl("txt_ctrl");
             RadDatePicker dtp_cashed = (RadDatePicker)item.FindControl("dtp_cashed");
             RadTextBox txt_giro = (RadTextBox)item.FindControl("txt_giro");
             RadComboBox cb_pre = (RadComboBox)item.FindControl("cb_pre");
@@ -303,7 +303,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = cb_bank.SelectedValue + "K" + dtp_created.SelectedDate.Value.Year + dtp_created.SelectedDate.Value.Month + "0001";
+                        run = "PRE-PB" + dtp_created.SelectedDate.Value.Year + dtp_created.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
@@ -341,7 +341,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                 cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
                 cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs2.Text));
                 cmd.Parameters.AddWithValue("@cur_code_acc", txt_curr2.Text);
-                cmd.Parameters.AddWithValue("@noctrl", txt_ctrl.Text);
+                //cmd.Parameters.AddWithValue("@noctrl", txt_ctrl.Text);
                 cmd.Parameters.AddWithValue("@kursBeli", 0);
                 cmd.Parameters.AddWithValue("@lvl", public_str.level);
                 cmd.Parameters.AddWithValue("@freby", cb_pre.SelectedValue);
@@ -394,11 +394,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                     cmd.ExecuteNonQuery();
 
                 }
-
-
             }
             catch (Exception ex)
-            {
+             {
                 con.Close();
                 Response.Write("<font color='red'>" + ex.Message + "</font>");
             }

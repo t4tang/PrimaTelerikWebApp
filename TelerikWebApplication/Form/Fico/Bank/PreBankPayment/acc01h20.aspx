@@ -413,11 +413,11 @@
                                                             <EmptyMessageStyle Resize="Both"></EmptyMessageStyle>                                                    
                                                         </DateInput>                         
                                                     </telerik:RadDatePicker>
-                                                    &nbsp
+                                                  <%--  &nbsp
                                                     <telerik:RadLabel runat="server" Text="Ctrl No :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                                     <telerik:RadTextBox ID="txt_ctrl" runat="server" Width="130px" RenderMode="Lightweight"
                                                         AutoPostBack="false" Text='<%# DataBinder.Eval(Container, "DataItem.noctrl") %>'>
-                                                    </telerik:RadTextBox>
+                                                    </telerik:RadTextBox>--%>
                                                 </td>
                                             </tr>
                                             <tr>
