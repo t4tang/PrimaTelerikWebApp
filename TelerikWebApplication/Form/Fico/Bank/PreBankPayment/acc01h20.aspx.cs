@@ -270,7 +270,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
             RadTextBox txt_curr2 = (RadTextBox)item.FindControl("txt_curr2");
             RadNumericTextBox txt_kurs2 = (RadNumericTextBox)item.FindControl("txt_kurs2");
             RadDatePicker dtp_created = (RadDatePicker)item.FindControl("dtp_created");
-            RadTextBox txt_ctrl = (RadTextBox)item.FindControl("txt_ctrl");
+            //RadTextBox txt_ctrl = (RadTextBox)item.FindControl("txt_ctrl");
             RadDatePicker dtp_cashed = (RadDatePicker)item.FindControl("dtp_cashed");
             RadTextBox txt_giro = (RadTextBox)item.FindControl("txt_giro");
             RadComboBox cb_pre = (RadComboBox)item.FindControl("cb_pre");
@@ -303,7 +303,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = cb_bank.SelectedValue + "K" + dtp_created.SelectedDate.Value.Year + dtp_created.SelectedDate.Value.Month + "0001";
+                        run = "PRE-PB" + dtp_created.SelectedDate.Value.Year + dtp_created.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
@@ -325,11 +325,11 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                 cmd.Parameters.AddWithValue("@slip_no", run);
                 cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_created.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@pay_way", "2");
-                //cmd.Parameters.AddWithValue("@accountno", KoRek);
+                //cmd.Parameters.AddWithValue("@accountno", cb_bank);
                 cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
                 cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_cashed.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@cur_code", txt_currency.Text);
-                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
+                cmd.Parameters.AddWithValue("@kurs", txt_kurs.Value);
                 cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
@@ -339,9 +339,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                 cmd.Parameters.AddWithValue("@trans_kind", 1);
                 cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
                 cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
-                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs2.Text));
+                cmd.Parameters.AddWithValue("@kurs_acc",txt_kurs2.Value);
                 cmd.Parameters.AddWithValue("@cur_code_acc", txt_curr2.Text);
-                cmd.Parameters.AddWithValue("@noctrl", txt_ctrl.Text);
+                //cmd.Parameters.AddWithValue("@noctrl", txt_ctrl.Text);
                 cmd.Parameters.AddWithValue("@kursBeli", 0);
                 cmd.Parameters.AddWithValue("@lvl", public_str.level);
                 cmd.Parameters.AddWithValue("@freby", cb_pre.SelectedValue);
@@ -394,11 +394,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                     cmd.ExecuteNonQuery();
 
                 }
-
-
             }
             catch (Exception ex)
-            {
+             {
                 con.Close();
                 Response.Write("<font color='red'>" + ex.Message + "</font>");
             }
