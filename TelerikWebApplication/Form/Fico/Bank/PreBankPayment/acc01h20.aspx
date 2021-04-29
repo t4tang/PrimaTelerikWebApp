@@ -11,11 +11,11 @@
                 sender.get_masterTableView().editItem(eventArgs.get_itemIndexHierarchical());
             }
             function ShowPreview(id) {
-                window.radopen("ReportVieweracc01h03.aspx?slip_no=" + id, "PreviewDialog");
+                window.radopen("ReportVieweracc01h20.aspx?slip_no=" + id, "PreviewDialog");
                 return false;
             }
             function ShowJournal(id) {
-                window.radopen("acc01h03journal.aspx?slip_no=" + id, "PreviewDialog");
+                window.radopen("acc01h20journal.aspx?slip_no=" + id, "PreviewDialog");
                 return false;
             }
 
@@ -257,7 +257,7 @@
                         <HeaderStyle Width="200px" HorizontalAlign="Center"></HeaderStyle>
                         <ItemStyle Width="200px" />
                     </telerik:GridBoundColumn>                     
-                    <telerik:GridBoundColumn UniqueName="kurs" HeaderText="Kurs" DataField="kurs" FilterControlWidth="80px" DataFormatString='{0:#,###0.00000}'>
+                    <telerik:GridBoundColumn UniqueName="kurs" HeaderText="Kurs" DataField="kurs" FilterControlWidth="80px" DataFormatString='{0:#,###0.000000000}'>
                         <HeaderStyle Width="80px" HorizontalAlign="Center"></HeaderStyle>
                         <ItemStyle HorizontalAlign="Right" />
                     </telerik:GridBoundColumn>
