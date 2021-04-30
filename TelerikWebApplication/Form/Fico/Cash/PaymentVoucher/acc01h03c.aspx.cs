@@ -734,18 +734,18 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
 
-            DataTable DT = new DataTable();
+            dtValues = new DataTable();
 
             try
             {
-                sda.Fill(DT);
+                sda.Fill(dtValues);
             }
             finally
             {
                 con.Close();
             }
 
-            return DT;
+            return dtValues;
         }
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
