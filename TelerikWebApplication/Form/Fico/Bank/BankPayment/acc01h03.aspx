@@ -225,8 +225,7 @@
             OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" 
             OnPreRender="RadGrid1_PreRender">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-            <ClientSettings EnablePostBackOnRowClick="true" >
-            </ClientSettings>
+            <ClientSettings EnablePostBackOnRowClick="true" ></ClientSettings>
             <HeaderStyle ForeColor="Highlight" Font-Size="11px" />
             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="slip_no" Font-Size="12px" ShowHeadersWhenNoRecords="true"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
@@ -273,6 +272,12 @@
                     <telerik:GridBoundColumn UniqueName="Remark" HeaderText="Remark" DataField="Remark" FilterControlWidth="300px">
                         <HeaderStyle Width="200px" HorizontalAlign="Center"></HeaderStyle>
                     </telerik:GridBoundColumn>
+                    <telerik:GridTemplateColumn UniqueName="TemplateJournalColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right"
+                        AllowFiltering="False">
+                        <ItemTemplate>
+                            <asp:ImageButton ID="JournalLink" runat="server" Height="20px" Width="20px" ImageUrl="~/Images/journal.png" ToolTip="Journal" />
+                        </ItemTemplate>
+                    </telerik:GridTemplateColumn>
                     <telerik:GridTemplateColumn UniqueName="TemplatePrintColumn" HeaderStyle-Width="25px" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right"
                         AllowFiltering="False">
                         <ItemTemplate>

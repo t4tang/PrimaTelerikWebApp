@@ -56,6 +56,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         {
             if (!IsPostBack)
             {
+                lbl_form_name.Text = "Bank Payment Voucher";
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_bank_prm.SelectedValue = public_str.site;
@@ -208,6 +209,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 printLink.Attributes["href"] = "javascript:void(0);";
                 printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
 
+                ImageButton journalLink = (ImageButton)e.Item.FindControl("JournalLink");
+                printLink.Attributes["href"] = "javascript:void(0);";
+                printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
             }
         }
 
