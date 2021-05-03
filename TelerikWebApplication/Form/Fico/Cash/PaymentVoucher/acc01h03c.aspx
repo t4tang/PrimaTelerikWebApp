@@ -584,256 +584,329 @@
                                      <td colspan="4" style="vertical-align:middle; text-align:right; padding-right:20px" ></td>
                                 </tr>
                             </table>
-                            <div style="padding: 7px 0px 12px 0px; height:288px">
+                            <div style="padding: 7px 0px 12px 0px; min-height:275px">
+                                <telerik:RadTabStrip RenderMode="Lightweight" runat="server" ID="RadTabStrip1"  Orientation="HorizontalTop" Width="97%" 
+                                    SelectedIndex="0" MultiPageID="RadMultiPage1" Skin="Silk" CausesValidation="false">
+                                    <Tabs>
+                                        <telerik:RadTab Text="Detail" Height="15px"> 
+                                        </telerik:RadTab>
+                                        <telerik:RadTab Text="Journal" Height="15px">
+                                        </telerik:RadTab>
+                                    </Tabs>
+                                </telerik:RadTabStrip>
+                                <telerik:RadMultiPage runat="server" ID="RadMultiPage1"  SelectedIndex="0" Width="97%">
+                                    <telerik:RadPageView runat="server" ID="RadPageView1" Height="300px">
+                                        <div runat="server" style="padding:10px 10px 10px 10px">
+                                            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" runat="server" AllowPaging="False" ShowFooter="false" PageSize="5" Skin="Silk"
+                                                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" CssClass="RadGrid_ModernBrowsers" 
+                                                OnNeedDataSource="RadGrid2_NeedDataSource" 
+                                                OnDeleteCommand="RadGrid2_DeleteCommand" 
+                                                OnInsertCommand="RadGrid2_InsertCommand" 
+                                                OnUpdateCommand="RadGrid2_UpdateCommand" 
+                                                OnItemCommand="RadGrid2_ItemCommand" 
+                                                OnPreRender="RadGrid2_PreRender">
+                                                <HeaderStyle Font-Size="12px" />
+                                                <PagerStyle Mode="NumericPages" />
+                                                <MasterTableView CommandItemDisplay="Top" Font-Size="12px" EditMode="InPlace" ShowHeadersWhenNoRecords="true" 
+                                                    AutoGenerateColumns="false" DataKeyNames="slip_no,inv_code">
+                                                    <CommandItemSettings ShowRefreshButton="false" ShowSaveChangesButton="false" />
+                                                    <Columns>
+                                                        <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
+                                                            HeaderText="Edit" HeaderStyle-Width="60px" UpdateText="Update">
+                                                        </telerik:GridEditCommandColumn>
+                                                        <telerik:GridTemplateColumn UniqueName="inv_code" HeaderText="Reg. Number" ItemStyle-Width="120px" 
+                                                            SortExpression="inv_code">
+                                                            <FooterTemplate>Template footer</FooterTemplate>
+                                                            <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                            <ItemTemplate>  
+                                                                <asp:Label runat="server" ID="lbl_InvCode" Text='<%#DataBinder.Eval(Container.DataItem, "inv_code")%>' Width="120px"></asp:Label> 
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code" EnableLoadOnDemand="true" AutoPostBack="true" 
+                                                                    OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoFP" DataValueField="NoBuk"
+                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.inv_code") %>' 
+                                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="1500px" 
+                                                                    OnPreRender="cb_inv_code_PreRender" OnSelectedIndexChanged="cb_inv_code_SelectedIndexChanged">
+                                                                    <HeaderTemplate>
+                                                                        <table style="width: 1500px; font-size:smaller">
+                                                                            <tr>
+                                                                                <td style="width: 150px;">
+                                                                                    Reg. Number
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    Invoice Number
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    No.PO
+                                                                                </td>
+                                                                                <td style="width: 100px;">
+                                                                                    Date
+                                                                                </td><td style="width: 150px;">
+                                                                                    Amount
+                                                                                </td>
+                                                                                <td style="width: 500px;">
+                                                                                    Remark
+                                                                                </td>                                                                
+                                                                            </tr>
+                                                                        </table>
+                                                                    </HeaderTemplate>
+                                                                    <ItemTemplate>
+                                                                        <table style="width: 1500px; font-size:smaller">
+                                                                            <tr>
+                                                                                <td style="width: 150px;">
+                                                                                    <%# DataBinder.Eval(Container, "Value")%>
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['NoFP']")%>
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['NoPO']")%>
+                                                                                </td>
+                                                                                <td style="width: 100px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['Tgl']")%>
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['debt_rema']")%>
+                                                                                </td>
+                                                                                <td style="width: 500px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['ket']")%>
+                                                                                </td>                                                                
+                                                                            </tr>
+                                                                        </table>                                                                
+                                                                    </ItemTemplate>
+                                                                    <FooterTemplate>
+                                                                        A total of
+                                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                                        items
+                                                                    </FooterTemplate>
+                                                                </telerik:RadComboBox>                                                                                            
+                                                            </EditItemTemplate>
+                                                            <InsertItemTemplate>
+                                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code_insert" EnableLoadOnDemand="true" AutoPostBack="true" 
+                                                                    OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoFP" DataValueField="NoBuk"
+                                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="1500px" 
+                                                                    OnPreRender="cb_inv_code_PreRender" OnSelectedIndexChanged="cb_inv_code_SelectedIndexChanged">
+                                                                    <HeaderTemplate>
+                                                                        <table style="width: 1500px; font-size:smaller">
+                                                                            <tr>
+                                                                                <td style="width: 150px;">
+                                                                                    Reg. Number
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    Invoice Number
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    No.PO
+                                                                                </td>
+                                                                                <td style="width: 100px;">
+                                                                                    Date
+                                                                                </td><td style="width: 150px;">
+                                                                                    Amount
+                                                                                </td>
+                                                                                <td style="width: 500px;">
+                                                                                    Remark
+                                                                                </td>                                                                
+                                                                            </tr>
+                                                                        </table>
+                                                                    </HeaderTemplate>
+                                                                    <ItemTemplate>
+                                                                        <table style="width: 1500px; font-size:smaller">
+                                                                            <tr>
+                                                                                <td style="width: 150px;">
+                                                                                    <%# DataBinder.Eval(Container, "Value")%>
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['NoFP']")%>
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['NoPO']")%>
+                                                                                </td>
+                                                                                <td style="width: 100px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['Tgl']")%>
+                                                                                </td>
+                                                                                <td style="width: 150px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['debt_rema']")%>
+                                                                                </td>
+                                                                                <td style="width: 500px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['ket']")%>
+                                                                                </td>                                                                
+                                                                            </tr>
+                                                                        </table>                                                                
+                                                                    </ItemTemplate>
+                                                                    <FooterTemplate>
+                                                                        A total of
+                                                                        <asp:Literal runat="server" ID="RadComboItemsCount" />
+                                                                        items
+                                                                    </FooterTemplate>
+                                                                </telerik:RadComboBox> 
+                                                            </InsertItemTemplate>
+                                                        </telerik:GridTemplateColumn>
+
+                                                        <telerik:GridTemplateColumn HeaderText="Inv Number" ItemStyle-Width="100px" HeaderStyle-Width="100px" DataField="inv_code">
+                                                            <ItemTemplate>  
+                                                                <asp:Label runat="server" ID="lbl_inv_code" Text='<%# DataBinder.Eval(Container, "DataItem.fkno") %>' Width="100px"></asp:Label>
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_invCode" Width="100px" ReadOnly="true"
+                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.fkno") %>'>
+                                                                </telerik:RadTextBox>
+                                                            </EditItemTemplate>
+                                                            <InsertItemTemplate>
+                                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_invCode_insert" Width="100px" ReadOnly="true">
+                                                                </telerik:RadTextBox>
+                                                            </InsertItemTemplate>
+                                                        </telerik:GridTemplateColumn>
+
+                                                        <telerik:GridTemplateColumn HeaderText="Invoice Date" ItemStyle-Width="150px">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lbl_slip_date" Text='<%# DataBinder.Eval(Container, "DataItem.slip_date") %>' Width="120px"></asp:Label>
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_InvDate" Width="100px" ReadOnly="true"
+                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.slip_date") %>' >
+                                                                </telerik:RadTextBox>
+                                                            </EditItemTemplate>
+                                                            <InsertItemTemplate>
+                                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_InvDate_insert" Width="100px" ReadOnly="true" ></telerik:RadTextBox>
+                                                            </InsertItemTemplate>
+                                                        </telerik:GridTemplateColumn>
+
+                                                        <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="350px">
+                                                            <ItemTemplate>  
+                                                                <asp:Label runat="server" ID="lbl_remark" Text='<%#DataBinder.Eval(Container.DataItem, "remark")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark" Width="350px" 
+                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>'>
+                                                                </telerik:RadTextBox>                                                 
+                                                            </EditItemTemplate>
+                                                            <InsertItemTemplate>
+                                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark_insert" Width="350px" ></telerik:RadTextBox>
+                                                            </InsertItemTemplate>
+                                                        </telerik:GridTemplateColumn>
+
+                                                        <telerik:GridTemplateColumn HeaderText="Amount" ItemStyle-Width="130px" ItemStyle-HorizontalAlign="Right">
+                                                            <ItemTemplate>  
+                                                                <asp:Label runat="server" ID="lbl_pay_amount" Text='<%#DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_amount" Width="130px"
+                                                                    Text='<%# DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}") %>'
+                                                                    NumberFormat-AllowRounding="true"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" 
+                                                                    ReadOnly="false" onkeydown="blurTextBox(this, event)" Type="Number" NumberFormat-DecimalDigits="2"
+                                                                    EnabledStyle-HorizontalAlign="Right">
+                                                                </telerik:RadNumericTextBox>
+                                                            </EditItemTemplate>
+                                                            <InsertItemTemplate>
+                                                                <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_amount_insert" Width="130px"
+                                                                    NumberFormat-AllowRounding="true"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" 
+                                                                    ReadOnly="false" onkeydown="blurTextBox(this, event)" Type="Number" NumberFormat-DecimalDigits="2"
+                                                                    EnabledStyle-HorizontalAlign="Right">
+                                                                </telerik:RadNumericTextBox>
+                                                            </InsertItemTemplate>
+                                                        </telerik:GridTemplateColumn>
+
+                                                        <telerik:GridTemplateColumn UniqueName="region_code" HeaderText="Project" HeaderStyle-Width="100px" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lbl_project_detail" Text='<%#DataBinder.Eval(Container.DataItem, "region_code")%>'></asp:Label>
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_projectDetail" Width="60px" 
+                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>' ReadOnly="true">
+                                                                </telerik:RadTextBox>                                   
+                                                            </EditItemTemplate>
+                                                            <InsertItemTemplate>
+                                                                <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_projectDetail_insert" Width="60px" ReadOnly="true"></telerik:RadTextBox>
+                                                            </InsertItemTemplate>
+                                                        </telerik:GridTemplateColumn>
+
+                                                        <telerik:GridTemplateColumn UniqueName="dept_code" HeaderText="Cost Center" HeaderStyle-Width="100px" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lbl_cost_ctr" Text='<%#DataBinder.Eval(Container.DataItem, "dept_code")%>' Width="60px"></asp:Label>
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_CostCenter" Width="60px" 
+                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>' ReadOnly="true">
+                                                                </telerik:RadTextBox>                                   
+                                                            </EditItemTemplate>
+                                                            <InsertItemTemplate>
+                                                                <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_CostCenter_insert" Width="60px" ReadOnly="true"></telerik:RadTextBox>
+                                                            </InsertItemTemplate>
+                                                        </telerik:GridTemplateColumn>
+                                                     
+                                                        <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" 
+                                                            ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px" ItemStyle-ForeColor="Red">
+                                                        </telerik:GridButtonColumn>
+                                                    </Columns>
+                                                </MasterTableView>
+                                                <ClientSettings>
+                                                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="199" />
+                                                    <ClientEvents OnRowDblClick="rowDblClick"/>
+                                                </ClientSettings>
+                                            </telerik:RadGrid>
+                                        </div>
+                                    </telerik:RadPageView>
+                                    <telerik:RadPageView runat="server" ID="RadPageView2" Height="300px">
+                                        <div runat="server" style="padding:15px 15px 15px 15px">
+                                            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid3" GridLines="None" AutoGenerateColumns="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
+                                                AllowPaging="false" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" ShowStatusBar="true"        
+                                                OnNeedDataSource="RadGrid3_NeedDataSource" OnPreRender="RadGrid3_PreRender">
+                                                <HeaderStyle Font-Size="12px" />
+                                                <AlternatingItemStyle Font-Size="10px" Font-Names="Comic Sans MS" />
+                                                <MasterTableView DataKeyNames="nomor" HeaderStyle-ForeColor="Highlight" ItemStyle-Font-Size="10px" ItemStyle-Font-Names="Comic Sans MS"
+                                                    HorizontalAlign="NotSet" AutoGenerateColumns="False">
+                                                    <SortExpressions>
+                                                        <telerik:GridSortExpression FieldName="nomor" SortOrder="Descending" />
+                                                    </SortExpressions>
+                                                    <ColumnGroups>
+                                                        <telerik:GridColumnGroup Name="IDR" HeaderText="IDR" HeaderStyle-HorizontalAlign="Center" />
+                                                        <telerik:GridColumnGroup Name="Valas" HeaderText="Valas" HeaderStyle-HorizontalAlign="Center" />
+                                                    </ColumnGroups>
+                                                    <Columns>
+                                                        <telerik:GridBoundColumn DataField="accountcode" HeaderStyle-Width="100px" HeaderText="Account No." SortExpression="accountcode"
+                                                            UniqueName="accountcode" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="70px">                                
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="accountname" HeaderStyle-Width="250px" HeaderText="Account Name" SortExpression="accountname"
+                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >                                
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="cur_code" HeaderStyle-Width="250px" HeaderText="Currency" SortExpression="cur_code"
+                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >                                
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="kurs" HeaderStyle-Width="250px" HeaderText="Kurs" SortExpression="kurs"
+                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >                                
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="debet" HeaderStyle-Width="100px" HeaderText="Debet" SortExpression="debet"
+                                                            UniqueName="debet" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="IDR" 
+                                                            DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="credit" HeaderStyle-Width="100px" HeaderText="Credit" SortExpression="credit"
+                                                            UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="IDR" 
+                                                            DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="debet" HeaderStyle-Width="100px" HeaderText="Debet" SortExpression="debet"
+                                                            UniqueName="debet" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="Valas" 
+                                                            DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="credit" HeaderStyle-Width="100px" HeaderText="Credit" SortExpression="credit"
+                                                            UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="Valas" 
+                                                            DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="remark" HeaderStyle-Width="200px" HeaderText="Remark" SortExpression="remark"
+                                                            UniqueName="remark" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >
+                                                        </telerik:GridBoundColumn>
+                                                    </Columns>
+                                                </MasterTableView>
+                                                <ClientSettings AllowKeyboardNavigation="true">
+                                                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="310px" />
+                                                    <Selecting AllowRowSelect="true"></Selecting>     
+                                                </ClientSettings>
+                                            </telerik:RadGrid>
+                                        </div>
+                                    </telerik:RadPageView>
+                                </telerik:RadMultiPage>
                                 <%--<asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                     <ContentTemplate>--%>
-                                        <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" runat="server" AllowPaging="False" ShowFooter="false" PageSize="5" Skin="Silk"
-                                            AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" CssClass="RadGrid_ModernBrowsers" 
-                                            OnNeedDataSource="RadGrid2_NeedDataSource" 
-                                            OnDeleteCommand="RadGrid2_DeleteCommand" 
-                                            OnInsertCommand="RadGrid2_InsertCommand" 
-                                            OnUpdateCommand="RadGrid2_UpdateCommand" 
-                                            OnItemCommand="RadGrid2_ItemCommand" 
-                                            OnPreRender="RadGrid2_PreRender">
-                                            <HeaderStyle Font-Size="12px" />
-                                            <PagerStyle Mode="NumericPages" />
-                                            <MasterTableView CommandItemDisplay="Top" Font-Size="12px" EditMode="InPlace" ShowHeadersWhenNoRecords="true" 
-                                                AutoGenerateColumns="false" DataKeyNames="slip_no,inv_code">
-                                                <CommandItemSettings ShowRefreshButton="false" ShowSaveChangesButton="false" />
-                                                <Columns>
-                                                    <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
-                                                        HeaderText="Edit" HeaderStyle-Width="60px" UpdateText="Update">
-                                                    </telerik:GridEditCommandColumn>
-                                                    <telerik:GridTemplateColumn UniqueName="inv_code" HeaderText="Reg. Number" ItemStyle-Width="120px" 
-                                                        SortExpression="inv_code">
-                                                        <FooterTemplate>Template footer</FooterTemplate>
-                                                        <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>  
-                                                            <asp:Label runat="server" ID="lbl_InvCode" Text='<%#DataBinder.Eval(Container.DataItem, "inv_code")%>' Width="120px"></asp:Label> 
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code" EnableLoadOnDemand="true" AutoPostBack="true" 
-                                                                OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoFP" DataValueField="NoBuk"
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.inv_code") %>' 
-                                                                HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="1500px" 
-                                                                OnPreRender="cb_inv_code_PreRender" OnSelectedIndexChanged="cb_inv_code_SelectedIndexChanged">
-                                                                <HeaderTemplate>
-                                                                    <table style="width: 1500px; font-size:smaller">
-                                                                        <tr>
-                                                                            <td style="width: 150px;">
-                                                                                Reg. Number
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                Invoice Number
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                No.PO
-                                                                            </td>
-                                                                            <td style="width: 100px;">
-                                                                                Date
-                                                                            </td><td style="width: 150px;">
-                                                                                Amount
-                                                                            </td>
-                                                                            <td style="width: 500px;">
-                                                                                Remark
-                                                                            </td>                                                                
-                                                                        </tr>
-                                                                    </table>
-                                                                </HeaderTemplate>
-                                                                <ItemTemplate>
-                                                                    <table style="width: 1500px; font-size:smaller">
-                                                                        <tr>
-                                                                            <td style="width: 150px;">
-                                                                                <%# DataBinder.Eval(Container, "Value")%>
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['NoFP']")%>
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['NoPO']")%>
-                                                                            </td>
-                                                                            <td style="width: 100px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['Tgl']")%>
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['debt_rema']")%>
-                                                                            </td>
-                                                                            <td style="width: 500px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['ket']")%>
-                                                                            </td>                                                                
-                                                                        </tr>
-                                                                    </table>                                                                
-                                                                </ItemTemplate>
-                                                                <FooterTemplate>
-                                                                    A total of
-                                                                    <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                                    items
-                                                                </FooterTemplate>
-                                                            </telerik:RadComboBox>                                                                                            
-                                                        </EditItemTemplate>
-                                                        <InsertItemTemplate>
-                                                            <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code_insert" EnableLoadOnDemand="true" AutoPostBack="true" 
-                                                                OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoFP" DataValueField="NoBuk"
-                                                                HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="1500px" 
-                                                                OnPreRender="cb_inv_code_PreRender" OnSelectedIndexChanged="cb_inv_code_SelectedIndexChanged">
-                                                                <HeaderTemplate>
-                                                                    <table style="width: 1500px; font-size:smaller">
-                                                                        <tr>
-                                                                            <td style="width: 150px;">
-                                                                                Reg. Number
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                Invoice Number
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                No.PO
-                                                                            </td>
-                                                                            <td style="width: 100px;">
-                                                                                Date
-                                                                            </td><td style="width: 150px;">
-                                                                                Amount
-                                                                            </td>
-                                                                            <td style="width: 500px;">
-                                                                                Remark
-                                                                            </td>                                                                
-                                                                        </tr>
-                                                                    </table>
-                                                                </HeaderTemplate>
-                                                                <ItemTemplate>
-                                                                    <table style="width: 1500px; font-size:smaller">
-                                                                        <tr>
-                                                                            <td style="width: 150px;">
-                                                                                <%# DataBinder.Eval(Container, "Value")%>
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['NoFP']")%>
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['NoPO']")%>
-                                                                            </td>
-                                                                            <td style="width: 100px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['Tgl']")%>
-                                                                            </td>
-                                                                            <td style="width: 150px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['debt_rema']")%>
-                                                                            </td>
-                                                                            <td style="width: 500px;">
-                                                                                <%# DataBinder.Eval(Container, "Attributes['ket']")%>
-                                                                            </td>                                                                
-                                                                        </tr>
-                                                                    </table>                                                                
-                                                                </ItemTemplate>
-                                                                <FooterTemplate>
-                                                                    A total of
-                                                                    <asp:Literal runat="server" ID="RadComboItemsCount" />
-                                                                    items
-                                                                </FooterTemplate>
-                                                            </telerik:RadComboBox> 
-                                                        </InsertItemTemplate>
-                                                    </telerik:GridTemplateColumn>
-
-                                                    <telerik:GridTemplateColumn HeaderText="Inv Number" ItemStyle-Width="100px" HeaderStyle-Width="100px" DataField="inv_code">
-                                                        <ItemTemplate>  
-                                                            <asp:Label runat="server" ID="lbl_inv_code" Text='<%# DataBinder.Eval(Container, "DataItem.fkno") %>' Width="100px"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_invCode" Width="100px" ReadOnly="true"
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.fkno") %>'>
-                                                            </telerik:RadTextBox>
-                                                        </EditItemTemplate>
-                                                        <InsertItemTemplate>
-                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_invCode_insert" Width="100px" ReadOnly="true">
-                                                            </telerik:RadTextBox>
-                                                        </InsertItemTemplate>
-                                                    </telerik:GridTemplateColumn>
-
-                                                    <telerik:GridTemplateColumn HeaderText="Invoice Date" ItemStyle-Width="150px">
-                                                        <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lbl_slip_date" Text='<%# DataBinder.Eval(Container, "DataItem.slip_date") %>' Width="120px"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_InvDate" Width="100px" ReadOnly="true"
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.slip_date") %>' >
-                                                            </telerik:RadTextBox>
-                                                        </EditItemTemplate>
-                                                        <InsertItemTemplate>
-                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_InvDate_insert" Width="100px" ReadOnly="true" ></telerik:RadTextBox>
-                                                        </InsertItemTemplate>
-                                                    </telerik:GridTemplateColumn>
-
-                                                    <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="350px">
-                                                        <ItemTemplate>  
-                                                            <asp:Label runat="server" ID="lbl_remark" Text='<%#DataBinder.Eval(Container.DataItem, "remark")%>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark" Width="350px" 
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>'>
-                                                            </telerik:RadTextBox>                                                 
-                                                        </EditItemTemplate>
-                                                        <InsertItemTemplate>
-                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_remark_insert" Width="350px" ></telerik:RadTextBox>
-                                                        </InsertItemTemplate>
-                                                    </telerik:GridTemplateColumn>
-
-                                                    <telerik:GridTemplateColumn HeaderText="Amount" ItemStyle-Width="130px" ItemStyle-HorizontalAlign="Right">
-                                                        <ItemTemplate>  
-                                                            <asp:Label runat="server" ID="lbl_pay_amount" Text='<%#DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}")%>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_amount" Width="130px"
-                                                                Text='<%# DataBinder.Eval(Container.DataItem, "pay_amount", "{0:#,###,###0.00}") %>'
-                                                                NumberFormat-AllowRounding="true"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" 
-                                                                ReadOnly="false" onkeydown="blurTextBox(this, event)" Type="Number" NumberFormat-DecimalDigits="2"
-                                                                EnabledStyle-HorizontalAlign="Right">
-                                                            </telerik:RadNumericTextBox>
-                                                        </EditItemTemplate>
-                                                        <InsertItemTemplate>
-                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_amount_insert" Width="130px"
-                                                                NumberFormat-AllowRounding="true"  NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" 
-                                                                ReadOnly="false" onkeydown="blurTextBox(this, event)" Type="Number" NumberFormat-DecimalDigits="2"
-                                                                EnabledStyle-HorizontalAlign="Right">
-                                                            </telerik:RadNumericTextBox>
-                                                        </InsertItemTemplate>
-                                                    </telerik:GridTemplateColumn>
-
-                                                    <telerik:GridTemplateColumn UniqueName="region_code" HeaderText="Project" HeaderStyle-Width="100px" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center">
-                                                        <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lbl_project_detail" Text='<%#DataBinder.Eval(Container.DataItem, "region_code")%>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_projectDetail" Width="60px" 
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.region_code") %>' ReadOnly="true">
-                                                            </telerik:RadTextBox>                                   
-                                                        </EditItemTemplate>
-                                                        <InsertItemTemplate>
-                                                            <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_projectDetail_insert" Width="60px" ReadOnly="true"></telerik:RadTextBox>
-                                                        </InsertItemTemplate>
-                                                    </telerik:GridTemplateColumn>
-
-                                                    <telerik:GridTemplateColumn UniqueName="dept_code" HeaderText="Cost Center" HeaderStyle-Width="100px" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center">
-                                                        <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lbl_cost_ctr" Text='<%#DataBinder.Eval(Container.DataItem, "dept_code")%>' Width="60px"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_CostCenter" Width="60px" 
-                                                                Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>' ReadOnly="true">
-                                                            </telerik:RadTextBox>                                   
-                                                        </EditItemTemplate>
-                                                        <InsertItemTemplate>
-                                                            <telerik:RadTextBox runat="server" RenderMode="Lightweight" ID="txt_CostCenter_insert" Width="60px" ReadOnly="true"></telerik:RadTextBox>
-                                                        </InsertItemTemplate>
-                                                    </telerik:GridTemplateColumn>
-                                                     
-                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" ConfirmTitle="Delete" ConfirmDialogType="RadWindow" 
-                                                        ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px" ItemStyle-ForeColor="Red">
-                                                    </telerik:GridButtonColumn>
-                                                </Columns>
-                                            </MasterTableView>
-                                            <ClientSettings>
-                                                <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="199" />
-                                                <ClientEvents OnRowDblClick="rowDblClick"/>
-                                            </ClientSettings>
-                                        </telerik:RadGrid>
+                                        
                                     <%--</ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="RadGrid2" EventName="UpdateCommand"></asp:AsyncPostBackTrigger>
