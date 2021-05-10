@@ -22,7 +22,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         public static string KoRek = null;
         public static string tr_code = null;
         public static string selected_supplier = null;
-        public static string selected_currency = null; 
+        public static string selected_currency = null;
+        public static string selected_amount = null;
+        public static string selected_TotAmount = null;
 
         DataTable dtValues;
         RadTextBox txt_currency;
@@ -209,9 +211,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 printLink.Attributes["href"] = "javascript:void(0);";
                 printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
 
-                ImageButton journalLink = (ImageButton)e.Item.FindControl("JournalLink");
-                printLink.Attributes["href"] = "javascript:void(0);";
-                printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
+                //ImageButton journalLink = (ImageButton)e.Item.FindControl("JournalLink");
+                //printLink.Attributes["href"] = "javascript:void(0);";
+                //printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
             }
         }
 
@@ -225,6 +227,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
 
                 selected_supplier = item["cust_code"].Text;
                 selected_currency = item["cur_code"].Text;
+                selected_TotAmount = item["tot_pay"].Text;
 
                 tr_code = kode;
 
@@ -817,7 +820,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                         project.Text = dtr["region_code"].ToString();
                         cost_ctr.Text = dtr["dept_code"].ToString();
                     }
-                   
+
+                    selected_amount = dtr["debt_rema"].ToString();
+
                 }
             }
 
@@ -1029,15 +1034,61 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
 
         #endregion
 
-        //private void CalculateTotal()
-        //{
-        //    //double amount = 0;
-        //    double sum = 0;
+        private void CalculateTotal()
+        {
+            //double sumValue;
+            double sum = 0;
+            //double sumTot = 0;
 
-        //    sum = (Convert.ToDouble(txt_amount.Value));
+            sum = (Convert.ToDouble(selected_amount));
+            selected_TotAmount = sum.ToString();
 
-        //    txt_total.Text = sum.ToString();
+        }
 
-        //}
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Session["actionHeader"].ToString() == "headerEdit")
+            {
+                (sender as RadGrid).DataSource = GetDataJournalTable(tr_code);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+        }
+
+        public DataTable GetDataJournalTable(string slip_no)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_goods_issued_journal";
+            cmd.Parameters.AddWithValue("@doc_code", slip_no);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return DT;
+        }
+
+        protected void RadGrid3_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+        }
     }
 }
