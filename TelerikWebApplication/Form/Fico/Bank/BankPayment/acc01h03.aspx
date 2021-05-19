@@ -257,7 +257,7 @@
                         <HeaderStyle Width="200px" HorizontalAlign="Center"></HeaderStyle>
                         <ItemStyle Width="200px" />
                     </telerik:GridBoundColumn>                     
-                    <telerik:GridBoundColumn UniqueName="kurs" HeaderText="Kurs" DataField="kurs" FilterControlWidth="80px" DataFormatString='{0:#,###0.00000}'>
+                    <telerik:GridBoundColumn UniqueName="kurs" HeaderText="Kurs" DataField="kurs" FilterControlWidth="80px" DataFormatString='{0:#,###0.000000000}'>
                         <HeaderStyle Width="80px" HorizontalAlign="Center"></HeaderStyle>
                         <ItemStyle HorizontalAlign="Right" />
                     </telerik:GridBoundColumn>
