@@ -168,9 +168,9 @@
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <telerik:RadLabel runat="server" Text="Bank :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
-                                    <telerik:RadComboBox ID="cb_bank_prm" runat="server" RenderMode="Lightweight" CssClass="combo" AutoPostBack="false"
-                                        EnableLoadOnDemand="true" Skin="Telerik"  OnItemsRequested="cb_bank_prm_ItemsRequested" EnableVirtualScrolling="false" 
-                                        Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" DropDownWidth="350px"
+                                    <telerik:RadComboBox ID="cb_bank_prm" runat="server" RenderMode="Lightweight" AutoPostBack="true"
+                                        EnableLoadOnDemand="true" Skin="Telerik"  OnItemsRequested="cb_bank_prm_ItemsRequested" EnableVirtualScrolling="true" 
+                                        Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" DropDownWidth="350px" Width="100%"
                                         OnSelectedIndexChanged="cb_bank_prm_SelectedIndexChanged"></telerik:RadComboBox>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -225,7 +225,7 @@
             OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" 
             OnPreRender="RadGrid1_PreRender">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
-            <ClientSettings EnablePostBackOnRowClick="true" ></ClientSettings>
+            <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true"></ClientSettings>
             <HeaderStyle ForeColor="Highlight" Font-Size="11px" />
             <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="slip_no" Font-Size="12px" ShowHeadersWhenNoRecords="true"
                 EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
@@ -607,6 +607,16 @@
                                                                 </telerik:RadTextBox>
                                                             </td>
                                                         </tr>
+                                                        <tr>
+                                                            <td class="tdLabel">
+                                                                Total Amount :
+                                                            </td>
+                                                            <td>
+                                                                <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_amount" Width="130px"
+                                                                    Text='<%# DataBinder.Eval(Container.DataItem, "tot_pay", "{0:#,###,###0.00}") %>'>
+                                                                </telerik:RadTextBox>
+                                                            </td>
+                                                        </tr> 
                                                     </table>
                                                 </td>
                                             </tr>
