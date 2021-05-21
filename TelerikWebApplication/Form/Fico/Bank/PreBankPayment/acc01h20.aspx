@@ -143,6 +143,7 @@
         <img alt="Loading..." src="../../../Images/load.gif" style="border: 0px; width:60px; height:45px; position: absolute; top: 100px; left:600px" />
     </telerik:RadAjaxLoadingPanel>
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel" runat="server" Skin="Windows7" MinDisplayTime="2000" BackgroundPosition="Center"></telerik:RadAjaxLoadingPanel>
+    
     <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="FilterDialogWindows" RestrictionZoneID="ContentTemplateZone" VisibleOnPageLoad="false"
         Modal="false" Width="450px" Height="350px" VisibleStatusbar="False" AutoSize="True" Skin="Silk" BackColor="Transparent">
         <%--LIST DATA--%>
@@ -167,9 +168,9 @@
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <telerik:RadLabel runat="server" Text="Bank :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
-                                    <telerik:RadComboBox ID="cb_bank_prm" runat="server" RenderMode="Lightweight" CssClass="combo" AutoPostBack="false"
+                                    <telerik:RadComboBox ID="cb_bank_prm" runat="server" RenderMode="Lightweight" AutoPostBack="false"
                                         EnableLoadOnDemand="true" Skin="Telerik"  OnItemsRequested="cb_bank_prm_ItemsRequested" EnableVirtualScrolling="false" 
-                                        Height="200" Width="315" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" DropDownWidth="350px"
+                                        Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" DropDownWidth="350px" Width="100%"
                                         OnSelectedIndexChanged="cb_bank_prm_SelectedIndexChanged"></telerik:RadComboBox>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -344,7 +345,7 @@
                                                         DbValue='<%# DataBinder.Eval(Container, "DataItem.kurs" , "{0:0,#########}") %>' >
                                                     </telerik:RadNumericTextBox>--%>
                                                     <telerik:RadNumericTextBox ID="txt_kurs" runat="server" Width="111px" ReadOnly="true" RenderMode="Lightweight" 
-                                                        Skin="Telerik"  DbValue='<%# DataBinder.Eval(Container, "DataItem.kurs" ) %>' NumberFormat-DecimalDigits="9" NumberFormat-DecimalSeparator=".">
+                                                        Skin="Telerik"  DbValue='<%# DataBinder.Eval(Container, "DataItem.kurs", "{0:#,###0.000000000}" ) %>' NumberFormat-DecimalDigits="9" NumberFormat-DecimalSeparator=".">
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>
@@ -390,7 +391,7 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadNumericTextBox ID="txt_kurs2" runat="server" Width="111px" ReadOnly="true" RenderMode="Lightweight" Skin="Telerik" 
-                                                        DbValue='<%# DataBinder.Eval(Container, "DataItem.kurs_acc" ) %>' NumberFormat-DecimalDigits="9" NumberFormat-DecimalSeparator="." >
+                                                        DbValue='<%# DataBinder.Eval(Container, "DataItem.kurs_acc", "{0:#,###0.000000000}" ) %>' NumberFormat-DecimalDigits="9" NumberFormat-DecimalSeparator="." >
                                                         <EmptyMessageStyle CssClass="MyEmptyTextBox"></EmptyMessageStyle>
                                                         <EnabledStyle CssClass="MyEnabledTextBox"></EnabledStyle>
                                                         <FocusedStyle CssClass="MyFocusedTextBox"></FocusedStyle>

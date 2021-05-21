@@ -329,7 +329,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                 cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
                 cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_cashed.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@cur_code", txt_currency.Text);
-                cmd.Parameters.AddWithValue("@kurs", txt_kurs.Value);
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
                 cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
@@ -339,7 +339,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                 cmd.Parameters.AddWithValue("@trans_kind", 1);
                 cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
                 cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
-                cmd.Parameters.AddWithValue("@kurs_acc",txt_kurs2.Value);
+                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs2.Text));
                 cmd.Parameters.AddWithValue("@cur_code_acc", txt_curr2.Text);
                 //cmd.Parameters.AddWithValue("@noctrl", txt_ctrl.Text);
                 cmd.Parameters.AddWithValue("@kursBeli", 0);
@@ -386,7 +386,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                     //cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", lbl_slip_date.Text));
                     cmd.Parameters.AddWithValue("@remark", lbl_remark.Text);
                     cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble(lbl_pay_amount.Text));
-                    //cmd.Parameters.AddWithValue("@Ket", lbl_KetD.Text);
+                    cmd.Parameters.AddWithValue("@pay_amount_acc", Convert.ToDouble(lbl_pay_amount.Text));
                     cmd.Parameters.AddWithValue("@dept_code", lbl_cost_ctr.Text);
                     cmd.Parameters.AddWithValue("@region_code", lbl_project_detail.Text);
                     //cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -968,7 +968,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
             var InvCode = ((GridDataItem)e.Item).GetDataKeyValue("inv_code");
-
+            var SlipNo = ((GridDataItem)e.Item).GetDataKeyValue("slip_no");
             try
             {
                 GridEditableItem item = (GridEditableItem)e.Item;
@@ -977,7 +977,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "delete from acc01d20 where inv_code = @inv_code and slip_no = @slip_no";
-                cmd.Parameters.AddWithValue("@slip_no", InvCode);
+                cmd.Parameters.AddWithValue("@slip_no", SlipNo);
                 cmd.Parameters.AddWithValue("@inv_code", InvCode);
                 cmd.ExecuteNonQuery();
                 con.Close();
