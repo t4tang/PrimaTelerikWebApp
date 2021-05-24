@@ -339,7 +339,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
                 cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_cashed.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@cur_code", txt_currency.Text);
-                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Value));
                 cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
@@ -349,7 +349,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
                 cmd.Parameters.AddWithValue("@trans_kind", 1);
                 cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
                 cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
-                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs2.Text));
+                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs2.Value));
                 cmd.Parameters.AddWithValue("@cur_code_acc", txt_curr2.Text);
                 cmd.Parameters.AddWithValue("@noctrl", txt_ctrl.Text);
                 cmd.Parameters.AddWithValue("@kursBeli", 0);
@@ -1063,8 +1063,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_goods_issued_journal";
-            cmd.Parameters.AddWithValue("@doc_code", slip_no);
+            cmd.CommandText = "sp_get_bank_payment_journal";
+            cmd.Parameters.AddWithValue("@slip_no", slip_no);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
