@@ -886,35 +886,35 @@
                                                     </ColumnGroups>
                                                     <Columns>
                                                         <telerik:GridBoundColumn DataField="accountcode" HeaderStyle-Width="100px" HeaderText="Account No." SortExpression="accountcode"
-                                                            UniqueName="accountcode" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="70px">                                
+                                                            UniqueName="accountcode" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="100px">                                
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="accountname" HeaderStyle-Width="250px" HeaderText="Account Name" SortExpression="accountname"
-                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >                                
+                                                        <telerik:GridBoundColumn DataField="accountname" HeaderStyle-Width="200px" HeaderText="Account Name" SortExpression="accountname"
+                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="200px" >                                
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="cur_code" HeaderStyle-Width="250px" HeaderText="Currency" SortExpression="cur_code"
-                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >                                
+                                                        <telerik:GridBoundColumn DataField="cur_code" HeaderStyle-Width="80px" HeaderText="Currency" SortExpression="cur_code"
+                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="80px" >                                
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="kurs" HeaderStyle-Width="250px" HeaderText="Kurs" SortExpression="kurs"
-                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >                                
+                                                        <telerik:GridBoundColumn DataField="kurs" HeaderStyle-Width="100px" HeaderText="Kurs" SortExpression="kurs"
+                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="100px" >                                
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="debet" HeaderStyle-Width="100px" HeaderText="Debet" SortExpression="debet"
-                                                            UniqueName="debet" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="IDR" 
+                                                            UniqueName="debet" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="IDR" ItemStyle-Width="100px" 
                                                             DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="credit" HeaderStyle-Width="100px" HeaderText="Credit" SortExpression="credit"
-                                                            UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="IDR" 
+                                                            UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="IDR" ItemStyle-Width="100px" 
                                                             DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="debet" HeaderStyle-Width="100px" HeaderText="Debet" SortExpression="debet"
-                                                            UniqueName="debet" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="Valas" 
+                                                            UniqueName="debet" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="Valas" ItemStyle-Width="100px" 
                                                             DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="credit" HeaderStyle-Width="100px" HeaderText="Credit" SortExpression="credit"
-                                                            UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="Valas" 
+                                                            UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="Valas" ItemStyle-Width="100px" 
                                                             DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="remark" HeaderStyle-Width="200px" HeaderText="Remark" SortExpression="remark"
-                                                            UniqueName="remark" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >
+                                                        <telerik:GridBoundColumn DataField="remark" HeaderStyle-Width="250px" HeaderText="Remark" SortExpression="remark"
+                                                            UniqueName="remark" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="250px" >
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
