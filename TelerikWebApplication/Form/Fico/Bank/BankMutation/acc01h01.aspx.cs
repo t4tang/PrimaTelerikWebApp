@@ -128,6 +128,15 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
         }
         #endregion
 
+        protected void btnNew_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["TableDetail"] = null;
+            Session["actionHeader"] = "headerNew";
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
+            //CalculateTotal();
+        }
+
         protected void btnSearch1_Click(object sender, EventArgs e)
         {
             RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_bank_prm.SelectedValue);
@@ -1042,15 +1051,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
         #endregion
 
-        protected void btnNew_Click(object sender, ImageClickEventArgs e)
-        {
-            Session["TableDetail"] = null;
-            Session["actionHeader"] = "headerNew";
-            RadGrid1.MasterTableView.IsItemInserted = true;
-            RadGrid1.MasterTableView.Rebind();
-            //CalculateTotal();
-        }
-
         protected void btnSave_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -1180,8 +1180,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                     cmd.ExecuteNonQuery();
 
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -1211,16 +1209,62 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 RadGrid1.MasterTableView.IsItemInserted = false;
             }
         }
-        //private void CalculateTotal()
-        //{
-        //    //double amount = 0;
-        //    double sum = 0;
 
-        //    sum = (Convert.ToDouble(txt_Jumlah));
+        protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            if (Session["actionHeader"].ToString() == "headerEdit")
+            {
+                (sender as RadGrid).DataSource = GetDataJournalTable(tr_code);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = new string[] { };
+            }
+        }
 
-        //    txt_total.Text = sum.ToString();
+        public DataTable GetDataJournalTable(string NoBuk)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_Bank_Mutation_journal";
+            cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
 
-        //}
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return DT;
+        }
+
+        protected void RadGrid3_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+        }
+        private void CalculateTotal()
+        {
+            //double amount = 0;
+            double sum = 0;
+
+            sum = (Convert.ToDouble(txt_Jumlah));
+
+            txt_total.Text = sum.ToString();
+
+        }
 
         //public static double total()
         //{
