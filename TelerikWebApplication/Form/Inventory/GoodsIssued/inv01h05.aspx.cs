@@ -189,6 +189,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             cmd.Parameters.AddWithValue("@date", fromDate);
             cmd.Parameters.AddWithValue("@todate", toDate);
             cmd.Parameters.AddWithValue("@project", project);
+            cmd.Parameters.AddWithValue("@type_do", "6");
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);

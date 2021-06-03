@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="pur01h02EditForm.aspx.cs" Inherits="TelerikWebApplication.Form.Purchase.Purchase_order.pur01h02EditForm" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="pur01h02EditForm.aspx.cs" Inherits="TelerikWebApplication.Form.Purchase.Purchase_asset.pur01h02EditForm" %>
 
 <!DOCTYPE html>
 

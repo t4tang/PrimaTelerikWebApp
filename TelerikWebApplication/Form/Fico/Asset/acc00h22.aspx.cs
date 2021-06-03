@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 
 namespace TelerikWebApplication.Form.Fico.Asset
 {
@@ -20,6 +20,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         SqlCommand cmd = new SqlCommand();
 
         private const int ItemsPerRequest = 10;
+        RadTextBox txt_doc_code;
         RadComboBox cb_depre_by_prm;
         RadComboBox cb_years_depre_prm;
         RadComboBox cb_ur_number;
@@ -61,18 +62,18 @@ namespace TelerikWebApplication.Form.Fico.Asset
         RadTextBox txt_order_no;
         RadDatePicker dtp_order_date;
         RadNumericTextBox txt_uselife_hour;
-        RadTextBox txt_pre_depre_month;
+        RadNumericTextBox txt_pre_depre_month;
         RadNumericTextBox txt_pre_depre_val;
         RadNumericTextBox txt_acq_val;
         RadNumericTextBox txt_salvage_val;
         RadDatePicker dtp_depre_start;
         RadDatePicker dtp_depre_last_post;
-        RadDatePicker dtp_sold_date;
-        RadNumericTextBox txt_actual_resale_val;
+        //RadDatePicker dtp_sold_date;
+        //RadNumericTextBox txt_actual_resale_val;
         RadNumericTextBox txt_hm_min;
         RadTabStrip RadTabStrip1;
         RadGrid RadGrid2;
-        
+        Button btnCancel;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -86,14 +87,14 @@ namespace TelerikWebApplication.Form.Fico.Asset
                 //cb_years_depre_prm.Text = (DateTime.Today.Year).ToString();
 
                 Session["action"] = "firstLoad";
-                //cb_ur_number.Enabled = false;
+                Session["actionHeader"] = null;
             }
         }
 
         protected void cb_status_prm_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("Registered");
-            (sender as RadComboBox).Items.Add("Unregistered");
+            (sender as RadComboBox).Items.Add("Unregister");
             (sender as RadComboBox).Items.Add("Scrap");
             (sender as RadComboBox).Items.Add("Sold");
             (sender as RadComboBox).Items.Add("Lost");
@@ -105,7 +106,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             {
                 (sender as RadComboBox).SelectedValue = "B";
             }
-            else if ((sender as RadComboBox).Text == "Unregistered")
+            else if ((sender as RadComboBox).Text == "Unregister")
             {
                 (sender as RadComboBox).SelectedValue = "N";
             }
@@ -273,7 +274,8 @@ namespace TelerikWebApplication.Form.Fico.Asset
             "(inv01d01.part_qty - (SELECT  ISNULL(SUM(acc00h22.Qty), 0) FROM acc00h22  WHERE(acc00h22.ur_no = inv01h01.doc_code) AND " +
             "(acc00h22.stedit <> '4') AND (acc00h22.prod_code = inv01d01.part_code))) AS 'qty_Sisa' FROM inv01d01, inv01h01 WHERE inv01h01.doc_code = inv01d01.doc_code AND " +
             "inv01h01.stEdit <> '4' AND inv01h01.tAsset = '1' AND inv01h01.trans_status = '01' AND (inv01d01.part_qty - (SELECT  ISNULL(SUM(acc00h22.Qty), 0) FROM acc00h22 " +
-            "WHERE (acc00h22.ur_no = inv01h01.doc_code) AND (acc00h22.stedit <> '4') AND (acc00h22.prod_code = inv01d01.part_code) AND inv01d01.doc_code LIKE @text + '%')) > 0 ", con);
+            "WHERE (inv01h01.tAsset = '1') AND (acc00h22.ur_no = inv01h01.doc_code) AND (acc00h22.stedit <> '4') AND (acc00h22.prod_code = inv01d01.part_code) " +
+            "AND inv01d01.doc_code LIKE @text + '%')) > 0 ", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -287,11 +289,25 @@ namespace TelerikWebApplication.Form.Fico.Asset
 
         protected void cb_ur_number_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+            RadTextBox txt_asset_name = item.FindControl("txt_asset_name") as RadTextBox;
+            RadTextBox txt_material_code = item.FindControl("txt_material_code") as RadTextBox;
+            RadNumericTextBox txt_qty = item.FindControl("txt_qty") as RadNumericTextBox;
+            RadComboBox cb_uom = item.FindControl("cb_uom") as RadComboBox;
+            RadTextBox txt_spec = item.FindControl("txt_spec") as RadTextBox;
+            RadComboBox cb_project = item.FindControl("cb_project") as RadComboBox;
+            RadComboBox cb_cost_center = item.FindControl("cb_cost_center") as RadComboBox;
+            RadTextBox txt_status = item.FindControl("txt_status") as RadTextBox;
+
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT part_code, part_desc, part_unit, part_desc FROM inv01d01 WHERE doc_code = @text AND nomer = @nomer";
+            cmd.CommandText = "SELECT d.part_code, d.part_desc, d.part_qty, d.part_unit, reg.region_name, cc.CostCenterName, 'Unregister' AS [status] " +
+                              "FROM inv01d01 d, inv01h01 h, inv00h09 reg, inv00h11 cc " +
+                              "WHERE d.doc_code = h.doc_code AND reg.region_code = h.region_code AND cc.CostCenter = h.dept_code AND d.doc_code = @text AND d.nomer = @nomer";
             cmd.Parameters.AddWithValue("@text", (sender as RadComboBox).Text);
             cmd.Parameters.AddWithValue("@nomer", (sender as RadComboBox).SelectedValue);
             SqlDataReader dr;
@@ -300,9 +316,13 @@ namespace TelerikWebApplication.Form.Fico.Asset
             {
                 txt_asset_name.Text = dr["part_desc"].ToString();
                 txt_material_code.Text = dr["part_code"].ToString();
+                //txt_qty.Text = dr["part_qty"].ToString();
                 txt_qty.Text = "1";
                 cb_uom.Text = dr["part_unit"].ToString();
                 txt_spec.Text= dr["part_desc"].ToString();
+                cb_project.Text = dr["region_name"].ToString();
+                cb_cost_center.Text = dr["CostCenterName"].ToString();
+                txt_status.Text = dr["status"].ToString();
             }
             
             dr.Close();            
@@ -757,6 +777,10 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         protected void cb_unit_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+            RadComboBox cb_project = item.FindControl("cb_project") as RadComboBox;
+
             (sender as RadComboBox).Text = "";
             LoadUnit(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
         }
@@ -907,15 +931,9 @@ namespace TelerikWebApplication.Form.Fico.Asset
 
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
-            //if (Session["action"].ToString() != "firstLoad")
-            //{
-            //    clear_text(Page.Controls);
-            //}
-            //Session["action"] = "new";
-            //cb_ur_number.Enabled = true;
             RadGrid1.MasterTableView.IsItemInserted = true;
             RadGrid1.MasterTableView.Rebind();
-            RadTabStrip1.Tabs[4].Enabled = false;
+            Session["actionHeader"] = "headerNew";
         }
         private void clear_text(ControlCollection ctrls)
         {
@@ -1125,27 +1143,60 @@ namespace TelerikWebApplication.Form.Fico.Asset
             }
         }
 
-        protected void btnSave_Click(object sender, ImageClickEventArgs e)
+        protected void btnSave_Click(object sender, EventArgs e)
         {
-            System.Web.UI.WebControls.Button btn = (System.Web.UI.WebControls.Button)sender;
+            Button btn = (Button)sender;
             GridEditableItem item = (GridEditableItem)btn.NamingContainer;
+            txt_doc_code = (RadTextBox)item.FindControl("txt_doc_code");
 
             txt_doc_number = (RadTextBox)item.FindControl("txt_doc_number");
             cb_asset_class = (RadComboBox)item.FindControl("cb_asset_class");
             txt_asset_name = (RadTextBox)item.FindControl("txt_asset_name");
-
-
+            txt_status = (RadTextBox)item.FindControl("txt_status");
+            txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
+            cb_uom = (RadComboBox)item.FindControl("cb_uom");
+            cb_cost_center = (RadComboBox)item.FindControl("cb_cost_center");
+            cb_project = (RadComboBox)item.FindControl("cb_project");
+            txt_material_code = (RadTextBox)item.FindControl("txt_material_code");
+            cb_taxx_group = (RadComboBox)item.FindControl("cb_taxx_group");
+            cb_unit = (RadComboBox)item.FindControl("cb_unit");
+            cb_ur_number = (RadComboBox)item.FindControl("cb_ur_number");
+            cb_asset_type = (RadComboBox)item.FindControl("cb_asset_type");
+            cb_pic = (RadComboBox)item.FindControl("cb_pic");
+            txt_spec = (RadTextBox)item.FindControl("txt_spec");
+            RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
+            RadTabStrip1 = (RadTabStrip)item.FindControl("RadTabStrip1");
+            txt_pur_cost = (RadNumericTextBox)item.FindControl("txt_pur_cost");
+            txt_pur_cost_valas = (RadNumericTextBox)item.FindControl("txt_pur_cost_valas");
+            txt_pre_depre_val = (RadNumericTextBox)item.FindControl("txt_pre_depre_val");
+            dtp_order_date = (RadDatePicker)item.FindControl("dtp_order_date");
+            txt_salvage_val = (RadNumericTextBox)item.FindControl("txt_salvage_val");
+            cb_currency = (RadComboBox)item.FindControl("cb_currency");
+            txt_tax_kurs = (RadTextBox)item.FindControl("txt_tax_kurs");
+            cb_asset_status = (RadComboBox)item.FindControl("cb_asset_status");
+            txt_order_no = (RadTextBox)item.FindControl("txt_order_no");
+            txt_serial_number = (RadTextBox)item.FindControl("txt_serial_number");
+            txt_use_life_year = (RadTextBox)item.FindControl("txt_use_life_year");
+            txt_dep_method = (RadTextBox)item.FindControl("txt_dep_method");
+            txt_appreciation = (RadTextBox)item.FindControl("txt_appreciation");
+            dtp_depre_start = (RadDatePicker)item.FindControl("dtp_depre_start");
+            txt_acq_val = (RadNumericTextBox)item.FindControl("txt_acq_val");
+            txt_pre_depre_month = (RadNumericTextBox)item.FindControl("txt_pre_depre_month");
+            dtp_depre_last_post = (RadDatePicker)item.FindControl("dtp_depre_last_post");
+            txt_uselife_hour = (RadNumericTextBox)item.FindControl("txt_uselife_hour");
+            txt_hm_min = (RadNumericTextBox)item.FindControl("txt_hm_min");
+            btnCancel = (Button)item.FindControl("btnCancel");
             long maxNo;
             string run = null;
             
             try
             {
-                if (Session["action"].ToString() == "edit")
+                if (Session["actionHeader"].ToString() == "headerEdit")
                 {
-                    run = txt_doc_number.Text;
+                    run = txt_doc_code.Text;
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT TOP(1) posting FROM acc00d22 WHERE asset_id = '" + txt_doc_number.Text + "'", con);
+                    cmd = new SqlCommand("SELECT TOP(1) posting FROM acc00d22 WHERE asset_id = '" + txt_doc_code.Text + "'", con);
                     sdr = cmd.ExecuteReader();
                     while (sdr.Read())
                     {
@@ -1167,12 +1218,12 @@ namespace TelerikWebApplication.Form.Fico.Asset
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT MAX(RIGHT( ak_id , 6 )) + 1 FROM ACC00H22 WHERE (asset_id LIKE '" + cb_asset_class.SelectedValue +"' + '%' )", con);
+                    cmd = new SqlCommand("SELECT MAX(RIGHT( asset_id , 6 )) + 1 FROM ACC00H22 WHERE (asset_id LIKE '" + cb_asset_class.SelectedValue +"' + '%' )", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = cb_asset_class.SelectedValue + "000001";
+                        run = cb_asset_class.SelectedValue + "-" + "000001";
                     }
                     else if (sdr.Read())
                     {
@@ -1185,68 +1236,119 @@ namespace TelerikWebApplication.Form.Fico.Asset
 
                 con.Open();
                 cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_asset_register";
-                cmd.Parameters.AddWithValue("@ak_id", run);
-                cmd.Parameters.AddWithValue("@AssetName", txt_asset_name.Text);
-                cmd.Parameters.AddWithValue("@AssetSpec", txt_spec.Text);
-                cmd.Parameters.AddWithValue("@ak_code", cb_asset_class.SelectedValue);
-                cmd.Parameters.AddWithValue("@ak_code_ori", cb_asset_class.SelectedValue);
-                cmd.Parameters.AddWithValue("@Qty", Convert.ToDecimal(txt_qty.Text));
-                cmd.Parameters.AddWithValue("@SatQty", cb_uom.Text);
-                cmd.Parameters.AddWithValue("@Harga", Convert.ToDecimal(txt_pur_cost.Text));
-                cmd.Parameters.AddWithValue("@Jumlah", Convert.ToDecimal(txt_pur_cost_valas.Text));
-                cmd.Parameters.AddWithValue("@Susut", Convert.ToDecimal(txt_pre_depre_val.Text));
-                cmd.Parameters.AddWithValue("@jumlah_jual", 0);
-                cmd.Parameters.AddWithValue("@tgl_beli", string.Format("{0:yyyy-MM-dd}", dtp_order_date.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@harga_min", Convert.ToDecimal(txt_salvage_val.Text));
-                cmd.Parameters.AddWithValue("@Status", "B");
-                cmd.Parameters.AddWithValue("@stedit", "1");
-                cmd.Parameters.AddWithValue("@userid", public_str.user_id);
-                cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@cur_code", cb_currency.SelectedValue);
-                cmd.Parameters.AddWithValue("@KursTax", Convert.ToDouble(txt_tax_kurs.Text));
-                cmd.Parameters.AddWithValue("@HargaOri", Convert.ToDecimal(txt_pur_cost_valas.Text));
-                cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
-                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-                cmd.Parameters.AddWithValue("@DataStatus", cb_asset_status.SelectedValue);
-                cmd.Parameters.AddWithValue("@ordernumber", txt_order_no.Text);
-                cmd.Parameters.AddWithValue("@SerialNumber", txt_serial_number.Text);
-                cmd.Parameters.AddWithValue("@prod_code", txt_material_code.Text);
-                cmd.Parameters.AddWithValue("@AK_GROUP", cb_asset_type.SelectedValue);
-                cmd.Parameters.AddWithValue("@TaxGroup", cb_taxx_group.SelectedValue);
-                cmd.Parameters.AddWithValue("@Pic_Code", cb_pic.SelectedValue);
-                cmd.Parameters.AddWithValue("@unit_code", cb_unit.SelectedValue);
-                cmd.Parameters.AddWithValue("@exp_life_year", Convert.ToInt32(txt_use_life_year.Text));
-                cmd.Parameters.AddWithValue("@mtd", txt_dep_method.Text );
-                cmd.Parameters.AddWithValue("@mtd_per", Convert.ToDecimal(txt_appreciation.Text));
-                cmd.Parameters.AddWithValue("@asset_id", run);
-                cmd.Parameters.AddWithValue("@Depstart", string.Format("{0:yyyy-MM-dd}", dtp_depre_start.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@aquis_value", Convert.ToDecimal(txt_acq_val.Text));
-                cmd.Parameters.AddWithValue("@IOCC", "IO");
-                cmd.Parameters.AddWithValue("@susut_month", Convert.ToInt32(txt_pre_depre_month.Text));
-                cmd.Parameters.AddWithValue("@depstart_pos", string.Format("{0:yyyy-MM-dd}", dtp_depre_last_post.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@status_trans", "0");
-                cmd.Parameters.AddWithValue("@ur_no", cb_ur_number.Text);
-                //cmd.Parameters.AddWithValue("@harga_jual", Convert.ToDecimal(txt_actual_resale_val.Text));
-                //cmd.Parameters.AddWithValue("@tgl_jual", string.Format("{0:yyyy-MM-dd}", dtp_sold_date.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@exp_life_hour", Convert.ToInt32(txt_uselife_hour.Text));
-                cmd.Parameters.AddWithValue("@hm_min", Convert.ToDecimal(txt_hm_min.Text));
-                //cmd.Parameters.AddWithValue("@hm_rate", Convert.ToDouble(txt_hm_rate.Text));
-                cmd.ExecuteNonQuery();
-                con.Close();
+                cmd.CommandType = CommandType.StoredProcedure;
+                if (txt_status.Text == "Unregister")
+                {
+                    cmd.CommandText = "sp_save_asset_unregister";
+                    cmd.Parameters.AddWithValue("@asset_id", run);
+                    cmd.Parameters.AddWithValue("@asset_number", txt_doc_number.Text);
+                    cmd.Parameters.AddWithValue("@AssetName", txt_asset_name.Text);
+                    cmd.Parameters.AddWithValue("@AssetSpec", txt_spec.Text);
+                    cmd.Parameters.AddWithValue("@ak_code", cb_asset_class.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Qty", Convert.ToDecimal(txt_qty.Value));
+                    cmd.Parameters.AddWithValue("@SatQty", cb_uom.Text);
+                    cmd.Parameters.AddWithValue("@Harga", 0);
+                    cmd.Parameters.AddWithValue("@Jumlah", 0);
+                    cmd.Parameters.AddWithValue("@Status", "N");
+                    cmd.Parameters.AddWithValue("@stedit", "1");
+                    cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                    cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                    cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
+                    cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+                    cmd.Parameters.AddWithValue("@prod_code", txt_material_code.Text);
+                    cmd.Parameters.AddWithValue("@TaxGroup", cb_taxx_group.SelectedValue);
+                    cmd.Parameters.AddWithValue("@unit_code", cb_unit.SelectedValue);
+                    cmd.Parameters.AddWithValue("@ur_no", cb_ur_number.Text);
+                    cmd.Parameters.AddWithValue("@AK_GROUP", cb_asset_type.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Pic_Code", cb_pic.SelectedValue);
+                }
+                else
+                {
+                    cmd.CommandText = "sp_save_asset_register";
+                    cmd.Parameters.AddWithValue("@asset_id", run);
+                    cmd.Parameters.AddWithValue("@asset_number", txt_doc_number.Text);
+                    cmd.Parameters.AddWithValue("@AssetName", txt_asset_name.Text);
+                    cmd.Parameters.AddWithValue("@AssetSpec", txt_spec.Text);
+                    cmd.Parameters.AddWithValue("@ak_code", cb_asset_class.SelectedValue);
+                    cmd.Parameters.AddWithValue("@ak_code_ori", cb_asset_class.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Qty", txt_qty.Value);
+                    cmd.Parameters.AddWithValue("@SatQty", cb_uom.Text);
+                    cmd.Parameters.AddWithValue("@Harga", txt_pur_cost.Value);
+                    cmd.Parameters.AddWithValue("@Jumlah", txt_pur_cost_valas.Value);
+                    cmd.Parameters.AddWithValue("@Susut", txt_pre_depre_val.Value);
+                    cmd.Parameters.AddWithValue("@jumlah_jual", 0);
+                    cmd.Parameters.AddWithValue("@tgl_beli", dtp_order_date.SelectedDate.Value);
+                    cmd.Parameters.AddWithValue("@harga_min", txt_salvage_val.Value);
+                    cmd.Parameters.AddWithValue("@Status", "B");
+                    cmd.Parameters.AddWithValue("@stedit", "1");
+                    cmd.Parameters.AddWithValue("@userid", public_str.user_id);
+                    cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                    cmd.Parameters.AddWithValue("@cur_code", cb_currency.SelectedValue);
+                    cmd.Parameters.AddWithValue("@KursTax", Convert.ToDouble(txt_tax_kurs.Text));
+                    cmd.Parameters.AddWithValue("@HargaOri", Convert.ToDecimal(txt_pur_cost_valas.Text));
+                    cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
+                    cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+                    cmd.Parameters.AddWithValue("@DataStatus", cb_asset_status.SelectedValue);
+                    cmd.Parameters.AddWithValue("@ordernumber", txt_order_no.Text);
+                    cmd.Parameters.AddWithValue("@SerialNumber", txt_serial_number.Text);
+                    cmd.Parameters.AddWithValue("@prod_code", txt_material_code.Text);
+                    cmd.Parameters.AddWithValue("@AK_GROUP", cb_asset_type.SelectedValue);
+                    cmd.Parameters.AddWithValue("@TaxGroup", cb_taxx_group.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Pic_Code", cb_pic.SelectedValue);
+                    cmd.Parameters.AddWithValue("@unit_code", cb_unit.SelectedValue);
+                    cmd.Parameters.AddWithValue("@exp_life_year", Convert.ToInt32(txt_use_life_year.Text));
+                    cmd.Parameters.AddWithValue("@mtd", txt_dep_method.Text);
+                    cmd.Parameters.AddWithValue("@mtd_per", Convert.ToDecimal(txt_appreciation.Text));
+                    cmd.Parameters.AddWithValue("@Depstart", dtp_depre_start.SelectedDate.Value);
+                    cmd.Parameters.AddWithValue("@aquis_value", txt_acq_val.Value);
+                    cmd.Parameters.AddWithValue("@IOCC", "IO");
+                    cmd.Parameters.AddWithValue("@susut_month", Convert.ToInt32(txt_pre_depre_month.Text));
+                    cmd.Parameters.AddWithValue("@depstart_pos", dtp_depre_last_post.SelectedDate.Value);
+                    cmd.Parameters.AddWithValue("@status_trans", "0");
+                    cmd.Parameters.AddWithValue("@ur_no", cb_ur_number.Text);
+                    //cmd.Parameters.AddWithValue("@harga_jual", Convert.ToDecimal(txt_actual_resale_val.Text));
+                    //cmd.Parameters.AddWithValue("@tgl_jual", string.Format("{0:yyyy-MM-dd}", dtp_sold_date.SelectedDate.Value));
+                    cmd.Parameters.AddWithValue("@exp_life_hour", txt_uselife_hour.Value);
+                    cmd.Parameters.AddWithValue("@hm_min", Convert.ToDecimal(txt_hm_min.Text));
+                    //cmd.Parameters.AddWithValue("@hm_rate", Convert.ToDouble(txt_hm_rate.Text));
+                }
 
-                txt_doc_number.Text = run;
-                RadGrid2.Enabled = true;
-                //btnSave.Enabled = false;
-                RadTabStrip1.Tabs[4].Enabled = true;
-                ScriptManager.RegisterClientScriptBlock(Page, typeof(Page), "ClientScript", "alert('Data saccessfully saved')", true);
+                cmd.ExecuteNonQuery();
+                //con.Close();
+
+                //txt_doc_code.Text = run;
+                //btnCancel.Text = "Close";
+                //RadGrid2.Enabled = true;
+                //RadTabStrip1.Tabs[4].Enabled = true;
+                //ScriptManager.RegisterClientScriptBlock(Page, typeof(Page), "ClientScript", "alert('Data saccessfully saved')", true);
             }
             catch (Exception ex)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + ex + "');", true);
                 con.Close();
+                return;
+            }
+            finally
+            {
+                con.Close();
+                txt_doc_code.Text = run;
+                txt_doc_number.Text = run;
+                notif.Text = "Data telah disimpan";
+                notif.Show();
+
+                if ((sender as Button).Text == "Update")
+                {
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    (sender as Button).Text = "Update";
+                    btnCancel.Text = "Close";
+                }
+
+                RadGrid1.MasterTableView.IsItemInserted = false;
             }
         }
 
@@ -1333,7 +1435,14 @@ namespace TelerikWebApplication.Form.Fico.Asset
             RadGrid1.MasterTableView.Rebind();
         }
 
-
+        protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Edit")
+            {
+                Session["actionHeader"] = "headerEdit";
+                Session["actionDetail"] = null;
+            }
+        }
     }
 
 }
