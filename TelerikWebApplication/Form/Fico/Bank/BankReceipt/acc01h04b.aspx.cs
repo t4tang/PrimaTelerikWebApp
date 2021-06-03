@@ -21,34 +21,37 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         private const int ItemsPerRequest = 10;
         public static string KoRek = null;
         public static string tr_code = null;
-        public static string selected_supplier = null;
+        public static string selected_customer = null; 
         public static string selected_currency = null;
         public static string selected_amount = null;
         public static string selected_TotAmount = null;
 
         DataTable dtValues;
-        RadTextBox txt_currency;
         RadNumericTextBox txt_kurs;
-        RadTextBox txt_curr2;
-        RadNumericTextBox txt_kurs2;
         RadComboBox cb_Cust;
         RadDatePicker dtp_bm;
         RadTextBox txt_cur_code;
         RadTextBox txt_cur_code_acc;
-        RadTextBox txt_kurs_acc;
+        RadNumericTextBox txt_kurs_acc;
 
         public DataTable DetailDtbl()
         {
             dtValues = new DataTable();
             dtValues.Columns.Add("slip_no", typeof(string));
             dtValues.Columns.Add("inv_code", typeof(string));
-            dtValues.Columns.Add("fkno", typeof(string));
+            dtValues.Columns.Add("date", typeof(string));
             dtValues.Columns.Add("pay_amount", typeof(double));
-            dtValues.Columns.Add("slip_date", typeof(string));
-            dtValues.Columns.Add("remark", typeof(string));
+            dtValues.Columns.Add("kurs", typeof(string));
+            dtValues.Columns.Add("kurs_tax", typeof(string));
             //dtValues.Columns.Add("Ket", typeof(string));
             dtValues.Columns.Add("dept_code", typeof(string));
             dtValues.Columns.Add("region_code", typeof(string));
+            dtValues.Columns.Add("remark", typeof(string));
+            dtValues.Columns.Add("POTax", typeof(string));
+            dtValues.Columns.Add("OTax", typeof(string));
+            dtValues.Columns.Add("JOTax", typeof(string));
+            dtValues.Columns.Add("NoPPH23", typeof(double));
+            dtValues.Columns.Add("PPHAmount", typeof(double));
             dtValues.Columns.Add("run", typeof(int));
 
             return dtValues;
@@ -75,29 +78,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_bank_prm.SelectedValue);
             RadGrid1.DataBind();
         }
-        protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
-        {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_bank_prm.SelectedValue);
-        }
 
-        //protected void LoadBank(string name, string projectID, RadComboBox cb)
-        //{
-        //    SqlConnection con = new SqlConnection(
-        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-
-        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(KoBank) as code, upper(NamBank) as name FROM acc00h01 " +
-        //        "WHERE stEdit <> '4' AND region_code = @project AND NamBank LIKE @text + '%'", con);
-        //    adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-        //    adapter.SelectCommand.Parameters.AddWithValue("@text", name);
-        //    DataTable dt = new DataTable();
-        //    adapter.Fill(dt);
-
-        //    cb.DataTextField = "name";
-        //    cb.DataValueField = "code";
-        //    cb.DataSource = dt;
-        //    cb.DataBind();
-        //}
-
+        #region RadGrid1
         public DataTable GetDataTable(string fromDate, string toDate, string Bank)
         {
             con.Open();
@@ -126,6 +108,123 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             return DT;
         }
 
+        protected void RadGrid1_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_bank_prm.SelectedValue);
+        }
+
+        protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            var slip_no = ((GridDataItem)e.Item).GetDataKeyValue("slip_no");
+
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "UPDATE acc01h04 SET Usr = @Usr, LastUpdate = GETDATE(), status = 4 WHERE (slip_no = @slip_no)";
+                cmd.Parameters.AddWithValue("@slip_no", slip_no);
+                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                Label lblOk = new Label();
+                lblOk.Text = "Data deleted successfully";
+                lblOk.ForeColor = System.Drawing.Color.Teal;
+                RadGrid1.Controls.Add(lblOk);
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGrid1.Controls.Add(lblError);
+                e.Canceled = true;
+            }
+        }
+
+        protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                ImageButton printLink = (ImageButton)e.Item.FindControl("PrintLink");
+                printLink.Attributes["href"] = "javascript:void(0);";
+                printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
+
+                //ImageButton journalLink = (ImageButton)e.Item.FindControl("JournalLink");
+                //printLink.Attributes["href"] = "javascript:void(0);";
+                //printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
+            }
+        }
+
+        protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Edit")
+            {
+                tr_code = null;
+                GridDataItem item = e.Item as GridDataItem;
+                string kode = item["slip_no"].Text;
+
+                selected_customer = item["cust_code"].Text;
+                selected_currency = item["cur_code"].Text;
+                selected_TotAmount = item["tot_pay"].Text;
+
+                tr_code = kode;
+
+                Session["actionHeader"] = "headerEdit";
+                Session["actionDetail"] = null;
+            }
+        }
+
+        protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (GridDataItem item in RadGrid1.SelectedItems)
+            {
+                tr_code = item["slip_no"].Text;
+                //selected_KoTrans = item["Kotrans"].Text;
+            }
+
+            Session["actionEdit"] = "list";
+        }
+
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            if (Session["action"].ToString() == "firstLoad")
+            {
+                if ((sender as RadGrid).MasterTableView.Items.Count > 0)
+                    (sender as RadGrid).MasterTableView.Items[0].Selected = true;
+                foreach (GridDataItem item in RadGrid1.SelectedItems)
+                {
+                    foreach (GridDataItem gItem in (sender as RadGrid).SelectedItems)
+                    {
+                        tr_code = gItem["slip_no"].Text;
+                        //selected_KoTrans = gItem["KoTrans"].Text;
+                    }
+                }
+            }
+        }
+        #endregion
+
+        //protected void LoadBank(string name, string projectID, RadComboBox cb)
+        //{
+        //    SqlConnection con = new SqlConnection(
+        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(KoBank) as code, upper(NamBank) as name FROM acc00h01 " +
+        //        "WHERE stEdit <> '4' AND region_code = @project AND NamBank LIKE @text + '%'", con);
+        //    adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+        //    adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+        //    DataTable dt = new DataTable();
+        //    adapter.Fill(dt);
+
+        //    cb.DataTextField = "name";
+        //    cb.DataValueField = "code";
+        //    cb.DataSource = dt;
+        //    cb.DataBind();
+        //} 
+
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
         {
             if (e.Argument == "Rebind")
@@ -143,6 +242,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             }
         }
 
+        #region Param
         protected void cb_bank_prm_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable data = GetBank(e.Text);
@@ -172,6 +272,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             dr.Close();
             con.Close();
         }
+        #endregion
 
         //protected void btnOk_Click(object sender, EventArgs e)
         //{
@@ -222,38 +323,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         //    }
         //}
 
-        protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
-        {
-            var slip_no = ((GridDataItem)e.Item).GetDataKeyValue("slip_no");
-
-            try
-            {
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h04 SET Usr = @Usr, LastUpdate = GETDATE(), status = 4 WHERE (slip_no = @slip_no)";
-                cmd.Parameters.AddWithValue("@slip_no", slip_no);
-                cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-                Label lblOk = new Label();
-                lblOk.Text = "Data deleted successfully";
-                lblOk.ForeColor = System.Drawing.Color.Teal;
-                RadGrid1.Controls.Add(lblOk);
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                RadGrid1.Controls.Add(lblError);
-                e.Canceled = true;
-            }
-        }
-
         protected void btnNew_Click(object sender, ImageClickEventArgs e)
         {
             Session["TableDetail"] = null;
@@ -299,13 +368,13 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             }
         }
 
-       
         //protected void btnPrint_Click(object sender, ImageClickEventArgs e)
         //{
         //    btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_no.Text);
         //    //update status jadi 3
         //}
 
+        #region Customer
         protected void cb_Cust_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable data = GetCust(e.Text);
@@ -336,19 +405,26 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
         protected void cb_Cust_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
             con.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select top(1) b.KursRun, a.cust_code, a.cur_code from acc00h07 a cross join acc00h04 b WHERE a.cust_name = '" + (sender as RadComboBox).Text + "'" +
-                " AND a.cur_code = b.cur_code order by tglKurs desc";
+            cmd.CommandText = "SELECT TOP(1) acc00h07.cust_code, acc00h07.cust_name, acc00h07.cur_code, acc00h04.KursRun " + 
+                                "FROM acc00h07, acc00h04 " +
+                                "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE acc00h04.cur_code = acc00h07.cur_code) AND cust_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 (sender as RadComboBox).SelectedValue = dr["cust_code"].ToString();
+                txt_cur_code = (RadTextBox)item.FindControl("txt_cur_code");
                 txt_cur_code.Text = dr["cur_code"].ToString();
-                txt_kurs.Text = dr["KursRun"].ToString();
+
+                txt_kurs = (RadNumericTextBox)item.FindControl("txt_kurs");
+                txt_kurs.Value = Convert.ToDouble(dr["KursRun"].ToString());
             }
             dr.Close();
 
@@ -363,6 +439,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             //}
 
             con.Close();
+
+            selected_customer = (sender as RadComboBox).SelectedValue;
+
         }
 
         private static DataTable GetCust(string text)
@@ -377,7 +456,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
             return data;
         }
+        #endregion
 
+        #region Bank
         private static DataTable GetBank(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoBank, NamBank FROM acc00h01 WHERE stEdit != 4 AND NamBank LIKE @text + '%'",
@@ -406,6 +487,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
         protected void cb_bank_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -416,8 +500,11 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             while (dr.Read())
             {
                 (sender as RadComboBox).SelectedValue = dr["KoBank"].ToString();
+                txt_cur_code_acc = (RadTextBox)item.FindControl("txt_cur_code_acc");
                 txt_cur_code_acc.Text = dr["cur_code"].ToString();
-                txt_kurs_acc.Text = dr["KursRun"].ToString();
+
+                txt_kurs_acc = (RadNumericTextBox)item.FindControl("txt_kurs_acc");
+                txt_kurs_acc.Value = Convert.ToDouble(dr["KursRun"].ToString());
             }
                 
             dr.Close();
@@ -448,20 +535,22 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             dr.Close();
             con.Close();
         }
+        #endregion
 
-        protected void LoadManPower(string name, RadComboBox cb)
+        #region Approval
+        protected void LoadManPower(string jabatan, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
-                "WHERE stedit <> '4' AND name LIKE @text + '%'", con);           
-            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+                "WHERE stedit <> '4' AND jabatan LIKE @text + '%'", con);           
+            adapter.SelectCommand.Parameters.AddWithValue("@text", jabatan); 
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            cb.DataTextField = "name";
-            cb.DataValueField = "nik";
+            cb.DataTextField = "jabatan";
+            cb.DataValueField = "name";
             cb.DataSource = dt;
             cb.DataBind();
         }
@@ -478,12 +567,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["name"].ToString();
             }
                
             dr.Close();
@@ -501,12 +590,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["name"].ToString();
             }
             dr.Close();
             con.Close();
@@ -524,12 +613,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["name"].ToString();
             }
             dr.Close();
             con.Close();
@@ -546,11 +635,11 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["name"].ToString();
             dr.Close();
             con.Close();
         }
@@ -567,12 +656,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["name"].ToString();
             }
                 
             dr.Close();
@@ -590,16 +679,44 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+                (sender as RadComboBox).SelectedValue = dr["name"].ToString();
             }
                 
             dr.Close();
             con.Close();
+        }
+        #endregion
+
+        #region RadGrid2
+        public DataTable GetDataDetailTable(string slip_no)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_BankReceiptVoucherD";
+            cmd.Parameters.AddWithValue("@slip_no", slip_no);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            dtValues = new DataTable();
+
+            try
+            {
+                sda.Fill(dtValues);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return dtValues;
         }
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
@@ -628,31 +745,113 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             }
         }
 
-        public DataTable GetDataDetailTable(string slip_no)
+        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
         {
-            con.Open();
-            cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Connection = con;
-            cmd.CommandText = "sp_get_BankReceiptVoucherD";
-            cmd.Parameters.AddWithValue("@slip_no", slip_no);
-            cmd.CommandTimeout = 0;
-            cmd.ExecuteNonQuery();
-            sda = new SqlDataAdapter(cmd);
 
-            DataTable DT = new DataTable();
+            GridEditableItem item = (GridEditableItem)e.Item;
 
+            dtValues = (DataTable)Session["TableDetail"];
+            DataRow drValue = dtValues.NewRow();
+            drValue["slip_no"] = tr_code;
+            drValue["inv_code"] = (item.FindControl("cb_inv_code") as RadComboBox).Text;
+            drValue["pay_amount"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadNumericTextBox).Value));
+            //drValue["pay_amount_acc"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
+            drValue["region_code"] = (item.FindControl("txt_project") as RadTextBox).Text;
+            drValue["dept_code"] = (item.FindControl("txt_cost_ctr") as RadTextBox).Text;
+            //drValue["pay_amount_idr"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
+            drValue["kurs"] = (Convert.ToDouble((item.FindControl("txt_kurs_detail") as RadNumericTextBox).Value));
+            drValue["kurs_tax"] = (Convert.ToDouble((item.FindControl("txt_kurs_tax_detail") as RadNumericTextBox).Value));
+            drValue["remark"] = (item.FindControl("txt_Ket") as RadTextBox).Text;
+            drValue["POTax"] = potax;
+            drValue["OTax"] = OTax;
+            drValue["JOTax"] = JOTax;
+            drValue["PPHAmount"] = DBNull.Value;
+            drValue["NoPPH23"] = DBNull.Value;
+
+
+            drValue.EndEdit(); //editing row in datatable
+            dtValues.AcceptChanges();
+            Session["TableDetail"] = dtValues;
+            (sender as RadGrid).Rebind();
+        }
+
+        protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
+        {
             try
             {
-                sda.Fill(DT);
+                GridEditableItem item = (GridEditableItem)e.Item;
+
+                //if (Session["actionEdit"].ToString() == "new" && Session["TableDetail"] == null)
+                if (Session["actionDetail"].ToString() == "detailNew" && Session["TableDetail"] == null)
+                {
+                    DetailDtbl();
+
+                    (sender as RadGrid).DataSource = dtValues; //populate RadGrid with datatable
+                    Session["TableDetail"] = dtValues;
+                }
+
+                dtValues = (DataTable)Session["TableDetail"];
+                DataRow drValue = dtValues.NewRow();
+                drValue["slip_no"] = tr_code;
+                drValue["inv_code"] = (item.FindControl("cb_inv_code_insert") as RadComboBox).Text;
+                drValue["pay_amount"] = (Convert.ToDouble((item.FindControl("txt_payment_insert") as RadNumericTextBox).Value));
+                //drValue["pay_amount_acc"] = (Convert.ToDouble((item.FindControl("txt_payment_insert") as RadTextBox).Text));
+                drValue["region_code"] = (item.FindControl("txt_project_insert") as RadTextBox).Text;
+                drValue["dept_code"] = (item.FindControl("txt_cost_ctr_insert") as RadTextBox).Text;
+                //drValue["pay_amount_idr"] = (Convert.ToDouble((item.FindControl("txt_payment_insert") as RadTextBox).Text));
+                drValue["kurs"] = (Convert.ToDouble((item.FindControl("txt_kurs_detail_insert") as RadNumericTextBox).Value));
+                drValue["kurs_tax"] = (Convert.ToDouble((item.FindControl("txt_kurs_tax_detail_insert") as RadNumericTextBox).Value));
+                drValue["remark"] = (item.FindControl("txt_Ket_insert") as RadTextBox).Text;
+                drValue["POTax"] = potax;
+                drValue["OTax"] = OTax;
+                drValue["JOTax"] = JOTax;
+                drValue["PPHAmount"] = DBNull.Value;
+                drValue["NoPPH23"] = DBNull.Value;
+
+                dtValues.Rows.Add(drValue); //adding new row into datatable
+                dtValues.AcceptChanges();
+                Session["TableDetail"] = dtValues;
+                (sender as RadGrid).Rebind();
+                Session["actionDetail"] = "detailList";
+
             }
-            finally
+            catch (Exception ex)
             {
                 con.Close();
+                Label lblError = new Label();
+                lblError.Text = "Unable to insert data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                (sender as RadGrid).Controls.Add(lblError);
+                e.Canceled = true;
             }
-
-            return DT;
         }
+
+        protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                Session["actionDetail"] = "detailNew";
+            }
+            else if (e.CommandName == RadGrid.EditCommandName)
+            {
+                Session["actionDetail"] = "detailEdit";
+            }
+        }
+
+        protected void RadGrid2_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 195;
+            }
+        }
+
         protected void RadGrid2_DeleteCommand(object sender, GridCommandEventArgs e)
         {
             var inv_code = ((GridDataItem)e.Item).GetDataKeyValue("inv_code");
@@ -686,7 +885,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 e.Canceled = true;
             }
         }
+        #endregion
 
+        #region INV_Code
         private static DataTable GetInv(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("select * from v_bank_receive_voucher_reff where inv_code LIKE @text + '%'",
@@ -759,24 +960,48 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-                    RadTextBox t_date = (RadTextBox)item.FindControl("txt_date");
-                    RadTextBox t_Net = (RadTextBox)item.FindControl("txt_payment");
-                    RadTextBox t_kurs_tax = (RadTextBox)item.FindControl("txt_kurs_tax");
-                    RadTextBox t_kurs = (RadTextBox)item.FindControl("txt_kurs");
-                    RadTextBox t_region_code = (RadTextBox)item.FindControl("txt_project");
-                    RadTextBox t_dept_code = (RadTextBox)item.FindControl("txt_cost_ctr");
-                    RadTextBox t_remark = (RadTextBox)item.FindControl("txt_Ket");
+                    if (Session["actionDetail"].ToString() == "detailNew")
+                    {
+                        RadTextBox t_date = (RadTextBox)item.FindControl("txt_date_insert");
+                        RadNumericTextBox t_Net = (RadNumericTextBox)item.FindControl("txt_payment_insert");
+                        RadNumericTextBox t_kurs_tax = (RadNumericTextBox)item.FindControl("txt_kurs_tax_detail_insert");
+                        RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kurs_detail_insert");
+                        RadTextBox t_region_code = (RadTextBox)item.FindControl("txt_project_insert");
+                        RadTextBox t_dept_code = (RadTextBox)item.FindControl("txt_cost_ctr_insert");
+                        RadTextBox t_remark = (RadTextBox)item.FindControl("txt_Ket_insert");
 
-                    t_date.Text = dtr["date"].ToString();
-                    t_Net.Text = dtr["JmlSisa"].ToString();
-                    t_kurs_tax.Text = dtr["kurs_tax"].ToString();
-                    t_kurs.Text = dtr["kurs"].ToString();
-                    t_region_code.Text = dtr["region_code"].ToString();
-                    t_dept_code.Text = dtr["dept_code"].ToString();
-                    t_remark.Text = dtr["remark"].ToString();
-                    JOTax = Convert.ToDouble(dtr["JOTax"].ToString());
-                    potax = Convert.ToDouble(dtr["POTax"].ToString());
-                    OTax = dtr["OTax"].ToString();
+                        t_date.Text = dtr["date"].ToString();
+                        t_Net.Text = dtr["JmlSisa"].ToString();
+                        t_kurs_tax.Text = dtr["kurs_tax"].ToString();
+                        t_kurs.Text = dtr["kurs"].ToString();
+                        t_region_code.Text = dtr["region_code"].ToString();
+                        t_dept_code.Text = dtr["dept_code"].ToString();
+                        t_remark.Text = dtr["remark"].ToString();
+                        JOTax = Convert.ToDouble(dtr["JOTax"].ToString());
+                        potax = Convert.ToDouble(dtr["POTax"].ToString());
+                        OTax = dtr["OTax"].ToString();
+                    }
+                    else if (Session["actionDetail"].ToString() == "detailEdit")
+                    {
+                        RadTextBox t_date = (RadTextBox)item.FindControl("txt_date");
+                        RadNumericTextBox t_Net = (RadNumericTextBox)item.FindControl("txt_payment");
+                        RadNumericTextBox t_kurs_tax = (RadNumericTextBox)item.FindControl("txt_kurs_tax_detail");
+                        RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kurs_detail");
+                        RadTextBox t_region_code = (RadTextBox)item.FindControl("txt_project");
+                        RadTextBox t_dept_code = (RadTextBox)item.FindControl("txt_cost_ctr");
+                        RadTextBox t_remark = (RadTextBox)item.FindControl("txt_Ket");
+
+                        t_date.Text = dtr["date"].ToString();
+                        t_Net.Text = dtr["JmlSisa"].ToString();
+                        t_kurs_tax.Text = dtr["kurs_tax"].ToString();
+                        t_kurs.Text = dtr["kurs"].ToString();
+                        t_region_code.Text = dtr["region_code"].ToString();
+                        t_dept_code.Text = dtr["dept_code"].ToString();
+                        t_remark.Text = dtr["remark"].ToString();
+                        JOTax = Convert.ToDouble(dtr["JOTax"].ToString());
+                        potax = Convert.ToDouble(dtr["POTax"].ToString());
+                        OTax = dtr["OTax"].ToString();
+                    } 
                 }
 
             }
@@ -804,71 +1029,11 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             dr.Close();
             con.Close();
         }
+        #endregion
 
         protected void btnJournal_Click(object sender, ImageClickEventArgs e)
         {
 
-        }
-
-        protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
-        {
-            if (e.Item is GridDataItem)
-            {
-                ImageButton printLink = (ImageButton)e.Item.FindControl("PrintLink");
-                printLink.Attributes["href"] = "javascript:void(0);";
-                printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
-
-                //ImageButton journalLink = (ImageButton)e.Item.FindControl("JournalLink");
-                //printLink.Attributes["href"] = "javascript:void(0);";
-                //printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["slip_no"], e.Item.ItemIndex);
-            }
-        }
-
-        protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
-        {
-            if (e.CommandName == "Edit")
-            {
-                tr_code = null;
-                GridDataItem item = e.Item as GridDataItem;
-                string kode = item["slip_no"].Text;
-
-                selected_supplier = item["cust_code"].Text;
-                selected_currency = item["cur_code"].Text;
-                selected_TotAmount = item["tot_pay"].Text;
-
-                tr_code = kode;
-
-                Session["actionHeader"] = "headerEdit";
-                Session["actionDetail"] = null;
-            }
-        }
-
-        protected void RadGrid1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            foreach (GridDataItem item in RadGrid1.SelectedItems)
-            {
-                tr_code = item["slip_no"].Text;
-                //selected_KoTrans = item["Kotrans"].Text;
-            }
-
-            Session["actionEdit"] = "list";
-        }
-
-        protected void RadGrid1_PreRender(object sender, EventArgs e)
-        {
-            if (Session["action"].ToString() == "firstLoad")
-            {
-                if ((sender as RadGrid).MasterTableView.Items.Count > 0)
-                    (sender as RadGrid).MasterTableView.Items[0].Selected = true;
-                foreach (GridDataItem item in RadGrid1.SelectedItems)
-                {
-                    foreach (GridDataItem gItem in (sender as RadGrid).SelectedItems)
-                    {
-                        tr_code = gItem["slip_no"].Text;
-                        //selected_KoTrans = gItem["KoTrans"].Text;
-                    }
-                }
-            }
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -881,10 +1046,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             RadTextBox txt_NoCtrl = (RadTextBox)item.FindControl("txt_NoCtrl");
             RadComboBox cb_Cust = (RadComboBox)item.FindControl("cb_Cust");
             RadTextBox txt_cur_code = (RadTextBox)item.FindControl("txt_cur_code");
-            RadTextBox txt_kurs = (RadTextBox)item.FindControl("txt_kurs");
+            RadNumericTextBox txt_kurs = (RadNumericTextBox)item.FindControl("txt_kurs");
             RadComboBox cb_bank = (RadComboBox)item.FindControl("cb_bank");
             RadTextBox txt_cur_code_acc = (RadTextBox)item.FindControl("txt_cur_code_acc");
-            RadTextBox txt_kurs_acc = (RadTextBox)item.FindControl("txt_kurs_acc");
+            RadNumericTextBox txt_kurs_acc = (RadNumericTextBox)item.FindControl("txt_kurs_acc");
             RadTextBox txt_inf_pay_no = (RadTextBox)item.FindControl("txt_inf_pay_no");
             RadDatePicker dtp_lm = (RadDatePicker)item.FindControl("dtp_lm");
             RadTextBox txt_Remark = (RadTextBox)item.FindControl("txt_Remark");
@@ -894,13 +1059,14 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
             Button btnCancel = (Button)item.FindControl("btnCancel");
             RadGrid Grid2 = (RadGrid)item.FindControl("RadGrid2");
+
             long maxNo;
             string run = null;
             string trDate = string.Format("{0:dd/MM/yyyy}", dtp_bm.SelectedDate);
 
             try
             {
-                if (Session["action"].ToString() == "edit")
+                if ((sender as Button).Text == "Update")
                 {
                     run = txt_slip_no.Text;
                 }
@@ -936,21 +1102,22 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd.CommandText = "sp_save_BankReceiptVoucherH";
                 cmd.Parameters.AddWithValue("@slip_no", run);
                 cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_bm.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
                 cmd.Parameters.AddWithValue("@noctrl", txt_NoCtrl.Text);
                 cmd.Parameters.AddWithValue("@cust_code", cb_Cust.SelectedValue);
                 cmd.Parameters.AddWithValue("@remark1", cb_Cust.Text);
-                cmd.Parameters.AddWithValue("@freby", cb_Prepared.SelectedValue);
-                cmd.Parameters.AddWithValue("@ordby", cb_Checked.SelectedValue);
-                cmd.Parameters.AddWithValue("@appby", cb_Approval.SelectedValue);
-                cmd.Parameters.AddWithValue("@Remark", txt_Remark.Text);
+                cmd.Parameters.AddWithValue("@cur_code", txt_cur_code.Text);
+                cmd.Parameters.AddWithValue("@kurs", (txt_kurs.Value));
+                cmd.Parameters.AddWithValue("@cashbank", cb_bank.SelectedValue);
+                cmd.Parameters.AddWithValue("@cur_code_acc", txt_cur_code_acc.Text);
+                cmd.Parameters.AddWithValue("@kurs_acc", (txt_kurs_acc.Value));
                 cmd.Parameters.AddWithValue("@inf_pay_no", txt_inf_pay_no.Text);
+                cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_lm.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@Remark", txt_Remark.Text);
+                cmd.Parameters.AddWithValue("@freby", cb_Prepared.Text);
+                cmd.Parameters.AddWithValue("@ordby", cb_Checked.Text);
+                cmd.Parameters.AddWithValue("@appby", cb_Approval.Text);
                 cmd.Parameters.AddWithValue("@tot_pay", 0);
                 cmd.Parameters.AddWithValue("@status", 1);
-                cmd.Parameters.AddWithValue("@cur_code", txt_cur_code.Text);
-                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
-                cmd.Parameters.AddWithValue("@cur_code_acc", txt_cur_code_acc.Text);
-                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs.Text));
                 cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
                 cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
@@ -963,39 +1130,42 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
                 foreach (GridDataItem itemD in Grid2.MasterTableView.Items)
                 {
-                    Label lbl_NoBuk;
                     Label lbl_inv_code;
-                    Label lbl_slip_date;
-                    Label lbl_remark;
-                    Label lbl_pay_amount;
-                    Label lbl_project_detail;
+                    //Label lbl_date;
+                    Label lbl_payment;
+                    Label lbl_kurs;
+                    Label lbl_kurs_tax;
+                    Label lbl_project;
                     Label lbl_cost_ctr;
-                    //Label lbl_cost_center;
+                    Label lbl_ket;
 
-                    lbl_NoBuk = (Label)itemD.FindControl("lbl_NoBuk");
                     lbl_inv_code = (Label)itemD.FindControl("lbl_inv_code");
-                    lbl_slip_date = (Label)itemD.FindControl("lbl_slip_date");
-                    lbl_remark = (Label)itemD.FindControl("lbl_remark");
-                    lbl_pay_amount = (Label)itemD.FindControl("lbl_pay_amount");
-                    lbl_project_detail = (Label)itemD.FindControl("lbl_project_detail");
+                    //lbl_date = (Label)itemD.FindControl("lbl_date");
+                    lbl_payment = (Label)itemD.FindControl("lbl_payment");
+                    lbl_kurs = (Label)itemD.FindControl("lbl_kurs");
+                    lbl_kurs_tax = (Label)itemD.FindControl("lbl_kurs_tax");
+                    lbl_project = (Label)itemD.FindControl("lbl_project");
                     lbl_cost_ctr = (Label)itemD.FindControl("lbl_cost_ctr");
-                    //lbl_cost_center = (Label)itemD.FindControl("lbl_cost_center");
+                    lbl_ket = (Label)itemD.FindControl("lbl_ket");
 
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
                     cmd.CommandText = "sp_save_BankReceiptVoucherD";
                     cmd.Parameters.AddWithValue("@slip_no", run);
-                    cmd.Parameters.AddWithValue("@inv_code", lbl_NoBuk.Text);
-                    cmd.Parameters.AddWithValue("@fkno", lbl_inv_code.Text);
-                    //cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", lbl_slip_date.Text));
-                    cmd.Parameters.AddWithValue("@remark", lbl_remark.Text);
-                    cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble(lbl_pay_amount.Text));
-                    //cmd.Parameters.AddWithValue("@Ket", lbl_KetD.Text);
+                    cmd.Parameters.AddWithValue("@inv_code", lbl_inv_code.Text);
+                    //cmd.Parameters.AddWithValue("@date", lbl_date.Text);
+                    cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble(lbl_payment.Text));
+                    cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(lbl_kurs.Text));
+                    cmd.Parameters.AddWithValue("@kurs_tax", Convert.ToDouble(lbl_kurs_tax.Text));
                     cmd.Parameters.AddWithValue("@dept_code", lbl_cost_ctr.Text);
-                    cmd.Parameters.AddWithValue("@region_code", lbl_project_detail.Text);
-                    //cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
-                    //cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
+                    cmd.Parameters.AddWithValue("@region_code", lbl_project.Text);
+                    cmd.Parameters.AddWithValue("@remark", lbl_ket.Text);
+                    cmd.Parameters.AddWithValue("@pay_amount_acc", 0);
+                    cmd.Parameters.AddWithValue("@pay_amount_idr", 0);
+                    cmd.Parameters.AddWithValue("@POTax", 0);
+                    cmd.Parameters.AddWithValue("@OTax", "NON");
+                    cmd.Parameters.AddWithValue("@JOTax", 0);
                     cmd.ExecuteNonQuery();
 
                 }
@@ -1029,113 +1199,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             }
         }
 
-        protected void RadGrid2_UpdateCommand(object sender, GridCommandEventArgs e)
-        {
-            
-                GridEditableItem item = (GridEditableItem)e.Item;
-
-                dtValues = (DataTable)Session["TableDetail"];
-                DataRow drValue = dtValues.NewRow();
-                drValue["slip_no"] = tr_code;
-                drValue["inv_code"] = (item.FindControl("cb_inv_code") as RadComboBox).Text;
-                drValue["pay_amount"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
-                drValue["pay_amount_acc"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
-                drValue["region_code"] = (item.FindControl("txt_project") as RadTextBox).Text;
-                drValue["dept_code"] = (item.FindControl("txt_cost_ctr") as RadTextBox).Text;
-                drValue["pay_amount_idr"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
-                drValue["kurs"] = (Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
-                drValue["kurs_tax"] = (Convert.ToDouble((item.FindControl("txt_kurs_tax") as RadTextBox).Text));
-                drValue["remark"] = (item.FindControl("txt_Ket") as RadTextBox).Text;
-                drValue["POTax"] = potax;
-                drValue["OTax"] = OTax;
-                drValue["JOTax"] = JOTax;
-                drValue["PPHAmount"] = DBNull.Value;
-                drValue["NoPPH23"] = DBNull.Value;
-                            
-
-                drValue.EndEdit(); //editing row in datatable
-                dtValues.AcceptChanges();
-                Session["TableDetail"] = dtValues;
-                (sender as RadGrid).Rebind();
-        }
-
-        protected void RadGrid2_InsertCommand(object sender, GridCommandEventArgs e)
-        {
-            try
-            {
-                GridEditableItem item = (GridEditableItem)e.Item;
-
-                //if (Session["actionEdit"].ToString() == "new" && Session["TableDetail"] == null)
-                if (Session["actionDetail"].ToString() == "detailNew" && Session["TableDetail"] == null)
-                {
-                    DetailDtbl();
-
-                    (sender as RadGrid).DataSource = dtValues; //populate RadGrid with datatable
-                    Session["TableDetail"] = dtValues;
-                }
-
-                dtValues = (DataTable)Session["TableDetail"];
-                DataRow drValue = dtValues.NewRow();
-                drValue["slip_no"] = tr_code;
-                drValue["inv_code"] = (item.FindControl("cb_inv_code") as RadComboBox).Text;
-                drValue["pay_amount"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
-                drValue["pay_amount_acc"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
-                drValue["region_code"] = (item.FindControl("txt_project") as RadTextBox).Text;
-                drValue["dept_code"] = (item.FindControl("txt_cost_ctr") as RadTextBox).Text;
-                drValue["pay_amount_idr"] = (Convert.ToDouble((item.FindControl("txt_payment") as RadTextBox).Text));
-                drValue["kurs"] = (Convert.ToDouble((item.FindControl("txt_kurs") as RadTextBox).Text));
-                drValue["kurs_tax"] = (Convert.ToDouble((item.FindControl("txt_kurs_tax") as RadTextBox).Text));
-                drValue["remark"] = (item.FindControl("txt_Ket") as RadTextBox).Text;
-                drValue["POTax"] = potax;
-                drValue["OTax"] = OTax;
-                drValue["JOTax"] = JOTax;
-                drValue["PPHAmount"] = DBNull.Value;
-                drValue["NoPPH23"] = DBNull.Value;
-
-                dtValues.Rows.Add(drValue); //adding new row into datatable
-                dtValues.AcceptChanges();
-                Session["TableDetail"] = dtValues;
-                (sender as RadGrid).Rebind();
-                Session["actionDetail"] = "detailList";
-
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                Label lblError = new Label();
-                lblError.Text = "Unable to insert data. Reason: " + ex.Message;
-                lblError.ForeColor = System.Drawing.Color.Red;
-                (sender as RadGrid).Controls.Add(lblError);
-                e.Canceled = true;
-            }
-        }
-
-        protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
-        {
-            if (e.CommandName == RadGrid.InitInsertCommandName)
-            {
-                Session["actionDetail"] = "detailNew";
-            }
-            else if (e.CommandName == RadGrid.EditCommandName)
-            {
-                Session["actionDetail"] = "detailEdit";
-            }
-        }
-
-        protected void RadGrid2_PreRender(object sender, EventArgs e)
-        {
-            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
-            {
-                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
-                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
-            }
-            else
-            {
-                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
-                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 195;
-            }
-        }
-
+        #region RadGrid3
         public DataTable GetDataJournalTable(string slip_no)
         {
             con.Open();
@@ -1180,5 +1244,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
         }
+        #endregion
     }
 }
