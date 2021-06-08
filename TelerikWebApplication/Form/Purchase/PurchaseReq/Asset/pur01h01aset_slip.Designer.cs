@@ -618,7 +618,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             this.textBox31.Style.LineWidth = Telerik.Reporting.Drawing.Unit.Point(1D);
             this.textBox31.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox31.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox31.Value = "= Fields.freby_name";
+            this.textBox31.Value = "= Fields.ordby_name";
             // 
             // textBox36
             // 
@@ -645,7 +645,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             this.textBox36.Style.LineWidth = Telerik.Reporting.Drawing.Unit.Point(1D);
             this.textBox36.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox36.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox36.Value = "= Fields.freby_txt";
+            this.textBox36.Value = "= Fields.ordby_txt";
             // 
             // textBox30
             // 
