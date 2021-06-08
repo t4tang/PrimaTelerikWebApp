@@ -25,6 +25,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         public static string selected_currency = null;
         public static string selected_amount = null;
         public static string selected_TotAmount = null;
+        public static string selected_bank = null;
 
         DataTable dtValues;
         RadNumericTextBox txt_kurs;
@@ -71,6 +72,45 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 Session["actionDetail"] = null;
                 Session["actionHeader"] = null;
             }
+        }
+
+        protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
+        {
+            try
+            {
+                if (e.Argument == "Rebind")
+                {
+                    RadGrid1.MasterTableView.SortExpressions.Clear();
+                    RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                    RadGrid1.Rebind();
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
+
+                }
+                else if (e.Argument == "RebindAndNavigate")
+                {
+                    RadGrid1.MasterTableView.SortExpressions.Clear();
+                    RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                    RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_bank);
+                    RadGrid1.DataBind();
+                    RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
+
+                    RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
+
+                    Session["action"] = "list";
+                }
+            }
+            catch (Exception ex)
+            {
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+            }
+        }
+
+        protected void btnNew_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["TableDetail"] = null;
+            Session["actionHeader"] = "headerNew";
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -225,23 +265,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         //    cb.DataBind();
         //} 
 
-        protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
-        {
-            if (e.Argument == "Rebind")
-            {
-                RadGrid1.MasterTableView.SortExpressions.Clear();
-                RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                RadGrid1.Rebind();
-            }
-            else if (e.Argument == "RebindAndNavigate")
-            {
-                RadGrid1.MasterTableView.SortExpressions.Clear();
-                RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
-                RadGrid1.Rebind();
-            }
-        }
-
         #region Param
         protected void cb_bank_prm_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
@@ -268,7 +291,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                selected_bank = dr[0].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -322,14 +348,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         //        btnPrint.Attributes["OnClick"] = String.Format("return ShowPreview('{0}');", txt_slip_no.Text);
         //    }
         //}
-
-        protected void btnNew_Click(object sender, ImageClickEventArgs e)
-        {
-            Session["TableDetail"] = null;
-            Session["actionHeader"] = "headerNew";
-            RadGrid1.MasterTableView.IsItemInserted = true;
-            RadGrid1.MasterTableView.Rebind();
-        }
 
         public void control_status(ControlCollection ctrls, bool state)
         {
@@ -549,7 +567,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            cb.DataTextField = "jabatan";
+            cb.DataTextField = "name";
             cb.DataValueField = "name";
             cb.DataSource = dt;
             cb.DataBind();
@@ -567,7 +585,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -590,7 +608,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -613,7 +631,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -635,7 +653,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -656,7 +674,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -679,7 +697,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT name FROM inv00h26 WHERE jabatan = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1113,9 +1131,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd.Parameters.AddWithValue("@inf_pay_no", txt_inf_pay_no.Text);
                 cmd.Parameters.AddWithValue("@tgl_cair", string.Format("{0:yyyy-MM-dd}", dtp_lm.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@Remark", txt_Remark.Text);
-                cmd.Parameters.AddWithValue("@freby", cb_Prepared.Text);
-                cmd.Parameters.AddWithValue("@ordby", cb_Checked.Text);
-                cmd.Parameters.AddWithValue("@appby", cb_Approval.Text);
+                cmd.Parameters.AddWithValue("@freby", cb_Prepared.SelectedValue);
+                cmd.Parameters.AddWithValue("@ordby", cb_Checked.SelectedValue);
+                cmd.Parameters.AddWithValue("@appby", cb_Approval.SelectedValue);
                 cmd.Parameters.AddWithValue("@tot_pay", 0);
                 cmd.Parameters.AddWithValue("@status", 1);
                 cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
