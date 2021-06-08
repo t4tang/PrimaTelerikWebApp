@@ -1,4 +1,11 @@
-﻿namespace TelerikWebApplication.Form.Fico.Bank.BankReceipt
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace TelerikWebApplication.Form.Fico.Bank.BankReceipt
 {
     using ReportLibrary.slip;
     using System;
@@ -8,12 +15,12 @@
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
+            //if (!IsPostBack)
+            //{
                 this.Title = Request.QueryString["slip_no"];
                 this.reportViewer1.ViewMode = ViewMode.PrintPreview;
-                //acc01h04_slip._tr_code = Request.QueryString["slip_no"];
-            }
+                acc01h04_slip._tr_code = Request.QueryString["slip_no"];
+            //}
         }
     }
 }
