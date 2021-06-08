@@ -117,12 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
-    <value>{"@doc_code":"RS0318013773"}</value>
+  <metadata name="sqlPrintBankReceipt.ParameterValues" xml:space="preserve">
+    <value>{"@slip_no":"B03M6090010"}</value>
   </metadata>
-  <metadata name="$this.SnapToGrid" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
+  <data name="sqlPrintBankReceipt.SelectCommand" xml:space="preserve">
+    <value>SELECT 	v_bankreceiptvoucher_list.slip_no, 
+			v_bankreceiptvoucher_list.NamBank, 
+			v_bankreceiptvoucher_list.cust_name, 
+			v_bankreceiptvoucher_list.cur_code, 
+			v_bankreceiptvoucher_list.kurs,
+			v_bankreceiptvoucher_list.slip_date,
+			acc01d04.inv_code, 
+			acc01d04.remark,
+			acc01d04.pay_amount,
+			acc01d04.pay_amount_acc,
+			acc01d04.idrun,
+			v_bankreceiptvoucher_list.tot_pay,
+			v_bankreceiptvoucher_list.freby,
+			v_bankreceiptvoucher_list.JabatanPre,
+			v_bankreceiptvoucher_list.ordby,
+			v_bankreceiptvoucher_list.JabatanOrd,
+			v_bankreceiptvoucher_list.appby,
+			v_bankreceiptvoucher_list.JabatanApp,
+			inv00h15.company_name,
+			inv00h15.address1,
+			inv00h15.NPWP, 
+			dbo.fg_terbilang_eng(v_bankreceiptvoucher_list.tot_pay_acc, 'IDR') AS Terbilang   
+	FROM 	v_bankreceiptvoucher_list,   
+			acc01d04,   
+			acc01h04,
+			inv00h15  
+	WHERE 	acc01h04.slip_no = v_bankreceiptvoucher_list.slip_no AND
+			acc01h04.slip_no = acc01d04.slip_no AND
+			v_bankreceiptvoucher_list.slip_no = @slip_no</value>
+  </data>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>
   </metadata>

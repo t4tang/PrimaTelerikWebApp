@@ -13,7 +13,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("pur01h01ReportViewer.aspx?pr_code=" + id, "PreviewDialog");
+                window.radopen("pur01h01assetReportViewer.aspx?pr_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
@@ -33,8 +33,8 @@
                 var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
                 grid.get_masterTableView().selectItem(rowControl, true);
  
-                window.radopen("pur01h01EditForm.aspx?pr_code=" + id, "EditDialogWindows");
-                return false;
+                //window.radopen("pur01h01EditForm.aspx?pr_code=" + id, "EditDialogWindows");
+                //return false;
             }
 
             function openWinFiterTemplate() {

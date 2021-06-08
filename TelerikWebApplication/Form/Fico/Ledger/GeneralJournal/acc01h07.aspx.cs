@@ -124,7 +124,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
 
         protected void RadGrid1_DeleteCommand(object sender, GridCommandEventArgs e)
         {
-            var ju_code = ((GridDataItem)e.Item).GetDataKeyValue("ju_code");
+            var juCode = ((GridDataItem)e.Item).GetDataKeyValue("ju_code");
             try
             {
                 con.Open();
@@ -132,7 +132,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText = "UPDATE acc01h10 SET userid = @userid, lastupdate = GETDATE(), stEdit = '4' WHERE (ju_code = @ju_code)";
-                cmd.Parameters.AddWithValue("@ju_code", ju_code);
+                cmd.Parameters.AddWithValue("@ju_code", juCode);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
                 con.Close();
