@@ -1730,6 +1730,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
                         cmd.Parameters.AddWithValue("@OrdBy2", cb_verified2.SelectedValue);
                         cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
                     }
+                    cmd.Parameters.AddWithValue("@asset_id", "NON");
 
                     cmd.ExecuteNonQuery();
 
