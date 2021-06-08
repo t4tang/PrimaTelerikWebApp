@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.PartReturn {
+namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset {
     
     
-    public partial class inv01h04r {
+    public partial class pur01h01 {
         
         /// <summary>
         /// RadCodeBlock1 control.
@@ -22,13 +22,13 @@ namespace TelerikWebApplication.Form.Inventory.PartReturn {
         protected global::Telerik.Web.UI.RadCodeBlock RadCodeBlock1;
         
         /// <summary>
-        /// UpdatePanel22 control.
+        /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel22;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         
         /// <summary>
         /// FolderNavigationControl control.
@@ -136,7 +136,7 @@ namespace TelerikWebApplication.Form.Inventory.PartReturn {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadButton btnSearch;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
         /// btnNew control.
@@ -173,15 +173,6 @@ namespace TelerikWebApplication.Form.Inventory.PartReturn {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
-        
-        /// <summary>
-        /// notif control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadNotification notif;
         
         /// <summary>
         /// RadWindowManager1 control.

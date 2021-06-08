@@ -284,7 +284,7 @@
                                                 </td>
                                                 <td>
                                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ur_status" runat="server" Width="150"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.wo_desc") %>' 
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.wo_desc") %>' Height="250px"
                                                         EnableLoadOnDemand="True" ShowMoreResultsBox="false" Skin="Silk"
                                                         OnItemsRequested="cb_ur_status_ItemsRequested" OnPreRender="cb_ur_status_PreRender"
                                                         OnSelectedIndexChanged="cb_ur_status_SelectedIndexChanged"
@@ -532,7 +532,7 @@
                                                 HeaderText="Edit" HeaderStyle-Width="60px" UpdateText="Update">
                                             </telerik:GridEditCommandColumn>                   
                                              
-                                            <telerik:GridTemplateColumn UniqueName="prod_code" HeaderText="Product Code" HeaderStyle-Width="120px"
+                                            <telerik:GridTemplateColumn UniqueName="prod_code" HeaderText="Item Code" HeaderStyle-Width="120px"
                                                 SortExpression="prod_code" ItemStyle-Width="120px">
                                                 <FooterTemplate>Template footer</FooterTemplate>
                                                 <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -549,10 +549,10 @@
                                                         <table style="width: 430px; font-size:smaller">
                                                             <tr>
                                                                 <td style="width: 250px;">
-                                                                    Prod. Name
+                                                                    Description
                                                                 </td>     
                                                                 <td style="width: 180px;">
-                                                                    Prod. Code
+                                                                    Item Code
                                                                 </td>                                                           
                                                             </tr>
                                                         </table>                                                       
@@ -573,7 +573,7 @@
                                                 </EditItemTemplate>
                                             </telerik:GridTemplateColumn>
                             
-                                            <telerik:GridTemplateColumn HeaderText="Part Name" ItemStyle-Width="380px">
+                                            <telerik:GridTemplateColumn HeaderText="Description" ItemStyle-Width="380px">
                                                 <ItemTemplate>  
                                                     <%#DataBinder.Eval(Container.DataItem, "spec")%>
                                                 </ItemTemplate>

@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Fico.Asset {
+namespace TelerikWebApplication.Form.Inventory.PartReturn {
     
     
-    public partial class acc00h22 {
+    public partial class inv01h05r {
         
         /// <summary>
         /// RadCodeBlock1 control.
@@ -20,6 +20,15 @@ namespace TelerikWebApplication.Form.Fico.Asset {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadCodeBlock RadCodeBlock1;
+        
+        /// <summary>
+        /// UpdatePanel22 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel22;
         
         /// <summary>
         /// FolderNavigationControl control.
@@ -58,6 +67,24 @@ namespace TelerikWebApplication.Form.Fico.Asset {
         protected global::Telerik.Web.UI.RadAjaxLoadingPanel gridLoadingPanel;
         
         /// <summary>
+        /// gridLoadingPanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxLoadingPanel gridLoadingPanel2;
+        
+        /// <summary>
+        /// RadAjaxLoadingPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel;
+        
+        /// <summary>
         /// FilterDialogWindows control.
         /// </summary>
         /// <remarks>
@@ -67,31 +94,40 @@ namespace TelerikWebApplication.Form.Fico.Asset {
         protected global::Telerik.Web.UI.RadWindow FilterDialogWindows;
         
         /// <summary>
-        /// searchParam control.
+        /// Div2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl searchParam;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
         
         /// <summary>
-        /// cb_project_prm control.
+        /// dtp_from control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_project_prm;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_from;
         
         /// <summary>
-        /// cb_status_prm control.
+        /// dtp_to control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox cb_status_prm;
+        protected global::Telerik.Web.UI.RadDatePicker dtp_to;
+        
+        /// <summary>
+        /// cb_proj_prm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadComboBox cb_proj_prm;
         
         /// <summary>
         /// btnSearch control.
@@ -100,16 +136,16 @@ namespace TelerikWebApplication.Form.Fico.Asset {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::Telerik.Web.UI.RadButton btnSearch;
         
         /// <summary>
-        /// ImageButton1 control.
+        /// btnNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
+        protected global::System.Web.UI.WebControls.ImageButton btnNew;
         
         /// <summary>
         /// btnFilter control.
@@ -139,6 +175,15 @@ namespace TelerikWebApplication.Form.Fico.Asset {
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
         
         /// <summary>
+        /// notif control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadNotification notif;
+        
+        /// <summary>
         /// RadWindowManager1 control.
         /// </summary>
         /// <remarks>
@@ -157,12 +202,21 @@ namespace TelerikWebApplication.Form.Fico.Asset {
         protected global::Telerik.Web.UI.RadWindow PreviewDialog;
         
         /// <summary>
-        /// notif control.
+        /// EditDialogWindows control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadNotification notif;
+        protected global::Telerik.Web.UI.RadWindow EditDialogWindows;
+        
+        /// <summary>
+        /// RadWindowManager2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager2;
     }
 }

@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.Purchase.Purchase_order
+namespace TelerikWebApplication.Form.Purchase.Purchase_asset
 {
     public partial class pur01h02EditForm : System.Web.UI.Page
     {
@@ -1110,7 +1110,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT top 10 pr_code, Pr_date, remark FROM v_purchase_order_reff WHERE region_code = @region_code " +
-                "AND type_pr <> 'C' AND pr_code LIKE @text + '%' ORDER BY pr_code",
+                "AND type_pr = 'C' AND pr_code LIKE @text + '%' ORDER BY pr_code",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", pr_code);
             adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
@@ -1209,7 +1209,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_purchase_order_reffD";
+            cmd.CommandText = "sp_get_purchase_order_asset_reffD";
             cmd.Parameters.AddWithValue("@pr_code", pr_code);
             cmd.Parameters.AddWithValue("@region_code", project_code);
             cmd.Parameters.AddWithValue("@supplier_code", supplier_code);

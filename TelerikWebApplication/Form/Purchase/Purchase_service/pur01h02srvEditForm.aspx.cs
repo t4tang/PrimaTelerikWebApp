@@ -939,7 +939,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT pr_code, Pr_date, remark FROM v_purchase_service_reff WHERE region_code = @region_code " +
-                "AND pr_code LIKE @text + '%' ORDER BY pr_code",
+                "AND type_pr <> 'C' AND pr_code LIKE @text + '%' ORDER BY pr_code",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", pr_code);
             adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);

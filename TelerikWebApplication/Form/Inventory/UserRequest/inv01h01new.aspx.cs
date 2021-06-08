@@ -56,6 +56,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 Session["TableDetail"] = null;
                 Session["actionDetail"] = null;
                 Session["actionHeader"] = null;
+                Session["urType"] = "none";
             }
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
@@ -117,6 +118,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             RadComboBox cb_cost_center = (RadComboBox)item.FindControl("cb_cost_center");
             RadComboBox cb_project = (RadComboBox)item.FindControl("cb_project");
             RadComboBox cb_priority = (RadComboBox)item.FindControl("cb_priority");
+            RadComboBox cb_ur_type = (RadComboBox)item.FindControl("cb_ur_type");
             RadTextBox txt_remark = (RadTextBox)item.FindControl("txt_remark");
 
             Button btnCancel = (Button)item.FindControl("btnCancel");
@@ -174,6 +176,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
                 cmd.Parameters.AddWithValue("@dept_code", cb_cost_center.SelectedValue);
                 cmd.Parameters.AddWithValue("@priority_code", cb_priority.SelectedValue);
+                cmd.Parameters.AddWithValue("@tAsset", cb_ur_type.SelectedValue);
                 cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                 cmd.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
@@ -201,6 +204,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                     cmd.CommandText = "sp_save_urD";
                     cmd.Parameters.AddWithValue("@doc_code", run);
                     cmd.Parameters.AddWithValue("@part_code", lbl_prod_code.Text);
+                    cmd.Parameters.AddWithValue("@part_desc", lbl_part_name.Text);
                     cmd.Parameters.AddWithValue("@part_qty", Convert.ToDecimal(lbl_part_qty.Text));
                     cmd.Parameters.AddWithValue("@part_unit", lbl_uom.Text);
                     cmd.Parameters.AddWithValue("@remark", lbl_remark.Text);
@@ -371,12 +375,14 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
                 (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 195;
             }
+
+            
         }
         protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
         {
             if (e.CommandName == RadGrid.InitInsertCommandName)
             {
-                Session["actionDetail"] = "detailNew";
+                Session["actionDetail"] = "detailNew";                
             }
             else if (e.CommandName == RadGrid.EditCommandName)
             {
@@ -657,29 +663,33 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
         }
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
-            SqlDataAdapter adapter = new SqlDataAdapter(sql,
-                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
-
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
-            RadComboBox comboBox = (RadComboBox)sender;
-            // Clear the default Item that has been re-created from ViewState at this point.
-            comboBox.Items.Clear();
-
-            foreach (DataRow row in dt.Rows)
+            if(Session["urType"].ToString() != "asset")
             {
-                RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = row["prod_code"].ToString();
-                item.Value = row["prod_code"].ToString();
-                item.Attributes.Add("spec", row["spec"].ToString());
+                string sql = "SELECT TOP (100)[prod_code], [spec] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+                SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+                adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
 
-                comboBox.Items.Add(item);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
 
-                item.DataBind();
+                RadComboBox comboBox = (RadComboBox)sender;
+                // Clear the default Item that has been re-created from ViewState at this point.
+                comboBox.Items.Clear();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    RadComboBoxItem item = new RadComboBoxItem();
+                    item.Text = row["prod_code"].ToString();
+                    item.Value = row["prod_code"].ToString();
+                    item.Attributes.Add("spec", row["spec"].ToString());
+
+                    comboBox.Items.Add(item);
+
+                    item.DataBind();
+                }
             }
+            
         }
         protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
@@ -708,6 +718,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                         RadComboBox cbDept_d = (RadComboBox)item.FindControl("cb_dept_d_insert");
 
                         t_spec.Text = dtr["spec"].ToString();
+                        t_spec.ReadOnly = true;
                         cb_uom.Text = dtr["unit"].ToString();
                         txt_qty.Value = 0;
                         cbDept_d.Text = selected_cost_ctr;
@@ -720,6 +731,7 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
                         RadComboBox cbDept_d = (RadComboBox)item.FindControl("cb_dept_d");
 
                         t_spec.Text = dtr["spec"].ToString();
+                        t_spec.ReadOnly = true;
                         cb_uom.Text = dtr["unit"].ToString();
                         txt_qty.Value = 0;
                         cbDept_d.Text = selected_cost_ctr;
@@ -761,10 +773,12 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             if ((sender as RadComboBox).Text == "Non Asset")
             {
                 (sender as RadComboBox).SelectedValue = "0";
+                Session["urType"] = "nonAsset";
             }
             else if ((sender as RadComboBox).Text == "Asset")
             {
                 (sender as RadComboBox).SelectedValue = "1";
+                Session["urType"] = "asset";
             }
         }
         #endregion
@@ -870,7 +884,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -888,7 +904,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -907,7 +925,9 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+            }
             dr.Close();
             con.Close();
         }
@@ -928,7 +948,10 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr["nik"].ToString();
+            }
+                
             dr.Close();
             con.Close();
         }
@@ -1023,7 +1046,40 @@ namespace TelerikWebApplication.Form.Inventory.UserRequest
 
 
 
+
         #endregion
 
+        #region UOM
+        protected void LoadUom(string name,RadComboBox cb)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(unit_code) as code,upper(unit_name) as name FROM inv00h08 " +
+                "WHERE stEdit <> '4' AND unit_name LIKE @text + '%'", con);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", name);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cb.DataTextField = "code";
+            cb.DataValueField = "code";
+            cb.DataSource = dt;
+            cb.DataBind();
+        }
+        protected void cb_uom_d_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+            (sender as RadComboBox).Text = "";
+            LoadUom(e.Text, (sender as RadComboBox));
+        }
+
+        #endregion
+
+        protected void RadGrid1_InsertCommand(object sender, GridCommandEventArgs e)
+        {
+
+        }
     }
 }
