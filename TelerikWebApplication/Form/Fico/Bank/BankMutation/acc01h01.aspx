@@ -604,8 +604,8 @@
                                                 ClientSettings-Selecting-AllowRowSelect="true">
                                                 <HeaderStyle Font-Size="12px" />
                                                 <PagerStyle Mode="NumericPages" /> 
-                                                <MasterTableView CommandItemDisplay="Top" DataKeyNames="NoBuk, KoRek" Font-Size="11px" EditMode="InPlace"
-                                                    ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" InsertItemDisplay="Bottom">
+                                                <MasterTableView DataKeyNames="NoBuk, KoRek" CommandItemDisplay="Top" Font-Size="12px" EditMode="InPlace"
+                                                    ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False">
                                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" /> 
                                                     <Columns>
                                                         <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
@@ -952,10 +952,10 @@
                                                             UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="200px" >                                
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="cur_code" HeaderStyle-Width="80px" HeaderText="Currency" SortExpression="cur_code"
-                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="80px" >                                
+                                                            UniqueName="cur_code" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="80px" >                                
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="kurs" HeaderStyle-Width="100px" HeaderText="Kurs" SortExpression="kurs"
-                                                            UniqueName="accountname" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="100px" >                                
+                                                            UniqueName="kurs" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="100px" >                                
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="debet" HeaderStyle-Width="100px" HeaderText="Debet" SortExpression="debet"
                                                             UniqueName="debet" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ColumnGroupName="IDR" ItemStyle-Width="100px" 
@@ -986,19 +986,6 @@
                                         </div>
                                     </telerik:RadPageView>
                                 </telerik:RadMultiPage>
-                                <table>
-                                    <tr>
-                                        <td class="tdLabel" colspan="2">
-                                            <telerik:RadLabel runat="server" Text="Total:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
-                                        </td>
-                                        <td>
-                                            <telerik:RadTextBox ID="txt_total" runat="server" Width="120px" RenderMode="Lightweight" ItemStyle-HorizontalAlign="Right" 
-                                                NumberFormat-AllowRounding="true" onkeydown="blurTextBox(this, event)" NumberFormat-KeepNotRoundedValue="true" 
-                                                AllowOutOfRangeAutoCorrect="false" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9" Skin="Telerik">
-                                            </telerik:RadTextBox>                  
-                                        </td>
-                                    </tr>
-                                </table>
                             </div>
                         </div>
                     </FormTemplate>

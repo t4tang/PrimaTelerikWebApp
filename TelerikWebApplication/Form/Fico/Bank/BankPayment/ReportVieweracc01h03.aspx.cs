@@ -16,7 +16,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
         {
             this.Title = Request.QueryString["slip_no"];
             this.reportViewer1.ViewMode = ViewMode.PrintPreview;
-            //acc01h03_slip._tr_code = Request.QueryString["slip_no"];
+            acc01h03_slip._tr_code = Request.QueryString["slip_no"];
         }
     }
 }
