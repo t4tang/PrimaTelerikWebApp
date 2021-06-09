@@ -29,8 +29,8 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             {
                 this.Title = tr_code;
                 this.reportViewer1.ViewMode = ViewMode.PrintPreview;
-                initBtnOk(tr_code);
                 pur01h02_slip._tr_code = Request.QueryString["po_code"];
+                initBtnOk(tr_code);
             }
         }
 

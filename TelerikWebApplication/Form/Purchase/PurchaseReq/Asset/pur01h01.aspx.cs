@@ -162,6 +162,14 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 cmd.Parameters.AddWithValue("@pr_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
+
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "UPDATE acc00h22 SET pr_code = NULL WHERE pr_code = @pr_code";
+                cmd.Parameters.AddWithValue("@pr_code", doc_code);
+                cmd.ExecuteNonQuery();
+
                 con.Close();
                 
             }
@@ -996,7 +1004,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 cmd.Parameters.AddWithValue("@pr_code", run);
                 cmd.Parameters.AddWithValue("@Pr_date", string.Format("{0:yyyy-MM-dd}", dtp_pr.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@type_source", "3");
-                cmd.Parameters.AddWithValue("@ctrl_no", DBNull.Value);
+                cmd.Parameters.AddWithValue("@ctrl_no", cb_asset_reg.Text);
                 cmd.Parameters.AddWithValue("@priority", cb_priority.SelectedValue);
                 cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
                 cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
@@ -1013,7 +1021,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 cmd.Parameters.AddWithValue("@type_pr", "C");
                 cmd.Parameters.AddWithValue("@Lvl", public_str.level);
                 cmd.Parameters.AddWithValue("@doc_type", 1);
-                cmd.Parameters.AddWithValue("@asset_id", cb_asset_reg.Text);
+                cmd.Parameters.AddWithValue("@asset_id", DBNull.Value);
                 cmd.ExecuteNonQuery();
 
 
@@ -1024,7 +1032,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
-                    cmd.CommandText = "sp_save_purchase_requestD";
+                    cmd.CommandText = "sp_save_purchase_request_assetD";
                     cmd.Parameters.AddWithValue("@prod_type", "M1");
                     cmd.Parameters.AddWithValue("@Prod_code", (items.FindControl("lblProdCode") as Label).Text);
                     cmd.Parameters.AddWithValue("@no_ref", "NON");
@@ -1033,12 +1041,21 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                     cmd.Parameters.AddWithValue("@DeliDate", string.Format("{0:yyyy-MM-dd}", (items.FindControl("dtpDelivDate") as RadDatePicker).SelectedDate));
                     cmd.Parameters.AddWithValue("@Remark", (items.FindControl("txtRemark_d") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@pr_code", run);
+                    cmd.Parameters.AddWithValue("@tAsset", "1");
+                    cmd.Parameters.AddWithValue("@Spec", (items.FindControl("lblDescription") as Label).Text);
                     cmd.Parameters.AddWithValue("@stock_hand", 0);
                     cmd.Parameters.AddWithValue("@Prod_code_ori", (items.FindControl("lblProdCode") as Label).Text);
                     cmd.Parameters.AddWithValue("@dept_code", selected_cost_ctr);
 
                     cmd.ExecuteNonQuery();
                 }
+
+
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText = "update acc00h22 set pr_code = '" + run +"' where ur_no =  '" + cb_asset_reg.Text + "' AND pr_code IS NULL";
+                cmd.ExecuteNonQuery();
 
             }
             catch (System.Exception ex)
@@ -1054,16 +1071,20 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 //notif.Show();
                 txt_doc_code.Text = run;
 
-                if (Session["actionEdit"].ToString() == "edit")
+                //if (Session["actionEdit"].ToString() == "edit")
+                if ((sender as Button).Text == "Update")
                 {
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
                 }
                 else
                 {
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    (sender as Button).Text = "Update";
+                    btnCancel.Text = "Close";
                 }
                 pur01h01.tr_code = run;
                 pur01h01.selected_project = cb_project.SelectedValue;
+                RadGrid1.MasterTableView.IsItemInserted = false;
             }
         }
 

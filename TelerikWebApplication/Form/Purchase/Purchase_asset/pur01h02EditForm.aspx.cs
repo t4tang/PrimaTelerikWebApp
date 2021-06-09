@@ -1635,19 +1635,19 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_asset
                         con.Open();
                         SqlDataReader sdr;
                         cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h02.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                            "FROM pur01h02 WHERE LEFT(pur01h02.po_code, 4) = 'PO01' " +
+                            "FROM pur01h02 WHERE LEFT(pur01h02.po_code, 4) = 'PA01' " +
                             "AND SUBSTRING(pur01h02.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                             "AND SUBSTRING(pur01h02.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                         sdr = cmd.ExecuteReader();
                         if (sdr.HasRows == false)
                         {
                             //throw new Exception();
-                            run = "PO01" + dtp_po.SelectedDate.Value.Year + dtp_po.SelectedDate.Value.Month + "0001";
+                            run = "PA01" + dtp_po.SelectedDate.Value.Year + dtp_po.SelectedDate.Value.Month + "0001";
                         }
                         else if (sdr.Read())
                         {
                             maxNo = Convert.ToInt32(sdr[0].ToString());
-                            run = "PO01" + (dtp_po.SelectedDate.Value.Year.ToString()).Substring(dtp_po.SelectedDate.Value.Year.ToString().Length - 2) +
+                            run = "PA01" + (dtp_po.SelectedDate.Value.Year.ToString()).Substring(dtp_po.SelectedDate.Value.Year.ToString().Length - 2) +
                                 ("0000" + dtp_po.SelectedDate.Value.Month).Substring(("0000" + dtp_po.SelectedDate.Value.Month).Length - 2, 2) +
                                 ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                         }
@@ -1730,6 +1730,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_asset
                         cmd.Parameters.AddWithValue("@OrdBy2", cb_verified2.SelectedValue);
                         cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
                     }
+                    cmd.Parameters.AddWithValue("@asset_id", DBNull.Value);
 
                     cmd.ExecuteNonQuery();
 
@@ -1794,7 +1795,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_asset
                         cmd.ExecuteNonQuery();                       
 
                     }
-
+                    
                     con.Close();
                     notif.Text = "Data berhasil disimpan";
                     notif.Title = "Notification";

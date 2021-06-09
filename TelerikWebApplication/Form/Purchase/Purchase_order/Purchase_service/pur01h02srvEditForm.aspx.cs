@@ -1408,6 +1408,21 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_service
                 cmd.Parameters.AddWithValue("@ppph", Convert.ToDouble(txt_ppph.Value));
                 cmd.Parameters.AddWithValue("@poTax", Convert.ToDouble(txt_po_tax.Value));
                 cmd.Parameters.AddWithValue("@overhaul", false);
+                if (txt_total.Value < 50000000)
+                {
+                    cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
+                    cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
+                    cmd.Parameters.AddWithValue("@OrdBy2", DBNull.Value);
+                    //cmd.Parameters.AddWithValue("@AppBy", cb_verified2.SelectedValue);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@FreBy", cb_prepared.SelectedValue);
+                    cmd.Parameters.AddWithValue("@OrdBy", cb_verified.SelectedValue);
+                    //cmd.Parameters.AddWithValue("@OrdBy2", cb_verified2.SelectedValue);
+                    cmd.Parameters.AddWithValue("@AppBy", cb_approved.SelectedValue);
+                }
+                cmd.Parameters.AddWithValue("@asset_id", "NON");
 
                 cmd.ExecuteNonQuery();
 
