@@ -245,7 +245,7 @@
                     <telerik:GridBoundColumn UniqueName="tot_pay" HeaderText="Total Amount" DataField="tot_pay" FilterControlWidth="120px" DataFormatString="{0:#,###,##0.00}">
                             <HeaderStyle Width="120px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="remark1" HeaderText="Remark" DataField="remark1" ItemStyle-Wrap="true"
+                    <telerik:GridBoundColumn UniqueName="Remark" HeaderText="Remark" DataField="Remark" ItemStyle-Wrap="true"
                                 ItemStyle-Width="650px" FilterControlWidth="480px">
                             <HeaderStyle Width="650px"></HeaderStyle>
                     </telerik:GridBoundColumn>

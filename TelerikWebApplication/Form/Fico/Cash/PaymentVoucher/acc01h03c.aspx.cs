@@ -1238,7 +1238,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@pay_way", 1);
-                cmd.Parameters.AddWithValue("@tot_pay", txt_total.Text);
+                cmd.Parameters.AddWithValue("@tot_pay", 0);
                 cmd.Parameters.AddWithValue("@status_post", 0);
                 cmd.Parameters.AddWithValue("@trans_kind", 1);
                 cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
