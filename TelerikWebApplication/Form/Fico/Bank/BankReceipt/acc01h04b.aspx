@@ -845,38 +845,38 @@
                                 
                                                         <telerik:GridTemplateColumn HeaderText="Kurs" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>  
-                                                                <asp:Label runat="server" ID="lbl_kurs" Text='<%#DataBinder.Eval(Container.DataItem, "kurs")%>' Width="100px"></asp:Label>
+                                                                <asp:Label runat="server" ID="lbl_kurs" Text='<%#DataBinder.Eval(Container.DataItem, "kurs","{0:#,###,###0.00000000}")%>' Width="100px"></asp:Label>
                                                             </ItemTemplate>
                                                             <EditItemTemplate>
                                                                 <telerik:RadNumericTextBox ID="txt_kurs_detail" runat="server"  Width="100px" NumberFormat-AllowRounding="true"
                                                                     NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
-                                                                    Text='<%#DataBinder.Eval(Container.DataItem, "kurs")%>'
-                                                                    onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9">
+                                                                    Text='<%#DataBinder.Eval(Container.DataItem, "kurs","{0:#,###,###0.00000000}")%>'
+                                                                    onkeydown="blurTextBox(this, event)" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9">
                                                                 </telerik:RadNumericTextBox>
                                                             </EditItemTemplate>
                                                             <InsertItemTemplate>
                                                                 <telerik:RadNumericTextBox ID="txt_kurs_detail_insert" runat="server"  Width="100px" NumberFormat-AllowRounding="true"
                                                                     NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right" 
-                                                                    onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9">
+                                                                    onkeydown="blurTextBox(this, event)" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9">
                                                                 </telerik:RadNumericTextBox>
                                                             </InsertItemTemplate>
                                                         </telerik:GridTemplateColumn>
 
                                                         <telerik:GridTemplateColumn HeaderText="Kurs Tax" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>  
-                                                                <asp:Label runat="server" ID="lbl_kurs_tax" Text='<%#DataBinder.Eval(Container.DataItem, "kurs_tax")%>' Width="100px"></asp:Label>
+                                                                <asp:Label runat="server" ID="lbl_kurs_tax" Text='<%#DataBinder.Eval(Container.DataItem, "kurs_tax","{0:#,###,###0.00000000}")%>' Width="100px"></asp:Label>
                                                             </ItemTemplate>
                                                             <EditItemTemplate>
                                                                 <telerik:RadNumericTextBox ID="txt_kurs_tax_detail" runat="server"  Width="100px" NumberFormat-AllowRounding="true"
                                                                     NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
-                                                                    Text='<%#DataBinder.Eval(Container.DataItem, "kurs_tax")%>'
-                                                                    onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9">
+                                                                    Text='<%#DataBinder.Eval(Container.DataItem, "kurs_tax","{0:#,###,###0.00000000}")%>'
+                                                                    onkeydown="blurTextBox(this, event)" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9">
                                                                 </telerik:RadNumericTextBox>
                                                             </EditItemTemplate>
                                                             <InsertItemTemplate>
                                                                 <telerik:RadNumericTextBox ID="txt_kurs_tax_detail_insert" runat="server"  Width="100px" NumberFormat-AllowRounding="true"
                                                                     NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right" 
-                                                                    onkeydown="blurTextBox(this, event)" AutoPostBack="true" MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9">
+                                                                    onkeydown="blurTextBox(this, event)"  MaxLength="11" Type="Number" NumberFormat-DecimalDigits="9">
                                                                 </telerik:RadNumericTextBox>
                                                             </InsertItemTemplate>
                                                         </telerik:GridTemplateColumn>

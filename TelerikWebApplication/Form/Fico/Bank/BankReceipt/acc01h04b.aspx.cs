@@ -1224,7 +1224,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_bank_payment_journal";
+            cmd.CommandText = "sp_get_Bank_Receipt_Journal";
             cmd.Parameters.AddWithValue("@slip_no", slip_no);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
