@@ -1034,16 +1034,16 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankPayment
 
         #endregion
 
-        private void CalculateTotal()
-        {
-            //double sumValue;
-            double sum = 0;
-            //double sumTot = 0;
+        //private void CalculateTotal()
+        //{
+        //    //double sumValue;
+        //    double sum = 0;
+        //    //double sumTot = 0;
 
-            sum = (Convert.ToDouble(selected_amount));
-            selected_TotAmount = sum.ToString();
+        //    sum = (Convert.ToDouble(selected_amount));
+        //    selected_TotAmount = sum.ToString();
 
-        }
+        //}
 
         protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {

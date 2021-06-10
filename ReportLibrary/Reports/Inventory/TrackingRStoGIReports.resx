@@ -117,19 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="sqlBankPayment.ParameterValues" xml:space="preserve">
-    <value>{"@slip_no":"B03K21050001"}</value>
+  <metadata name="sqlTrackingRStoGIReport.ParameterValues" xml:space="preserve">
+    <value>{"@project":"LJN","@tglawal":"2017-10-17","@tglakhir":"2017-10-17"}</value>
   </metadata>
-  <data name="sqlBankPayment.SelectCommand" xml:space="preserve">
-    <value>SELECT		inv00h15.company_name, inv00h15.address1, v_bank_paymentH.slip_no, v_bank_paymentH.slip_date, v_bank_paymentH.accountno, v_bank_paymentH.cashbank, v_bank_paymentH.NamBank, v_bank_paymentH.cust_code,
-				v_bank_paymentH.supplier_name, v_bank_paymentH.cur_code, v_bank_paymentH.kurs, v_bank_paymentH.Remark, v_bank_paymentH.noctrl, v_bank_paymentH.RequestBy, v_bank_paymentH.FreByJab, 
-				v_bank_paymentH.Checkby, v_bank_paymentH.OrdByJab, v_bank_paymentH.Approveby, v_bank_paymentH.AppByJab, acc01d03.inv_code, acc01d03.pay_amount, acc01d03.remark AS Remark, acc01d03.fkno,
-				acc01d03.region_code, acc01d03.dept_code, dbo.fg_terbilang_eng(v_bank_paymentH.tot_pay, 'IDR') AS Terbilang
-FROM		v_bank_paymentH INNER JOIN 
-				acc01d03 ON v_bank_paymentH.slip_no = acc01d03.slip_no CROSS JOIN
-				inv00h15
-WHERE		( v_bank_paymentH.slip_no = @slip_no )</value>
-  </data>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>
   </metadata>

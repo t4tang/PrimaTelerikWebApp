@@ -117,18 +117,39 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="sqlBankPayment.ParameterValues" xml:space="preserve">
-    <value>{"@slip_no":"B03K21050001"}</value>
+  <metadata name="sqlPrintBankReceipt.ParameterValues" xml:space="preserve">
+    <value>{"@slip_no":"B03M6090010"}</value>
   </metadata>
-  <data name="sqlBankPayment.SelectCommand" xml:space="preserve">
-    <value>SELECT		inv00h15.company_name, inv00h15.address1, v_bank_paymentH.slip_no, v_bank_paymentH.slip_date, v_bank_paymentH.accountno, v_bank_paymentH.cashbank, v_bank_paymentH.NamBank, v_bank_paymentH.cust_code,
-				v_bank_paymentH.supplier_name, v_bank_paymentH.cur_code, v_bank_paymentH.kurs, v_bank_paymentH.Remark, v_bank_paymentH.noctrl, v_bank_paymentH.RequestBy, v_bank_paymentH.FreByJab, 
-				v_bank_paymentH.Checkby, v_bank_paymentH.OrdByJab, v_bank_paymentH.Approveby, v_bank_paymentH.AppByJab, acc01d03.inv_code, acc01d03.pay_amount, acc01d03.remark AS Remark, acc01d03.fkno,
-				acc01d03.region_code, acc01d03.dept_code, dbo.fg_terbilang_eng(v_bank_paymentH.tot_pay, 'IDR') AS Terbilang
-FROM		v_bank_paymentH INNER JOIN 
-				acc01d03 ON v_bank_paymentH.slip_no = acc01d03.slip_no CROSS JOIN
-				inv00h15
-WHERE		( v_bank_paymentH.slip_no = @slip_no )</value>
+  <data name="sqlPrintBankReceipt.SelectCommand" xml:space="preserve">
+    <value>SELECT 	v_bankreceiptvoucher_list.slip_no, 
+			v_bankreceiptvoucher_list.NamBank, 
+			v_bankreceiptvoucher_list.cust_name, 
+			v_bankreceiptvoucher_list.cur_code, 
+			v_bankreceiptvoucher_list.kurs,
+			v_bankreceiptvoucher_list.slip_date,
+			acc01d04.inv_code, 
+			acc01d04.remark,
+			acc01d04.pay_amount,
+			acc01d04.pay_amount_acc,
+			acc01d04.idrun,
+			v_bankreceiptvoucher_list.tot_pay,
+			v_bankreceiptvoucher_list.freby,
+			v_bankreceiptvoucher_list.JabatanPre,
+			v_bankreceiptvoucher_list.ordby,
+			v_bankreceiptvoucher_list.JabatanOrd,
+			v_bankreceiptvoucher_list.appby,
+			v_bankreceiptvoucher_list.JabatanApp,
+			inv00h15.company_name,
+			inv00h15.address1,
+			inv00h15.NPWP, 
+			dbo.fg_terbilang_eng(v_bankreceiptvoucher_list.tot_pay_acc, 'IDR') AS Terbilang   
+	FROM 	v_bankreceiptvoucher_list,   
+			acc01d04,   
+			acc01h04,
+			inv00h15  
+	WHERE 	acc01h04.slip_no = v_bankreceiptvoucher_list.slip_no AND
+			acc01h04.slip_no = acc01d04.slip_no AND
+			v_bankreceiptvoucher_list.slip_no = @slip_no</value>
   </data>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>

@@ -303,7 +303,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                     foreach (GridDataItem gItem in (sender as RadGrid).SelectedItems)
                     {
                         tr_code = gItem["slip_no"].Text;
-                        CalculateTotal(); 
+                        //CalculateTotal(); 
                     }
                 }
             }
@@ -996,7 +996,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                     selected_amount = dtr["debt_rema"].ToString();
                 }
 
-                CalculateTotal();
+                //CalculateTotal();
             }
 
             catch (Exception ex)
@@ -1238,7 +1238,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
                 cmd.Parameters.AddWithValue("@pay_way", 1);
-                cmd.Parameters.AddWithValue("@tot_pay", txt_total.Text);
+                cmd.Parameters.AddWithValue("@tot_pay", 0);
                 cmd.Parameters.AddWithValue("@status_post", 0);
                 cmd.Parameters.AddWithValue("@trans_kind", 1);
                 cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
@@ -1334,8 +1334,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_goods_issued_journal";
-            cmd.Parameters.AddWithValue("@doc_code", slip_no);
+            cmd.CommandText = "sp_get_Cash_PaymentVoucher_Journal";
+            cmd.Parameters.AddWithValue("@slip_no", slip_no);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -1362,16 +1362,16 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             }
         }
 
-        private void CalculateTotal()
-        {
-            //double sumValue;
-            double sum = 0;
-            //double sumTot = 0;
+        //private void CalculateTotal()
+        //{
+        //    //double sumValue;
+        //    double sum = 0;
+        //    //double sumTot = 0;
             
-            sum = (Convert.ToDouble(selected_amount));
-            selected_TotAmount = sum.ToString();
+        //    sum = (Convert.ToDouble(selected_amount));
+        //    selected_TotAmount = sum.ToString();
 
-        }
+        //}
 
         //protected void INV_Code(string name, RadComboBox cb)
         //{

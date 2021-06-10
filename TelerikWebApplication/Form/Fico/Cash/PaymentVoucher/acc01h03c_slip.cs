@@ -11,12 +11,12 @@ namespace ReportLibrary.slip
     /// <summary>
     /// Summary description for acc01h03c_slip.
     /// </summary>
-    public partial class acc01h03_slip : Telerik.Reporting.Report
+    public partial class acc01h03c_slip : Telerik.Reporting.Report
     {
 
         public static string _tr_code;
 
-        public acc01h03_slip()
+        public acc01h03c_slip()
         {
             //
             // Required for telerik Reporting designer support
@@ -32,11 +32,11 @@ namespace ReportLibrary.slip
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = "B03K21050001";
+            param.Value = "K01K21030001";
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
-            sqlBankPayment.Parameters[0].Value = "=Parameters.slip_no.Value";
+            sqlDataSource1.Parameters[0].Value = "=Parameters.slip_no.Value";
         }
     }
 }

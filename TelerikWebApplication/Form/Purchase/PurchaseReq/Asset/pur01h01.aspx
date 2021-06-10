@@ -294,21 +294,23 @@
                                                 </tr>                            
                                                 <tr>
                                                     <td>
-                                                        <telerik:RadLabel runat="server" Text="Asset Reg." CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
+                                                        <telerik:RadLabel runat="server" Text="Request No." CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                                     </td>
                                                     <td style="width:300px"> 
                                                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_asset_reg" runat="server" Width="200px" AutoPostBack="true" CausesValidation="false"
                                                             DropDownWidth="500px" EnableLoadOnDemand="True" HighlightTemplatedItems="true" ShowMoreResultsBox="true" 
                                                             MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true"
-                                                            Text='<%# DataBinder.Eval(Container, "DataItem.asset_id") %>'
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.reff_no") %>'
                                                             OnItemsRequested="cb_asset_reg_ItemsRequested" 
                                                             OnSelectedIndexChanged="cb_asset_reg_SelectedIndexChanged">
                                                                 <HeaderTemplate>
                                                                     <table style="width: 500px; font-size: smaller">
                                                                         <tr>
-                                                                            <td style="width: 100px; font-variant:small-caps; color: #3399FF;">REQUEST CODE
+                                                                            <td style="width: 100px; font-variant:small-caps; color: #3399FF;">
+                                                                                REQUEST CODE
                                                                             </td>
-                                                                            <td style="width: 400px;font-variant:small-caps; color: #3399FF;">ASSET NAME
+                                                                            <td style="width: 400px;font-variant:small-caps; color: #3399FF;">
+                                                                                ASSET NAME
                                                                             </td>
                                                                         </tr>
                                                                     </table>

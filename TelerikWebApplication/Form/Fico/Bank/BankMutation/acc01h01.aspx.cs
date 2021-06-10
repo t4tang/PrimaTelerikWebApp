@@ -21,6 +21,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
         private const int ItemsPerRequest = 10;
         public static string tr_code = null;
         public static string mt_code = null;
+        public static string selected_bank = null;
         public static String selected_project = null;
         public static string selected_cost_ctr = null;
         public static string selected_KoTrans = null;
@@ -71,18 +72,32 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
         {
-            if (e.Argument == "Rebind")
+            try
             {
-                RadGrid1.MasterTableView.SortExpressions.Clear();
-                RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                RadGrid1.Rebind();
+                if (e.Argument == "Rebind")
+                {
+                    RadGrid1.MasterTableView.SortExpressions.Clear();
+                    RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                    RadGrid1.Rebind();
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
+
+                }
+                else if (e.Argument == "RebindAndNavigate")
+                {
+                    RadGrid1.MasterTableView.SortExpressions.Clear();
+                    RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                    RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_bank);
+                    RadGrid1.DataBind();
+                    RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
+
+                    RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
+
+                    Session["action"] = "list";
+                }
             }
-            else if (e.Argument == "RebindAndNavigate")
+            catch (Exception ex)
             {
-                RadGrid1.MasterTableView.SortExpressions.Clear();
-                RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
-                RadGrid1.Rebind();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
             }
         }
 
@@ -122,7 +137,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                selected_bank = dr[0].ToString();
+            }    
             dr.Close();
             con.Close();
         }
@@ -164,7 +182,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 sda.Fill(DT);
             }
             finally
-            {
+            { 
                 con.Close();
             }
 
@@ -179,7 +197,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 ImageButton printLink = (ImageButton)e.Item.FindControl("PrintLink");
                 printLink.Attributes["href"] = "javascript:void(0);";
                 printLink.Attributes["onclick"] = String.Format("return ShowPreview('{0}','{1}');", e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["NoBuk"], e.Item.ItemIndex);
-
             }
         }
 
@@ -190,7 +207,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                 tr_code = null;
                 GridDataItem item = e.Item as GridDataItem;
                 string kode = item["NoBuk"].Text;
-                //selected_KoTrans = item["KoTrans"].Text;
 
                 tr_code = kode;
 
@@ -204,7 +220,6 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
             foreach (GridDataItem item in RadGrid1.SelectedItems)
             {
                 tr_code = item["NoBuk"].Text;
-                //selected_KoTrans = item["Kotrans"].Text;
             }
 
             Session["actionEdit"] = "list";
@@ -221,10 +236,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
                     foreach (GridDataItem gItem in (sender as RadGrid).SelectedItems)
                     {
                         tr_code = gItem["NoBuk"].Text;
-                        //selected_KoTrans = gItem["KoTrans"].Text;
                     }
                 }
-
             }
         }
 

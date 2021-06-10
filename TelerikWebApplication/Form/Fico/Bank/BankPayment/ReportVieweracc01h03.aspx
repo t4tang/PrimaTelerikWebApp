@@ -1,6 +1,6 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportVieweracc01h04.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Bank.BankReceipt.ReportVieweracc01h04" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportVieweracc01h03.aspx.cs" Inherits="TelerikWebApplication.Form.Fico.Bank.BankPayment.ReportVieweracc01h03" %>
 
-<%@ Register TagPrefix="telerik" Assembly="Telerik.ReportViewer.Html5.WebForms" Namespace="Telerik.ReportViewer.Html5.WebForms" %>
+<%@ Register Assembly="Telerik.ReportViewer.Html5.WebForms, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" Namespace="Telerik.ReportViewer.Html5.WebForms" TagPrefix="telerik" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,11 +25,11 @@
     <form runat="server">
         <telerik:ReportViewer
             ID="reportViewer1" 
-			Width="1300px"
-			Height="900px"
+			Width="1127px"
+			Height="600px"
 			EnableAccessibility="false"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Fico.Bank.BankReceipt.acc01h04_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="ReportLibrary.slip.acc01h03_slip, ReportLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
     </form>
