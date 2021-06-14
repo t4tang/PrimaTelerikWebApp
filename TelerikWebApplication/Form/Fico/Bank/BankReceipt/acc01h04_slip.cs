@@ -29,7 +29,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankReceipt
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = "B03M9040006";
+            param.Value = _tr_code;
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 

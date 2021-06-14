@@ -354,13 +354,14 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankReceipt
             // 
             // textBox26
             // 
-            this.textBox26.Format = "{0:C2}";
+            this.textBox26.Format = "{0:N2}";
             this.textBox26.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(14.799648284912109D), Telerik.Reporting.Drawing.Unit.Cm(9.850819333223626E-05D));
             this.textBox26.Name = "textBox26";
             this.textBox26.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(4.399695873260498D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox26.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox26.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox26.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
+            this.textBox26.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox26.Value = "= Fields.pay_amount_acc";
             // 
             // pageFooterSection1
@@ -408,6 +409,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankReceipt
             this.textBox35.Name = "textBox35";
             this.textBox35.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.6258466243743896D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox35.Style.Font.Bold = true;
+            this.textBox35.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Top;
             this.textBox35.Value = "Total Amount";
             // 
             // textBox34
@@ -417,6 +419,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankReceipt
             this.textBox34.Name = "textBox34";
             this.textBox34.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(4.3996963500976562D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox34.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
+            this.textBox34.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox34.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Top;
             this.textBox34.Value = "= Sum(Fields.pay_amount_acc)";
             // 
             // textBox33
@@ -424,6 +428,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankReceipt
             this.textBox33.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(14.526045799255371D), Telerik.Reporting.Drawing.Unit.Cm(0.50000017881393433D));
             this.textBox33.Name = "textBox33";
             this.textBox33.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(0.27340283989906311D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
+            this.textBox33.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Top;
             this.textBox33.Value = ":";
             // 
             // textBox37
@@ -668,7 +673,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankReceipt
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(11.499999046325684D), Telerik.Reporting.Drawing.Unit.Cm(0.65420103073120117D));
             this.textBox29.Style.Font.Bold = true;
-            this.textBox29.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.textBox29.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Top;
             this.textBox29.Value = "= \"Amount In Words : \" + Fields.Terbilang";
             // 
             // sqlPrintBankReceipt
