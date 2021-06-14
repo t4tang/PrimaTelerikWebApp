@@ -42,14 +42,14 @@ namespace ReportLibrary.Reports.Inventory
             this.textBox27 = new Telerik.Reporting.TextBox();
             this.textBox28 = new Telerik.Reporting.TextBox();
             this.pageFooterSection1 = new Telerik.Reporting.PageFooterSection();
+            this.textBox30 = new Telerik.Reporting.TextBox();
             this.sqlGoodIssuedByValueReport = new Telerik.Reporting.SqlDataSource();
             this.JobSite = new Telerik.Reporting.SqlDataSource();
-            this.textBox30 = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // pageHeaderSection1
             // 
-            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(1.8000000715255737D);
+            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(1.6330711841583252D);
             this.pageHeaderSection1.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox23,
             this.textBox21,
@@ -405,6 +405,21 @@ namespace ReportLibrary.Reports.Inventory
             this.textBox30});
             this.pageFooterSection1.Name = "pageFooterSection1";
             // 
+            // textBox30
+            // 
+            this.textBox30.Format = "{0:d}";
+            this.textBox30.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0D), Telerik.Reporting.Drawing.Unit.Inch(0.14925146102905273D));
+            this.textBox30.Name = "textBox30";
+            this.textBox30.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.6999630928039551D), Telerik.Reporting.Drawing.Unit.Inch(0.250708669424057D));
+            this.textBox30.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
+            this.textBox30.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
+            this.textBox30.Style.Font.Bold = false;
+            this.textBox30.Style.Font.Italic = true;
+            this.textBox30.Style.Font.Name = "Segoe UI Light";
+            this.textBox30.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Pixel(7D);
+            this.textBox30.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
+            this.textBox30.Value = "Print Date :{Today()}";
+            // 
             // sqlGoodIssuedByValueReport
             // 
             this.sqlGoodIssuedByValueReport.ConnectionString = "Data Source=192.168.1.252;Initial Catalog=PSG_DEV;User ID=IT;Password=PSGPRO";
@@ -424,21 +439,6 @@ namespace ReportLibrary.Reports.Inventory
             this.JobSite.SelectCommand = "SELECT        region_code, region_name\r\nFROM            ms_jobsite\r\nWHERE        " +
     "(stEdit <> \'4\')\r\nUNION ALL\r\nSELECT        \'ALL\' AS region_code, \'ALL\' AS region_" +
     "name";
-            // 
-            // textBox30
-            // 
-            this.textBox30.Format = "{0:d}";
-            this.textBox30.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0D), Telerik.Reporting.Drawing.Unit.Inch(0.14925146102905273D));
-            this.textBox30.Name = "textBox30";
-            this.textBox30.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.6999630928039551D), Telerik.Reporting.Drawing.Unit.Inch(0.250708669424057D));
-            this.textBox30.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
-            this.textBox30.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox30.Style.Font.Bold = false;
-            this.textBox30.Style.Font.Italic = true;
-            this.textBox30.Style.Font.Name = "Segoe UI Light";
-            this.textBox30.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Pixel(7D);
-            this.textBox30.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
-            this.textBox30.Value = "Print Date :{Today()}";
             // 
             // Rpt_GI_ByValue
             // 
