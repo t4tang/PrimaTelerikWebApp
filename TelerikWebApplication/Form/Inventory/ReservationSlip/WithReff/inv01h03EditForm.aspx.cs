@@ -229,7 +229,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReff
             cmd.CommandText = "sp_get_reservation_slip_reffD";
             cmd.Parameters.AddWithValue("@doc_code", doc_code);
             cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
-            //cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+            cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);

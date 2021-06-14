@@ -13,7 +13,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("inv01h04ReportViewer.aspx?lbm_code=" + id, "PreviewDialog");
+                window.radopen("ReportViewer_inv01h04c.aspx?lbm_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
@@ -23,7 +23,7 @@
                 //alert("this is the client-side callback function. The RadAlert returned: " + arg);
             }
             function ShowInsertForm() {                
-                window.radopen("inv01h04EditForm.aspx", "EditDialogWindows");
+                window.radopen("inv01h04cEditForm.aspx", "EditDialogWindows");
                 return false;
             }
 

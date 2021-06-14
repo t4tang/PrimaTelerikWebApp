@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued {
+namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive {
     
     
-    public partial class ReportViewer_inv01h05c {
+    public partial class ReportViewer_inv01h04c {
         
         /// <summary>
         /// reportViewer_inv01h05c control.

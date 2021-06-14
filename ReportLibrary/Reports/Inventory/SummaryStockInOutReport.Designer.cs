@@ -1,6 +1,6 @@
 namespace ReportLibrary.Reports.Inventory
 {
-    partial class SummaryStockInOutReport
+    partial class SummaryStockInOut
     {
         #region Component Designer generated code
         /// <summary>
@@ -367,7 +367,7 @@ namespace ReportLibrary.Reports.Inventory
             this.WareHouse.Name = "WareHouse";
             this.WareHouse.SelectCommand = "SELECT \twh_code, wh_name\r\nFROM \tinv00h05\r\nWHERE \tstEdit<>\'4\'";
             // 
-            // SummaryStockInOutReport
+            // SummaryStockInOut
             // 
             this.DataSource = this.sqlSummaryStockInOutReport;
             group1.GroupFooter = this.groupFooterSection;
@@ -389,7 +389,7 @@ namespace ReportLibrary.Reports.Inventory
             this.pageHeaderSection1,
             this.detail,
             this.pageFooterSection1});
-            this.Name = "SummaryStockInOutReport";
+            this.Name = "SummaryStockInOut";
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {

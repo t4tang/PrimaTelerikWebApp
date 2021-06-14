@@ -353,7 +353,7 @@
                                                </td>
                                                 <td style="width:280px">
                                                             <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="200px" AutoPostBack="true" CausesValidation="false"
-                                                                DropDownWidth="900px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                                DropDownWidth="600px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                                 MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="sro_code" DataValueField="sro_code"
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.ref_code") %>'
                                                                 OnItemsRequested="cb_ref_ItemsRequested" 
@@ -365,7 +365,7 @@
                                                                             </td>
                                                                             <td style="width: 75px;font-variant:small-caps; color: #3399FF;">PO DATE
                                                                             </td>
-                                                                            <td style="width: 700px;font-variant:small-caps; color: #3399FF;">Remark
+                                                                            <td style="width: 400px;font-variant:small-caps; color: #3399FF;">Remark
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -377,9 +377,9 @@
                                                                                 <%# DataBinder.Eval(Container, "DataItem.po_code")%>
                                                                             </td>
                                                                             <td style="width: 75px;">
-                                                                                <%# DataBinder.Eval(Container, "DataItem.Po_date")%>
+                                                                                <%# DataBinder.Eval(Container, "DataItem.Po_date","{0:dd/MM/yyyy}")%>
                                                                             </td>
-                                                                            <td style="width: 700px;">
+                                                                            <td style="width: 400px;">
                                                                                 <%# DataBinder.Eval(Container, "DataItem.remark")%>
                                                                             </td>
                                                                         </tr>

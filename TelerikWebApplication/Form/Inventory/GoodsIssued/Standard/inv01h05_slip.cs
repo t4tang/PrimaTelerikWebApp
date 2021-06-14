@@ -1,19 +1,23 @@
-namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
+namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Standard
 {
     using System;
     using System.ComponentModel;
+    using System.Data.SqlClient;
     using System.Drawing;
-    using System.Windows.Forms;
     using Telerik.Reporting;
     using Telerik.Reporting.Drawing;
 
     /// <summary>
-    /// Summary description for inv01h05c_slip.
+    /// Summary description for inv01h05_slip.
     /// </summary>
-    public partial class inv01h05c_slip : Telerik.Reporting.Report
+    public partial class inv01h05_slip : Telerik.Reporting.Report
     {
+        //SqlConnection con = new SqlConnection(db_connection.koneksi);
+        //SqlDataAdapter sda = new SqlDataAdapter();
+        //SqlCommand cmd = new SqlCommand();
         public static string _tr_code;
-        public inv01h05c_slip()
+
+        public inv01h05_slip()
         {
             //
             // Required for telerik Reporting designer support
@@ -32,7 +36,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
-            sqlDataSource2.Parameters[0].Value = "=Parameters.do_code.Value"; 
+            sqlDataSource1.Parameters[0].Value = "=Parameters.do_code.Value";
         }
     }
 }

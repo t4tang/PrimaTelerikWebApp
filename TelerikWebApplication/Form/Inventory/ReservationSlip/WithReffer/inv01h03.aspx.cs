@@ -10,9 +10,9 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
+namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReffer
 {
-    public partial class inv01h03m : System.Web.UI.Page
+    public partial class inv01h03 : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(db_connection.koneksi);
         SqlDataAdapter sda = new SqlDataAdapter();
@@ -25,9 +25,33 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         public static string selected_cost_ctr = null;
         public static string selected_wh_code = null;
         public static string selected_type_reff = null;
-        public static string selected_reff_no = null;
+        public static string selected_reff_code = null;
+        public static string tWarannty_check = null;
+        public static string selected_info_code = null;
 
         DataTable dtValues;
+
+        RadComboBox cb_type_ref;
+        Label lbl_UoM;
+        Label lbl_prodType;
+        Label lbl_soh;
+        RadNumericTextBox txt_qty;
+        Label lbl_cost_ctr;
+        Label lbl_mr_qty;
+        Label lbl_pr_qty;
+        Label lbl_supp_qty;
+        RadDatePicker dt_deliv_date;
+        RadTextBox txt_unit_code;
+        RadTextBox txt_unit_name;
+        RadNumericTextBox txt_hm1;
+        RadTextBox txt_remark;
+        RadComboBox cb_project;
+        RadComboBox cb_cost_ctr;
+        RadGrid RadGrid2;
+        RadComboBox cb_warehouse;
+        RadComboBox cb_unit;
+        RadTextBox txt_hm;
+
         public DataTable DetailDtbl()
         {
             dtValues = new DataTable();
@@ -53,7 +77,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         {
             if (!IsPostBack)
             {
-                lbl_form_name.Text = "Reservation Slip Manual";
+                lbl_form_name.Text = "Reservation Slip";
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 //cb_proj_prm.SelectedValue = public_str.site;
@@ -115,6 +139,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             }
 
         }
+
+
 
         #region project param
         private static DataTable GetProjectPrm(string text)
@@ -189,7 +215,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "sp_get_reservation_slip_manualH";
+            cmd.CommandText = "sp_get_reservation_slipH";
             cmd.Parameters.AddWithValue("@date", fromDate);
             cmd.Parameters.AddWithValue("@todate", toDate);
             cmd.Parameters.AddWithValue("@project", project);
@@ -226,7 +252,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE fleet_doch SET userid = @Usr, lastupdate = GETDATE(), status_doc = '4' WHERE (doc_code = @doc_code)";
+                cmd.CommandText = "UPDATE inv01h03 SET userid = @Usr, lastupdate = GETDATE(), status_doc = '4' WHERE (doc_code = @doc_code)";
                 cmd.Parameters.AddWithValue("@doc_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -265,7 +291,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             {
                 (sender as RadComboBox).SelectedValue = "2";
             }
-       
+
+            selected_type_reff = (sender as RadComboBox).SelectedValue;
         }
 
         protected void cb_type_ref_PreRender(object sender, EventArgs e)
@@ -333,63 +360,63 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
 
             }
         }
-        private static DataTable GetReff(string text)
-        {
-            SqlDataAdapter adapter = new SqlDataAdapter("select * from v_rs_reff where doc_code LIKE @text + '%'",
-             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+        //private static DataTable GetReff(string text)
+        //{
+        //    SqlDataAdapter adapter = new SqlDataAdapter("select * from v_rs_reff where doc_code LIKE @text + '%'",
+        //     ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+        //    adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
-            DataTable data = new DataTable();
-            adapter.Fill(data);
+        //    DataTable data = new DataTable();
+        //    adapter.Fill(data);
 
-            return data;
-        }
-        protected void LoadReff(string doc_code, string projectID, string typeRef, RadComboBox cb)
-        {
-            SqlConnection con = new SqlConnection(
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            DataTable dt = new DataTable();
+        //    return data;
+        //}
+        //protected void LoadReff(string doc_code, string projectID, string typeRef, RadComboBox cb)
+        //{
+        //    SqlConnection con = new SqlConnection(
+        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+        //    DataTable dt = new DataTable();
 
-            if (typeRef == "Work Order")
-            {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff " +
-                "WHERE void <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
-                adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-                adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
-                //DataTable dt = new DataTable();
-                adapter.Fill(dt);
-            }
-            else
-            {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff_general " +
-                "WHERE region_code = @project AND doc_code LIKE @text + '%'", con);
-                adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-                adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
-                //DataTable dt = new DataTable();
-                adapter.Fill(dt);
-            }
+        //    if (typeRef == "Work Order")
+        //    {
+        //        SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff " +
+        //        "WHERE void <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
+        //        adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+        //        adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
+        //        //DataTable dt = new DataTable();
+        //        adapter.Fill(dt);
+        //    }
+        //    else
+        //    {
+        //        SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff_general " +
+        //        "WHERE region_code = @project AND doc_code LIKE @text + '%'", con);
+        //        adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+        //        adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
+        //        //DataTable dt = new DataTable();
+        //        adapter.Fill(dt);
+        //    }
             
 
-            cb.DataTextField = "doc_code";
-            cb.DataValueField = "doc_code";
-            cb.DataSource = dt;
-            cb.DataBind();
-        }
+        //    cb.DataTextField = "doc_code";
+        //    cb.DataValueField = "doc_code";
+        //    cb.DataSource = dt;
+        //    cb.DataBind();
+        //}
         
-        protected void cb_ref_PreRender(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT doc_code FROM v_rs_reff WHERE doc_code = '" + (sender as RadComboBox).Text + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-                (sender as RadComboBox).SelectedValue = dr[0].ToString();
-            dr.Close();
-            con.Close();
-        }        
+        //protected void cb_ref_PreRender(object sender, EventArgs e)
+        //{
+        //    con.Open();
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.Connection = con;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.CommandText = "SELECT doc_code FROM v_rs_reff WHERE doc_code = '" + (sender as RadComboBox).Text + "'";
+        //    SqlDataReader dr;
+        //    dr = cmd.ExecuteReader();
+        //    while (dr.Read())
+        //        (sender as RadComboBox).SelectedValue = dr[0].ToString();
+        //    dr.Close();
+        //    con.Close();
+        //}        
 
         protected void RadGrid2_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
@@ -665,11 +692,10 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec],[unit], [stMainNm] FROM v_rs_manual_reff_detail " +
-                "WHERE  [spec] LIKE @text + '%' OR [prod_code] LIKE @text + '%'";
+            string sql = "SELECT TOP (100)[prod_code], [spec],[unit],[stMainNm] FROM [v_rs_manual_reff_detail]  WHERE [spec] LIKE @spec + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
 
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -716,15 +742,15 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
 
                     if (Session["actionDetail"].ToString() == "detailNew")
                     {
-                        Label lbl_UoM = (Label)item.FindControl("lbl_UoM_insertTemp");
-                        Label lbl_prodType = (Label)item.FindControl("lbl_prodType_insertTemp");
-                        Label lbl_soh = (Label)item.FindControl("lbl_soh_insertTemp");
-                        RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_part_qty_insertTemp");
-                        Label lbl_cost_ctr = (Label)item.FindControl("lbl_cost_ctr_insertTemp");
-                        Label lbl_mr_qty = (Label)item.FindControl("lbl_mr_qty_insertTemp");
-                        Label lbl_pr_qty = (Label)item.FindControl("lbl_qty_pr_insertTemp");
-                        Label lbl_supp_qty = (Label)item.FindControl("lbl_qty_gi_insertTemp");
-                        RadDatePicker dt_deliv_date = (RadDatePicker)item.FindControl("dtp_deliv_date_insertTemp");
+                        lbl_UoM = (Label)item.FindControl("lbl_UoM_insertTemp");
+                        lbl_prodType = (Label)item.FindControl("lbl_prodType_insertTemp");
+                        lbl_soh = (Label)item.FindControl("lbl_soh_insertTemp");
+                        txt_qty = (RadNumericTextBox)item.FindControl("txt_part_qty_insertTemp");
+                        lbl_cost_ctr = (Label)item.FindControl("lbl_cost_ctr_insertTemp");
+                        lbl_mr_qty = (Label)item.FindControl("lbl_mr_qty_insertTemp");
+                        lbl_pr_qty = (Label)item.FindControl("lbl_qty_pr_insertTemp");
+                        lbl_supp_qty = (Label)item.FindControl("lbl_qty_gi_insertTemp");
+                        dt_deliv_date = (RadDatePicker)item.FindControl("dtp_deliv_date_insertTemp");
 
                         txt_qty.Text = string.Format("{0:#,###,##0.00}", 0);
                         lbl_prodType.Text = "M1";
@@ -739,15 +765,15 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                     }
                     else if (Session["actionDetail"].ToString() == "detailEdit")
                     {
-                        Label lbl_UoM = (Label)item.FindControl("lbl_UoM_editTemp");
-                        Label lbl_prodType = (Label)item.FindControl("lbl_prodType_editTemp");
-                        Label lbl_soh = (Label)item.FindControl("lbl_soh_editTemp");
-                        RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_part_qty_editTemp");
-                        Label lbl_cost_ctr = (Label)item.FindControl("lbl_cost_ctr_editTemp");
-                        Label lbl_mr_qty = (Label)item.FindControl("lbl_mr_qty_editTemp");
-                        Label lbl_pr_qty = (Label)item.FindControl("lbl_qty_pr_editTemp");
-                        Label lbl_supp_qty = (Label)item.FindControl("lbl_qty_gi_editTemp");
-                        RadDatePicker dt_deliv_date = (RadDatePicker)item.FindControl("dtp_deliv_date_editTemp");
+                        lbl_UoM = (Label)item.FindControl("lbl_UoM_editTemp");
+                        lbl_prodType = (Label)item.FindControl("lbl_prodType_editTemp");
+                        lbl_soh = (Label)item.FindControl("lbl_soh_editTemp");
+                        txt_qty = (RadNumericTextBox)item.FindControl("txt_part_qty_editTemp");
+                        lbl_cost_ctr = (Label)item.FindControl("lbl_cost_ctr_editTemp");
+                        lbl_mr_qty = (Label)item.FindControl("lbl_mr_qty_editTemp");
+                        lbl_pr_qty = (Label)item.FindControl("lbl_qty_pr_editTemp");
+                        lbl_supp_qty = (Label)item.FindControl("lbl_qty_gi_editTemp");
+                        dt_deliv_date = (RadDatePicker)item.FindControl("dtp_deliv_date_editTemp");
 
                         txt_qty.Text = string.Format("{0:#,###,##0.00}", 0);
                         lbl_prodType.Text = "M1";
@@ -784,76 +810,175 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
 
         #region Refferences
 
-        //private static DataTable GetReff(string text)
-        //{
-        //    SqlDataAdapter adapter = new SqlDataAdapter("select * from v_rs_reff where doc_code LIKE @text + '%'",
-        //     ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-        //    adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+        private static DataTable GetReff(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select * from v_rs_reff where doc_code LIKE @text + '%'",
+             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
-        //    DataTable data = new DataTable();
-        //    adapter.Fill(data);
+            DataTable data = new DataTable();
+            adapter.Fill(data);
 
-        //    return data;
-        //}
-        //protected void LoadReff(string doc_code, string projectID, string typeRef, RadComboBox cb)
-        //{
-        //    SqlConnection con = new SqlConnection(
-        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-        //    DataTable dt = new DataTable();
+            return data;
+        }
+        protected void LoadReff(string doc_code, string projectID, string typeRef, RadComboBox cb)
+        {
+            SqlConnection con = new SqlConnection(
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            DataTable dt = new DataTable();
 
-        //    if (typeRef == "Work Order")
-        //    {
-        //        SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff " +
-        //        "WHERE void <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
-        //        adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-        //        adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
-        //        //DataTable dt = new DataTable();
-        //        adapter.Fill(dt);
-        //    }
-        //    else
-        //    {
-        //        SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff_general " +
-        //        "WHERE region_code = @project AND doc_code LIKE @text + '%'", con);
-        //        adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-        //        adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
-        //        //DataTable dt = new DataTable();
-        //        adapter.Fill(dt);
-        //    }
+            if (typeRef == "Work Order")
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff " +
+                "WHERE void <> '4' AND region_code = @project AND doc_code LIKE @text + '%'", con);
+                adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
+                //DataTable dt = new DataTable();
+                adapter.Fill(dt);
+            }
+            else
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT doc_code, remark FROM v_rs_reff_general " +
+                "WHERE region_code = @project AND doc_code LIKE @text + '%'", con);
+                adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", doc_code);
+                //DataTable dt = new DataTable();
+                adapter.Fill(dt);
+            }
+
+            cb.DataTextField = "doc_code";
+            cb.DataValueField = "doc_code";
+            cb.DataSource = dt;
+            cb.DataBind();
+        }
+        protected void cb_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+            cb_type_ref = (RadComboBox)item.FindControl("cb_type_ref");
+
+            (sender as RadComboBox).Text = "";
+            LoadReff(e.Text, selected_project, cb_type_ref.Text, (sender as RadComboBox));
+
+        }
+
+        protected void cb_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+            cb_type_ref = (RadComboBox)item.FindControl("cb_type_ref");
+            cb_unit = (RadComboBox)item.FindControl("cb_unit");
+            txt_unit_name = (RadTextBox)item.FindControl("txt_unit_name");
+            txt_hm = (RadTextBox)item.FindControl("txt_hm");
+            txt_remark = (RadTextBox)item.FindControl("txt_remark");
+            cb_cost_ctr = (RadComboBox)item.FindControl("cb_cost_ctr");
+            RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            SqlDataReader dr;
+            if (cb_type_ref.Text == "Work Order")
+            {
+                cmd.CommandText = "SELECT * FROM v_rs_reff WHERE doc_code = '" + (sender as RadComboBox).Text + "'";
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    (sender as RadComboBox).Text = dr["doc_code"].ToString();
+                    cb_unit.Text = dr["unit_code"].ToString();
+                    txt_unit_name.Text = dr["model_no"].ToString();
+                    txt_hm.Text = dr["time_reading"].ToString();
+                    cb_cost_ctr.SelectedValue = dr["dept_code"].ToString();
+                    cb_cost_ctr.Text = dr["CostCenterName"].ToString();
+                    selected_cost_ctr = dr["dept_code"].ToString();
+                    txt_remark.Text = dr["remark"].ToString();
+                }
+            }
+            else
+            {
+                cmd.CommandText = "SELECT * FROM v_rs_reff_general WHERE doc_code = '" + (sender as RadComboBox).Text + "'";
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    (sender as RadComboBox).Text = dr["doc_code"].ToString();
+                    cb_cost_ctr.SelectedValue = dr["dept_code"].ToString();
+                    cb_cost_ctr.Text = dr["CostCenterName"].ToString();
+                    selected_cost_ctr = dr["dept_code"].ToString();
+                    txt_remark.Text = dr["remark"].ToString();
+                }
+            }
 
 
-        //    cb.DataTextField = "doc_code";
-        //    cb.DataValueField = "doc_code";
-        //    cb.DataSource = dt;
-        //    cb.DataBind();
-        //}
+            dr.Close();
+            con.Close();
 
-        //public DataTable GetDataRefDetailTable(string doc_code)
-        //{
-        //    con.Open();
-        //    cmd = new SqlCommand();
-        //    cmd.CommandType = CommandType.StoredProcedure;
-        //    cmd.Connection = con;
-        //    cmd.CommandText = "sp_get_rs_refD";
-        //    cmd.Parameters.AddWithValue("@doc_code", doc_code);
-        //    cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
-        //    cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
-        //    cmd.CommandTimeout = 0;
-        //    cmd.ExecuteNonQuery();
-        //    sda = new SqlDataAdapter(cmd);
+            //if (Session["actionEdit"].ToString() == "edit")
+            //{
+            //    Session["actionEdit"] = "new";
+            //}
+            //else
+            //{
+            RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
+            RadGrid2.DataBind();
+            //}
 
-        //    DataTable DT = new DataTable();
+        }
 
-        //    try
-        //    {
-        //        sda.Fill(DT);
-        //    }
-        //    finally
-        //    {
-        //        con.Close();
-        //    }
+        protected void cb_ref_PreRender(object sender, EventArgs e)
+        {
+            if (Session["actionHeader"].ToString() == "headerEdit")
+            {
+                (sender as RadComboBox).Enabled = false;
+            }
+            else
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT doc_code FROM v_rs_reff WHERE doc_code = '" + (sender as RadComboBox).Text + "'";
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                }
+                dr.Close();
+                con.Close();
+            }
 
-        //    return DT;
-        //}
+        }
+
+        public DataTable GetDataRefDetailTable(string doc_code)
+        {
+            con.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "sp_get_reservation_slip_reffD";
+            cmd.Parameters.AddWithValue("@doc_code", doc_code);
+            cmd.Parameters.AddWithValue("@type_reff", selected_type_reff);
+            cmd.Parameters.AddWithValue("@wh_code", selected_wh_code);
+            cmd.CommandTimeout = 0;
+            cmd.ExecuteNonQuery();
+            sda = new SqlDataAdapter(cmd);
+
+            DataTable DT = new DataTable();
+
+            try
+            {
+                sda.Fill(DT);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return DT;
+        }
         #endregion
 
         #region Priority 
@@ -919,74 +1044,18 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         }
         #endregion
 
-        #region Reff Type
-        //protected void cb_type_ref_PreRender(object sender, EventArgs e)
-        //{
-        //    if ((sender as RadComboBox).Text == "Work Order")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "1";
-        //    }
-        //    else if ((sender as RadComboBox).Text == "General Request")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "2";
-        //    }
-        //}
-        //protected void cb_type_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        //{
-        //    (sender as RadComboBox).Items.Add("Work Order");
-        //    (sender as RadComboBox).Items.Add("General Request");
-        //}
-        //protected void cb_type_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        //{
-        //    if ((sender as RadComboBox).Text == "Work Order")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "1";
-        //    }
-        //    else if ((sender as RadComboBox).Text == "General Request")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "2";
-        //        //mrCodeValidator.ControlToValidate = null;
-        //        //woCodeValidator.ControlToValidate = null;
-        //    }
-        //}
-        #endregion
-
         #region Project
-        //private static DataTable GetProject(string text)
-        //{
-        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
-        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-        //    adapter.SelectCommand.Parameters.AddWithValue("@text", text);
-
-        //    DataTable data = new DataTable();
-        //    adapter.Fill(data);
-
-        //    return data;
-        //}
-        //protected void cb_project_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
-        //{
-
-        //    DataTable data = GetProject(e.Text);
-
-        //    int itemOffset = e.NumberOfItems;
-        //    int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
-        //    e.EndOfItems = endOffset == data.Rows.Count;
-
-        //    for (int i = itemOffset; i < endOffset; i++)
-        //    {
-        //        (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
-        //    }
-        //}
+        
         protected void cb_projectTemp_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadTextBox txt_unit_name = (item.FindControl("txt_unit_name") as RadTextBox);
-            RadComboBox cb_warehouse = (item.FindControl("cb_warehouse") as RadComboBox);
-            RadComboBox cb_cost_ctr = (item.FindControl("cb_cost_ctr") as RadComboBox);
-            RadComboBox cb_unit = (item.FindControl("cb_unit") as RadComboBox);
-            RadTextBox txt_hm = (item.FindControl("txt_hm") as RadTextBox);
-            RadTextBox txt_remark = (item.FindControl("txt_remark") as RadTextBox);
+            txt_unit_name = (item.FindControl("txt_unit_name") as RadTextBox);
+            cb_warehouse = (item.FindControl("cb_warehouse") as RadComboBox);
+            cb_cost_ctr = (item.FindControl("cb_cost_ctr") as RadComboBox);
+            cb_unit = (item.FindControl("cb_unit") as RadComboBox);
+            txt_hm = (item.FindControl("txt_hm") as RadTextBox);
+            txt_remark = (item.FindControl("txt_remark") as RadTextBox);
 
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -1060,7 +1129,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadComboBox cb_project = (item.FindControl("cb_project") as RadComboBox);
+            cb_project = (item.FindControl("cb_project") as RadComboBox);
 
             (sender as RadComboBox).Text = "";
             GetUnit(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
@@ -1127,7 +1196,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadComboBox cb_project = (item.FindControl("cb_project") as RadComboBox);
+            cb_project = (item.FindControl("cb_project") as RadComboBox);
 
             DataTable data = GetWarehouse(e.Text, cb_project.SelectedValue);
 
@@ -1153,6 +1222,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             while (dr.Read())
             {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                selected_wh_code = (sender as RadComboBox).SelectedValue;
             }
             dr.Close();
             con.Close();
@@ -1198,7 +1268,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadComboBox cb_project = (item.FindControl("cb_project") as RadComboBox);
+            cb_project = (item.FindControl("cb_project") as RadComboBox);
 
             (sender as RadComboBox).Text = "";
             LoadCostCtr(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
@@ -1216,6 +1286,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             while (dr.Read())
             {
                 (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+                selected_cost_ctr = (sender as RadComboBox).SelectedValue;
             }
             dr.Close();
             con.Close();
@@ -1258,7 +1329,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadComboBox cb_project = (item.FindControl("cb_project") as RadComboBox);
+            cb_project = (item.FindControl("cb_project") as RadComboBox);
 
             (sender as RadComboBox).Text = "";
             LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
@@ -1301,7 +1372,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadComboBox cb_project = (item.FindControl("cb_project") as RadComboBox);
+            cb_project = (item.FindControl("cb_project") as RadComboBox);
 
             (sender as RadComboBox).Text = "";
             LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
@@ -1361,7 +1432,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadComboBox cb_project = (item.FindControl("cb_project") as RadComboBox);
+            cb_project = (item.FindControl("cb_project") as RadComboBox);
 
             (sender as RadComboBox).Text = "";
             LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
@@ -1387,7 +1458,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
         {
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-            RadComboBox cb_project = (item.FindControl("cb_project") as RadComboBox);
+            cb_project = (item.FindControl("cb_project") as RadComboBox);
 
             (sender as RadComboBox).Text = ""; 
             LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
@@ -1470,6 +1541,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
             RadDatePicker dtp_rs = (RadDatePicker)item.FindControl("dtp_rs");
             RadDatePicker dtp_exe = (RadDatePicker)item.FindControl("dtp_exe");
             RadComboBox cb_type_ref = (RadComboBox)item.FindControl("cb_type_ref");
+            RadComboBox cb_ref = (RadComboBox)item.FindControl("cb_ref");
             RadComboBox cb_project = (RadComboBox)item.FindControl("cb_project");
             RadComboBox cb_warehouse = (RadComboBox)item.FindControl("cb_warehouse");
             RadTextBox txt_mr_no = (RadTextBox)item.FindControl("txt_mr_no");
@@ -1532,7 +1604,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                 cmd.Parameters.AddWithValue("@receive_by", cb_received.SelectedValue);
                 cmd.Parameters.AddWithValue("@approval_by", cb_approved.SelectedValue);
                 cmd.Parameters.AddWithValue("@order_by", cb_orderBy.SelectedValue);
-                cmd.Parameters.AddWithValue("@sro_code", DBNull.Value);
+                cmd.Parameters.AddWithValue("@sro_code", cb_ref.Text);
                 cmd.Parameters.AddWithValue("@doc_remark", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.Parameters.AddWithValue("@LastUpdate", DateTime.Today);
@@ -1576,7 +1648,7 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                     lbl_uom = (Label)itemD.FindControl("lbl_uom");
                     lbl_prod_code = (Label)itemD.FindControl("lbl_prod_code");
                     lbl_dept_code = (Label)itemD.FindControl("lbl_cost_ctr");
-                    chkWaranty = (CheckBox)itemD.FindControl("chk_waranty");
+                    //chkWaranty = (CheckBox)itemD.FindControl("chk_waranty");
                     lbl_remark = (Label)itemD.FindControl("lbl_remark");
                     dtp_deliv_date = (RadDatePicker)itemD.FindControl("dtp_deliv_date");
 
@@ -1593,14 +1665,14 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                     cmd.Parameters.AddWithValue("@part_unit", lbl_uom.Text);
                     cmd.Parameters.AddWithValue("@remark", lbl_remark.Text);
                     cmd.Parameters.AddWithValue("@dept_code", lbl_dept_code.Text);
-                    if (chkWaranty.Checked == true)
-                    {
-                        cmd.Parameters.AddWithValue("@tWarranty", 1);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@tWarranty", 0);
-                    }
+                    //if (chkWaranty.Checked == true)
+                    //{
+                    //    cmd.Parameters.AddWithValue("@tWarranty", 1);
+                    //}
+                    //else
+                    //{
+                    cmd.Parameters.AddWithValue("@tWarranty", 0);
+                    //}
                     cmd.Parameters.AddWithValue("@deliv_date", dtp_deliv_date.SelectedDate);
                     cmd.Parameters.AddWithValue("@prod_type", lbl_prodType.Text);
                     cmd.ExecuteNonQuery();
@@ -1630,8 +1702,8 @@ namespace TelerikWebApplication.Form.Inventory.ReservationSlip.Manual
                 }
                 else
                 {
-                    inv01h03m.tr_code = run;
-                    inv01h03m.selected_project = cb_project.SelectedValue;
+                    inv01h03.tr_code = run;
+                    inv01h03.selected_project = cb_project.SelectedValue;
                     ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
                     (sender as Button).Text = "Update";
                     btnCancel.Text = "Close";

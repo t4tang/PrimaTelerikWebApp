@@ -171,11 +171,16 @@
                                 ItemStyle-Width="330px" FilterControlWidth="330px">
                             <HeaderStyle Width="330px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="AssetSpec" HeaderText="Specification" DataField="AssetSpec" 
-                                ItemStyle-Width="330px" FilterControlWidth="330px">
-                            <HeaderStyle Width="330px" HorizontalAlign="Center"></HeaderStyle>
+                        <telerik:GridBoundColumn UniqueName="status" HeaderText="Status" DataField="status" 
+                                ItemStyle-Width="130px" FilterControlWidth="130px">
+                            <HeaderStyle Width="130px" HorizontalAlign="Center"></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn UniqueName="tgl_beli" HeaderText="Order Date" DataField="tgl_beli" ItemStyle-Width="70px" 
+                                EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
+                            DataFormatString="{0:d}" >
+                            <HeaderStyle Width="70px" HorizontalAlign="Center"></HeaderStyle>
+                        </telerik:GridDateTimeColumn>
+                        <telerik:GridDateTimeColumn UniqueName="lbm_date" HeaderText="Receive Date" DataField="lbm_date" ItemStyle-Width="70px" 
                                 EnableRangeFiltering="false" FilterControlWidth="80px" PickerType="DatePicker" 
                             DataFormatString="{0:d}" >
                             <HeaderStyle Width="70px" HorizontalAlign="Center"></HeaderStyle>
@@ -857,9 +862,16 @@
                                                                     Status
                                                                 </td>
                                                                 <td >
-                                                                    <telerik:RadTextBox ReadOnly="true" ID="txt_status" Width="150px" runat="server"
+                                                                    <%--<telerik:RadTextBox ReadOnly="true" ID="txt_status" Width="150px" runat="server"
                                                                         Text='<%# DataBinder.Eval(Container, "DataItem.status") %>' >
-                                                                        </telerik:RadTextBox>                               
+                                                                    </telerik:RadTextBox>--%>
+                                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_status_reg" runat="server" Width="120px"
+                                                                        EnableLoadOnDemand="True" HighlightTemplatedItems="true" AutoPostBack="true"
+                                                                        MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" 
+                                                                        Text='<%# DataBinder.Eval(Container, "DataItem.status") %>' 
+                                                                        OnItemsRequested="cb_status_reg_ItemsRequested" OnSelectedIndexChanged="cb_status_reg_SelectedIndexChanged"
+                                                                        OnPreRender="cb_status_reg_PreRender" >                                                                                                     
+                                                                    </telerik:RadComboBox>                               
                                                                 </td>
                                                             </tr>
                                                             <tr>

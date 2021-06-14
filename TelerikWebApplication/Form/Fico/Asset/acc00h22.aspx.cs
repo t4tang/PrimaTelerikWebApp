@@ -43,7 +43,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         RadTextBox txt_use_life_year;
         RadTextBox txt_dep_method;
         RadTextBox txt_appreciation;
-        RadTextBox txt_status;
+        RadComboBox cb_status_reg;
         RadTextBox txt_acc_depre_no;
         RadTextBox txt_acc_depre_desc;
         RadTextBox txt_cost_depre_no;
@@ -188,13 +188,27 @@ namespace TelerikWebApplication.Form.Fico.Asset
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            if(cb_project_prm.Text != "ALL")
+            if(sts == "Registered")
             {
-                cmd.CommandText = "SELECT * FROM v_asset_list WHERE region_code = @project AND Status = @reg_status";
+                if (cb_project_prm.Text != "ALL")
+                {
+                    cmd.CommandText = "SELECT * FROM v_asset_list WHERE region_code = @project AND Status = @reg_status";
+                }
+                else
+                {
+                    cmd.CommandText = "SELECT * FROM v_asset_list WHERE Status = @reg_status";
+                }
             }
             else
             {
-                cmd.CommandText = "SELECT * FROM v_asset_list WHERE Status = @reg_status";
+                if (cb_project_prm.Text != "ALL")
+                {
+                    cmd.CommandText = "SELECT * FROM v_asset_list_unregister WHERE region_code = @project AND Status = @reg_status";
+                }
+                else
+                {
+                    cmd.CommandText = "SELECT * FROM v_asset_list_unregister WHERE Status = @reg_status";
+                }
             }
             cmd.Parameters.AddWithValue("@project", project);
             cmd.Parameters.AddWithValue("@reg_status", sts);
@@ -237,9 +251,10 @@ namespace TelerikWebApplication.Form.Fico.Asset
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h22 SET userid = @Usr, lastupdate = GETDATE(), stedit = '4' WHERE (asset_id = @asset_id)";
+                cmd.CommandText = "UPDATE acc00h22 SET userid = @Usr, lastupdate = GETDATE(), stedit = '4' WHERE (asset_id = @asset_id)";
                 cmd.Parameters.AddWithValue("@asset_id", asset_code);
                 cmd.ExecuteNonQuery();
+
                 con.Close();
 
                 //Label lblOk = new Label();
@@ -299,7 +314,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             RadTextBox txt_spec = item.FindControl("txt_spec") as RadTextBox;
             RadComboBox cb_project = item.FindControl("cb_project") as RadComboBox;
             RadComboBox cb_cost_center = item.FindControl("cb_cost_center") as RadComboBox;
-            RadTextBox txt_status = item.FindControl("txt_status") as RadTextBox;
+            RadComboBox cb_status_reg = item.FindControl("cb_status_reg") as RadComboBox;
 
             con.Open();
             SqlCommand cmd = new SqlCommand();
@@ -322,7 +337,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
                 txt_spec.Text= dr["part_desc"].ToString();
                 cb_project.Text = dr["region_name"].ToString();
                 cb_cost_center.Text = dr["CostCenterName"].ToString();
-                txt_status.Text = dr["status"].ToString();
+                cb_status_reg.Text = dr["status"].ToString();
             }
             
             dr.Close();            
@@ -421,6 +436,26 @@ namespace TelerikWebApplication.Form.Fico.Asset
         {
             try
             {
+                RadComboBox cb = (RadComboBox)sender;
+                GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+                txt_use_life_year = item.FindControl("txt_use_life_year") as RadTextBox;
+                txt_dep_method = item.FindControl("txt_dep_method") as RadTextBox;
+                txt_appreciation = item.FindControl("txt_appreciation") as RadTextBox;
+                cb_status_reg = item.FindControl("cb_status_reg") as RadComboBox;
+                txt_acc_depre_no = item.FindControl("txt_acc_depre_no") as RadTextBox;
+                txt_acc_depre_desc = item.FindControl("txt_acc_depre_desc") as RadTextBox;
+                txt_cost_depre_no = item.FindControl("txt_cost_depre_no") as RadTextBox;
+                txt_cost_depre_desc = item.FindControl("txt_cost_depre_desc") as RadTextBox;
+                txt_acc_lost_no = item.FindControl("txt_acc_lost_no") as RadTextBox;
+                txt_acc_lost_desc = item.FindControl("txt_acc_lost_desc") as RadTextBox;
+                txt_acc_gain_no = item.FindControl("txt_acc_gain_no") as RadTextBox;
+                txt_acc_gain_desc = item.FindControl("txt_acc_gain_desc") as RadTextBox;
+                txt_acc_disposal_no = item.FindControl("txt_acc_disposal_no") as RadTextBox;
+                txt_acc_disposal_desc = item.FindControl("txt_acc_disposal_desc") as RadTextBox;
+                txt_cost_accu_no = item.FindControl("txt_cost_accu_no") as RadTextBox;
+                txt_cost_accu_desc = item.FindControl("txt_cost_accu_desc") as RadTextBox;
+
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
@@ -436,7 +471,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
                     txt_use_life_year.Text = dr["exp_life_year"].ToString();
                     txt_dep_method.Text = dr["Method"].ToString();
                     txt_appreciation.Text = dr["mtd_per"].ToString();
-                    txt_status.Text = "Registered";
+                    cb_status_reg.Text = "Registered";
                     txt_acc_depre_no.Text = dr["ak_rek"].ToString();
                     txt_acc_depre_desc.Text = dr["ak_rek_name"].ToString();
                     txt_cost_depre_no.Text = dr["ak_cum_rek"].ToString();
@@ -1032,7 +1067,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             GridEditableItem item = (GridEditableItem)btn.NamingContainer;
 
             RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
-            txt_doc_number = (RadTextBox)item.FindControl("txt_doc_number");
+            txt_doc_code = (RadTextBox)item.FindControl("txt_doc_code");
             cb_years_depre_prm = (RadComboBox)item.FindControl("cb_years_depre_prm");
             cb_depre_by_prm = (RadComboBox)item.FindControl("cb_depre_by_prm");
             txt_dep_method = (RadTextBox)item.FindControl("txt_dep_method");
@@ -1042,7 +1077,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
 
             if (cb_depre_by_prm.Text == "Monthly")
             {
-                RadGrid2.DataSource = GetDataDepre(txt_doc_number.Text, cb_years_depre_prm.Text);
+                RadGrid2.DataSource = GetDataDepre(txt_doc_code.Text, cb_years_depre_prm.Text);
                 if(txt_dep_method.Text=="HM")
                 {
                     col_susut.Visible=false;
@@ -1109,7 +1144,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             RadComboBox cb = (RadComboBox)sender;
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
 
-            txt_doc_number = (RadTextBox)item.FindControl("txt_doc_number");
+            txt_doc_number = (RadTextBox)item.FindControl("txt_doc_code");
             DataTable data = GetYearDeprePrm(txt_doc_number.Text);
 
             int itemOffset = e.NumberOfItems;
@@ -1152,7 +1187,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             txt_doc_number = (RadTextBox)item.FindControl("txt_doc_number");
             cb_asset_class = (RadComboBox)item.FindControl("cb_asset_class");
             txt_asset_name = (RadTextBox)item.FindControl("txt_asset_name");
-            txt_status = (RadTextBox)item.FindControl("txt_status");
+            cb_status_reg = (RadComboBox)item.FindControl("cb_status_reg");
             txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
             cb_uom = (RadComboBox)item.FindControl("cb_uom");
             cb_cost_center = (RadComboBox)item.FindControl("cb_cost_center");
@@ -1238,7 +1273,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
                 cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-                if (txt_status.Text == "Unregister")
+                if (cb_status_reg.Text == "Unregister")
                 {
                     cmd.CommandText = "sp_save_asset_unregister";
                     cmd.Parameters.AddWithValue("@asset_id", run);
@@ -1441,6 +1476,36 @@ namespace TelerikWebApplication.Form.Fico.Asset
             {
                 Session["actionHeader"] = "headerEdit";
                 Session["actionDetail"] = null;
+            }
+        }
+
+        protected void cb_status_reg_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Items.Add("Registered");
+            (sender as RadComboBox).Items.Add("Unregister");
+        }
+
+        protected void cb_status_reg_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Registered")
+            {
+                (sender as RadComboBox).SelectedValue = "B";
+            }
+            else if ((sender as RadComboBox).Text == "Unregister")
+            {
+                (sender as RadComboBox).SelectedValue = "N";
+            }
+        }
+
+        protected void cb_status_reg_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadComboBox).Text == "Registered")
+            {
+                (sender as RadComboBox).SelectedValue = "B";
+            }
+            else if ((sender as RadComboBox).Text == "Unregister")
+            {
+                (sender as RadComboBox).SelectedValue = "N";
             }
         }
     }

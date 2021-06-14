@@ -1350,6 +1350,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
                 cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
                 cmd.Parameters.AddWithValue("@ref_code", cb_ref.Text);
                 cmd.Parameters.AddWithValue("@userid", public_str.uid);
+                cmd.Parameters.AddWithValue("@status_lbm", 3);
                 cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
                 cmd.Parameters.AddWithValue("@cust_name", cb_supplier.Text);
                 cmd.Parameters.AddWithValue("@info_code", selected_info_code);

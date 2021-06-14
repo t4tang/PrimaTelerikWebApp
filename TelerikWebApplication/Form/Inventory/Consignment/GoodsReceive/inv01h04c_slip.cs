@@ -1,4 +1,4 @@
-namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
+namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
 {
     using System;
     using System.ComponentModel;
@@ -10,10 +10,10 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
     /// <summary>
     /// Summary description for inv01h05c_slip.
     /// </summary>
-    public partial class inv01h05c_slip : Telerik.Reporting.Report
+    public partial class inv01h04c_slip : Telerik.Reporting.Report
     {
         public static string _tr_code;
-        public inv01h05c_slip()
+        public inv01h04c_slip()
         {
             //
             // Required for telerik Reporting designer support
@@ -24,7 +24,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             // TODO: Add any constructor code after InitializeComponent call
             //
             Telerik.Reporting.ReportParameter param = new ReportParameter();
-            param.Name = "do_code";
+            param.Name = "lbm_code";
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
@@ -32,7 +32,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
-            sqlDataSource2.Parameters[0].Value = "=Parameters.do_code.Value"; 
+            sqlDataSource2.Parameters[0].Value = "=Parameters.lbm_code.Value"; 
         }
     }
 }

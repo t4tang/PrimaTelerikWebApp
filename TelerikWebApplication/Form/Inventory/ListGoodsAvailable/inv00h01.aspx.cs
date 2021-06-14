@@ -23,7 +23,7 @@ namespace TelerikWebApplication.Form.Inventory.ListGoodsAvailable
         {
             if (!IsPostBack)
             {
-                lbl_form_name.Text = "Goods Available List";
+                lbl_form_name.Text = "List Of Goods Available";
                 //dtp_date.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_date.SelectedDate = DateTime.Now;
                 cb_project.SelectedValue = public_str.site;

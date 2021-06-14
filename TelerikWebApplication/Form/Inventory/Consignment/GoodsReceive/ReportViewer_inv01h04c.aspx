@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportViewer_inv01h05c.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued.ReportViewer_inv01h05c" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportViewer_inv01h04c.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive.ReportViewer_inv01h04c" %>
 
 <%@ Register TagPrefix="telerik" Assembly="Telerik.ReportViewer.Html5.WebForms" Namespace="Telerik.ReportViewer.Html5.WebForms" %>
 
@@ -30,7 +30,7 @@
 			Height="600px"
 			EnableAccessibility="false"
             runat="server" ViewMode="PrintPreview">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued.inv01h05c_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive.inv01h04c_slip, TelerikWebApplication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>
     </form>

@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued {
+namespace TelerikWebApplication.Form.Inventory.ReservationSlip.WithReffer {
     
     
-    public partial class ReportViewer_inv01h05c {
+    public partial class inv01h03mReportViewer {
         
         /// <summary>
-        /// reportViewer_inv01h05c control.
+        /// ReportViewer1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.ReportViewer.Html5.WebForms.ReportViewer reportViewer_inv01h05c;
+        protected global::Telerik.ReportViewer.Html5.WebForms.ReportViewer ReportViewer1;
     }
 }

@@ -1,6 +1,6 @@
-namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
+namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
 {
-    partial class inv01h05c_slip
+    partial class inv01h04c_slip
     {
         #region Component Designer generated code
         /// <summary>
@@ -238,7 +238,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox10.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox10.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox10.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox10.Value = "= Fields.do_code";
+            this.textBox10.Value = "= Fields.lbm_code";
             // 
             // textBox11
             // 
@@ -253,7 +253,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox11.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox11.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox11.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox11.Value = "= Fields.Tgl";
+            this.textBox11.Value = "= Fields.lbm_date";
             // 
             // textBox12
             // 
@@ -267,7 +267,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox12.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox12.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox12.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox12.Value = "= Fields.do_type";
+            this.textBox12.Value = "";
             // 
             // textBox13
             // 
@@ -281,7 +281,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox13.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox13.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox13.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox13.Value = "= Fields.Printed";
+            this.textBox13.Value = "= Fields.printed";
             // 
             // textBox14
             // 
@@ -369,7 +369,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox4.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(12D);
             this.textBox4.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox4.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox4.Value = "GI-CONSIGMENT";
+            this.textBox4.Value = "GR-CONSIGMENT";
             // 
             // textBox31
             // 
@@ -422,7 +422,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox34.Name = "textBox34";
             this.textBox34.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(5.7734031677246094D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox34.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox34.Value = "= Fields.supplier_name";
+            this.textBox34.Value = "= Fields.cust_name";
             // 
             // textBox20
             // 
@@ -430,7 +430,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox20.Name = "textBox20";
             this.textBox20.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(5.7734031677246094D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox20.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox20.Value = "= Fields.region_name";
+            this.textBox20.Value = "= Fields.region_code";
             // 
             // textBox21
             // 
@@ -598,7 +598,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(4.6202092170715332D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox29.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox29.Value = "= Fields.prod_spec";
+            this.textBox29.Value = "= Fields.Spec";
             // 
             // textBox30
             // 
@@ -606,7 +606,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox30.Name = "textBox30";
             this.textBox30.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.4265964031219482D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox30.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox30.Value = "= Fields.qty_out";
+            this.textBox30.Value = "= Fields.qty_receive";
             // 
             // textBox32
             // 
@@ -614,7 +614,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox32.Name = "textBox32";
             this.textBox32.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.3732025623321533D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox32.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox32.Value = "= Fields.unit_code1";
+            this.textBox32.Value = "= Fields.SatQty";
             // 
             // textBox33
             // 
@@ -630,7 +630,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox35.Name = "textBox35";
             this.textBox35.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(5.7993993759155273D), Telerik.Reporting.Drawing.Unit.Cm(0.60000008344650269D));
             this.textBox35.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
-            this.textBox35.Value = "= Fields.remark1";
+            this.textBox35.Value = "= Fields.remarkd";
             // 
             // pageFooterSection1
             // 
@@ -728,7 +728,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox51.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox51.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
             this.textBox51.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
-            this.textBox51.Value = "= Fields.issuedby_name";
+            this.textBox51.Value = "= Fields.receiptby_name";
             // 
             // textBox52
             // 
@@ -742,7 +742,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox52.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox52.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
             this.textBox52.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
-            this.textBox52.Value = "= Fields.approveBy_name";
+            this.textBox52.Value = "= Fields.approveby_name";
             // 
             // textBox54
             // 
@@ -756,7 +756,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox54.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox54.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
             this.textBox54.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
-            this.textBox54.Value = "= Fields.issuedby_jab";
+            this.textBox54.Value = "";
             // 
             // textBox55
             // 
@@ -770,7 +770,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox55.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox55.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
             this.textBox55.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
-            this.textBox55.Value = "= Fields.approveBy_jab";
+            this.textBox55.Value = "";
             // 
             // textBox60
             // 
@@ -812,7 +812,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox58.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox58.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
             this.textBox58.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
-            this.textBox58.Value = "= Fields.receivedBy_name";
+            this.textBox58.Value = "= Fields.createdby_name";
             // 
             // textBox57
             // 
@@ -826,7 +826,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.textBox57.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox57.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(9D);
             this.textBox57.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
-            this.textBox57.Value = "= Fields.receivedBy_jab";
+            this.textBox57.Value = "";
             // 
             // textBox43
             // 
@@ -851,19 +851,21 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
             this.sqlDataSource2.ConnectionString = "DbConString";
             this.sqlDataSource2.Name = "sqlDataSource2";
             this.sqlDataSource2.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
-            new Telerik.Reporting.SqlDataSourceParameter("@do_code", System.Data.DbType.AnsiString, "GI0319071182")});
-            this.sqlDataSource2.SelectCommand = "dbo.spr_print_gi_consigment";
+            new Telerik.Reporting.SqlDataSourceParameter("@gr_code", System.Data.DbType.AnsiString, null)});
+            this.sqlDataSource2.SelectCommand = "dbo.spr_print_goods_receive";
             this.sqlDataSource2.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
-            // inv01h05c_slip
+            // inv01h04c_slip
             // 
             this.DataSource = this.sqlDataSource2;
             this.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.pageHeaderSection1,
             this.detail,
             this.pageFooterSection1});
-            this.Name = "inv01h05c_slip";
-            this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D), Telerik.Reporting.Drawing.Unit.Mm(20D));
+            this.Name = "inv01h04c_slip";
+            this.PageSettings.ContinuousPaper = false;
+            this.PageSettings.Landscape = false;
+            this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(0D), Telerik.Reporting.Drawing.Unit.Mm(0D), Telerik.Reporting.Drawing.Unit.Mm(0D), Telerik.Reporting.Drawing.Unit.Mm(0D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
             new Telerik.Reporting.Drawing.TypeSelector(typeof(Telerik.Reporting.TextItemBase)),
@@ -892,7 +894,6 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
         private Telerik.Reporting.TextBox textBox9;
         private Telerik.Reporting.TextBox textBox10;
         private Telerik.Reporting.TextBox textBox11;
-        private Telerik.Reporting.TextBox textBox12;
         private Telerik.Reporting.TextBox textBox13;
         private Telerik.Reporting.TextBox textBox14;
         private Telerik.Reporting.TextBox textBox61;
@@ -941,5 +942,6 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
         private Telerik.Reporting.TextBox textBox38;
         private Telerik.Reporting.TextBox textBox37;
         private Telerik.Reporting.TextBox textBox36;
+        private Telerik.Reporting.TextBox textBox12;
     }
 }

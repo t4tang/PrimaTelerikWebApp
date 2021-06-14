@@ -1005,10 +1005,10 @@
                                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_bd_statusEdit" EnableLoadOnDemand="True" DataTextField="wo_desc"
                                                     DataValueField="wo_status" AutoPostBack="false"
                                                     Text='<%# DataBinder.Eval(Container, "DataItem.status") %>'
-                                                    HighlightTemplatedItems="true" Width="80px" DropDownWidth="850px" DropDownAutoWidth="Enabled" 
+                                                    HighlightTemplatedItems="true" Width="80px" DropDownWidth="470px" DropDownAutoWidth="Enabled" 
                                                         OnItemsRequested="cb_bd_status_ItemsRequested">                                                   
                                                     <HeaderTemplate>
-                                                    <table style="width: 670px; font-size:smaller">
+                                                    <table style="width: 470px; font-size:smaller">
                                                         <tr>
                                                             <td style="width: 50px;">
                                                                 Code
@@ -1019,14 +1019,14 @@
                                                             <%-- <td style="width: 120px;">
                                                                 Type B/D
                                                             </td>--%>
-                                                            <td style="width: 550px;">
+                                                            <td style="width: 350px;">
                                                                 Remark
                                                             </td>                                                        
                                                         </tr>
                                                     </table>                                                       
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <table style="width: 670px; font-size:smaller">
+                                                    <table style="width: 470px; font-size:smaller">
                                                         <tr>
                                                             <td style="width: 50px;">
                                                                 <%# DataBinder.Eval(Container, "Value")%>
@@ -1037,7 +1037,7 @@
                                                             <%-- <td style="width: 120px;">
                                                                 <%# DataBinder.Eval(Container, "Attributes['unit']")%>
                                                             </td>--%>
-                                                            <td style="width: 550px;">
+                                                            <td style="width: 350px;">
                                                                 <%# DataBinder.Eval(Container, "Attributes['remark']")%>
                                                             </td>                                                                                                
                                                         </tr>

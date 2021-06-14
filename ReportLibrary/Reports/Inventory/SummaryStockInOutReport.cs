@@ -12,13 +12,13 @@ namespace ReportLibrary.Reports.Inventory
     /// </summary>
     /// 
     [Description("Display Work Order or User Request status in a given periode")]
-    public partial class SummaryStockInOutReport : Telerik.Reporting.Report
+    public partial class SummaryStockInOut : Telerik.Reporting.Report
     {
         public static string _warehouse;
         public static DateTime _firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         public static DateTime _endDate = DateTime.Now;
 
-        public SummaryStockInOutReport()
+        public SummaryStockInOut()
         {
             //
             // Required for telerik Reporting designer support

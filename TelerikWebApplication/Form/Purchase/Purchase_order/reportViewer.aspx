@@ -73,7 +73,7 @@
                     <td style="width:100px; vertical-align:top">
                         <asp:UpdatePanel runat="server">
                             <ContentTemplate>
-                                <asp:CheckBox ID="chk_overhaul" runat="server" Text="Overhaul" OnCheckedChanged="chk_overhaul_CheckedChanged" 
+                                <asp:CheckBox ID="chk_overhaul" runat="server" Text="Overhaul" OnCheckedChanged="chk_overhaul_CheckedChanged" Visible="false"
                                     AutoPostBack="true" BackColor="White"  ForeColor="Highlight" Font-Bold="true" Font-Names="Calibri" Font-Size="11px" ></asp:CheckBox>
                             </ContentTemplate>
                         </asp:UpdatePanel>

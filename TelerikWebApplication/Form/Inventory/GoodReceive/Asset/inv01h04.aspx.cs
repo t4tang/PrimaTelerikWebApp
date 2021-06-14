@@ -1171,7 +1171,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
 
             //if (typeRef == "Supplier")
             //{
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_goods_receiveH_reff WHERE asset_id != 'NON' AND vendor_code = '" + vendor + "' " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT po_code, Po_date, remark FROM v_goods_receiveH_reff WHERE asset_id IS NULL AND vendor_code = '" + vendor + "' " +
                 "AND PlantCode = '" + project + "' AND po_code LIKE @text + '%' ", con);
             adapter.SelectCommand.Parameters.AddWithValue("@vendor_code", vendor);
             adapter.SelectCommand.Parameters.AddWithValue("@project", project);
@@ -1283,8 +1283,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             RadComboBox cb_costcenter = (RadComboBox)item.FindControl("cb_costcenter");
             RadComboBox cb_project = (RadComboBox)item.FindControl("cb_project");
             RadGrid RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
-
-
+            Button btnCancel = (Button)item.FindControl("btnCancel");
 
             long maxNo;
             string run = null;
@@ -1394,13 +1393,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
                     cmd.ExecuteNonQuery();
 
                 }
-
-                con.Close();
+                
 
                 notif.Text = "Data berhasil disimpan";
                 notif.Title = "Notification";
                 notif.Show();
                 txt_gr_number.Text = run;
+                (sender as Button).Text = "Update";
+                btnCancel.Text = "Close";
 
                 if (Session["actionHeader"].ToString() == "headerEdit")
                 {
@@ -1421,11 +1421,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             }
             finally
             {
-                con.Close();
-                notif.Text = "Data berhasil disimpan";
-                notif.Title = "Notification";
-                notif.Show();
-                txt_gr_number.Text = run;
+                con.Close();                
 
                 if (Session["actionHeader"].ToString() == "headerEdit")
                 {

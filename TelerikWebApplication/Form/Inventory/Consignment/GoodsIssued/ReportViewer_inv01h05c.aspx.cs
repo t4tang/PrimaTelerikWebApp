@@ -1,4 +1,4 @@
-﻿namespace TelerikWebApplication.Form.Inventory.GoodsIssued.Consignment
+﻿namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsIssued
 {
     using System;
     using Telerik.ReportViewer.Html5.WebForms;
@@ -10,7 +10,7 @@
             //if (!IsPostBack)
             //{
                 this.Title = Request.QueryString["do_code"];
-                this.reportViewer_inv01h05c.ViewMode = ViewMode.PrintPreview;
+                //this.reportViewer_inv01h05c.ViewMode = ViewMode.PrintPreview;
                 inv01h05c_slip._tr_code = Request.QueryString["do_code"];
             //}
         }

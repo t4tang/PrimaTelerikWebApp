@@ -2007,14 +2007,14 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
                 DataRow drValue = dtValues.NewRow();
                 drValue["trans_id"] = tr_code;
                 drValue["down_date"] = (item.FindControl("trans_dateInsert") as RadDatePicker).SelectedDate;
-                drValue["down_time"] = (item.FindControl("rtp_breakdownTimeInsert") as RadTimePicker).SelectedTime;
+                drValue["down_time"] = Convert.ToDateTime((item.FindControl("rtp_breakdownTimeInsert") as RadTimePicker).SelectedTime.ToString());
             //drValue["down_time"] = Convert.ToInt32((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
             //(Convert.ToInt32((item.FindControl("rtp_breakdownTime") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100);
             //drValue["down_act"] = (item.FindControl("rtp_breakdownActInsert") as RadDatePicker).SelectedDate.Value.TimeOfDay;
-            drValue["down_act"] = (item.FindControl("rtp_breakdownActInsert") as RadTimePicker).SelectedTime;
+            drValue["down_act"] = Convert.ToDateTime((item.FindControl("rtp_breakdownActInsert") as RadTimePicker).SelectedTime.ToString());
             //drValue["down_act"] = Convert.ToInt32((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
             //(Convert.ToInt32((item.FindControl("rtp_breakdownAct") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100);
-            drValue["down_up"] = (item.FindControl("rtp_breakdownUpInsert") as RadTimePicker).SelectedTime;
+            drValue["down_up"] = Convert.ToDateTime((item.FindControl("rtp_breakdownUpInsert") as RadTimePicker).SelectedTime.ToString());
                 //drValue["down_up"] = Convert.ToInt32((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Hours) +
                 //(Convert.ToInt32((item.FindControl("rtp_breakdownUp") as RadTimePicker).SelectedDate.Value.TimeOfDay.Minutes) * 1 / 100);
                 drValue["remark_activity"] = (item.FindControl("txt_remarkInsert") as RadTextBox).Text;
@@ -2047,9 +2047,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrder
             drValue["trans_id"] = tr_code;
             drValue["down_date"] = (item.FindControl("trans_dateEdit") as RadDatePicker).SelectedDate;
             //drValue["down_time"] = (item.FindControl("rtp_breakdownTimeEdit") as RadDatePicker).SelectedDate.Value.TimeOfDay;
-            drValue["down_time"] = (item.FindControl("rtp_breakdownTimeEdit") as RadDatePicker).SelectedDate;
-            drValue["down_act"] = (item.FindControl("rtp_breakdownActEdit") as RadDatePicker).SelectedDate;
-            drValue["down_up"] = (item.FindControl("rtp_breakdownUpEdit") as RadTimePicker).SelectedDate;
+            drValue["down_time"] = (item.FindControl("rtp_breakdownTimeEdit") as RadTimePicker).SelectedTime;
+            drValue["down_act"] = (item.FindControl("rtp_breakdownActEdit") as RadTimePicker).SelectedTime;
+            drValue["down_up"] = (item.FindControl("rtp_breakdownUpEdit") as RadTimePicker).SelectedTime;
             drValue["remark_activity"] = (item.FindControl("txt_remarkEdit") as RadTextBox).Text;
             drValue["status"] = (item.FindControl("cb_bd_statusEdit") as RadComboBox).Text;
             //drValue["run"] = (item.FindControl("lbl_runInsert") as RadTextBox).Text;

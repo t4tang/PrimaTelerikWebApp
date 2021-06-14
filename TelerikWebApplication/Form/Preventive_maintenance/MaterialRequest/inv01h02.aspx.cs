@@ -440,8 +440,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             drValue["chart_code"] = (item.FindControl("lbl_operation_code_insertTemp") as Label).Text;
             drValue["prod_type"] = (item.FindControl("lbl_prodType_insertTemp") as Label).Text;
             drValue["part_code"] = (item.FindControl("cb_prod_code_insertTemp") as RadComboBox).Text;
-            drValue["part_qty"] = (item.FindControl("txt_qty_insertTemp") as RadNumericTextBox).Text;
-            drValue["qty_pr"] = (item.FindControl("txt_qtyRs_insertTemp") as RadNumericTextBox).Text;
+            drValue["part_qty"] = (item.FindControl("txt_qty_insertTemp") as RadNumericTextBox).Value;
+            drValue["qty_pr"] = (item.FindControl("txt_qtyRs_insertTemp") as RadNumericTextBox).Value;
             drValue["part_unit"] = (item.FindControl("lbl_UoM_insertTemp") as Label).Text;
             drValue["tWarranty"] = (item.FindControl("chk_waranty_insertTemp") as CheckBox).Checked;
             drValue["remark"] = (item.FindControl("txt_remark_insertTemp") as RadTextBox).Text;
@@ -511,14 +511,20 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     {
                         Label lbl_UoM = (Label)item.FindControl("lbl_UoM_insertTemp");
                         Label lbl_prodType = (Label)item.FindControl("lbl_prodType_insertTemp");
+                        RadNumericTextBox txt_qtyRs_insertTemp = (RadNumericTextBox)item.FindControl("txt_qtyRs_insertTemp");
+                        RadNumericTextBox txt_qty_insertTemp = (RadNumericTextBox)item.FindControl("txt_qty_insertTemp");
 
                         lbl_prodType.Text = "M1";
                         lbl_UoM.Text = dtr["unit"].ToString();
+                        txt_qtyRs_insertTemp.Value = 0;
+                        txt_qty_insertTemp.Value = 0;
+
                     }
                     else if (Session["actionDetail"].ToString() == "detailEdit")
                     {
                         Label lbl_UoM = (Label)item.FindControl("lbl_UoM_editTemp");
                         Label lbl_prodType = (Label)item.FindControl("lbl_prodType_editTemp");
+                        RadNumericTextBox txt_qtyRs_editTemp = (RadNumericTextBox)item.FindControl("txt_qtyRs_editTemp");
 
                         lbl_prodType.Text = "M1";
                         lbl_UoM.Text = dtr["unit"].ToString();
@@ -543,10 +549,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec], [unit] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            string sql = "SELECT TOP (100)[prod_code], [spec], [unit] FROM [inv00h01]  WHERE stEdit != '4' AND (spec LIKE @text + '%' OR prod_code LIKE @text + '%') ";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
 
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -731,19 +737,19 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     con.Open();
                     SqlDataReader sdr;
                     cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h02.sro_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM inv01h02 WHERE LEFT(inv01h02.sro_code, 4) = 'MR03' " +
+                        "FROM inv01h02 WHERE LEFT(inv01h02.sro_code, 4) = 'MR01' " +
                         "AND SUBSTRING(inv01h02.sro_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
                         "AND SUBSTRING(inv01h02.sro_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
                         //throw new Exception();
-                        run = "MR03" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
+                        run = "MR01" + dtp_date.SelectedDate.Value.Year + dtp_date.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())
                     {
                         maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "MR03" + (dtp_date.SelectedDate.Value.Year.ToString()).Substring(dtp_date.SelectedDate.Value.Year.ToString().Length - 2) +
+                        run = "MR01" + (dtp_date.SelectedDate.Value.Year.ToString()).Substring(dtp_date.SelectedDate.Value.Year.ToString().Length - 2) +
                             ("0000" + dtp_date.SelectedDate.Value.Month).Substring(("0000" + dtp_date.SelectedDate.Value.Month).Length - 2, 2) +
                             ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
                     }
