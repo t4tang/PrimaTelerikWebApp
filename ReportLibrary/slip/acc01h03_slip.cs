@@ -32,11 +32,11 @@ namespace ReportLibrary.slip
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = _tr_code;
+            param.Value = "B03K21050001";
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
-            sqlDataSource1.Parameters[0].Value = "=Parameters.slip_no.Value";
+            sqlBankPayment.Parameters[0].Value = "=Parameters.slip_no.Value";
         }
     }
 }

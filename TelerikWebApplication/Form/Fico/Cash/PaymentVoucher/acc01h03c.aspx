@@ -245,7 +245,7 @@
                     <telerik:GridBoundColumn UniqueName="tot_pay" HeaderText="Total Amount" DataField="tot_pay" FilterControlWidth="120px" DataFormatString="{0:#,###,##0.00}">
                             <HeaderStyle Width="120px" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="remark1" HeaderText="Remark" DataField="remark1" ItemStyle-Wrap="true"
+                    <telerik:GridBoundColumn UniqueName="Remark" HeaderText="Remark" DataField="Remark" ItemStyle-Wrap="true"
                                 ItemStyle-Width="650px" FilterControlWidth="480px">
                             <HeaderStyle Width="650px"></HeaderStyle>
                     </telerik:GridBoundColumn>
@@ -635,50 +635,50 @@
                                                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code" EnableLoadOnDemand="true" AutoPostBack="true" 
                                                                     OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoFP" DataValueField="NoBuk"
                                                                     Text='<%# DataBinder.Eval(Container, "DataItem.inv_code") %>' EmptyMessage="-Select a Reg. Number-" 
-                                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="1500px" 
+                                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="1150px" 
                                                                     OnPreRender="cb_inv_code_PreRender" OnSelectedIndexChanged="cb_inv_code_SelectedIndexChanged">
                                                                     <HeaderTemplate>
-                                                                        <table style="width: 1500px; font-size:smaller">
+                                                                        <table style="width: 1150px; font-size:smaller">
                                                                             <tr>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     Reg. Number
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     Invoice Number
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     No.PO
                                                                                 </td>
-                                                                                <td style="width: 100px;">
+                                                                                <td style="width: 120px;">
                                                                                     Date
-                                                                                </td><td style="width: 150px;">
+                                                                                </td><td style="width: 120px;">
                                                                                     Amount
                                                                                 </td>
-                                                                                <td style="width: 500px;">
+                                                                                <td style="width: 550px;">
                                                                                     Remark
                                                                                 </td>                                                                
                                                                             </tr>
                                                                         </table>
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
-                                                                        <table style="width: 1500px; font-size:smaller">
+                                                                        <table style="width: 1150px; font-size:smaller">
                                                                             <tr>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Value")%>
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['NoFP']")%>
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['NoPO']")%>
                                                                                 </td>
-                                                                                <td style="width: 100px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['Tgl']")%>
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['debt_rema']")%>
                                                                                 </td>
-                                                                                <td style="width: 500px;">
+                                                                                <td style="width: 550px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['ket']")%>
                                                                                 </td>                                                                
                                                                             </tr>
@@ -694,50 +694,50 @@
                                                             <InsertItemTemplate>
                                                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_inv_code_insert" EnableLoadOnDemand="true" AutoPostBack="true" 
                                                                     OnItemsRequested="cb_inv_code_ItemsRequested" DataTextField="NoFP" DataValueField="NoBuk"
-                                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="1500px" EmptyMessage="-Select a Reg. Number-" 
+                                                                    HighlightTemplatedItems="true" Height="190px" Width="120px" DropDownWidth="1150px" EmptyMessage="-Select a Reg. Number-" 
                                                                     OnPreRender="cb_inv_code_PreRender" OnSelectedIndexChanged="cb_inv_code_SelectedIndexChanged">
                                                                     <HeaderTemplate>
-                                                                        <table style="width: 1500px; font-size:smaller">
+                                                                        <table style="width: 1150px; font-size:smaller">
                                                                             <tr>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     Reg. Number
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     Invoice Number
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     No.PO
                                                                                 </td>
-                                                                                <td style="width: 100px;">
+                                                                                <td style="width: 120px;">
                                                                                     Date
-                                                                                </td><td style="width: 150px;">
+                                                                                </td><td style="width: 120px;">
                                                                                     Amount
                                                                                 </td>
-                                                                                <td style="width: 500px;">
+                                                                                <td style="width: 550px;">
                                                                                     Remark
                                                                                 </td>                                                                
                                                                             </tr>
                                                                         </table>
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
-                                                                        <table style="width: 1500px; font-size:smaller">
+                                                                        <table style="width: 1150px; font-size:smaller">
                                                                             <tr>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Value")%>
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['NoFP']")%>
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['NoPO']")%>
                                                                                 </td>
-                                                                                <td style="width: 100px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['Tgl']")%>
                                                                                 </td>
-                                                                                <td style="width: 150px;">
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['debt_rema']")%>
                                                                                 </td>
-                                                                                <td style="width: 500px;">
+                                                                                <td style="width: 550px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['ket']")%>
                                                                                 </td>                                                                
                                                                             </tr>
