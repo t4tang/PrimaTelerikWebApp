@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv01h04.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodReceive.Standard.inv01h04" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv01h04.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodReceive.Service.inv01h04" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
@@ -13,7 +13,7 @@
             }
 
             function ShowPreview(id) {
-                window.radopen("inv01h04ReportViewer.aspx?lbm_code=" + id, "PreviewDialog");
+                window.radopen("inv01h04srvReportViewer.aspx?lbm_code=" + id, "PreviewDialog");
                 return false;
             }
             function RowDblClick(sender, eventArgs) {
@@ -23,7 +23,7 @@
                 //alert("this is the client-side callback function. The RadAlert returned: " + arg);
             }
             function ShowInsertForm() {                
-                window.radopen("inv01h04EditForm.aspx", "EditDialogWindows");
+                window.radopen("inv01h04srvEditForm.aspx", "EditDialogWindows");
                 return false;
             }
 
@@ -33,7 +33,7 @@
                 var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
                 grid.get_masterTableView().selectItem(rowControl, true);
  
-                window.radopen("inv01h04EditForm.aspx?lbm_code=" + id, "EditDialogWindows");
+                window.radopen("inv01h04srvEditForm.aspx?lbm_code=" + id, "EditDialogWindows");
                 return false;
             }
 

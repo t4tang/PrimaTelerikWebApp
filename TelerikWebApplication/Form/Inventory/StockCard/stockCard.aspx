@@ -173,7 +173,7 @@
                                 <ContentTemplate>
                                 <telerik:RadLabel runat="server" Text="Material Code :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
                                 <telerik:RadComboBox ID="cb_prd_code" runat="server" RenderMode="Lightweight" AutoPostBack="false" CausesValidation="false"
-                                    EnableLoadOnDemand="True"  Skin="Silk" DropDownWidth="650px"
+                                    EnableLoadOnDemand="True"  Skin="Silk" DropDownWidth="650px" Height="400px"
                                     EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="100%" 
                                     OnItemsRequested="cb_prd_code_ItemsRequested"
                                     OnSelectedIndexChanged="cb_prd_code_SelectedIndexChanged" >
@@ -218,7 +218,7 @@
                                 <ContentTemplate>
                                 <telerik:RadLabel runat="server" Text="Project :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
                                 <telerik:RadComboBox ID="cb_proj_prm" runat="server" RenderMode="Lightweight" AutoPostBack="true"
-                                    EnableLoadOnDemand="True"  Skin="Silk" 
+                                    EnableLoadOnDemand="True"  Skin="Silk"  Height="300px"
                                     OnItemsRequested="cb_Project_prm_ItemsRequested"
                                     OnSelectedIndexChanged="cb_Project_prm_SelectedIndexChanged"
                                     EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="100%">
@@ -233,7 +233,7 @@
                                 <ContentTemplate>
                                 <telerik:RadLabel runat="server" Text="Warehouse :" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel><br />
                                 <telerik:RadComboBox ID="cb_warehouse" runat="server" RenderMode="Lightweight" AutoPostBack="true" CausesValidation="false"
-                                    EnableLoadOnDemand="True"  Skin="Silk" 
+                                    EnableLoadOnDemand="True"  Skin="Silk"  Height="300px"
                                     EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false" Width="100%" 
                                     OnItemsRequested="cb_loc_ItemsRequested" 
                                     OnSelectedIndexChanged="cb_loc_SelectedIndexChanged" >
