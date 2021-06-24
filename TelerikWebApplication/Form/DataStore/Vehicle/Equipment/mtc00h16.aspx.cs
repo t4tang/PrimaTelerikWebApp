@@ -1285,11 +1285,11 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@equipment_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@reading_code", (item.FindControl("cb_reading_type") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@manu_code", (item.FindControl("cb_manufacture") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@model_no", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@class_name", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@sup_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@tank_unit", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@body_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@model_no", (item.FindControl("cb_model") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@class_name", (item.FindControl("cb_class") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@sup_code", (item.FindControl("cb_supplier") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@tank_unit", (item.FindControl("cb_tank_unit") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@body_code", (item.FindControl("cb_category") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@fuel_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@unit_name", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
