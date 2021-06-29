@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
-namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
+namespace TelerikWebApplication.Form.Inventory.GoodReceive.Service
 {
     public partial class inv01h04 : System.Web.UI.Page
     {
@@ -49,7 +49,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
         {
             if (!IsPostBack)
             {
-                lbl_form_name.Text = "Goods Receipt";
+                lbl_form_name.Text = "Service Receipt";
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 cb_proj_prm.SelectedValue = public_str.site;

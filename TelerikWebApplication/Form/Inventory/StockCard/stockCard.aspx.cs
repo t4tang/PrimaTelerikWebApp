@@ -103,7 +103,8 @@ namespace TelerikWebApplication.Form.Inventory.StockCard
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             DataTable dt = new DataTable();
                         
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT top(50)	prod_code, spec, unit FROM inv00h01 WHERE(stEdit <> '4') AND(stMain <> '4') AND spec LIKE @text + '%'", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT top(50)	prod_code, spec, unit FROM inv00h01 WHERE(stEdit <> '4') AND(stMain <> '4') AND " +
+                "(prod_code LIKE @text + '%' OR spec LIKE @text + '%')", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             //DataTable dt = new DataTable();
             adapter.Fill(dt);

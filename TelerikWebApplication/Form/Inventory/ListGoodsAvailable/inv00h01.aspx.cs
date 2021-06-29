@@ -10,6 +10,10 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using TelerikWebApplication.Class;
 
+using xi = Telerik.Web.UI.ExportInfrastructure;
+using Telerik.Web.UI.GridExcelBuilder;
+using System.Drawing;
+using Telerik.Web.UI.Export;
 
 namespace TelerikWebApplication.Form.Inventory.ListGoodsAvailable
 {
@@ -23,7 +27,7 @@ namespace TelerikWebApplication.Form.Inventory.ListGoodsAvailable
         {
             if (!IsPostBack)
             {
-                lbl_form_name.Text = "List Of Goods Available";
+                lbl_form_name.Text = "List Goods Available";
                 //dtp_date.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_date.SelectedDate = DateTime.Now;
                 cb_project.SelectedValue = public_str.site;
@@ -47,6 +51,7 @@ namespace TelerikWebApplication.Form.Inventory.ListGoodsAvailable
             cmd.Parameters.AddWithValue("@date", date);
             cmd.Parameters.AddWithValue("@project", project);
             cmd.Parameters.AddWithValue("@storage", wh_code);
+            //cmd.Parameters.AddWithValue("@category", wh_code);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -128,7 +133,8 @@ namespace TelerikWebApplication.Form.Inventory.ListGoodsAvailable
         #region Warehouse / Storage 
         private static DataTable GetWarehouse(string text, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%' " +
+                "UNION SELECT 'ALL', 'ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -204,6 +210,61 @@ namespace TelerikWebApplication.Form.Inventory.ListGoodsAvailable
             {
                 (sender as RadGrid).DataSource = new string[] { };
             }
+        }
+
+        protected void ImageButton_Click(object sender, ImageClickEventArgs e)
+        {
+            string alternateText = (sender as ImageButton).AlternateText;
+            #region [ XSLX FORMAT ]
+            if (alternateText == "Xlsx" )
+            {
+                RadGrid1.MasterTableView.GetColumn("material_code").HeaderStyle.BackColor = Color.LightGray;
+                RadGrid1.MasterTableView.GetColumn("material_code").ItemStyle.BackColor = Color.LightGray;
+            }
+
+            #endregion
+            RadGrid1.ExportSettings.Excel.Format = (GridExcelExportFormat)Enum.Parse(typeof(GridExcelExportFormat), alternateText);
+
+            //RadGrid1.ExportSettings.IgnorePaging = CheckBox1.Checked;
+            RadGrid1.ExportSettings.ExportOnlyData = true;
+            RadGrid1.ExportSettings.OpenInNewWindow = true;
+            RadGrid1.MasterTableView.ExportToExcel();
+        }
+        
+        protected void bnt_excel_Click(object sender, EventArgs e)
+        {
+            string alternateText = (sender as RadButton).Text;
+            #region [ XSLX FORMAT ]
+            if (alternateText == "Xlsx")
+            {
+                RadGrid1.MasterTableView.GetColumn("material_code").HeaderStyle.BackColor = Color.LightGray;
+                RadGrid1.MasterTableView.GetColumn("material_code").ItemStyle.BackColor = Color.LightGray;
+            }
+
+            #endregion
+            RadGrid1.ExportSettings.Excel.Format = (GridExcelExportFormat)Enum.Parse(typeof(GridExcelExportFormat), alternateText);
+
+            //RadGrid1.ExportSettings.IgnorePaging = CheckBox1.Checked;
+            RadGrid1.ExportSettings.ExportOnlyData = true;
+            RadGrid1.ExportSettings.OpenInNewWindow = true;
+            RadGrid1.MasterTableView.ExportToExcel();
+        }
+
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else
+            
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 510;
+            }
+            
         }
     }
 }
