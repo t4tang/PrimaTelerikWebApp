@@ -32,7 +32,7 @@ namespace ReportLibrary.slip
             param.Type = ReportParameterType.String;
             param.AllowBlank = false;
             param.AllowNull = false;
-            param.Value = "K01K21030001";
+            param.Value = _tr_code;
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
