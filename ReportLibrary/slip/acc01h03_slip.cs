@@ -36,7 +36,7 @@ namespace ReportLibrary.slip
             param.Visible = false;
             this.Report.ReportParameters.Add(param);
 
-            sqlDataSource1.Parameters[0].Value = "=Parameters.slip_no.Value";
+            sqlBankPayment.Parameters[0].Value = "=Parameters.slip_no.Value";
         }
     }
 }
