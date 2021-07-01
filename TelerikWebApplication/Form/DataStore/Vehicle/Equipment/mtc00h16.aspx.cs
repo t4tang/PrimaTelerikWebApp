@@ -1290,12 +1290,19 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@sup_code", (item.FindControl("cb_supplier") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@tank_unit", (item.FindControl("cb_tank_unit") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@body_code", (item.FindControl("cb_category") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@fuel_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@unit_name", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@hour_avai", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@active", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@pur_date", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@fuel_code", (item.FindControl("cb_primary_fuel") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@unit_name", (item.FindControl("txt_equipment_Name") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@hour_avai", (item.FindControl("txt_std_opr") as RadTextBox).Text);
+                if ((item.FindControl("chk_active") as CheckBox).Checked == true)
+                {
+                    cmd.Parameters.AddWithValue("@privat_use", 1);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@privat_use", 0);
+                }
+                cmd.Parameters.AddWithValue("@pur_date", (item.FindControl("dtp_purchase") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@arr_date", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@pur_cost", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@order_number", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
