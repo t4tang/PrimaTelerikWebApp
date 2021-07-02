@@ -23,6 +23,9 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
         RadTextBox txt_equipment_Name;
         RadComboBox cb_kind;
         RadDatePicker dtp_purchase;
+        RadDatePicker dtp_arrive_date;
+        RadDatePicker dtp_machinery_inspect_done;
+        RadDatePicker dtp_next_due;
         RadComboBox cb_project;
         RadTextBox txt_asset_code;
         RadComboBox cb_cost_center;
@@ -1302,10 +1305,10 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 {
                     cmd.Parameters.AddWithValue("@privat_use", 0);
                 }
-                cmd.Parameters.AddWithValue("@pur_date", (item.FindControl("dtp_purchase") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@arr_date", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@pur_cost", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@order_number", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@pur_date", string.Format("{0:yyyy-MM-dd}", dtp_purchase.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@arr_date", string.Format("{0:yyyy-MM-dd}", dtp_arrive_date.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@pur_cost", (item.FindControl("txt_pur_cost") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@order_number", (item.FindControl("txt_order_num") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@con_status", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@varket_value", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@reple_value", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
