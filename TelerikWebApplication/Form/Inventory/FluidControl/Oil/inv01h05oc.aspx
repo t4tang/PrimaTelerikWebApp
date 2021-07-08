@@ -572,16 +572,16 @@
                                                                 <FooterTemplate>Template footer</FooterTemplate>
                                                                 <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" /> 
                                                                 <ItemTemplate>    
-                                                                    <asp:Label runat="server" ID="lbl_prod_code" Text='<%# DataBinder.Eval(Container.DataItem, "part_code") %>'></asp:Label>
-                                                                    <telerik:RadToolTip RenderMode="Lightweight" ID="RadToolTip1" runat="server" TargetControlID="lbl_prod_code" RelativeTo="Element"
+                                                                    <asp:Label runat="server" ID="lbl_prod_code" Text='<%# DataBinder.Eval(Container.DataItem, "prod_code") %>'></asp:Label>
+                                                                    <%--<telerik:RadToolTip RenderMode="Lightweight" ID="RadToolTip1" runat="server" TargetControlID="lbl_prod_code" RelativeTo="Element"
                                                                     Position="BottomCenter" RenderInPageRoot="true">
                                                                     <%# DataBinder.Eval(Container, "DataItem.part_desc")%>                                                
-                                                                    </telerik:RadToolTip>
+                                                                    </telerik:RadToolTip>--%>
                                                                 </ItemTemplate>
                                                                 <EditItemTemplate>                                 
                                                                     <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_prod_code_editTemp" EnableLoadOnDemand="True" DataTextField="spec"
-                                                                        DataValueField="Prod_code" AutoPostBack="true" Height="180px"
-                                                                        Text='<%# DataBinder.Eval(Container, "DataItem.part_code") %>' EmptyMessage="- Select product -"
+                                                                        DataValueField="prod_code" AutoPostBack="true" Height="180px"
+                                                                        Text='<%# DataBinder.Eval(Container, "DataItem.prod_code") %>' EmptyMessage="- Select product -"
                                                                         HighlightTemplatedItems="true" Width="120px" DropDownWidth="730px" DropDownAutoWidth="Enabled"
                                                                         OnSelectedIndexChanged="cb_prod_code_editTemp_SelectedIndexChanged" 
                                                                         OnItemsRequested="cb_prod_code_editTemp_ItemsRequested" OnPreRender="cb_prod_code_editTemp_PreRender" >                                                   
@@ -589,45 +589,49 @@
                                                                         <table style="width: 730px; font-size:smaller">
                                                                             <tr>
                                                                                 <td style="width: 350px;">
-                                                                                    Prod. Name
+                                                                                    Material Code
                                                                                 </td>     
                                                                                 <td style="width: 120px;">
-                                                                                    Prod. Code
+                                                                                    Specification 
                                                                                 </td> 
                                                                                 <td style="width: 60px;">
+                                                                                    Brand
+                                                                                </td> 
+                                                                                <td style="width: 120px;">
                                                                                     UoM
                                                                                 </td> 
                                                                                 <td style="width: 120px;">
-                                                                                    St. Maint.
-                                                                                </td> 
-                                                                                                    
+                                                                                    SOH
+                                                                                </td>                    
                                                                             </tr>
                                                                         </table>                                                       
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
                                                                         <table style="width: 730px; font-size:smaller">
                                                                             <tr>
-                                                                                <td style="width: 350px;">
-                                                                                    <%# DataBinder.Eval(Container, "Attributes['spec']")%>
-                                                                                </td>        
                                                                                 <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Value")%>
                                                                                 </td> 
+                                                                                <td style="width: 350px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['spec']")%>
+                                                                                </td>
                                                                                 <td style="width: 60px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['brand_name']")%>
+                                                                                </td>
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['unit']")%>
                                                                                 </td>
                                                                                 <td style="width: 120px;">
-                                                                                    <%# DataBinder.Eval(Container, "Attributes['stMainNm']")%>
-                                                                                </td>
-                                                                                                                                                         
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['QACT']")%>
+                                                                                </td>                                                                         
                                                                             </tr>
                                                                         </table>
                                                                     </ItemTemplate>
                                                                     </telerik:RadComboBox>
-                                                                    <telerik:RadToolTip RenderMode="Lightweight" ID="RadToolTip2" runat="server" TargetControlID="cb_prod_code" RelativeTo="Element"
+                                                                    <%--<telerik:RadToolTip RenderMode="Lightweight" ID="RadToolTip2" runat="server" TargetControlID="cb_prod_code" RelativeTo="Element"
                                                                     Position="BottomCenter" RenderInPageRoot="true" HideDelay="300" ShowEvent="OnMouseOver">
                                                                     <%# DataBinder.Eval(Container, "DataItem.part_desc")%>                                                
-                                                                    </telerik:RadToolTip> 
+                                                                    </telerik:RadToolTip>--%> 
                                                                 </EditItemTemplate>
                                                                 <InsertItemTemplate>
                                                                     <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_prod_code_insertTemp" EnableLoadOnDemand="True" DataTextField="spec"
@@ -639,37 +643,41 @@
                                                                         <table style="width: 730px; font-size:smaller">
                                                                             <tr>
                                                                                 <td style="width: 350px;">
-                                                                                    Prod. Name
+                                                                                    Material Code
                                                                                 </td>     
                                                                                 <td style="width: 120px;">
-                                                                                    Prod. Code
+                                                                                    Specification 
                                                                                 </td> 
                                                                                 <td style="width: 60px;">
+                                                                                    Brand
+                                                                                </td> 
+                                                                                <td style="width: 120px;">
                                                                                     UoM
                                                                                 </td> 
                                                                                 <td style="width: 120px;">
-                                                                                    St. Maint.
-                                                                                </td> 
-                                                                                                    
+                                                                                    SOH
+                                                                                </td>                    
                                                                             </tr>
                                                                         </table>                                                       
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
                                                                         <table style="width: 730px; font-size:smaller">
                                                                             <tr>
-                                                                                <td style="width: 350px;">
-                                                                                    <%# DataBinder.Eval(Container, "Attributes['spec']")%>
-                                                                                </td>        
                                                                                 <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Value")%>
                                                                                 </td> 
+                                                                                <td style="width: 350px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['spec']")%>
+                                                                                </td>
                                                                                 <td style="width: 60px;">
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['brand_name']")%>
+                                                                                </td>
+                                                                                <td style="width: 120px;">
                                                                                     <%# DataBinder.Eval(Container, "Attributes['unit']")%>
                                                                                 </td>
                                                                                 <td style="width: 120px;">
-                                                                                    <%# DataBinder.Eval(Container, "Attributes['stMainNm']")%>
-                                                                                </td>
-                                                                                                                                                         
+                                                                                    <%# DataBinder.Eval(Container, "Attributes['QACT']")%>
+                                                                                </td>                                                                         
                                                                             </tr>
                                                                         </table>
                                                                     </ItemTemplate>
@@ -680,10 +688,10 @@
                                                             <telerik:GridTemplateColumn HeaderText="Specification" HeaderStyle-Width="270px" ItemStyle-Width="270px" HeaderStyle-HorizontalAlign="Right" 
                                                                 ItemStyle-HorizontalAlign="Right" >
                                                                 <ItemTemplate>
-                                                                    <asp:Label runat="server" ID="lblSpec" Text='<%# DataBinder.Eval(Container.DataItem, "SOH", "{0:#,###,###0.00}") %>'></asp:Label>
+                                                                    <asp:Label runat="server" ID="lblSpec" Text='<%# DataBinder.Eval(Container.DataItem, "spec") %>'></asp:Label>
                                                                 </ItemTemplate>
                                                                 <EditItemTemplate>
-                                                                    <asp:Label runat="server" ID="lblSpec_edit" Text='<%# DataBinder.Eval(Container.DataItem, "SOH", "{0:#,###,###0.00}") %>'></asp:Label>
+                                                                    <asp:Label runat="server" ID="lblSpec_edit" Text='<%# DataBinder.Eval(Container.DataItem, "spec") %>'></asp:Label>
                                                                 </EditItemTemplate>
                                                                 <InsertItemTemplate>
                                                                     <asp:Label runat="server" ID="lblSpec_insert" ></asp:Label>
@@ -696,7 +704,7 @@
                                                                     <telerik:RadLabel RenderMode="Lightweight" runat="server" ID="lbl_Part_Qty" Width="85px" EnabledStyle-HorizontalAlign="Right"
                                                                         NumberFormat-AllowRounding="true"
                                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                                                        Text='<%# DataBinder.Eval(Container.DataItem, "qty_out", "{0:#,###,###0.00}") %>'
+                                                                        Text='<%# DataBinder.Eval(Container.DataItem, "QACT", "{0:#,###,###0.00}") %>'
                                                                         onkeydown="blurTextBox(this, event)"
                                                                         AutoPostBack="true" MaxLength="11" Type="Number"
                                                                         NumberFormat-DecimalDigits="2">
@@ -706,7 +714,7 @@
                                                                     <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_Part_Qty_edit" Width="85px" EnabledStyle-HorizontalAlign="Right"
                                                                         NumberFormat-AllowRounding="true"
                                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                                                        Text='<%# DataBinder.Eval(Container.DataItem, "qty_out", "{0:#,###,###0.00}") %>'
+                                                                        Text='<%# DataBinder.Eval(Container.DataItem, "QACT", "{0:#,###,###0.00}") %>'
                                                                         onkeydown="blurTextBox(this, event)"
                                                                         AutoPostBack="true" MaxLength="11" Type="Number"
                                                                         NumberFormat-DecimalDigits="2">
@@ -727,10 +735,10 @@
                                                                 HeaderStyle-HorizontalAlign="Center" 
                                                                 >
                                                                 <ItemTemplate>
-                                                                    <asp:Label runat="server" ID="lblUom" Width="80px" Text='<%# DataBinder.Eval(Container.DataItem, "uom") %>'></asp:Label>
+                                                                    <asp:Label runat="server" ID="lblUom" Width="80px" Text='<%# DataBinder.Eval(Container.DataItem, "unit") %>'></asp:Label>
                                                                 </ItemTemplate>
                                                                 <EditItemTemplate>
-                                                                    <asp:Label runat="server" ID="lblUom_edit" Width="80px" Text='<%# DataBinder.Eval(Container.DataItem, "uom") %>'></asp:Label>
+                                                                    <asp:Label runat="server" ID="lblUom_edit" Width="80px" Text='<%# DataBinder.Eval(Container.DataItem, "unit") %>'></asp:Label>
                                                                 </EditItemTemplate>
                                                                 <InsertItemTemplate>
                                                                     <asp:Label runat="server" ID="lblUom_insert" Width="80px" ></asp:Label>
