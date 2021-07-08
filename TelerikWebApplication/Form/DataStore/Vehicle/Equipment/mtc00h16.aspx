@@ -959,7 +959,7 @@
                                                             Purchase Cost
                                                         </td>
                                                         <td>
-                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox2" Width="70px" NumberFormat-AllowRounding="true"
+                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_pur_cost" Width="70px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.pur_cost") %>'
@@ -972,7 +972,7 @@
                                                             Order Number
                                                         </td>
                                                         <td>
-                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox3" Width="70px" NumberFormat-AllowRounding="true"
+                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_order_num" Width="70px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.order_number") %>'
@@ -1058,14 +1058,14 @@
                                                             Expected Life (years)
                                                         </td>
                                                         <td>
-                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox4" Width="85px" NumberFormat-AllowRounding="true"
+                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_life_year" Width="85px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.exp_life_year") %>'
                                                                 AutoPostBack="false" MaxLength="11" Type="Number">
                                                             </telerik:RadNumericTextBox> 
                                                             &nbsp Or &nbsp
-                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox5" Width="55px" NumberFormat-AllowRounding="true"
+                                                            <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_life_hour" Width="55px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.exp_life_hour") %>'
