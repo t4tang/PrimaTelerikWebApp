@@ -222,7 +222,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             {
                 tr_code = null;
                 GridDataItem item = e.Item as GridDataItem;
-                string kode = item["do_code"].Text;
+                string kode = item["lbm_code"].Text;
                 tr_code = kode;
                 selected_project = item["region_code"].Text;
 
@@ -377,7 +377,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         protected void cb_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadRef(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            LoadRef(e.Text, selected_project, (sender as RadComboBox));
         }
 
         protected void cb_ref_PreRender(object sender, EventArgs e)
@@ -418,7 +418,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 txt_reff_date = (RadTextBox)item.FindControl("txt_reff_date");
                 txt_reff_date.Text = dr["Tgl"].ToString();
             }
-            //dr.Close();
+            dr.Close();
             con.Close();
 
             RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
@@ -1003,6 +1003,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 inv01h04gti.tr_code = run;
                 inv01h04gti.selected_project = cb_project.SelectedValue;
             }
+        }
+
+        protected void btnNew_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["TableDetail"] = null;
+            Session["actionHeader"] = "headerNew";
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
         }
     }
 }

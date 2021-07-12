@@ -139,15 +139,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// btnNew control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnNew;
-        
-        /// <summary>
         /// btnFilter control.
         /// </summary>
         /// <remarks>
@@ -155,6 +146,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnFilter;
+        
+        /// <summary>
+        /// btnNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnNew;
         
         /// <summary>
         /// lbl_form_name control.
