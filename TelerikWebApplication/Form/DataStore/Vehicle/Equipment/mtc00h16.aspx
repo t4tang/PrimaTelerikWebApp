@@ -57,7 +57,8 @@
                 AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false" Width="1600px"
                 MasterTableView-AllowFilteringByColumn="true" MasterTableView-CommandItemDisplay="Top" 
                 OnNeedDataSource="RadGrid1_NeedDataSource" OnItemCreated="RadGrid1_ItemCreated"
-                Skin="Silk" CssClass="RadGrid_ModernBrowsers" PageSize="20" OnUpdateCommand="RadGrid1_UpdateCommand" OnInsertCommand="RadGrid1_UpdateCommand">
+                Skin="Silk" CssClass="RadGrid_ModernBrowsers" PageSize="20" OnUpdateCommand="RadGrid1_UpdateCommand" 
+                OnInsertCommand="RadGrid1_UpdateCommand">
                 <HeaderStyle Font-Size="11px" ForeColor="White" BackColor="#808080" />
                 <MasterTableView CommandItemDisplay="None" Font-Size="11px" Font-Names="Century Gothic">
                     <Columns>
@@ -195,8 +196,8 @@
                                                     <telerik:RadComboBox ID="cb_type" runat="server" RenderMode="Lightweight" Width ="250px"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.equipment_type_name") %>'                                
                                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true" AutoPostBack="false" Skin ="Silk"
-                                                        Height="200" MarkFirstMatch="true" EnableLoadOnDemand="True" OnSelectedIndexChanged="cb_type_SelectedIndexChanged"
-                                                        OnPreRender="cb_type_PreRender" OnItemsRequested="cb_type_ItemsRequested">                                        
+                                                        Height="200" MarkFirstMatch="true" EnableLoadOnDemand="True"
+                                                         OnSelectedIndexChanged="cb_type_SelectedIndexChanged" OnItemsRequested="cb_type_ItemsRequested" OnPreRender="cb_type_PreRender">                                        
                                                      </telerik:RadComboBox>
                                                 </td>
                                             </tr>
@@ -245,7 +246,7 @@
                                                 </td>
                                                 <td colspan="3">
                                                     <telerik:RadComboBox ID="cb_status" runat="server" RenderMode="Lightweight" Width ="250px"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.equ_status") %>'             
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.equip_status") %>'             
                                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true" AutoPostBack="false" Skin ="Silk"
                                                         Height="200" MarkFirstMatch="true" EnableLoadOnDemand="True" OnItemsRequested="cb_status_ItemsRequested"
                                                         OnSelectedIndexChanged="cb_status_SelectedIndexChanged" OnPreRender="cb_status_PreRender">                                        
@@ -258,7 +259,7 @@
                                                 </td>
                                                 <td colspan="3">
                                                     <telerik:RadComboBox ID="cb_category" runat="server" RenderMode="Lightweight" Width ="250px"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.body_code") %>'             
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.category") %>'             
                                                         EnableVirtualScrolling="false" ShowMoreResultsBox="false" AutoPostBack="false" Skin ="Silk"
                                                         Height="200" MarkFirstMatch="true" EnableLoadOnDemand="True" OnItemsRequested="cb_category_ItemsRequested"
                                                         OnSelectedIndexChanged="cb_category_SelectedIndexChanged" OnPreRender="cb_category_PreRender">                                        
@@ -391,7 +392,7 @@
                                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_supplier" runat="server" Width="300px" DropDownWidth="300px"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.supplier_name") %>'      
                                                         EnableLoadOnDemand="true" ShowMoreResultsBox="true" EnableVirtualScrolling="true" Skin="Metro" OnItemsRequested="cb_supplier_ItemsRequested"
-                                                        OnSelectedIndexChanged="cb_supplier_SelectedIndexChanged" OnPreRender="cb_supplier_PreRender">
+                                                        OnSelectedIndexChanged="cb_supplier_SelectedIndexChanged" OnPreRender="cb_cost_center_PreRender">
                                                     </telerik:RadComboBox>   
                                                 </td>
                                             </tr> 
@@ -458,10 +459,10 @@
                                                 </td>
                                                 <td >
                                                     <telerik:RadComboBox ID="cb_condition" runat="server" RenderMode="Lightweight" Width ="100px"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.con_status") %>'
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.constatus") %>'
                                                         EnableVirtualScrolling="false" ShowMoreResultsBox="false" AutoPostBack="false" Skin ="Silk"
-                                                        Height="200" MarkFirstMatch="true" EnableLoadOnDemand="true" OnSelectedIndexChanged="cb_condition_SelectedIndexChanged"
-                                                        OnPreRender="cb_condition_PreRender" OnItemsRequested="cb_condition_ItemsRequested">                                        
+                                                        Height="200" MarkFirstMatch="true" EnableLoadOnDemand="true" OnItemsRequested="cb_condition_ItemsRequested"
+                                                        OnSelectedIndexChanged="cb_condition_SelectedIndexChanged" OnPreRender="cb_company_PreRender">                                        
                                                     </telerik:RadComboBox>
                                                 </td>
                                             </tr>  
@@ -594,7 +595,7 @@
                                                             VIN/Chasis
                                                         </td>
                                                         <td>
-                                                            <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="RadNumericTextBox1" Width="120px" NumberFormat-AllowRounding="true"
+                                                            <telerik:RadTextBox  RenderMode="Lightweight" runat="server" ID="txt_chasis" Width="120px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.chasis") %>' 
@@ -833,17 +834,16 @@
                                                             </telerik:RadLabel>
                                                         </td>
                                                     </tr>
-                                                    
                                                     <tr>
                                                         <td>
                                                             Primary Fuel
                                                         </td>
                                                         <td>
                                                             <telerik:RadComboBox ID="cb_primary_fuel" runat="server" Width="170px" 
-                                                            Text='<%# DataBinder.Eval(Container, "DataItem.fuel_code") %>'       
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.fuelcode") %>'       
                                                             DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
-                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false" OnItemsRequested="cb_primary_fuel_ItemsRequested"
-                                                            OnSelectedIndexChanged="cb_primary_fuel_SelectedIndexChanged" OnPreRender="cb_primary_fuel_PreRender">
+                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false" OnPreRender="cb_primary_fuel_PreRender"
+                                                            OnItemsRequested="cb_primary_fuel_ItemsRequested" OnSelectedIndexChanged="cb_primary_fuel_SelectedIndexChanged">
                                                             </telerik:RadComboBox>
                                                             <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_primary_tank_cap" Width="80px" NumberFormat-AllowRounding="true"
                                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
@@ -862,7 +862,7 @@
                                                             Text='<%# DataBinder.Eval(Container, "DataItem.s_fuel") %>'        
                                                             DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                             MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false" OnItemsRequested="cb_secondary_fuel_ItemsRequested"
-                                                            OnSelectedIndexChanged="cb_secondary_fuel_SelectedIndexChanged" OnPreRender="cb_secondary_fuel_PreRender">
+                                                             OnSelectedIndexChanged="cb_secondary_fuel_SelectedIndexChanged" OnPreRender="cb_secondary_fuel_PreRender">
                                                             </telerik:RadComboBox>
                                                             <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_secondary_tank_cap" Width="80px" NumberFormat-AllowRounding="true"
                                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
@@ -878,10 +878,9 @@
                                                         </td>
                                                         <td>
                                                             <telerik:RadComboBox ID="cb_tank_unit" runat="server" Width="170px" 
-                                                            Text='<%# DataBinder.Eval(Container, "DataItem.tank_unit") %>'        
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.tankunit") %>'        
                                                             DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
-                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false" OnItemsRequested="cb_tank_unit_ItemsRequested"
-                                                            OnSelectedIndexChanged="cb_tank_unit_SelectedIndexChanged" OnPreRender="cb_tank_unit_PreRender">
+                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false">
                                                             </telerik:RadComboBox>
                                                             <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_tank_unit_cap" Width="80px" NumberFormat-AllowRounding="true"
                                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
@@ -1183,8 +1182,8 @@
 
                                                         </td>
                                                         <td>
-                                                            <telerik:RadButton ID="btn_current" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="Current Value" Width="120px" Height="30px"
-                                                             Skin="Telerik" OnClick="btn_current_Click"></telerik:RadButton>
+                                                            <%--<telerik:RadButton ID="btn_current" runat="server" ForeColor="OrangeRed" BackColor="#33ccff" Text="Current Value" Width="120px" Height="30px"
+                                                             Skin="Telerik" OnClick="btn_current_Click"></telerik:RadButton>--%>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -1234,10 +1233,10 @@
                                                         </td>
                                                         <td>
                                                             <telerik:RadComboBox ID="cb_RepVeh" runat="server" Width="200px" 
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.repl_vehicle") %>'       
-                                                        DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
-                                                        MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="true" OnItemsRequested="cb_RepVeh_ItemsRequested"
-                                                              OnSelectedIndexChanged="cb_RepVeh_SelectedIndexChanged" OnPreRender="cb_RepVeh_PreRender">
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.repl_vehicle") %>'       
+                                                            DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
+                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="true" OnPreRender="cb_RepVeh_PreRender"
+                                                            OnItemsRequested="cb_RepVeh_ItemsRequested" OnSelectedIndexChanged="cb_RepVeh_SelectedIndexChanged">
                                                             </telerik:RadComboBox>
                                                         </td>
                                                     </tr>
@@ -1437,7 +1436,7 @@
                                                         &nbsp;
                                                             Hours &nbsp; Or &nbsp;&nbsp;
                                                         &nbsp;
-                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_hours" Width="80px" NumberFormat-AllowRounding="true"
+                                                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_months" Width="80px" NumberFormat-AllowRounding="true"
                                                                 NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                                 onkeydown="blurTextBox(this, event)" 
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.war_month") %>' 
@@ -1457,8 +1456,8 @@
                                                             <telerik:RadComboBox ID="cb_warsup" runat="server" Width="250px" 
                                                             Text='<%# DataBinder.Eval(Container, "DataItem.war_sup") %>'       
                                                             DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
-                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false" OnItemsRequested="cb_supplier_ItemsRequested"
-                                                            OnSelectedIndexChanged="cb_supplier_SelectedIndexChanged" OnPreRender="cb_supplier_PreRender">
+                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false" OnItemsRequested="cb_company_ItemsRequested"
+                                                            OnSelectedIndexChanged="cb_company_SelectedIndexChanged" OnPreRender="cb_company_PreRender">
                                                             </telerik:RadComboBox>
                                                         </td>
                                                     </tr>
