@@ -780,20 +780,20 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
 
         protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).SelectedValue + "'";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
-                cb_cost_center.Text = dr["CostCenterName"].ToString();
-            }
+            //con.Open();
+            //SqlCommand cmd = new SqlCommand();
+            //cmd.Connection = con;
+            //cmd.CommandType = CommandType.Text;
+            //cmd.CommandText = "SELECT * FROM inv00h11 WHERE CostCenter = '" + (sender as RadComboBox).SelectedValue + "'";
+            //SqlDataReader dr;
+            //dr = cmd.ExecuteReader();
+            //while (dr.Read())
+            //{
+            //    (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
+            //    cb_cost_center.Text = dr["CostCenterName"].ToString();
+            //}
 
-            con.Close();
+            //con.Close();
         }
 
         protected void cb_cost_center_PreRender(object sender, EventArgs e)

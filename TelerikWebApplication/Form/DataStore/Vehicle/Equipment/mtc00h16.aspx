@@ -95,7 +95,7 @@
                          <telerik:GridBoundColumn HeaderText="Receive Date" DataField="arr_date">
                             <HeaderStyle Width="40px" />
                         </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn HeaderText="Status" DataField="con_status">
+                         <telerik:GridBoundColumn HeaderText="Status" DataField="constatus">
                             <HeaderStyle Width="40px" />                             
                         </telerik:GridBoundColumn>
 
@@ -246,7 +246,7 @@
                                                 </td>
                                                 <td colspan="3">
                                                     <telerik:RadComboBox ID="cb_status" runat="server" RenderMode="Lightweight" Width ="250px"
-                                                        Text='<%# DataBinder.Eval(Container, "DataItem.equip_status") %>'             
+                                                        Text='<%# DataBinder.Eval(Container, "DataItem.equ_status") %>'             
                                                         EnableVirtualScrolling="true" ShowMoreResultsBox="true" AutoPostBack="false" Skin ="Silk"
                                                         Height="200" MarkFirstMatch="true" EnableLoadOnDemand="True" OnItemsRequested="cb_status_ItemsRequested"
                                                         OnSelectedIndexChanged="cb_status_SelectedIndexChanged" OnPreRender="cb_status_PreRender">                                        
@@ -473,7 +473,7 @@
                                                 <td >
                                                     <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_tank_capacity" Width="70px" NumberFormat-AllowRounding="true"
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
-                                                        onkeydown="blurTextBox(this, event)" ReadOnly="true"
+                                                        onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.cap_tanki") %>'
                                                         AutoPostBack="true" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
@@ -487,7 +487,7 @@
                                                 <td >
                                                     <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_unschedule_bd_perc" Width="70px" NumberFormat-AllowRounding="true"
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
-                                                        onkeydown="blurTextBox(this, event)" ReadOnly="true"
+                                                        onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.us_percent") %>'
                                                         AutoPostBack="true" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
@@ -501,7 +501,7 @@
                                                 <td >
                                                     <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_schedule_bd_perc" Width="70px" NumberFormat-AllowRounding="true"
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
-                                                        onkeydown="blurTextBox(this, event)" ReadOnly="true"
+                                                        onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.sch_percent") %>'
                                                         AutoPostBack="true" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
@@ -515,7 +515,7 @@
                                                 <td >
                                                     <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_expected_lifetime" Width="70px" NumberFormat-AllowRounding="true"
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
-                                                        onkeydown="blurTextBox(this, event)" ReadOnly="true"
+                                                        onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.exp_life") %>'
                                                         AutoPostBack="true" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
