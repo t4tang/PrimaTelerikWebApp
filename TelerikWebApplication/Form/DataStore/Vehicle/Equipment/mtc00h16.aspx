@@ -1515,7 +1515,7 @@
                                                         Leased
                                                     </td>
                                                     <td colspan="2">
-                                                        <asp:CheckBox ID="CheckBox1" runat="server" Skin="Telerik" AutoPostback="false"
+                                                        <asp:CheckBox ID="chk_lease" runat="server" Skin="Telerik" AutoPostback="false"
                                                             Checked='<%# DataBinder.Eval (Container, "DataItem.leased").ToString()!="0"?true:false %>'/>                                                   
                                                     </td>
                                                 </tr>
@@ -1537,7 +1537,7 @@
                                                         Lease Commenced
                                                     </td>
                                                     <td>
-                                                        <telerik:RadDatePicker ID="RadDatePicker10" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                                        <telerik:RadDatePicker ID="txt_lease" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
                                                         Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.lease_commenced") %>'
                                                         >
                                                         <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
