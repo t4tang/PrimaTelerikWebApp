@@ -1256,7 +1256,11 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             GridEditableItem item = (GridEditableItem)e.Item;
             try
             {
-                cmd = new SqlCommand("insert into mtc00h16 (unit_code, status_code, equip_kind, color, equipment_code, reading_code, " + 
+                con.Open();
+                cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.CommandText="insert into mtc00h16 (unit_code, status_code, equip_kind, color, equipment_code, reading_code, " + 
                                      "manu_code, model_no, class_name, sup_code, tank_unit, body_code, fuel_code, region_code, " + 
                                      "unit_name, hour_avai, active, pur_date, arr_date, pur_cost, order_number, con_status, " + 
                                      "market_value, reple_value, cov, exp_life_year, exp_life_hour, depre_type, salvage_value, " + 
@@ -1279,8 +1283,8 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                                      "@tare_height, @gross_weight, @gross_width, @length, @mechin_inspect_done, @certi_no, @cost, " +
                                      "@licen_code, @war_start, @war_finish, @war_hour, @war_month, @war_sup, @insu_value, @renewal, " +
                                      "@premium, @fbt_rate, @sn_sarana, @value_of_ibo, @no_pos, @unladen, @maxladen, @payload, @us_percent, " +
-                                     "@sch_percent, @exp_life, @cap_tanki, @ak_id, @dept_code, @tMain, @tFuel, '1', @userid, GETDATE(), @pic)", con);
-                con.Open();
+                                     "@sch_percent, @exp_life, @cap_tanki, @ak_id, @dept_code, @tMain, @tFuel, '1', @userid, GETDATE(), @pic)";
+               
                 cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@status_code", (item.FindControl("cb_status") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@equip_kind", (item.FindControl("cb_kind") as RadComboBox).SelectedValue);
@@ -1375,6 +1379,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 //cmd.Parameters.AddWithValue("@tFuel", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@userid", public_str.uid);
                 cmd.Parameters.AddWithValue("@pic", (item.FindControl("cb_pic") as RadComboBox).SelectedValue);
+
                 cmd.ExecuteNonQuery();
                 con.Close();
 

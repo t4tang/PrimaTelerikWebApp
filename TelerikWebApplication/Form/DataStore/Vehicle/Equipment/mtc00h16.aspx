@@ -475,7 +475,7 @@
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                         onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.cap_tanki") %>'
-                                                        AutoPostBack="true" MaxLength="11" Type="Number"
+                                                        AutoPostBack="False" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
                                                     </telerik:RadNumericTextBox>
                                                 </td>
@@ -489,7 +489,7 @@
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                         onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.us_percent") %>'
-                                                        AutoPostBack="true" MaxLength="11" Type="Number"
+                                                        AutoPostBack="False" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
                                                     </telerik:RadNumericTextBox>
                                                 </td>
@@ -503,7 +503,7 @@
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                         onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.sch_percent") %>'
-                                                        AutoPostBack="true" MaxLength="11" Type="Number"
+                                                        AutoPostBack="False" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
                                                     </telerik:RadNumericTextBox>  
                                                 </td>
@@ -517,7 +517,7 @@
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                         onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.exp_life") %>'
-                                                        AutoPostBack="true" MaxLength="11" Type="Number"
+                                                        AutoPostBack="False" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
                                                     </telerik:RadNumericTextBox> 
                                                 </td>
@@ -880,7 +880,8 @@
                                                             <telerik:RadComboBox ID="cb_tank_unit" runat="server" Width="170px" 
                                                             Text='<%# DataBinder.Eval(Container, "DataItem.tankunit") %>'        
                                                             DropDownWidth="250px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
-                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false">
+                                                            MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false" OnItemsRequested="cb_tank_unit_ItemsRequested"
+                                                            OnSelectedIndexChanged="cb_tank_unit_SelectedIndexChanged" OnPreRender="cb_tank_unit_PreRender">
                                                             </telerik:RadComboBox>
                                                             <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txt_tank_unit_cap" Width="80px" NumberFormat-AllowRounding="true"
                                                             NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
