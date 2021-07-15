@@ -1253,7 +1253,14 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
 
         protected void RadGrid1_UpdateCommand(object sender, GridCommandEventArgs e)
         {
+            Button btn = (Button)sender;
             GridEditableItem item = (GridEditableItem)e.Item;
+            //GridEditableItem item = (GridEditableItem)btn.NamingContainer;
+            RadDatePicker dtp_purchase = (RadDatePicker)item.FindControl("dtp_ur");
+            RadDatePicker dtp_arrive_date = (RadDatePicker)item.FindControl("dtp_ur");
+            RadDatePicker dtp_machinery_inspect_done = (RadDatePicker)item.FindControl("dtp_ur");
+            RadDatePicker dtp_next_due = (RadDatePicker)item.FindControl("dtp_ur");
+            
             try
             {
                 con.Open();
