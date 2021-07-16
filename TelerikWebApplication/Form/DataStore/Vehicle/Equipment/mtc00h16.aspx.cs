@@ -1253,14 +1253,15 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
 
         protected void RadGrid1_UpdateCommand(object sender, GridCommandEventArgs e)
         {
-            Button btn = (Button)sender;
+            
             GridEditableItem item = (GridEditableItem)e.Item;
             //GridEditableItem item = (GridEditableItem)btn.NamingContainer;
-            RadDatePicker dtp_purchase = (RadDatePicker)item.FindControl("dtp_ur");
-            RadDatePicker dtp_arrive_date = (RadDatePicker)item.FindControl("dtp_ur");
-            RadDatePicker dtp_machinery_inspect_done = (RadDatePicker)item.FindControl("dtp_ur");
-            RadDatePicker dtp_next_due = (RadDatePicker)item.FindControl("dtp_ur");
-            
+            RadDatePicker dtp_purchase = (RadDatePicker)item.FindControl("dtp_purchase");
+            RadDatePicker dtp_arrive_date = (RadDatePicker)item.FindControl("dtp_arrive_date");
+            RadDatePicker dtp_machinery_inspect_done = (RadDatePicker)item.FindControl("dtp_machinery_inspect_done");
+            RadDatePicker dtp_next_due = (RadDatePicker)item.FindControl("dtp_next_due");
+            Button btn = (Button)item.FindControl("btnupdate");
+
             try
             {
                 con.Open();
@@ -1272,10 +1273,10 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                                      "unit_name, hour_avai, active, pur_date, arr_date, pur_cost, order_number, con_status, " + 
                                      "market_value, reple_value, cov, exp_life_year, exp_life_hour, depre_type, salvage_value, " + 
                                      "appreciation, current_value, ac_resale_value, lease_amount_per_unit, fin_company, residual_value, " + 
-                                     "pay_day_month, no_repay, repay_amount, total_list_pay, v_year, seat_capa, chasis, engine_no, " + 
-                                     "engine_size, no_of_cylin, transmission, key_no, radio_no, s_fuel, tank_capa1, tank_capa2, " + 
-                                     "tyre_no_steer, tyre_size_drive, tyre_no_drive, no_of_axles, tare_weight, tare_height, gross_weight, " + 
-                                     "gross_width, length, mechin_inspect_done, certi_no, cost, war_hour, war_month, war_sup, " + 
+                                     "pay_day_month, no_repay, repay_amount, total_list_pay, v_year, seat_capa, chasis, engine_no, " +
+                                     "engine_size, no_of_cylin, transmission, key_no, radio_no, s_fuel, tank_capa1, tank_capa2, tyre_size_steer " + 
+                                     "tyre_no_steer, tyre_size_drive, tyre_no_drive, no_of_axles, tare_weight, tare_height, gross_weight, " +
+                                     "gross_width, length, mechin_inspect_done, certi_no, cost, war_hour, war_month, war_sup, wheel_base, wheel_drive" + 
                                      "insu_value, premium, privat_use, fbt_rate, sn_sarana, value_of_ibo, no_axle, no_pos, unladen, " + 
                                      "maxladen, payload, us_percent, sch_percent, exp_life, cap_tanki, ak_id, dept_code, tMain, " + 
                                      "tFuel, stEdit, userid, lastupdate, pic) " + 
@@ -1286,9 +1287,9 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                                      "@current_value, @ac_resale_value, @lease_amount_per_unit, @fin_company, @residual_value, " +
                                      "@pay_day_month, @no_repay, @repay_amount, @total_list_pay, @v_year, @seat_capa, @chasis, " +
                                      "@engine_no, @engine_size, @no_of_cylin, @transmission, @key_no, @radio_no, @s_fuel, @tank_capa1, " +
-                                     "@tank_capa2, @tyre_no_steer, @tyre_size_drive, @tyre_no_drive, @no_of_axles, @tare_weight, " +
+                                     "@tank_capa2, @tyre_size_steer, @tyre_no_steer, @tyre_size_drive, @tyre_no_drive, @no_of_axles, @tare_weight, " +
                                      "@tare_height, @gross_weight, @gross_width, @length, @mechin_inspect_done, @certi_no, @cost, " +
-                                     "@licen_code, @war_start, @war_finish, @war_hour, @war_month, @war_sup, @insu_value, @renewal, " +
+                                     "@licen_code, @war_start, @war_finish, @war_hour, @war_month, @war_sup, @wheel_base, @wheel_drive, @insu_value, @renewal, " +
                                      "@premium, @fbt_rate, @sn_sarana, @value_of_ibo, @no_pos, @unladen, @maxladen, @payload, @us_percent, " +
                                      "@sch_percent, @exp_life, @cap_tanki, @ak_id, @dept_code, @tMain, @tFuel, '1', @userid, GETDATE(), @pic)";
                
@@ -1324,7 +1325,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@market_value", (item.FindControl("txt_MarVal") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@reple_value", (item.FindControl("txt_replacement_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@cov", (item.FindControl("txt_change_over_value") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@exp_life_year", (item.FindControl("txt_life_year") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@exp_life_year", (item.FindControl("txt_life_year") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@exp_life_hour", (item.FindControl("txt_life_hour") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@depre_type", (item.FindControl("cb_depretype") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@salvage_value", (item.FindControl("txt_salvage_value") as RadTextBox).Text);
@@ -1338,36 +1339,38 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@no_repay", (item.FindControl("txt_no_repayments") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@repay_amount", (item.FindControl("txt_amount_repayment") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@total_list_pay", (item.FindControl("txt_total_payment") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@v_year", (item.FindControl("txt_year") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@seat_capa", (item.FindControl("txt_seat_capacity") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@v_year", (item.FindControl("txt_year") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@seat_capa", (item.FindControl("txt_seat_capacity") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@chasis", (item.FindControl("txt_chasis") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@engine_no", (item.FindControl("txt_engine_no") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@engine_size", (item.FindControl("txt_engine_model") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@no_of_cylin", (item.FindControl("txt_no_of_cyl") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@transmission", (item.FindControl("txt_transmition") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@no_of_cylin", (item.FindControl("txt_no_of_cyl") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@transmission", (item.FindControl("txt_transmition") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@key_no", (item.FindControl("txt_sn") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@radio_no", (item.FindControl("txt_radio_no") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@radio_no", (item.FindControl("txt_radio_no") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@s_fuel", (item.FindControl("cb_secondary_fuel") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@tank_capa1", (item.FindControl("txt_primary_tank_cap") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@tank_capa2", (item.FindControl("txt_secondary_tank_cap") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@tyre_no_steer", (item.FindControl("txt_no_of_tyre_size_steer") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@tyre_size_drive", (item.FindControl("txt_tyre_size_drive") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@tyre_no_drive", (item.FindControl("txt_no_of_tyre_size_drive") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@no_of_axles", (item.FindControl("txt_no_of_axles") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@tank_capa1", (item.FindControl("txt_primary_tank_cap") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@tank_capa2", (item.FindControl("txt_secondary_tank_cap") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@tyre_size_steer", (item.FindControl("txt_tyre_size_steer") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@tyre_no_steer", (item.FindControl("txt_no_of_tyre_size_steer") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@tyre_size_drive", (item.FindControl("txt_tyre_size_drive") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@tyre_no_drive", (item.FindControl("txt_no_of_tyre_size_drive") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@no_of_axles", (item.FindControl("txt_no_of_axles") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@tare_weight", (item.FindControl("txt_tare_weight") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@tare_height", (item.FindControl("txt_tare_height") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@tare_height", (item.FindControl("txt_tare_height") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@gross_weight", (item.FindControl("txt_gross_weight") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@gross_width", (item.FindControl("txt_gross_width") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@length", (item.FindControl("txt_lenght") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@gross_width", (item.FindControl("txt_gross_width") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@length", (item.FindControl("txt_lenght") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@mechin_inspect_done", string.Format("{0:yyyy-MM-dd}", dtp_machinery_inspect_done.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@certi_no", (item.FindControl("txt_certifice_no") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@cost", (item.FindControl("txt_cost") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@wheel_base", (item.FindControl("txt_wheel_base") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@wheel_drive", (item.FindControl("txt_wheel_drive") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@war_hour", (item.FindControl("txt_finish") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@war_month", (item.FindControl("txt_months") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@war_sup", (item.FindControl("cb_warsup") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@insu_value", (item.FindControl("txt_insurance_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@premium", (item.FindControl("txt_premium") as RadTextBox).Text);
-                //cmd.Parameters.AddWithValue("@privat_use", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@fbt_rate", (item.FindControl("txt_fbt_rate") as RadTextBox).Text);
                 //cmd.Parameters.AddWithValue("@sn_sarana", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@value_of_ibo", (item.FindControl("txt_ibo") as RadTextBox).Text);
@@ -1376,10 +1379,10 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 //cmd.Parameters.AddWithValue("@unladen", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 //cmd.Parameters.AddWithValue("@maxladen", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 //cmd.Parameters.AddWithValue("@payload", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                cmd.Parameters.AddWithValue("@us_percent", (item.FindControl("txt_unschedule_bd_perc") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@sch_percent", (item.FindControl("txt_schedule_bd_perc") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@exp_life", (item.FindControl("txt_expected_lifetime") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@cap_tanki", (item.FindControl("txt_tank_capacity") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@us_percent", (item.FindControl("txt_unschedule_bd_perc") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@sch_percent", (item.FindControl("txt_schedule_bd_perc") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@exp_life", (item.FindControl("txt_expected_lifetime") as RadNumericTextBox).Text);
+                cmd.Parameters.AddWithValue("@cap_tanki", (item.FindControl("txt_tank_capacity") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@ak_id", (item.FindControl("txt_asset_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("cb_cost_center") as RadComboBox).SelectedValue);
                 //cmd.Parameters.AddWithValue("@tMain", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
