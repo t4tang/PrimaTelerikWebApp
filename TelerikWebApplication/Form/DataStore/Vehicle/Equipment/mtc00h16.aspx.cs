@@ -1326,7 +1326,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@reple_value", (item.FindControl("txt_replacement_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@cov", (item.FindControl("txt_change_over_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@exp_life_year", (item.FindControl("txt_life_year") as RadNumericTextBox).Text);
-                cmd.Parameters.AddWithValue("@exp_life_hour", (item.FindControl("txt_life_hour") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@exp_life_hour", (item.FindControl("txt_life_hour") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@depre_type", (item.FindControl("cb_depretype") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@salvage_value", (item.FindControl("txt_salvage_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@appreciation", (item.FindControl("txt_hours_appreciation") as RadTextBox).Text);
