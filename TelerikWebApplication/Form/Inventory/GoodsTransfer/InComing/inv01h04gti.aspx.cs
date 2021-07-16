@@ -22,6 +22,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
 
         public static string tr_code = null;
         public static string selected_project = null;
+        public static string selected_project_from = null;
 
         DataTable dtValues;
 
@@ -31,7 +32,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         RadComboBox cb_ref;
         RadComboBox cb_warehouse;
         RadTextBox txt_reff_date;
-        RadTextBox txt_project;
+        RadComboBox cb_project_from;
         RadComboBox cb_costcenter;
         RadComboBox cb_createdBy;
         RadComboBox cb_received;
@@ -49,7 +50,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         public DataTable DetailDtbl()
         {
             dtValues = new DataTable();
-            dtValues.Columns.Add("do_code", typeof(string));
+            dtValues.Columns.Add("lbm_code", typeof(string));
             dtValues.Columns.Add("prod_code", typeof(string));
             dtValues.Columns.Add("qty_receive", typeof(double));
             dtValues.Columns.Add("SatQty", typeof(string));
@@ -193,14 +194,18 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 cmd.ExecuteNonQuery();
                 con.Close();
 
-                notif.Text = "Data berhasil dihapus";
-                notif.Title = "Notification";
-                notif.Show();
+                Label lblOk = new Label();
+                lblOk.Text = "Data deleted successfully";
+                lblOk.ForeColor = System.Drawing.Color.Teal;
+                RadGrid1.Controls.Add(lblOk);
             }
             catch (Exception ex)
             {
                 con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "");
+                Label lblError = new Label();
+                lblError.Text = "Unable to delete data. Reason: " + ex.Message;
+                lblError.ForeColor = System.Drawing.Color.Red;
+                RadGrid1.Controls.Add(lblError);
                 e.Canceled = true;
             }
         }
@@ -412,11 +417,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             while (dr.Read())
             {
                 (sender as RadComboBox).Text = dr["do_code"].ToString();
-                txt_project = (RadTextBox)item.FindControl("txt_project");
-                txt_project.Text = dr["region_name"].ToString();
+                cb_project_from = (RadComboBox)item.FindControl("cb_project_from");
+                cb_project_from.Text = dr["region_name"].ToString();
 
                 txt_reff_date = (RadTextBox)item.FindControl("txt_reff_date");
                 txt_reff_date.Text = dr["Tgl"].ToString();
+
+                RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
+                
             }
             dr.Close();
             con.Close();
@@ -505,7 +513,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         protected void cb_createdBy_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            LoadManPower(e.Text, selected_project, (sender as RadComboBox));
         }
 
         protected void cb_createdBy_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -546,7 +554,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         protected void cb_received_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            LoadManPower(e.Text, selected_project, (sender as RadComboBox));
         }
 
         protected void cb_received_PreRender(object sender, EventArgs e)
@@ -588,7 +596,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         protected void cb_approved_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadManPower(e.Text, cb_project.SelectedValue, (sender as RadComboBox));
+            LoadManPower(e.Text, selected_project, (sender as RadComboBox));
         }
 
         protected void cb_approved_PreRender(object sender, EventArgs e)
@@ -632,9 +640,9 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         {
             con.Open();
             cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM v_goods_transfer_inD_reff WHERE do_code = '" + do_code + "'";
+            cmd.CommandText = "sp_get_goods_transfer_in_reffD";
             cmd.Parameters.AddWithValue("@do_code", do_code);
             //cmd.Parameters.AddWithValue("@type_reff", cb_type_ref.SelectedValue);
             //cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
@@ -690,6 +698,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             if (Session["TableDetail"] == null && Session["actionHeader"].ToString() != "headerEdit") // Insert Session
             {
                 (sender as RadGrid).DataSource = new string[] { };
+                //(sender as RadGrid).DataSource = GetDataRefDetailTable(cb_ref.Text);
             }
             else
             {
@@ -717,11 +726,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
 
             dtValues = (DataTable)Session["TableDetail"];
             DataRow drValue = dtValues.Rows[0];
-            drValue["do_code"] = tr_code;
+            drValue["lbm_code"] = tr_code;
             drValue["prod_code"] = (item.FindControl("txt_prodCode") as RadTextBox).Text;
             drValue["qty_receive"] = (item.FindControl("txtPartQty") as RadTextBox).Text;
             drValue["SatQty"] = (item.FindControl("txt_satQty") as RadNumericTextBox).Value;
-            drValue["from_wh_code"] = (item.FindControl("txt_from_storage") as RadTextBox).Text;
+            drValue["from_wh_code"] = (item.FindControl("cb_from_storage") as RadComboBox).Text;
             drValue["remark"] = (item.FindControl("txt_remark_d") as RadTextBox).Text;
             drValue["run"] = 0;
 
@@ -748,11 +757,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
 
                 dtValues = (DataTable)Session["TableDetail"];
                 DataRow drValue = dtValues.NewRow();
-                drValue["do_code"] = tr_code;
+                drValue["lbm_code"] = tr_code;
                 drValue["prod_code"] = (item.FindControl("txt_prodCode_Insert") as RadTextBox).Text;
                 drValue["qty_receive"] = (item.FindControl("txtPartQty_Insert") as RadTextBox).Text;
                 drValue["SatQty"] = (item.FindControl("txt_satQty_Insert") as RadNumericTextBox).Value;
-                drValue["from_wh_code"] = (item.FindControl("txt_from_storage_Insert") as RadTextBox).Text;
+                drValue["from_wh_code"] = (item.FindControl("cb_from_storage_Insert") as RadComboBox).Text;
                 drValue["remark"] = (item.FindControl("txt_remark_d_Insert") as RadTextBox).Text;
                 drValue["run"] = 0;
 
@@ -846,7 +855,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             RadComboBox cb_ref = (RadComboBox)item.FindControl("cb_ref");
             RadComboBox cb_warehouse = (RadComboBox)item.FindControl("cb_warehouse");
             RadTextBox txt_reff_date = (RadTextBox)item.FindControl("txt_reff_date");
-            RadTextBox txt_project = (RadTextBox)item.FindControl("txt_project");
+            RadComboBox cb_project_from = (RadComboBox)item.FindControl("cb_project_from");
             RadComboBox cb_costcenter = (RadComboBox)item.FindControl("cb_costcenter");
             RadComboBox cb_createdBy = (RadComboBox)item.FindControl("cb_createdBy");
             RadComboBox cb_received = (RadComboBox)item.FindControl("cb_received");
@@ -867,21 +876,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
 
             try
             {
-                string x = dtp_gr.SelectedDate.Value.ToString("MM");
-                string y = public_str.perend.Substring(3, 2);
-
-                if (chk_posting.Checked == true)
-                {
-                    RadWindowManager2.RadAlert("This transaction has been posted", 500, 200, "Error", null, "~/Images/error.png");
-                    return;
-                }
-                else if (x != y)
-                {
-                    RadWindowManager2.RadAlert("Transaction date outside the transaction period", 500, 200, "Error", null, "~/Images/error.png");
-                    return;
-                }
-
-                if (txt_gr_number.Text != string.Empty)
+                if ((sender as Button).Text == "Update")
                 {
                     run = txt_gr_number.Text;
                 }
@@ -931,7 +926,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 cmd.Parameters.AddWithValue("@dept_code", cb_costcenter.SelectedValue);
                 cmd.Parameters.AddWithValue("@cust_code", "PSG");
                 cmd.Parameters.AddWithValue("@cust_name", "PRIMA SARANA GEMILANG, PT");
-                cmd.Parameters.AddWithValue("@from_region_code", txt_project.Text);
+                cmd.Parameters.AddWithValue("@from_region_code", cb_project_from.SelectedValue);
                 cmd.Parameters.AddWithValue("@trans_code", 2);
                 cmd.Parameters.AddWithValue("@ShipModeEtd", 2);
                 cmd.Parameters.AddWithValue("@status_post", 0);
@@ -979,29 +974,32 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 }
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+                Response.Write("<font color='red'>" + ex.Message + "</font>");
             }
             finally
             {
                 con.Close();
-                notif.Text = "Data berhasil disimpan";
-                notif.Title = "Notification";
-                notif.Show();
                 txt_gr_number.Text = run;
+                notif.Text = "Data telah disimpan";
+                notif.Show();
 
-                if (Session["actionEdit"].ToString() == "edit")
+                if ((sender as Button).Text == "Update")
                 {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
                 }
                 else
                 {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    inv01h04gti.tr_code = run;
+                    inv01h04gti.selected_project = cb_project.SelectedValue;
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    (sender as Button).Text = "Update";
+                    btnCancel.Text = "Close";
                 }
-                inv01h04gti.tr_code = run;
-                inv01h04gti.selected_project = cb_project.SelectedValue;
+
+                RadGrid1.MasterTableView.IsItemInserted = false;
             }
         }
 
@@ -1012,5 +1010,104 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             RadGrid1.MasterTableView.IsItemInserted = true;
             RadGrid1.MasterTableView.Rebind();
         }
+
+        protected void cb_project_from_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetProject(e.Text);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["region_name"].ToString(), data.Rows[i]["region_name"].ToString()));
+            }
+        }
+
+        protected void cb_project_from_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                selected_project_from = dr[0].ToString(); 
+            }
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_project_from_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
+            dr.Close();
+            con.Close();
+        }
+
+        #region Storage detail
+        protected void cb_from_storage_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            DataTable data = GetWarehouse(e.Text, selected_project);
+
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["wh_name"].ToString(), data.Rows[i]["wh_name"].ToString()));
+            }
+        }
+
+        protected void cb_from_storage_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_from_storage_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            }
+            dr.Close();
+            con.Close();
+        }
+        #endregion
     }
 }
