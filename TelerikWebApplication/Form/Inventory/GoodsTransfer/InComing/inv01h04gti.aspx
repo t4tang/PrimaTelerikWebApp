@@ -55,6 +55,23 @@
                 }
 
             }
+
+            function GetRadWindow() {
+                var oWindow = null;
+                if (window.radWindow)
+                    oWindow = window.RadWindow; //Will work in Moz in all cases, including clasic dialog     
+                else if (window.frameElement.radWindow)
+                    oWindow = window.frameElement.radWindow;//IE (and Moz as well)     
+                return oWindow;
+            }
+
+            function Close() {
+                GetRadWindow().Close();
+            }
+
+            function onPopUpShowing(sender, args) {
+                args.get_popUp().className += " popUpEditForm";
+            }
         </script>
     </telerik:RadCodeBlock>
 </asp:Content>
@@ -90,22 +107,22 @@
     </telerik:RadAjaxManager>
 
    <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2500" BackgroundPosition="None" Skin="Material">
-        <img alt="Loading..." src="../../../../Images/loaderpage.gif" style="border: 0px; width:100px; height:75px; position: absolute; top: 170px; left:600px" />
+        <img alt="Loading..." src="../../../Images/loaderpage.gif" style="border: 0px; width:100px; height:75px; position: absolute; top: 170px; left:600px" />
     </telerik:RadAjaxLoadingPanel>
-   <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel2" runat="server" MinDisplayTime="500" BackgroundPosition="None" Skin="Material">
-        <img alt="Loading..." src="../../../../Images/load.gif" style="border: 0px; width:60px; height:45px; position: absolute; top: 100px; left:600px" />
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel2" runat="server" MinDisplayTime="2500" BackgroundPosition="None" Skin="Material">
+        <img alt="Loading..." src="../../../Images/load.gif" style="border: 0px; width:60px; height:45px; position: absolute; top: 100px; left:600px" />
     </telerik:RadAjaxLoadingPanel>
-   <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel" runat="server" Skin="Windows7" MinDisplayTime="2000" BackgroundPosition="Center"></telerik:RadAjaxLoadingPanel>
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel" runat="server" Skin="Windows7" MinDisplayTime="2000" BackgroundPosition="Center"></telerik:RadAjaxLoadingPanel>
 
-    <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="FilterDialogWindows" RestrictionZoneID="ContentTemplateZone"
-        Modal="true" Width="450px" Height="350px" VisibleStatusbar="False" AutoSize="True">
+    <telerik:RadWindow RenderMode="Lightweight" runat="server" ID="FilterDialogWindows" RestrictionZoneID="ContentTemplateZone" VisibleOnPageLoad="false"
+        Modal="false" Width="450px" Height="350px" VisibleStatusbar="False" AutoSize="True" Skin="Silk" BackColor="Transparent">
         <ContentTemplate>
             <div runat="server" style="padding: 20px 10px 10px 10px;" id="Div2">
                 <table>
                     <tr>
                         <td >
                             <telerik:RadLabel runat="server" Text="Date From :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
-                            <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" Width="200px"  Skin="Telerik"
+                            <telerik:RadDatePicker ID="dtp_from" runat="server" RenderMode="Lightweight" Width="200px"  Skin="Telerik" DateInput-CausesValidation="false"
                                 DateInput-ReadOnly="false" DateInput-DateFormat="dd/MM/yyyy">
                             </telerik:RadDatePicker>
                         </td>
@@ -113,7 +130,7 @@
                     <tr>
                         <td >
                             <telerik:RadLabel runat="server" Text="To Date :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
-                            <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" Width="200px"  Skin="Telerik"
+                            <telerik:RadDatePicker ID="dtp_to" runat="server" RenderMode="Lightweight" Width="200px"  Skin="Telerik" DateInput-CausesValidation="false"
                                 DateInput-ReadOnly="false" DateInput-DateFormat="dd/MM/yyyy">
                             </telerik:RadDatePicker>
                         </td>
@@ -131,8 +148,8 @@
                     </tr>
                     <tr style="height:50px">   
                         <td>
-                            <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Filter" Width="120px" Height="25px" 
-                                BackColor="#FF6600" ForeColor="White" BorderStyle="None"  />
+                            <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Filter" Width="95%" Height="25px" 
+                                Skin="Material" ForeColor="DeepSkyBlue"  />
                         </td>
 
                     </tr>
@@ -161,31 +178,29 @@
                 </td>
             </tr>
         </table>
-    </div>    
+    </div>
 
-     <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px">
-
-        <div runat="server" style="width:100%; overflow-y:hidden; min-height:280px; scrollbar-highlight-color:#b6ff00;border-bottom-style:solid; border-bottom-color:gainsboro; border-bottom-width:thin;">
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="true" ShowFooter="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
-                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" ClientSettings-Selecting-AllowRowSelect="true" PageSize="15" 
+        <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px">
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="14" Skin="Silk"
+                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" CssClass="RadGrid_ModernBrowsers"
                 OnNeedDataSource="RadGrid1_NeedDataSource"
                 OnDeleteCommand="RadGrid1_DeleteCommand" 
                 OnItemCreated="RadGrid1_ItemCreated" OnItemCommand="RadGrid1_ItemCommand" 
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" >
                 <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>               
-                <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
-                <%--<ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />--%>
+                <HeaderStyle ForeColor="Highlight" Font-Size="11px" />
+                <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                 <%--<SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />--%>
                 <MasterTableView Width="100%" CommandItemDisplay="Top" DataKeyNames="lbm_code" Font-Size="12px" ShowHeadersWhenNoRecords="true"
-                EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
-                CommandItemSettings-ShowRefreshButton="false" CellPadding="-1">
+                    EditFormSettings-PopUpSettings-KeepInScreenBounds="true" AllowFilteringByColumn="true" CommandItemSettings-ShowAddNewRecordButton="false"
+                    CommandItemSettings-ShowRefreshButton="false" CellPadding="-1">
                     <SortExpressions >
                         <telerik:GridSortExpression FieldName="lbm_code" SortOrder="Ascending" />
                     </SortExpressions>
                     <Columns>
                         <telerik:GridEditCommandColumn UniqueName="EditCommandColumn">
                             <HeaderStyle Width="40px"/>
-                        <ItemStyle Width="40px" />
+                            <ItemStyle Width="40px" />
                         </telerik:GridEditCommandColumn>  
                         <telerik:GridBoundColumn UniqueName="lbm_code" HeaderText="Reg. No" DataField="lbm_code" ItemStyle-Width="110px" FilterControlWidth="100px" 
                             ItemStyle-HorizontalAlign="Left" >
@@ -312,7 +327,7 @@
                                                             <ContentTemplate>--%>
                                                                 <telerik:RadComboBox RenderMode="Lightweight" ID="cb_ref" runat="server" Width="200px" AutoPostBack="true" CausesValidation="false"
                                                                     DropDownWidth="1100px" EnableLoadOnDemand="true" ShowMoreResultsBox="true" 
-                                                                    MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="do_code" DataValueField="do_code"
+                                                                    MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" DataTextField="ref_code" DataValueField="ref_code"
                                                                     OnItemsRequested="cb_ref_ItemsRequested" 
                                                                     OnSelectedIndexChanged="cb_ref_SelectedIndexChanged" 
                                                                     OnPreRender="cb_ref_PreRender" Text='<%# DataBinder.Eval(Container, "DataItem.ref_code") %>'>
@@ -384,9 +399,14 @@
                                                         <telerik:RadLabel runat="server" Text="Project Area Ori:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel><br />
                                                         <%--<asp:UpdatePanel ID="UpdatePanel12" runat="server">
                                                             <ContentTemplate>--%>
-                                                                <telerik:RadTextBox ID="txt_project" runat="server" Width="100px" ReadOnly="true" RenderMode="Lightweight"
+                                                                <%--<telerik:RadTextBox ID="txt_project" runat="server" Width="100px" ReadOnly="true" RenderMode="Lightweight"
                                                                      AutoPostBack="false" Text='<%# DataBinder.Eval(Container, "DataItem.from_region_name") %>'>
-                                                                 </telerik:RadTextBox>
+                                                                 </telerik:RadTextBox>--%>
+                                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project_from" runat="server" Width="150px" DropDownWidth="300px"
+                                                                    AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
+                                                                    OnItemsRequested="cb_project_from_ItemsRequested" OnSelectedIndexChanged="cb_project_from_SelectedIndexChanged" Font-Size="Small"
+                                                                    OnPreRender="cb_project_from_PreRender" Text='<%# DataBinder.Eval(Container, "DataItem.from_region_name") %>'>
+                                                                </telerik:RadComboBox> 
                                                             <%--</ContentTemplate>
                                                             <Triggers>
                                                                 <asp:AsyncPostBackTrigger ControlID="cb_ref" EventName="SelectedIndexChanged" />
@@ -630,8 +650,8 @@
                                         OnDeleteCommand="RadGrid2_DeleteCommand">
                                         <HeaderStyle Font-Size="12px" />
                                         <PagerStyle Mode="NumericPages" ></PagerStyle>
-                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code, lbm_code" Font-Size="11px" EditMode="InPlace"
-                                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >
+                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Size="11px" EditMode="InPlace"
+                                            ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" InsertItemDisplay="Bottom" >
                                             <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />
                                             <Columns>
                                                 <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  HeaderStyle-ForeColor="#009900"
@@ -711,13 +731,23 @@
                                                         <asp:Label runat="server" ID="lblFromStorLoc" Text='<%# DataBinder.Eval(Container.DataItem, "wh_name") %>'></asp:Label>
                                                     </ItemTemplate>
                                                     <EditItemTemplate>
-                                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_from_storage" Width="100px"
-                                                            Text='<%# DataBinder.Eval(Container, "DataItem.from_wh_code") %>'>
-                                                        </telerik:RadTextBox>
+                                                        <%--<telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_from_storage" Width="100px"
+                                                            Text='<%# DataBinder.Eval(Container, "DataItem.wh_name") %>'>
+                                                        </telerik:RadTextBox>--%>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_from_storage" runat="server" Width="150px" DropDownWidth="300px" 
+                                                            AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
+                                                            OnItemsRequested="cb_from_storage_ItemsRequested" OnSelectedIndexChanged="cb_from_storage_SelectedIndexChanged" Font-Size="Small"
+                                                            OnPreRender="cb_from_storage_PreRender" Text='<%# DataBinder.Eval(Container, "DataItem.wh_name") %>'>
+                                                        </telerik:RadComboBox> 
                                                     </EditItemTemplate>  
                                                     <InsertItemTemplate>
-                                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_from_storage_Insert" Width="100px">
-                                                        </telerik:RadTextBox>
+                                                        <%--<telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_from_storage_Insert" Width="100px">
+                                                        </telerik:RadTextBox>--%>
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_from_storage_Insert" runat="server" Width="150px" DropDownWidth="300px" 
+                                                            AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
+                                                            OnItemsRequested="cb_from_storage_ItemsRequested" OnSelectedIndexChanged="cb_from_storage_SelectedIndexChanged" Font-Size="Small"
+                                                            OnPreRender="cb_from_storage_PreRender">
+                                                        </telerik:RadComboBox> 
                                                     </InsertItemTemplate>
                                                 </telerik:GridTemplateColumn>
                        
@@ -748,9 +778,9 @@
                                             <Selecting AllowRowSelect="true"></Selecting>  
                                         </ClientSettings>
                                     </telerik:RadGrid>
-                                    <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Data tersimpan" Position="BottomRight"
+                                    <%--<telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Data tersimpan" Position="BottomRight"
                                         AutoCloseDelay="10000" Width="350" Height="110" Title="Notification" EnableRoundedCorners="true">
-                                    </telerik:RadNotification>
+                                    </telerik:RadNotification>--%>
                                 </div>
                             </div>
                         </FormTemplate>
@@ -780,6 +810,10 @@
         
         <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true">
         </telerik:RadWindowManager>
+
+        <telerik:RadNotification RenderMode="Lightweight" ID="notif" Text="Data telah disimpan" runat="server" Position="BottomRight" Skin="Silk"
+                AutoCloseDelay="10000" Width="350" Height="110" Title="Confirmation" EnableRoundedCorners="true">
+        </telerik:RadNotification>
         
-    </div>
+    
 </asp:Content>
