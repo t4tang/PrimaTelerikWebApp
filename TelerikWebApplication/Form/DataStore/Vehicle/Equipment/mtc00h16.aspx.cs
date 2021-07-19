@@ -1271,27 +1271,27 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.CommandText="insert into mtc00h16 (unit_code, status_code, equip_kind, color, equipment_code, reading_code, " + 
                                      "manu_code, model_no, class_name, sup_code, tank_unit, body_code, fuel_code, region_code, " + 
                                      "unit_name, hour_avai, active, pur_date, arr_date, pur_cost, order_number, con_status, " + 
-                                     "market_value, reple_value, cov, exp_life_year, exp_life_hour, depre_type, salvage_value, " + 
-                                     "appreciation, current_value, ac_resale_value, lease_amount_per_unit, fin_company, residual_value, " + 
+                                     "market_value, reple_value, cov, exp_life_year, exp_life_hour, depre_type, salvage_value, " +
+                                     "appreciation, current_value, ac_resale_value, lease_commenced, fin_company, residual_value, " + 
                                      "pay_day_month, no_repay, repay_amount, total_list_pay, v_year, seat_capa, chasis, engine_no, " +
-                                     "engine_size, no_of_cylin, transmission, key_no, radio_no, s_fuel, tank_capa1, tank_capa2, tyre_size_steer " + 
+                                     "engine_size, no_of_cylin, transmission, key_no, radio_no, s_fuel, tank_capa1, tank_capa2, tyre_size_steer, " + 
                                      "tyre_no_steer, tyre_size_drive, tyre_no_drive, no_of_axles, tare_weight, tare_height, gross_weight, " +
-                                     "gross_width, length, mechin_inspect_done, certi_no, cost, war_hour, war_month, war_sup, wheel_base, wheel_drive" + 
-                                     "insu_value, premium, privat_use, fbt_rate, sn_sarana, value_of_ibo, no_axle, no_pos, unladen, " + 
+                                     "gross_width, length, mechin_inspect_done, certi_no, cost, war_start, war_finish, war_hour, war_month, war_sup, wheel_base, wheel_drive," + 
+                                     "insu_value, renewal, premium, fbt_rate, sn_sarana, value_of_ibo, no_axle, no_pos, unladen, " + 
                                      "maxladen, payload, us_percent, sch_percent, exp_life, cap_tanki, ak_id, dept_code, tMain, " + 
                                      "tFuel, stEdit, userid, lastupdate, pic) " + 
                                      "VALUES (@unit_code, @status_code, @equip_kind, @color, @equipment_code, @reading_code, @manu_code, " +
                                      "@model_no, @class_name, @sup_code, @tank_unit, @body_code, @fuel_code, @region_code, @unit_name, " +
                                      "@hour_avai, @active, @pur_date, @arr_date, @pur_cost, @order_number, @con_status, @market_value, " +
                                      "@reple_value, @cov, @exp_life_year, @exp_life_hour, @depre_type, @salvage_value, @appreciation, " +
-                                     "@current_value, @ac_resale_value, @lease_amount_per_unit, @fin_company, @residual_value, " +
+                                     "@current_value, @ac_resale_value, @lease_commenced, @fin_company, @residual_value, " +
                                      "@pay_day_month, @no_repay, @repay_amount, @total_list_pay, @v_year, @seat_capa, @chasis, " +
                                      "@engine_no, @engine_size, @no_of_cylin, @transmission, @key_no, @radio_no, @s_fuel, @tank_capa1, " +
                                      "@tank_capa2, @tyre_size_steer, @tyre_no_steer, @tyre_size_drive, @tyre_no_drive, @no_of_axles, @tare_weight, " +
                                      "@tare_height, @gross_weight, @gross_width, @length, @mechin_inspect_done, @certi_no, @cost, " +
-                                     "@licen_code, @war_start, @war_finish, @war_hour, @war_month, @war_sup, @wheel_base, @wheel_drive, @insu_value, @renewal, " +
-                                     "@premium, @fbt_rate, @sn_sarana, @value_of_ibo, @no_pos, @unladen, @maxladen, @payload, @us_percent, " +
-                                     "@sch_percent, @exp_life, @cap_tanki, @ak_id, @dept_code, @tMain, @tFuel, '1', @userid, GETDATE(), @pic)";
+                                     "@war_start, @war_finish, @war_hour, @war_month, @war_sup, @wheel_base, @wheel_drive, @insu_value, @renewal, " +
+                                     "@premium, @fbt_rate, 'NULL', @value_of_ibo, '0', '0.00', '0.00', 'NULL','NULL', @us_percent, " +
+                                     "@sch_percent, @exp_life, @cap_tanki, @ak_id, @dept_code, '1', '1', '1', @userid, GETDATE(), @pic)";
                
                 cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@status_code", (item.FindControl("cb_status") as RadComboBox).SelectedValue);
@@ -1311,11 +1311,11 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@hour_avai", (item.FindControl("txt_std_opr") as RadTextBox).Text);
                 if ((item.FindControl("chk_active") as CheckBox).Checked == true)
                 {
-                    cmd.Parameters.AddWithValue("@privat_use", 1);
+                    cmd.Parameters.AddWithValue("@active", 1);
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@privat_use", 0);
+                    cmd.Parameters.AddWithValue("@active", 0);
                 }
                 cmd.Parameters.AddWithValue("@pur_date", string.Format("{0:yyyy-MM-dd}", dtp_purchase.SelectedDate.Value));
                 cmd.Parameters.AddWithValue("@arr_date", string.Format("{0:yyyy-MM-dd}", dtp_arrive_date.SelectedDate.Value));
@@ -1332,7 +1332,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@appreciation", (item.FindControl("txt_hours_appreciation") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@current_value", (item.FindControl("txt_current_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@ac_resale_value", (item.FindControl("txt_ARValue") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@lease_amount_per_unit", (item.FindControl("txt_lease") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@lease_commenced", (item.FindControl("dtp_lease") as RadDatePicker).SelectedDate);
                 cmd.Parameters.AddWithValue("@fin_company", (item.FindControl("cb_company") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@residual_value", (item.FindControl("txt_residual_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@pay_day_month", (item.FindControl("txt_payday") as RadTextBox).Text);
@@ -1374,8 +1374,9 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@fbt_rate", (item.FindControl("txt_fbt_rate") as RadTextBox).Text);
                 //cmd.Parameters.AddWithValue("@sn_sarana", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@value_of_ibo", (item.FindControl("txt_ibo") as RadTextBox).Text);
-                //cmd.Parameters.AddWithValue("@no_axle", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
-                //cmd.Parameters.AddWithValue("@no_pos", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@war_start", (item.FindControl("dtp_war_start") as RadDatePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@war_finish", (item.FindControl("dtp_war_finish") as RadDatePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@renewal", (item.FindControl("dtp_renewal") as RadDatePicker).SelectedDate);
                 //cmd.Parameters.AddWithValue("@unladen", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 //cmd.Parameters.AddWithValue("@maxladen", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 //cmd.Parameters.AddWithValue("@payload", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
