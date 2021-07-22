@@ -1336,7 +1336,7 @@
                                                     &nbsp;
                                                         Renewal
                                                     &nbsp;
-                                                        <telerik:RadDatePicker ID="RadDatePicker7" runat="server" MinDate="1/1/1900" Width="120px" RenderMode="Lightweight"
+                                                        <telerik:RadDatePicker ID="dtp_renewal" runat="server" MinDate="1/1/1900" Width="120px" RenderMode="Lightweight"
                                                         Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.renewal") %>'
                                                         >
                                                         <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
@@ -1400,7 +1400,7 @@
                                                             Start&nbsp;
                                                         </td>
                                                         <td>
-                                                            <telerik:RadDatePicker ID="RadDatePicker8" runat="server" MinDate="1/1/1900" Width="120px" RenderMode="Lightweight"
+                                                            <telerik:RadDatePicker ID="dtp_war_start" runat="server" MinDate="1/1/1900" Width="120px" RenderMode="Lightweight"
                                                             Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.war_start") %>'
                                                             >
                                                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
@@ -1412,7 +1412,7 @@
                                                         &nbsp;
                                                             Finish
                                                         &nbsp;
-                                                            <telerik:RadDatePicker ID="RadDatePicker9" runat="server" MinDate="1/1/1900" Width="120px" RenderMode="Lightweight"
+                                                            <telerik:RadDatePicker ID="dtp_war_finish" runat="server" MinDate="1/1/1900" Width="120px" RenderMode="Lightweight"
                                                             Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.war_finish") %>'
                                                             >
                                                             <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
@@ -1538,15 +1538,15 @@
                                                         Lease Commenced
                                                     </td>
                                                     <td>
-                                                        <telerik:RadDatePicker ID="txt_lease" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
-                                                        Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.lease_commenced") %>'
-                                                        >
+                                                        <telerik:RadDatePicker ID="dtp_lease" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                                        Skin="Silk" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.lease_commenced") %>'>
                                                         <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
                                                             EnableWeekends="True" FastNavigationNextText="&amp;lt;&amp;lt;" >
                                                         </Calendar>
                                                         <DateInput runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy" LabelWidth="40%" >
                                                         </DateInput>
-                                                        </telerik:RadDatePicker>
+                                                        <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4"></DatePopupButton>
+                                                    </telerik:RadDatePicker>  
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1554,7 +1554,7 @@
                                                         Lease Finish
                                                     </td>
                                                     <td>
-                                                        <telerik:RadDatePicker ID="RadDatePicker11" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
+                                                        <telerik:RadDatePicker ID="dtp_lease_finish" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
                                                         Skin="Telerik" DbSelectedDate='<%# DataBinder.Eval(Container, "DataItem.lease_finish") %>'
                                                         >
                                                         <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" Skin="Telerik"
