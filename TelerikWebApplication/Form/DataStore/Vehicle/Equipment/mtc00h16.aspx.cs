@@ -232,7 +232,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT distinct equipment_type_name FROM v_equipment where stEdit != '4'";
+            cmd.CommandText = "SELECT unit_code FROM v_equipment where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -247,7 +247,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT distinct equipment_type_name FROM v_equipment where stEdit != '4'";
+            cmd.CommandText = "SELECT unit_code FROM v_equipment where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -319,7 +319,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT manu_name FROM inv00h13 where stEdit != '4'";
+            cmd.CommandText = "SELECT manu_code FROM inv00h13 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -334,7 +334,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT manu_name FROM inv00h13 where stEdit != '4'";
+            cmd.CommandText = "SELECT manu_code FROM inv00h13 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -844,7 +844,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_name FROM pur00h01 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_code FROM pur00h01 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -859,7 +859,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_code FROM pur00h01 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -900,7 +900,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT Nik FROM inv00h26 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -915,7 +915,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT Nik FROM inv00h26 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1317,8 +1317,8 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 {
                     cmd.Parameters.AddWithValue("@active", 0);
                 }
-                cmd.Parameters.AddWithValue("@pur_date", string.Format("{0:yyyy-MM-dd}", dtp_purchase.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@arr_date", string.Format("{0:yyyy-MM-dd}", dtp_arrive_date.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@pur_date", (item.FindControl("dtp_purchase") as RadDatePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@arr_date", (item.FindControl("dtp_arrive_date") as RadDatePicker).SelectedDate);
                 cmd.Parameters.AddWithValue("@pur_cost", (item.FindControl("txt_pur_cost") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@order_number", (item.FindControl("txt_order_num") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@con_status", (item.FindControl("cb_condition") as RadComboBox).SelectedValue);
@@ -1361,7 +1361,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@gross_weight", (item.FindControl("txt_gross_weight") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@gross_width", (item.FindControl("txt_gross_width") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@length", (item.FindControl("txt_lenght") as RadNumericTextBox).Text);
-                cmd.Parameters.AddWithValue("@mechin_inspect_done", string.Format("{0:yyyy-MM-dd}", dtp_machinery_inspect_done.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@mechin_inspect_done", (item.FindControl("dtp_machinery_inspect_done") as RadDatePicker).SelectedDate);
                 cmd.Parameters.AddWithValue("@certi_no", (item.FindControl("txt_certifice_no") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@cost", (item.FindControl("txt_cost") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@wheel_base", (item.FindControl("txt_wheel_base") as RadNumericTextBox).Text);
