@@ -39,7 +39,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         RadComboBox cb_approved;
         RadTextBox txt_remark;
         CheckBox chk_posting;
-        RadNotification notif;
         RadLabel lbl_userId;
         RadLabel lbl_lastUpdate;
         RadLabel lbl_Owner;
@@ -94,7 +93,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         }
 
         #region Param
-        private static DataTable GetProject(string text)
+        private static DataTable GetProjectPrm(string text)
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -108,7 +107,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
 
         protected void cb_proj_prm_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = GetProject(e.Text);
+            DataTable data = GetProjectPrm(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -248,6 +247,18 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         #endregion
 
         #region Project
+        private static DataTable GetProject(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
+
         protected void cb_project_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             DataTable data = GetProject(e.Text);
@@ -361,6 +372,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         }
         #endregion
 
+        #region Ref
         protected void LoadRef(string do_code, string projectID, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
@@ -432,6 +444,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             RadGrid2.DataSource = GetDataRefDetailTable((sender as RadComboBox).SelectedValue);
             RadGrid2.DataBind();
         }
+        #endregion
 
         #region Cost Center
         protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
@@ -454,6 +467,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
 
         protected void cb_costcenter_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            RadComboBox cb = (RadComboBox)sender;
+            GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+            RadComboBox cb_project = (RadComboBox)item.FindControl("cb_project");
+
             (sender as RadComboBox).Text = "";
             LoadCostCtr(e.Text, selected_project, (sender as RadComboBox));
         }
@@ -727,7 +744,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             dtValues = (DataTable)Session["TableDetail"];
             DataRow drValue = dtValues.Rows[0];
             drValue["lbm_code"] = tr_code;
-            drValue["prod_code"] = (item.FindControl("txt_prodCode") as RadTextBox).Text;
+            drValue["prod_code"] = (item.FindControl("cb_prod_code") as RadComboBox).Text;
             drValue["qty_receive"] = (item.FindControl("txtPartQty") as RadTextBox).Text;
             drValue["SatQty"] = (item.FindControl("txt_satQty") as RadNumericTextBox).Value;
             drValue["from_wh_code"] = (item.FindControl("cb_from_storage") as RadComboBox).Text;
@@ -758,7 +775,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 dtValues = (DataTable)Session["TableDetail"];
                 DataRow drValue = dtValues.NewRow();
                 drValue["lbm_code"] = tr_code;
-                drValue["prod_code"] = (item.FindControl("txt_prodCode_Insert") as RadTextBox).Text;
+                drValue["prod_code"] = (item.FindControl("cb_prod_code_Insert") as RadComboBox).Text;
                 drValue["qty_receive"] = (item.FindControl("txtPartQty_Insert") as RadTextBox).Text;
                 drValue["SatQty"] = (item.FindControl("txt_satQty_Insert") as RadNumericTextBox).Value;
                 drValue["from_wh_code"] = (item.FindControl("cb_from_storage_Insert") as RadComboBox).Text;
@@ -983,7 +1000,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             {
                 con.Close();
                 txt_gr_number.Text = run;
-                notif.Text = "Data telah disimpan";
+                notif.Text = "Data Telah Disimpan";
                 notif.Show();
 
                 if ((sender as Button).Text == "Update")
@@ -1107,6 +1124,106 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             }
             dr.Close();
             con.Close();
+        }
+        #endregion
+
+        #region ProdCode
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            string sql = "SELECT TOP (100)[prod_code], [prod_spec], [qty_rem], [wh_name] FROM [v_goods_transfer_inD_Insert]  WHERE status_do <> '4' AND prod_spec LIKE @prod_spec + '%'";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["prod_code"].ToString();
+                item.Value = row["prod_code"].ToString();
+                item.Attributes.Add("prod_spec", row["prod_spec"].ToString());
+                item.Attributes.Add("qty_rem", row["qty_rem"].ToString());
+                item.Attributes.Add("wh_name", row["wh_name"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+        protected void cb_prod_code_PreRender(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT * FROM v_goods_transfer_inD_Insert WHERE prod_code = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void cb_prod_code_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            Session["prod_code"] = e.Value;
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT v_goods_transfer_inD_Insert.unit_code, v_goods_transfer_inD_Insert.wh_code, inv00h05.wh_name, v_goods_transfer_inD_Insert.qty_rem " +
+                                    "FROM v_goods_transfer_inD_Insert INNER JOIN " +
+                                    "inv00h05 ON v_goods_transfer_inD_Insert.wh_code = inv00h05.wh_code WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                foreach (DataRow dtr in dt.Rows)
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+                    if (Session["actionDetail"].ToString() == "detailNew")
+                    {
+                        RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txtPartQty_Insert");
+                        RadTextBox cb_uom = (RadTextBox)item.FindControl("txt_satQty_Insert");
+                        RadComboBox cbWH_d = (RadComboBox)item.FindControl("cb_from_storage_Insert");
+
+                        txt_qty.Text = dtr["qty_rem"].ToString();
+                        cb_uom.Text = dtr["unit_code"].ToString();
+                        cbWH_d.Text = dtr["wh_name"].ToString(); 
+                    }
+                    else if (Session["actionDetail"].ToString() == "detailEdit")
+                    {
+                        RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txtPartQty");
+                        RadTextBox cb_uom = (RadTextBox)item.FindControl("txt_satQty");
+                        RadComboBox cbWH_d = (RadComboBox)item.FindControl("cb_from_storage");
+
+                        txt_qty.Text = dtr["qty_rem"].ToString();
+                        cb_uom.Text = dtr["unit_code"].ToString();
+                        cbWH_d.Text = dtr["wh_name"].ToString();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language='javascript'>alert('" + ex.Message + "')</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
         }
         #endregion
     }
