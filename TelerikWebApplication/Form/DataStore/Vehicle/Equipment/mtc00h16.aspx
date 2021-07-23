@@ -462,7 +462,7 @@
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.constatus") %>'
                                                         EnableVirtualScrolling="false" ShowMoreResultsBox="false" AutoPostBack="false" Skin ="Silk"
                                                         Height="200" MarkFirstMatch="true" EnableLoadOnDemand="true" OnItemsRequested="cb_condition_ItemsRequested"
-                                                        OnSelectedIndexChanged="cb_condition_SelectedIndexChanged" OnPreRender="cb_company_PreRender">                                        
+                                                        OnSelectedIndexChanged="cb_condition_SelectedIndexChanged" OnPreRender="cb_condition_PreRender">                                        
                                                     </telerik:RadComboBox>
                                                 </td>
                                             </tr>  
