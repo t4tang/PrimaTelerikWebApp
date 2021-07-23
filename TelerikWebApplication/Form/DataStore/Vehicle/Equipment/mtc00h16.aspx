@@ -284,9 +284,9 @@
                                                     Std. Operation
                                                 </td>
                                                 <td colspan="3">
-                                                    <telerik:RadTextBox ID="txt_std_opr" runat="server" RenderMode="Lightweight" Width="80px" Enabled="true"
+                                                    <telerik:RadNumericTextBox ID="txt_std_opr" runat="server" RenderMode="Lightweight" Width="80px" Enabled="true"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.hour_avai") %>' AutoPostBack="false" Skin="Silk">
-                                                        </telerik:RadTextBox>
+                                                        </telerik:RadNumericTextBox>
                                                 </td>
                                             </tr>                                                                                         
                                         </table>
@@ -749,10 +749,10 @@
                                                             Tare Weight
                                                         </td>
                                                         <td>
-                                                            <telerik:RadTextBox ID="txt_tare_weight" runat="server" Width="150px" ReadOnly="false"
+                                                            <telerik:RadNumericTextBox ID="txt_tare_weight" runat="server" Width="150px" ReadOnly="false"
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.tare_weight") %>'         
                                                                 RenderMode="Lightweight" >
-                                                            </telerik:RadTextBox>
+                                                            </telerik:RadNumericTextBox>
                                                         </td>
                                                         <td style="width:50px;padding-left:25px">
                                                             Height
@@ -772,10 +772,10 @@
                                                             Gross Weight
                                                         </td>
                                                         <td>
-                                                             <telerik:RadTextBox ID="txt_gross_weight" runat="server" Width="150px" ReadOnly="false"
+                                                             <telerik:RadNumericTextBox ID="txt_gross_weight" runat="server" Width="150px" ReadOnly="false"
                                                                 Text='<%# DataBinder.Eval(Container, "DataItem.gross_weight") %>'         
                                                                 RenderMode="Lightweight" >
-                                                            </telerik:RadTextBox>
+                                                            </telerik:RadNumericTextBox>
                                                         </td>
                                                         <td style="width:50px;padding-left:25px">
                                                             Width 
@@ -1607,12 +1607,12 @@
                                                         No Of Repayments&nbsp;
                                                     </td>
                                                     <td>
-                                                        <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txt_no_repayments" Width="150px" NumberFormat-AllowRounding="true"
+                                                        <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txt_no_repayments" Width="150px" NumberFormat-AllowRounding="true"
                                                         NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false" EnabledStyle-HorizontalAlign="Right"
                                                         onkeydown="blurTextBox(this, event)" 
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.no_repay") %>' 
                                                         AutoPostBack="false" MaxLength="11" Type="Number">
-                                                        </telerik:RadTextBox> 
+                                                        </telerik:RadNumericTextBox> 
                                                     </td>
                                                 </tr>
                                                 <tr>
