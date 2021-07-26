@@ -232,7 +232,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT distinct equipment_type_name FROM v_equipment where stEdit != '4'";
+            cmd.CommandText = "SELECT unit_code FROM v_equipment where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -247,7 +247,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT distinct equipment_type_name FROM v_equipment where stEdit != '4'";
+            cmd.CommandText = "SELECT unit_code FROM v_equipment where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -319,7 +319,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT manu_name FROM inv00h13 where stEdit != '4'";
+            cmd.CommandText = "SELECT manu_code FROM inv00h13 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -334,7 +334,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT manu_name FROM inv00h13 where stEdit != '4'";
+            cmd.CommandText = "SELECT manu_code FROM inv00h13 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -844,7 +844,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_name FROM pur00h01 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_code FROM pur00h01 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -859,7 +859,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_code FROM pur00h01 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -900,7 +900,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT Nik FROM inv00h26 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -915,7 +915,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT Nik FROM inv00h26 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -956,7 +956,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_name from pur00h01 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_code from pur00h01 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -971,7 +971,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_name from pur00h01 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_code from pur00h01 where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1269,10 +1269,10 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.CommandText="insert into mtc00h16 (unit_code, status_code, equip_kind, color, equipment_code, reading_code, " + 
-                                     "manu_code, model_no, class_name, sup_code, tank_unit, body_code, fuel_code, region_code, " + 
-                                     "unit_name, hour_avai, active, pur_date, arr_date, pur_cost, order_number, con_status, " + 
+                                     "manu_code, model_no, class_name, sup_code, tank_unit, body_code, fuel_code, region_code, " +
+                                     "unit_name, hour_avai, active, unit_remark, pur_date, arr_date, pur_cost, order_number, con_status, " + 
                                      "market_value, reple_value, cov, exp_life_year, exp_life_hour, depre_type, salvage_value, " +
-                                     "appreciation, current_value, ac_resale_value, lease_commenced, fin_company, residual_value, " + 
+                                     "appreciation, current_value, ac_resale_value, fin_company, lease_commenced, lease_finish, residual_value, " + 
                                      "pay_day_month, no_repay, repay_amount, total_list_pay, v_year, seat_capa, chasis, engine_no, " +
                                      "engine_size, no_of_cylin, transmission, key_no, radio_no, s_fuel, tank_capa1, tank_capa2, tyre_size_steer, " + 
                                      "tyre_no_steer, tyre_size_drive, tyre_no_drive, no_of_axles, tare_weight, tare_height, gross_weight, " +
@@ -1282,9 +1282,9 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                                      "tFuel, stEdit, userid, lastupdate, pic) " + 
                                      "VALUES (@unit_code, @status_code, @equip_kind, @color, @equipment_code, @reading_code, @manu_code, " +
                                      "@model_no, @class_name, @sup_code, @tank_unit, @body_code, @fuel_code, @region_code, @unit_name, " +
-                                     "@hour_avai, @active, @pur_date, @arr_date, @pur_cost, @order_number, @con_status, @market_value, " +
+                                     "@hour_avai, @active, @unit_remark, @pur_date, @arr_date, @pur_cost, @order_number, @con_status, @market_value, " +
                                      "@reple_value, @cov, @exp_life_year, @exp_life_hour, @depre_type, @salvage_value, @appreciation, " +
-                                     "@current_value, @ac_resale_value, @lease_commenced, @fin_company, @residual_value, " +
+                                     "@current_value, @ac_resale_value, @fin_company, @lease_commenced, @lease_finish, @residual_value, " +
                                      "@pay_day_month, @no_repay, @repay_amount, @total_list_pay, @v_year, @seat_capa, @chasis, " +
                                      "@engine_no, @engine_size, @no_of_cylin, @transmission, @key_no, @radio_no, @s_fuel, @tank_capa1, " +
                                      "@tank_capa2, @tyre_size_steer, @tyre_no_steer, @tyre_size_drive, @tyre_no_drive, @no_of_axles, @tare_weight, " +
@@ -1308,7 +1308,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@fuel_code", (item.FindControl("cb_primary_fuel") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("cb_project") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@unit_name", (item.FindControl("txt_equipment_Name") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@hour_avai", (item.FindControl("txt_std_opr") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@hour_avai", (item.FindControl("txt_std_opr") as RadNumericTextBox).Text);
                 if ((item.FindControl("chk_active") as CheckBox).Checked == true)
                 {
                     cmd.Parameters.AddWithValue("@active", 1);
@@ -1317,8 +1317,9 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 {
                     cmd.Parameters.AddWithValue("@active", 0);
                 }
-                cmd.Parameters.AddWithValue("@pur_date", string.Format("{0:yyyy-MM-dd}", dtp_purchase.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@arr_date", string.Format("{0:yyyy-MM-dd}", dtp_arrive_date.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@unit_remark", (item.FindControl("txt_remark") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@pur_date", (item.FindControl("dtp_purchase") as RadDatePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@arr_date", (item.FindControl("dtp_arrive_date") as RadDatePicker).SelectedDate);
                 cmd.Parameters.AddWithValue("@pur_cost", (item.FindControl("txt_pur_cost") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@order_number", (item.FindControl("txt_order_num") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@con_status", (item.FindControl("cb_condition") as RadComboBox).SelectedValue);
@@ -1332,11 +1333,12 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@appreciation", (item.FindControl("txt_hours_appreciation") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@current_value", (item.FindControl("txt_current_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@ac_resale_value", (item.FindControl("txt_ARValue") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@lease_commenced", (item.FindControl("dtp_lease") as RadDatePicker).SelectedDate);
                 cmd.Parameters.AddWithValue("@fin_company", (item.FindControl("cb_company") as RadComboBox).SelectedValue);
+                cmd.Parameters.AddWithValue("@lease_commenced", (item.FindControl("dtp_lease") as RadDatePicker).SelectedDate);
+                cmd.Parameters.AddWithValue("@lease_finish", (item.FindControl("dtp_lease_finish") as RadDatePicker).SelectedDate);
                 cmd.Parameters.AddWithValue("@residual_value", (item.FindControl("txt_residual_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@pay_day_month", (item.FindControl("txt_payday") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@no_repay", (item.FindControl("txt_no_repayments") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@no_repay", (item.FindControl("txt_no_repayments") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@repay_amount", (item.FindControl("txt_amount_repayment") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@total_list_pay", (item.FindControl("txt_total_payment") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@v_year", (item.FindControl("txt_year") as RadNumericTextBox).Text);
@@ -1356,22 +1358,22 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
                 cmd.Parameters.AddWithValue("@tyre_size_drive", (item.FindControl("txt_tyre_size_drive") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@tyre_no_drive", (item.FindControl("txt_no_of_tyre_size_drive") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@no_of_axles", (item.FindControl("txt_no_of_axles") as RadNumericTextBox).Text);
-                cmd.Parameters.AddWithValue("@tare_weight", (item.FindControl("txt_tare_weight") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@tare_weight", (item.FindControl("txt_tare_weight") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@tare_height", (item.FindControl("txt_tare_height") as RadNumericTextBox).Text);
-                cmd.Parameters.AddWithValue("@gross_weight", (item.FindControl("txt_gross_weight") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@gross_weight", (item.FindControl("txt_gross_weight") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@gross_width", (item.FindControl("txt_gross_width") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@length", (item.FindControl("txt_lenght") as RadNumericTextBox).Text);
-                cmd.Parameters.AddWithValue("@mechin_inspect_done", string.Format("{0:yyyy-MM-dd}", dtp_machinery_inspect_done.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@mechin_inspect_done", (item.FindControl("dtp_machinery_inspect_done") as RadDatePicker).SelectedDate);
                 cmd.Parameters.AddWithValue("@certi_no", (item.FindControl("txt_certifice_no") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@cost", (item.FindControl("txt_cost") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@wheel_base", (item.FindControl("txt_wheel_base") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@wheel_drive", (item.FindControl("txt_wheel_drive") as RadNumericTextBox).Text);
-                cmd.Parameters.AddWithValue("@war_hour", (item.FindControl("txt_finish") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@war_hour", (item.FindControl("txt_finish") as RadNumericTextBox).Text);
                 cmd.Parameters.AddWithValue("@war_month", (item.FindControl("txt_months") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@war_sup", (item.FindControl("cb_warsup") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@insu_value", (item.FindControl("txt_insurance_value") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@premium", (item.FindControl("txt_premium") as RadTextBox).Text);
-                cmd.Parameters.AddWithValue("@fbt_rate", (item.FindControl("txt_fbt_rate") as RadTextBox).Text);
+                cmd.Parameters.AddWithValue("@fbt_rate", (item.FindControl("txt_fbt_rate") as RadNumericTextBox).Text);
                 //cmd.Parameters.AddWithValue("@sn_sarana", (item.FindControl("cb_equipment_code") as RadComboBox).SelectedValue);
                 cmd.Parameters.AddWithValue("@value_of_ibo", (item.FindControl("txt_ibo") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@war_start", (item.FindControl("dtp_war_start") as RadDatePicker).SelectedDate);
