@@ -23,6 +23,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         public static string tr_code = null;
         public static string selected_project = null;
         public static string selected_project_from = null;
+        public static string selected_DoCode = null;
 
         DataTable dtValues;
 
@@ -55,6 +56,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             dtValues.Columns.Add("SatQty", typeof(string));
             dtValues.Columns.Add("from_wh_code", typeof(string));
             dtValues.Columns.Add("remark", typeof(string));
+            dtValues.Columns.Add("run", typeof(int));
 
             return dtValues;
         }
@@ -66,8 +68,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
                 selected_project = public_str.site;
-                cb_proj_prm.Text = public_str.sitename;
+                cb_proj_prm.SelectedValue = public_str.site;
+                //cb_proj_prm.Text = public_str.sitename;
 
+                tr_code = null;
                 Session["action"] = "firstLoad";
                 Session["TableDetail"] = null;
                 Session["actionDetail"] = null;
@@ -77,18 +81,31 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
 
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
         {
-            if (e.Argument == "Rebind")
+            try
             {
-                RadGrid1.MasterTableView.SortExpressions.Clear();
-                RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                RadGrid1.Rebind();
+                if (e.Argument == "Rebind")
+                {
+                    RadGrid1.MasterTableView.SortExpressions.Clear();
+                    RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                    RadGrid1.Rebind();
+                    RadGrid1.MasterTableView.Items[0].Selected = true;
+                }
+                else if (e.Argument == "RebindAndNavigate")
+                {
+                    RadGrid1.MasterTableView.SortExpressions.Clear();
+                    RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                    RadGrid1.DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
+                    RadGrid1.DataBind();
+                    RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
+
+                    RadGrid1.MasterTableView.Items[RadGrid1.Items.Count - 1].Selected = true;
+
+                    Session["action"] = "list";
+                }
             }
-            else if (e.Argument == "RebindAndNavigate")
+            catch (Exception ex)
             {
-                RadGrid1.MasterTableView.SortExpressions.Clear();
-                RadGrid1.MasterTableView.GroupByExpressions.Clear();
-                RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
-                RadGrid1.Rebind();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
             }
         }
 
@@ -228,7 +245,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 GridDataItem item = e.Item as GridDataItem;
                 string kode = item["lbm_code"].Text;
                 tr_code = kode;
-                selected_project = item["region_code"].Text;
+                //selected_project = item["region_code"].Text;
 
                 Session["actionHeader"] = "headerEdit";
                 Session["actionDetail"] = null;
@@ -243,6 +260,23 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             }
             
             Session["action"] = "list";
+        }
+
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            if (Session["action"].ToString() == "firstLoad")
+            {
+                if ((sender as RadGrid).MasterTableView.Items.Count > 0)
+                    (sender as RadGrid).MasterTableView.Items[0].Selected = true;
+                foreach (GridDataItem item in RadGrid1.SelectedItems)
+                {
+                    foreach (GridDataItem gItem in (sender as RadGrid).SelectedItems)
+                    {
+                        tr_code = gItem["lbm_code"].Text;
+                    }
+                }
+
+            }
         }
         #endregion
 
@@ -312,7 +346,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         #region Warehouse/Storage
         private static DataTable GetWarehouse(string text, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND tClass = 1 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -429,6 +463,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             while (dr.Read())
             {
                 (sender as RadComboBox).Text = dr["do_code"].ToString();
+                selected_DoCode = dr["do_code"].ToString();
+
                 cb_project_from = (RadComboBox)item.FindControl("cb_project_from");
                 cb_project_from.Text = dr["region_name"].ToString();
 
@@ -742,13 +778,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             GridEditableItem item = (GridEditableItem)e.Item;
 
             dtValues = (DataTable)Session["TableDetail"];
-            DataRow drValue = dtValues.Rows[0];
+            DataRow drValue = dtValues.NewRow();
             drValue["lbm_code"] = tr_code;
-            drValue["prod_code"] = (item.FindControl("cb_prod_code") as RadComboBox).Text;
-            drValue["qty_receive"] = (item.FindControl("txtPartQty") as RadTextBox).Text;
-            drValue["SatQty"] = (item.FindControl("txt_satQty") as RadNumericTextBox).Value;
-            drValue["from_wh_code"] = (item.FindControl("cb_from_storage") as RadComboBox).Text;
-            drValue["remark"] = (item.FindControl("txt_remark_d") as RadTextBox).Text;
+            drValue["prod_code"] = (item.FindControl("cb_prod_code_Insert") as RadComboBox).Text;
+            drValue["qty_receive"] = (item.FindControl("txtPartQty_Insert") as RadNumericTextBox).Value;
+            drValue["SatQty"] = (item.FindControl("txt_satQty_Insert") as RadTextBox).Text;
+            drValue["from_wh_code"] = (item.FindControl("cb_from_storage_Insert") as RadComboBox).Text;
+            drValue["remark"] = (item.FindControl("txt_remark_d_Insert") as RadTextBox).Text;
             drValue["run"] = 0;
 
             drValue.EndEdit(); //editing row in datatable
@@ -776,8 +812,8 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 DataRow drValue = dtValues.NewRow();
                 drValue["lbm_code"] = tr_code;
                 drValue["prod_code"] = (item.FindControl("cb_prod_code_Insert") as RadComboBox).Text;
-                drValue["qty_receive"] = (item.FindControl("txtPartQty_Insert") as RadTextBox).Text;
-                drValue["SatQty"] = (item.FindControl("txt_satQty_Insert") as RadNumericTextBox).Value;
+                drValue["qty_receive"] = (item.FindControl("txtPartQty_Insert") as RadNumericTextBox).Value;
+                drValue["SatQty"] = (item.FindControl("txt_satQty_Insert") as RadTextBox).Text;
                 drValue["from_wh_code"] = (item.FindControl("cb_from_storage_Insert") as RadComboBox).Text;
                 drValue["remark"] = (item.FindControl("txt_remark_d_Insert") as RadTextBox).Text;
                 drValue["run"] = 0;
@@ -1128,16 +1164,18 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
         #endregion
 
         #region ProdCode
-        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        protected void LoadProdCode(string name, string selected_DoCode, RadComboBox cb)  
         {
-            string sql = "SELECT TOP (100)[prod_code], [prod_spec], [qty_rem], [wh_name] FROM [v_goods_transfer_inD_Insert]  WHERE status_do <> '4' AND prod_spec LIKE @prod_spec + '%'";
+            string sql = "SELECT TOP (100)[prod_code], [prod_spec], [qty_receive], [wh_name] FROM [v_goods_transfer_inD_Insert]  WHERE stmain != '4' AND do_code = @do_code AND prod_spec LIKE @prod_spec + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+            adapter.SelectCommand.Parameters.AddWithValue("@do_code", selected_DoCode);
+            adapter.SelectCommand.Parameters.AddWithValue("@prod_spec", name);
 
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
+            RadComboBox sender = null;
             RadComboBox comboBox = (RadComboBox)sender;
             // Clear the default Item that has been re-created from ViewState at this point.
             comboBox.Items.Clear();
@@ -1148,13 +1186,19 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 item.Text = row["prod_code"].ToString();
                 item.Value = row["prod_code"].ToString();
                 item.Attributes.Add("prod_spec", row["prod_spec"].ToString());
-                item.Attributes.Add("qty_rem", row["qty_rem"].ToString());
+                item.Attributes.Add("qty_receive", row["qty_receive"].ToString());
                 item.Attributes.Add("wh_name", row["wh_name"].ToString());
 
                 comboBox.Items.Add(item);
 
                 item.DataBind();
             }
+        }
+
+        protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            (sender as RadComboBox).Text = "";
+            LoadProdCode(e.Text, selected_DoCode, (sender as RadComboBox));  
         }
 
         protected void cb_prod_code_PreRender(object sender, EventArgs e)
@@ -1182,7 +1226,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT v_goods_transfer_inD_Insert.unit_code, v_goods_transfer_inD_Insert.wh_code, inv00h05.wh_name, v_goods_transfer_inD_Insert.qty_rem " +
+                cmd.CommandText = "SELECT v_goods_transfer_inD_Insert.unit_code, v_goods_transfer_inD_Insert.wh_code, inv00h05.wh_name, v_goods_transfer_inD_Insert.qty_receive " +
                                     "FROM v_goods_transfer_inD_Insert INNER JOIN " +
                                     "inv00h05 ON v_goods_transfer_inD_Insert.wh_code = inv00h05.wh_code WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
@@ -1199,7 +1243,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                         RadTextBox cb_uom = (RadTextBox)item.FindControl("txt_satQty_Insert");
                         RadComboBox cbWH_d = (RadComboBox)item.FindControl("cb_from_storage_Insert");
 
-                        txt_qty.Text = dtr["qty_rem"].ToString();
+                        txt_qty.Text = dtr["qty_receive"].ToString();
                         cb_uom.Text = dtr["unit_code"].ToString();
                         cbWH_d.Text = dtr["wh_name"].ToString(); 
                     }
@@ -1209,7 +1253,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                         RadTextBox cb_uom = (RadTextBox)item.FindControl("txt_satQty");
                         RadComboBox cbWH_d = (RadComboBox)item.FindControl("cb_from_storage");
 
-                        txt_qty.Text = dtr["qty_rem"].ToString();
+                        txt_qty.Text = dtr["qty_receive"].ToString();
                         cb_uom.Text = dtr["unit_code"].ToString();
                         cbWH_d.Text = dtr["wh_name"].ToString();
                     }
@@ -1226,5 +1270,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
             }
         }
         #endregion
+
+        
     }
 }
