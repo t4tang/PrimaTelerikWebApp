@@ -945,7 +945,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsTransfer.InComing
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
-                        //throw new Exception();
+                        //throw new Exception(); 
                         run = "MT01" + dtp_gr.SelectedDate.Value.Year + dtp_gr.SelectedDate.Value.Month + "0001";
                     }
                     else if (sdr.Read())

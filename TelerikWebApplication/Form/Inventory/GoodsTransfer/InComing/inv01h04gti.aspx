@@ -182,7 +182,7 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </div> 
 
         <div  class="scroller" runat="server" style="overflow-y:scroll; height:620px">
             <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowPaging="True" ShowFooter="false" PageSize="14" Skin="Silk"
