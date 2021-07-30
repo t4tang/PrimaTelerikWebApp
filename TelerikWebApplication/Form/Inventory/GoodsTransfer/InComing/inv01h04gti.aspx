@@ -100,7 +100,7 @@
             <telerik:AjaxSetting AjaxControlID="cb_ref">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="txt_reff_date" LoadingPanelID="RadAjaxLoadingPanel1"></telerik:AjaxUpdatedControl>
-                    <telerik:AjaxUpdatedControl ControlID="txt_project" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="cb_project_from" LoadingPanelID="RadAjaxLoadingPanel1" />
                     <telerik:AjaxUpdatedControl ControlID="cb_prod_code" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
             </telerik:AjaxSetting> 
