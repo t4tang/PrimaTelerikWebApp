@@ -471,7 +471,6 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Oil
             while (dr.Read())
             {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
-                selected_storage = dr[0].ToString();
             }
             dr.Close();
             con.Close();
@@ -858,12 +857,15 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Oil
             GridEditableItem item = (GridEditableItem)e.Item;
 
             dtValues = (DataTable)Session["TableDetail"];
-            DataRow drValue = dtValues.Rows[0];
-            //drValue["do_code"] = tr_code;
-            drValue["prod_code"] = (item.FindControl("cb_prod_code") as RadComboBox).Text;
-            drValue["prod_spec"] = (item.FindControl("lblSpec") as Label).Text;
-            drValue["qty_out"] = (item.FindControl("lbl_Part_Qty") as RadNumericTextBox).Value;
-            drValue["unit_code"] = (item.FindControl("lblUom") as Label).Text;
+            DataRow drValue = dtValues.NewRow();
+            drValue["slip_no"] = tr_code;
+            drValue["inv_code"] = (item.FindControl("cb_inv_code") as RadComboBox).Text;
+            drValue["fkno"] = (item.FindControl("txt_invCode") as RadTextBox).Text;
+            drValue["slip_date"] = (item.FindControl("txt_InvDate") as RadTextBox).Text;
+            drValue["remark"] = (item.FindControl("txt_remark") as RadTextBox).Text;
+            drValue["pay_amount"] = (item.FindControl("txt_amount") as RadNumericTextBox).Text;
+            drValue["region_code"] = (item.FindControl("txt_projectDetail") as RadTextBox).Text;
+            drValue["dept_code"] = (item.FindControl("txt_CostCenter") as RadTextBox).Text;
             //drValue["run"] = 0;
 
             drValue.EndEdit(); //editing row in datatable
@@ -890,11 +892,14 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Oil
 
                 dtValues = (DataTable)Session["TableDetail"];
                 DataRow drValue = dtValues.NewRow();
-                //drValue["do_code"] = tr_code;
-                drValue["prod_code"] = (item.FindControl("cb_prod_code_insertTemp") as RadComboBox).Text;
-                drValue["prod_spec"] = (item.FindControl("lblSpec_insert") as Label).Text;
-                drValue["qty_out"] = (item.FindControl("txt_Part_Qty_insert") as RadNumericTextBox).Value;
-                drValue["unit_code"] = (item.FindControl("lblUom_insert") as Label).Text;
+                drValue["slip_no"] = tr_code;
+                drValue["inv_code"] = (item.FindControl("cb_inv_code_insert") as RadComboBox).Text;
+                drValue["fkno"] = (item.FindControl("txt_invCode_insert") as RadTextBox).Text;
+                drValue["slip_date"] = (item.FindControl("txt_InvDate_insert") as RadTextBox).Text;
+                drValue["remark"] = (item.FindControl("txt_remark_insert") as RadTextBox).Text;
+                drValue["pay_amount"] = (item.FindControl("txt_amount_insert") as RadNumericTextBox).Text;
+                drValue["region_code"] = (item.FindControl("txt_projectDetail_insert") as RadTextBox).Text;
+                drValue["dept_code"] = (item.FindControl("txt_CostCenter_insert") as RadTextBox).Text;
                 //drValue["run"] = 0;
 
                 dtValues.Rows.Add(drValue); //adding new row into datatable
@@ -1000,9 +1005,9 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Oil
                         RadNumericTextBox t_qty = (RadNumericTextBox)item.FindControl("txt_Part_Qty_insert");
                         Label l_uom = (Label)item.FindControl("lblUom_insert");
 
-                        l_spec.Text = dtr["spec"].ToString();
-                        t_qty.Value = 0;
-                        l_uom.Text = dtr["unit"].ToString();
+                        l_spec.Text = dtr["SOH"].ToString();
+                        t_qty.Text = dtr["qty_out"].ToString();
+                        l_uom.Text = dtr["uom"].ToString();
                     }
                     //else if (Session["actionDetail"].ToString() == "detailEdit")
                     //{
@@ -1020,9 +1025,9 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Oil
                         RadNumericTextBox t_qty = (RadNumericTextBox)item.FindControl("lbl_Part_Qty");
                         Label l_uom = (Label)item.FindControl("lblUom");
 
-                        l_spec.Text = dtr["spec"].ToString();
-                        t_qty.Value = 0;
-                        l_uom.Text = dtr["unit"].ToString();
+                        l_spec.Text = dtr["SOH"].ToString();
+                        t_qty.Text = dtr["qty_out"].ToString();
+                        l_uom.Text = dtr["uom"].ToString();
                     }
                 }
 
@@ -1090,18 +1095,23 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Oil
             Button btn = (Button)sender;
             GridEditableItem item = (GridEditableItem)btn.NamingContainer;
 
-            txt_gi_number = (RadTextBox)item.FindControl("txt_gi_number");
-            dtp_date = (RadDatePicker)item.FindControl("dtp_date");
-             cb_Project = (RadComboBox)item.FindControl("cb_Project");
-             cb_warehouse = (RadComboBox)item.FindControl("cb_warehouseH");
-             cb_componen = (RadComboBox)item.FindControl("cb_componen");
-             cb_type_out = (RadComboBox)item.FindControl("cb_type_out");
-             cb_unit_code = (RadComboBox)item.FindControl("cb_unit_code");
-             txt_model = (RadTextBox)item.FindControl("txt_model");
-             txt_hm = (RadNumericTextBox)item.FindControl("txt_hm");
-             cb_CostCenter = (RadComboBox)item.FindControl("cb_CostCenter");
-             txt_CostCenterName = (RadTextBox)item.FindControl("txt_CostCenterName");
-             txt_remark = (RadTextBox)item.FindControl("txt_remark");
+            RadTextBox txt_gi_number = (RadTextBox)item.FindControl("txt_gi_number");
+            RadDatePicker dtp_date = (RadDatePicker)item.FindControl("dtp_date");
+            RadComboBox cb_Project = (RadComboBox)item.FindControl("cb_Project");
+            RadComboBox cb_warehouseH = (RadComboBox)item.FindControl("cb_warehouseH");
+            RadComboBox cb_componen = (RadComboBox)item.FindControl("cb_componen");
+            RadComboBox cb_type_out = (RadComboBox)item.FindControl("cb_type_out");
+            RadComboBox cb_unit_code = (RadComboBox)item.FindControl("cb_unit_code");
+            RadTextBox txt_model = (RadTextBox)item.FindControl("txt_model");
+            RadTextBox txt_hm = (RadTextBox)item.FindControl("txt_hm");
+            RadComboBox cb_CostCenter = (RadComboBox)item.FindControl("cb_CostCenter");
+            RadTextBox txt_CostCenterName = (RadTextBox)item.FindControl("txt_CostCenterName");
+            RadTextBox txt_remark = (RadTextBox)item.FindControl("txt_remark");
+            //RadComboBox cb_Checked = (RadComboBox)item.FindControl("cb_Checked");
+            //RadComboBox cb_Approval = (RadComboBox)item.FindControl("cb_Approval");
+            //RadComboBox cb_check = (RadComboBox)item.FindControl("cb_check");
+            //RadComboBox cb_approve = (RadComboBox)item.FindControl("cb_approve");
+            //RadTextBox txt_remark = (RadTextBox)item.FindControl("txt_remark");
 
             Button btnCancel = (Button)item.FindControl("btnCancel");
             RadGrid Grid2 = (RadGrid)item.FindControl("RadGrid2");
@@ -1146,77 +1156,71 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Oil
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
-                cmd.CommandText = "sp_save_oil_consumptionH";
-                cmd.Parameters.AddWithValue("@do_code", run);
-                cmd.Parameters.AddWithValue("@cust_code", public_str.company_code);
-                cmd.Parameters.AddWithValue("@unit_code", selected_unit_code);
-                cmd.Parameters.AddWithValue("@model_no", txt_model.Text);
-                cmd.Parameters.AddWithValue("@type_of_out", cb_type_out.SelectedValue);
-                cmd.Parameters.AddWithValue("@Tgl", string.Format("{0:yyyy-MM-dd}", dtp_date.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@region_code", selected_project);
-                cmd.Parameters.AddWithValue("@wh_code", selected_storage);
-                cmd.Parameters.AddWithValue("@dept_code", cb_CostCenter.Text);
-                cmd.Parameters.AddWithValue("@type_out", "N");
-                cmd.Parameters.AddWithValue("@broken_hours", 0);
-                cmd.Parameters.AddWithValue("@unit_reading", txt_hm.Value);
-                cmd.Parameters.AddWithValue("@doc_type", 1);
-                cmd.Parameters.AddWithValue("@OwnStamp", DateTime.Today);
-                cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                cmd.CommandText = "sp_save_Cash_PaymentH";
+                cmd.Parameters.AddWithValue("@slip_no", run);
+                cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", dtp_bm.SelectedDate.Value));
+                cmd.Parameters.AddWithValue("@noctrl", txt_NoCtrl.Text);
+                cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
+                cmd.Parameters.AddWithValue("@cur_code", txt_CurCode.Text);
+                cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(txt_kurs.Text));
+                cmd.Parameters.AddWithValue("@accountno", cb_ref.SelectedValue);
+                cmd.Parameters.AddWithValue("@cashbank", cb_cash.SelectedValue);
+                cmd.Parameters.AddWithValue("@cur_code_acc", txt_CurCode2.Text);
+                cmd.Parameters.AddWithValue("@kurs_acc", Convert.ToDouble(txt_kurs2.Text));
+                cmd.Parameters.AddWithValue("@Remark", txt_remark.Text);
+                cmd.Parameters.AddWithValue("@freby", cb_Prepared.SelectedValue);
+                cmd.Parameters.AddWithValue("@ordby", cb_Checked.SelectedValue);
+                cmd.Parameters.AddWithValue("@appby", cb_Approval.SelectedValue);
+                cmd.Parameters.AddWithValue("@lvl", 1);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
-                cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
-                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                cmd.Parameters.AddWithValue("@status_do", 1);
-                cmd.Parameters.AddWithValue("@CntrDoc", "3");
+                cmd.Parameters.AddWithValue("@lastupdate", DateTime.Today);
+                cmd.Parameters.AddWithValue("@pay_way", 1);
+                cmd.Parameters.AddWithValue("@tot_pay", 0);
                 cmd.Parameters.AddWithValue("@status_post", 0);
-                cmd.Parameters.AddWithValue("@type_do", "6");
-                cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
-                cmd.Parameters.AddWithValue("@com_code", cb_componen.SelectedValue);
-
-                //cmd.Parameters.AddWithValue("@sales_code", "NON");
-                //cmd.Parameters.AddWithValue("@Printed", 0);
-                //cmd.Parameters.AddWithValue("@Edited", 0);
-                //cmd.Parameters.AddWithValue("@to_wh_code", "NONE");
+                cmd.Parameters.AddWithValue("@trans_kind", 1);
+                cmd.Parameters.AddWithValue("@tot_pay_idr", 0);
+                cmd.Parameters.AddWithValue("@tot_pay_acc", 0);
+                cmd.Parameters.AddWithValue("@kursBeli", 0);
                 cmd.ExecuteNonQuery();
 
                 foreach (GridDataItem itemD in Grid2.MasterTableView.Items)
                 {
-                    RadComboBox cb_prod_code;
-                    Label lblSpec;
-                    RadNumericTextBox lbl_Part_Qty;
-                    Label lblUom;
+                    Label lbl_InvCode;
+                    Label lbl_inv_code;
+                    Label lbl_slip_date;
+                    Label lbl_remark;
+                    Label lbl_pay_amount;
+                    Label lbl_project_detail;
+                    Label lbl_cost_ctr;
+                    //Label lbl_cost_center;
 
-                    cb_prod_code = (RadComboBox)itemD.FindControl("cb_prod_code");
-                    lblSpec = (Label)itemD.FindControl("lblSpec");
-                    lbl_Part_Qty = (RadNumericTextBox)itemD.FindControl("lbl_Part_Qty");
-                    lblUom = (Label)itemD.FindControl("lblUom");
+                    lbl_InvCode = (Label)itemD.FindControl("lbl_InvCode");
+                    lbl_inv_code = (Label)itemD.FindControl("lbl_inv_code");
+                    lbl_slip_date = (Label)itemD.FindControl("lbl_slip_date");
+                    lbl_remark = (Label)itemD.FindControl("lbl_remark");
+                    lbl_pay_amount = (Label)itemD.FindControl("lbl_pay_amount");
+                    lbl_project_detail = (Label)itemD.FindControl("lbl_project_detail");
+                    lbl_cost_ctr = (Label)itemD.FindControl("lbl_cost_ctr");
+                    //lbl_cost_center = (Label)itemD.FindControl("lbl_cost_center");
 
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
-                    cmd.CommandText = "sp_save_oil_consumptionD";
-                    cmd.Parameters.AddWithValue("@do_code", run);
-                    cmd.Parameters.AddWithValue("@prod_code", cb_prod_code.Text);
-                    cmd.Parameters.AddWithValue("@qty_out", lbl_Part_Qty.Value);
-                    cmd.Parameters.AddWithValue("@wh_code", selected_storage);
-                    cmd.Parameters.AddWithValue("@prod_spec", lblSpec.Text);
-                    cmd.Parameters.AddWithValue("@unit_code", lblUom.Text);
-                    cmd.Parameters.AddWithValue("@type_out", "N");
-                    cmd.Parameters.AddWithValue("@dept_code", cb_CostCenter.Text);
-                    cmd.Parameters.AddWithValue("@Prod_code_ori", cb_prod_code.Text);
+                    cmd.CommandText = "sp_save_Cash_PaymentD";
+                    cmd.Parameters.AddWithValue("@slip_no", run);
+                    cmd.Parameters.AddWithValue("@inv_code", lbl_InvCode.Text);
+                    cmd.Parameters.AddWithValue("@fkno", lbl_inv_code.Text);
+                    //cmd.Parameters.AddWithValue("@slip_date", string.Format("{0:yyyy-MM-dd}", lbl_slip_date.Text));
+                    cmd.Parameters.AddWithValue("@remark", lbl_remark.Text);
+                    cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble(lbl_pay_amount.Text));
+                    cmd.Parameters.AddWithValue("@pay_amount_acc", selected_amount);
+                    //cmd.Parameters.AddWithValue("@pay_amount_idr", selected_amount);
+                    cmd.Parameters.AddWithValue("@dept_code", lbl_cost_ctr.Text);
+                    cmd.Parameters.AddWithValue("@region_code", lbl_project_detail.Text);
+                    //cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
+                    //cmd.Parameters.AddWithValue("@Owner", public_str.user_id);
                     cmd.ExecuteNonQuery();
-                }
 
-                if ((sender as Button).Text == "Update")
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                }
-                else
-                {
-                    tr_code = run;
-                    selected_project = cb_project.SelectedValue;
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                    (sender as Button).Text = "Update";
-                    btnCancel.Text = "Close";
                 }
 
                 notif.Show("Data saved");
