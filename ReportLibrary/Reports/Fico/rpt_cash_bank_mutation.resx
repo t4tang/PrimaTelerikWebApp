@@ -120,7 +120,4 @@
   <metadata name="sqlDataSourceCashBankMutation.ParameterValues" xml:space="preserve">
     <value>{"@date":"2017-01-01","@to_date":"2017-01-11"}</value>
   </metadata>
-  <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
-    <value>0.1cm</value>
-  </metadata>
 </root>

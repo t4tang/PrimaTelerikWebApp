@@ -43,7 +43,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h24 SET stEdit = 4 where AK_GROUP = @AK_GROUP";
+            cmd.CommandText = "UPDATE AK_GROUP SET stEdit = 4 where AK_GROUP = @AK_GROUP";
             cmd.Parameters.AddWithValue("@AK_GROUP", AK_GROUP);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -56,7 +56,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h24 (AK_GROUP, AK_GROUP_NAME, lastupdate, userid, stEdit) " +
+            cmd.CommandText = "INSERT INTO AK_GROUP (AK_GROUP, AK_GROUP_NAME, lastupdate, userid, stEdit) " +
                               "VALUES (@AK_GROUP, @AK_GROUP_NAME, getdate(), @userid, '0')";
             cmd.Parameters.AddWithValue("@AK_GROUP", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@AK_GROUP_NAME", (item.FindControl("txt_asset_type") as RadTextBox).Text);
@@ -72,7 +72,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h24 SET AK_GROUP_NAME = @AK_GROUP_NAME, lastupdate = getdate(), userid = @userid WHERE AK_GROUP = @AK_GROUP";
+            cmd.CommandText = "UPDATE AK_GROUP SET AK_GROUP_NAME = @AK_GROUP_NAME, lastupdate = getdate(), userid = @userid WHERE AK_GROUP = @AK_GROUP";
             cmd.Parameters.AddWithValue("@AK_GROUP", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@AK_GROUP_NAME", (item.FindControl("txt_asset_type") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
@@ -90,7 +90,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT AK_GROUP, AK_GROUP_NAME FROM acc00h24 where stEdit != 4";
+            cmd.CommandText = "SELECT AK_GROUP, AK_GROUP_NAME FROM AK_GROUP where stEdit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);

@@ -169,7 +169,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
         #region Cash Param
         private static DataTable GetCashCode(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoKas, NamKas FROM acc00h02 WHERE stEdit != 4 AND NamKas LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoKas, NamKas FROM COKAS WHERE stEdit != 4 AND NamKas LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -199,7 +199,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoKas FROM acc00h02 WHERE NamKas = '" + cb_Cash_prm.Text + "'";
+            cmd.CommandText = "SELECT KoKas FROM COKAS WHERE NamKas = '" + cb_Cash_prm.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -438,7 +438,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
         #region Cash
         private static DataTable GetCash2(string text) 
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoKas, NamKas FROM acc00h02 WHERE stEdit != 4 AND NamKas LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoKas, NamKas FROM COKAS WHERE stEdit != 4 AND NamKas LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -471,8 +471,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoKas, NamKas, acc00h10.cur_code, acc00h04.KursRun, acc00h02.KoRek FROM acc00h02, acc00h04, acc00h10 " +
-                                "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE cur_code = acc00h10.cur_code) AND acc00h10.accountno = acc00h02.KoRek " +
+            cmd.CommandText = "SELECT KoKas, NamKas, gl_account.cur_code, acc00h04.KursRun, COKAS.KoRek FROM COKAS, acc00h04, gl_account " +
+                                "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE cur_code = gl_account.cur_code) AND gl_account.accountno = COKAS.KoRek " +
                                 "AND NamKas = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
@@ -496,8 +496,8 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoKas, NamKas, acc00h10.cur_code, acc00h04.KursRun, acc00h02.KoRek FROM acc00h02, acc00h04, acc00h10 " +
-                                "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE cur_code = acc00h10.cur_code) AND acc00h10.accountno = acc00h02.KoRek " +
+            cmd.CommandText = "SELECT KoKas, NamKas, gl_account.cur_code, acc00h04.KursRun, COKAS.KoRek FROM COKAS, acc00h04, gl_account " +
+                                "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE cur_code = gl_account.cur_code) AND gl_account.accountno = COKAS.KoRek " +
                                 "AND NamKas = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
@@ -516,7 +516,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
             DataTable dt = new DataTable();
@@ -545,7 +545,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -560,7 +560,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -586,7 +586,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -601,7 +601,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -627,7 +627,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -642,7 +642,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -655,7 +655,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
         #region Reff
         private static DataTable GetAccount(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT accountno, accountname FROM acc00h10 WHERE stEdit != 4 AND accountname LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT accountno, accountname FROM gl_account WHERE stEdit != 4 AND accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -685,7 +685,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10  WHERE accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account  WHERE accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -700,7 +700,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1087,7 +1087,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
 
         //protected void cb_Project_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         //{
-        //    string sql = "SELECT [region_code], [region_name] FROM [inv00h09]  WHERE stEdit != '4' AND region_name LIKE @region_name + '%'";
+        //    string sql = "SELECT [region_code], [region_name] FROM [ms_jobsite]  WHERE stEdit != '4' AND region_name LIKE @region_name + '%'";
         //    SqlDataAdapter adapter = new SqlDataAdapter(sql,
         //        ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
         //    adapter.SelectCommand.Parameters.AddWithValue("@region_name", e.Text);
@@ -1118,7 +1118,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.PaymentVoucher
         //    SqlCommand cmd = new SqlCommand();
         //    cmd.Connection = con;
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+        //    cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
         //    SqlDataReader dr;
         //    dr = cmd.ExecuteReader();
         //    while (dr.Read())

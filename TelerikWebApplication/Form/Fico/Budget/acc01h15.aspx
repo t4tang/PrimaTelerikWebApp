@@ -95,7 +95,7 @@
                 </telerik:RadGrid>
             </div>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DbConString %>"
-                SelectCommand="SELECT acc01h15.id, acc01h15.account, acc00h10.accountname, acc01h15.project, v_month.Bulan, acc01h15.month, acc01h15.year, acc01h15.budget_amount FROM acc01h15 INNER JOIN acc00h10 ON acc01h15.account = acc00h10.accountno INNER JOIN v_month ON acc01h15.month = v_month.Value WHERE year = @year"
+                SelectCommand="SELECT acc01h15.id, acc01h15.account, gl_account.accountname, acc01h15.project, v_month.Bulan, acc01h15.month, acc01h15.year, acc01h15.budget_amount FROM acc01h15 INNER JOIN gl_account ON acc01h15.account = gl_account.accountno INNER JOIN v_month ON acc01h15.month = v_month.Value WHERE year = @year"
                 UpdateCommand="UPDATE [acc01h15] SET [budget_amount] = @budget_amount WHERE [id] = @id">
                <SelectParameters>
                     <asp:ControlParameter ControlID="cb_year" PropertyName="Text" Name="year" />

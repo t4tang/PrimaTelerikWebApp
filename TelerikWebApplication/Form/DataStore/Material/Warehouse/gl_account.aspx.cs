@@ -72,8 +72,8 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT acc00h10.accountno, UPPER(acc00h10.accountname) AS accountname, acc00h10.accountgroup, acc00h10.cur_code, acc00h12.balance, acc00h12.groupname  " +
-                "FROM acc00h10 INNER JOIN acc00h12 ON acc00h10.accountgroup = acc00h12.accountgroup WHERE(acc00h10.stEdit = '0') " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT gl_account.accountno, UPPER(gl_account.accountname) AS accountname, gl_account.accountgroup, gl_account.cur_code, gl_account_group.balance, gl_account_group.groupname  " +
+                "FROM gl_account INNER JOIN gl_account_group ON gl_account.accountgroup = gl_account_group.accountgroup WHERE(gl_account.stEdit = '0') " +
                 "AND accountno LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", accountno);
             DataTable dt = new DataTable();
@@ -98,7 +98,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -131,7 +131,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -164,7 +164,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -197,7 +197,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -230,7 +230,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -263,7 +263,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -296,7 +296,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -329,7 +329,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -362,7 +362,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -395,7 +395,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -428,7 +428,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).Text + "'";
+                cmd.CommandText = "SELECT accountname FROM gl_account WHERE accountno = '" + (sender as RadComboBox).Text + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -461,7 +461,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             //    cmd = new SqlCommand();
             //    cmd.CommandType = CommandType.Text;
             //    cmd.Connection = con;
-            //    cmd.CommandText = "UPDATE inv00h23 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
+            //    cmd.CommandText = "UPDATE ms_wh_account set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
             //                      "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
             //                      "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
             //                      "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code";
@@ -497,7 +497,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                         //cmd.CommandType = CommandType.Text;
                         //cmd.Connection = con;
                         con.Open();
-                        cmd = new SqlCommand("UPDATE inv00h23 set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
+                        cmd = new SqlCommand("UPDATE ms_wh_account set AccCOGS = @AccCOGS, AccSales = @AccSales, AccReturn = @AccReturn, " +
                                       "AccInventory = @AccInventory, AccSalesDisc = @AccSalesDisc, AccReturnBeli = @AccReturnBeli, " +
                                       "AccDiscBeli = @AccDiscBeli, AccAssem = @AccAssem, AccRev = @AccRev, AccConsum = @AccConsum, " +
                                       "AccConsign = @AccConsign where wh_code = @wh_code and kind_code = @kind_code",con);
@@ -549,7 +549,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from inv00h23 where wh_code = @wh_code and kind_code = @kind_code";
+                cmd.CommandText = "delete from ms_wh_account where wh_code = @wh_code and kind_code = @kind_code";
                 cmd.Parameters.AddWithValue("@wh_code", wh_code);
                 cmd.Parameters.AddWithValue("@kind_code", kindCode);
                 cmd.ExecuteNonQuery();

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="reportViewer.aspx.cs" Inherits="TelerikWebApplication.Form.Purchase.Purchase_order.reportViewer" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="reportViewer.aspx.cs" Inherits="TelerikWebApplication.Form.Purchase.Purchase_asset.reportViewer" %>
 <%@ Register TagPrefix="telerik" Assembly="Telerik.ReportViewer.Html5.WebForms" Namespace="Telerik.ReportViewer.Html5.WebForms" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
@@ -62,7 +62,7 @@
 			Height="600px"
 			EnableAccessibility="true"
             runat="server">
-            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Purchase.Purchase_order.pur01h02_slip, TelerikWebApplication, 
+            <ReportSource IdentifierType="TypeReportSource" Identifier="TelerikWebApplication.Form.Purchase.Purchase_asset.pur01h02_slip, TelerikWebApplication, 
                 Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             </ReportSource>
         </telerik:ReportViewer>

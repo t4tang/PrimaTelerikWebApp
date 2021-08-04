@@ -254,6 +254,12 @@
     <Compile Include="Reports\Inventory\rpt_gr_by_values.Designer.cs">
       <DependentUpon>rpt_gr_by_values.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Inventory\Rpt_Oil_Consumption_ByValue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\Rpt_Oil_Consumption_ByValue.Designer.cs">
+      <DependentUpon>Rpt_Oil_Consumption_ByValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Inventory\rpt_pr_to_gr.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -452,6 +458,12 @@
     <Compile Include="slip\acc01h03c_slip.Designer.cs">
       <DependentUpon>acc01h03c_slip.cs</DependentUpon>
     </Compile>
+    <Compile Include="slip\acc01h03_slip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="slip\acc01h03_slip.Designer.cs">
+      <DependentUpon>acc01h03_slip.cs</DependentUpon>
+    </Compile>
     <Compile Include="slip\acc01h05_slip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -484,6 +496,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Reports\Fico\BankMutation.trdp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
@@ -555,6 +568,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_gr_by_values.resx">
       <DependentUpon>rpt_gr_by_values.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\Rpt_Oil_Consumption_ByValue.resx">
+      <DependentUpon>Rpt_Oil_Consumption_ByValue.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Inventory\rpt_pr_to_gr.resx">
       <DependentUpon>rpt_pr_to_gr.cs</DependentUpon>
@@ -651,6 +667,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="slip\acc01h03c_slip.resx">
       <DependentUpon>acc01h03c_slip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="slip\acc01h03_slip.resx">
+      <DependentUpon>acc01h03_slip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="slip\acc01h04_slip.resx" />
     <EmbeddedResource Include="slip\acc01h05_slip.resx">

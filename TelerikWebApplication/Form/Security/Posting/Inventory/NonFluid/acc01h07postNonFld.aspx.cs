@@ -46,7 +46,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Inventory.NonFluid
         private void set_periode()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT CONVERT(varchar, perstart, 103) perstart, CONVERT(varchar, perend, 103) perend FROM inv00h15 ", con);
+            SqlCommand cmd = new SqlCommand("SELECT CONVERT(varchar, perstart, 103) perstart, CONVERT(varchar, perend, 103) perend FROM ms_company ", con);
 
             SqlDataReader dr;
             dr = cmd.ExecuteReader();

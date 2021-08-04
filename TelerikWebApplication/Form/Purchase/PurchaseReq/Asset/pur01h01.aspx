@@ -179,7 +179,8 @@
         OnDeleteCommand="RadGrid1_DeleteCommand" 
         OnItemCreated="RadGrid1_ItemCreated" 
         OnPreRender="RadGrid1_PreRender"
-        OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" >
+        OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged" 
+            OnItemDataBound="RadGrid1_ItemDataBound" >
         <PagerStyle Mode="NumericPages" ForeColor="#0099CC"></PagerStyle>               
         <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px" HorizontalAlign="Center"/>
         <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
@@ -607,14 +608,17 @@
                                </table>
 
                                 <div style="padding: 15px 0px 12px 0px; height:288px">    
-                                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Silk" CssClass="RadGrid_ModernBrowsers"
+                                    <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Silk"
                                         AllowPaging="false" PageSize="5" AllowSorting="true" runat="server" AllowAutomaticDeletes="True" AllowAutomaticInserts="True" ShowStatusBar="true" 
                                         OnNeedDataSource="RadGrid2_NeedDataSource">
                                         <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
                                         <HeaderStyle Font-Size="10px" Font-Bold="true" />
-                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="11px"
-                                        ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item" 
-                                        CommandItemSettings-ShowRefreshButton="False" ItemStyle-ForeColor="#006600">
+                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="11px" EditMode="PopUp" BorderStyle="Solid" 
+                                            BorderColor="Silver" BorderWidth="1px" ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" >
+                                            <EditFormSettings >
+                                                <FormStyle ForeColor="#006666" Width="500px" Height="250px"  />
+                                                <PopUpSettings KeepInScreenBounds="true" Modal="true" />
+                                            </EditFormSettings>
                                             <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="False" ShowCancelChangesButton="false" />
                                             <Columns>                                                
                                                 <telerik:GridTemplateColumn HeaderText="Asset Name" HeaderStyle-Width="200px" ItemStyle-Width="200px" >
@@ -623,7 +627,7 @@
                                                     </ItemTemplate>                                        
                                                 </telerik:GridTemplateColumn>
                                                 <telerik:GridTemplateColumn HeaderText="Part Code" HeaderStyle-Width="150px" ItemStyle-Width="150px"
-                                                    HeaderStyle-HorizontalAlign="Center">
+                                                    HeaderStyle-HorizontalAlign="Left">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblProdCode" Width="150px" Text='<%# DataBinder.Eval(Container, "DataItem.Prod_code") %>'></asp:Label>
                                                     </ItemTemplate>                                        
@@ -719,5 +723,9 @@
         
         <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager2" runat="server" EnableShadow="true">
         </telerik:RadWindowManager>
-    
+        
+        <telerik:RadNotification RenderMode="Lightweight" ID="notif" Text="Data telah disimpan" runat="server" Position="BottomRight" Skin="Silk"
+                    AutoCloseDelay="10000" Width="350" Height="110" Title="Confirmation" EnableRoundedCorners="true">
+        </telerik:RadNotification>
+
 </asp:Content>

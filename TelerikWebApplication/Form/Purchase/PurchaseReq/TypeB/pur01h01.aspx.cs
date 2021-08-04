@@ -123,7 +123,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE pur01h01 SET userid = @Usr, lastupdate = GETDATE(), status_pur = '4' WHERE (pr_code = @pr_code)";
+                cmd.CommandText = "UPDATE tr_purchase_reqH SET userid = @Usr, lastupdate = GETDATE(), status_pur = '4' WHERE (pr_code = @pr_code)";
                 cmd.Parameters.AddWithValue("@pr_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -219,7 +219,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
 
         private static DataTable GetProjectPrm(string text)
         {            
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -244,7 +244,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         }
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -260,7 +260,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -367,7 +367,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from pur01d01 where prod_code = @part_code and pr_code = @doc_code";
+                cmd.CommandText = "delete from tr_purchase_reqD where prod_code = @part_code and pr_code = @doc_code";
                 cmd.Parameters.AddWithValue("@doc_code", tr_code);
                 cmd.Parameters.AddWithValue("@part_code", partCode);
                 cmd.ExecuteNonQuery();
@@ -454,7 +454,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         #region Priority 
         private static DataTable GetPriority(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT priority_code , prio_desc FROM pur00h06 WHERE prio_desc LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT priority_code , prio_desc FROM ms_priority WHERE prio_desc LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -485,7 +485,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT priority_code FROM pur00h06 WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT priority_code FROM ms_priority WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -501,7 +501,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT priority_code FROM pur00h06 WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT priority_code FROM ms_priority WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

@@ -118,17 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
-    <value>{"@Nobuk":"B11D20040001"}</value>
+    <value>{"@Nobuk":"B03D21070002"}</value>
   </metadata>
   <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
-    <value>SELECT        inv00h15.company_name, inv00h15.address1, v_bankmutation_list.NoBuk, v_bankmutation_list.Tgl, v_bankmutation_list.Ket, v_bankmutation_list.NamBank, 
+    <value>SELECT        ms_company.company_name, ms_company.address1, v_bankmutation_list.NoBuk, v_bankmutation_list.Tgl, v_bankmutation_list.Ket, v_bankmutation_list.NamBank, 
                          v_bankmutation_list.NoCtrl, v_bankmutation_list.region_name, v_bankmutation_list.Kontak, v_bankmutation_list.Total, v_bankmutation_list.ApprovalBy, 
-                         v_bankmutation_list.CheckedBy, v_bankmutation_list.PreparedBy, acc01d01.KoRek, acc01d01.Jumlah, acc01d01.Ket AS Expr1, acc01d01.Nomor, 
+                         v_bankmutation_list.CheckedBy, v_bankmutation_list.PreparedBy, glBankB.KoRek, glBankB.Jumlah, glBankB.Ket AS remark_d, glBankB.Nomor, 
                          v_bankmutation_list.JabatanPre, v_bankmutation_list.JabatanOrd, v_bankmutation_list.JabatanApp, dbo.fg_terbilang_eng(v_bankmutation_list.Total, 'IDR') 
                          AS Terbilang
 FROM            v_bankmutation_list INNER JOIN
-                         acc01d01 ON v_bankmutation_list.NoBuk = acc01d01.NoBuk CROSS JOIN
-                         inv00h15
+                         glBankB ON v_bankmutation_list.NoBuk = glBankB.NoBuk CROSS JOIN
+                         ms_company
 WHERE        (v_bankmutation_list.NoBuk = @Nobuk)</value>
   </data>
 </root>

@@ -88,17 +88,17 @@
                         </asp:ContentPlaceHolder>
                     </div>
                 </div>--%>
-                <div class="section bottom">
+                <%--<div class="section bottom">
                     <telerik:RadNavigation runat="server" ID="contactNavigation" Skin="BlackMetroTouch" CssClass="secondaryMenu">
                         <Nodes>
                             
                         </Nodes>
-                    </telerik:RadNavigation>
+                    </telerik:RadNavigation>--%>
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
 
                     </asp:ContentPlaceHolder>
 
-                </div>
+                <%--</div>--%>
             </div>
             <div class="tm-click-overlay"></div>
             <telerik:RadToolTip runat="server" ID="UserProfile" IsClientID="true" EnableShadow="true" HideEvent="FromCode" Visible="true" TargetControlID="aa">

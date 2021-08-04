@@ -40,8 +40,8 @@ namespace TelerikWebApplication
                 SqlCommand cmd = new SqlCommand("SELECT  A.USER_NAME, E.REGION_CODE, B.REGION_NAME, A.Level, A.sec_group, CONVERT(varchar, D.perstart, 103) perstart, " +
                     "CONVERT(varchar, D.perend, 103) perend, UPPER(D.company_name) as company, D.company_code, A.def_modul, UPPER(A.user_id) as user_id, " +
                     "CONVERT(varchar, D.Accstart, 103) Accstart, CONVERT(varchar, D.Accperend, 103) Accperend,  CONVERT(varchar, D.Fuelstart, 103) Fuelstart, " +
-                    "CONVERT(varchar, D.Fuelend, 103) Fuelend FROM SEC_USER A, inv00h09 B, inv00h15 D, " +
-                    "inv00h26 E WHERE A.user_id='" + txt_uid.Text + "' AND E.REGION_CODE=B.REGION_CODE AND A.user_id=E.NIK", con);
+                    "CONVERT(varchar, D.Fuelend, 103) Fuelend FROM SEC_USER A, ms_jobsite B, ms_company D, " +
+                    "ms_manpower E WHERE A.user_id='" + txt_uid.Text + "' AND E.REGION_CODE=B.REGION_CODE AND A.user_id=E.NIK", con);
 
                 dr = cmd.ExecuteReader();
                 //if (dr.HasRows == false)
@@ -67,7 +67,7 @@ namespace TelerikWebApplication
                     public_str.Fuelend = dr["Fuelend"].ToString();
 
                     Session["UID"] = txt_uid.Text;
-                    Response.Redirect("~/default.aspx");
+                    Response.Redirect("~/Home.aspx");
                 }
                 else
                 {

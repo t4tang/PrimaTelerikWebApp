@@ -31,16 +31,16 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT     acc00h23.AK_CODE, acc00h23.AK_NAME, acc00h23.AK_GROUP, acc00h23.lastupdate, acc00h23.userid, acc00h23.stEdit, acc00h23.exp_life_year, " + 
-                                "acc00h23.exp_life_year_tax, CASE acc00h23.mtd WHEN 'S' THEN 'Straight Line' WHEN 'D' THEN 'Double Decline' WHEN 'T' THEN 'Declining Balance' WHEN 'N' THEN 'Non' WHEN 'H' THEN 'HM' ELSE 'KM' END AS mtd, " +  
-                                "CASE acc00h23.mtdTax WHEN 'S' THEN 'Straight Line' WHEN 'D' THEN 'Double Decline' WHEN 'T' THEN 'Declining Balance' WHEN 'N' THEN 'Non' WHEN 'H' THEN 'HM' ELSE 'KM' END AS mtdTax, acc00h23.mtd_per, acc00h23.mtd_per_tax, " + 
-                                "CASE acc00h23.IOCC WHEN 'CC' THEN 'Cost Center' WHEN 'IO' THEN 'Internal Order' ELSE 'Undefinition' end as IOCC, CASE acc00h23.cat_code WHEN '0' THEN 'Non Prod' ELSE 'Prod' END AS cat_code, " + 
-                                "CASE acc00h23.status_class WHEN '0' THEN 'Under Construction' WHEN '1' THEN 'Depreciation' WHEN '2' THEN 'Non Depreciation' WHEN '3' THEN 'Used Equipment' ELSE 'Transfer' END AS status_class, " + 
-                                "acc00h23.ak_cum_rek, acc00h23.ak_ex_rek + ' ' + acc00h10.accountname AS ak_ex_rekname, acc00h23.ak_gain + ' ' + acc00h10.accountname AS ak_gainname, acc00h23.ak_disposal + ' ' + acc00h10.accountname AS ak_disposalname, " +
-                               "acc00h23.auc_rek + ' ' + acc00h10.accountname AS auc_rekname, acc00h23.asset_rek + ' ' + acc00h10.accountname AS asset_rekname, " +
-                                "acc00h23.ak_rek + ' ' + acc00h10.accountname AS ak_rekname " +
-                                "FROM acc00h23 INNER JOIN " +
-                                "acc00h10 ON acc00h23.ak_rek = acc00h10.accountno WHERE acc00h23.stEdit !=4";
+            cmd.CommandText = "SELECT     AK_NO.AK_CODE, AK_NO.AK_NAME, AK_NO.AK_GROUP, AK_NO.lastupdate, AK_NO.userid, AK_NO.stEdit, AK_NO.exp_life_year, " + 
+                                "AK_NO.exp_life_year_tax, CASE AK_NO.mtd WHEN 'S' THEN 'Straight Line' WHEN 'D' THEN 'Double Decline' WHEN 'T' THEN 'Declining Balance' WHEN 'N' THEN 'Non' WHEN 'H' THEN 'HM' ELSE 'KM' END AS mtd, " +  
+                                "CASE AK_NO.mtdTax WHEN 'S' THEN 'Straight Line' WHEN 'D' THEN 'Double Decline' WHEN 'T' THEN 'Declining Balance' WHEN 'N' THEN 'Non' WHEN 'H' THEN 'HM' ELSE 'KM' END AS mtdTax, AK_NO.mtd_per, AK_NO.mtd_per_tax, " + 
+                                "CASE AK_NO.IOCC WHEN 'CC' THEN 'Cost Center' WHEN 'IO' THEN 'Internal Order' ELSE 'Undefinition' end as IOCC, CASE AK_NO.cat_code WHEN '0' THEN 'Non Prod' ELSE 'Prod' END AS cat_code, " + 
+                                "CASE AK_NO.status_class WHEN '0' THEN 'Under Construction' WHEN '1' THEN 'Depreciation' WHEN '2' THEN 'Non Depreciation' WHEN '3' THEN 'Used Equipment' ELSE 'Transfer' END AS status_class, " + 
+                                "AK_NO.ak_cum_rek, AK_NO.ak_ex_rek + ' ' + gl_account.accountname AS ak_ex_rekname, AK_NO.ak_gain + ' ' + gl_account.accountname AS ak_gainname, AK_NO.ak_disposal + ' ' + gl_account.accountname AS ak_disposalname, " +
+                               "AK_NO.auc_rek + ' ' + gl_account.accountname AS auc_rekname, AK_NO.asset_rek + ' ' + gl_account.accountname AS asset_rekname, " +
+                                "AK_NO.ak_rek + ' ' + gl_account.accountname AS ak_rekname " +
+                                "FROM AK_NO INNER JOIN " +
+                                "gl_account ON AK_NO.ak_rek = gl_account.accountno WHERE AK_NO.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -90,7 +90,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update acc00h23 SET stEdit = 4 where AK_CODE = @AK_CODE";
+            cmd.CommandText = "Update AK_NO SET stEdit = 4 where AK_CODE = @AK_CODE";
             cmd.Parameters.AddWithValue("@AK_CODE", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -106,7 +106,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc00h23 SET AK_NAME = @AK_NAME, lastupdate = GETDATE(), userid = @userid, stEdit = '0', exp_life_year = @exp_life_year, " +
+                cmd.CommandText = "UPDATE AK_NO SET AK_NAME = @AK_NAME, lastupdate = GETDATE(), userid = @userid, stEdit = '0', exp_life_year = @exp_life_year, " +
                                         "exp_life_year_tax = @exp_life_year_tax, mtd = @mtd, mtdTax = @mtdTax, mtd_per = @mtd_per, mtd_per_tax = @mtd_per_Tax, ak_rek = @ak_rek,  " +
                                         "ak_ex_rek = @ak_ex_rek, ak_gain = @ak_gain, ak_disposal = @ak_disposal, auc_rek = @auc_rek, asset_rek = @asset_rek, IOCC = @IOCC, cat_code = @cat_code, status_class = @status_class " +
                                         "WHERE AK_CODE = @AK_CODE";
@@ -141,7 +141,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h23(AK_CODE, AK_NAME, lastupdate, userid, stEdit, " + 
+            cmd.CommandText = "INSERT INTO AK_NO(AK_CODE, AK_NAME, lastupdate, userid, stEdit, " + 
                                 "exp_life_year, exp_life_year_tax, mtd, mtdTax, mtd_per, mtd_per_tax, ak_rek, ak_cum_rek, ak_ex_rek, ak_gain, ak_disposal,  " +
                                 " auc_rek, asset_rek, IOCC, cat_code, status_class) " +
                                 "VALUES (@AK_CODE, @AK_NAME, getdate(), @userid, '0', @exp_life_year, @exp_life_year_tax, @mtd, @mtdTax, @mtd_per, @mtd_per_tax, " +
@@ -228,9 +228,9 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             }
         }
 
-        private static DataTable Getacc00h10(string text)
+        private static DataTable Getgl_account(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+accountname from gl_account where stEdit != 4 " +
                             "AND accountno + ' ' + accountname like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -244,7 +244,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
 
         private static DataTable Getasset_rek(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -262,7 +262,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -293,7 +293,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -304,7 +304,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
 
         private static DataTable Getak_disposal(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -321,7 +321,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -350,7 +350,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -361,7 +361,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
 
         private static DataTable Getak_gain(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -378,7 +378,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -407,7 +407,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -418,7 +418,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
 
         private static DataTable Getak_ex_rek(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -435,7 +435,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -450,7 +450,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -475,7 +475,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
 
         private static DataTable Getak_rek(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -494,7 +494,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT accountno,accountname FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno,accountname FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -510,7 +510,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd.CommandType = CommandType.Text;
 
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -743,7 +743,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
 
         private static DataTable Getauc_rek(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -761,7 +761,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -776,7 +776,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetClass
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

@@ -31,9 +31,9 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h12.KdLok, inv00h12.NmLok, inv00h05.wh_name " + 
-                                "FROM inv00h12 INNER JOIN inv00h05 " +
-                                "ON inv00h12.wh_code = inv00h05.wh_code WHERE inv00h12.stEdit !=4";
+            cmd.CommandText = "SELECT ms_lokbar.KdLok, ms_lokbar.NmLok, ms_warehouse.wh_name " + 
+                                "FROM ms_lokbar INNER JOIN ms_warehouse " +
+                                "ON ms_lokbar.wh_code = ms_warehouse.wh_code WHERE ms_lokbar.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -62,7 +62,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update inv00h12 SET stEdit = 4 where KdLok = @KdLok";
+            cmd.CommandText = "Update ms_lokbar SET stEdit = 4 where KdLok = @KdLok";
             cmd.Parameters.AddWithValue("@KdLok", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -75,7 +75,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h12 VALUES (@KdLok,@NmLok,getdate(),@userid,@stEdit,@wh_code)";
+            cmd.CommandText = "INSERT INTO ms_lokbar VALUES (@KdLok,@NmLok,getdate(),@userid,@stEdit,@wh_code)";
             cmd.Parameters.AddWithValue("@KdLok", (item.FindControl("txt_KdLok") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@NmLok", (item.FindControl("txt_NmLok") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv00h12 SET NmLok = @NmLok, lastupdate = getdate(), userid = @userid, wh_code = @wh_code " +
+                cmd.CommandText = "UPDATE ms_lokbar SET NmLok = @NmLok, lastupdate = getdate(), userid = @userid, wh_code = @wh_code " +
                                     "WHERE KdLok = @KdLok";
                 cmd.Parameters.AddWithValue("@KdLok", (item.FindControl("txt_KdLok") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@NmLok", (item.FindControl("txt_NmLok") as RadTextBox).Text);
@@ -118,9 +118,9 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
             }
         }
 
-        private static DataTable Getinv00h05(string text)
+        private static DataTable Getms_warehouse(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 where wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM ms_warehouse where wh_name LIKE @text + '%'",
              ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -131,7 +131,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
         }
         protected void cb_wh_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = Getinv00h05(e.Text);
+            DataTable data = Getms_warehouse(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -149,7 +149,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -164,7 +164,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.LocationProduct
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

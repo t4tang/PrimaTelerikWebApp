@@ -115,7 +115,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         private static DataTable GetYearDeprePrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT DISTINCT(Left(YearMonth,4)) AS tahun FROM acc00d22 WHERE asset_id = @text ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT DISTINCT(Left(YearMonth,4)) AS tahun FROM tr_asset_depre WHERE asset_id = @text ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 

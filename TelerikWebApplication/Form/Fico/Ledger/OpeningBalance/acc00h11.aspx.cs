@@ -55,14 +55,14 @@ namespace TelerikWebApplication.Form.Fico.Ledger.OpeningBalance
             cmd.Connection = con;
             int last_periode = 0;
             last_periode = periode - 1;
-            cmd.CommandText = "SELECT acc00h11.account_no, acc00h11.month, acc00h11.year, acc00h12.balance, acc00h10.cur_code,  " +
-                              "acc00h10.accountname,acc00h11.yearmonth, acc00h11.sl_credit_usd, acc00h11.sl_credit_idr, " +
-                              "acc00h11.sl_debet_usd, acc00h11.sl_debet_idr, acc00h11.kurs " +
-                              "FROM  acc00h11 INNER JOIN acc00h10 ON acc00h11.account_no = acc00h10.accountno INNER JOIN " +
-                              "acc00h12 ON acc00h10.accountgroup = acc00h12.accountgroup " +
-                              "WHERE  (acc00h11.month = 12)  " +
-                              "AND (acc00h11.year = " + last_periode + ") " +
-                              "ORDER BY acc00h11.account_no";
+            cmd.CommandText = "SELECT gl_account_comp.account_no, gl_account_comp.month, gl_account_comp.year, gl_account_group.balance, gl_account.cur_code,  " +
+                              "gl_account.accountname,gl_account_comp.yearmonth, gl_account_comp.sl_credit_usd, gl_account_comp.sl_credit_idr, " +
+                              "gl_account_comp.sl_debet_usd, gl_account_comp.sl_debet_idr, gl_account_comp.kurs " +
+                              "FROM  gl_account_comp INNER JOIN gl_account ON gl_account_comp.account_no = gl_account.accountno INNER JOIN " +
+                              "gl_account_group ON gl_account.accountgroup = gl_account_group.accountgroup " +
+                              "WHERE  (gl_account_comp.month = 12)  " +
+                              "AND (gl_account_comp.year = " + last_periode + ") " +
+                              "ORDER BY gl_account_comp.account_no";
             //"WHERE  (acc00h11.month = MONTH(DATEADD(MONTH, DATEDIFF(MONTH, 0, '" + periode + "'), -1)))  " +
             //"AND (acc00h11.year = YEAR(DATEADD(MONTH, DATEDIFF(MONTH, 0, '" + periode + "'), -1))) " +
             //"ORDER BY acc00h11.account_no";
@@ -91,7 +91,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.OpeningBalance
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT DISTINCT(year) FROM acc00h11 WHERE YEAR != (SELECT ThnAwal FROM inv00h15)";
+            cmd.CommandText = "SELECT DISTINCT(year) FROM gl_account_comp WHERE YEAR != (SELECT ThnAwal FROM inv00h15)";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -181,7 +181,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.OpeningBalance
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc00h11 SET sl_debet_idr = @sa_debet_idr, sl_credit_idr = @sa_credit_idr, kurs = @kurs, " +
+                cmd.CommandText = "UPDATE gl_account_comp SET sl_debet_idr = @sa_debet_idr, sl_credit_idr = @sa_credit_idr, kurs = @kurs, " +
                 "sl_debet_usd = @sa_debet_usd, sl_credit_usd = @sa_credit_usd WHERE(account_no = @account_no) AND(month = @month) AND(year = @year) ";
                 cmd.Parameters.AddWithValue("@sa_debet_idr", Convert.ToDecimal((item.FindControl("txt_debet") as RadTextBox).Text));
                 cmd.Parameters.AddWithValue("@sa_credit_idr", Convert.ToDecimal((item.FindControl("txt_credit") as RadTextBox).Text));

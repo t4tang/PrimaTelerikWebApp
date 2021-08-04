@@ -31,15 +31,6 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_asset {
         protected global::Telerik.ReportViewer.Html5.WebForms.ReportViewer reportViewer1;
         
         /// <summary>
-        /// chk_overhaul control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_overhaul;
-        
-        /// <summary>
         /// btnOk control.
         /// </summary>
         /// <remarks>

@@ -480,8 +480,8 @@
                                                         OnSelectedIndexChanged="cb_Project_SelectedIndexChanged"
                                                         EnableVirtualScrolling="true" >
                                                     </telerik:RadComboBox>
-                                                    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="cb_Project" ForeColor="Red" Font-Size="X-Small" 
-                                                        Text="Required!" CssClass="required_validator">
+                                                    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="cb_Project" ForeColor="Red"  
+                                                        Text="*" CssClass="required_validator">
                                                     </asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>
@@ -576,7 +576,7 @@
                                                         <DatePopupButton ImageUrl="" HoverImageUrl="" TabIndex="4" />
                                                     </telerik:RadDatePicker>
                                                     <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="dtp_req" ForeColor="Red" 
-                                                        Font-Size="X-Small" Text="Required!" CssClass="required_validator"></asp:RequiredFieldValidator>--%>
+                                                         Text="*" CssClass="required_validator"></asp:RequiredFieldValidator>--%>
                                                     &nbsp
                                                     <telerik:RadNumericTextBox ID="txt_breakdown" runat="server" Width="150px" RenderMode="Lightweight" 
                                                       Text='<%# DataBinder.Eval(Container, "DataItem.status_time") %>'  AutoPostBack="false">

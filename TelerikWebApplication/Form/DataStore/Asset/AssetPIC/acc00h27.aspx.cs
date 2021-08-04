@@ -31,7 +31,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetPIC
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT Pic_Code, pic_name FROM acc00h27 where stEdit != 4";
+            cmd.CommandText = "SELECT Pic_Code, pic_name FROM ms_asset_pic where stEdit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -67,7 +67,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetPIC
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h27 SET stEdit = 4 where Pic_Code = @Pic_Code";
+            cmd.CommandText = "UPDATE ms_asset_pic SET stEdit = 4 where Pic_Code = @Pic_Code";
             cmd.Parameters.AddWithValue("@Pic_Code", Pic_Code);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -85,7 +85,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetPIC
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h27 (Pic_Code, pic_name, lastupdate, userid, stEdit) " +
+            cmd.CommandText = "INSERT INTO ms_asset_pic (Pic_Code, pic_name, lastupdate, userid, stEdit) " +
                               "VALUES (@Pic_Code, @pic_name, getdate(), @userid, '0')";
             cmd.Parameters.AddWithValue("@Pic_Code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@pic_name", (item.FindControl("txt_pic_name") as RadTextBox).Text);
@@ -101,7 +101,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetPIC
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h27 SET pic_name = @pic_name, lastupdate = getdate(), userid = @userid WHERE Pic_Code = @Pic_Code";
+            cmd.CommandText = "UPDATE ms_asset_pic SET pic_name = @pic_name, lastupdate = getdate(), userid = @userid WHERE Pic_Code = @Pic_Code";
             cmd.Parameters.AddWithValue("@Pic_Code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@pic_name", (item.FindControl("txt_pic_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);

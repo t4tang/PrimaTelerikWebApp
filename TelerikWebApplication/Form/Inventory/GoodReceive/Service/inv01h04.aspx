@@ -170,7 +170,8 @@
                 OnItemCreated="RadGrid1_ItemCreated"
                 OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged"
                 OnPreRender="RadGrid1_PreRender" 
-                OnItemCommand="RadGrid1_ItemCommand">
+                OnItemCommand="RadGrid1_ItemCommand" 
+                OnItemDataBound="RadGrid1_ItemDataBound">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced" ForeColor="#0099CC" VerticalAlign="Middle"></PagerStyle>               
                 <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
@@ -653,18 +654,18 @@
                                                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" InsertItemDisplay="Bottom" >                                             
                                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
                                                     <Columns>   
-                                                        <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
+                                                        <%--<telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
                                                             HeaderText="Edit" HeaderStyle-Width="60px" ItemStyle-Width="60px" UpdateText="Update">
-                                                        </telerik:GridEditCommandColumn>                   
+                                                        </telerik:GridEditCommandColumn> --%>                  
                                              
                                                         <telerik:GridTemplateColumn HeaderText="Type" ItemStyle-Width="40px" HeaderStyle-Width="40px" ItemStyle-HorizontalAlign="Center" 
                                                             HeaderStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblProdType" Width="40px" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>                                           
                                                             </ItemTemplate>
-                                                            <EditItemTemplate>
+                                                            <%--<EditItemTemplate>
                                                                 <asp:Label runat="server" ID="lblProdTypEdit" Width="40px" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>                                           
-                                                            </EditItemTemplate>
+                                                            </EditItemTemplate>--%>
                                                             <InsertItemTemplate>
                                                                 <asp:Label runat="server" ID="lblProdTypeInsert" Width="40px"></asp:Label>                                           
                                                             </InsertItemTemplate>
@@ -673,10 +674,8 @@
                                                         <telerik:GridTemplateColumn HeaderText="Material Code" HeaderStyle-Width="150px" ItemStyle-Width="150px"
                                                             HeaderStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
-                                                                <asp:Label runat="server" ID="lblProdCode" Width="150px" Text='<%# DataBinder.Eval(Container.DataItem, "Prod_code") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                            <EditItemTemplate>
-                                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cbProdCodeEdit" EnableLoadOnDemand="True" DataTextField="spec"
+                                                                <%--<asp:Label runat="server" ID="lblProdCode" Width="150px" Text='<%# DataBinder.Eval(Container.DataItem, "Prod_code") %>'></asp:Label>--%>
+                                                                <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cbProdCode" EnableLoadOnDemand="True" DataTextField="spec"
                                                                     DataValueField="prod_code" AutoPostBack="true"
                                                                     Text='<%# DataBinder.Eval(Container.DataItem, "prod_code") %>'
                                                                     HighlightTemplatedItems="true" Height="190px" Width="150px" DropDownWidth="430px"
@@ -708,7 +707,7 @@
                                                                     </table>
                                                                 </ItemTemplate>
                                                                 </telerik:RadComboBox>
-                                                            </EditItemTemplate>
+                                                            </ItemTemplate>                                                            
                                                             <InsertItemTemplate>
                                                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cbProdCodeInsert" EnableLoadOnDemand="True" DataTextField="spec"
                                                                     OnItemsRequested="cb_prod_code_ItemsRequested" DataValueField="prod_code" AutoPostBack="true"
@@ -745,15 +744,14 @@
                                                         <telerik:GridTemplateColumn HeaderText="Location" HeaderStyle-Width="95px" ItemStyle-Width="95px" ItemStyle-HorizontalAlign="Left"
                                                             HeaderStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
-                                                                <asp:Label runat="server" ID="lblKoLok" Width="95px" Text='<%# DataBinder.Eval(Container.DataItem, "KoLok") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                            <EditItemTemplate>
-                                                                <telerik:RadComboBox runat="server" RenderMode="Lightweight" ID="cbKolokEdit" Width="95px" Skin="Silk"
+                                                                <%--<asp:Label runat="server" ID="lblKoLok" Width="95px" Text='<%# DataBinder.Eval(Container.DataItem, "KoLok") %>'></asp:Label>--%>
+                                                                <telerik:RadComboBox runat="server" RenderMode="Lightweight" ID="cbKolok" Width="95px" Skin="Silk"
                                                                     Text='<%# DataBinder.Eval(Container.DataItem, "KoLok") %>'
                                                                     EnableLoadOnDemand="True" EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"  
                                                                     DataTextField="kolok" DataValueField="kolok" OnItemsRequested="cbKolok_ItemsRequested">
                                                                 </telerik:RadComboBox>
-                                                            </EditItemTemplate>                                            
+                                                            </ItemTemplate>
+                                                                                                        
                                                             <InsertItemTemplate>
                                                                 <telerik:RadComboBox runat="server" RenderMode="Lightweight" ID="cbKolokInsert" Width="95px" Skin="Silk"
                                                                     EnableLoadOnDemand="True" EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"  
@@ -772,20 +770,11 @@
                                                                     Text='<%# DataBinder.Eval(Container.DataItem, "qty_Sisa", "{0:#,###,###0.00}") %>'
                                                                     onkeydown="blurTextBox(this, event)"
                                                                     AutoPostBack="true" MaxLength="11" Type="Number"
-                                                                    NumberFormat-DecimalDigits="2">
+                                                                    NumberFormat-DecimalDigits="2" 
+                                                                    OnTextChanged="validasi_jumlah">
                                                                 </telerik:RadTextBox>
                                                             </ItemTemplate>
-                                                            <EditItemTemplate>
-                                                                <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txtPartQtyEdit" Width="80px"  ReadOnly="false" 
-                                                                    EnabledStyle-HorizontalAlign="Right"
-                                                                    NumberFormat-AllowRounding="true"
-                                                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                                                    Text='<%# DataBinder.Eval(Container.DataItem, "qty_Sisa", "{0:#,###,###0.00}") %>'
-                                                                    onkeydown="blurTextBox(this, event)"
-                                                                    AutoPostBack="true" MaxLength="11" Type="Number"
-                                                                    NumberFormat-DecimalDigits="2">
-                                                                </telerik:RadNumericTextBox>
-                                                            </EditItemTemplate>                                            
+                                                                                                        
                                                             <InsertItemTemplate>
                                                                 <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPartQtyInsert" Width="80px"  ReadOnly="false" 
                                                                     EnabledStyle-HorizontalAlign="Right"
@@ -793,21 +782,32 @@
                                                                     NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
                                                                     onkeydown="blurTextBox(this, event)"
                                                                     AutoPostBack="true" MaxLength="11" Type="Number"
-                                                                    NumberFormat-DecimalDigits="2">
+                                                                    NumberFormat-DecimalDigits="2"
+                                                                     OnTextChanged="validasi_jumlah">
                                                                 </telerik:RadTextBox>
                                                             </InsertItemTemplate>
+                                                        </telerik:GridTemplateColumn>
+
+                                                        <telerik:GridTemplateColumn HeaderText="Sisa" HeaderStyle-Width="50px" ItemStyle-Width="50px" ItemStyle-HorizontalAlign="Right" 
+                                                            DefaultInsertValue="0" HeaderStyle-HorizontalAlign="Left" Visible="false">
+                                                            <ItemTemplate>
+                                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPartQtySisa" Width="80px"  
+                                                                    EnabledStyle-HorizontalAlign="Right"
+                                                                    NumberFormat-AllowRounding="true"
+                                                                    NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
+                                                                    Text='<%# DataBinder.Eval(Container.DataItem, "qty_Sisa", "{0:#,###,###0.00}") %>'
+                                                                    onkeydown="blurTextBox(this, event)"
+                                                                    AutoPostBack="true" MaxLength="11" Type="Number"
+                                                                    NumberFormat-DecimalDigits="2">
+                                                                </telerik:RadTextBox>
+                                                            </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
 
                                                         <telerik:GridTemplateColumn HeaderText="UoM" HeaderStyle-Width="75px" ItemStyle-Width="75px" ItemStyle-HorizontalAlign="Center" >
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblUom" Width="75px" Text='<%# DataBinder.Eval(Container.DataItem, "SatQty") %>' ></asp:Label>
                                                             </ItemTemplate>
-                                                            <EditItemTemplate>
-                                                                <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="75px" runat="server" ID="cb_uom_d"
-                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.SatQty") %>' Width="75px"
-                                                                    EnableLoadOnDemand="True" Skin="Silk"  DataTextField="part_unit" DataValueField="part_unit" >
-                                                                </telerik:RadComboBox>
-                                                            </EditItemTemplate>
+                                                            
                                                             <InsertItemTemplate>
                                                                 <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="75px" Width="75px" runat="server" ID="cb_uom_d_insert"
                                                                     EnableLoadOnDemand="True" Skin="Silk"  DataTextField="part_unit" DataValueField="part_unit" >
@@ -816,19 +816,11 @@
                                                         </telerik:GridTemplateColumn>
 
                                                         <telerik:GridTemplateColumn HeaderText="Cost Ctr." HeaderStyle-Width="95px" ItemStyle-Width="95px" 
-                                                            HeaderStyle-HorizontalAlign="Center">
+                                                            HeaderStyle-HorizontalAlign="Left">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblCostCtr" Width="95px" Text='<%# DataBinder.Eval(Container.DataItem, "dept_code") %>'></asp:Label>
                                                             </ItemTemplate>
-                                                            <EditItemTemplate>
-                                                                <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="150px" runat="server" ID="cb_dept_d"
-                                                                    EnableLoadOnDemand="True" Skin="Silk"  DataTextField="name" DataValueField="CostCenter" Width="95px" 
-                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.dept_code") %>'
-                                                                    OnItemsRequested="cb_dept_d_ItemsRequested"
-                                                                    OnPreRender="cb_dept_d_PreRender"
-                                                                        OnSelectedIndexChanged="cb_dept_d_SelectedIndexChanged" >
-                                                                </telerik:RadComboBox>
-                                                            </EditItemTemplate>
+                                                            
                                                             <InsertItemTemplate>
                                                                 <telerik:RadComboBox RenderMode="Lightweight" DropDownWidth="150px" runat="server" ID="cb_dept_d_insert"
                                                                     EnableLoadOnDemand="True" Skin="Silk"  DataTextField="name" DataValueField="CostCenter" Width="95px" 
@@ -840,17 +832,13 @@
                                                         </telerik:GridTemplateColumn>
                                             
                                                         <telerik:GridTemplateColumn HeaderText="Remark" ItemStyle-Width="200px" HeaderStyle-Width="200px" 
-                                                            HeaderStyle-HorizontalAlign="Center">
+                                                            HeaderStyle-HorizontalAlign="Left">
                                                             <ItemTemplate>
                                                                 <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtRemark" Width="200px"
                                                                     Text='<%# DataBinder.Eval(Container, "DataItem.Remark") %>' ReadOnly="true">
                                                                 </telerik:RadTextBox>
                                                             </ItemTemplate>
-                                                            <EditItemTemplate>
-                                                                <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtRemarkEdit" Width="200px"
-                                                                    Text='<%# DataBinder.Eval(Container, "DataItem.Remark") %>' ReadOnly="false">
-                                                                </telerik:RadTextBox>
-                                                            </EditItemTemplate>
+                                                            
                                                             <InsertItemTemplate>
                                                                 <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtRemarkInsert" Width="200px" ReadOnly="false">
                                                                 </telerik:RadTextBox>
@@ -862,9 +850,7 @@
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblRS" Text='<%# DataBinder.Eval(Container.DataItem, "nocontr") %>' Width="75px"></asp:Label>
                                                             </ItemTemplate>     
-                                                            <EditItemTemplate>
-                                                                <asp:Label runat="server" ID="lblRsEdit" Text='<%# DataBinder.Eval(Container.DataItem, "nocontr") %>' Width="75px"></asp:Label>
-                                                            </EditItemTemplate>
+                                                            
                                                             <InsertItemTemplate>
                                                                 <asp:Label runat="server" ID="lblRsInsert" Width="75px"></asp:Label>
                                                             </InsertItemTemplate>                                         
@@ -875,9 +861,7 @@
                                                             <ItemTemplate>
                                                                 <asp:CheckBox runat="server" ID="chkWarranty" Width="50px" Enabled="false" Checked='<%# DataBinder.Eval(Container.DataItem, "twarranty") %>' />
                                                             </ItemTemplate>    
-                                                            <EditItemTemplate>
-                                                                <asp:CheckBox runat="server" ID="chkWarrantyEdit" Width="50px" Enabled="false" Checked='<%# DataBinder.Eval(Container.DataItem, "twarranty") %>' />
-                                                            </EditItemTemplate>
+                                                            
                                                             <InsertItemTemplate>
                                                                 <asp:CheckBox runat="server" ID="chkWarrantyInsert" Width="50px" Enabled="false" />
                                                             </InsertItemTemplate>                                          
@@ -932,6 +916,10 @@
                                                                 UniqueName="credit" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" 
                                                                 DataFormatString="{0:#,###,###0.00}" ItemStyle-HorizontalAlign="Right" ItemStyle-ForeColor="#00CC00">                                
                                                             </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn DataField="cur_code" HeaderStyle-Width="70px" HeaderText="Currency" SortExpression="cur_code"
+                                                                UniqueName="cur_code" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="70px" 
+                                                                >                                
+                                                            </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn DataField="remark" HeaderStyle-Width="200px" HeaderText="Remark" SortExpression="remark"
                                                                 UniqueName="remark" ReadOnly="true" HeaderStyle-HorizontalAlign="Center" >
                                                             </telerik:GridBoundColumn>
@@ -959,133 +947,7 @@
             </telerik:RadGrid>
         </div>
 
-        <%--<div runat="server" style="width: 100%; border-top-width: 1px; border-top-style: inset; padding-top: 5px;">  
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" GridLines="None" AutoGenerateColumns="false" Skin="Silk" PageSize="10" CssClass="RadGrid_ModernBrowsers" 
-                AllowPaging="true" AllowSorting="true" runat="server" ShowStatusBar="true"  ClientSettings-Selecting-AllowRowSelect="true"
-                OnNeedDataSource="RadGrid2_NeedDataSource" 
-                OnDeleteCommand="RadGrid2_DeleteCommand"
-                OnInsertCommand="RadGrid2_InsertCommand" 
-                OnUpdateCommand="RadGrid2_InsertCommand"
-                OnPreRender="RadGrid2_PreRender">            
-                <PagerStyle Mode="NumericPages" PageButtonCount="4"></PagerStyle>
-                <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
-                <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
-                <HeaderStyle Font-Size="11px" /> 
-                <MasterTableView CommandItemDisplay="None" DataKeyNames="lbm_code,prod_code" Font-Size="11px" EditMode="InPlace"
-                ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
-                <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
-                <Columns>
-                   
-                    <telerik:GridTemplateColumn HeaderText="Type" ItemStyle-Width="50px" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center" 
-                             HeaderStyle-HorizontalAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblProdType" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>                                           
-                        </ItemTemplate>
-                    </telerik:GridTemplateColumn>
-
-                    <telerik:GridTemplateColumn HeaderText="Material Code" HeaderStyle-Width="120px" ItemStyle-Width="110px"
-                             HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblProdCode" Text='<%# DataBinder.Eval(Container.DataItem, "prod_code") %>'></asp:Label>
-                            <telerik:RadToolTip RenderMode="Lightweight" ID="RadToolTip1" runat="server" TargetControlID="lblProdCode" RelativeTo="Element"
-                            Position="BottomCenter" RenderInPageRoot="true" HideDelay="300" ShowEvent="OnMouseOver">
-                            <%# DataBinder.Eval(Container, "DataItem.Spec")%>                                                
-                            </telerik:RadToolTip>
-                        </ItemTemplate>                                        
-                    </telerik:GridTemplateColumn>
-                                        
-                    <telerik:GridTemplateColumn HeaderText="Qty" HeaderStyle-Width="70px" ItemStyle-Width="50px" ItemStyle-HorizontalAlign="Right" 
-                             DefaultInsertValue="0" HeaderStyle-HorizontalAlign="Right">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "qty_Sisa", "{0:#,###,###0.00}") %>'></asp:Label>
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtPartQty" Width="50px"  ReadOnly="false" 
-                                EnabledStyle-HorizontalAlign="Right"
-                                NumberFormat-AllowRounding="true"
-                                NumberFormat-KeepNotRoundedValue="true" AllowOutOfRangeAutoCorrect="false"
-                                Text='<%# DataBinder.Eval(Container.DataItem, "qty_Sisa", "{0:#,###,###0.00}") %>'
-                                onkeydown="blurTextBox(this, event)"
-                                AutoPostBack="true" MaxLength="11" Type="Number"
-                                NumberFormat-DecimalDigits="2">
-                            </telerik:RadTextBox>
-                        </EditItemTemplate>
-                    </telerik:GridTemplateColumn>
-
-                    <telerik:GridTemplateColumn HeaderText="UoM" HeaderStyle-Width="70px" ItemStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
-                             HeaderStyle-HorizontalAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblUom" Text='<%# DataBinder.Eval(Container.DataItem, "SatQty") %>'></asp:Label>
-                        </ItemTemplate>                                        
-                    </telerik:GridTemplateColumn>
-
-                    <telerik:GridTemplateColumn HeaderText="Cost Center" HeaderStyle-Width="100px" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left"
-                             HeaderStyle-HorizontalAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblCostCtr" Text='<%# DataBinder.Eval(Container.DataItem, "dept_code") %>'></asp:Label>
-                        </ItemTemplate>
-                    </telerik:GridTemplateColumn>
-
-                    <telerik:GridTemplateColumn HeaderText="Location" HeaderStyle-Width="100px" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left"
-                         HeaderStyle-HorizontalAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblKolok" Text='<%# DataBinder.Eval(Container.DataItem, "KoLok") %>'></asp:Label>
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <telerik:RadComboBox runat="server" RenderMode="Lightweight" ID="cbKolok" Width="100px" Skin="Telerik"
-                                Text='<%# DataBinder.Eval(Container.DataItem, "KoLok") %>'
-                                EnableLoadOnDemand="True" EnableVirtualScrolling="true" Filter="Contains" MarkFirstMatch="true" ChangeTextOnKeyBoardNavigation="false"  
-                                DataTextField="NmLok" DataValueField="NmLok" OnItemsRequested="cbKolok_ItemsRequested" DropDownAutoWidth="Enabled">
-                            </telerik:RadComboBox>
-                        </EditItemTemplate>                                        
-                    </telerik:GridTemplateColumn>
-                            
-                    <telerik:GridTemplateColumn HeaderText="Remark" HeaderStyle-Width="250px" ItemStyle-Width="250px" ItemStyle-HorizontalAlign="Left"
-                             HeaderStyle-HorizontalAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblRemark_d" Text='<%# DataBinder.Eval(Container.DataItem, "remark") %>'></asp:Label>
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <telerik:RadTextBox RenderMode="Lightweight" runat="server" ID="txtRemark_d" Width="250px"
-                                Text='<%# DataBinder.Eval(Container, "DataItem.remark") %>'>
-                            </telerik:RadTextBox>
-                        </EditItemTemplate>
-                    </telerik:GridTemplateColumn>
-
-                    <telerik:GridTemplateColumn HeaderText="Ctrl. No" HeaderStyle-Width="100px" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left"
-                             HeaderStyle-HorizontalAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblRS" Text='<%# DataBinder.Eval(Container.DataItem, "nocontr") %>'></asp:Label>
-                        </ItemTemplate>                                        
-                    </telerik:GridTemplateColumn>
-                    <telerik:GridTemplateColumn HeaderText="Warranty" HeaderStyle-Width="50px" ItemStyle-Width="50px" ItemStyle-HorizontalAlign="Center"
-                             HeaderStyle-HorizontalAlign="Center">
-                        <ItemTemplate>
-                            <asp:CheckBox runat="server" ID="chkWarranty" Enabled="false" Checked='<%# DataBinder.Eval(Container.DataItem, "twarranty") %>' />
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:CheckBox runat="server" ID="e_chkWarranty" OnCheckedChanged="e_chkWarranty_CheckedChanged" 
-                                Checked='<%# DataBinder.Eval(Container.DataItem, "twarranty") %>' />
-                        </EditItemTemplate>                                        
-                    </telerik:GridTemplateColumn>
-                    <telerik:GridTemplateColumn HeaderText="Ori Prod Code" HeaderStyle-Width="120px" ItemStyle-Width="120px" ItemStyle-HorizontalAlign="Left"
-                             HeaderStyle-HorizontalAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label runat="server" ID="lblProdOri" Enabled="false" Text='<%# DataBinder.Eval(Container.DataItem, "prod_code_ori") %>'></asp:Label>
-                        </ItemTemplate>                                      
-                    </telerik:GridTemplateColumn>
-                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Del" CommandName="Delete" ConfirmText="Are You Sure ?" 
-                             ConfirmTitle="Delete" ConfirmDialogType="Classic" ItemStyle-HorizontalAlign="Center"
-                        ButtonType="FontIconButton" ItemStyle-Width="40px" HeaderStyle-Width="40px">
-                        <ItemStyle ForeColor="Red" />
-                    </telerik:GridButtonColumn>
-                </Columns>
-                </MasterTableView>                    
-            </telerik:RadGrid>
-            <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Data tersimpan" Position="BottomRight"
-                AutoCloseDelay="10000" Width="350" Height="110" Title="Notification" EnableRoundedCorners="true">
-            </telerik:RadNotification>
-        </div>--%>
+        
        
         <telerik:RadNotification RenderMode="Lightweight" ID="notif" runat="server" Text="Data tersimpan" Position="BottomRight"
             AutoCloseDelay="10000" Width="350" Height="110" Title="Notification" EnableRoundedCorners="true">

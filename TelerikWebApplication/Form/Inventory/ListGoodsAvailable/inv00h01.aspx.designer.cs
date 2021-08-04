@@ -10,7 +10,7 @@
 namespace TelerikWebApplication.Form.Inventory.ListGoodsAvailable {
     
     
-    public partial class inv00h01 {
+    public partial class ms_product {
         
         /// <summary>
         /// FolderNavigationControl control.

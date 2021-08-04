@@ -130,7 +130,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -144,7 +144,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -168,7 +168,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             
@@ -251,7 +251,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc00h22 SET userid = @Usr, lastupdate = GETDATE(), stedit = '4' WHERE (asset_id = @asset_id)";
+                cmd.CommandText = "UPDATE AK_Asset SET userid = @Usr, lastupdate = GETDATE(), stedit = '4' WHERE (asset_id = @asset_id)";
                 cmd.Parameters.AddWithValue("@asset_id", asset_code);
                 cmd.ExecuteNonQuery();
 
@@ -284,13 +284,13 @@ namespace TelerikWebApplication.Form.Fico.Asset
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT inv01d01.doc_code, inv01h01.region_code, inv01d01.part_code,inv01d01.part_qty,inv01d01.part_unit, inv01d01.prod_type, " +
-            "inv01d01.part_desc, inv01d01.nomer, inv01d01.remark, inv01d01.dept_code, '' as fig_image, '' as item, " +
-            "(inv01d01.part_qty - (SELECT  ISNULL(SUM(acc00h22.Qty), 0) FROM acc00h22  WHERE(acc00h22.ur_no = inv01h01.doc_code) AND " +
-            "(acc00h22.stedit <> '4') AND (acc00h22.prod_code = inv01d01.part_code))) AS 'qty_Sisa' FROM inv01d01, inv01h01 WHERE inv01h01.doc_code = inv01d01.doc_code AND " +
-            "inv01h01.stEdit <> '4' AND inv01h01.tAsset = '1' AND inv01h01.trans_status = '01' AND (inv01d01.part_qty - (SELECT  ISNULL(SUM(acc00h22.Qty), 0) FROM acc00h22 " +
-            "WHERE (inv01h01.tAsset = '1') AND (acc00h22.ur_no = inv01h01.doc_code) AND (acc00h22.stedit <> '4') AND (acc00h22.prod_code = inv01d01.part_code) " +
-            "AND inv01d01.doc_code LIKE @text + '%')) > 0 ", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT fleet_grd.doc_code, fleet_grh.region_code, fleet_grd.part_code,fleet_grd.part_qty,fleet_grd.part_unit, fleet_grd.prod_type, " +
+            "fleet_grd.part_desc, fleet_grd.nomer, fleet_grd.remark, fleet_grd.dept_code, '' as fig_image, '' as item, " +
+            "(fleet_grd.part_qty - (SELECT  ISNULL(SUM(AK_Asset.Qty), 0) FROM AK_Asset  WHERE(AK_Asset.ur_no = fleet_grh.doc_code) AND " +
+            "(AK_Asset.stedit <> '4') AND (AK_Asset.prod_code = fleet_grd.part_code))) AS 'qty_Sisa' FROM fleet_grd, fleet_grh WHERE fleet_grh.doc_code = fleet_grd.doc_code AND " +
+            "fleet_grh.stEdit <> '4' AND fleet_grh.tAsset = '1' AND fleet_grh.trans_status = '01' AND (fleet_grd.part_qty - (SELECT  ISNULL(SUM(AK_Asset.Qty), 0) FROM AK_Asset " +
+            "WHERE (fleet_grh.tAsset = '1') AND (AK_Asset.ur_no = fleet_grh.doc_code) AND (AK_Asset.stedit <> '4') AND (AK_Asset.prod_code = fleet_grd.part_code) " +
+            "AND fleet_grd.doc_code LIKE @text + '%')) > 0 ", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -321,7 +321,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT d.part_code, d.part_desc, d.part_qty, d.part_unit, reg.region_name, cc.CostCenterName, 'Unregister' AS [status] " +
-                              "FROM inv01d01 d, inv01h01 h, inv00h09 reg, inv00h11 cc " +
+                              "FROM fleet_grd d, fleet_grh h, ms_jobsite reg, ms_cost_center cc " +
                               "WHERE d.doc_code = h.doc_code AND reg.region_code = h.region_code AND cc.CostCenter = h.dept_code AND d.doc_code = @text AND d.nomer = @nomer";
             cmd.Parameters.AddWithValue("@text", (sender as RadComboBox).Text);
             cmd.Parameters.AddWithValue("@nomer", (sender as RadComboBox).SelectedValue);
@@ -348,7 +348,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         #region UOM
         private static DataTable GetUoM(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, unit_name FROM inv00h08 WHERE stEdit != 4 AND unit_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, unit_name FROM ms_uom WHERE stEdit != 4 AND unit_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -377,7 +377,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT unit_code FROM ms_uom WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -395,7 +395,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT unit_code FROM ms_uom WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -415,13 +415,13 @@ namespace TelerikWebApplication.Form.Fico.Asset
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT AK_CODE, upper(AK_NAME) as AK_NAME, exp_life_year, " +
             "(CASE mtd WHEN 'S' THEN 'STRAIGHT LINE'  WHEN 'D' THEN 'DOUBLE DECLINE' WHEN 'T' THEN 'DECLINING BALANCE' WHEN 'N' THEN 'NONE' " +
-            "WHEN 'H' THEN 'HM' WHEN 'K' THEN 'KM' END) AS Method FROM acc00h23 WHERE stedit <> '4' AND AK_NAME LIKE @text + '%'", con);
+            "WHEN 'H' THEN 'HM' WHEN 'K' THEN 'KM' END) AS Method FROM AK_NO WHERE stedit <> '4' AND AK_NAME LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            cb.DataTextField = "AK_NAME";
-            cb.DataValueField = "AK_NAME";
+            cb.DataTextField = "AK_CODE";
+            cb.DataValueField = "AK_CODE";
             cb.DataSource = dt;
             cb.DataBind();
 
@@ -462,7 +462,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT *, (CASE mtd WHEN 'S' THEN 'STRAIGHT LINE'  WHEN 'D' THEN 'DOUBLE DECLINE' WHEN 'T' THEN 'DECLINING BALANCE' " +
                     "WHEN 'N' THEN 'NONE' WHEN 'H' THEN 'HM' WHEN 'K' THEN 'KM' END) AS Method " +
-                    "FROM acc00h23 WHERE stEdit != 4 AND AK_NAME = '" +  (sender as RadComboBox).Text.Trim() + "'";
+                    "FROM AK_NO WHERE stEdit != 4 AND AK_NAME = '" +  (sender as RadComboBox).Text.Trim() + "'";
                 SqlDataReader dr;
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
@@ -507,7 +507,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT AK_CODE FROM acc00h23 WHERE AK_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT AK_CODE FROM AK_NO WHERE AK_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -520,7 +520,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         #region Asset Type
         private static DataTable GetAssetType(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(acc00h24.AK_GROUP_NAME) as AK_GROUP_NAME, acc00h24.AK_GROUP FROM acc00h24 WHERE acc00h24.stEdit <> '4' AND AK_GROUP_NAME LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(AK_GROUP.AK_GROUP_NAME) as AK_GROUP_NAME, AK_GROUP.AK_GROUP FROM AK_GROUP WHERE AK_GROUP.stEdit <> '4' AND AK_GROUP_NAME LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -549,7 +549,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT AK_GROUP FROM acc00h24 WHERE AK_GROUP_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT AK_GROUP FROM AK_GROUP WHERE AK_GROUP_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -564,7 +564,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT AK_GROUP FROM acc00h24 WHERE AK_GROUP_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT AK_GROUP FROM AK_GROUP WHERE AK_GROUP_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -577,7 +577,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         #region Asset Status
         private static DataTable GetAssetSts(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT acc00h26.status_code , upper(acc00h26.Status_name) as Status_name FROM acc00h26 WHERE acc00h26.stEdit <> '4' AND acc00h26.Status_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT ms_asset_status.status_code , upper(ms_asset_status.Status_name) as Status_name FROM ms_asset_status WHERE ms_asset_status.stEdit <> '4' AND ms_asset_status.Status_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -606,7 +606,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT status_code FROM acc00h26 WHERE Status_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT status_code FROM ms_asset_status WHERE Status_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -621,7 +621,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT status_code FROM acc00h26 WHERE Status_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT status_code FROM ms_asset_status WHERE Status_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -634,7 +634,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         #region Asset Tax Group
         private static DataTable GetAssetTaxGrp(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT  acc00h25.TaxGroup, acc00h25.TaxGroupName FROM acc00h25 WHERE (acc00h25.stEdit <> '4') AND acc00h25.TaxGroupName LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT  ms_asset_tax_group.TaxGroup, ms_asset_tax_group.TaxGroupName FROM ms_asset_tax_group WHERE (ms_asset_tax_group.stEdit <> '4') AND ms_asset_tax_group.TaxGroupName LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -664,7 +664,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TaxGroup FROM acc00h25 WHERE TaxGroupName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT TaxGroup FROM ms_asset_tax_group WHERE TaxGroupName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -679,7 +679,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TaxGroup FROM acc00h25 WHERE TaxGroupName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT TaxGroup FROM ms_asset_tax_group WHERE TaxGroupName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -694,7 +694,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, upper(region_name) as region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, upper(region_name) as region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -716,7 +716,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -731,7 +731,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -746,7 +746,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenter, upper(CostCenterName) as CostCenterName FROM inv00h11 WHERE stEdit != 4 AND CostCenterName LIKE @text + '%'", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenter, upper(CostCenterName) as CostCenterName FROM ms_cost_center WHERE stEdit != 4 AND CostCenterName LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -768,7 +768,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -783,7 +783,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -798,7 +798,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, upper(unit_name) as unit_name, model_no, region_code FROM mtc00h16 WHERE stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, upper(unit_name) as unit_name, model_no, region_code FROM ms_unit WHERE stEdit != 4 " +
                 "AND unit_name LIKE @text + '%' AND region_code = @region_code", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             adapter.SelectCommand.Parameters.AddWithValue("@region_code", project);
@@ -824,7 +824,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         #region Asset PIC
         private static DataTable GetAssetPIC(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Pic_Code, upper(pic_name) as pic_name FROM acc00h27 WHERE stEdit <> '4' AND pic_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Pic_Code, upper(pic_name) as pic_name FROM ms_asset_pic WHERE stEdit <> '4' AND pic_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -853,7 +853,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Pic_Code FROM acc00h27 WHERE pic_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT Pic_Code FROM ms_asset_pic WHERE pic_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -868,7 +868,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Pic_Code FROM acc00h27 WHERE pic_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT Pic_Code FROM ms_asset_pic WHERE pic_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1129,7 +1129,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
         }
         private static DataTable GetYearDeprePrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT DISTINCT(Left(YearMonth,4)) AS tahun FROM acc00d22 WHERE asset_id = @text ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT DISTINCT(Left(YearMonth,4)) AS tahun FROM tr_asset_depre WHERE asset_id = @text ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -1231,7 +1231,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
                     run = txt_doc_code.Text;
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT TOP(1) posting FROM acc00d22 WHERE asset_id = '" + txt_doc_code.Text + "'", con);
+                    cmd = new SqlCommand("SELECT TOP(1) posting FROM tr_asset_depre WHERE asset_id = '" + txt_doc_code.Text + "'", con);
                     sdr = cmd.ExecuteReader();
                     while (sdr.Read())
                     {
@@ -1253,7 +1253,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT MAX(RIGHT( asset_id , 6 )) + 1 FROM ACC00H22 WHERE (asset_id LIKE '" + cb_asset_class.SelectedValue +"' + '%' )", con);
+                    cmd = new SqlCommand("SELECT MAX(RIGHT( asset_id , 6 )) + 1 FROM AK_Asset WHERE (asset_id LIKE '" + cb_asset_class.SelectedValue +"' + '%' )", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -1389,7 +1389,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
 
         private static DataTable GetCurrency(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(cur_code) as cur_code, upper(cur_name) as cur_name FROM acc00h03 WHERE stEdit <> '4' AND cur_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(cur_code) as cur_code, upper(cur_name) as cur_name FROM ms_currency WHERE stEdit <> '4' AND cur_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -1418,7 +1418,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT cur_code FROM acc00h03 WHERE cur_name = '" + (sender as RadComboBox).Text + "'";            
+            cmd.CommandText = "SELECT cur_code FROM ms_currency WHERE cur_name = '" + (sender as RadComboBox).Text + "'";            
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1428,7 +1428,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             dr.Close();
 
             //cmd.CommandText = "";
-            cmd.CommandText = "SELECT top(1) KursRun FROM acc00h04 WHERE cur_code = '" + (sender as RadComboBox).SelectedValue + "'  order by tglKurs desc";
+            cmd.CommandText = "SELECT top(1) KursRun FROM ms_kurs WHERE cur_code = '" + (sender as RadComboBox).SelectedValue + "'  order by tglKurs desc";
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -1444,7 +1444,7 @@ namespace TelerikWebApplication.Form.Fico.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT cur_code FROM acc00h03 WHERE cur_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT cur_code FROM ms_currency WHERE cur_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

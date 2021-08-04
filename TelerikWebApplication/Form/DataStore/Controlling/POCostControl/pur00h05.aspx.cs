@@ -35,9 +35,9 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.POCostControl
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select pur00h05.trans_code, pur00h05.TransName, " +
-                " Case pur00h05.tType When '1' Then 'Maint Cost' When '2' Then 'Production Cost' else 'Other Cost' End as tTypeName " +
-                " from pur00h05 where pur00h05.stedit != 4";
+            cmd.CommandText = "select ms_po_transaction.trans_code, ms_po_transaction.TransName, " +
+                " Case ms_po_transaction.tType When '1' Then 'Maint Cost' When '2' Then 'Production Cost' else 'Other Cost' End as tTypeName " +
+                " from ms_po_transaction where ms_po_transaction.stedit != 4";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -62,7 +62,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.POCostControl
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO pur00h05(trans_code, TransName, tType, Stamp,Usr,Owner,stEdit) VALUES (@trans_code, @TransName, @tType, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO ms_po_transaction(trans_code, TransName, tType, Stamp,Usr,Owner,stEdit) VALUES (@trans_code, @TransName, @tType, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@trans_code", (item.FindControl("txt_trans_code") as RadTextBox).Text);
            
             cmd.Parameters.AddWithValue("@TransName", (item.FindControl("txt_TransName") as RadTextBox).Text);
@@ -81,7 +81,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.POCostControl
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pur00h05 set TransName = @TransName, tType = @tType,  LastUpdate = getdate(), Usr = @Usr where trans_code = @trans_code";
+            cmd.CommandText = "UPDATE ms_po_transaction set TransName = @TransName, tType = @tType,  LastUpdate = getdate(), Usr = @Usr where trans_code = @trans_code";
             cmd.Parameters.AddWithValue("@TransName", (item.FindControl("txt_TransName") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@trans_code", (item.FindControl("txt_trans_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@tType", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
@@ -99,7 +99,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.POCostControl
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update pur00h05 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where trans_code = @trans_code";
+            cmd.CommandText = "update ms_po_transaction set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where trans_code = @trans_code";
             cmd.Parameters.AddWithValue("@trans_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();

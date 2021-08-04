@@ -10,7 +10,7 @@
 namespace TelerikWebApplication.Form.Master_data.Material.Brand {
     
     
-    public partial class material_brand {
+    public partial class inv00h04 {
         
         /// <summary>
         /// FolderNavigationControl control.

@@ -44,7 +44,7 @@ namespace TelerikWebApplication.Form.Security.Posting.Inventory.Fluid
         private void set_periode()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT CONVERT(varchar, Fuelstart, 103) Fuelstart, CONVERT(varchar, Fuelend, 103) Fuelend FROM inv00h15 ", con);
+            SqlCommand cmd = new SqlCommand("SELECT CONVERT(varchar, Fuelstart, 103) Fuelstart, CONVERT(varchar, Fuelend, 103) Fuelend FROM ms_company ", con);
 
             SqlDataReader dr;
             dr = cmd.ExecuteReader();

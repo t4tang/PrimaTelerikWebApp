@@ -96,7 +96,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -124,7 +124,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
 
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -140,7 +140,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -214,7 +214,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -244,7 +244,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -318,7 +318,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -342,7 +342,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -359,7 +359,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -380,7 +380,7 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(asset_id) as code, upper(AssetSpec) as spec FROM acc00h22 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(asset_id) as code, upper(AssetSpec) as spec FROM AK_Asset " +
                 "WHERE stedit <> '4' AND AssetSpec LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
             DataTable dt = new DataTable();
@@ -403,8 +403,8 @@ namespace TelerikWebApplication.Form.Fico.AssetTransfer
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText= "SELECT acc00h22.exp_life_year, CASE acc00h22.mtd WHEN 'S' THEN 'STRAIGHT LINE' WHEN 'H' THEN 'HM' END AS Method, inv00h09.region_name " +
-                "FROM acc00h22 INNER JOIN inv00h09 ON acc00h22.region_code = inv00h09.region_code WHERE acc00h22.asset_id LIKE '%'+ @text +'%'";
+            cmd.CommandText= "SELECT AK_Asset.exp_life_year, CASE AK_Asset.mtd WHEN 'S' THEN 'STRAIGHT LINE' WHEN 'H' THEN 'HM' END AS Method, ms_jobsite.region_name " +
+                "FROM AK_Asset INNER JOIN ms_jobsite ON AK_Asset.region_code = ms_jobsite.region_code WHERE AK_Asset.asset_id LIKE '%'+ @text +'%'";
             cmd.Parameters.AddWithValue("@text", (sender as RadComboBox).Text);
             SqlDataReader dr;
             dr = cmd.ExecuteReader();

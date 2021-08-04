@@ -10,7 +10,7 @@
 namespace TelerikWebApplication.Form.DataStore.Finance.AcountExplorer {
     
     
-    public partial class acc00h10exp {
+    public partial class gl_accountexp {
         
         /// <summary>
         /// FolderNavigationControl control.

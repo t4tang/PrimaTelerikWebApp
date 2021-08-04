@@ -31,9 +31,9 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.EquipmentTy
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT mtc00h05.equipment_code, mtc00h05.description " +
-                                "FROM mtc00h05 " +
-                                " WHERE mtc00h05.stEdit !=4";
+            cmd.CommandText = "SELECT ms_equipment_type.equipment_code, ms_equipment_type.description " +
+                                "FROM ms_equipment_type " +
+                                " WHERE ms_equipment_type.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -75,7 +75,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.EquipmentTy
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update mtc00h05 SET stEdit = 4 where equipment_code = @equipment_code";
+            cmd.CommandText = "Update ms_equipment_type SET stEdit = 4 where equipment_code = @equipment_code";
             cmd.Parameters.AddWithValue("@equipment_code", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -88,7 +88,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.EquipmentTy
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO mtc00h05 (equipment_code, description, Stamp, Usr, Owner, stEdit) " +
+            cmd.CommandText = "INSERT INTO ms_equipment_type (equipment_code, description, Stamp, Usr, Owner, stEdit) " +
                                 "VALUES (@equipment_code, @description, getdate(), @Usr, @Owner, @stEdit)";
             cmd.Parameters.AddWithValue("@equipment_code", (item.FindControl("txt_code_area") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@description", (item.FindControl("txt_name_area") as RadTextBox).Text);
@@ -108,7 +108,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.EquipmentTy
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE mtc00h05 SET description = @description, Stamp = getdate(), Usr = @Usr, Owner = @Owner, stEdit = @stEdit " +
+                cmd.CommandText = "UPDATE ms_equipment_type SET description = @description, Stamp = getdate(), Usr = @Usr, Owner = @Owner, stEdit = @stEdit " +
                                     "WHERE equipment_code = @equipment_code";
                 cmd.Parameters.AddWithValue("@equipment_code", (item.FindControl("txt_code_area") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@description", (item.FindControl("txt_desc") as RadTextBox).Text);

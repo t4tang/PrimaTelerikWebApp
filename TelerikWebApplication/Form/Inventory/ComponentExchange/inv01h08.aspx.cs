@@ -87,7 +87,7 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
         #region Param
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -117,7 +117,7 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -177,7 +177,7 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv01h08 SET userid = @userid, lastupdate = GETDATE(), status_wip = '4' WHERE (wip_code = @wip_code)";
+                cmd.CommandText = "UPDATE tr_wiph SET userid = @userid, lastupdate = GETDATE(), status_wip = '4' WHERE (wip_code = @wip_code)";
                 cmd.Parameters.AddWithValue("@wip_code", wip_code);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -350,10 +350,10 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
         #region ProdCode
         protected void cb_ProdCode_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP(100) inv00h01.prod_code, inv00h01.spec, inv00h01.unit, " +
-                            "CASE inv00h02.stMain WHEN '0' THEN 'Stock and Value' WHEN '1' THEN 'Stock' WHEN '2' THEN 'Non Stock' END as stMainNm " +
-                            "FROM inv00h01 INNER JOIN inv00h02 ON inv00h01.kind_code = inv00h02.kind_code " +
-                            "WHERE (inv00h01.stEdit != '4') AND ( inv00h01.tActive = '1' ) AND spec LIKE @spec + '%'";
+            string sql = "SELECT TOP(100) ms_product.prod_code, ms_product.spec, ms_product.unit, " +
+                            "CASE ms_product_kind.stMain WHEN '0' THEN 'Stock and Value' WHEN '1' THEN 'Stock' WHEN '2' THEN 'Non Stock' END as stMainNm " +
+                            "FROM ms_product INNER JOIN ms_product_kind ON ms_product.kind_code = ms_product_kind.kind_code " +
+                            "WHERE (ms_product.stEdit != '4') AND ( ms_product.tActive = '1' ) AND spec LIKE @spec + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
@@ -392,10 +392,10 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT inv00h01.prod_code, inv00h01.unit, inv01d08in.qty, inv01d08in.remark  " +
-                                    "FROM inv00h01 INNER JOIN " +
-                                    "inv01d08in ON inv00h01.prod_code = inv01d08in.prod_code " +
-                                    "WHERE inv00h01.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT ms_product.prod_code, ms_product.unit, inv01d08in.qty, inv01d08in.remark  " +
+                                    "FROM ms_product INNER JOIN " +
+                                    "inv01d08in ON ms_product.prod_code = inv01d08in.prod_code " +
+                                    "WHERE ms_product.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -429,7 +429,7 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_code FROM ms_product WHERE spec = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -442,7 +442,7 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
 
         private static DataTable GetUoM(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, unit_name FROM inv00h08 WHERE stEdit != 4 AND unit_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, unit_name FROM ms_uom WHERE stEdit != 4 AND unit_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -471,7 +471,7 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT unit_code FROM ms_uom WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -486,7 +486,7 @@ namespace TelerikWebApplication.Form.Inventory.ComponentExchange
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT unit_code FROM ms_uom WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

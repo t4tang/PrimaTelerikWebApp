@@ -114,7 +114,7 @@ namespace TelerikWebApplication.Form.Fico.Budget
         }
         private static DataTable GetYearBgtPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT DISTINCT Tahun AS Tahun FROM acc01h18",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT DISTINCT Tahun AS Tahun FROM gl_budget_control",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -142,7 +142,7 @@ namespace TelerikWebApplication.Form.Fico.Budget
         }
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -170,7 +170,7 @@ namespace TelerikWebApplication.Form.Fico.Budget
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -215,7 +215,7 @@ namespace TelerikWebApplication.Form.Fico.Budget
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h18 SET plan01 = @plan01, plan02 = @plan02, plan03 = @plan03, plan04 = @plan04, plan05 = @plan05, plan06 = @plan06, plan07 = @plan07, plan08 = @plan08, " +
+                cmd.CommandText = "UPDATE gl_budget_control SET plan01 = @plan01, plan02 = @plan02, plan03 = @plan03, plan04 = @plan04, plan05 = @plan05, plan06 = @plan06, plan07 = @plan07, plan08 = @plan08, " +
                 "plan09 = @plan09, plan10 = @plan10, plan11 = @plan11, plan12 = @plan12 WHERE(Tahun = @Tahun) AND(Kd_Bget = @Kd_Bget) AND(region_code = @region_code) AND(type = @type)";
                 cmd.Parameters.AddWithValue("@Tahun", selected_year);
                 cmd.Parameters.AddWithValue("@Kd_Bget", lbl_account.Text);

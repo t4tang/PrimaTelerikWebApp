@@ -352,7 +352,7 @@
                                                         <telerik:RadLabel Text="Asset Class *" runat="server" CssClass="lbObject"></telerik:RadLabel>
                                                     </td>
                                                     <td colspan="5">
-                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_asset_class" runat="server" Width="250px"  ReadOnly="true" Height="350px" ShowMoreResultsBox="true"
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_asset_class" runat="server" Width="150px"  ReadOnly="true" Height="350px" ShowMoreResultsBox="true"
                                                         DropDownWidth="700px" EmptyMessage="- Select Asset Class -" EnableLoadOnDemand="True" HighlightTemplatedItems="true" 
                                                             MarkFirstMatch="true" Skin="Silk" EnableVirtualScrolling="true" AutoPostBack="true" CausesValidation="false"
                                                             Text='<%# DataBinder.Eval(Container, "DataItem.AK_NAME") %>' 

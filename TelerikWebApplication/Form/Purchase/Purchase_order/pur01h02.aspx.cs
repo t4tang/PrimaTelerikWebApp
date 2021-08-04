@@ -43,7 +43,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 lbl_form_name.Text = "Purchase Order";
                 dtp_from.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dtp_to.SelectedDate = DateTime.Now;
-                selected_project = public_str.site;
+                selected_project = "ALL";
                 cb_proj_prm.SelectedValue = public_str.site;
                 cb_proj_prm.Text = public_str.sitename;
 
@@ -115,7 +115,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         }
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), cb_proj_prm.SelectedValue);
+            (sender as RadGrid).DataSource = GetDataTable(string.Format("{0:dd/MM/yyyy}", dtp_from.SelectedDate), string.Format("{0:dd/MM/yyyy}", dtp_to.SelectedDate), selected_project);
             
             
         }
@@ -129,7 +129,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE pur01h02 SET userid = @Usr, lastupdate = GETDATE(), status_pur = '4' WHERE (po_code = @po_code)";
+                cmd.CommandText = "UPDATE tr_purchaseH SET userid = @Usr, lastupdate = GETDATE(), status_pur = '4' WHERE (po_code = @po_code)";
                 cmd.Parameters.AddWithValue("@po_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -211,7 +211,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         }
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -236,7 +236,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         }
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -252,7 +252,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -271,7 +271,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             cmd.Connection = con;
             cmd.CommandText = "SELECT po_code, prod_type, Prod_code, Spec, qty, SatQty, harga, Disc, ISNULL(tfactor,0) as factor, jumlah, CAST(tTax AS Bit) AS tTax, " +
                 "CAST(tOtax AS Bit) AS tOtax, CAST(tpph AS Bit) AS tpph, " +
-                "dept_code, Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM pur01d02 WHERE po_code = '" + po_no + "'";
+                "dept_code, Prod_code_ori, twarranty, jTax1, jTax2, jTax3, nomer as nomor FROM tr_purchaseD WHERE po_code = '" + po_no + "'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -354,7 +354,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from pur01d02 where Prod_code = @part_code and po_code = @doc_code";
+                cmd.CommandText = "delete from tr_purchaseD where Prod_code = @part_code and po_code = @doc_code";
                 cmd.Parameters.AddWithValue("@doc_code", tr_code);
                 cmd.Parameters.AddWithValue("@part_code", partCode);
                 cmd.ExecuteNonQuery();
@@ -570,10 +570,10 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         //        {
         //            con.Open();
         //            SqlDataReader sdr;
-        //            cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h01.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-        //                "FROM pur01h01 WHERE LEFT(pur01h01.po_code, 4) = 'PR01' " +
-        //                "AND SUBSTRING(pur01h01.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-        //                "AND SUBSTRING(pur01h01.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+        //            cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_purchase_reqH.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+        //                "FROM tr_purchase_reqH WHERE LEFT(tr_purchase_reqH.po_code, 4) = 'PR01' " +
+        //                "AND SUBSTRING(tr_purchase_reqH.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+        //                "AND SUBSTRING(tr_purchase_reqH.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
         //            sdr = cmd.ExecuteReader();
         //            if (sdr.HasRows == false)
         //            {
@@ -780,10 +780,10 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         //            {
         //                con.Open();
         //                SqlDataReader sdr;
-        //                cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h02.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-        //                    "FROM pur01h02 WHERE LEFT(pur01h02.po_code, 4) = 'PO03' " +
-        //                    "AND SUBSTRING(pur01h02.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-        //                    "AND SUBSTRING(pur01h02.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+        //                cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_purchaseH.po_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+        //                    "FROM tr_purchaseH WHERE LEFT(tr_purchaseH.po_code, 4) = 'PO03' " +
+        //                    "AND SUBSTRING(tr_purchaseH.po_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+        //                    "AND SUBSTRING(tr_purchaseH.po_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
         //                sdr = cmd.ExecuteReader();
         //                if (sdr.HasRows == false)
         //                {
@@ -1020,11 +1020,11 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         //            //    cmd.ExecuteNonQuery();
         //            //}
 
-        //            //cmd = new SqlCommand("delete pur01d02 where tDel = '0' and po_code = '" + txt_po_no.Text + "'", con);
+        //            //cmd = new SqlCommand("delete tr_purchaseD where tDel = '0' and po_code = '" + txt_po_no.Text + "'", con);
         //            //cmd.CommandType = CommandType.Text;
         //            //cmd.ExecuteNonQuery();
 
-        //            //cmd = new SqlCommand("update pur01d02 set tDel = '0' where po_code = '" + txt_po_no.Text + "'", con);
+        //            //cmd = new SqlCommand("update tr_purchaseD set tDel = '0' where po_code = '" + txt_po_no.Text + "'", con);
         //            //cmd.CommandType = CommandType.Text;
         //            //cmd.ExecuteNonQuery();
 
@@ -1057,7 +1057,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
         //}
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            string sql = "SELECT TOP (100)[prod_code], [spec] FROM [ms_product]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
@@ -1091,7 +1091,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT spec,unit FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT spec,unit FROM ms_product WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -1126,7 +1126,7 @@ namespace TelerikWebApplication.Forms.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_code FROM ms_product WHERE spec = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

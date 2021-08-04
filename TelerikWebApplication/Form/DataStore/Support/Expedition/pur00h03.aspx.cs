@@ -37,10 +37,10 @@ namespace TelerikWebApplication.Form.DataStore.Support.Expedition
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT pur00h03.EXP_CODE, pur00h03.EXP_NAME, pur00h03.LVL, pur00h03.ADDR, pur00h03.TLP, pur00h03.FAX, pur00h03.EMAIL, " +
-                              "pur00h03.WEBSITE, pur00h03.CONT1, pur00h03.HP1, pur00h03.EMAIL1, pur00h03.CONT2, pur00h03.HP2, pur00h03.EMAIL2, " +
-                              "pur00h03.lastupdate, pur00h03.userid, pur00h03.stEdit, inv00h25.city_code, inv00h25.city_name FROM pur00h03 INNER JOIN " +
-                              "inv00h25 ON pur00h03.city_code = inv00h25.city_code WHERE pur00h03.stEdit != '4'";
+            cmd.CommandText = "SELECT MS_EXPEDISI.EXP_CODE, MS_EXPEDISI.EXP_NAME, MS_EXPEDISI.LVL, MS_EXPEDISI.ADDR, MS_EXPEDISI.TLP, MS_EXPEDISI.FAX, MS_EXPEDISI.EMAIL, " +
+                              "MS_EXPEDISI.WEBSITE, MS_EXPEDISI.CONT1, MS_EXPEDISI.HP1, MS_EXPEDISI.EMAIL1, MS_EXPEDISI.CONT2, MS_EXPEDISI.HP2, MS_EXPEDISI.EMAIL2, " +
+                              "MS_EXPEDISI.lastupdate, MS_EXPEDISI.userid, MS_EXPEDISI.stEdit, ms_city.city_code, ms_city.city_name FROM MS_EXPEDISI INNER JOIN " +
+                              "ms_city ON MS_EXPEDISI.city_code = ms_city.city_code WHERE MS_EXPEDISI.stEdit != '4'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -69,7 +69,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Expedition
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO pur00h03 (EXP_CODE, EXP_NAME, LVL, ADDR, city_code, TLP, FAX, EMAIL, WEBSITE, CONT1, HP1, EMAIL1, " +
+            cmd.CommandText = "INSERT INTO MS_EXPEDISI (EXP_CODE, EXP_NAME, LVL, ADDR, city_code, TLP, FAX, EMAIL, WEBSITE, CONT1, HP1, EMAIL1, " +
                               "CONT2, HP2, EMAIL2, lastupdate, userid, stEdit) VALUES (@EXP_CODE, @EXP_NAME, @LVL, @ADDR, @city_code, @TLP, @FAX, " +
                               "@EMAIL, @WEBSITE, @CONT1, @HP1, @EMAIL1, @CONT2, @HP2, @EMAIL2, getdate(), @userid, '0')";
             cmd.Parameters.AddWithValue("@EXP_CODE", (item.FindControl("txt_code") as RadTextBox).Text);
@@ -99,7 +99,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Expedition
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pur00h03 set EXP_NAME = @EXP_NAME, LVL = @LVL, ADDR = @ADDR, city_code = @city_code, TLP = @TLP, FAX = @FAX, " +
+            cmd.CommandText = "UPDATE MS_EXPEDISI set EXP_NAME = @EXP_NAME, LVL = @LVL, ADDR = @ADDR, city_code = @city_code, TLP = @TLP, FAX = @FAX, " +
                               "EMAIL = @EMAIL, WEBSITE = @WEBSITE, CONT1 = @CONT1, HP1 = @HP1, EMAIL1 = @EMAIL1, CONT2 = @CONT2, HP2 = @HP2, " +
                               "EMAIL2 = @EMAIL2, lastupdate = getdate(), userid = @userid WHERE EXP_CODE = @EXP_CODE";
             cmd.Parameters.AddWithValue("@EXP_CODE", (item.FindControl("txt_code") as RadTextBox).Text);
@@ -130,7 +130,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Expedition
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update pur00h03 set stEdit = 4, LastUpdate = getdate(), userid = @userid where EXP_CODE = @EXP_CODE";
+            cmd.CommandText = "update MS_EXPEDISI set stEdit = 4, LastUpdate = getdate(), userid = @userid where EXP_CODE = @EXP_CODE";
             cmd.Parameters.AddWithValue("@EXP_CODE", EXP_CODE);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -152,7 +152,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Expedition
 
         private static DataTable Getcity_code(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT city_name, city_code FROM inv00h25 WHERE stEdit !='4' AND city_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT city_name, city_code FROM ms_city WHERE stEdit !='4' AND city_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             DataTable data = new DataTable();
@@ -182,7 +182,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Expedition
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select city_code from inv00h25 where city_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select city_code from ms_city where city_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -197,7 +197,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Expedition
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select city_code from inv00h25 where city_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select city_code from ms_city where city_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

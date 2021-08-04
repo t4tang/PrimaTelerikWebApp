@@ -37,15 +37,15 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h26.Nik, inv00h26.Name, inv00h26.Jabatan, inv00h26.EmpNo, inv00h26.poh_code, inv00h26.tgl_terima, " +
-            "inv00h26.pos_price, inv00h26.region_code, inv00h26.dept_code, inv00h26.kpj_no, inv00h26.npwp, " +
-            "inv00h26.stGender, (CASE inv00h26.stGender WHEN 'M' THEN 'Male' WHEN 'F' THEN 'Female'END) AS stGenderDesc, " +
-            "inv00h26.stMarital, inv00h26.stEmployee, (CASE inv00h26.stEmployee WHEN '1' THEN 'Permanen' WHEN '2' THEN 'Percobaan' " +
-            "WHEN '3' THEN 'Harian' WHEN '4' THEN 'Kontrak'END) AS stEmployeeDesc, inv00h10.dept_name, inv00h25.city_name," +
-            "inv00h26.status,(CASE inv00h26.status WHEN '1' THEN 'Active' WHEN '2' THEN 'Resign' WHEN '3' THEN 'PHK' WHEN '4' THEN 'Mutasi' " +
-            "END) AS statusDesc, (SELECT region_name FROM inv00h09 WHERE region_code = inv00h26.region_code) AS region_name, inv00h26.remark " +
-            "FROM inv00h26, inv00h10, inv00h25 WHERE inv00h26.stEdit <> '4' AND inv00h10.dept_code = inv00h26.dept_code " +
-            " AND inv00h25.city_code = inv00h26.poh_code";
+            cmd.CommandText = "SELECT ms_manpower.Nik, ms_manpower.Name, ms_manpower.Jabatan, ms_manpower.EmpNo, ms_manpower.poh_code, ms_manpower.tgl_terima, " +
+            "ms_manpower.pos_price, ms_manpower.region_code, ms_manpower.dept_code, ms_manpower.kpj_no, ms_manpower.npwp, " +
+            "ms_manpower.stGender, (CASE ms_manpower.stGender WHEN 'M' THEN 'Male' WHEN 'F' THEN 'Female'END) AS stGenderDesc, " +
+            "ms_manpower.stMarital, ms_manpower.stEmployee, (CASE ms_manpower.stEmployee WHEN '1' THEN 'Permanen' WHEN '2' THEN 'Percobaan' " +
+            "WHEN '3' THEN 'Harian' WHEN '4' THEN 'Kontrak'END) AS stEmployeeDesc, ms_department.dept_name, ms_city.city_name," +
+            "ms_manpower.status,(CASE ms_manpower.status WHEN '1' THEN 'Active' WHEN '2' THEN 'Resign' WHEN '3' THEN 'PHK' WHEN '4' THEN 'Mutasi' " +
+            "END) AS statusDesc, (SELECT region_name FROM ms_jobsite WHERE region_code = ms_manpower.region_code) AS region_name, ms_manpower.remark " +
+            "FROM ms_manpower, ms_department, ms_city WHERE ms_manpower.stEdit <> '4' AND ms_department.dept_code = ms_manpower.dept_code " +
+            " AND ms_city.city_code = ms_manpower.poh_code";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -91,7 +91,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "INSERT INTO inv00h26(Nik, Name, Jabatan, EmpNo, Stamp, Usr,lastupdate, Owner, stEdit, poh_code, " +
+                cmd.CommandText = "INSERT INTO ms_manpower(Nik, Name, Jabatan, EmpNo, Stamp, Usr,lastupdate, Owner, stEdit, poh_code, " +
                     " dept_code, kpj_no, tgl_terima, region_code, NPWP, stGender, stEmployee, stMarital, remark, status)" +
                     " VALUES(@Nik, @Name, @Jabatan, @EmpNo, GETDATE(), @Usr, GETDATE(), @Owner, 0, @poh_code, " +
                     " @dept_code, @kpj_no, @tgl_terima, @region_code, @NPWP, @stGender, @stEmployee, @stMarital, @remark, @status)";
@@ -142,7 +142,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
                     {
                         GridEditFormItem item = (GridEditFormItem)e.Item;
 
-                        cmd = new SqlCommand("UPDATE inv00h26 SET Name = @Name, Jabatan = @Jabatan, EmpNo = @EmpNo, Usr = @Usr, lastupdate = GETDATE(), poh_code = @poh_code, dept_code = @dept_code, kpj_no = @kpj_no, " +
+                        cmd = new SqlCommand("UPDATE ms_manpower SET Name = @Name, Jabatan = @Jabatan, EmpNo = @EmpNo, Usr = @Usr, lastupdate = GETDATE(), poh_code = @poh_code, dept_code = @dept_code, kpj_no = @kpj_no, " +
                         "tgl_terima = @tgl_terima, region_code = @region_code, NPWP = @NPWP, stGender = @stGender, stEmployee = @stEmployee, stMarital = @stMarital, " +
                         "remark = @remark, [status] = @status WHERE(Nik = @Nik)", con);
                         con.Open();
@@ -193,7 +193,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update inv00h26 set stEdit = '4', LastUpdate = getdate(), Usr = @Usr where Nik = @Nik";
+                cmd.CommandText = "update ms_manpower set stEdit = '4', LastUpdate = getdate(), Usr = @Usr where Nik = @Nik";
                 cmd.Parameters.AddWithValue("@Nik", Nik);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -226,7 +226,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
         }
         private static DataTable GetPosition(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT position_code, position FROM acc00h06 WHERE stEdit != '4' AND position LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT position_code, position FROM ms_position WHERE stEdit != '4' AND position LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -257,7 +257,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT acc00h06.position_code from acc00h06 where position = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT ms_position.position_code from ms_position where position = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -272,7 +272,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT acc00h06.position_code from acc00h06 where position = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT ms_position.position_code from ms_position where position = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -283,7 +283,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
 
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -311,7 +311,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -326,7 +326,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -341,7 +341,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT dept_code FROM inv00h10 WHERE dept_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT dept_code FROM ms_department WHERE dept_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -351,7 +351,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
         }
         private static DataTable GetDept(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT dept_code, dept_name FROM inv00h10 WHERE stEdit != 4 AND dept_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT dept_code, dept_name FROM ms_department WHERE stEdit != 4 AND dept_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -380,7 +380,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT dept_code FROM inv00h10 WHERE dept_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT dept_code FROM ms_department WHERE dept_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -390,7 +390,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
         }
         private static DataTable GetPoh(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT city_code, city_name FROM inv00h25 WHERE stEdit != 4 AND city_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT city_code, city_name FROM ms_city WHERE stEdit != 4 AND city_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -419,7 +419,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT city_code FROM inv00h25 WHERE city_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT city_code FROM ms_city WHERE city_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -433,7 +433,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.ManPower
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT city_code FROM inv00h25 WHERE city_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT city_code FROM ms_city WHERE city_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

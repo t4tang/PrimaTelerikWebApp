@@ -145,6 +145,8 @@ html .RadMultiPage .rmpView {
     z-index: 100011;
 }
 
+
+
 .dataEntry{   
    padding: 20px 10px 10px 10px;
    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -160,7 +162,7 @@ html .RadMultiPage .rmpView {
 }
 
 .tdLabel{
-    vertical-align:middle; 
+    vertical-align:text-top; 
     text-align:left;
     width:100px;
     padding-right:10px;
@@ -297,6 +299,7 @@ div.RadGrid_MetroTouch td.rgPagerCell
      font-weight:normal;
      font-family: Segoe UI, Tahoma, Geneva, 'Verdana', sans-serif; 
      color:#489ecb;
+     vertical-align:top;
            
  }
  .lbSummary

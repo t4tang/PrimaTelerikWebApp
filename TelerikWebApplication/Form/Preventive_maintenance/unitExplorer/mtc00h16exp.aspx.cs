@@ -89,8 +89,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.unitExplorer
         }
         private static void populateTree(RadTreeView treeView)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT DISTINCT(mtc00h16.region_code) as ID, region_name as node, NULL as parent FROM inv00h09, mtc00h16 WHERE mtc00h16.region_code =  inv00h09.region_code " +
-            "UNION SELECT unit_code, unit_code as node, region_code as parent FROM mtc00h16 WHERE active = 1", ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT DISTINCT(ms_unit.region_code) as ID, region_name as node, NULL as parent FROM ms_jobsite, ms_unit WHERE ms_unit.region_code =  ms_jobsite.region_code " +
+            "UNION SELECT unit_code, unit_code as node, region_code as parent FROM ms_unit WHERE active = 1", ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             DataSet links = new DataSet();
 

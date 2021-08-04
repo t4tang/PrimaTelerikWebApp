@@ -34,8 +34,8 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.TimeCategor
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select pro00h09.time_code, pro00h09.time_name, Case cat_code When '01' Then 'Working' When '02' Then 'Standby' When '03' Then 'Breakdown' else 'Idle/Delay' End " +
-                " as cat_code, pro00h09.remark from pro00h09 where pro00h09.stedit != 4";
+            cmd.CommandText = "select MCC_MS_TIME_CATEGORY.time_code, MCC_MS_TIME_CATEGORY.time_name, Case cat_code When '01' Then 'Working' When '02' Then 'Standby' When '03' Then 'Breakdown' else 'Idle/Delay' End " +
+                " as cat_code, MCC_MS_TIME_CATEGORY.remark from MCC_MS_TIME_CATEGORY where MCC_MS_TIME_CATEGORY.stedit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -59,7 +59,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.TimeCategor
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO pro00h09(time_code,time_name,cat_code,remark,Stamp,Usr,Owner,stEdit) VALUES (@time_code, @time_name,@cat_code,@remark, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO MCC_MS_TIME_CATEGORY(time_code,time_name,cat_code,remark,Stamp,Usr,Owner,stEdit) VALUES (@time_code, @time_name,@cat_code,@remark, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@time_code", (item.FindControl("txt_time_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@time_name", (item.FindControl("txt_time_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@cat_code", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
@@ -80,7 +80,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.TimeCategor
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE pro00h09 set time_name = @time_name, cat_code = @cat_code, remark = @remark, LastUpdate = getdate(), Usr = @Usr where time_code = @time_code";
+                cmd.CommandText = "UPDATE MCC_MS_TIME_CATEGORY set time_name = @time_name, cat_code = @cat_code, remark = @remark, LastUpdate = getdate(), Usr = @Usr where time_code = @time_code";
                 cmd.Parameters.AddWithValue("@time_name", (item.FindControl("txt_time_name") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@time_code", (item.FindControl("txt_time_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@cat_code", (item.FindControl("cb_type") as RadComboBox).SelectedValue);
@@ -99,7 +99,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.TimeCategor
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update pro00h09 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where time_code = @time_code";
+            cmd.CommandText = "update MCC_MS_TIME_CATEGORY set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where time_code = @time_code";
             cmd.Parameters.AddWithValue("@time_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();

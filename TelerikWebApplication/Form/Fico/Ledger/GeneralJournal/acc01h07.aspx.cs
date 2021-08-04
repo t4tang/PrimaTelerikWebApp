@@ -313,8 +313,8 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT acc00h03.cur_code, acc00h03.cur_name, acc00h04.KursRun FROM acc00h03, acc00h04 " +
-                                "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE cur_code = acc00h03.cur_code) AND cur_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT ms_currency.cur_code, ms_currency.cur_name, acc00h04.KursRun FROM ms_currency, acc00h04 " +
+                                "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE cur_code = ms_currency.cur_code) AND cur_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -411,7 +411,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from acc01h07 where accountno = @accountno and voucherno = @voucherno";
+                cmd.CommandText = "delete from gl_transaction where accountno = @accountno and voucherno = @voucherno";
                 cmd.Parameters.AddWithValue("@voucherno", accountno);
                 cmd.Parameters.AddWithValue("@accountno", accountno);
                 cmd.ExecuteNonQuery();
@@ -535,7 +535,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
         #region Project
         protected void cb_Project_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT [region_code], [region_name] FROM [inv00h09]  WHERE stEdit != '4' AND region_name LIKE @region_name + '%'";
+            string sql = "SELECT [region_code], [region_name] FROM [ms_jobsite]  WHERE stEdit != '4' AND region_name LIKE @region_name + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@region_name", e.Text);
@@ -566,7 +566,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -610,7 +610,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
         #region Account RadGrid2
         protected void cb_account_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT [accountno], [accountname] FROM [acc00h10]  WHERE stEdit != '4' AND accountname LIKE @accountname + '%'";
+            string sql = "SELECT [accountno], [accountname] FROM [gl_account]  WHERE stEdit != '4' AND accountname LIKE @accountname + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@accountname", e.Text);
@@ -645,7 +645,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT accountname,cur_code FROM acc00h10 WHERE accountno = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT accountname,cur_code FROM gl_account WHERE accountno = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -683,7 +683,7 @@ namespace TelerikWebApplication.Form.Fico.Ledger.GeneralJournal
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

@@ -32,8 +32,8 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.Notificatio
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT mtc00h21.Notif_type, mtc00h21.Notif_type_name " +
-                                "FROM mtc00h21 WHERE mtc00h21.stEdit !=4";
+            cmd.CommandText = "SELECT PMMSNOTIF_TYPE.Notif_type, PMMSNOTIF_TYPE.Notif_type_name " +
+                                "FROM PMMSNOTIF_TYPE WHERE PMMSNOTIF_TYPE.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -75,7 +75,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.Notificatio
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update mtc00h21 SET stEdit = 4 where Notif_type = @Notif_type";
+            cmd.CommandText = "Update PMMSNOTIF_TYPE SET stEdit = 4 where Notif_type = @Notif_type";
             cmd.Parameters.AddWithValue("@Notif_type", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -88,7 +88,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.Notificatio
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE mtc00h21 SET Notif_type_name = @Notif_type_name WHERE Notif_type = @Notif_type";
+            cmd.CommandText = "UPDATE PMMSNOTIF_TYPE SET Notif_type_name = @Notif_type_name WHERE Notif_type = @Notif_type";
             cmd.Parameters.AddWithValue("@Notif_type", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Notif_type_name", (item.FindControl("txt_notif") as RadTextBox).Text);
             cmd.ExecuteNonQuery();
@@ -102,7 +102,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.Notificatio
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO mtc00h21 VALUES (@Notif_type,@Notif_type_name,getdate(),@userid,@stEdit)";
+            cmd.CommandText = "INSERT INTO PMMSNOTIF_TYPE VALUES (@Notif_type,@Notif_type_name,getdate(),@userid,@stEdit)";
             cmd.Parameters.AddWithValue("@Notif_type", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Notif_type_name", (item.FindControl("txt_notif") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);

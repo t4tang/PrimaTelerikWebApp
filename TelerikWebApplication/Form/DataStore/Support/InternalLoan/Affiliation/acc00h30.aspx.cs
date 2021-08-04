@@ -35,18 +35,18 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select acc00h30.emp_code, acc00h30.emp_name, acc00h30.cur_code, acc00h30.alamat, acc00h30.ref_code, acc00h03.cur_name, inv00h11.CostCenterName, inv00h09.region_name, acc00h29.NmGAfi, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h30.korek) as korekname,acc00h30.korek, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h30.norek) as norekname,acc00h30.norek, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h30.um) as umname,acc00h30.um, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h30.ar_inter) as ar_intername,acc00h30.ar_inter, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h30.inc_inter) as inc_intername,acc00h30.inc_inter, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h30.ap_inter) as ap_intername,acc00h30.ap_inter, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h30.ap_accrued) as ap_accruedname,acc00h30.ap_accrued, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h30.exp_inter) as exp_intername, acc00h30.exp_inter" +
-                " from acc00h30 INNER JOIN acc00h10 ON acc00h10.accountno = acc00h30.korek INNER JOIN inv00h09 ON inv00h09.region_code = acc00h30.region_code " +
-                " INNER JOIN inv00h11 ON inv00h11.CostCenter = acc00h30.dept_code INNER JOIN acc00h29 ON acc00h29.KoGAfi = acc00h30.KoGAfi " +
-               " INNER JOIN acc00h03 ON acc00h03.cur_code = acc00h30.cur_code where acc00h30.stedit != 4  ";
+            cmd.CommandText = "select ms_afiliasi.emp_code, ms_afiliasi.emp_name, ms_afiliasi.cur_code, ms_afiliasi.alamat, ms_afiliasi.ref_code, ms_currency.cur_name, ms_cost_center.CostCenterName, ms_jobsite.region_name, ms_Group_Afiliasi.NmGAfi, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_afiliasi.korek) as korekname,ms_afiliasi.korek, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_afiliasi.norek) as norekname,ms_afiliasi.norek, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_afiliasi.um) as umname,ms_afiliasi.um, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_afiliasi.ar_inter) as ar_intername,ms_afiliasi.ar_inter, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_afiliasi.inc_inter) as inc_intername,ms_afiliasi.inc_inter, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_afiliasi.ap_inter) as ap_intername,ms_afiliasi.ap_inter, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_afiliasi.ap_accrued) as ap_accruedname,ms_afiliasi.ap_accrued, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_afiliasi.exp_inter) as exp_intername, ms_afiliasi.exp_inter" +
+                " from ms_afiliasi INNER JOIN gl_account ON gl_account.accountno = ms_afiliasi.korek INNER JOIN ms_jobsite ON ms_jobsite.region_code = ms_afiliasi.region_code " +
+                " INNER JOIN ms_cost_center ON ms_cost_center.CostCenter = ms_afiliasi.dept_code INNER JOIN ms_Group_Afiliasi ON ms_Group_Afiliasi.KoGAfi = ms_afiliasi.KoGAfi " +
+               " INNER JOIN ms_currency ON ms_currency.cur_code = ms_afiliasi.cur_code where ms_afiliasi.stedit != 4  ";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -65,10 +65,10 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             return DT;
         }
 
-        private static DataTable Getacc00h29(string text)
+        private static DataTable Getms_Group_Afiliasi(string text)
         {
 
-            SqlDataAdapter adapter = new SqlDataAdapter("select KoGAfi, KoGAfi + ' ' + NmGAfi as NmGAfi from acc00h29 where KoGAfi like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select KoGAfi, KoGAfi + ' ' + NmGAfi as NmGAfi from ms_Group_Afiliasi where KoGAfi like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -78,23 +78,10 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             return data;
 
         }
-        private static DataTable Getacc00h10(string text)
+        private static DataTable Getgl_account(string text)
         {
 
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountno + ' ' + accountname as accountname from acc00h10 where accountno like @text + '%'",
-            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
-
-            DataTable data = new DataTable();
-            adapter.Fill(data);
-
-            return data;
-
-        }
-
-        private static DataTable Getinv00h11(string text)
-        {
-            SqlDataAdapter adapter = new SqlDataAdapter("select CostCenter, CostCenter + ' ' + CostCenterName as CostCenterName from inv00h11 where CostCenter like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountno + ' ' + accountname as accountname from gl_account where accountno like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -105,9 +92,22 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
 
         }
 
-        private static DataTable Getinv00h09(string text)
+        private static DataTable Getms_cost_center(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_code + ' ' + region_name as region_name from inv00h09 where region_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select CostCenter, CostCenter + ' ' + CostCenterName as CostCenterName from ms_cost_center where CostCenter like @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+
+        }
+
+        private static DataTable Getms_jobsite(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_code + ' ' + region_name as region_name from ms_jobsite where region_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -124,7 +124,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h30(emp_code, emp_name, cur_code, alamat, ref_code, KoGAfi, korek, norek, um, dept_code, region_code, ar_inter, inc_inter, ap_inter, ap_accrued, exp_inter, type_af,Stamp,Usr,Owner,stEdit)" +
+            cmd.CommandText = "INSERT INTO ms_afiliasi(emp_code, emp_name, cur_code, alamat, ref_code, KoGAfi, korek, norek, um, dept_code, region_code, ar_inter, inc_inter, ap_inter, ap_accrued, exp_inter, type_af,Stamp,Usr,Owner,stEdit)" +
                 " VALUES (@emp_code, @emp_name, @cur_code, @alamat, @ref_code,@KoGAfi,@korek, @norek, @um, @dept_code, @region_code,@ar_inter, @inc_inter, @ap_inter, @ap_accrued, @exp_inter, 1, getdate(),UPPER(@Usr),UPPER (@Owner),0)";
             cmd.Parameters.AddWithValue("@emp_code", (item.FindControl("txt_emp_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@emp_name", (item.FindControl("txt_emp_name") as RadTextBox).Text);
@@ -156,7 +156,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h30 set emp_code = @emp_code, emp_name = @emp_name, korek = @korek, um = @um, cur_code = @cur_code, alamat = @alamat, ref_code = @ref_code,KoGAfi = @KoGAfi, dept_code = @dept_code, region_code = @region_code," +
+            cmd.CommandText = "UPDATE ms_afiliasi set emp_code = @emp_code, emp_name = @emp_name, korek = @korek, um = @um, cur_code = @cur_code, alamat = @alamat, ref_code = @ref_code,KoGAfi = @KoGAfi, dept_code = @dept_code, region_code = @region_code," +
                 " norek = @norek, ar_inter = @ar_inter, inc_inter = @inc_inter, ap_inter = @ap_inter, ap_accrued = @ap_accrued, exp_inter = @exp_inter, LastUpdate = getdate(), Usr = UPPER(@Usr) where emp_code = @emp_code";
             cmd.Parameters.AddWithValue("@emp_code", (item.FindControl("txt_emp_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@emp_name", (item.FindControl("txt_emp_name") as RadTextBox).Text);
@@ -187,7 +187,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update acc00h30 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where emp_code = @emp_code";
+            cmd.CommandText = "update ms_afiliasi set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where emp_code = @emp_code";
             cmd.Parameters.AddWithValue("@emp_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -223,7 +223,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
 
         private static DataTable GetRegion(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_code + ' ' + region_name as region_name from inv00h09 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_code + ' ' + region_name as region_name from ms_jobsite where stEdit != 4 " +
                 " AND region_code +' '+ region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -240,7 +240,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select region_code FROM inv00h09 WHERE region_code +' '+ region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select region_code FROM ms_jobsite WHERE region_code +' '+ region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -261,7 +261,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select region_code FROM inv00h09 WHERE region_code +' '+ region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select region_code FROM ms_jobsite WHERE region_code +' '+ region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -275,7 +275,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenter, CostCenterName FROM inv00h11 WHERE region_code = @region_code", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenter, CostCenterName FROM ms_cost_center WHERE region_code = @region_code", con);
             adapter.SelectCommand.Parameters.AddWithValue("@region_code", projectID);
 
             DataTable dt = new DataTable();
@@ -306,7 +306,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
 
         private static DataTable GetCostCenter(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select CostCenter, CostCenter + ' ' + CostCenterName as CostCenterName from inv00h11 where stEdit != 4" +
+            SqlDataAdapter adapter = new SqlDataAdapter("select CostCenter, CostCenter + ' ' + CostCenterName as CostCenterName from ms_cost_center where stEdit != 4" +
                 " AND CostCenter +' '+ CostCenterName LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -323,7 +323,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select CostCenter from inv00h11 where CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select CostCenter from ms_cost_center where CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -338,7 +338,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select CostCenter from inv00h11 where CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select CostCenter from ms_cost_center where CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -363,7 +363,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
 
         public static DataTable Getgroup(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select NmGAfi as NmGAfi from acc00h29 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select NmGAfi as NmGAfi from ms_Group_Afiliasi where stEdit != 4 " +
                   " AND NmGAfi LIKE @text + '%'",
               ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
@@ -380,15 +380,15 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT acc00h29.* ,(select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.korek) as korekname, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.norek) as norekname, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.um) as umname, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ar_inter) as ar_intername, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.inc_inter) as inc_intername, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ap_inter) as ap_intername, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ap_accrued) as ap_accruedname, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.exp_inter) as exp_intername, acc00h03.cur_name " +
-            " FROM acc00h29 INNER JOIN acc00h03 ON acc00h29.cur_code = acc00h03.cur_code WHERE acc00h29.NmGAfi = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT ms_Group_Afiliasi.* ,(select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.korek) as korekname, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.norek) as norekname, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.um) as umname, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.ar_inter) as ar_intername, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.inc_inter) as inc_intername, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.ap_inter) as ap_intername, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.ap_accrued) as ap_accruedname, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.exp_inter) as exp_intername, ms_currency.cur_name " +
+            " FROM ms_Group_Afiliasi INNER JOIN ms_currency ON ms_Group_Afiliasi.cur_code = ms_currency.cur_code WHERE ms_Group_Afiliasi.NmGAfi = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
            dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -449,7 +449,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.Affiliation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoGAfi FROM acc00h29 WHERE NmGAfi = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT KoGAfi FROM ms_Group_Afiliasi WHERE NmGAfi = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

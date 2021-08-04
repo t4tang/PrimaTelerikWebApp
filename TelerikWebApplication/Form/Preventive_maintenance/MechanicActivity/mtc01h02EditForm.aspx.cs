@@ -85,7 +85,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
         #region project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -115,7 +115,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -130,7 +130,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_project.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -147,7 +147,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -177,7 +177,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_employee.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_employee.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -192,7 +192,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_employee.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_employee.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -214,7 +214,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT job_name, time_tot, adj_tot, activity FROM mtc00h10 INNER JOIN mtc01d02 ON mtc00h10.job_code=mtc01d02.jobtype WHERE job_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT job_name, time_tot, adj_tot, activity FROM ms_mechanic_jobtype INNER JOIN tr_mcr_maD ON ms_mechanic_jobtype.job_code=tr_mcr_maD.jobtype WHERE job_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -249,7 +249,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT job_code FROM mtc00h10 WHERE job_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT job_code FROM ms_mechanic_jobtype WHERE job_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -260,7 +260,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
 
         protected void cb_jobnoD_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT [job_code], [job_name] FROM [mtc00h10]  WHERE stEdit != '4' AND job_name LIKE @job_name + '%'";
+            string sql = "SELECT [job_code], [job_name] FROM [ms_mechanic_jobtype]  WHERE stEdit != '4' AND job_name LIKE @job_name + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@job_name", e.Text);
@@ -301,10 +301,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( mtc01h02.jobno , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM mtc01h02 WHERE LEFT(mtc01h02.jobno, 4) = 'MA01' " +
-                        "AND SUBSTRING(mtc01h02.jobno, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(mtc01h02.jobno, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_mcr_maH.jobno , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM tr_mcr_maH WHERE LEFT(tr_mcr_maH.jobno, 4) = 'MA01' " +
+                        "AND SUBSTRING(tr_mcr_maH.jobno, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(tr_mcr_maH.jobno, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {

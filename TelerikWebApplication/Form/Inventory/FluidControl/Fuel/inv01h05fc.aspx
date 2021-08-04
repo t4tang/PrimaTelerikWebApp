@@ -177,7 +177,8 @@
                     AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" MasterTableView-GridLines="None" CssClass="RadGrid_ModernBrowsers"
                     OnNeedDataSource="RadGrid1_NeedDataSource" 
                     OnDeleteCommand="RadGrid1_DeleteCommand" 
-                    OnItemCreated="RadGrid1_ItemCreated">
+                    OnItemCreated="RadGrid1_ItemCreated" 
+                    OnItemDataBound="RadGrid1_ItemDataBound">
                     <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
                     <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
                     <ClientSettings EnablePostBackOnRowClick="true"></ClientSettings>
