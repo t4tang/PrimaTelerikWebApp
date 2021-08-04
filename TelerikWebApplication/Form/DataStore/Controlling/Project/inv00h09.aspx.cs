@@ -36,7 +36,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.Project
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select inv00h09.region_code, inv00h09.region_name from inv00h09 where inv00h09.stedit != 4";
+            cmd.CommandText = "select ms_jobsite.region_code, ms_jobsite.region_name from ms_jobsite where ms_jobsite.stedit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -61,7 +61,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.Project
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h09(region_code,region_name,Stamp,Usr,Owner,stEdit) VALUES (@region_code, @region_name, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO ms_jobsite(region_code,region_name,Stamp,Usr,Owner,stEdit) VALUES (@region_code, @region_name, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@region_code", (item.FindControl("txt_region_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@region_name", (item.FindControl("txt_region_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -80,7 +80,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.Project
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv00h09 set region_name = @region_name, LastUpdate = getdate(), Usr = @Usr where region_code = @region_code";
+                cmd.CommandText = "UPDATE ms_jobsite set region_name = @region_name, LastUpdate = getdate(), Usr = @Usr where region_code = @region_code";
                 cmd.Parameters.AddWithValue("@region_name", (item.FindControl("txt_region_name") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@region_code", (item.FindControl("txt_region_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -97,7 +97,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.Project
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update inv00h09 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where region_code = @region_code";
+            cmd.CommandText = "update ms_jobsite set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where region_code = @region_code";
             cmd.Parameters.AddWithValue("@region_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();

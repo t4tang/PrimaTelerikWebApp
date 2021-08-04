@@ -34,7 +34,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Province
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select inv00h20.prov_code, inv00h20.prov_name from inv00h20 where inv00h20.stedit != 4";
+            cmd.CommandText = "select ms_province.prov_code, ms_province.prov_name from ms_province where ms_province.stedit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -58,7 +58,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Province
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h20(prov_code,prov_name,Stamp,Usr,Owner,stEdit) VALUES (@prov_code, @prov_name, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO ms_province(prov_code,prov_name,Stamp,Usr,Owner,stEdit) VALUES (@prov_code, @prov_name, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@prov_code", (item.FindControl("txt_prov_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@prov_name", (item.FindControl("txt_prov_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -77,7 +77,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Province
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv00h20 set prov_name = @prov_name, LastUpdate = getdate(), Usr = @Usr where prov_code = @prov_code";
+                cmd.CommandText = "UPDATE ms_province set prov_name = @prov_name, LastUpdate = getdate(), Usr = @Usr where prov_code = @prov_code";
                 cmd.Parameters.AddWithValue("@prov_name", (item.FindControl("txt_prov_name") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@prov_code", (item.FindControl("txt_prov_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Province
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update inv00h20 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where prov_code = @prov_code";
+            cmd.CommandText = "update ms_province set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where prov_code = @prov_code";
             cmd.Parameters.AddWithValue("@prov_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv00h01.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.ListGoodsAvailable.inv00h01" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ms_product.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.ListGoodsAvailable.ms_product" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../Styles/mail.css" rel="stylesheet" />

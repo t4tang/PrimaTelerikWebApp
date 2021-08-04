@@ -137,7 +137,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv01h04 SET userid = @Usr, lastupdate = GETDATE(), status_lbm = '4' WHERE (lbm_code = @lbm_code)";
+                cmd.CommandText = "UPDATE tr_lbmh SET userid = @Usr, lastupdate = GETDATE(), status_lbm = '4' WHERE (lbm_code = @lbm_code)";
                 cmd.Parameters.AddWithValue("@lbm_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -180,12 +180,33 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
             dr.Close();
             con.Close();
         }
+
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                //GridDataItem item = (GridDataItem)e.Item;
+                var item = e.Item as GridEditFormItem;
+                RadComboBox cb_project = item.FindControl("cb_project") as RadComboBox;
+                RadComboBox cb_from = item.FindControl("cb_from") as RadComboBox;
+                RadDatePicker dtp_gr = item.FindControl("dtp_gr") as RadDatePicker;
+
+                if (e.Item.OwnerTableView.IsItemInserted)
+                {
+                    cb_from.Text = "Supplier";
+                    cb_project.Text = public_str.sitename;
+                    dtp_gr.SelectedDate = DateTime.Now;
+                }
+
+            }
+
+        }
         #endregion
 
         #region project
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -214,7 +235,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -231,7 +252,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
         #region Warehouse (parameter)
         private static DataTable GetWarehouse(string text, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND tClass = 1 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM ms_warehouse WHERE stEdit != 4 AND tClass = 1 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -261,7 +282,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -278,7 +299,7 @@ namespace TelerikWebApplication.Form.Inventory.FluidControl.Fuel
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

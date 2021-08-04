@@ -35,17 +35,17 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select acc00h29.KoGAfi, acc00h29.NmGAfi, acc00h03.cur_name, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.korek) as korekname, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.norek) as norekname, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.um) as umname, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ar_inter) as ar_intername, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.inc_inter) as inc_intername, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ap_inter) as ap_intername, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.ap_accrued) as ap_accruedname, " +
-                " (select accountno +' '+ accountname from acc00h10 where acc00h10.accountno = acc00h29.exp_inter) as exp_intername" +
-                " from acc00h29 INNER JOIN acc00h10 ON acc00h10.accountno = acc00h29.korek " +
-               " INNER JOIN acc00h03 ON acc00h03.cur_code = acc00h29.cur_code where acc00h29.stedit != 4  ";
+            cmd.CommandText = "select ms_Group_Afiliasi.KoGAfi, ms_Group_Afiliasi.NmGAfi, ms_currency.cur_name, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.korek) as korekname, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.norek) as norekname, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.um) as umname, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.ar_inter) as ar_intername, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.inc_inter) as inc_intername, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.ap_inter) as ap_intername, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.ap_accrued) as ap_accruedname, " +
+                " (select accountno +' '+ accountname from gl_account where gl_account.accountno = ms_Group_Afiliasi.exp_inter) as exp_intername" +
+                " from ms_Group_Afiliasi INNER JOIN gl_account ON gl_account.accountno = ms_Group_Afiliasi.korek " +
+               " INNER JOIN ms_currency ON ms_currency.cur_code = ms_Group_Afiliasi.cur_code where ms_Group_Afiliasi.stedit != 4  ";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -64,9 +64,9 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             return DT;
         }
 
-        private static DataTable Getacc00h03(string text)
+        private static DataTable Getms_currency(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select cur_code, cur_name from acc00h03 where cur_code like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select cur_code, cur_name from ms_currency where cur_code like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -77,10 +77,10 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         }
 
-        private static DataTable Getacc00h10(string text)
+        private static DataTable Getgl_account(string text)
         {
 
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountno + ' ' + accountname as accountname from acc00h10 where accountno like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountno + ' ' + accountname as accountname from gl_account where accountno like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -97,7 +97,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h29(KoGAfi, NmGAfi, cur_code, korek, norek, um, ar_inter, inc_inter, ap_inter, ap_accrued, exp_inter, Stamp,Usr,Owner,stEdit)"+
+            cmd.CommandText = "INSERT INTO ms_Group_Afiliasi(KoGAfi, NmGAfi, cur_code, korek, norek, um, ar_inter, inc_inter, ap_inter, ap_accrued, exp_inter, Stamp,Usr,Owner,stEdit)"+
                 " VALUES (@KoGAfi, @NmGAfi, @cur_code, @korek, @norek, @um, @ar_inter, @inc_inter, @ap_inter, @ap_accrued, @exp_inter, getdate(),UPPER(@Usr),UPPER (@Owner),0)";
             cmd.Parameters.AddWithValue("@KoGAfi", (item.FindControl("txt_KoGAfi") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@NmGAfi", (item.FindControl("txt_NmGAfi") as RadTextBox).Text);
@@ -124,7 +124,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h29 set KoGAfi = @KoGAfi, NmGAfi = @NmGAfi, korek = @korek, um = @um, cur_code = @cur_code, "+
+            cmd.CommandText = "UPDATE ms_Group_Afiliasi set KoGAfi = @KoGAfi, NmGAfi = @NmGAfi, korek = @korek, um = @um, cur_code = @cur_code, "+
                 " norek = @norek, ar_inter = @ar_inter, inc_inter = @inc_inter, ap_inter = @ap_inter, ap_accrued = @ap_accrued, exp_inter = @exp_inter, LastUpdate = getdate(), Usr = UPPER(@Usr) where KoGAfi = @KoGAfi";
             cmd.Parameters.AddWithValue("@KoGAfi", (item.FindControl("txt_KoGAfi") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@NmGAfi", (item.FindControl("txt_NmGAfi") as RadTextBox).Text);
@@ -150,7 +150,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update acc00h29 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where KoGAfi = @KoGAfi";
+            cmd.CommandText = "update ms_Group_Afiliasi set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where KoGAfi = @KoGAfi";
             cmd.Parameters.AddWithValue("@KoGAfi", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -185,7 +185,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
         }
         private static DataTable Getaccountcurrency(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select cur_code, cur_name from acc00h03 where cur_code like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select cur_code, cur_name from ms_currency where cur_code like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -201,7 +201,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cur_code from acc00h03 where cur_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cur_code from ms_currency where cur_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -216,7 +216,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cur_code from acc00h03 where cur_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cur_code from ms_currency where cur_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -241,7 +241,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         private static DataTable GetAr(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -258,7 +258,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -273,7 +273,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -298,7 +298,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         private static DataTable GetAri(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -315,7 +315,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -330,7 +330,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -355,7 +355,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         private static DataTable GetAra(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -372,7 +372,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -387,7 +387,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -412,7 +412,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         private static DataTable GetInterInc(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -429,7 +429,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -444,7 +444,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -469,7 +469,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         private static DataTable GetAp(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -486,7 +486,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -501,7 +501,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -526,7 +526,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         private static DataTable GetApi(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -543,7 +543,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -558,7 +558,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -583,7 +583,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         private static DataTable GetApa(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -600,7 +600,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -615,7 +615,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -640,7 +640,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
 
         private static DataTable GetIntExp(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -657,7 +657,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -672,7 +672,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.InternalLoan.GroupLoan
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

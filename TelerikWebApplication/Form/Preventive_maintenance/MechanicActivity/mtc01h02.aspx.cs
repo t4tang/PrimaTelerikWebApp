@@ -78,7 +78,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
 
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -107,7 +107,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_proj_prm.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_proj_prm.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -159,7 +159,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE mtc01h02 SET userid = @userid, lastupdate = GETDATE(), stEdit = '4' WHERE (jobno = @jobno)";
+                cmd.CommandText = "UPDATE tr_mcr_maH SET userid = @userid, lastupdate = GETDATE(), stEdit = '4' WHERE (jobno = @jobno)";
                 cmd.Parameters.AddWithValue("@jobno", jobno);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -289,7 +289,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from mtc01d02 where jobtype = @jobtype and jobno = @jobno";
+                cmd.CommandText = "delete from tr_mcr_maD where jobtype = @jobtype and jobno = @jobno";
                 cmd.Parameters.AddWithValue("@jobno", tr_code);
                 cmd.Parameters.AddWithValue("@jobtype", jobno);
                 cmd.ExecuteNonQuery();
@@ -366,7 +366,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
 
         protected void cb_job_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT [job_code], [job_name] FROM [mtc00h10]  WHERE stEdit != '4' AND job_name LIKE @job_name + '%'";
+            string sql = "SELECT [job_code], [job_name] FROM [ms_mechanic_jobtype]  WHERE stEdit != '4' AND job_name LIKE @job_name + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@job_name", e.Text);
@@ -401,7 +401,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MechanicActivity
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT job_name, time_tot, adj_tot, activity FROM mtc00h10 INNER JOIN mtc01d02 ON mtc00h10.job_code=mtc01d02.jobtype WHERE job_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT job_name, time_tot, adj_tot, activity FROM ms_mechanic_jobtype INNER JOIN tr_mcr_maD ON ms_mechanic_jobtype.job_code=tr_mcr_maD.jobtype WHERE job_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();

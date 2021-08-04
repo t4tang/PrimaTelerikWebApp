@@ -88,18 +88,18 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
         }
         private static DataTable GetProjectPrm(string text)
         {
-            //SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            //SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             //ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             //adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
             string cmd;
             if (public_str.site != "HOF")
             {
-                cmd = "SELECT a.region_code, b.region_name FROM inv00h26 a, inv00h09 b WHERE a.region_code=b.region_code AND a.Nik = '" + public_str.user_id + "' AND b.stEdit <> 4 AND b.region_name LIKE @text + '%' ";
+                cmd = "SELECT a.region_code, b.region_name FROM ms_manpower a, ms_jobsite b WHERE a.region_code=b.region_code AND a.Nik = '" + public_str.user_id + "' AND b.stEdit <> 4 AND b.region_name LIKE @text + '%' ";
             }
             else
             {
-                cmd = "SELECT region_code, region_name FROM inv00h09  WHERE stEdit <> 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL' ";
+                cmd = "SELECT region_code, region_name FROM ms_jobsite  WHERE stEdit <> 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL' ";
             }
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd, ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -128,11 +128,11 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             string cmd;
             if(public_str.site != "HOF")
             {
-                cmd = "SELECT a.region_code, b.region_name FROM inv00h26 a, inv00h09 b WHERE a.region_code=b.region_code AND a.Nik = '" + public_str.user_id + "' AND b.stEdit <> 4 AND b.region_name LIKE @text + '%' ";
+                cmd = "SELECT a.region_code, b.region_name FROM ms_manpower a, ms_jobsite b WHERE a.region_code=b.region_code AND a.Nik = '" + public_str.user_id + "' AND b.stEdit <> 4 AND b.region_name LIKE @text + '%' ";
             }
             else
             {
-                cmd= "SELECT region_code, region_name FROM inv00h09  WHERE stEdit <> 4 AND region_name LIKE @text + '%'";
+                cmd= "SELECT region_code, region_name FROM ms_jobsite  WHERE stEdit <> 4 AND region_name LIKE @text + '%'";
             }
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmd,ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -162,7 +162,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -177,7 +177,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -201,7 +201,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
         }
         private static DataTable GetDepartment(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT dept_code, dept_name FROM inv00h10 WHERE stEdit != 4 AND dept_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT dept_code, dept_name FROM ms_department WHERE stEdit != 4 AND dept_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -216,7 +216,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT dept_code FROM inv00h10 WHERE dept_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT dept_code FROM ms_department WHERE dept_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -231,7 +231,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT dept_code FROM inv00h10 WHERE dept_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT dept_code FROM ms_department WHERE dept_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -286,7 +286,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h05 SET userid = @Usr, lastupdate = GETDATE(), stEdit = '4' WHERE (doc_no = @doc_code)";
+                cmd.CommandText = "UPDATE tr_fpp_reg SET userid = @Usr, lastupdate = GETDATE(), stEdit = '4' WHERE (doc_no = @doc_code)";
                 cmd.Parameters.AddWithValue("@doc_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -404,7 +404,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
                 SqlCommand cmd1 = new SqlCommand();
                 cmd1.Connection = con;
                 cmd1.CommandType = CommandType.Text;
-                cmd1.CommandText = "SELECT doc_no FROM acc01h05 WHERE objek = '" + txt_object.Text + "'";
+                cmd1.CommandText = "SELECT doc_no FROM tr_fpp_reg WHERE objek = '" + txt_object.Text + "'";
                 SqlDataReader dr;
                 dr = cmd1.ExecuteReader();
                 while (dr.Read())
@@ -437,7 +437,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -462,7 +462,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -480,7 +480,7 @@ namespace TelerikWebApplication.Form.Fico.PaymentRequest.Entry
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

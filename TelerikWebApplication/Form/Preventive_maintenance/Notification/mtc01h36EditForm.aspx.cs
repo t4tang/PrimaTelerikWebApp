@@ -55,7 +55,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
         #region notif
         private static DataTable GetNotif(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Notif_type, Notif_type_name FROM mtc00h21 WHERE stEdit != 4 AND Notif_type_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Notif_type, Notif_type_name FROM PMMSNOTIF_TYPE WHERE stEdit != 4 AND Notif_type_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -84,7 +84,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Notif_type FROM mtc00h21 WHERE Notif_type_name = '" + cb_notif.Text + "'";
+            cmd.CommandText = "SELECT Notif_type FROM PMMSNOTIF_TYPE WHERE Notif_type_name = '" + cb_notif.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -99,7 +99,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Notif_type FROM mtc00h21 WHERE Notif_type_name = '" + cb_notif.Text + "'";
+            cmd.CommandText = "SELECT Notif_type FROM PMMSNOTIF_TYPE WHERE Notif_type_name = '" + cb_notif.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -112,7 +112,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
         #region project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -141,7 +141,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_Project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_Project.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -156,7 +156,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_Project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_Project.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

@@ -41,12 +41,12 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h02.kind_code, inv00h02.kind_name, inv00h02.prod_type_code, inv00h02.stMain, inv00h02.stEdit, " +
+            cmd.CommandText = "SELECT ms_product_kind.kind_code, ms_product_kind.kind_name, ms_product_kind.prod_type_code, ms_product_kind.stMain, ms_product_kind.stEdit, " +
                               "CASE stMain WHEN '0' THEN 'Stock and Value' WHEN '1' THEN 'Only Stock' WHEN '2' THEN 'Non Stock' END AS status_main, " +
-                              "inv00h07.prod_type_name " +
-                              "FROM inv00h02 INNER JOIN " +
-                              "inv00h07 ON inv00h02.prod_type_code = inv00h07.prod_type_code " +
-                              "WHERE(inv00h02.stEdit <> '4') ";
+                              "ms_product_type.prod_type_name " +
+                              "FROM ms_product_kind INNER JOIN " +
+                              "ms_product_type ON ms_product_kind.prod_type_code = ms_product_type.prod_type_code " +
+                              "WHERE(ms_product_kind.stEdit <> '4') ";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -72,7 +72,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
 
         private static DataTable GetCategory(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT prod_type_code, prod_type_name FROM inv00h07 WHERE stEdit != '4' AND prod_type_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT prod_type_code, prod_type_name FROM ms_product_type WHERE stEdit != '4' AND prod_type_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -104,7 +104,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_type_code from inv00h07 where prod_type_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_type_code from ms_product_type where prod_type_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -130,7 +130,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "insert into inv00h02(kind_code, kind_name, prod_type_code, StMain, stEdit, lastupdate, userid) values " +
+                cmd.CommandText = "insert into ms_product_kind(kind_code, kind_name, prod_type_code, StMain, stEdit, lastupdate, userid) values " +
                         "(@kind_code, @kind_name,@prod_type_code, CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' " +
                         "ELSE '2' END, '0', getdate(),@userid)";
                 cmd.Parameters.AddWithValue("@kind_code", (item.FindControl("txt_kind_code") as TextBox).Text);
@@ -168,7 +168,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                     {
                         GridEditFormItem item = (GridEditFormItem)e.Item;
 
-                        cmd = new SqlCommand("update inv00h02 set kind_name = @kind_name, prod_type_code = @prod_type_code, " +
+                        cmd = new SqlCommand("update ms_product_kind set kind_name = @kind_name, prod_type_code = @prod_type_code, " +
                                 "StMain = CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' " +
                                 "ELSE '2' END, LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code", con);
                         con.Open();
@@ -208,7 +208,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update inv00h02 set stEdit = '4', LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code";
+                cmd.CommandText = "update ms_product_kind set stEdit = '4', LastUpdate = getdate(), Userid = @Usr where kind_code = @kind_code";
                 cmd.Parameters.AddWithValue("@kind_code", kind_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -265,7 +265,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Category
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_type_code from inv00h07 where prod_type_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_type_code from ms_product_type where prod_type_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

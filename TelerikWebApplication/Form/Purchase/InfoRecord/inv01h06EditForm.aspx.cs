@@ -113,7 +113,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -142,7 +142,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -159,7 +159,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -174,7 +174,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
         #region Supplier
         private static DataTable GetSupplier(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select supplier_code, supplier_name from pur00h01 where supplier_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select supplier_code, supplier_name from ms_supplier where supplier_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -204,7 +204,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT     a.supplier_code, a.cur_code " +
-                               " FROM pur00h01 a inner join acc00h04 e on a.cur_code = e.cur_code WHERE a.supplier_name = '" + cb_supplier.Text + "'";
+                               " FROM ms_supplier a inner join ms_kurs e on a.cur_code = e.cur_code WHERE a.supplier_name = '" + cb_supplier.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -224,7 +224,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select supplier_code from pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select supplier_code from ms_supplier WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -386,7 +386,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from inv01d06 where prod_code = @prod_code and info_code = @info_code";
+                cmd.CommandText = "delete from tr_InfoRecord_D where prod_code = @prod_code and info_code = @info_code";
                 cmd.Parameters.AddWithValue("@info_code", txt_info_record.Text);
                 cmd.Parameters.AddWithValue("@prod_code", partCode);
                 cmd.ExecuteNonQuery();
@@ -407,7 +407,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
 
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT top (100) c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+            string sql = "SELECT top (100) c.Prod_code, c.spec, c.unit, a.Disc FROM tr_InfoRecord_H a JOIN tr_InfoRecord_D b ON b.info_code = a.info_code right JOIN ms_product c " +
                 " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.spec LIKE @spec + '%'";
           
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
@@ -445,7 +445,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, b.qty, b.max_qty, b.min_qty, b.SatQty, b.harga, b.ValidDate, b.remark, ISNULL( a.Disc,0) AS Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, b.qty, b.max_qty, b.min_qty, b.SatQty, b.harga, b.ValidDate, b.remark, ISNULL( a.Disc,0) AS Disc FROM tr_InfoRecord_H a JOIN tr_InfoRecord_D b ON b.info_code = a.info_code right JOIN ms_product c " +
                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);

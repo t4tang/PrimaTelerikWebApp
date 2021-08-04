@@ -88,7 +88,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h13 SET Usr = @Usr, stamp = GETDATE(), Batal = 1 WHERE (NoBuk = @NoBuk)";
+                cmd.CommandText = "UPDATE MUTAP SET Usr = @Usr, stamp = GETDATE(), Batal = 1 WHERE (NoBuk = @NoBuk)";
                 cmd.Parameters.AddWithValue("@NoBuk", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -226,7 +226,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "DELETE FROM acc01h16 WHERE Nobuk = @Nobuk AND nomor = @nomor";
+                cmd.CommandText = "DELETE FROM MUTIC_BIAYA WHERE Nobuk = @Nobuk AND nomor = @nomor";
                 cmd.Parameters.AddWithValue("@Nobuk", NoBuk);
                 cmd.Parameters.AddWithValue("@nomor", Nomor);
                 cmd.ExecuteNonQuery();
@@ -246,7 +246,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
         }
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -275,7 +275,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

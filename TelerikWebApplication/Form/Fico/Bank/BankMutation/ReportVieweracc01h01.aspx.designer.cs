@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
-{
-
-
-    public partial class ReportVieweracc01h01
-    {
-
+namespace TelerikWebApplication.Form.Fico.Bank.BankMutation {
+    
+    
+    public partial class ReportVieweracc01h01 {
+        
         /// <summary>
         /// reportViewer1 control.
         /// </summary>

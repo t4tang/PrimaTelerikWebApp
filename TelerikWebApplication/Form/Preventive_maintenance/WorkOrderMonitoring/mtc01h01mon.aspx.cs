@@ -65,7 +65,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrderMonitoring
         #region Project Prm
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -95,7 +95,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrderMonitoring
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -219,7 +219,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.WorkOrderMonitoring
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE mtc01h01 SET userid = @userid, lastupdate = GETDATE(), void = '4' WHERE (PM_id = @PM_id)";
+                cmd.CommandText = "UPDATE tr_machine_conditionh SET userid = @userid, lastupdate = GETDATE(), void = '4' WHERE (PM_id = @PM_id)";
                 cmd.Parameters.AddWithValue("@trans_id", transId);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();

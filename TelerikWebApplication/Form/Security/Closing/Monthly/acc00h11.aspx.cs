@@ -46,7 +46,7 @@ namespace TelerikWebApplication.Form.Security.Closing.Monthly
         private void set_periode()
         {
             //con.Open();
-            //SqlCommand cmd = new SqlCommand("SELECT CONVERT(varchar, accstart, 103) accstart, CONVERT(varchar, accperend, 103) accperend FROM inv00h15 ", con);
+            //SqlCommand cmd = new SqlCommand("SELECT CONVERT(varchar, accstart, 103) accstart, CONVERT(varchar, accperend, 103) accperend FROM ms_company ", con);
 
             //SqlDataReader dr;
             //dr = cmd.ExecuteReader();

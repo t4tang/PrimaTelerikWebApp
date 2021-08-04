@@ -163,7 +163,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h04 SET Usr = @Usr, LastUpdate = GETDATE(), status = 4 WHERE (slip_no = @slip_no)";
+                cmd.CommandText = "UPDATE tr_paymentHH SET Usr = @Usr, LastUpdate = GETDATE(), status = 4 WHERE (slip_no = @slip_no)";
                 cmd.Parameters.AddWithValue("@slip_no", slip_no);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -252,7 +252,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         //    SqlConnection con = new SqlConnection(
         //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(KoBank) as code, upper(NamBank) as name FROM acc00h01 " +
+        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(KoBank) as code, upper(NamBank) as name FROM KOBANK " +
         //        "WHERE stEdit <> '4' AND region_code = @project AND NamBank LIKE @text + '%'", con);
         //    adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
         //    adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -287,7 +287,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoBank FROM acc00h01 WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT KoBank FROM KOBANK WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -412,7 +412,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cust_code from acc00h07 WHERE cust_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cust_code from ms_customer WHERE cust_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -430,9 +430,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT TOP(1) acc00h07.cust_code, acc00h07.cust_name, acc00h07.cur_code, acc00h04.KursRun " + 
-                                "FROM acc00h07, acc00h04 " +
-                                "WHERE acc00h04.tglKurs = (SELECT MAX(tglKurs) FROM acc00h04 WHERE acc00h04.cur_code = acc00h07.cur_code) AND cust_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT TOP(1) ms_customer.cust_code, ms_customer.cust_name, ms_customer.cur_code, ms_kurs.KursRun " + 
+                                "FROM ms_customer, ms_kurs " +
+                                "WHERE ms_kurs.tglKurs = (SELECT MAX(tglKurs) FROM ms_kurs WHERE ms_kurs.cur_code = ms_customer.cur_code) AND cust_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -464,7 +464,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
 
         private static DataTable GetCust(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select cust_code,cust_name from acc00h07 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select cust_code,cust_name from ms_customer where stEdit != 4 " +
                 " AND cust_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -479,7 +479,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
         #region Bank
         private static DataTable GetBank(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoBank, NamBank FROM acc00h01 WHERE stEdit != 4 AND NamBank LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoBank, NamBank FROM KOBANK WHERE stEdit != 4 AND NamBank LIKE @text + '%'",
            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -512,7 +512,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT acc00h01.*, acc00h04.cur_code, acc00h04.KursRun FROM acc00h01 CROSS JOIN acc00h04 where acc00h04.tglKurs = (select MAX(acc00h04.tglKurs) from acc00h04) AND NamBank = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT KOBANK.*, ms_kurs.cur_code, ms_kurs.KursRun FROM KOBANK CROSS JOIN ms_kurs where ms_kurs.tglKurs = (select MAX(ms_kurs.tglKurs) from ms_kurs) AND NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -545,7 +545,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoBank FROM acc00h01 WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT KoBank FROM KOBANK WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -561,7 +561,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND jabatan LIKE @text + '%'", con);           
             adapter.SelectCommand.Parameters.AddWithValue("@text", jabatan); 
             DataTable dt = new DataTable();
@@ -585,7 +585,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -608,7 +608,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -631,7 +631,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -653,7 +653,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -674,7 +674,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -697,7 +697,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -881,7 +881,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from acc01d04 where inv_code = @inv_code and slip_no = @slip_no";
+                cmd.CommandText = "delete from tr_paymentd where inv_code = @inv_code and slip_no = @slip_no";
                 cmd.Parameters.AddWithValue("@slip_no", inv_code);
                 cmd.Parameters.AddWithValue("@inv_code", inv_code);
                 cmd.ExecuteNonQuery();
@@ -999,22 +999,22 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                         potax = Convert.ToDouble(dtr["POTax"].ToString());
                         OTax = dtr["OTax"].ToString();
                     }
-                    else if (Session["actionDetail"].ToString() == "detailEdit")
+                    else
                     {
-                        RadTextBox t_date = (RadTextBox)item.FindControl("txt_date");
+                        Label lbl_date = (Label)item.FindControl("lbl_date");
                         RadNumericTextBox t_Net = (RadNumericTextBox)item.FindControl("txt_payment");
                         RadNumericTextBox t_kurs_tax = (RadNumericTextBox)item.FindControl("txt_kurs_tax_detail");
                         RadNumericTextBox t_kurs = (RadNumericTextBox)item.FindControl("txt_kurs_detail");
-                        RadTextBox t_region_code = (RadTextBox)item.FindControl("txt_project");
-                        RadTextBox t_dept_code = (RadTextBox)item.FindControl("txt_cost_ctr");
+                        Label lbl_project = (Label)item.FindControl("lbl_project");
+                        Label lbl_cost_ctr = (Label)item.FindControl("lbl_cost_ctr");
                         RadTextBox t_remark = (RadTextBox)item.FindControl("txt_Ket");
 
-                        t_date.Text = dtr["date"].ToString();
+                        lbl_date.Text = dtr["date"].ToString();
                         t_Net.Text = dtr["JmlSisa"].ToString();
                         t_kurs_tax.Text = dtr["kurs_tax"].ToString();
                         t_kurs.Text = dtr["kurs"].ToString();
-                        t_region_code.Text = dtr["region_code"].ToString();
-                        t_dept_code.Text = dtr["dept_code"].ToString();
+                        lbl_project.Text = dtr["region_code"].ToString();
+                        lbl_cost_ctr.Text = dtr["dept_code"].ToString();
                         t_remark.Text = dtr["remark"].ToString();
                         JOTax = Convert.ToDouble(dtr["JOTax"].ToString());
                         potax = Convert.ToDouble(dtr["POTax"].ToString());
@@ -1039,7 +1039,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT inv_code FROM sls01h01 WHERE inv_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT inv_code FROM tr_invsA WHERE inv_code = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1092,10 +1092,10 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h04.slip_no , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h04 WHERE LEFT(acc01h04.slip_no, 4) ='" + cb_bank.SelectedValue + "' + '" + "M" + "' " +
-                        "AND SUBSTRING(acc01h04.slip_no, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(acc01h04.slip_no, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_paymentHH.slip_no , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM tr_paymentHH WHERE LEFT(tr_paymentHH.slip_no, 4) ='" + cb_bank.SelectedValue + "' + '" + "M" + "' " +
+                        "AND SUBSTRING(tr_paymentHH.slip_no, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(tr_paymentHH.slip_no, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -1150,21 +1150,21 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                 {
                     Label lbl_inv_code;
                     //Label lbl_date;
-                    Label lbl_payment;
-                    Label lbl_kurs;
-                    Label lbl_kurs_tax;
+                    RadNumericTextBox txt_payment;
+                    RadNumericTextBox txt_kurs_detail;
+                    RadNumericTextBox txt_kurs_tax_detail;
                     Label lbl_project;
                     Label lbl_cost_ctr;
-                    Label lbl_ket;
+                    RadTextBox txt_Ket;
 
                     lbl_inv_code = (Label)itemD.FindControl("lbl_inv_code");
                     //lbl_date = (Label)itemD.FindControl("lbl_date");
-                    lbl_payment = (Label)itemD.FindControl("lbl_payment");
-                    lbl_kurs = (Label)itemD.FindControl("lbl_kurs");
-                    lbl_kurs_tax = (Label)itemD.FindControl("lbl_kurs_tax");
+                    txt_payment = (RadNumericTextBox)itemD.FindControl("txt_payment");
+                    txt_kurs_detail = (RadNumericTextBox)itemD.FindControl("txt_kurs_detail");
+                    txt_kurs_tax_detail = (RadNumericTextBox)itemD.FindControl("txt_kurs_tax_detail");
                     lbl_project = (Label)itemD.FindControl("lbl_project");
                     lbl_cost_ctr = (Label)itemD.FindControl("lbl_cost_ctr");
-                    lbl_ket = (Label)itemD.FindControl("lbl_ket");
+                    txt_Ket = (RadTextBox)itemD.FindControl("txt_Ket");
 
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1173,12 +1173,12 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
                     cmd.Parameters.AddWithValue("@slip_no", run);
                     cmd.Parameters.AddWithValue("@inv_code", lbl_inv_code.Text);
                     //cmd.Parameters.AddWithValue("@date", lbl_date.Text);
-                    cmd.Parameters.AddWithValue("@pay_amount", Convert.ToDouble(lbl_payment.Text));
-                    cmd.Parameters.AddWithValue("@kurs", Convert.ToDouble(lbl_kurs.Text));
-                    cmd.Parameters.AddWithValue("@kurs_tax", Convert.ToDouble(lbl_kurs_tax.Text));
+                    cmd.Parameters.AddWithValue("@pay_amount", txt_payment.Value);
+                    cmd.Parameters.AddWithValue("@kurs", txt_kurs_detail.Value);
+                    cmd.Parameters.AddWithValue("@kurs_tax", txt_kurs_tax_detail.Value);
                     cmd.Parameters.AddWithValue("@dept_code", lbl_cost_ctr.Text);
                     cmd.Parameters.AddWithValue("@region_code", lbl_project.Text);
-                    cmd.Parameters.AddWithValue("@remark", lbl_ket.Text);
+                    cmd.Parameters.AddWithValue("@remark", txt_Ket.Text);
                     cmd.Parameters.AddWithValue("@pay_amount_acc", 0);
                     cmd.Parameters.AddWithValue("@pay_amount_idr", 0);
                     cmd.Parameters.AddWithValue("@POTax", 0);
@@ -1263,5 +1263,32 @@ namespace TelerikWebApplication.Form.Fico.Bank.Bank_Receipt
             }
         }
         #endregion
+
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                var item = e.Item as GridEditFormItem;
+                RadDatePicker dtp_bm = item.FindControl("dtp_bm") as RadDatePicker;
+
+                RadTextBox txt_uid = item.FindControl("txt_uid") as RadTextBox;
+                RadTextBox txt_LastUpdate = item.FindControl("txt_LastUpdate") as RadTextBox;
+                RadTextBox txt_owner = item.FindControl("txt_owner") as RadTextBox;
+                RadTextBox txt_printed = item.FindControl("txt_printed") as RadTextBox;
+                RadTextBox txt_edited = item.FindControl("txt_edited") as RadTextBox;
+
+                if (e.Item.OwnerTableView.IsItemInserted)
+                {
+                    dtp_bm.SelectedDate = DateTime.Now;
+
+                    txt_uid.Text = public_str.uid;
+                    txt_LastUpdate.Text = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+                    txt_owner.Text = public_str.uid;
+                    txt_printed.Text = "0";
+                    txt_edited.Text = "0";
+                }
+
+            }
+        }
     }
 }

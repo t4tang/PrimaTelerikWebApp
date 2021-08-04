@@ -36,11 +36,11 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT acc00h02.KoKas, acc00h02.NamKas, acc00h10.accountno, acc00h10.accountname, " + 
-                                "acc00h10.cur_code, inv00h09.region_code, inv00h09.region_name " +
-                                "FROM acc00h02 INNER JOIN " +
-                                "inv00h09 ON acc00h02.region_code = inv00h09.region_code INNER JOIN " +
-                                "acc00h10 ON acc00h02.KoRek = acc00h10.accountno WHERE acc00h02.stEdit !=4";
+            cmd.CommandText = "SELECT COKAS.KoKas, COKAS.NamKas, gl_account.accountno, gl_account.accountname, " + 
+                                "gl_account.cur_code, ms_jobsite.region_code, ms_jobsite.region_name " +
+                                "FROM COKAS INNER JOIN " +
+                                "ms_jobsite ON COKAS.region_code = ms_jobsite.region_code INNER JOIN " +
+                                "gl_account ON COKAS.KoRek = gl_account.accountno WHERE COKAS.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -57,9 +57,9 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
             return DT;
         }
 
-        private static DataTable Getinv00h09(string text)
+        private static DataTable Getms_jobsite(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from inv00h09 where region_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from ms_jobsite where region_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -70,9 +70,9 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
 
         }
 
-        private static DataTable Getacc00h10(string text)
+        private static DataTable Getgl_account(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountname, cur_code from acc00h10 where accountname like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno, accountname, cur_code from gl_account where accountname like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -103,7 +103,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update acc00h02 SET stEdit = 4 where KoKas = @KoKas";
+            cmd.CommandText = "Update COKAS SET stEdit = 4 where KoKas = @KoKas";
             cmd.Parameters.AddWithValue("@KoKas", KoKas);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -118,7 +118,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc00h02 SET NamKas = @NamKas, KoRek = @KoRek, region_code = @region_code " +
+                cmd.CommandText = "UPDATE COKAS SET NamKas = @NamKas, KoRek = @KoRek, region_code = @region_code " +
                                     " WHERE KoKas = @KoKas";
                 cmd.Parameters.AddWithValue("@KoKas", (item.FindControl("txt_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@NamKas", (item.FindControl("txt_name") as RadTextBox).Text);
@@ -136,7 +136,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h02(KoKas,NamKas,KoRek,SAwal,SAValas,Lvl,Stamp,Usr,Owner,OwnStamp,active,stEdit,region_code) " +
+            cmd.CommandText = "INSERT INTO COKAS(KoKas,NamKas,KoRek,SAwal,SAValas,Lvl,Stamp,Usr,Owner,OwnStamp,active,stEdit,region_code) " +
                                 "VALUES (@KoKas,@NamKas,@KoRek,0.0000,0.0000,9,getdate(),@Usr,@Owner,getdate(),'1','0',@region_code)";
             cmd.Parameters.AddWithValue("@KoKas", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@NamKas", (item.FindControl("txt_name") as RadTextBox).Text);
@@ -150,7 +150,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
 
         protected void cb_project_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = Getinv00h09(e.Text);
+            DataTable data = Getms_jobsite(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -168,7 +168,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select region_code from inv00h09 where region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select region_code from ms_jobsite where region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -183,7 +183,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select region_code from inv00h09 where region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select region_code from ms_jobsite where region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -194,7 +194,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
 
         protected void cb_no_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = Getacc00h10(e.Text);
+            DataTable data = Getgl_account(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -212,7 +212,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -227,7 +227,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.CashCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountno from acc00h10 where accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountno from gl_account where accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

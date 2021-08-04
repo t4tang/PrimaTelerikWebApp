@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, AssetSpec, region_code FROM acc00h22 WHERE ak_code IN ('MET1','SET1','SET2','SET3')  " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, AssetSpec, region_code FROM AK_Asset WHERE ak_code IN ('MET1','SET1','SET2','SET3')  " +
                 "AND unit_code IN (SELECT unit_code FROM mtc00h16 WHERE stEdit != 4) AND unit_code LIKE @text + '%'", con);
             //adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -128,8 +128,8 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT acc00h22.*,inv00h09.region_name, CASE AK_CODE_ORI WHEN 'SET' THEN 'Support Equipment' WHEN 'MET' THEN 'Main Equipment' END As Kind " +
-                "FROM acc00h22, inv00h09 WHERE inv00h09.region_code = acc00h22.region_code AND unit_code = '" + (sender as RadComboBox).SelectedValue + "'";
+            cmd.CommandText = "SELECT AK_Asset.*,ms_jobsite.region_name, CASE AK_CODE_ORI WHEN 'SET' THEN 'Support Equipment' WHEN 'MET' THEN 'Main Equipment' END As Kind " +
+                "FROM AK_Asset, ms_jobsite WHERE ms_jobsite.region_code = AK_Asset.region_code AND unit_code = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -678,7 +678,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
         }
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_name FROM inv00h09 where stEdit != '4'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_name FROM ms_jobsite where stEdit != '4'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -710,7 +710,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 where region_name = '" + (sender as RadComboBox).Text +"'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite where region_name = '" + (sender as RadComboBox).Text +"'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -728,7 +728,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 where region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite where region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -812,7 +812,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
         }
         private static DataTable GetSupplier(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT supplier_name FROM pur00h01 where stEdit != '4' AND supplier_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT supplier_name FROM ms_supplier where stEdit != '4' AND supplier_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -844,7 +844,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_name FROM pur00h01 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_name FROM ms_supplier where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -859,7 +859,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT Name FROM ms_manpower where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -869,7 +869,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
         }
         private static DataTable GetManpower(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Name FROM inv00h26 where stEdit != '4' AND Name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Name FROM ms_manpower where stEdit != '4' AND Name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -900,7 +900,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT Name FROM ms_manpower where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -915,7 +915,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Name FROM inv00h26 where stEdit != '4'";
+            cmd.CommandText = "SELECT Name FROM ms_manpower where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -925,7 +925,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
         }
         private static DataTable GetCompany(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT supplier_name from pur00h01 where stEdit != '4' AND supplier_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT supplier_name from ms_supplier where stEdit != '4' AND supplier_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -956,7 +956,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_name from pur00h01 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_name from ms_supplier where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -971,7 +971,7 @@ namespace TelerikWebApplication.Form.DataStore.Vehicle.Equipment
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT supplier_name from pur00h01 where stEdit != '4'";
+            cmd.CommandText = "SELECT supplier_name from ms_supplier where stEdit != '4'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

@@ -113,17 +113,18 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     }
                 }
 
-                //if(RadGrid3.MasterTableView.IsItemInserted == false)
-                //{
-                //    populate_detail();
-                //}
+                if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+                {
+                    (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                    (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+                }
             }
         }
 
         #region project param
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -153,7 +154,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -222,7 +223,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv01h02 SET userid = @userid, lastupdate = GETDATE(), void = '4' WHERE (sro_code = @sro_code)";
+                cmd.CommandText = "UPDATE fleet_sroh SET userid = @userid, lastupdate = GETDATE(), void = '4' WHERE (sro_code = @sro_code)";
                 cmd.Parameters.AddWithValue("@sro_code", sro_code);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -277,7 +278,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT a.*, b.OprName FROM mtc01h03 a, mtc00h25 b WHERE a.chart_code = b.OprCode AND trans_id = @sro_code";
+            cmd.CommandText = "SELECT a.*, b.OprName FROM tr_operation a, PMMSOPRWO b WHERE a.chart_code = b.OprCode AND trans_id = @sro_code";
             cmd.Parameters.AddWithValue("@sro_code", trans_id);
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -341,7 +342,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         //        cmd = new SqlCommand();
         //        cmd.CommandType = CommandType.Text;
         //        cmd.Connection = con;
-        //        cmd.CommandText = "delete from inv01d02 where part_code = @part_code and sro_code = @sro_code";
+        //        cmd.CommandText = "delete from fleet_srod where part_code = @part_code and sro_code = @sro_code";
         //        cmd.Parameters.AddWithValue("@sro_code", tr_code);
         //        cmd.Parameters.AddWithValue("@part_code", part_code);
         //        cmd.ExecuteNonQuery();
@@ -497,7 +498,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT unit FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT unit FROM ms_product WHERE prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -549,7 +550,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
 
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec], [unit] FROM [inv00h01]  WHERE stEdit != '4' AND (spec LIKE @text + '%' OR prod_code LIKE @text + '%') ";
+            string sql = "SELECT TOP (100)[prod_code], [spec], [unit] FROM [ms_product]  WHERE stEdit != '4' AND (spec LIKE @text + '%' OR prod_code LIKE @text + '%') ";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
@@ -586,7 +587,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         
         protected void cb_operation_inserttTemp_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT DISTINCT(mtc01h03.chart_code), mtc00h25.OprName FROM mtc01h03 INNER JOIN mtc00h25 ON mtc00h25.OprCode = mtc01h03.chart_code  WHERE mtc01h03.trans_id = @wo_code " +
+            string sql = "SELECT DISTINCT(tr_operation.chart_code), PMMSOPRWO.OprName FROM tr_operation INNER JOIN PMMSOPRWO ON PMMSOPRWO.OprCode = tr_operation.chart_code  WHERE tr_operation.trans_id = @wo_code " +
                 " AND OprName LIKE @OprName + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -618,13 +619,13 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             GridEditableItem item = (GridEditableItem)cb.NamingContainer;
 
             Label lbl_opr_insert = (item.FindControl("lbl_operation_code_insertTemp") as Label);
-            Label lbl_opr_edit = (item.FindControl("lbl_operation_code_editTemp") as Label);
+            RadComboBox cb_operation = (item.FindControl("cb_operation_insertTemp") as RadComboBox);
 
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT OprCode FROM mtc00h25 WHERE OprName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT OprCode FROM PMMSOPRWO WHERE OprName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -634,7 +635,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 }
                 else if (Session["actionDetail"].ToString() == "detailEdit")
                 {
-                    lbl_opr_edit.Text = dr[0].ToString();
+                    cb_operation.Text = dr[0].ToString();
                 }
             //chartCode_selected = dr[0].ToString();
             dr.Close();
@@ -652,16 +653,16 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         {
             GridEditableItem item = (GridEditableItem)e.Item;
 
-            Label lblChart;
+            RadComboBox lblChart;
             //RadComboBox cbChart;
             //cbChart = (RadComboBox)item.FindControl("cb_operation_editTemp");
-            lblChart = (Label)item.FindControl("lbl_operation");
+            lblChart = (RadComboBox)item.FindControl("cb_operation");
 
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT OprCode FROM mtc00h25 WHERE OprName = '" + lblChart.Text + "'";
+            cmd.CommandText = "SELECT OprCode FROM PMMSOPRWO WHERE OprName = '" + lblChart.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -683,9 +684,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "DELETE inv01d02 WHERE part_code = @part_code AND sro_code = @sro_code ";
+                cmd.CommandText = "DELETE fleet_srod WHERE part_code = @part_code AND sro_code = @sro_code ";
                 cmd.Parameters.AddWithValue("@sro_code", tr_code);
-                cmd.Parameters.AddWithValue("@part_code", (item.FindControl("lbl_partCode") as Label).Text);
+                cmd.Parameters.AddWithValue("@part_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
 
                 cmd.ExecuteNonQuery();
             }
@@ -736,10 +737,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h02.sro_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM inv01h02 WHERE LEFT(inv01h02.sro_code, 4) = 'MR01' " +
-                        "AND SUBSTRING(inv01h02.sro_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(inv01h02.sro_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( fleet_sroh.sro_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM fleet_sroh WHERE LEFT(fleet_sroh.sro_code, 4) = 'MR01' " +
+                        "AND SUBSTRING(fleet_sroh.sro_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(fleet_sroh.sro_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -791,20 +792,20 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     //RadNumericTextBox lblQtyRs;
                     Label lbl_UoM;
                     Label lbl_prodType;
-                    Label lbl_qty;
-                    Label lbl_partCode;
+                    RadNumericTextBox txt_qty;
+                    RadComboBox cb_prod_code;
                     Label lbl_operation_code;
                     CheckBox chkWaranty;
-                    Label lbl_remark;
+                    RadTextBox txt_remark_d;
 
                     lbl_prodType = (Label)itemD.FindControl("lbl_prodType");
-                    lbl_qty = (Label)itemD.FindControl("lbl_qty");
+                    txt_qty = (RadNumericTextBox)itemD.FindControl("txt_qty");
                     //lblQtyRs = (RadNumericTextBox)itemD.FindControl("txt_qtyRs_editTemp");
                     lbl_UoM = (Label)itemD.FindControl("lbl_UoM");
-                    lbl_partCode = (Label)itemD.FindControl("lbl_partCode");
+                    cb_prod_code = (RadComboBox)itemD.FindControl("cb_prod_code");
                     lbl_operation_code = (Label)itemD.FindControl("lbl_operation_code");
                     chkWaranty = (CheckBox)itemD.FindControl("chk_waranty");
-                    lbl_remark = (Label)itemD.FindControl("lbl_remark");
+                    txt_remark_d = (RadTextBox)itemD.FindControl("txt_remark");
                     
 
                     //con.Open();
@@ -815,8 +816,8 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     cmd.Parameters.AddWithValue("@sro_code", run);
                     cmd.Parameters.AddWithValue("@prod_type", lbl_prodType.Text);
                     cmd.Parameters.AddWithValue("@item", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@part_qty", Convert.ToDouble(lbl_qty.Text));
-                    cmd.Parameters.AddWithValue("@part_code", lbl_partCode.Text);
+                    cmd.Parameters.AddWithValue("@part_qty", txt_qty.Value);
+                    cmd.Parameters.AddWithValue("@part_code", cb_prod_code.Text);
                     cmd.Parameters.AddWithValue("@part_unit", lbl_UoM.Text);
                     cmd.Parameters.AddWithValue("@chart_code", lbl_operation_code.Text);
                     cmd.Parameters.AddWithValue("@trans_id", wo_code);
@@ -829,30 +830,21 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
                     {
                         cmd.Parameters.AddWithValue("@tWarranty", 0);
                     }
-                    cmd.Parameters.AddWithValue("@remark", lbl_remark.Text);
+                    cmd.Parameters.AddWithValue("@remark", txt_remark_d.Text);
                     cmd.ExecuteNonQuery();
+                }
 
-                    //con.Close();
-
-
-                    //cmd = new SqlCommand();
-                    //cmd.CommandType = CommandType.Text;
-                    //cmd.Connection = con;
-                    //if (Session["actionDetail"].ToString() == "detailEdit")
-                    //{
-                    //    cmd.CommandText = "UPDATE mtc01h03 SET chart_code= @chart_code WHERE trans_id=@trans_id";
-                    //    cmd.Parameters.AddWithValue("@trans_id", run);
-                    //    cmd.Parameters.AddWithValue("@chart_code", itemD["chart_code"].Text);
-                    //    cmd.ExecuteNonQuery();
-                    //}
-                    //else
-                    //{
-                    //    cmd.CommandText = "INSERT INTO mtc01h03(trans_id, chart_code, formula) VALUES (@trans_id, @chart_code, 0)";
-                    //    cmd.Parameters.AddWithValue("@trans_id", run);
-                    //    cmd.Parameters.AddWithValue("@chart_code", itemD["chart_code"].Text);
-                    //    cmd.ExecuteNonQuery();
-                    //}
-
+                if ((sender as Button).Text == "Update")
+                {
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                }
+                else
+                {
+                    inv01h02.tr_code = run;
+                    inv01h02.selected_project = cb_Project.SelectedValue;
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    (sender as Button).Text = "Update";
+                    btnCancel.Text = "Close";
                 }
             }
             catch (Exception ex)
@@ -866,22 +858,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             {
                 con.Close();
                 txt_mr_number.Text = run;
-                notif.Text = "Data telah disimpan";
-                notif.Show();
-
-                if ((sender as Button).Text == "Update")
-                {
-                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                }
-                else
-                {
-                    inv01h02.tr_code = run;
-                    inv01h02.selected_project = cb_Project.SelectedValue;
-                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                    (sender as Button).Text = "Update";
-                    btnCancel.Text = "Close";
-                }
-
+                notif.Show("Data telah disimpan");
                 RadGrid1.MasterTableView.IsItemInserted = false;
 
             }
@@ -965,7 +942,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -995,7 +972,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1012,7 +989,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1059,7 +1036,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT TOP(20) trans_id, trans_date, unit_code, unitstatus, DBDate, BDTime, OrderName, remark FROM v_material_request_H_reff " +
-                "WHERE region_code = @project AND trans_id LIKE @text + '%'", con);
+                "WHERE region_code = @project AND trans_id LIKE @text + '%' ORDER BY trans_date DESC", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", trans_id);
             DataTable dt = new DataTable();
@@ -1131,7 +1108,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         #region Priority
         private static DataTable GetPriority(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT priority_code , prio_desc FROM pur00h06 WHERE prio_desc LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT priority_code , prio_desc FROM ms_priority WHERE prio_desc LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -1163,7 +1140,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT priority_code FROM pur00h06 WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT priority_code FROM ms_priority WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1180,7 +1157,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT priority_code FROM pur00h06 WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT priority_code FROM ms_priority WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1195,7 +1172,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         #region Order
         private static DataTable GetOrder(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT OrderType, OrderName FROM mtc00h23 WHERE stEdit != 4 AND OrderName LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT OrderType, OrderName FROM PMMSOrderType WHERE stEdit != 4 AND OrderName LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -1224,7 +1201,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT OrderType FROM mtc00h23 WHERE OrderName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT OrderType FROM PMMSOrderType WHERE OrderName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1241,7 +1218,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT OrderType FROM mtc00h23 WHERE OrderName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT OrderType FROM PMMSOrderType WHERE OrderName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1256,7 +1233,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
         #region Job Type
         private static DataTable GetJob(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT PMact_type, PMAct_Name FROM mtc00h22 WHERE stEdit != 4 AND PMAct_Name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT PMact_type, PMAct_Name FROM PMWOActType WHERE stEdit != 4 AND PMAct_Name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -1286,7 +1263,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT PMact_type FROM mtc00h22 WHERE PMAct_Name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT PMact_type FROM PMWOActType WHERE PMAct_Name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1304,7 +1281,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT PMact_type FROM mtc00h22 WHERE PMAct_Name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT PMact_type FROM PMWOActType WHERE PMAct_Name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1324,7 +1301,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -1353,7 +1330,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1370,7 +1347,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1398,7 +1375,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1415,7 +1392,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1443,7 +1420,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1460,7 +1437,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1506,6 +1483,53 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.MaterialRequest
             }
         }
 
-       
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                //GridDataItem item = (GridDataItem)e.Item;
+                var item = e.Item as GridEditFormItem;
+                RadComboBox cb_project = item.FindControl("cb_project") as RadComboBox;
+                RadDatePicker dtp_date = item.FindControl("dtp_date") as RadDatePicker;
+                RadDatePicker dtp_deliv = item.FindControl("dtp_deliv") as RadDatePicker;
+
+                //RadTextBox txt_uid = item.FindControl("txt_uid") as RadTextBox;
+                //RadTextBox txt_lastUpdate = item.FindControl("txt_lastUpdate") as RadTextBox;
+                //RadTextBox txt_owner = item.FindControl("txt_owner") as RadTextBox;
+                //RadTextBox txt_printed = item.FindControl("txt_printed") as RadTextBox;
+                //RadTextBox txt_edited = item.FindControl("txt_edited") as RadTextBox;
+
+                if (e.Item.OwnerTableView.IsItemInserted)
+                {                    
+                    cb_project.Text = public_str.sitename;
+                    dtp_date.SelectedDate = DateTime.Now;
+                    dtp_deliv.SelectedDate = DateTime.Now;
+
+                    //txt_uid.Text = public_str.uid;
+                    //txt_lastUpdate.Text = string.Format("{0:dd-MM-yyyy}", DateTime.Today);
+                    //txt_owner.Text = public_str.uid;
+                    //txt_printed.Text = "0";
+                    //txt_edited.Text = "0";
+                }
+
+            }
+        }
+
+        protected void RadGrid3_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = (GridDataItem)e.Item;
+                int index = item.ItemIndex; //Row Index
+                if (e.Item.OwnerTableView.IsItemInserted)
+                {
+                    (item["EditCommandColumn"].Controls[0]).Visible = true;
+                }
+                else
+                {
+                    (item["EditCommandColumn"].Controls[0]).Visible = false;
+                }
+            }
+        }
     }
 }

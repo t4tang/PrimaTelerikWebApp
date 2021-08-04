@@ -30,9 +30,9 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterArea
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h24.area_code, inv00h24.area_name " +
-                                "FROM inv00h24 " +
-                                " WHERE inv00h24.stEdit !=4";
+            cmd.CommandText = "SELECT ms_area.area_code, ms_area.area_name " +
+                                "FROM ms_area " +
+                                " WHERE ms_area.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -74,7 +74,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterArea
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update inv00h24 SET stEdit = 4 where area_code = @area_code";
+            cmd.CommandText = "Update ms_area SET stEdit = 4 where area_code = @area_code";
             cmd.Parameters.AddWithValue("@area_code", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -89,7 +89,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterArea
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv00h24 SET area_name = @area_name, lastupdate = getdate(), userid = @userid, stEdit = @stEdit " +
+                cmd.CommandText = "UPDATE ms_area SET area_name = @area_name, lastupdate = getdate(), userid = @userid, stEdit = @stEdit " +
                                     "WHERE area_code = @area_code";
                 cmd.Parameters.AddWithValue("@area_code", (item.FindControl("txt_code_area") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@area_name", (item.FindControl("txt_name_area") as RadTextBox).Text);
@@ -107,7 +107,7 @@ namespace TelerikWebApplication.Form.DataStore.Customer.MasterArea
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h24 (area_code, area_name, lastupdate, userid, stEdit) " +
+            cmd.CommandText = "INSERT INTO ms_area (area_code, area_name, lastupdate, userid, stEdit) " +
                                 "VALUES (@area_code, @area_name, getdate(), @userid, @stEdit)";
             cmd.Parameters.AddWithValue("@area_code", (item.FindControl("txt_code_area") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@area_name", (item.FindControl("txt_name_area") as RadTextBox).Text);

@@ -76,7 +76,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
         #region project
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -105,7 +105,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -164,7 +164,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update inv01h06 set stEdit = 4, LastUpdate = getdate(), userid = @userid where info_code = @info_code";
+                cmd.CommandText = "update tr_InfoRecord_H set stEdit = 4, LastUpdate = getdate(), userid = @userid where info_code = @info_code";
                 cmd.Parameters.AddWithValue("@info_code", code);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -286,7 +286,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from inv01d06 where prod_code = @prod_code and info_code = @info_code";
+                cmd.CommandText = "delete from tr_InfoRecord_D where prod_code = @prod_code and info_code = @info_code";
                 cmd.Parameters.AddWithValue("@info_code", tr_code);
                 cmd.Parameters.AddWithValue("@prod_code", partCode);
                 cmd.ExecuteNonQuery();
@@ -342,7 +342,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
 
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT top (100) c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+            string sql = "SELECT top (100) c.Prod_code, c.spec, c.unit, a.Disc FROM tr_InfoRecord_H a JOIN tr_InfoRecord_D b ON b.info_code = a.info_code right JOIN ms_product c " +
                 " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and spec LIKE @spec + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
@@ -379,7 +379,7 @@ namespace TelerikWebApplication.Form.Purchase.InfoRecord
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, a.Disc FROM inv01h06 a JOIN inv01d06 b ON b.info_code = a.info_code right JOIN ms_product c " +
+                cmd.CommandText = "SELECT c.Prod_code, c.spec, c.unit, a.Disc FROM tr_InfoRecord_H a JOIN tr_InfoRecord_D b ON b.info_code = a.info_code right JOIN ms_product c " +
                " ON c.Prod_code = b.Prod_code WHERE c.stEdit <> 4 and c.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
                
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);

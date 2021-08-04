@@ -31,8 +31,8 @@ namespace TelerikWebApplication.Form.DataStore.Support.Currency
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT acc00h03.cur_name, acc00h03.disp_name, acc00h03.cur_code " +
-                                "FROM acc00h03 WHERE acc00h03.stEdit !=4";
+            cmd.CommandText = "SELECT ms_currency.cur_name, ms_currency.disp_name, ms_currency.cur_code " +
+                                "FROM ms_currency WHERE ms_currency.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -61,7 +61,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Currency
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update acc00h03 SET stEdit = 4 where cur_code = @cur_code";
+            cmd.CommandText = "Update ms_currency SET stEdit = 4 where cur_code = @cur_code";
             cmd.Parameters.AddWithValue("@cur_code", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -76,7 +76,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Currency
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc00h03 SET cur_name = @cur_name, lastupdate = getdate(), userid = @userid, disp_name = @disp_name " +
+                cmd.CommandText = "UPDATE ms_currency SET cur_name = @cur_name, lastupdate = getdate(), userid = @userid, disp_name = @disp_name " +
                                     "WHERE cur_code = @cur_code";
                 cmd.Parameters.AddWithValue("@cur_code", (item.FindControl("txt_cur_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@cur_name", (item.FindControl("txt_cur_name") as RadTextBox).Text);
@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Currency
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h03 (cur_code, cur_name, lastupdate, userid, stEdit, disp_name, owner, stamp) " +
+            cmd.CommandText = "INSERT INTO ms_currency (cur_code, cur_name, lastupdate, userid, stEdit, disp_name, owner, stamp) " +
                                 "VALUES (@cur_code, @cur_name, getdate(), @userid, @stEdit, @disp_name, @owner, getdate())";
             cmd.Parameters.AddWithValue("@cur_code", (item.FindControl("txt_cur_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@cur_name", (item.FindControl("txt_cur_name") as RadTextBox).Text);

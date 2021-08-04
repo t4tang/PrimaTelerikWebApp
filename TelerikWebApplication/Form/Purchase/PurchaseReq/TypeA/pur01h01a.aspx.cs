@@ -132,7 +132,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
 
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -160,7 +160,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -217,7 +217,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE pur01h01 SET userid = @Usr, lastupdate = GETDATE(), status_pur = '4' WHERE (pr_code = @pr_code)";
+                cmd.CommandText = "UPDATE tr_purchase_reqH SET userid = @Usr, lastupdate = GETDATE(), status_pur = '4' WHERE (pr_code = @pr_code)";
                 cmd.Parameters.AddWithValue("@pr_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -238,7 +238,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         {
             foreach (GridDataItem item in RadGrid1.SelectedItems)
             {
-                tr_code = item["doc_code"].Text;
+                tr_code = item["pr_code"].Text;
                 selected_cost_ctr = item["dept_code"].Text;
             }
 
@@ -376,7 +376,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from pur01d01 where prod_code = @part_code and pr_code = @doc_code";
+                cmd.CommandText = "delete from tr_purchase_reqD where prod_code = @part_code and pr_code = @doc_code";
                 cmd.Parameters.AddWithValue("@doc_code", tr_code);
                 cmd.Parameters.AddWithValue("@part_code", partCode);
                 cmd.ExecuteNonQuery();
@@ -397,31 +397,70 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
 
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[part_code] as [Prod_code], [part_desc],[doc_code],[qtyRema],[part_unit] FROM [v_purchase_request_reff_typeA]  WHERE [part_desc] LIKE @spec + '%'";
-            SqlDataAdapter adapter = new SqlDataAdapter(sql,
-                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
-
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
             RadComboBox comboBox = (RadComboBox)sender;
-            // Clear the default Item that has been re-created from ViewState at this point.
-            comboBox.Items.Clear();
+            GridEditableItem g_item = (GridEditableItem)comboBox.NamingContainer;
 
-            foreach (DataRow row in dt.Rows)
+            if (Session["actionDetail"].ToString() == "detailNew")
             {
-                RadComboBoxItem item = new RadComboBoxItem();
-                item.Text = row["Prod_code"].ToString();
-                item.Value = row["Prod_code"].ToString();
-                item.Attributes.Add("part_desc", row["part_desc"].ToString());
-                item.Attributes.Add("doc_code", row["doc_code"].ToString());
-                item.Attributes.Add("qtyRema", row["qtyRema"].ToString());
-                item.Attributes.Add("part_unit", row["part_unit"].ToString());
+                RadComboBox cb_reff_code = (RadComboBox)g_item.FindControl("cb_reff_code_insert");
+                string sql = "SELECT [part_code] as [Prod_code], [part_desc],[doc_code],[qtyRema],[part_unit] FROM [v_purchase_request_reff_typeA]  " +
+                "WHERE [doc_code] = @doc_code AND ([part_desc] LIKE @text + '%' OR [part_code] LIKE @text + '%')";
+                SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
+                adapter.SelectCommand.Parameters.AddWithValue("@doc_code", cb_reff_code.Text);
 
-                comboBox.Items.Add(item);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
 
-                item.DataBind();
+                // Clear the default Item that has been re-created from ViewState at this point.
+                comboBox.Items.Clear();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    RadComboBoxItem item = new RadComboBoxItem();
+                    item.Text = row["Prod_code"].ToString();
+                    item.Value = row["Prod_code"].ToString();
+                    item.Attributes.Add("part_desc", row["part_desc"].ToString());
+                    item.Attributes.Add("doc_code", row["doc_code"].ToString());
+                    item.Attributes.Add("qtyRema", row["qtyRema"].ToString());
+                    item.Attributes.Add("part_unit", row["part_unit"].ToString());
+
+                    comboBox.Items.Add(item);
+
+                    item.DataBind();
+                }
+            }
+            else
+            {
+                RadComboBox cb_reff_code = (RadComboBox)g_item.FindControl("cb_reff_code");
+                string sql = "SELECT TOP (100)[part_code] as [Prod_code], [part_desc],[doc_code],[qtyRema],[part_unit] FROM [v_purchase_request_reff_typeA]  " +
+                "WHERE [doc_code] = '" + cb_reff_code.Text + "' AND ([part_desc] LIKE @text + '%' OR [part_code] LIKE @text + '%')";
+                SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+                adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                // Clear the default Item that has been re-created from ViewState at this point.
+                comboBox.Items.Clear();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    RadComboBoxItem item = new RadComboBoxItem();
+                    item.Text = row["Prod_code"].ToString();
+                    item.Value = row["Prod_code"].ToString();
+                    item.Attributes.Add("part_desc", row["part_desc"].ToString());
+                    item.Attributes.Add("doc_code", row["doc_code"].ToString());
+                    item.Attributes.Add("qtyRema", row["qtyRema"].ToString());
+                    item.Attributes.Add("part_unit", row["part_unit"].ToString());
+
+                    comboBox.Items.Add(item);
+
+                    item.DataBind();
+                }
+
             }
         }
 
@@ -431,34 +470,34 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             
             try
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT [part_code], [part_desc],[doc_code],[qtyRema],[part_unit],[date_exec],[dept_code],[remark] FROM "+
-                    "[v_purchase_request_reff_typeA] WHERE [part_code] = '" + (sender as RadComboBox).SelectedValue + "'";
-
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                foreach (DataRow dtr in dt.Rows)
+                if (Session["actionDetail"].ToString() == "detailNew")
                 {
                     RadComboBox cb = (RadComboBox)sender;
                     GridEditableItem item = (GridEditableItem)cb.NamingContainer;
 
-                    if (Session["actionDetail"].ToString() == "detailNew")
-                    {
-                        
-                        Label lb_reff = (Label)item.FindControl("lblRS_insert");
-                        RadNumericTextBox tx_qty = (RadNumericTextBox)item.FindControl("txtPartQty_insert");
-                        Label lb_uom = (Label)item.FindControl("lblUom_insert");
-                        Label lb_cost_ctr = (Label)item.FindControl("lblCostCtr_insert");
-                        Label lb_qty_po = (Label)item.FindControl("lblQtyPo_insert");
-                        Label lb_soh = (Label)item.FindControl("lblSoh_insert");
-                        RadDatePicker dt_deliv_date = (RadDatePicker)item.FindControl("dtpDelivDate_insert");
-                        RadTextBox tx_remark = (RadTextBox)item.FindControl("txtRemark_d_insert");
+                    RadComboBox cb_reff_code = (RadComboBox)item.FindControl("cb_reff_code_insert");
+                    RadNumericTextBox tx_qty = (RadNumericTextBox)item.FindControl("txtPartQty_insert");
+                    Label lb_uom = (Label)item.FindControl("lblUom_insert");
+                    Label lb_cost_ctr = (Label)item.FindControl("lblCostCtr_insert");
+                    Label lb_qty_po = (Label)item.FindControl("lblQtyPo_insert");
+                    Label lb_soh = (Label)item.FindControl("lblSoh_insert");
+                    RadDatePicker dt_deliv_date = (RadDatePicker)item.FindControl("dtpDelivDate_insert");
+                    RadTextBox tx_remark = (RadTextBox)item.FindControl("txtRemark_d_insert");
 
-                        lb_reff.Text = dtr["doc_code"].ToString();
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "SELECT [part_code], [part_desc],[doc_code],[qtyRema],[part_unit],[date_exec],[dept_code],[remark] FROM " +
+                        "[v_purchase_request_reff_typeA] WHERE [part_code] = '" + (sender as RadComboBox).Text + "' AND [doc_code] = '" + cb_reff_code.Text + "'";
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    foreach (DataRow dtr in dt.Rows)
+                    {
+
+                        //lb_reff.Text = dtr["doc_code"].ToString();
                         tx_qty.Text = dtr["qtyRema"].ToString();
                         lb_uom.Text = dtr["part_unit"].ToString();
                         lb_cost_ctr.Text = dtr["dept_code"].ToString();
@@ -467,18 +506,35 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                         dt_deliv_date.SelectedDate = Convert.ToDateTime(dtr["date_exec"].ToString());
                         tx_remark.Text = dtr["remark"].ToString();
                     }
-                    else if (Session["actionDetail"].ToString() == "detailEdit")
-                    {
-                        Label lb_reff = (Label)item.FindControl("lblRS_edit");
-                        RadNumericTextBox tx_qty = (RadNumericTextBox)item.FindControl("txtPartQty_edit");
-                        Label lb_uom = (Label)item.FindControl("lblUom_edit");
-                        Label lb_cost_ctr = (Label)item.FindControl("lblCostCtr_edit");
-                        Label lb_qty_po = (Label)item.FindControl("lblQtyPo_edit");
-                        Label lb_soh = (Label)item.FindControl("lblSoh_edit");
-                        RadDatePicker dt_deliv_date = (RadDatePicker)item.FindControl("dtpDelivDate_edit");
-                        RadTextBox tx_remark = (RadTextBox)item.FindControl("txtRemark_d_edit");
 
-                        lb_reff.Text = dtr["doc_code"].ToString();
+                }
+
+                else if (Session["actionDetail"].ToString() == "detailEdit")
+                {
+                    RadComboBox cb = (RadComboBox)sender;
+                    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
+
+                    RadComboBox cb_reff_code_insert = (RadComboBox)item.FindControl("cb_reff_code");
+                    RadNumericTextBox tx_qty = (RadNumericTextBox)item.FindControl("txtPartQty_edit");
+                    Label lb_uom = (Label)item.FindControl("lblUom_edit");
+                    Label lb_cost_ctr = (Label)item.FindControl("lblCostCtr_edit");
+                    Label lb_qty_po = (Label)item.FindControl("lblQtyPo_edit");
+                    Label lb_soh = (Label)item.FindControl("lblSoh_edit");
+                    RadDatePicker dt_deliv_date = (RadDatePicker)item.FindControl("dtpDelivDate_edit");
+                    RadTextBox tx_remark = (RadTextBox)item.FindControl("txtRemark_d_edit");
+
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "SELECT [part_code], [part_desc],[doc_code],[qtyRema],[part_unit],[date_exec],[dept_code],[remark] FROM " +
+                        "[v_purchase_request_reff_typeA] WHERE [part_code] = '" + (sender as RadComboBox).Text + "' AND [doc_code] = '" + cb_reff_code_insert.Text + "'";
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    foreach (DataRow dtr in dt.Rows)
+                    {
                         tx_qty.Text = dtr["qtyRema"].ToString();
                         lb_uom.Text = dtr["part_unit"].ToString();
                         lb_cost_ctr.Text = dtr["dept_code"].ToString();
@@ -510,7 +566,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 DataRow drValue = dtValues.Rows[0];
                 drValue["Prod_code"] = (item.FindControl("cb_prod_code") as Label).Text;
                 drValue["part_desc"] = "";
-                drValue["no_ref"] = (item.FindControl("lblRS") as Label).Text;
+                drValue["no_ref"] = (item.FindControl("cb_reff_code") as RadComboBox).Text;
                 drValue["qty"] = (item.FindControl("txtPartQty") as RadNumericTextBox).Value;
                 drValue["stock_hand"] = (item.FindControl("lblSoh_insert") as Label).Text;
                 drValue["qtypo"] = (item.FindControl("lblQtyPo") as Label).Text;
@@ -551,7 +607,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 DataRow drValue = dtValues.NewRow();
                 drValue["Prod_code"] = (item.FindControl("cb_prod_code_insert") as RadComboBox).Text;
                 drValue["part_desc"] = "";
-                drValue["no_ref"] = (item.FindControl("lblRS_insert") as Label).Text;
+                drValue["no_ref"] = (item.FindControl("cb_reff_code_insert") as RadComboBox).Text;
                 drValue["qty"] = (item.FindControl("txtPartQty_insert") as RadNumericTextBox).Value;
                 drValue["stock_hand"] = (item.FindControl("lblSoh_insert") as Label).Text;
                 drValue["qtypo"] = (item.FindControl("lblQtyPo_insert") as Label).Text;
@@ -703,10 +759,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h01.pr_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM pur01h01 WHERE LEFT(pur01h01.pr_code, 4) = 'PR01' " +
-                        "AND SUBSTRING(pur01h01.pr_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(pur01h01.pr_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_purchase_reqH.pr_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM tr_purchase_reqH WHERE LEFT(tr_purchase_reqH.pr_code, 4) = 'PR01' " +
+                        "AND SUBSTRING(tr_purchase_reqH.pr_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(tr_purchase_reqH.pr_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -754,24 +810,24 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
 
                 foreach (GridDataItem itemD in Grid2.MasterTableView.Items)
                 {
-                    Label lbl_prod_code;
+                    RadComboBox cb_prod_code;
                     Label lbl_soh;
-                    Label lbl_part_qty;
+                    RadNumericTextBox txtPartQty;
                     Label lbl_uom;
-                    Label lbl_remark;
+                    RadTextBox txt_remark_d;
                     Label lbl_dept_code;
                     //CheckBox chkWaranty;
-                    Label lbl_rs;
+                    RadComboBox cb_reff_code;
                     RadDatePicker dtpDelivDate;
-                    
-                    lbl_prod_code = (Label)itemD.FindControl("lbl_prod_code");
+
+                    cb_prod_code = (RadComboBox)itemD.FindControl("cb_prod_code");
                     lbl_soh = (Label)itemD.FindControl("lblSoh");
-                    lbl_part_qty = (Label)itemD.FindControl("lblPartQty");
+                    txtPartQty = (RadNumericTextBox)itemD.FindControl("txtPartQty");
                     lbl_uom = (Label)itemD.FindControl("lblUom");
-                    lbl_remark = (Label)itemD.FindControl("lblRemark_d");
+                    txt_remark_d = (RadTextBox)itemD.FindControl("txtRemark_d");
                     lbl_dept_code = (Label)itemD.FindControl("lblCostCtr");
                     //chkWaranty = (CheckBox)itemD.FindControl("chk_waranty");
-                    lbl_rs = (Label)itemD.FindControl("lblRS");
+                    cb_reff_code = (RadComboBox)itemD.FindControl("cb_reff_code");
                     dtpDelivDate = (RadDatePicker)itemD.FindControl("dtpDelivDate");
 
 
@@ -782,15 +838,15 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                     cmd.Connection = con;
                     cmd.CommandText = "sp_save_purchase_requestD";
                     cmd.Parameters.AddWithValue("@prod_type", "M1");
-                    cmd.Parameters.AddWithValue("@Prod_code", lbl_prod_code.Text);
-                    cmd.Parameters.AddWithValue("@no_ref", lbl_rs.Text);
-                    cmd.Parameters.AddWithValue("@qty", Convert.ToDouble(lbl_part_qty.Text));
+                    cmd.Parameters.AddWithValue("@Prod_code", cb_prod_code.Text);
+                    cmd.Parameters.AddWithValue("@no_ref", cb_reff_code.Text);
+                    cmd.Parameters.AddWithValue("@qty", txtPartQty.Text);
                     cmd.Parameters.AddWithValue("@SatQty", lbl_uom.Text);
                     cmd.Parameters.AddWithValue("@DeliDate", dtpDelivDate.SelectedDate);
-                    cmd.Parameters.AddWithValue("@Remark", lbl_remark.Text);
-                    cmd.Parameters.AddWithValue("@pr_code", tr_code);
+                    cmd.Parameters.AddWithValue("@Remark", txt_remark_d.Text);
+                    cmd.Parameters.AddWithValue("@pr_code", run);
                     cmd.Parameters.AddWithValue("@stock_hand", Convert.ToDouble(lbl_soh.Text));
-                    cmd.Parameters.AddWithValue("@Prod_code_ori", lbl_prod_code.Text);
+                    cmd.Parameters.AddWithValue("@Prod_code_ori", cb_prod_code.Text);
                     cmd.Parameters.AddWithValue("@dept_code", lbl_dept_code.Text);
                     cmd.ExecuteNonQuery();
 
@@ -831,7 +887,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         #region Priority 
         private static DataTable GetPriority(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT priority_code , prio_desc FROM pur00h06 WHERE prio_desc LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT priority_code , prio_desc FROM ms_priority WHERE prio_desc LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -863,7 +919,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT priority_code FROM pur00h06 WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT priority_code FROM ms_priority WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -879,7 +935,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT priority_code FROM pur00h06 WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT priority_code FROM ms_priority WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -905,7 +961,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         protected void cb_type_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("Reservation");
-            (sender as RadComboBox).Items.Add("Manual");
+            //(sender as RadComboBox).Items.Add("Manual");
         }
         protected void cb_type_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
@@ -922,7 +978,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -951,7 +1007,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         //    SqlCommand cmd = new SqlCommand();
         //    cmd.Connection = con;
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+        //    cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
         //    SqlDataReader dr;
         //    dr = cmd.ExecuteReader();
         //    while (dr.Read())
@@ -969,7 +1025,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -983,7 +1039,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         #region Warehouse / Storage 
         private static DataTable GetWarehouse(string text, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM ms_warehouse WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -1013,7 +1069,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1030,7 +1086,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1048,7 +1104,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM ms_cost_center " +
                 "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -1072,7 +1128,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1088,7 +1144,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1104,7 +1160,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -1127,7 +1183,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1144,7 +1200,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1166,7 +1222,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1183,7 +1239,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1200,7 +1256,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1222,7 +1278,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1244,7 +1300,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1261,7 +1317,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1288,6 +1344,81 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             }
         }
 
-       
+        #region Refference
+        
+        protected void cb_reff_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
+        {
+            string sql = "SELECT top(20) fleet_doch.doc_code, FORMAT (fleet_doch.doc_date, 'dd-MM-yyyy ') as [Date], fleet_doch.doc_remark " +
+                        "FROM fleet_docd INNER JOIN " +
+                        "fleet_doch ON fleet_docd.doc_code = fleet_doch.doc_code " +
+                        "WHERE(fleet_doch.status_doc <> 4) AND(fleet_doch.tFullSupply = 0) AND(fleet_doch.type_ref <> '1') AND(fleet_docd.part_qty - (ISNULL " +
+                        "((SELECT SUM(tr_purchase_reqD_1.qty) AS Expr1 " +
+                        "FROM      tr_purchase_reqD AS tr_purchase_reqD_1 INNER JOIN " +
+                                      "tr_purchase_reqH AS tr_purchase_reqH_1 ON tr_purchase_reqD_1.pr_code = tr_purchase_reqH_1.pr_code " +
+                        "WHERE(tr_purchase_reqH_1.status_pur <> '4') AND(tr_purchase_reqD_1.Prod_code = fleet_docd.part_code) AND(tr_purchase_reqD_1.no_ref = fleet_docd.doc_code)), 0)) > 0) " +
+                        "AND (fleet_doch.doc_code LIKE + '%')" +
+                        "GROUP BY fleet_doch.doc_code, fleet_doch.doc_date, fleet_doch.doc_remark";
+            SqlDataAdapter adapter = new SqlDataAdapter(sql,
+                ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", e.Text);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            RadComboBox comboBox = (RadComboBox)sender;
+            // Clear the default Item that has been re-created from ViewState at this point.
+            comboBox.Items.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                RadComboBoxItem item = new RadComboBoxItem();
+                item.Text = row["doc_code"].ToString();
+                item.Value = row["doc_code"].ToString();
+                item.Attributes.Add("Date", row["Date"].ToString());
+                item.Attributes.Add("doc_remark", row["doc_remark"].ToString());
+
+                comboBox.Items.Add(item);
+
+                item.DataBind();
+            }
+        }
+
+
+        #endregion
+
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                //GridDataItem item = (GridDataItem)e.Item;
+                var item = e.Item as GridEditFormItem;
+
+                RadComboBox cb_priority = item.FindControl("cb_priority") as RadComboBox;
+                RadComboBox cb_project = item.FindControl("cb_project") as RadComboBox;
+                RadComboBox cb_type_ref = item.FindControl("cb_type_ref") as RadComboBox;
+                RadDatePicker dtp_pr = item.FindControl("dtp_pr") as RadDatePicker;
+
+                //RadTextBox txt_uid = item.FindControl("txt_uid") as RadTextBox;
+                //RadTextBox txt_lastUpdate = item.FindControl("txt_lastUpdate") as RadTextBox;
+                //RadTextBox txt_owner = item.FindControl("txt_owner") as RadTextBox;
+                //RadTextBox txt_printed = item.FindControl("txt_printed") as RadTextBox;
+                //RadTextBox txt_edited = item.FindControl("txt_edited") as RadTextBox;
+
+                if (e.Item.OwnerTableView.IsItemInserted)
+                {
+                    cb_project.Text = public_str.sitename;
+                    dtp_pr.SelectedDate = DateTime.Now;
+                    cb_priority.Text = "High/Urgent";
+                    cb_type_ref.Text = "Reservation";
+
+                    //txt_uid.Text = public_str.uid;
+                    //txt_lastUpdate.Text = string.Format("{0:dd-MM-yyyy}", DateTime.Today);
+                    //txt_owner.Text = public_str.uid;
+                    //txt_printed.Text = "0";
+                    //txt_edited.Text = "0";
+                }
+
+            }
+        }
     }
 }

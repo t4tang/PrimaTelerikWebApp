@@ -42,11 +42,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             if(project != "HOF")
-                cmd.CommandText = "SELECT mtc00h16.unit_code, mtc00h16.model_no, mtc00h16.key_no, mtc00h16.region_code, inv00h09.region_name " +
-                "FROM mtc00h16 INNER JOIN inv00h09 ON mtc00h16.region_code = inv00h09.region_code WHERE mtc00h16.active = '1' AND mtc00h16.region_code = @region_code";
+                cmd.CommandText = "SELECT ms_unit.unit_code, ms_unit.model_no, ms_unit.key_no, ms_unit.region_code, ms_jobsite.region_name " +
+                "FROM ms_unit INNER JOIN ms_jobsite ON ms_unit.region_code = ms_jobsite.region_code WHERE ms_unit.active = '1' AND ms_unit.region_code = @region_code";
             else
-                cmd.CommandText = "SELECT mtc00h16.unit_code, mtc00h16.model_no, mtc00h16.key_no, mtc00h16.region_code, inv00h09.region_name " +
-                "FROM mtc00h16 INNER JOIN inv00h09 ON mtc00h16.region_code = inv00h09.region_code WHERE mtc00h16.active = '1'";
+                cmd.CommandText = "SELECT ms_unit.unit_code, ms_unit.model_no, ms_unit.key_no, ms_unit.region_code, ms_jobsite.region_name " +
+                "FROM ms_unit INNER JOIN ms_jobsite ON ms_unit.region_code = ms_jobsite.region_code WHERE ms_unit.active = '1'";
             
             cmd.Parameters.AddWithValue("@region_code", project);
             cmd.CommandTimeout = 0;
@@ -78,11 +78,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT mtc01h06.unit_code, mtc01h06.region_code, reading_date2, reading_amount1, reading_amount2, wh, reading_km1, reading_km2, " +
-                               "reading_date, broken_hm, reading_amount3, mtc01h06.lastupdate, mtc00h16.reading_code, inv00h09.region_name " +
-                               "FROM mtc01h06, mtc00h16, inv00h09 WHERE mtc01h06.unit_code = mtc00h16.unit_code AND inv00h09.region_code = mtc01h06.region_code " +
-                               "AND(mtc01h06.unit_code = '" + unit_code + "') AND (reading_date = (SELECT Max(mtc01h06.reading_date) " +
-                               "FROM mtc01h06 WHERE mtc01h06.unit_code = '" + unit_code + "'))";
+            cmd.CommandText = "SELECT tr_reading.unit_code, tr_reading.region_code, reading_date2, reading_amount1, reading_amount2, wh, reading_km1, reading_km2, " +
+                               "reading_date, broken_hm, reading_amount3, tr_reading.lastupdate, ms_unit.reading_code, ms_jobsite.region_name " +
+                               "FROM tr_reading, ms_unit, ms_jobsite WHERE tr_reading.unit_code = ms_unit.unit_code AND ms_jobsite.region_code = tr_reading.region_code " +
+                               "AND(tr_reading.unit_code = '" + unit_code + "') AND (reading_date = (SELECT Max(tr_reading.reading_date) " +
+                               "FROM tr_reading WHERE tr_reading.unit_code = '" + unit_code + "'))";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -140,9 +140,9 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT mtc01h06.unit_code, mtc01h06.reading_date, mtc01h06.reading_amount3, mtc01h06.reading_amount1, mtc01h06.unit_code, mtc01h06.wh, mtc01h06.broken_hm, " +
-            "mtc01h06.region_code, mtc01h06.reading_date2, mtc01h06.reading_amount2, mtc01h06.reading_km1, mtc01h06.reading_km2 " +
-            "FROM mtc01h06 WHERE mtc01h06.unit_code = @unit_code AND mtc01h06.reading_date between @start_date AND @end_date ORDER BY mtc01h06.reading_date Desc";
+            cmd.CommandText = "SELECT tr_reading.unit_code, tr_reading.reading_date, tr_reading.reading_amount3, tr_reading.reading_amount1, tr_reading.unit_code, tr_reading.wh, tr_reading.broken_hm, " +
+            "tr_reading.region_code, tr_reading.reading_date2, tr_reading.reading_amount2, tr_reading.reading_km1, tr_reading.reading_km2 " +
+            "FROM tr_reading WHERE tr_reading.unit_code = @unit_code AND tr_reading.reading_date between @start_date AND @end_date ORDER BY tr_reading.reading_date Desc";
             cmd.Parameters.AddWithValue("@unit_code", unit);
             cmd.Parameters.AddWithValue("@start_date", dtp_from.SelectedDate);
             cmd.Parameters.AddWithValue("@end_date", dtp_to.SelectedDate);
@@ -218,10 +218,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT mtc01h06.unit_code, mtc01h06.region_code, inv00h09.region_name, mtc01h06.reading_date2, mtc01h06.reading_amount1, mtc01h06.reading_amount2, " +
-            "mtc01h06.wh, mtc01h06.reading_km1, mtc01h06.reading_km2, mtc01h06.reading_date, mtc01h06.broken_hm, mtc01h06.reading_amount3, mtc01h06.lastupdate " +
-            "FROM mtc01h06 INNER JOIN inv00h09 ON mtc01h06.region_code = inv00h09.region_code WHERE(mtc01h06.unit_code = '" + unit + "') " +
-            "AND(mtc01h06.reading_date = (SELECT MAX(reading_date) AS Expr1 FROM mtc01h06 AS mtc01h06_1 WHERE(unit_code = '" + unit + "'))) ";
+            cmd.CommandText = "SELECT tr_reading.unit_code, tr_reading.region_code, ms_jobsite.region_name, tr_reading.reading_date2, tr_reading.reading_amount1, tr_reading.reading_amount2, " +
+            "tr_reading.wh, tr_reading.reading_km1, tr_reading.reading_km2, tr_reading.reading_date, tr_reading.broken_hm, tr_reading.reading_amount3, tr_reading.lastupdate " +
+            "FROM tr_reading INNER JOIN ms_jobsite ON tr_reading.region_code = ms_jobsite.region_code WHERE(tr_reading.unit_code = '" + unit + "') " +
+            "AND(tr_reading.reading_date = (SELECT MAX(reading_date) AS Expr1 FROM tr_reading AS tr_reading_1 WHERE(unit_code = '" + unit + "'))) ";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -275,7 +275,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
         #region project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -304,7 +304,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -319,7 +319,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -360,11 +360,11 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.ReadingRecording
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT mtc01h06.unit_code, mtc01h06.region_code, reading_date2, reading_amount1, reading_amount2, wh, reading_km1, reading_km2, " +
-                               "reading_date, broken_hm, reading_amount3, mtc01h06.lastupdate, mtc00h16.reading_code, inv00h09.region_name " +
-                               "FROM mtc01h06, mtc00h16, inv00h09 WHERE mtc01h06.unit_code = mtc00h16.unit_code AND inv00h09.region_code = mtc01h06.region_code " +
-                               "AND(mtc01h06.unit_code = '" + (sender as RadComboBox).SelectedValue + "') AND (reading_date = (SELECT Max(mtc01h06.reading_date) " +
-                               "FROM mtc01h06 WHERE mtc01h06.unit_code = '" + (sender as RadComboBox).SelectedValue + "'))";
+            cmd.CommandText = "SELECT tr_reading.unit_code, tr_reading.region_code, reading_date2, reading_amount1, reading_amount2, wh, reading_km1, reading_km2, " +
+                               "reading_date, broken_hm, reading_amount3, tr_reading.lastupdate, ms_unit.reading_code, ms_jobsite.region_name " +
+                               "FROM tr_reading, ms_unit, ms_jobsite WHERE tr_reading.unit_code = ms_unit.unit_code AND ms_jobsite.region_code = tr_reading.region_code " +
+                               "AND(tr_reading.unit_code = '" + (sender as RadComboBox).SelectedValue + "') AND (reading_date = (SELECT Max(tr_reading.reading_date) " +
+                               "FROM tr_reading WHERE tr_reading.unit_code = '" + (sender as RadComboBox).SelectedValue + "'))";
             //cmd.CommandText = "SELECT * FROM mtc00h16 WHERE unit_code = '" + (sender as RadComboBox).SelectedValue + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();

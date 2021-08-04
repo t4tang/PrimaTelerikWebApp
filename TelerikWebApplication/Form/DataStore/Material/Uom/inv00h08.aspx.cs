@@ -32,8 +32,8 @@ namespace TelerikWebApplication.Form.DataStore.Material.Uom
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h08.unit_code, inv00h08.unit_name " +
-                                "FROM inv00h08 WHERE inv00h08.stEdit !=4";
+            cmd.CommandText = "SELECT ms_uom.unit_code, ms_uom.unit_name " +
+                                "FROM ms_uom WHERE ms_uom.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -67,7 +67,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Uom
                     cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = con;
-                    cmd.CommandText = "UPDATE inv00h08 SET unit_name = @unit_name WHERE unit_code = @unit_code";
+                    cmd.CommandText = "UPDATE ms_uom SET unit_name = @unit_name WHERE unit_code = @unit_code";
                     cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("txt_unit_code") as RadTextBox).Text);
                     cmd.Parameters.AddWithValue("@unit_name", (item.FindControl("txt_unit_name") as RadTextBox).Text);
                     //cmd.Parameters.AddWithValue("@lastupdate", (item.FindControl("lastupdate") as RadDateTimePicker).SelectedDate);
@@ -86,7 +86,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Uom
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h08 VALUES (@unit_code,@unit_name)";
+            cmd.CommandText = "INSERT INTO ms_uom VALUES (@unit_code,@unit_name)";
             cmd.Parameters.AddWithValue("@unit_code", (item.FindControl("txt_unit_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@unit_name", (item.FindControl("txt_unit_name") as RadTextBox).Text);
             //cmd.Parameters.AddWithValue("@lastupdate", (item.FindControl("lastupdate") as RadDateTimePicker).SelectedDate);
@@ -104,7 +104,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Uom
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update inv00h08 SET stEdit = 4 where unit_code = @unit_code";
+            cmd.CommandText = "Update ms_uom SET stEdit = 4 where unit_code = @unit_code";
             cmd.Parameters.AddWithValue("@unit_code", productId);
             cmd.ExecuteNonQuery();
             con.Close();

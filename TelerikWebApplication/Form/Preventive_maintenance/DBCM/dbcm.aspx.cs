@@ -68,7 +68,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
         #region Project Prm
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -98,7 +98,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -158,7 +158,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.DBCM
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE mtc01d01 SET remark_activity = @remark_activity, esti_date = @esti_date, " +                                     "esti_time = @esti_time, no_part = @no_part, part_date = @part_date, part_eta = @part_eta "+                                    "WHERE trans_id = @trans_id AND run = @run";
+                cmd.CommandText = "UPDATE tr_machine_conditiondd SET remark_activity = @remark_activity, esti_date = @esti_date, " +                                     "esti_time = @esti_time, no_part = @no_part, part_date = @part_date, part_eta = @part_eta "+                                    "WHERE trans_id = @trans_id AND run = @run";
                 cmd.Parameters.AddWithValue("@trans_id", (item.FindControl("lbl_WO2") as Label).Text);
                 //cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_remark") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@remark_activity", (item.FindControl("txt_activ") as RadTextBox).Text);

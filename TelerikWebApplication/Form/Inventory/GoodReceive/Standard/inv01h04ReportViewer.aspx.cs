@@ -42,7 +42,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT status_lbm, createby, Receiptby, approval FROM inv01h04 WHERE lbm_code = '" + tr_code + "'";
+            cmd.CommandText = "SELECT status_lbm, createby, Receiptby, approval FROM tr_lbmh WHERE lbm_code = '" + tr_code + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -73,7 +73,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
             cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT status_lbm, createby, Receiptby, approval FROM inv01h04 WHERE lbm_code = '" + tr_code + "'";
+            cmd.CommandText = "SELECT status_lbm, createby, Receiptby, approval FROM tr_lbmh WHERE lbm_code = '" + tr_code + "'";
             SqlDataReader sdr;
             sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -93,15 +93,15 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Standard
 
                 if (status == "0" && createby == public_str.user_id)
                 {
-                    cmd.CommandText = "UPDATE inv01h04 SET status_lbm = '" + status + "' + 1 WHERE lbm_code ='" + tr_code + "'";
+                    cmd.CommandText = "UPDATE tr_lbmh SET status_lbm = '" + status + "' + 1 WHERE lbm_code ='" + tr_code + "'";
                 }
                 else if (status == "1" && Receiptby == public_str.user_id)
                 {
-                    cmd.CommandText = "UPDATE inv01h04 SET status_lbm = '" + status + "' + 1 WHERE lbm_code ='" + tr_code + "'";
+                    cmd.CommandText = "UPDATE tr_lbmh SET status_lbm = '" + status + "' + 1 WHERE lbm_code ='" + tr_code + "'";
                 }
                 else if (status == "2" && ApproveBy == public_str.user_id)
                 {
-                    cmd.CommandText = "UPDATE inv01h04 SET status_lbm = '" + status + "' + 1 WHERE lbm_code ='" + tr_code + "'";
+                    cmd.CommandText = "UPDATE tr_lbmh SET status_lbm = '" + status + "' + 1 WHERE lbm_code ='" + tr_code + "'";
                 }
                 
             }

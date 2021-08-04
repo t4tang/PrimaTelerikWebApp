@@ -12,7 +12,7 @@ using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
 {
-    public partial class acc00h10 : System.Web.UI.Page
+    public partial class acc00h12 : System.Web.UI.Page
     {
         public static string koneksi = ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString;
         SqlConnection con = new SqlConnection(koneksi);
@@ -31,9 +31,9 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT     acc00h12.accountgroup, acc00h12.groupname, acc00h18.name, CASE acc00h12.balance WHEN 'D' THEN 'DEBET' ELSE 'KREDIT' END AS balance " +
-                               " FROM acc00h12 INNER JOIN " +
-                                " acc00h18 ON acc00h12.sub_acc_cat = acc00h18.code WHERE acc00h12.stEdit !=4";
+            cmd.CommandText = "SELECT     gl_account_group.accountgroup, gl_account_group.groupname, gl_neraca_saldoh.name, CASE gl_account_group.balance WHEN 'D' THEN 'DEBET' ELSE 'KREDIT' END AS balance " +
+                               " FROM gl_account_group INNER JOIN " +
+                                " gl_neraca_saldoh ON gl_account_group.sub_acc_cat = gl_neraca_saldoh.code WHERE gl_account_group.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -63,7 +63,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update acc00h12 SET stEdit = 4 where accountgroup = @accountgroup";
+            cmd.CommandText = "Update gl_account_group SET stEdit = 4 where accountgroup = @accountgroup";
             cmd.Parameters.AddWithValue("@accountgroup", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -76,7 +76,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h12 (accountgroup,groupname,balance,sub_acc_cat,lastupdate,userid,stEdit) " +
+            cmd.CommandText = "INSERT INTO gl_account_group (accountgroup,groupname,balance,sub_acc_cat,lastupdate,userid,stEdit) " +
                                 "VALUES (@accountgroup,@groupname,  @balance, @sub_acc_cat, getdate(),@userid,'0')";
             cmd.Parameters.AddWithValue("@accountgroup", (item.FindControl("txt_account") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@groupname", (item.FindControl("txt_gp_name") as RadTextBox).Text);
@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h12 SET groupname = @groupname, balance = @balance, sub_acc_cat = @sub_acc_cat, LastUpdate = getdate(), userid = @userid " + 
+            cmd.CommandText = "UPDATE gl_account_group SET groupname = @groupname, balance = @balance, sub_acc_cat = @sub_acc_cat, LastUpdate = getdate(), userid = @userid " + 
                                 "WHERE accountgroup = @accountgroup";
             cmd.Parameters.AddWithValue("@accountgroup", (item.FindControl("txt_account") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@groupname", (item.FindControl("txt_gp_name") as RadTextBox).Text);
@@ -118,9 +118,9 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             }
         }
 
-        private static DataTable Getacc00h18(string text)
+        private static DataTable Getgl_neraca_saldoh(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT code, name FROM acc00h18 where name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT code, name FROM gl_neraca_saldoh where name LIKE @text + '%'",
              ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -131,7 +131,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
         }
         protected void cb_sub_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = Getacc00h18(e.Text);
+            DataTable data = Getgl_neraca_saldoh(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -149,7 +149,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select code from acc00h18 where name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select code from gl_neraca_saldoh where name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -165,7 +165,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select code from acc00h18 where name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select code from gl_neraca_saldoh where name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -211,7 +211,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT code FROM acc00h18 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT code FROM gl_neraca_saldoh WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

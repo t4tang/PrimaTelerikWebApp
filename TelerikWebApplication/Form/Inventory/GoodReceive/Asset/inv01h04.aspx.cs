@@ -18,6 +18,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
         SqlDataAdapter sda = new SqlDataAdapter();
         SqlCommand cmd = new SqlCommand();
 
+        private static bool isExceed = false;
         private const int ItemsPerRequest = 10;
 
         public static string tr_code = null;
@@ -107,7 +108,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
         #region project
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -136,7 +137,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -255,6 +256,40 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
         }
+        protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Edit")
+            {
+                tr_code = null;
+                GridDataItem item = e.Item as GridDataItem;
+                string kode = item["lbm_code"].Text;
+                tr_code = kode;
+                selected_project = item["region_code"].Text;
+                selected_wh_code = item["warehouse"].Text;
+
+                Session["actionHeader"] = "headerEdit";
+                Session["actionDetail"] = null;
+            }
+        }
+
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                //GridDataItem item = (GridDataItem)e.Item;
+                var item = e.Item as GridEditFormItem;
+                RadComboBox cb_project = item.FindControl("cb_project") as RadComboBox;
+                RadDatePicker dtp_gr = item.FindControl("dtp_gr") as RadDatePicker;
+
+                if (e.Item.OwnerTableView.IsItemInserted)
+                {
+                    cb_project.Text = public_str.sitename;
+                    dtp_gr.SelectedDate = DateTime.Now;
+                }
+
+            }
+
+        }
         #endregion
 
         #region Detail
@@ -372,7 +407,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from inv01d04 where prod_code = @prod_code and lbm_code = @lbm_code";
+                cmd.CommandText = "delete from tr_lbmd where prod_code = @prod_code and lbm_code = @lbm_code";
                 cmd.Parameters.AddWithValue("@lbm_code", tr_code);
                 cmd.Parameters.AddWithValue("@prod_code", partCode);
                 cmd.ExecuteNonQuery();
@@ -457,115 +492,30 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
                 e.Canceled = true;
             }
 
-            //try
-            //{
-            //    con.Open();
-            //    GridEditableItem item = (GridEditableItem)e.Item;
-            //    cmd = new SqlCommand();
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    cmd.Connection = con;
-            //    cmd.CommandText = "sp_save_goods_receiveD";
-            //    cmd.Parameters.AddWithValue("@lbm_code", tr_code);
-            //    cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lblProdCode") as Label).Text);
-            //    cmd.Parameters.AddWithValue("@wh_code", selected_wh_code);
-            //    cmd.Parameters.AddWithValue("@qty_receive", Convert.ToDouble((item.FindControl("txtPartQty") as RadTextBox).Text));
-            //    cmd.Parameters.AddWithValue("@ref_code", selected_reff_code);
-            //    cmd.Parameters.AddWithValue("@koLok", (item.FindControl("cbKolok") as RadComboBox).Text);
-            //    cmd.Parameters.AddWithValue("@UID", public_str.uid);
-            //    cmd.Parameters.AddWithValue("@SatQty", (item.FindControl("lblUom") as Label).Text);
-            //    cmd.Parameters.AddWithValue("@remark", (item.FindControl("txtRemark_d") as RadTextBox).Text);
-            //    cmd.Parameters.AddWithValue("@twarranty", tWarannty_check);
-            //    cmd.Parameters.AddWithValue("@code", "GR");
-
-            //    cmd.ExecuteNonQuery();
-            //    con.Close();
-
-            //    notif.Show();
-            //}
-            //catch (Exception ex)
-            //{
-            //    con.Close();
-            //    RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
-            //    e.Canceled = true;
-            //}
+        }
+        protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                Session["actionDetail"] = "detailNew";
+            }
+            else if (e.CommandName == RadGrid.EditCommandName)
+            {
+                Session["actionDetail"] = "detailEdit";
+            }
         }
         #endregion
-
-        //#region Cost Center
-        //protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
-        //{
-        //    SqlConnection con = new SqlConnection(
-        //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-
-        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
-        //        "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
-        //    adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
-        //    adapter.SelectCommand.Parameters.AddWithValue("@text", name);
-        //    DataTable dt = new DataTable();
-        //    adapter.Fill(dt);
-
-        //    cb.DataTextField = "name";
-        //    cb.DataValueField = "code";
-        //    cb.DataSource = dt;
-        //    cb.DataBind();
-        //}
-        //protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        //{
-        //    RadComboBox cb = (RadComboBox)sender;
-        //    GridEditableItem item = (GridEditableItem)cb.NamingContainer;
-        //    RadComboBox cb_project = (RadComboBox)item.FindControl("cb_project");
-
-        //    (sender as RadComboBox).Text = "";
-        //    LoadCostCtr(e.Text, selected_project, (sender as RadComboBox));
-
-        //}
-        //protected void cb_cost_center_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        //{
-        //    con.Open();
-        //    SqlCommand cmd = new SqlCommand();
-        //    cmd.Connection = con;
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
-        //    SqlDataReader dr;
-        //    dr = cmd.ExecuteReader();
-        //    while (dr.Read())
-        //    {
-        //        (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
-        //        selected_cost_ctr = dr["CostCenter"].ToString();
-        //    }
-
-        //    dr.Close();
-        //    con.Close();
-        //}
-        //protected void cb_cost_center_PreRender(object sender, EventArgs e)
-        //{
-        //    con.Open();
-        //    SqlCommand cmd = new SqlCommand();
-        //    cmd.Connection = con;
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
-        //    SqlDataReader dr;
-        //    dr = cmd.ExecuteReader();
-        //    while (dr.Read())
-        //    {
-        //        (sender as RadComboBox).SelectedValue = dr["CostCenter"].ToString();
-        //        selected_cost_ctr = dr["CostCenter"].ToString();
-        //    }
-        //    dr.Close();
-        //    con.Close();
-        //}
-        //#endregion
-
+        
         #region location
         protected void LoadLocation(string name, string storage, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT inv00h12.KdLok, inv00h12.NmLok, inv00h12.lastupdate, inv00h12.userid, inv00h12.stEdit, inv00h12.wh_code " +
-            "FROM inv00h12 LEFT OUTER JOIN inv00d01 ON inv00h12.NmLok = inv00d01.KoLok " +
-            "WHERE  (inv00h12.wh_code = @wh_code) AND (inv00d01.QACT = 0 OR inv00d01.KoLok IS NULL) AND inv00h12.stEdit <> '4'" +
-             "AND inv00h12.NmLok LIKE @text + '%'", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT ms_lokbar.KdLok, ms_lokbar.NmLok, ms_lokbar.lastupdate, ms_lokbar.userid, ms_lokbar.stEdit, ms_lokbar.wh_code " +
+            "FROM ms_lokbar LEFT OUTER JOIN ms_product_detail ON ms_lokbar.NmLok = ms_product_detail.KoLok " +
+            "WHERE  (ms_lokbar.wh_code = @wh_code) AND (ms_product_detail.QACT = 0 OR ms_product_detail.KoLok IS NULL) AND ms_lokbar.stEdit <> '4'" +
+             "AND ms_lokbar.NmLok LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@wh_code", storage);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
             DataTable dt = new DataTable();
@@ -590,7 +540,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_code FROM ms_product WHERE spec = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -600,10 +550,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
         }
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec] FROM [inv00h01]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            //string sql = "SELECT TOP (100)[prod_code], [spec] FROM [ms_product]  WHERE stEdit != '4' AND spec LIKE @spec + '%'";
+            string sql = "select Prod_code, Spec from tr_purchaseD where po_code = '" + selected_reff_code + "'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
-            adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
+            //adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
 
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -634,7 +585,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT a.spec,a.unit,b.KoLok as lokasi,ISNULL(b.QACT,0) AS QACT FROM inv00h01 a, inv00d01 b WHERE a.prod_code = b.prod_code " +
+                cmd.CommandText = "SELECT a.spec,a.unit,b.KoLok as lokasi,ISNULL(b.QACT,0) AS QACT FROM ms_product a, ms_product_detail b WHERE a.prod_code = b.prod_code " +
                     "AND b.wh_code = '" + selected_wh_code + "' AND a.prod_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -656,17 +607,25 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
                         txt_qty.Value = 0;
                         //txt_soh.Text = dtr["QACT"].ToString();
                     }
-                    else if (Session["actionDetail"].ToString() == "detailEdit")
-                    {
-                        //Label lbl_ori_loc = (Label)item.FindControl("lbl_ori_loc_edit");
-                        RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
-                        RadComboBox cb_uom = (RadComboBox)item.FindControl("cb_uom_d");
-                        //RadNumericTextBox txt_soh = (RadNumericTextBox)item.FindControl("txt_soh");
+                    //else if (Session["actionDetail"].ToString() == "detailEdit")
+                    //{
+                    //    //Label lbl_ori_loc = (Label)item.FindControl("lbl_ori_loc_edit");
+                    //    RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txt_qty");
+                    //    RadComboBox cb_uom = (RadComboBox)item.FindControl("cb_uom_d");
+                    //    //RadNumericTextBox txt_soh = (RadNumericTextBox)item.FindControl("txt_soh");
 
-                        //lbl_ori_loc.Text = dtr["lokasi"].ToString();
-                        cb_uom.Text = dtr["unit"].ToString();
+                    //    //lbl_ori_loc.Text = dtr["lokasi"].ToString();
+                    //    cb_uom.Text = dtr["unit"].ToString();
+                    //    txt_qty.Value = 0;
+                    //    //txt_soh.Text = dtr["QACT"].ToString();
+                    //}
+                    else
+                    {
+                        RadNumericTextBox txt_qty = (RadNumericTextBox)item.FindControl("txtPartQty");
+                        Label lb_uom = (Label)item.FindControl("lblUom");
+
+                        lb_uom.Text = dtr["unit"].ToString();
                         txt_qty.Value = 0;
-                        //txt_soh.Text = dtr["QACT"].ToString();
                     }
                 }
 
@@ -682,31 +641,11 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
 
         }
         #endregion
-        protected void e_chkWarranty_CheckedChanged(object sender, EventArgs e)
-        {
-            if((sender as CheckBox).Checked == true)
-            {
-                tWarannty_check = "1";
-            }
-            else
-            {
-                tWarannty_check = "0";
-            }
-        }
-
-        //protected void RadGrid2_PreRender(object sender, EventArgs e)
-        //{
-        //    if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
-        //    {
-        //        (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
-        //        (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
-        //    }
-        //}
-
+        
         #region Supplier
         private static DataTable GetSupplier(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select supplier_code, supplier_name from pur00h01 where supplier_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select supplier_code, supplier_name from ms_supplier where supplier_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -735,7 +674,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select supplier_code from pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select supplier_code from ms_supplier WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -755,7 +694,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select supplier_code from pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select supplier_code from ms_supplier WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -773,7 +712,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -802,7 +741,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
         //    SqlCommand cmd = new SqlCommand();
         //    cmd.Connection = con;
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+        //    cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
         //    SqlDataReader dr;
         //    dr = cmd.ExecuteReader();
         //    while (dr.Read())
@@ -820,12 +759,13 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                selected_project = dr[0].ToString();
             }
             dr.Close();
             con.Close();
@@ -835,7 +775,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
         #region Warehouse / Storage 
         private static DataTable GetWarehouse(string text, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM ms_warehouse WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -865,7 +805,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -890,10 +830,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "SELECT inv00h12.KdLok, inv00h12.NmLok, inv00h12.lastupdate, inv00h12.userid, inv00h12.stEdit, inv00h12.wh_code " +
-                                "FROM inv00h12 LEFT OUTER JOIN inv00d01 ON inv00h12.NmLok = inv00d01.KoLok " +
-                                "WHERE  (inv00h12.wh_code = '" + (sender as RadComboBox).SelectedValue + "') AND " +
-                                "inv00h12.stEdit <> '4' AND inv00d01.prod_code = '" + lblProdCode.Text + "' ";
+                cmd.CommandText = "SELECT ms_lokbar.KdLok, ms_lokbar.NmLok, ms_lokbar.lastupdate, ms_lokbar.userid, ms_lokbar.stEdit, ms_lokbar.wh_code " +
+                                "FROM ms_lokbar LEFT OUTER JOIN ms_product_detail ON ms_lokbar.NmLok = ms_product_detail.KoLok " +
+                                "WHERE  (ms_lokbar.wh_code = '" + (sender as RadComboBox).SelectedValue + "') AND " +
+                                "ms_lokbar.stEdit <> '4' AND ms_product_detail.prod_code = '" + lblProdCode.Text + "' ";
                 //SqlDataReader dr;
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
@@ -912,7 +852,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -923,16 +863,14 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             con.Close();
         }
         #endregion
-
         
-
         #region Approval
         protected void LoadManPower(string name, string projectID, RadComboBox cb)
         {
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -955,7 +893,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -972,7 +910,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -994,7 +932,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1011,7 +949,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1028,7 +966,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1050,7 +988,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1072,7 +1010,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1089,7 +1027,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1101,66 +1039,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             con.Close();
         }
         #endregion
-
-        //#region GR Source
-        //protected void cb_from_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
-        //{
-        //    (sender as RadComboBox).Items.Add("Supplier");
-        //    //(sender as RadComboBox).Items.Add("Overhaul");
-        //    (sender as RadComboBox).Items.Add("Consigment");
-        //    (sender as RadComboBox).Items.Add("Return");
-        //    (sender as RadComboBox).Items.Add("Assembly");
-        //}
-
-        //protected void cb_from_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-        //{
-        //    if ((sender as RadComboBox).Text == "Supplier")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "1";
-        //    }
-        //    else if ((sender as RadComboBox).Text == "Consigment")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "2";
-        //    }
-        //    else if ((sender as RadComboBox).Text == "Return")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "3";
-        //    }
-        //    else if ((sender as RadComboBox).Text == "Assembly")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "4";
-        //    }
-        //    //else if ((sender as RadComboBox).Text == "Overhaul")
-        //    //{
-        //    //    (sender as RadComboBox).SelectedValue = "5";
-        //    //}
-        //}
-
-        //protected void cb_from_PreRender(object sender, EventArgs e)
-        //{
-        //    if ((sender as RadComboBox).Text == "Return")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "1";
-        //    }
-        //    else if ((sender as RadComboBox).Text == "Consigment")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "2";
-        //    }
-        //    else if ((sender as RadComboBox).Text == "Supplier")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "3";
-        //    }
-        //    else if ((sender as RadComboBox).Text == "Assembly")
-        //    {
-        //        (sender as RadComboBox).SelectedValue = "4";
-        //    }
-        //    //else if ((sender as RadComboBox).Text == "Overhaul")
-        //    //{
-        //    //    (sender as RadComboBox).SelectedValue = "5";
-        //    //}
-        //}
-        //#endregion
-
+                
         #region Refferences
 
         protected void LoadReff(string po_code, string project, string vendor, RadComboBox cb)
@@ -1221,6 +1100,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             while (dr.Read())
             {
                 (sender as RadComboBox).Text = dr["po_code"].ToString();
+                selected_reff_code= dr["po_code"].ToString();
                 txt_reff_date.Text = dr["Po_date"].ToString();
                 cb_costcenter.Text = dr["CostCenterName"].ToString();
                 txt_remark.Text = dr["remark"].ToString();
@@ -1264,203 +1144,6 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             return dtValues;
         }
         #endregion
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            GridEditableItem item = (GridEditableItem)btn.NamingContainer;
-
-            RadDatePicker dtp_gr = (RadDatePicker)item.FindControl("dtp_gr");
-            CheckBox chk_posting =(CheckBox)item.FindControl("chk_posting");
-            RadTextBox txt_gr_number = (RadTextBox)item.FindControl("txt_gr_number");
-            RadComboBox cb_warehouse = (RadComboBox)item.FindControl("cb_warehouse");
-            RadTextBox txt_delivery_note = (RadTextBox)item.FindControl("txt_delivery_note");
-            RadTextBox txt_remark = (RadTextBox)item.FindControl("txt_remark");
-            RadComboBox cb_ref = (RadComboBox)item.FindControl("cb_ref");
-            RadComboBox cb_supplier = (RadComboBox)item.FindControl("cb_supplier");
-            RadComboBox cb_createdBy = (RadComboBox)item.FindControl("cb_createdBy");
-            RadComboBox cb_received = (RadComboBox)item.FindControl("cb_received");
-            RadComboBox cb_approved = (RadComboBox)item.FindControl("cb_approved");
-            RadComboBox cb_costcenter = (RadComboBox)item.FindControl("cb_costcenter");
-            RadComboBox cb_project = (RadComboBox)item.FindControl("cb_project");
-            RadGrid RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
-            Button btnCancel = (Button)item.FindControl("btnCancel");
-
-            long maxNo;
-            string run = null;
-            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_gr.SelectedDate);
-
-            try
-            {
-                string x = dtp_gr.SelectedDate.Value.ToString("MM");
-                string y = public_str.perend.Substring(3, 2);
-
-                if (chk_posting.Checked == true)
-                {
-                    RadWindowManager2.RadAlert("This transaction has been posted", 500, 200, "Error", null, "~/Images/error.png");
-                    return;
-                }
-                else if (x != y)
-                {
-                    RadWindowManager2.RadAlert("Transaction date outside the transaction period", 500, 200, "Error", null, "~/Images/error.png");
-                    return;
-                }
-
-                if (Session["actionHeader"].ToString() == "headerEdit")
-                {
-                    run = txt_gr_number.Text;
-
-                }
-                else
-                {
-                    con.Open();
-                    SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h04.lbm_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                       "FROM inv01h04 WHERE LEFT(inv01h04.lbm_code, 4) ='GR01' " +
-                       "AND SUBSTRING(inv01h04.lbm_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                       "AND SUBSTRING(inv01h04.lbm_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
-                    sdr = cmd.ExecuteReader();
-                    if (sdr.HasRows == false)
-                    {
-                        //throw new Exception();
-                        run = "GR01" + dtp_gr.SelectedDate.Value.Year + dtp_gr.SelectedDate.Value.Month + "0001";
-                    }
-                    else if (sdr.Read())
-                    {
-                        maxNo = Convert.ToInt32(sdr[0].ToString());
-                        run = "GR01" +
-                            (dtp_gr.SelectedDate.Value.Year.ToString()).Substring(dtp_gr.SelectedDate.Value.Year.ToString().Length - 2) +
-                            ("0000" + dtp_gr.SelectedDate.Value.Month).Substring(("0000" + dtp_gr.SelectedDate.Value.Month).Length - 2, 2) +
-                            ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
-                    }
-                    con.Close();
-                }
-                txt_gr_number.Text = run;
-
-                con.Open();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
-                cmd.CommandText = "sp_save_goods_receiveH";
-                cmd.Parameters.AddWithValue("@trans_code", "5");
-                cmd.Parameters.AddWithValue("@lbm_code", run);
-                cmd.Parameters.AddWithValue("@lbm_date", string.Format("{0:yyyy-MM-dd}", dtp_gr.SelectedDate.Value));
-                cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
-                cmd.Parameters.AddWithValue("@sj", txt_delivery_note.Text);
-                cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
-                cmd.Parameters.AddWithValue("@ref_code", cb_ref.Text);
-                cmd.Parameters.AddWithValue("@userid", public_str.uid);
-                cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
-                cmd.Parameters.AddWithValue("@cust_name", cb_supplier.Text);
-                //cmd.Parameters.AddWithValue("@ref_date", string.Format("{0:yyyy-MM-dd}", txt_reff_date.Text));
-                cmd.Parameters.AddWithValue("@createby", cb_createdBy.SelectedValue);
-                cmd.Parameters.AddWithValue("@Receiptby", cb_received.SelectedValue);
-                cmd.Parameters.AddWithValue("@approval", cb_approved.SelectedValue);
-                cmd.Parameters.AddWithValue("@dept_code", cb_costcenter.SelectedValue);
-                cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
-                cmd.Parameters.AddWithValue("@Owner", public_str.uid);
-                cmd.Parameters.AddWithValue("@Lvl", public_str.level);
-                cmd.Parameters.AddWithValue("@doc_type", "1");
-
-                cmd.ExecuteNonQuery();
-
-                //Save Detail
-
-                foreach (GridDataItem itemD in RadGrid2.MasterTableView.Items)
-                {
-                    cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = con;
-                    cmd.CommandText = "sp_save_goods_receive_assetD";
-                    cmd.Parameters.AddWithValue("@lbm_code", run);
-                    cmd.Parameters.AddWithValue("@prod_code", (itemD.FindControl("lblProdCode") as Label).Text);
-                    cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
-                    cmd.Parameters.AddWithValue("@qty_receive", Convert.ToDouble((itemD.FindControl("txtPartQty") as RadTextBox).Text));
-                    cmd.Parameters.AddWithValue("@ref_code", cb_ref.Text);
-                    cmd.Parameters.AddWithValue("@koLok", (itemD.FindControl("lblKoLok") as Label).Text);
-                    cmd.Parameters.AddWithValue("@UID", public_str.uid);
-                    cmd.Parameters.AddWithValue("@SatQty", (itemD.FindControl("lblUom") as Label).Text);
-                    cmd.Parameters.AddWithValue("@remark", (itemD.FindControl("txtRemark") as RadTextBox).Text);
-                    cmd.Parameters.AddWithValue("@code", "GR");
-                    if ((itemD.FindControl("chkWarranty") as CheckBox).Checked == true)
-                    {
-                        cmd.Parameters.AddWithValue("@twarranty", 1);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@twarranty", 0);
-                    }
-
-                    cmd.ExecuteNonQuery();
-
-                }
-                
-
-                notif.Text = "Data berhasil disimpan";
-                notif.Title = "Notification";
-                notif.Show();
-                txt_gr_number.Text = run;
-                (sender as Button).Text = "Update";
-                btnCancel.Text = "Close";
-
-                if (Session["actionHeader"].ToString() == "headerEdit")
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                }
-                else
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                }
-                inv01h04.tr_code = run;
-                inv01h04.selected_project = cb_project.SelectedValue;
-
-            }
-            catch (System.Exception ex)
-            {
-                con.Close();
-                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
-            }
-            finally
-            {
-                con.Close();                
-
-                if (Session["actionHeader"].ToString() == "headerEdit")
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                }
-                else
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                }
-                inv01h04.tr_code = run;
-                inv01h04.selected_project = cb_project.SelectedValue;
-            }
-        }
-
-        protected void btnNew_Click(object sender, ImageClickEventArgs e)
-        {
-            Session["TableDetail"] = null;
-            Session["actionHeader"] = "headerNew";
-            RadGrid1.MasterTableView.IsItemInserted = true;
-            RadGrid1.MasterTableView.Rebind();
-        }
-
-        protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
-        {
-            if (e.CommandName == "Edit")
-            {
-                tr_code = null;
-                GridDataItem item = e.Item as GridDataItem;
-                string kode = item["lbm_code"].Text;
-                tr_code = kode;
-                selected_project = item["region_code"].Text;
-                selected_wh_code = item["warehouse"].Text;
-
-                Session["actionHeader"] = "headerEdit";
-                Session["actionDetail"] = null;
-            }
-        }
-
-        
 
         #region Cost Center
         protected void LoadCostCtr(string name, string projectID, RadComboBox cb)
@@ -1468,7 +1151,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM ms_cost_center " +
                 "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -1492,7 +1175,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1507,7 +1190,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1520,18 +1203,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
 
         #endregion
 
-        protected void RadGrid2_ItemCommand(object sender, GridCommandEventArgs e)
-        {
-            if (e.CommandName == RadGrid.InitInsertCommandName)
-            {
-                Session["actionDetail"] = "detailNew";
-            }
-            else if (e.CommandName == RadGrid.EditCommandName)
-            {
-                Session["actionDetail"] = "detailEdit";
-            }
-        }
-
+        #region Journal
         protected void RadGrid3_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
            
@@ -1577,6 +1249,246 @@ namespace TelerikWebApplication.Form.Inventory.GoodReceive.Asset
                 (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
             }
         }
+
+        #endregion
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            GridEditableItem item = (GridEditableItem)btn.NamingContainer;
+
+            RadDatePicker dtp_gr = (RadDatePicker)item.FindControl("dtp_gr");
+            CheckBox chk_posting = (CheckBox)item.FindControl("chk_posting");
+            RadTextBox txt_gr_number = (RadTextBox)item.FindControl("txt_gr_number");
+            RadComboBox cb_warehouse = (RadComboBox)item.FindControl("cb_warehouse");
+            RadTextBox txt_delivery_note = (RadTextBox)item.FindControl("txt_delivery_note");
+            RadTextBox txt_remark = (RadTextBox)item.FindControl("txt_remark");
+            RadComboBox cb_ref = (RadComboBox)item.FindControl("cb_ref");
+            RadComboBox cb_supplier = (RadComboBox)item.FindControl("cb_supplier");
+            RadComboBox cb_createdBy = (RadComboBox)item.FindControl("cb_createdBy");
+            RadComboBox cb_received = (RadComboBox)item.FindControl("cb_received");
+            RadComboBox cb_approved = (RadComboBox)item.FindControl("cb_approved");
+            RadComboBox cb_costcenter = (RadComboBox)item.FindControl("cb_costcenter");
+            RadComboBox cb_project = (RadComboBox)item.FindControl("cb_project");
+            RadGrid RadGrid2 = (RadGrid)item.FindControl("RadGrid2");
+            RadGrid RadGrid3 = (RadGrid)item.FindControl("RadGrid3");
+            Button btnCancel = (Button)item.FindControl("btnCancel");
+
+            long maxNo;
+            string run = null;
+            string trDate = string.Format("{0:dd/MM/yyyy}", dtp_gr.SelectedDate);
+
+            try
+            {
+                if (isExceed == true)
+                {
+                    RadWindowManager2.RadAlert("Transaction can not be proccess", 500, 200, "Error", null, "~/Images/error.png");
+                    return;
+                }
+                else
+                {
+                    string x = dtp_gr.SelectedDate.Value.ToString("MM");
+                    string y = public_str.perend.Substring(3, 2);
+
+                    if (chk_posting.Checked == true)
+                    {
+                        RadWindowManager2.RadAlert("This transaction has been posted", 500, 200, "Error", null, "~/Images/error.png");
+                        return;
+                    }
+                    else if (x != y)
+                    {
+                        RadWindowManager2.RadAlert("Transaction date outside the transaction period", 500, 200, "Error", null, "~/Images/error.png");
+                        return;
+                    }
+
+                    if (Session["actionHeader"].ToString() == "headerEdit")
+                    {
+                        run = txt_gr_number.Text;
+
+                    }
+                    else
+                    {
+                        con.Open();
+                        SqlDataReader sdr;
+                        cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_lbmh.lbm_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                           "FROM tr_lbmh WHERE LEFT(tr_lbmh.lbm_code, 4) ='GR01' " +
+                           "AND SUBSTRING(tr_lbmh.lbm_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                           "AND SUBSTRING(tr_lbmh.lbm_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                        sdr = cmd.ExecuteReader();
+                        if (sdr.HasRows == false)
+                        {
+                            //throw new Exception();
+                            run = "GR01" + dtp_gr.SelectedDate.Value.Year + dtp_gr.SelectedDate.Value.Month + "0001";
+                        }
+                        else if (sdr.Read())
+                        {
+                            maxNo = Convert.ToInt32(sdr[0].ToString());
+                            run = "GR01" +
+                                (dtp_gr.SelectedDate.Value.Year.ToString()).Substring(dtp_gr.SelectedDate.Value.Year.ToString().Length - 2) +
+                                ("0000" + dtp_gr.SelectedDate.Value.Month).Substring(("0000" + dtp_gr.SelectedDate.Value.Month).Length - 2, 2) +
+                                ("0000" + maxNo).Substring(("0000" + maxNo).Length - 4, 4);
+                        }
+                        con.Close();
+                    }
+                    txt_gr_number.Text = run;
+
+                    con.Open();
+                    cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.CommandText = "sp_save_goods_receiveH";
+                    cmd.Parameters.AddWithValue("@trans_code", "5");
+                    cmd.Parameters.AddWithValue("@lbm_code", run);
+                    cmd.Parameters.AddWithValue("@lbm_date", string.Format("{0:yyyy-MM-dd}", dtp_gr.SelectedDate.Value));
+                    cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+                    cmd.Parameters.AddWithValue("@sj", txt_delivery_note.Text);
+                    cmd.Parameters.AddWithValue("@remark", txt_remark.Text);
+                    cmd.Parameters.AddWithValue("@ref_code", cb_ref.Text);
+                    cmd.Parameters.AddWithValue("@userid", public_str.uid);
+                    cmd.Parameters.AddWithValue("@cust_code", cb_supplier.SelectedValue);
+                    cmd.Parameters.AddWithValue("@cust_name", cb_supplier.Text);
+                    //cmd.Parameters.AddWithValue("@ref_date", string.Format("{0:yyyy-MM-dd}", txt_reff_date.Text));
+                    cmd.Parameters.AddWithValue("@createby", cb_createdBy.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Receiptby", cb_received.SelectedValue);
+                    cmd.Parameters.AddWithValue("@approval", cb_approved.SelectedValue);
+                    cmd.Parameters.AddWithValue("@dept_code", cb_costcenter.SelectedValue);
+                    cmd.Parameters.AddWithValue("@region_code", cb_project.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Owner", public_str.uid);
+                    cmd.Parameters.AddWithValue("@Lvl", public_str.level);
+                    cmd.Parameters.AddWithValue("@doc_type", "1");
+
+                    cmd.ExecuteNonQuery();
+
+                    //Save Detail
+
+                    foreach (GridDataItem itemD in RadGrid2.MasterTableView.Items)
+                    {
+                        cmd = new SqlCommand();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = con;
+                        cmd.CommandText = "sp_save_goods_receive_assetD";
+                        cmd.Parameters.AddWithValue("@lbm_code", run);
+                        cmd.Parameters.AddWithValue("@prod_code", (itemD.FindControl("cbProdCode") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@wh_code", cb_warehouse.SelectedValue);
+                        cmd.Parameters.AddWithValue("@qty_receive", Convert.ToDouble((itemD.FindControl("txtPartQty") as RadTextBox).Text));
+                        cmd.Parameters.AddWithValue("@ref_code", cb_ref.Text);
+                        cmd.Parameters.AddWithValue("@koLok", (itemD.FindControl("cbKolok") as RadComboBox).Text);
+                        cmd.Parameters.AddWithValue("@UID", public_str.uid);
+                        cmd.Parameters.AddWithValue("@SatQty", (itemD.FindControl("lblUom") as Label).Text);
+                        cmd.Parameters.AddWithValue("@remark", (itemD.FindControl("txtRemark") as RadTextBox).Text);
+                        cmd.Parameters.AddWithValue("@code", "GR");
+                        if ((itemD.FindControl("chkWarranty") as CheckBox).Checked == true)
+                        {
+                            cmd.Parameters.AddWithValue("@twarranty", 1);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@twarranty", 0);
+                        }
+
+                        cmd.ExecuteNonQuery();
+
+                    }
+                                        
+                    notif.Show("Data berhasil disimpan");
+                    txt_gr_number.Text = run;
+                    (sender as Button).Text = "Update";
+                    btnCancel.Text = "Close";
+
+                    if (Session["actionHeader"].ToString() == "headerEdit")
+                    {
+                        ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    }
+                    tr_code = run;
+                    selected_project = cb_project.SelectedValue;
+                }
+
+                notif.Show("Data saved");
+                txt_gr_number.Text = run;
+
+                if ((sender as Button).Text == "Update")
+                {
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                }
+                else
+                {                    
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    (sender as Button).Text = "Update";
+                    btnCancel.Text = "Close";
+                }
+            }
+            catch (System.Exception ex)
+            {
+                con.Close();
+                RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
+            }
+            finally
+            {
+                con.Close();
+                inv01h04.tr_code = run;
+                inv01h04.selected_project = cb_project.SelectedValue;
+                RadGrid3.DataSource = GetDataJournalTable(tr_code);
+                RadGrid3.MasterTableView.DataBind();
+            }
+        }
+
+        protected void btnNew_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["TableDetail"] = null;
+            Session["actionHeader"] = "headerNew";
+            RadGrid1.MasterTableView.IsItemInserted = true;
+            RadGrid1.MasterTableView.Rebind();
+        }
+
+        protected void validasi_jumlah(object sender, EventArgs e)
+        {
+            try
+            {
+                double qtySisa = 0;
+                double qtyReceive = 0;
+
+                RadTextBox tb = (RadTextBox)sender;
+                GridEditableItem item = (GridEditableItem)tb.NamingContainer;
+                RadTextBox txtPartQtySisa = (RadTextBox)item.FindControl("txtPartQtySisa");
+
+                qtySisa = Convert.ToDouble(txtPartQtySisa.Text);
+                qtyReceive = Convert.ToDouble((sender as RadTextBox).Text);
+
+                if (qtyReceive > qtySisa)
+                {
+                    (sender as RadTextBox).ForeColor = System.Drawing.Color.Red;
+                    notif.TitleIcon = "info";
+                    notif.ContentIcon = "info";
+                    notif.Show("Receive quantity exceeds the purchase quantity");
+                    isExceed = true;
+                }
+                else
+                {
+                    //rGrid2.Controls.Add(new LiteralControl(string.Format("<span style='color:red'>{0}</span>", DBNull.Value)));
+                    (sender as RadTextBox).ForeColor = System.Drawing.Color.Black;
+                    isExceed = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language=\"javascript\">");
+                if (ex.InnerException == null)
+                {
+                    Response.Write("alert(\"" + ex.Message.ToString() + "\");");
+                }
+                else
+                {
+                    Response.Write("alert(\"" + ex.InnerException.Message.ToString() + "\");");
+                }
+                Response.Write("</script>");
+            }
+
+        }
+
     }
 
 }

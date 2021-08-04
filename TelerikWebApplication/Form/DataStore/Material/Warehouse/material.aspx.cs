@@ -29,9 +29,9 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00d01.wh_code, inv00d01.prod_code, inv00h01.spec, inv00h01.unit, inv00d01.QACT, inv00d01.KoLok, " +
-                              "inv00d01.qtyMax, inv00d01.qtyMin FROM inv00d01 INNER JOIN inv00h01 ON inv00d01.prod_code = inv00h01.prod_code " +
-                              "Where inv00d01.wh_code = '" + wh_code + "'";
+            cmd.CommandText = "SELECT ms_product_detail.wh_code, ms_product_detail.prod_code, ms_product.spec, ms_product.unit, ms_product_detail.QACT, ms_product_detail.KoLok, " +
+                              "ms_product_detail.qtyMax, ms_product_detail.qtyMin FROM ms_product_detail INNER JOIN ms_product ON ms_product_detail.prod_code = ms_product.prod_code " +
+                              "Where ms_product_detail.wh_code = '" + wh_code + "'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -61,7 +61,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
         }
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT TOP (100)[prod_code], [spec],[unit] FROM [inv00h01]  WHERE [stEdit] != '4' AND [spec] LIKE @spec + '%'";
+            string sql = "SELECT TOP (100)[prod_code], [spec],[unit] FROM [ms_product]  WHERE [stEdit] != '4' AND [spec] LIKE @spec + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@spec", e.Text);
@@ -98,7 +98,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT [prod_code], [spec],[unit] FROM " +
-                    "[inv00h01] WHERE [prod_code] = '" + (sender as RadComboBox).SelectedValue + "'";
+                    "[ms_product] WHERE [prod_code] = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -140,7 +140,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                         //cmd.CommandType = CommandType.Text;
                         //cmd.Connection = con;
                         con.Open();
-                        cmd = new SqlCommand("INSERT into inv00d01 (wh_code, prod_code, QACT, qtyMax, qtyMin, Cogs) VALUES " +
+                        cmd = new SqlCommand("INSERT into ms_product_detail (wh_code, prod_code, QACT, qtyMax, qtyMin, Cogs) VALUES " +
                                            "(@wh_code, @prod_code, @QACT, @qtyMax, @qtyMin, 0)", con);
                         cmd.Parameters.AddWithValue("@wh_code", wh_code);
                         cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("cb_prod_code") as RadComboBox).Text);
@@ -190,7 +190,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from inv00d01 where wh_code = @wh_code and prod_code = @prod_code";
+                cmd.CommandText = "delete from ms_product_detail where wh_code = @wh_code and prod_code = @prod_code";
                 cmd.Parameters.AddWithValue("@wh_code", wh_code);
                 cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("lbl_prod_code") as Label).Text);
                 cmd.ExecuteNonQuery();

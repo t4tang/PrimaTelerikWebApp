@@ -76,7 +76,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
         #region Param
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -106,7 +106,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -173,7 +173,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete mtc01h36 SET userid = @userid, lastupdate = GETDATE(), void = '4' WHERE (PM_id = @PM_id)";
+                cmd.CommandText = "delete tr_PMH SET userid = @userid, lastupdate = GETDATE(), void = '4' WHERE (PM_id = @PM_id)";
                 cmd.Parameters.AddWithValue("@PM_id", PM_id);
                 cmd.Parameters.AddWithValue("@userid", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -250,7 +250,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
         #region Notification
         private static DataTable GetNotif(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Notif_type, Notif_type_name FROM mtc00h21 WHERE stEdit != 4 AND Notif_type_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Notif_type, Notif_type_name FROM PMMSNOTIF_TYPE WHERE stEdit != 4 AND Notif_type_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -280,7 +280,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Notif_type FROM mtc00h21 WHERE Notif_type_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT Notif_type FROM PMMSNOTIF_TYPE WHERE Notif_type_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -295,7 +295,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT Notif_type FROM mtc00h21 WHERE Notif_type_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT Notif_type FROM PMMSNOTIF_TYPE WHERE Notif_type_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -308,7 +308,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
         #region Status
         private static DataTable GetStatus(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wo_status, wo_desc FROM mtc00h19 WHERE  wo_desc LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wo_status, wo_desc FROM ms_wo_status WHERE  wo_desc LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -338,7 +338,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wo_status FROM mtc00h19 WHERE wo_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wo_status FROM ms_wo_status WHERE wo_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -353,7 +353,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wo_status FROM mtc00h19 WHERE wo_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wo_status FROM ms_wo_status WHERE wo_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -370,7 +370,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT com_group, com_group_name FROM mtc00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT com_group, com_group_name FROM ms_componenh " +
                 "WHERE stedit <> '4' AND com_group_name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
             DataTable dt = new DataTable();
@@ -394,7 +394,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT com_group FROM mtc00h26 WHERE com_group_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT com_group FROM ms_componenh WHERE com_group_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -409,7 +409,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT com_group FROM mtc00h26 WHERE com_group_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT com_group FROM ms_componenh WHERE com_group_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -426,7 +426,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT com_code, com_name FROM mtc00h28 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT com_code, com_name FROM ms_componend " +
                 "WHERE stedit <> '4' AND com_name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
             DataTable dt = new DataTable();
@@ -450,7 +450,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT com_code FROM mtc00h28 WHERE com_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT com_code FROM ms_componend WHERE com_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -465,7 +465,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT com_code FROM mtc00h28 WHERE com_name  = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT com_code FROM ms_componend WHERE com_name  = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -478,7 +478,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -508,7 +508,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -523,7 +523,7 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -641,10 +641,10 @@ namespace TelerikWebApplication.Form.Preventive_maintenance.Notification
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( mtc01h36.PM_id , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM mtc01h36 WHERE LEFT(mtc01h36.PM_id, 4) = 'RO01' " +
-                        "AND SUBSTRING(mtc01h36.PM_id, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(mtc01h36.PM_id, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_PMH.PM_id , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM tr_PMH WHERE LEFT(tr_PMH.PM_id, 4) = 'RO01' " +
+                        "AND SUBSTRING(tr_PMH.PM_id, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(tr_PMH.PM_id, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {

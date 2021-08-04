@@ -12,7 +12,7 @@ using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Form.DataStore.Finance.AcountExplorer
 {
-    public partial class acc00h10exp : System.Web.UI.Page
+    public partial class gl_accountexp : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

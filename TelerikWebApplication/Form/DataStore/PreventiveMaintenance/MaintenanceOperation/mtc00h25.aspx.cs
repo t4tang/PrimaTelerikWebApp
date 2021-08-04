@@ -31,9 +31,9 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.Maintenance
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT mtc00h25.OprCode, mtc00h25.OprName " +
-                                "FROM mtc00h25 " +
-                                " WHERE mtc00h25.stEdit !=4";
+            cmd.CommandText = "SELECT PMMSOPRWO.OprCode, PMMSOPRWO.OprName " +
+                                "FROM PMMSOPRWO " +
+                                " WHERE PMMSOPRWO.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -62,7 +62,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.Maintenance
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update mtc00h25 SET stEdit = 4 where OprCode = @OprCode";
+            cmd.CommandText = "Update PMMSOPRWO SET stEdit = 4 where OprCode = @OprCode";
             cmd.Parameters.AddWithValue("@OprCode", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -90,7 +90,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.Maintenance
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE mtc00h25 SET OprName = @OprName, lastupdate = getdate(), userid = @userid, stEdit = @stEdit " +
+                cmd.CommandText = "UPDATE PMMSOPRWO SET OprName = @OprName, lastupdate = getdate(), userid = @userid, stEdit = @stEdit " +
                                     "WHERE OprCode = @OprCode";
                 cmd.Parameters.AddWithValue("@OprCode", (item.FindControl("txt_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@OprName", (item.FindControl("txt_operation") as RadTextBox).Text);
@@ -108,7 +108,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.Maintenance
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO mtc00h25 (OprCode, OprName, lastupdate, userid, stEdit) " +
+            cmd.CommandText = "INSERT INTO PMMSOPRWO (OprCode, OprName, lastupdate, userid, stEdit) " +
                                 "VALUES (@OprCode, @OprName, getdate(), @userid, @stEdit)";
             cmd.Parameters.AddWithValue("@OprCode", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@OprName", (item.FindControl("txt_operation") as RadTextBox).Text);
