@@ -294,7 +294,7 @@
                                                             Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
                                                         <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                                             <ContentTemplate>--%>
-                                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="300" DropDownWidth="300px" Height="200px" 
+                                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="200px" DropDownWidth="300px" Height="200px" 
                                                                     AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
                                                                     OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" Font-Size="Small"
                                                                     OnPreRender="cb_project_PreRender" Text='<%# DataBinder.Eval(Container, "DataItem.region_name") %>'>
@@ -310,7 +310,7 @@
                                                                Font-Size="X-Small" Text="Empty not allowed!"></asp:RequiredFieldValidator><br />
                                                             <%--<asp:UpdatePanel ID="UpdatePanel6" runat="server">
                                                                 <ContentTemplate>--%>
-                                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_warehouse" runat="server" Width="300" DropDownWidth="300px"
+                                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_warehouse" runat="server" Width="200px" DropDownWidth="300px"
                                                                         AutoPostBack="false" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" Height="200px"
                                                                         OnItemsRequested="cb_warehouse_ItemsRequested" OnSelectedIndexChanged="cb_warehouse_SelectedIndexChanged" Font-Size="Small"
                                                                         OnPreRender="cb_warehouse_PreRender" Text='<%# DataBinder.Eval(Container, "DataItem.wh_name") %>'>
@@ -399,7 +399,7 @@
                                                                 <%--<telerik:RadTextBox ID="txt_project" runat="server" Width="100px" ReadOnly="true" RenderMode="Lightweight"
                                                                      AutoPostBack="false" Text='<%# DataBinder.Eval(Container, "DataItem.from_region_name") %>'>
                                                                  </telerik:RadTextBox>--%>
-                                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project_from" runat="server" Width="150px" DropDownWidth="300px"
+                                                                <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project_from" runat="server" Width="200px" DropDownWidth="300px"
                                                                     AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false" Height="200px"
                                                                     OnItemsRequested="cb_project_from_ItemsRequested" OnSelectedIndexChanged="cb_project_from_SelectedIndexChanged" Font-Size="Small"
                                                                     OnPreRender="cb_project_from_PreRender" Text='<%# DataBinder.Eval(Container, "DataItem.from_region_name") %>'>
