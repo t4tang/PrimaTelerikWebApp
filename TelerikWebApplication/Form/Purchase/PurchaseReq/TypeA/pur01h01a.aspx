@@ -584,45 +584,77 @@
                                             </EditFormSettings>
                                             <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" ShowAddNewRecordButton="true" ShowCancelChangesButton="false" />
                                             <Columns>
-                                                <%--<telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
-                                                    HeaderText="Edit" HeaderStyle-Width="60px" UpdateText="Update" >
-                                                </telerik:GridEditCommandColumn>--%>
-
                                                 <telerik:GridTemplateColumn HeaderText="RS Number" HeaderStyle-Width="100px" ItemStyle-Width="100px" >
                                                     <ItemTemplate>
                                                         <%--<asp:Label runat="server" ID="lblRS" Text='<%# DataBinder.Eval(Container.DataItem, "no_ref") %>'></asp:Label>--%>
                                                         <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_reff_code" EnableLoadOnDemand="True" DataTextField="doc_code"
-                                                            DataValueField="doc_code" AutoPostBack="true"
+                                                            DataValueField="doc_code" AutoPostBack="true" CausesValidation="false"
                                                             Text='<%# DataBinder.Eval(Container, "DataItem.no_ref") %>' 
-                                                            HighlightTemplatedItems="true" Width="130px" DropDownWidth="730px" DropDownAutoWidth="Enabled"
+                                                            HighlightTemplatedItems="true" Width="130px" DropDownWidth="1030px" DropDownAutoWidth="Enabled"
                                                             OnItemsRequested="cb_reff_code_ItemsRequested" >                                                   
                                                             <HeaderTemplate>
-                                                            <table style="width: 530px; font-size:smaller">
+                                                            <table style="width: 1030px; font-size:smaller">
                                                                 <tr>
-                                                                    <td style="width: 120px;">
-                                                                        Reff. Code
+                                                                    <td style="width: 30px;background-color:#23afad">
+                                                                        Type
                                                                     </td> 
-                                                                    <td style="width: 60px;">
-                                                                        Date
+                                                                    <td style="width: 150px;background-color:#23afad">
+                                                                        Prod. Code
+                                                                    </td>     
+                                                                    <td style="width: 320px;background-color:#23afad">
+                                                                        Prod. Name
+                                                                    </td> 
+                                                                    <td style="width: 120px;background-color:#23afad">
+                                                                        Doc. Number
+                                                                    </td> 
+                                                                    <td style="width: 100px;background-color:#23afad">
+                                                                        Doc. Date
+                                                                    </td> 
+                                                                    <td style="width: 120px;background-color:#23afad">
+                                                                        Req. Number
+                                                                    </td> 
+                                                                    <td style="width: 60px;background-color:#23afad">
+                                                                        Qty
+                                                                    </td> 
+                                                                    <td style="width: 50px;background-color:#23afad">
+                                                                        UoM
                                                                     </td>  
-                                                                    <td style="width: 360px;">
-                                                                        Remark
-                                                                    </td>                                                       
+                                                                    <td style="width: 70px;background-color:#23afad">
+                                                                        Cost Cntr
+                                                                    </td>                                                           
                                                                 </tr>
                                                             </table>                                                       
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <table style="width: 530px; font-size:smaller">
+                                                            <table style="width: 1030px; font-size:smaller">
                                                                 <tr>
+                                                                    <td style="width: 30px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['prod_type']")%>
+                                                                    </td>
+                                                                    <td style="width: 150px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['Prod_code']")%>
+                                                                    </td>
+                                                                    <td style="width: 320px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['part_desc']")%>
+                                                                    </td>        
                                                                     <td style="width: 120px;">
                                                                         <%# DataBinder.Eval(Container, "Value")%>
                                                                     </td> 
+                                                                    <td style="width: 100px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['doc_date']")%>
+                                                                    </td>
+                                                                    <td style="width: 120px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['sro_code']")%>
+                                                                    </td>
                                                                     <td style="width: 60px;">
-                                                                        <%# DataBinder.Eval(Container, "Attributes['Date']")%>
-                                                                    </td>  
-                                                                    <td style="width: 360px;">
-                                                                        <%# DataBinder.Eval(Container, "Attributes['doc_remark']")%>
-                                                                    </td>                                                                                                           
+                                                                        <%# DataBinder.Eval(Container, "Attributes['qtyRema']")%>
+                                                                    </td>
+                                                                    <td style="width: 50px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['part_unit']")%>
+                                                                    </td>     
+                                                                    <td style="width: 70px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['dept_code']")%>
+                                                                    </td>                                                                                                                           
                                                                 </tr>
                                                             </table>
                                                         </ItemTemplate>
@@ -630,36 +662,73 @@
                                                     </ItemTemplate>
                                                     <InsertItemTemplate>
                                                         <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_reff_code_insert" EnableLoadOnDemand="True" DataTextField="doc_code"
-                                                            DataValueField="doc_code" AutoPostBack="true"
-                                                            HighlightTemplatedItems="true" Width="130px" DropDownWidth="730px" DropDownAutoWidth="Enabled"
-                                                            OnItemsRequested="cb_reff_code_ItemsRequested" >                                                   
+                                                            DataValueField="doc_code" AutoPostBack="true"  CausesValidation="false"
+                                                            HighlightTemplatedItems="true" Width="130px" DropDownWidth="1030px" DropDownAutoWidth="Enabled"
+                                                            OnItemsRequested="cb_reff_code_ItemsRequested" 
+                                                            OnSelectedIndexChanged="cb_reff_code_insert_SelectedIndexChanged" >                                                   
                                                             <HeaderTemplate>
-                                                            <table style="width: 530px; font-size:smaller">
+                                                            <table style="width: 1030px; font-size:smaller">
                                                                 <tr>
-                                                                    <td style="width: 120px;">
-                                                                        Reff. Code
+                                                                    <td style="width: 30px;background-color:#23afad">
+                                                                        Type
                                                                     </td> 
-                                                                    <td style="width: 60px;">
-                                                                        Date
+                                                                    <td style="width: 150px;background-color:#23afad">
+                                                                        Prod. Code
+                                                                    </td>     
+                                                                    <td style="width: 320px;background-color:#23afad">
+                                                                        Prod. Name
                                                                     </td> 
-                                                                    <td style="width: 360px;">
-                                                                        Remark
+                                                                    <td style="width: 120px;background-color:#23afad">
+                                                                        Doc. Number
+                                                                    </td> 
+                                                                    <td style="width: 100px;background-color:#23afad">
+                                                                        Doc. Date
+                                                                    </td> 
+                                                                    <td style="width: 120px;background-color:#23afad">
+                                                                        Req. Number
+                                                                    </td> 
+                                                                    <td style="width: 60px;background-color:#23afad">
+                                                                        Qty
+                                                                    </td> 
+                                                                    <td style="width: 50px;background-color:#23afad">
+                                                                        UoM
+                                                                    </td>  
+                                                                    <td style="width: 70px;background-color:#23afad">
+                                                                        Cost Cntr
                                                                     </td>                                                           
                                                                 </tr>
                                                             </table>                                                       
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <table style="width: 530px; font-size:smaller">
+                                                            <table style="width: 1030px; font-size:smaller">
                                                                 <tr>
+                                                                    <td style="width: 30px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['prod_type']")%>
+                                                                    </td>
+                                                                    <td style="width: 150px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['Prod_code']")%>
+                                                                    </td>
+                                                                    <td style="width: 320px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['part_desc']")%>
+                                                                    </td>        
                                                                     <td style="width: 120px;">
                                                                         <%# DataBinder.Eval(Container, "Value")%>
                                                                     </td> 
+                                                                    <td style="width: 100px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['doc_date']")%>
+                                                                    </td>
+                                                                    <td style="width: 120px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['sro_code']")%>
+                                                                    </td>
                                                                     <td style="width: 60px;">
-                                                                        <%# DataBinder.Eval(Container, "Attributes['Date']")%>
-                                                                    </td>               
-                                                                    <td style="width: 360px;">
-                                                                        <%# DataBinder.Eval(Container, "Attributes['doc_remark']")%>
-                                                                    </td>                                                                                              
+                                                                        <%# DataBinder.Eval(Container, "Attributes['qtyRema']")%>
+                                                                    </td>
+                                                                    <td style="width: 50px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['part_unit']")%>
+                                                                    </td>     
+                                                                    <td style="width: 70px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['dept_code']")%>
+                                                                    </td>                                                                                                                           
                                                                 </tr>
                                                             </table>
                                                         </ItemTemplate>
@@ -671,52 +740,75 @@
                                                     SortExpression="prod_code" ItemStyle-Width="130px" >
                                                     <FooterTemplate>Template footer</FooterTemplate>
                                                     <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />                                            
-                                                    <ItemTemplate>                                                
-                                                        <%--<asp:Label runat="server" ID="lbl_prod_code" Text='<%# DataBinder.Eval(Container.DataItem, "Prod_code") %>'></asp:Label>--%>
+                                                    <ItemTemplate>
                                                         <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_prod_code" EnableLoadOnDemand="True" DataTextField="spec"
-                                                            DataValueField="Prod_code" AutoPostBack="true"
+                                                            DataValueField="Prod_code" AutoPostBack="true" CausesValidation="false"
                                                             Text='<%# DataBinder.Eval(Container, "DataItem.Prod_code") %>' 
-                                                            HighlightTemplatedItems="true" Width="130px" DropDownWidth="730px" DropDownAutoWidth="Enabled"
-                                                            OnSelectedIndexChanged="cb_prod_code_SelectedIndexChanged" OnItemsRequested="cb_prod_code_ItemsRequested" >                                                   
+                                                            HighlightTemplatedItems="true" Width="130px" DropDownWidth="1030px" DropDownAutoWidth="Enabled"
+                                                             >                                                   
                                                             <HeaderTemplate>
-                                                            <table style="width: 730px; font-size:smaller">
-                                                                <tr>
-                                                                    <td style="width: 350px;">
-                                                                        Prod. Name
-                                                                    </td>     
-                                                                    <td style="width: 120px;">
+                                                            <table style="width: 1030px; font-size:smaller">
+                                                                <tr >
+                                                                    <td style="width: 30px; background-color:#23afad">
+                                                                        Type
+                                                                    </td> 
+                                                                    <td style="width: 150px;background-color:#23afad">
                                                                         Prod. Code
+                                                                    </td>     
+                                                                    <td style="width: 320px;background-color:#23afad">
+                                                                        Prod. Name
                                                                     </td> 
-                                                                    <td style="width: 120px;">
-                                                                        Reff. Code
+                                                                    <td style="width: 120px;background-color:#23afad">
+                                                                        Doc. Number
                                                                     </td> 
-                                                                    <td style="width: 60px;">
+                                                                    <td style="width: 100px;background-color:#23afad">
+                                                                        Doc. Date
+                                                                    </td> 
+                                                                    <td style="width: 120px;background-color:#23afad">
+                                                                        Req. Number
+                                                                    </td> 
+                                                                    <td style="width: 60px;background-color:#23afad">
                                                                         Qty
                                                                     </td> 
-                                                                    <td style="width: 50px;">
+                                                                    <td style="width: 50px;background-color:#23afad">
                                                                         UoM
+                                                                    </td>  
+                                                                    <td style="width: 70px;background-color:#23afad">
+                                                                        Cost Cntr
                                                                     </td>                                                           
                                                                 </tr>
                                                             </table>                                                       
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <table style="width: 730px; font-size:smaller">
+                                                            <table style="width: 1030px; font-size:smaller">
                                                                 <tr>
-                                                                    <td style="width: 350px;">
+                                                                    <td style="width: 30px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['prod_type']")%>
+                                                                    </td>
+                                                                    <td style="width: 150px;">
+                                                                         <%# DataBinder.Eval(Container, "Value")%>
+                                                                    </td>
+                                                                    <td style="width: 320px;">
                                                                         <%# DataBinder.Eval(Container, "Attributes['part_desc']")%>
                                                                     </td>        
                                                                     <td style="width: 120px;">
-                                                                        <%# DataBinder.Eval(Container, "Value")%>
+                                                                        <%# DataBinder.Eval(Container, "Text")%>
                                                                     </td> 
+                                                                    <td style="width: 100px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['doc_date']")%>
+                                                                    </td>
                                                                     <td style="width: 120px;">
-                                                                        <%# DataBinder.Eval(Container, "Attributes['doc_code']")%>
+                                                                        <%# DataBinder.Eval(Container, "Attributes['sro_code']")%>
                                                                     </td>
                                                                     <td style="width: 60px;">
                                                                         <%# DataBinder.Eval(Container, "Attributes['qtyRema']")%>
                                                                     </td>
                                                                     <td style="width: 50px;">
                                                                         <%# DataBinder.Eval(Container, "Attributes['part_unit']")%>
-                                                                    </td>                                                                                                                  
+                                                                    </td>     
+                                                                    <td style="width: 70px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['dept_code']")%>
+                                                                    </td>                                                                                                                           
                                                                 </tr>
                                                             </table>
                                                         </ItemTemplate>
@@ -726,53 +818,74 @@
                                                         <%# DataBinder.Eval(Container, "DataItem.part_desc")%>                                                
                                                         </telerik:RadToolTip>
                                                     </ItemTemplate>
-                                                    <EditItemTemplate>
-                                                        
-                                                    </EditItemTemplate>
                                                     <InsertItemTemplate>
                                                         <telerik:RadComboBox RenderMode="Lightweight" runat="server" ID="cb_prod_code_insert" EnableLoadOnDemand="True" DataTextField="spec"
-                                                            DataValueField="Prod_code" AutoPostBack="true"
-                                                            HighlightTemplatedItems="true" Width="130px" DropDownWidth="730px" DropDownAutoWidth="Enabled"
-                                                            OnSelectedIndexChanged="cb_prod_code_SelectedIndexChanged" OnItemsRequested="cb_prod_code_ItemsRequested" >                                                   
+                                                            DataValueField="Prod_code" AutoPostBack="true" CausesValidation="false"
+                                                            HighlightTemplatedItems="true" Width="130px" DropDownWidth="1030px" DropDownAutoWidth="Enabled"
+                                                             >                                                   
                                                             <HeaderTemplate>
-                                                            <table style="width: 730px; font-size:smaller">
-                                                                <tr>
-                                                                    <td style="width: 350px;">
-                                                                        Prod. Name
-                                                                    </td>     
-                                                                    <td style="width: 120px;">
+                                                            <table style="width: 1030px; font-size:smaller">
+                                                                <tr >
+                                                                    <td style="width: 30px; background-color:#23afad">
+                                                                        Type
+                                                                    </td> 
+                                                                    <td style="width: 150px;background-color:#23afad">
                                                                         Prod. Code
+                                                                    </td>     
+                                                                    <td style="width: 320px;background-color:#23afad">
+                                                                        Prod. Name
                                                                     </td> 
-                                                                    <td style="width: 120px;">
-                                                                        Reff. Code
+                                                                    <td style="width: 120px;background-color:#23afad">
+                                                                        Doc. Number
                                                                     </td> 
-                                                                    <td style="width: 60px;">
+                                                                    <td style="width: 100px;background-color:#23afad">
+                                                                        Doc. Date
+                                                                    </td> 
+                                                                    <td style="width: 120px;background-color:#23afad">
+                                                                        Req. Number
+                                                                    </td> 
+                                                                    <td style="width: 60px;background-color:#23afad">
                                                                         Qty
                                                                     </td> 
-                                                                    <td style="width: 50px;">
+                                                                    <td style="width: 50px;background-color:#23afad">
                                                                         UoM
+                                                                    </td>  
+                                                                    <td style="width: 70px;background-color:#23afad">
+                                                                        Cost Cntr
                                                                     </td>                                                           
                                                                 </tr>
                                                             </table>                                                       
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <table style="width: 730px; font-size:smaller">
+                                                            <table style="width: 1030px; font-size:smaller">
                                                                 <tr>
-                                                                    <td style="width: 350px;">
+                                                                    <td style="width: 30px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['prod_type']")%>
+                                                                    </td>
+                                                                    <td style="width: 150px;">
+                                                                         <%# DataBinder.Eval(Container, "Value")%>
+                                                                    </td>
+                                                                    <td style="width: 320px;">
                                                                         <%# DataBinder.Eval(Container, "Attributes['part_desc']")%>
                                                                     </td>        
                                                                     <td style="width: 120px;">
-                                                                        <%# DataBinder.Eval(Container, "Value")%>
+                                                                        <%# DataBinder.Eval(Container, "Text")%>
                                                                     </td> 
+                                                                    <td style="width: 100px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['doc_date']")%>
+                                                                    </td>
                                                                     <td style="width: 120px;">
-                                                                        <%# DataBinder.Eval(Container, "Attributes['doc_code']")%>
+                                                                        <%# DataBinder.Eval(Container, "Attributes['sro_code']")%>
                                                                     </td>
                                                                     <td style="width: 60px;">
                                                                         <%# DataBinder.Eval(Container, "Attributes['qtyRema']")%>
                                                                     </td>
                                                                     <td style="width: 50px;">
                                                                         <%# DataBinder.Eval(Container, "Attributes['part_unit']")%>
-                                                                    </td>                                                                                                                  
+                                                                    </td>     
+                                                                    <td style="width: 70px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['dept_code']")%>
+                                                                    </td>                                                                                                                           
                                                                 </tr>
                                                             </table>
                                                         </ItemTemplate>
@@ -784,11 +897,20 @@
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblSoh" Text='<%# DataBinder.Eval(Container.DataItem, "stock_hand", "{0:#,###,###0.00}") %>'></asp:Label>
                                                     </ItemTemplate>
-                                                    <EditItemTemplate>
+                                                    <%--<EditItemTemplate>
                                                         <asp:Label runat="server" ID="lblSoh_edit" Text='<%# DataBinder.Eval(Container.DataItem, "stock_hand", "{0:#,###,###0.00}") %>'></asp:Label>
-                                                    </EditItemTemplate>
+                                                    </EditItemTemplate>--%>
                                                     <InsertItemTemplate>
-                                                        <asp:Label runat="server" ID="lblSoh_insert" ></asp:Label>
+                                                        <%--<asp:Label runat="server" ID="lblSoh_insert" ></asp:Label>--%>
+                                                        <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txtSoh_insert" Width="70px" 
+                                                            EnabledStyle-HorizontalAlign="Right"
+                                                            NumberFormat-AllowRounding="true"
+                                                            NumberFormat-KeepNotRoundedValue="true" 
+                                                            AllowOutOfRangeAutoCorrect="false"
+                                                            onkeydown="blurTextBox(this, event)"
+                                                            MaxLength="11" Type="Number"
+                                                            NumberFormat-DecimalDigits="2" ReadOnly="true">
+                                                        </telerik:RadNumericTextBox>
                                                     </InsertItemTemplate>                                        
                                                 </telerik:GridTemplateColumn>
 
@@ -823,7 +945,7 @@
                                                         onkeydown="blurTextBox(this, event)" ReadOnly="false"
                                                         AutoPostBack="true" MaxLength="11" Type="Number"
                                                         NumberFormat-DecimalDigits="2" >
-                                                    </telerik:RadNumericTextBox>
+                                                        </telerik:RadNumericTextBox>
                                                     </InsertItemTemplate>
                                                 </telerik:GridTemplateColumn>
 
@@ -831,11 +953,20 @@
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblQtyPo" Text='<%# DataBinder.Eval(Container.DataItem, "qtypo", "{0:#,###,###0.00}") %>'></asp:Label>
                                                     </ItemTemplate>
-                                                    <EditItemTemplate>
+                                                    <%--<EditItemTemplate>
                                                         <asp:Label runat="server" ID="lblQtyPo_edit" Text='<%# DataBinder.Eval(Container.DataItem, "qtypo", "{0:#,###,###0.00}") %>'></asp:Label>
-                                                    </EditItemTemplate>
+                                                    </EditItemTemplate>--%>
                                                     <InsertItemTemplate>
-                                                        <asp:Label runat="server" ID="lblQtyPo_insert" ></asp:Label>
+                                                        <telerik:RadNumericTextBox  RenderMode="Lightweight" runat="server" ID="txtQtyPo_insert" Width="70px" 
+                                                            NumberFormat-AllowRounding="true"
+                                                            NumberFormat-KeepNotRoundedValue="true" 
+                                                            AllowOutOfRangeAutoCorrect="false" 
+                                                            EnabledStyle-HorizontalAlign="Right"
+                                                            onkeydown="blurTextBox(this, event)" 
+                                                            ReadOnly="true"
+                                                            AutoPostBack="true" MaxLength="11" Type="Number"
+                                                            NumberFormat-DecimalDigits="2" >
+                                                        </telerik:RadNumericTextBox>
                                                     </InsertItemTemplate>                                        
                                                 </telerik:GridTemplateColumn>
 

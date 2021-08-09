@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             else
             {
                 (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
-                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
                 (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 230;
             }
         }
@@ -124,7 +124,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         protected void cb_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Text = "";
-            LoadRef(e.Text, cb_project.SelectedValue, cb_type_ref.SelectedValue, (sender as RadComboBox));
+            if (cb_type_ref.Text == "Reservation")
+            {
+                LoadRef(e.Text, cb_project.SelectedValue, cb_type_ref.SelectedValue, (sender as RadComboBox));
+            }            
         }
 
         protected void cb_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -363,7 +366,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
         protected void cb_type_ref_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             (sender as RadComboBox).Items.Add("Reservation");
-            (sender as RadComboBox).Items.Add("Manual");
+            //(sender as RadComboBox).Items.Add("Manual");
         }
         protected void cb_type_ref_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {

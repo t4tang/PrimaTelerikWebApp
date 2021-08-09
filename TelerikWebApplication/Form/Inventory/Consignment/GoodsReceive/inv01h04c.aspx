@@ -238,7 +238,7 @@
                         <div style="padding: 15px 0px 0px 25px;">
                              <table id="Table2" width="Auto" border="0" class="module">
                                 <tr>
-                                    <td style="vertical-align:top; width:auto">
+                                    <td style="vertical-align:top; width:auto; padding-left:15px">
                                         <table>
                                             
                                             <tr>
@@ -377,7 +377,7 @@
                                            </tr>
                                         </table>
                                     </td>
-                                    <td style="vertical-align:top; width:auto">
+                                    <td style="vertical-align:top; width:auto; padding-left:15px">
                                         <table> 
                                             <tr>
                                                 <td class="tdLabel">
@@ -570,7 +570,7 @@
                                             </tr>                           
                                         </table>
                                     </td>
-                                    <td style="vertical-align:top; width:auto">
+                                    <td style="vertical-align:top; width:auto; padding-left:15px">
                                         <table>
                                           
                                             <tr>
@@ -578,7 +578,7 @@
                                                     <telerik:RadLabel runat="server" Text="Created By:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadComboBox ID="cb_createdBy" runat="server" Width="250px"
+                                                    <telerik:RadComboBox ID="cb_createdBy" runat="server" Width="250px" Height="250px"
                                                         DropDownWidth="400px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                         MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.createby_name") %>'
@@ -619,7 +619,7 @@
                                                     <telerik:RadLabel runat="server" Text="Received By:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                                 </td>  
                                                 <td>
-                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_received" runat="server" Width="250px"
+                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_received" runat="server" Width="250px" Height="250px"
                                                         DropDownWidth="400px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                         MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true" ShowMoreResultsBox="false"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.Receiptby_name") %>'
@@ -660,7 +660,7 @@
                                                     <telerik:RadLabel CssClass="lbObject" runat="server" Text="Approved By:" ForeColor="Black"></telerik:RadLabel>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250px"
+                                                    <telerik:RadComboBox RenderMode="Lightweight" ID="cb_approved" runat="server" Width="250px" Height="250px"
                                                         DropDownWidth="400px" EnableLoadOnDemand="True" HighlightTemplatedItems="true"
                                                         MarkFirstMatch="true" Skin="Telerik" EnableVirtualScrolling="true"
                                                         Text='<%# DataBinder.Eval(Container, "DataItem.approval_name") %>'
@@ -751,22 +751,22 @@
                                                 ClientSettings-Selecting-AllowRowSelect="true"> 
                                                 <HeaderStyle Font-Size="12px" />
                                                 <PagerStyle Mode="NumericPages" />  
-                                                <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="11px" EditMode="InPlace"
+                                                <MasterTableView CommandItemDisplay="Top" DataKeyNames="Prod_code" Font-Size="11px" EditMode="PopUp"
                                                     ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" InsertItemDisplay="Bottom" >                                             
                                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" />                                        
                                                     <Columns>   
-                                                        <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
+                                                        <%--<telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"
                                                             HeaderText="Edit" HeaderStyle-Width="60px" ItemStyle-Width="60px" UpdateText="Update">
-                                                        </telerik:GridEditCommandColumn>                   
+                                                        </telerik:GridEditCommandColumn>       --%>            
                                              
                                                         <telerik:GridTemplateColumn HeaderText="Type" ItemStyle-Width="40px" HeaderStyle-Width="40px" ItemStyle-HorizontalAlign="Center" 
                                                             HeaderStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblProdType" Width="40px" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>                                           
                                                             </ItemTemplate>
-                                                            <EditItemTemplate>
+                                                            <%--<EditItemTemplate>
                                                                 <asp:Label runat="server" ID="lblProdTypEdit" Width="40px" Text='<%# DataBinder.Eval(Container.DataItem, "prod_type") %>'></asp:Label>                                           
-                                                            </EditItemTemplate>
+                                                            </EditItemTemplate>--%>
                                                             <InsertItemTemplate>
                                                                 <asp:Label runat="server" ID="lblProdTypeInsert" Width="40px"></asp:Label>                                           
                                                             </InsertItemTemplate>

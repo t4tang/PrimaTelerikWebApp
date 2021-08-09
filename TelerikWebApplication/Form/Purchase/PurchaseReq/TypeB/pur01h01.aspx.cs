@@ -449,6 +449,25 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 }
                 populate_detail();
             }
+
+            if (!this.IsPostBack && this.RadGrid1.MasterTableView.Items.Count > 1)
+            {
+                this.RadGrid1.MasterTableView.Items[0].Edit = false;
+                this.RadGrid1.MasterTableView.Rebind();
+            }
+
+            if ((sender as RadGrid).MasterTableView.Items.Count < (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = false;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = false;
+            }
+            else if ((sender as RadGrid).MasterTableView.Items.Count > (sender as RadGrid).MasterTableView.PageSize)
+            {
+                (sender as RadGrid).ClientSettings.Scrolling.AllowScroll = true;
+                (sender as RadGrid).ClientSettings.Scrolling.ScrollHeight = 290;
+                (sender as RadGrid).ClientSettings.Scrolling.UseStaticHeaders = true;
+            }
+
         }
 
         #region Priority 
