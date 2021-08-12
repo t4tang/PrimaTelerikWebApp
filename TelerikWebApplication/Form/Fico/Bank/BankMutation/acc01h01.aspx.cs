@@ -124,7 +124,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.BankMutation
 
             for (int i = itemOffset; i < endOffset; i++)
             {
-                cb_bank_prm.Items.Add(new RadComboBoxItem(data.Rows[i]["NamBank"].ToString(), data.Rows[i]["NamBank"].ToString()));
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["NamBank"].ToString(), data.Rows[i]["NamBank"].ToString()));
             }
         }
 

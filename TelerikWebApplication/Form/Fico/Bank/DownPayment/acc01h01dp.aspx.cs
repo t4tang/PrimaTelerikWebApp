@@ -74,6 +74,40 @@ namespace TelerikWebApplication.Form.Fico.Bank.DownPayment
                 RadWindowManager2.RadAlert(ex.Message, 500, 200, "Error", "callBackFn", "~/Images/error.png");
             }
         }
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void calculate_total(object sender, EventArgs e)
+        {
+            try
+            {
+                RadNumericTextBox ntb = (RadNumericTextBox)sender;
+                GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
+
+                RadNumericTextBox txt_tax_amount = (RadNumericTextBox)item.FindControl("txt_tax_amount");
+                RadNumericTextBox txt_total = (RadNumericTextBox)item.FindControl("txt_total");
+
+                txt_tax_amount.Value = (sender as RadNumericTextBox).Value + txt_tax_amount.Value;
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script language=\"javascript\">");
+                if (ex.InnerException == null)
+                {
+                    Response.Write("alert(\"" + ex.Message.ToString() + "\");");
+                }
+                else
+                {
+                    Response.Write("alert(\"" + ex.InnerException.Message.ToString() + "\");");
+                }
+                Response.Write("</script>");
+            }
+        }
+
         #region searching parameter
         private static DataTable GetProjectPrm(string text)
         {
@@ -331,40 +365,121 @@ namespace TelerikWebApplication.Form.Fico.Bank.DownPayment
         }
         #endregion
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        #region Kode Transaksi
         protected void cb_KoTrans_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-
+            (sender as RadComboBox).Items.Add("PENERIMAAN");
+            (sender as RadComboBox).Items.Add("PENGELUARAN");
+            (sender as RadComboBox).Items.Add("REVERSE PENERIMAAN");
+            (sender as RadComboBox).Items.Add("REVERSE PENGELUARAN");
         }
 
         protected void cb_KoTrans_PreRender(object sender, EventArgs e)
         {
-
+            if ((sender as RadComboBox).Text == "PENERIMAAN")
+            {
+                (sender as RadComboBox).SelectedValue = "D";
+            }
+            else if ((sender as RadComboBox).Text == "PENGELUARAN")
+            {
+                (sender as RadComboBox).SelectedValue = "K";
+            }
+            else if ((sender as RadComboBox).Text == "REVERSE PENGELUARAN")
+            {
+                (sender as RadComboBox).SelectedValue = "E";
+            }
+            else if ((sender as RadComboBox).Text == "REVERSE PENGELUARAN")
+            {
+                (sender as RadComboBox).SelectedValue = "J";
+            }
+            selected_KoTrans = (sender as RadComboBox).SelectedValue;
         }
 
         protected void cb_KoTrans_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            if ((sender as RadComboBox).Text == "PENERIMAAN")
+            {
+                (sender as RadComboBox).SelectedValue = "D";
+            }
+            else if ((sender as RadComboBox).Text == "PENGELUARAN")
+            {
+                (sender as RadComboBox).SelectedValue = "K";
+            }
+            else if ((sender as RadComboBox).Text == "REVERSE PENGELUARAN")
+            {
+                (sender as RadComboBox).SelectedValue = "E";
+            }
+            else if ((sender as RadComboBox).Text == "REVERSE PENGELUARAN")
+            {
+                (sender as RadComboBox).SelectedValue = "J";
+            }
+            selected_KoTrans = (sender as RadComboBox).SelectedValue;
         }
+        #endregion
 
+        #region Bank
+        private static DataTable GetBank(string text)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoBank, NamBank FROM KOBANK WHERE stEdit != 4 AND NamBank LIKE @text + '%'",
+            ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
+            adapter.SelectCommand.Parameters.AddWithValue("@text", text);
+
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+
+            return data;
+        }
         protected void cb_bank_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
+            DataTable data = GetBank(e.Text);
 
+            int itemOffset = e.NumberOfItems;
+            int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
+            e.EndOfItems = endOffset == data.Rows.Count;
+
+            for (int i = itemOffset; i < endOffset; i++)
+            {
+                (sender as RadComboBox).Items.Add(new RadComboBoxItem(data.Rows[i]["NamBank"].ToString(), data.Rows[i]["NamBank"].ToString()));
+            }
         }
 
         protected void cb_bank_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT KoBank FROM KOBANK WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                selected_bank = dr[0].ToString();
+            }
+            dr.Close();
+            con.Close();
         }
 
         protected void cb_bank_PreRender(object sender, EventArgs e)
         {
-
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT KoBank FROM KOBANK WHERE NamBank = '" + (sender as RadComboBox).Text + "'";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                (sender as RadComboBox).SelectedValue = dr[0].ToString();
+                selected_bank = dr[0].ToString();
+            }
+            dr.Close();
+            con.Close();
         }
+
+        #endregion
 
         #region Approval
         protected void LoadManPower(string name, string projectID, RadComboBox cb)
@@ -509,6 +624,7 @@ namespace TelerikWebApplication.Form.Fico.Bank.DownPayment
         }
         #endregion
 
+        #region Tax
         protected void cb_tax_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
 
@@ -562,6 +678,9 @@ namespace TelerikWebApplication.Form.Fico.Bank.DownPayment
 
         }
 
+        #endregion
+
+        #region cost center
         protected void cb_cost_center_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
 
@@ -577,33 +696,25 @@ namespace TelerikWebApplication.Form.Fico.Bank.DownPayment
 
         }
 
-        protected void calculate_total(object sender, EventArgs e)
+
+        #endregion
+
+        #region kontak
+        protected void cb_Kontak_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            try
-            {
-                RadNumericTextBox ntb = (RadNumericTextBox)sender;
-                GridEditableItem item = (GridEditableItem)ntb.NamingContainer;
 
-                RadNumericTextBox txt_tax_amount = (RadNumericTextBox)item.FindControl("txt_tax_amount");
-                RadNumericTextBox txt_total = (RadNumericTextBox)item.FindControl("txt_total");
-
-                txt_tax_amount.Value = (sender as RadNumericTextBox).Value + txt_tax_amount.Value;
-                
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script language=\"javascript\">");
-                if (ex.InnerException == null)
-                {
-                    Response.Write("alert(\"" + ex.Message.ToString() + "\");");
-                }
-                else
-                {
-                    Response.Write("alert(\"" + ex.InnerException.Message.ToString() + "\");");
-                }
-                Response.Write("</script>");
-            }
         }
+
+        protected void cb_Kontak_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+
+        }
+
+        protected void cb_Kontak_PreRender(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 
 }

@@ -347,7 +347,7 @@
                                                     </td>
                                                     <td style="vertical-align:top; text-align:left" colspan="5">                               
                                                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_bank" runat="server" Width="300" DropDownWidth="300px"
-                                                            AutoPostBack="true" ShowMoreResultsBox="false" EmptyMessage="- Select a Bank -" Skin="Telerik" 
+                                                            AutoPostBack="true" ShowMoreResultsBox="false" Skin="Telerik" 
                                                             EnableLoadOnDemand ="true" Text='<%# DataBinder.Eval(Container, "DataItem.NamBank") %>'
                                                             OnItemsRequested="cb_bank_ItemsRequested" 
                                                             OnSelectedIndexChanged="cb_bank_SelectedIndexChanged" CausesValidation="false"
@@ -357,12 +357,49 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="tdLabel">
-                                                        <telerik:RadLabel runat="server" Text="From / To:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
+                                                        <telerik:RadLabel runat="server" Text="Relation:" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                                     </td>                
                                                     <td colspan="5">   
-                                                        <telerik:RadTextBox ID="txt_Kontak" runat="server" Width="345px" Enabled="true" RenderMode="Lightweight" Skin="Telerik"
+                                                       <%-- <telerik:RadTextBox ID="txt_Kontak" runat="server" Width="345px" Enabled="true" RenderMode="Lightweight" Skin="Telerik"
                                                             AutoPostBack="false" Text='<%# DataBinder.Eval(Container, "DataItem.Kontak") %>'>
-                                                        </telerik:RadTextBox>                                 
+                                                        </telerik:RadTextBox>   --%> 
+                                                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_Kontak" runat="server" Width="300" DropDownWidth="300px"
+                                                            AutoPostBack="true" ShowMoreResultsBox="false" Skin="Telerik" 
+                                                            EnableLoadOnDemand ="true" Text='<%# DataBinder.Eval(Container, "DataItem.Kontak") %>'
+                                                            OnItemsRequested="cb_Kontak_ItemsRequested" 
+                                                            OnSelectedIndexChanged="cb_Kontak_SelectedIndexChanged"
+                                                            OnPreRender="cb_Kontak_PreRender" >
+                                                            <HeaderTemplate>
+                                                                <table style="width: 300px; font-size:smaller">
+                                                                    <tr>
+                                                                        <td style="width: 150px;background-color:#23afad">
+                                                                            Vendor / Custumer
+                                                                        </td>     
+                                                                        <td style="width: 60px;background-color:#23afad">
+                                                                            Code
+                                                                        </td> 
+                                                                        <td style="width: 50px;background-color:#23afad">
+                                                                            Currency
+                                                                        </td>                                                       
+                                                                    </tr>
+                                                                </table>                                                       
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                            <table style="width: 300px; font-size:smaller">
+                                                                <tr>
+                                                                    <td style="width: 150px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['']")%>
+                                                                    </td>
+                                                                    <td style="width: 60px;">
+                                                                        <%# DataBinder.Eval(Container, "Value")%>
+                                                                    </td>
+                                                                    <td style="width: 50px;">
+                                                                        <%# DataBinder.Eval(Container, "Attributes['']")%>
+                                                                    </td>                                                                                                                        
+                                                                </tr>
+                                                            </table>
+                                                            </ItemTemplate>
+                                                        </telerik:RadComboBox>                              
                                                     </td>
                                                 </tr>
                                                 <tr>
