@@ -695,7 +695,7 @@
                                         <telerik:RadPageView runat="server" ID="RadPageView1" Height="300px">
                                             <div runat="server" style="padding:10px 10px 10px 10px">
                                                 <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid2" runat="server" AllowPaging="True" ShowFooter="false" PageSize="5" Skin="Silk"
-                                                AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" CssClass="RadGrid_ModernBrowsers"
+                                                 AllowSorting ="True" AutoGenerateColumns="False" ShowStatusBar="true" CssClass="RadGrid_ModernBrowsers"
                                                         OnNeedDataSource="RadGrid2_NeedDataSource" 
                                                         OnDeleteCommand="RadGrid2_DeleteCommand" 
                                                         OnInsertCommand="RadGrid2_InsertCommand"
@@ -707,13 +707,13 @@
                                                     <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
                                                     <ClientSettings EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />
                                                     <SelectedItemStyle Font-Italic="False" ForeColor="White" BackColor="#c0c0c0" />
-                                                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Size="11px" EditMode="InPlace"
+                                                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="prod_code" Font-Size="11px" EditMode="PopUp"
                                                         ShowHeadersWhenNoRecords="true" AutoGenerateColumns="False" CommandItemSettings-AddNewRecordText="New Item">
                                                     <CommandItemSettings ShowRefreshButton="False" ShowSaveChangesButton="False" /> 
                                                             <Columns>
-                                                            <telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  
+                                                            <%--<telerik:GridEditCommandColumn FooterText="EditCommand footer" UniqueName="EditCommandColumn"  
                                                                 HeaderText="Edit" HeaderStyle-Width="60px" ItemStyle-Width="60px" UpdateText="Update" HeaderStyle-HorizontalAlign="Center">
-                                                            </telerik:GridEditCommandColumn>
+                                                            </telerik:GridEditCommandColumn>--%>
                                                             <telerik:GridTemplateColumn HeaderText="Material Code" HeaderStyle-Width="150px" ItemStyle-Width="150px" HeaderStyle-HorizontalAlign="Center">
                                                                 <ItemTemplate>
                                                                     <asp:Label runat="server" ID="lbl_ProdCode" Width="150px" Text='<%# DataBinder.Eval(Container.DataItem, "prod_code") %>'></asp:Label>

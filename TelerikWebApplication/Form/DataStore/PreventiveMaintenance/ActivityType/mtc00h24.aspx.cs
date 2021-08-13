@@ -35,7 +35,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.ActivityTyp
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select mtc00h24.Act_type, mtc00h24.Act_typeName from mtc00h24 where mtc00h24.stEdit != 4";
+            cmd.CommandText = "select PMMSActType.Act_type, PMMSActType.Act_typeName from PMMSActType where PMMSActType.stEdit != 4";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -60,7 +60,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.ActivityTyp
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO mtc00h24(Act_type, Act_typeName, Stamp,Usr,Owner,stEdit) VALUES (@Act_type, @Act_typeName, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO PMMSActType(Act_type, Act_typeName, Stamp,Usr,Owner,stEdit) VALUES (@Act_type, @Act_typeName, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@Act_type", (item.FindControl("txt_Act_type") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Act_typeName", (item.FindControl("txt_Act_typeName") as RadTextBox).Text);
             
@@ -78,7 +78,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.ActivityTyp
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE mtc00h24 set Act_typeName = @Act_typeName, LastUpdate = getdate(), Usr = @Usr where Act_type = @Act_type";
+            cmd.CommandText = "UPDATE PMMSActType set Act_typeName = @Act_typeName, LastUpdate = getdate(), Usr = @Usr where Act_type = @Act_type";
             cmd.Parameters.AddWithValue("@Act_typeName", (item.FindControl("txt_Act_typeName") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Act_type", (item.FindControl("txt_Act_type") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.ActivityTyp
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update mtc00h24 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where Act_type = @Act_type";
+            cmd.CommandText = "update PMMSActType set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where Act_type = @Act_type";
             cmd.Parameters.AddWithValue("@Act_type", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();

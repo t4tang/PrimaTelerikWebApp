@@ -35,8 +35,8 @@ namespace TelerikWebApplication.Form.DataStore.Support.City
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select inv00h25.city_code, inv00h25.city_name, inv00h20.prov_name from inv00h25 INNER JOIN inv00h20 ON inv00h25.prov_code = inv00h20.prov_code " +
-               " where inv00h25.stedit != 4";
+            cmd.CommandText = "select ms_city.city_code, ms_city.city_name, ms_province.prov_name from ms_city INNER JOIN ms_province ON ms_city.prov_code = ms_province.prov_code " +
+               " where ms_city.stedit != 4";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -55,9 +55,9 @@ namespace TelerikWebApplication.Form.DataStore.Support.City
             return DT;
         }
 
-        private static DataTable Getinv00h20(string text)
+        private static DataTable Getms_province(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select prov_code, prov_name from inv00h20 where prov_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select prov_code, prov_name from ms_province where prov_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -75,7 +75,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.City
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h25(city_code, city_name, prov_code, Stamp,Usr,Owner,stEdit) VALUES (@city_code, @city_name, @prov_code, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO ms_city(city_code, city_name, prov_code, Stamp,Usr,Owner,stEdit) VALUES (@city_code, @city_name, @prov_code, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@city_code", (item.FindControl("txt_city_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@city_name", (item.FindControl("txt_city_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@prov_code", (item.FindControl("cb_province") as RadComboBox).SelectedValue);
@@ -93,7 +93,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.City
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE inv00h25 set city_name = @city_name, prov_code = @prov_code, LastUpdate = getdate(), Usr = @Usr where city_code = @city_code";
+            cmd.CommandText = "UPDATE ms_city set city_name = @city_name, prov_code = @prov_code, LastUpdate = getdate(), Usr = @Usr where city_code = @city_code";
             cmd.Parameters.AddWithValue("@city_name", (item.FindControl("txt_city_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@city_code", (item.FindControl("txt_city_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@prov_code", (item.FindControl("cb_province") as RadComboBox).SelectedValue);
@@ -110,7 +110,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.City
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update inv00h25 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where city_code = @city_code";
+            cmd.CommandText = "update ms_city set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where city_code = @city_code";
             cmd.Parameters.AddWithValue("@city_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -146,7 +146,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.City
 
         private static DataTable Getprov_code(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select prov_code, prov_name from inv00h20 where prov_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select prov_code, prov_name from ms_province where prov_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -163,7 +163,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.City
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select prov_code from inv00h20 where prov_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select prov_code from ms_province where prov_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -178,7 +178,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.City
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select prov_code from inv00h20 where prov_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select prov_code from ms_province where prov_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

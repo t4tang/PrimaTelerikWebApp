@@ -103,7 +103,8 @@ namespace TelerikWebApplication.Form.Inventory.StockCard
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             DataTable dt = new DataTable();
                         
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT top(50)	prod_code, spec, unit FROM inv00h01 WHERE(stEdit <> '4') AND(stMain <> '4') AND spec LIKE @text + '%'", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT top(50)	prod_code, spec, unit FROM ms_product WHERE(stEdit <> '4') AND(stMain <> '4') AND " +
+                "(prod_code LIKE @text + '%' OR spec LIKE @text + '%')", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             //DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -124,7 +125,7 @@ namespace TelerikWebApplication.Form.Inventory.StockCard
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_code FROM ms_product WHERE spec = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -139,7 +140,7 @@ namespace TelerikWebApplication.Form.Inventory.StockCard
         #region project param
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -167,7 +168,7 @@ namespace TelerikWebApplication.Form.Inventory.StockCard
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -186,7 +187,7 @@ namespace TelerikWebApplication.Form.Inventory.StockCard
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(wh_code) as code,upper(wh_name) as name FROM inv00h05 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(wh_code) as code,upper(wh_name) as name FROM ms_warehouse " +
                 "WHERE stEdit <> '4' AND PlantCode = @project AND wh_name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -210,7 +211,7 @@ namespace TelerikWebApplication.Form.Inventory.StockCard
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + cb_warehouse.Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + cb_warehouse.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -225,7 +226,7 @@ namespace TelerikWebApplication.Form.Inventory.StockCard
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + cb_warehouse.Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + cb_warehouse.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

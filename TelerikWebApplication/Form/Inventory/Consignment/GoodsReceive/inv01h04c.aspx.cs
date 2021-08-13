@@ -108,7 +108,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         #region project
         private static DataTable GetProjectPrm(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -137,7 +137,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -387,7 +387,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from inv01d04 where prod_code = @prod_code and lbm_code = @lbm_code";
+                cmd.CommandText = "delete from tr_lbmd where prod_code = @prod_code and lbm_code = @lbm_code";
                 cmd.Parameters.AddWithValue("@lbm_code", tr_code);
                 cmd.Parameters.AddWithValue("@prod_code", partCode);
                 cmd.ExecuteNonQuery();
@@ -481,7 +481,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         //    SqlConnection con = new SqlConnection(
         //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM ms_cost_center " +
         //        "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
         //    adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
         //    adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -509,7 +509,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         //    SqlCommand cmd = new SqlCommand();
         //    cmd.Connection = con;
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+        //    cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
         //    SqlDataReader dr;
         //    dr = cmd.ExecuteReader();
         //    while (dr.Read())
@@ -527,7 +527,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         //    SqlCommand cmd = new SqlCommand();
         //    cmd.Connection = con;
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+        //    cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
         //    SqlDataReader dr;
         //    dr = cmd.ExecuteReader();
         //    while (dr.Read())
@@ -546,10 +546,10 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT inv00h12.KdLok, inv00h12.NmLok, inv00h12.lastupdate, inv00h12.userid, inv00h12.stEdit, inv00h12.wh_code " +
-            "FROM inv00h12 LEFT OUTER JOIN inv00d01 ON inv00h12.NmLok = inv00d01.KoLok " +
-            "WHERE  (inv00h12.wh_code = @wh_code) AND (inv00d01.QACT = 0 OR inv00d01.KoLok IS NULL) AND inv00h12.stEdit <> '4'" +
-             "AND inv00h12.NmLok LIKE @text + '%'", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT ms_lokbar.KdLok, ms_lokbar.NmLok, ms_lokbar.lastupdate, ms_lokbar.userid, ms_lokbar.stEdit, ms_lokbar.wh_code " +
+            "FROM ms_lokbar LEFT OUTER JOIN ms_product_detail ON ms_lokbar.NmLok = ms_product_detail.KoLok " +
+            "WHERE  (ms_lokbar.wh_code = @wh_code) AND (ms_product_detail.QACT = 0 OR ms_product_detail.KoLok IS NULL) AND ms_lokbar.stEdit <> '4'" +
+             "AND ms_lokbar.NmLok LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@wh_code", storage);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
             DataTable dt = new DataTable();
@@ -574,7 +574,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_code FROM ms_product WHERE spec = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -585,8 +585,8 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         protected void cb_prod_code_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
             //string sql = "select part_code, part_desc, " +
-            //"part_qty - ISNULL((select inv01d04.qty_receive from inv01h04, inv01d04 where inv01d04.prod_code = inv01d03.part_code AND inv01h04.lbm_code = inv01d04.lbm_code and inv01h04.ref_code = inv01d03.doc_code),0) as qty_Sisa " +
-            //"from inv01d03 where doc_code = @doc_code AND (part_qty - ISNULL((select inv01d04.qty_receive from inv01h04, inv01d04 where inv01d04.prod_code = inv01d03.part_code AND inv01h04.lbm_code = inv01d04.lbm_code and inv01h04.ref_code = inv01d03.doc_code),0) > 0) AND part_desc LIKE @part_desc + '%'";
+            //"part_qty - ISNULL((select tr_lbmd.qty_receive from tr_lbmh, tr_lbmd where tr_lbmd.prod_code = fleet_docd.part_code AND tr_lbmh.lbm_code = tr_lbmd.lbm_code and tr_lbmh.ref_code = fleet_docd.doc_code),0) as qty_Sisa " +
+            //"from fleet_docd where doc_code = @doc_code AND (part_qty - ISNULL((select tr_lbmd.qty_receive from tr_lbmh, tr_lbmd where tr_lbmd.prod_code = fleet_docd.part_code AND tr_lbmh.lbm_code = tr_lbmd.lbm_code and tr_lbmh.ref_code = fleet_docd.doc_code),0) > 0) AND part_desc LIKE @part_desc + '%'";
             string sql = "SELECT part_code, part_desc, qty_Sisa FROM v_consignment_reffD WHERE qty_sisa > 1 AND doc_code = @doc_code " +
                 " AND part_desc LIKE @part_desc + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
@@ -625,8 +625,8 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
                 //cmd.CommandText = "SELECT prod_type, part_code, part_unit, " +
-                //    "part_qty - ISNULL((select inv01d05.qty_out from inv01h05, inv01d05 where inv01d05.prod_code = inv01d03.part_code AND inv01h05.do_code = inv01d05.do_code and inv01h05.ref_code = inv01d03.doc_code),0) as qty_Sisa " +
-                //    "FROM inv01d03 WHERE doc_code = '" + selected_reff_code + "' AND part_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                //    "part_qty - ISNULL((select tr_dod.qty_out from inv01h05, tr_dod where tr_dod.prod_code = fleet_docd.part_code AND inv01h05.do_code = tr_dod.do_code and inv01h05.ref_code = fleet_docd.doc_code),0) as qty_Sisa " +
+                //    "FROM fleet_docd WHERE doc_code = '" + selected_reff_code + "' AND part_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 cmd.CommandText = "SELECT prod_type, part_code, SatQty AS part_unit, qty_Sisa FROM v_consignment_reffD " +
                     "WHERE qty_Sisa > 0 AND doc_code = '" + selected_reff_code + "' AND part_code = '" + (sender as RadComboBox).SelectedValue + "'";
@@ -700,7 +700,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         #region Supplier
         private static DataTable GetSupplier(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select supplier_code, supplier_name, info_code from inv01h06 where (type_info = '2') AND " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select supplier_code, supplier_name, info_code from tr_InfoRecord_H where (type_info = '2') AND " +
                 "(region_code = @region_code) AND supplier_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -720,7 +720,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             DataTable dt = new DataTable();
             
-            SqlDataAdapter adapter = new SqlDataAdapter("select supplier_code, supplier_name, info_code from inv01h06 where (type_info = '2') AND " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select supplier_code, supplier_name, info_code from tr_InfoRecord_H where (type_info = '2') AND " +
                 "(region_code = @region_code) AND supplier_name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
             adapter.SelectCommand.Parameters.AddWithValue("@region_code", selected_project);
@@ -754,7 +754,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select supplier_code, info_code from inv01h06 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select supplier_code, info_code from tr_InfoRecord_H WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -779,7 +779,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select supplier_code from pur00h01 WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select supplier_code from ms_supplier WHERE supplier_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -797,7 +797,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -826,7 +826,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         //    SqlCommand cmd = new SqlCommand();
         //    cmd.Connection = con;
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+        //    cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
         //    SqlDataReader dr;
         //    dr = cmd.ExecuteReader();
         //    while (dr.Read())
@@ -844,7 +844,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -859,7 +859,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
         #region Warehouse / Storage 
         private static DataTable GetWarehouse(string text, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM ms_warehouse WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -889,7 +889,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -914,10 +914,10 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "SELECT inv00h12.KdLok, inv00h12.NmLok, inv00h12.lastupdate, inv00h12.userid, inv00h12.stEdit, inv00h12.wh_code " +
-                                "FROM inv00h12 LEFT OUTER JOIN inv00d01 ON inv00h12.NmLok = inv00d01.KoLok " +
-                                "WHERE  (inv00h12.wh_code = '" + (sender as RadComboBox).SelectedValue + "') AND " +
-                                "inv00h12.stEdit <> '4' AND inv00d01.prod_code = '" + lblProdCode.Text + "' ";
+                cmd.CommandText = "SELECT ms_lokbar.KdLok, ms_lokbar.NmLok, ms_lokbar.lastupdate, ms_lokbar.userid, ms_lokbar.stEdit, ms_lokbar.wh_code " +
+                                "FROM ms_lokbar LEFT OUTER JOIN ms_product_detail ON ms_lokbar.NmLok = ms_product_detail.KoLok " +
+                                "WHERE  (ms_lokbar.wh_code = '" + (sender as RadComboBox).SelectedValue + "') AND " +
+                                "ms_lokbar.stEdit <> '4' AND ms_product_detail.prod_code = '" + lblProdCode.Text + "' ";
                 //SqlDataReader dr;
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
@@ -936,7 +936,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -956,7 +956,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -979,7 +979,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -996,7 +996,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1018,7 +1018,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1035,7 +1035,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1052,7 +1052,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1074,7 +1074,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1096,7 +1096,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1113,7 +1113,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1315,10 +1315,10 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h04.lbm_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                       "FROM inv01h04 WHERE LEFT(inv01h04.lbm_code, 4) ='GR01' " +
-                       "AND SUBSTRING(inv01h04.lbm_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                       "AND SUBSTRING(inv01h04.lbm_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_lbmh.lbm_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                       "FROM tr_lbmh WHERE LEFT(tr_lbmh.lbm_code, 4) ='GR01' " +
+                       "AND SUBSTRING(tr_lbmh.lbm_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                       "AND SUBSTRING(tr_lbmh.lbm_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -1468,7 +1468,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM ms_cost_center " +
                 "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -1492,7 +1492,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1507,7 +1507,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1544,7 +1544,7 @@ namespace TelerikWebApplication.Form.Inventory.Consignment.GoodsReceive
             //if (typeRef == "Consumption")
             //{
                 SqlDataAdapter adapter = new SqlDataAdapter("SELECT TOP(20) doc_code, doc_remark FROM v_gr_reff_consigment WHERE region_code = @project " +
-                "AND doc_code IN (SELECT inv01d03.doc_code FROM inv01d03, inv01d06 WHERE inv01d03.part_code = inv01d06.Prod_code AND inv01d06.info_code = @info_code) " +
+                "AND doc_code IN (SELECT fleet_docd.doc_code FROM fleet_docd, tr_InfoRecord_D WHERE fleet_docd.part_code = tr_InfoRecord_D.Prod_code AND tr_InfoRecord_D.info_code = @info_code) " +
                 "AND doc_code LIKE @text + '%'", con);
                 adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@info_code", info_code);

@@ -56,15 +56,16 @@ namespace FicoReportLibrary
             // 
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.88749992847442627D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox2.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox2.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox2.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox2.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox2.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox2.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox2.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox2.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox2.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox2.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox2.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox2.Style.Color = System.Drawing.Color.White;
             this.textBox2.Style.Font.Bold = true;
-            this.textBox2.Style.Font.Name = "Courier";
+            this.textBox2.Style.Font.Name = "Courier New";
+            this.textBox2.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox2.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox2.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox2.StyleName = "BlueOpal.TableHeader";
@@ -74,15 +75,16 @@ namespace FicoReportLibrary
             // 
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3708324432373047D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox3.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox3.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox3.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox3.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox3.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox3.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox3.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox3.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox3.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox3.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox3.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox3.Style.Color = System.Drawing.Color.White;
             this.textBox3.Style.Font.Bold = true;
-            this.textBox3.Style.Font.Name = "Courier";
+            this.textBox3.Style.Font.Name = "Courier New";
+            this.textBox3.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox3.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox3.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox3.StyleName = "BlueOpal.TableHeader";
@@ -92,15 +94,16 @@ namespace FicoReportLibrary
             // 
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(3.3458316326141357D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox4.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox4.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox4.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox4.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox4.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox4.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox4.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox4.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox4.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox4.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox4.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox4.Style.Color = System.Drawing.Color.White;
             this.textBox4.Style.Font.Bold = true;
-            this.textBox4.Style.Font.Name = "Courier";
+            this.textBox4.Style.Font.Name = "Courier New";
+            this.textBox4.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox4.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox4.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox4.StyleName = "BlueOpal.TableHeader";
@@ -110,15 +113,16 @@ namespace FicoReportLibrary
             // 
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.4270862340927124D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox5.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox5.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox5.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox5.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox5.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox5.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox5.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox5.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox5.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox5.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox5.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox5.Style.Color = System.Drawing.Color.White;
             this.textBox5.Style.Font.Bold = true;
-            this.textBox5.Style.Font.Name = "Courier";
+            this.textBox5.Style.Font.Name = "Courier New";
+            this.textBox5.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox5.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox5.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox5.StyleName = "BlueOpal.TableHeader";
@@ -128,15 +132,16 @@ namespace FicoReportLibrary
             // 
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.754167377948761D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox6.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox6.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox6.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox6.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox6.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox6.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox6.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox6.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox6.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox6.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox6.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox6.Style.Color = System.Drawing.Color.White;
             this.textBox6.Style.Font.Bold = true;
-            this.textBox6.Style.Font.Name = "Courier";
+            this.textBox6.Style.Font.Name = "Courier New";
+            this.textBox6.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox6.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox6.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox6.StyleName = "BlueOpal.TableHeader";
@@ -146,15 +151,16 @@ namespace FicoReportLibrary
             // 
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6625010967254639D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox8.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox8.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox8.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox8.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox8.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox8.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox8.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox8.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox8.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox8.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox8.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox8.Style.Color = System.Drawing.Color.White;
             this.textBox8.Style.Font.Bold = true;
-            this.textBox8.Style.Font.Name = "Courier";
+            this.textBox8.Style.Font.Name = "Courier New";
+            this.textBox8.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox8.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox8.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox8.StyleName = "BlueOpal.TableHeader";
@@ -164,15 +170,16 @@ namespace FicoReportLibrary
             // 
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6458339691162109D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox9.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox9.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox9.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox9.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox9.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox9.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox9.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox9.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox9.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox9.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox9.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox9.Style.Color = System.Drawing.Color.White;
             this.textBox9.Style.Font.Bold = true;
-            this.textBox9.Style.Font.Name = "Courier";
+            this.textBox9.Style.Font.Name = "Courier New";
+            this.textBox9.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox9.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox9.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox9.StyleName = "BlueOpal.TableHeader";
@@ -182,15 +189,16 @@ namespace FicoReportLibrary
             // 
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6083338260650635D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox10.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox10.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox10.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox10.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox10.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox10.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox10.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox10.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox10.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox10.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox10.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox10.Style.Color = System.Drawing.Color.White;
             this.textBox10.Style.Font.Bold = true;
-            this.textBox10.Style.Font.Name = "Courier";
+            this.textBox10.Style.Font.Name = "Courier New";
+            this.textBox10.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox10.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox10.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox10.StyleName = "BlueOpal.TableHeader";
@@ -200,14 +208,15 @@ namespace FicoReportLibrary
             // 
             this.textBox21.Name = "textBox21";
             this.textBox21.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6770851612091065D), Telerik.Reporting.Drawing.Unit.Inch(0.3948809802532196D));
-            this.textBox21.Style.BackgroundColor = System.Drawing.Color.White;
-            this.textBox21.Style.BorderColor.Bottom = System.Drawing.Color.DodgerBlue;
-            this.textBox21.Style.BorderColor.Default = System.Drawing.Color.DodgerBlue;
+            this.textBox21.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
+            this.textBox21.Style.BorderColor.Bottom = System.Drawing.Color.White;
+            this.textBox21.Style.BorderColor.Default = System.Drawing.Color.White;
             this.textBox21.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
-            this.textBox21.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Pixel(1D);
-            this.textBox21.Style.Color = System.Drawing.SystemColors.Desktop;
+            this.textBox21.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(1D);
+            this.textBox21.Style.Color = System.Drawing.Color.White;
             this.textBox21.Style.Font.Bold = true;
-            this.textBox21.Style.Font.Name = "Courier";
+            this.textBox21.Style.Font.Name = "Courier New";
+            this.textBox21.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(10D);
             this.textBox21.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox21.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox21.StyleName = "BlueOpal.TableHeader";
@@ -246,9 +255,13 @@ namespace FicoReportLibrary
             this.textBox1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(10.9448823928833D), Telerik.Reporting.Drawing.Unit.Inch(0.13425204157829285D));
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(3.3755900859832764D), Telerik.Reporting.Drawing.Unit.Inch(0.27559059858322144D));
+            this.textBox1.Style.BackgroundColor = System.Drawing.Color.Empty;
+            this.textBox1.Style.BorderColor.Bottom = System.Drawing.Color.Orange;
+            this.textBox1.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox1.Style.Color = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(166)))), ((int)(((byte)(187)))));
             this.textBox1.Style.Font.Bold = true;
             this.textBox1.Style.Font.Name = "Segoe UI Light";
-            this.textBox1.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(12D);
+            this.textBox1.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(14D);
             this.textBox1.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox1.Value = "= Fields.ReportName";
             // 
@@ -265,10 +278,10 @@ namespace FicoReportLibrary
             // textBox22
             // 
             this.textBox22.Format = "{0:d}";
-            this.textBox22.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(10.9448823928833D), Telerik.Reporting.Drawing.Unit.Inch(0.4099213182926178D));
+            this.textBox22.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(10.9448823928833D), Telerik.Reporting.Drawing.Unit.Inch(0.43307086825370789D));
             this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(3.3755896091461182D), Telerik.Reporting.Drawing.Unit.Inch(0.483858197927475D));
-            this.textBox22.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox22.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(3.3755896091461182D), Telerik.Reporting.Drawing.Unit.Inch(0.38196846842765808D));
+            this.textBox22.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.textBox22.Style.BorderWidth.Top = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.textBox22.Style.Font.Bold = false;
             this.textBox22.Style.Font.Name = "Segoe UI Light";
@@ -515,7 +528,8 @@ namespace FicoReportLibrary
             // 
             this.sqlDataSource1.ConnectionString = "ReportLibrary.Properties.Settings.DbConString";
             this.sqlDataSource1.Name = "sqlDataSource1";
-            this.sqlDataSource1.SelectCommand = "SELECT company_name, address1,\'GENERAL JOURNAL\' as ReportName\r\nFROM     inv00h15";
+            this.sqlDataSource1.SelectCommand = "SELECT company_name, address1,\'GENERAL JOURNAL\' as ReportName\r\nFROM     ms_compan" +
+    "y";
             // 
             // GeneralJournal
             // 

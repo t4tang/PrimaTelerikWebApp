@@ -37,10 +37,10 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT acc00h01.KoBank, acc00h01.NamBank, acc00h01.NamaRek, acc00h01.NoRek, acc00h01.status, acc00h01.KoRek, acc00h01.SAwal,acc00h01.SAValas, " +
-            "acc00h01.Lvl, acc00h01.Stamp,acc00h01.Usr,acc00h01.Owner,acc00h01.LastUpdate ,acc00h01.stEdit, acc00h10.accountname,accountno +' '+ accountname as accountComb, " +
-            "acc00h10.cur_code, (select region_name from inv00h09 where region_code = acc00h01.region_code ) as project_name, acc00h01.tLock " +
-            "FROM acc00h01, acc00h10  WHERE(acc00h01.KoRek = acc00h10.accountno) and((acc00h01.stEdit = '0'))  ";
+            cmd.CommandText = "SELECT KOBANK.KoBank, KOBANK.NamBank, KOBANK.NamaRek, KOBANK.NoRek, KOBANK.status, KOBANK.KoRek, KOBANK.SAwal,KOBANK.SAValas, " +
+            "KOBANK.Lvl, KOBANK.Stamp,KOBANK.Usr,KOBANK.Owner,KOBANK.LastUpdate ,KOBANK.stEdit, gl_account.accountname,accountno +' '+ accountname as accountComb, " +
+            "gl_account.cur_code, (select region_name from ms_jobsite where region_code = KOBANK.region_code ) as project_name, KOBANK.tLock " +
+            "FROM KOBANK, gl_account  WHERE(KOBANK.KoRek = gl_account.accountno) and((KOBANK.stEdit = '0'))  ";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "INSERT INTO acc00h01(KoBank, NamBank, NamaRek, NoRek, KoRek, Lvl, Stamp, Usr, Owner, LastUpdate, status, stEdit, region_code, tLock) " +
+                cmd.CommandText = "INSERT INTO KOBANK(KoBank, NamBank, NamaRek, NoRek, KoRek, Lvl, Stamp, Usr, Owner, LastUpdate, status, stEdit, region_code, tLock) " +
                 "VALUES (@KoBank,@NamBank,@NamaRek,@NoRek,@KoRek,@Lvl, GETDATE(),@Usr,@Owner, GETDATE(), @status, '0',@region_code, @tLock)";
                 cmd.Parameters.AddWithValue("@KoBank", (item.FindControl("txt_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@NamBank", (item.FindControl("txt_BankName") as RadTextBox).Text);
@@ -137,7 +137,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
                     {
                         GridEditFormItem item = (GridEditFormItem)e.Item;
 
-                        cmd = new SqlCommand("UPDATE acc00h01 SET NamBank = @NamBank, NamaRek = @NamaRek, NoRek = @NoRek, KoRek = @KoRek, Lvl = @Lvl, Stamp = GETDATE(),  " +
+                        cmd = new SqlCommand("UPDATE KOBANK SET NamBank = @NamBank, NamaRek = @NamaRek, NoRek = @NoRek, KoRek = @KoRek, Lvl = @Lvl, Stamp = GETDATE(),  " +
                                 "Usr = @Usr, [Owner] = @Owner, LastUpdate = GETDATE(), [status] = @status, stEdit = '0', region_code = @region_code, tLock = @tLock WHERE KoBank = @KoBank", con);
                         con.Open();
                         cmd.Parameters.AddWithValue("@KoBank", (item.FindControl("txt_code") as RadTextBox).Text);
@@ -182,7 +182,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc00h01 SET Usr = @Usr, LastUpdate = GETDATE(), stEdit = '4' WHERE (KoBank = @KoBank)";
+                cmd.CommandText = "UPDATE KOBANK SET Usr = @Usr, LastUpdate = GETDATE(), stEdit = '4' WHERE (KoBank = @KoBank)";
                 cmd.Parameters.AddWithValue("@KoBank", KoBank);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -202,7 +202,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
         }
         public static DataTable GetProject(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_name, region_code from inv00h09 where stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_name, region_code from ms_jobsite where stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -233,7 +233,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -247,7 +247,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -257,7 +257,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
         }
         public static DataTable GetAccount(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
@@ -289,7 +289,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -303,7 +303,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM acc00h10 WHERE accountno = @accountno", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM gl_account WHERE accountno = @accountno", con);
             adapter.SelectCommand.Parameters.AddWithValue("@accountno", accNo);
 
 
@@ -329,7 +329,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.BankCode
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

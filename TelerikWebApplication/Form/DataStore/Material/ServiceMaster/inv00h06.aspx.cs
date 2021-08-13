@@ -42,11 +42,11 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h01.prod_code, inv00h01.spec, inv00h01.koref, inv00h01.NmRef, inv00h01.kind_code, inv00h01.unit, inv00h01.tcogs, " +
-                              "inv00h01.tSN, inv00h01.tConsig, inv00h01.tActive, inv00h01.AccCOGS, inv00h01.AccSales, inv00h01.AccReturn, inv00h01.AccInventory, " +
-                              "inv00h01.tMonitor, inv00h01.AccReturnBeli, inv00h01.Cogs, inv00h01.AccSalesDisc, inv00h01.AccDiscBeli, inv00h01.AccAssem, " +
-                              "inv00h01.map, inv00h02.kind_name FROM inv00h01, inv00h02 WHERE (inv00h01.kind_code = inv00h02.kind_code) and((inv00h01.stEdit <> '4') " +
-                              "and (inv00h02.prod_type_code = 'SERV'))";
+            cmd.CommandText = "SELECT ms_product.prod_code, ms_product.spec, ms_product.koref, ms_product.NmRef, ms_product.kind_code, ms_product.unit, ms_product.tcogs, " +
+                              "ms_product.tSN, ms_product.tConsig, ms_product.tActive, ms_product.AccCOGS, ms_product.AccSales, ms_product.AccReturn, ms_product.AccInventory, " +
+                              "ms_product.tMonitor, ms_product.AccReturnBeli, ms_product.Cogs, ms_product.AccSalesDisc, ms_product.AccDiscBeli, ms_product.AccAssem, " +
+                              "ms_product.map, ms_product_kind.kind_name FROM ms_product, ms_product_kind WHERE (ms_product.kind_code = ms_product_kind.kind_code) and((ms_product.stEdit <> '4') " +
+                              "and (ms_product_kind.prod_type_code = 'SERV'))";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -72,7 +72,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE inv00h01 SET stEdit = 4 where prod_code = @prod_code";
+            cmd.CommandText = "UPDATE ms_product SET stEdit = 4 where prod_code = @prod_code";
             cmd.Parameters.AddWithValue("@prod_code", prod_code);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -90,7 +90,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE inv00h01 set spec = @spec, koref = @koref, NmRef = @NmRef, kind_code = @kind_code, unit = @unit, tActive = @tActive, " +
+            cmd.CommandText = "UPDATE ms_product set spec = @spec, koref = @koref, NmRef = @NmRef, kind_code = @kind_code, unit = @unit, tActive = @tActive, " +
                               "lastupdate = getdate(), userid = @userid where prod_code = @prod_code";
             cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("txt_activity") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@spec", (item.FindControl("txt_activity_name") as RadTextBox).Text);
@@ -111,7 +111,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h01 (prod_code, spec, koref, NmRef, kind_code, unit, tActive, lastupdate, userid, stEdit) VALUES " +
+            cmd.CommandText = "INSERT INTO ms_product (prod_code, spec, koref, NmRef, kind_code, unit, tActive, lastupdate, userid, stEdit) VALUES " +
                               "(@prod_code, @spec, @koref, @NmRef, @kind_code, @unit, @tActive, getdate(), @userid, '0')";
             cmd.Parameters.AddWithValue("@prod_code", (item.FindControl("txt_activity") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@spec", (item.FindControl("txt_activity_name") as RadTextBox).Text);
@@ -127,7 +127,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
 
         public static DataTable GetUom(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select unit_name, unit_code from inv00h08 where stEdit != 4 AND unit_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select unit_name, unit_code from ms_uom where stEdit != 4 AND unit_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -142,7 +142,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT unit_code FROM ms_uom WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -173,7 +173,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT unit_code FROM ms_uom WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -188,7 +188,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT DISTINCT kind_code FROM inv00h02 WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT DISTINCT kind_code FROM ms_product_kind WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -198,7 +198,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
         }
         public static DataTable GetService(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select kind_name, kind_code from inv00h02 where prod_type_code = 'SERV' AND kind_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select kind_name, kind_code from ms_product_kind where prod_type_code = 'SERV' AND kind_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -229,7 +229,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.ServiceMaster
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT kind_code FROM inv00h02 WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT kind_code FROM ms_product_kind WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

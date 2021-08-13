@@ -117,7 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.516, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
-    <value>0.1cm</value>
+  <metadata name="sqlBankPayment.ParameterValues" xml:space="preserve">
+    <value>{"@slip_no":"B05K1040135"}</value>
   </metadata>
+  <data name="sqlBankPayment.SelectCommand" xml:space="preserve">
+    <value>SELECT tr_paymentpurHH.cust_code, tr_paymentpurHH.slip_no, tr_paymentpurHH.slip_date, tr_paymentpurHH.pay_way, tr_paymentpurHH.noctrl, tr_paymentpurHH.accountno, tr_paymentpurHH.cashbank, tr_paymentpurHH.tgl_cair, 
+                  tr_paymentpurHH.Remark, tr_paymentpurHH.cur_code_acc, tr_paymentpurHH.kurs, tr_paymentpurHH.freby, tr_paymentpurHH.ordby, tr_paymentpurHH.appby, tr_paymentpurd.inv_code, tr_paymentpurd.pay_amount, 
+                  tr_paymentpurd.remark AS remark_d, tr_paymentpurHH.inf_pay_no, tr_paymentpurd.idrun, tr_paymentpurd.fkno, tr_paymentpurd.pay_amount_acc, tr_paymentpurHH.cur_code, v_supplier_affiliasi.norek, v_supplier_affiliasi.korek, 
+                  v_supplier_affiliasi.rekname, v_supplier_affiliasi.bankname, v_supplier_affiliasi.supplier_name,
+                      (SELECT UPPER(Jabatan) AS Expr1
+                       FROM      ms_manpower
+                       WHERE   (Nik = tr_paymentpurHH.appby)) AS appby_txt,
+                      (SELECT UPPER(Jabatan) AS Expr1
+                       FROM      ms_manpower AS ms_manpower_2
+                       WHERE   (Nik = tr_paymentpurHH.ordby)) AS ordby_txt,
+                      (SELECT UPPER(Jabatan) AS Expr1
+                       FROM      ms_manpower AS ms_manpower_1
+                       WHERE   (Nik = tr_paymentpurHH.freby)) AS freby_txt, dbo.fg_terbilang_eng(tr_paymentpurd.pay_amount, 'USD') AS terbilang, ms_manpower_3.Name AS freBy_name, ms_manpower_4.Name AS ordBy_name, 
+                  ms_manpower_5.Name AS appBy_name, ms_company.company_name, ms_company.address1
+FROM     ms_manpower AS ms_manpower_3 RIGHT OUTER JOIN
+                  ms_manpower AS ms_manpower_4 RIGHT OUTER JOIN
+                  tr_paymentpurd INNER JOIN
+                  tr_paymentpurHH ON tr_paymentpurd.slip_no = tr_paymentpurHH.slip_no INNER JOIN
+                  v_supplier_affiliasi ON tr_paymentpurHH.cust_code = v_supplier_affiliasi.supplier_code LEFT OUTER JOIN
+                  ms_manpower AS ms_manpower_5 ON tr_paymentpurHH.appby = ms_manpower_5.Nik ON ms_manpower_4.Nik = tr_paymentpurHH.ordby ON ms_manpower_3.Nik = tr_paymentpurHH.freby CROSS JOIN
+                  ms_company
+WHERE  (tr_paymentpurHH.slip_no = @slip_no)</value>
+  </data>
 </root>

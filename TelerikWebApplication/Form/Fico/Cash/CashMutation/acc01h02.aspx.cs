@@ -85,7 +85,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
         #region Param
         private static DataTable GetCashCode(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoKas, NamKas FROM acc00h02 WHERE stEdit != 4 AND NamKas LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT KoKas, NamKas FROM COKAS WHERE stEdit != 4 AND NamKas LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -115,7 +115,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoKas FROM acc00h02 WHERE NamKas = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT KoKas FROM COKAS WHERE NamKas = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -182,7 +182,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc01h02 SET Usr = @Usr, LastUpdate = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
+                cmd.CommandText = "UPDATE glKas SET Usr = @Usr, LastUpdate = GETDATE(), Batal = '1' WHERE (NoBuk = @NoBuk)";
                 cmd.Parameters.AddWithValue("@NoBuk", NoBuk);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -293,10 +293,10 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h02.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h02 WHERE LEFT(acc01h02.NoBuk, 4) = '" + cb_Cash.SelectedValue + "' + '" + cb_KoTrans.SelectedValue + "' " +
-                        "AND SUBSTRING(acc01h02.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(acc01h02.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( glKas.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM glKas WHERE LEFT(glKas.NoBuk, 4) = '" + cb_Cash.SelectedValue + "' + '" + cb_KoTrans.SelectedValue + "' " +
+                        "AND SUBSTRING(glKas.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(glKas.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -453,7 +453,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code,region_name from inv00h09 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code,region_name from ms_jobsite where stEdit != 4 " +
                 " AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -484,7 +484,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select region_code from inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select region_code from ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -499,7 +499,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select region_code from inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select region_code from ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -518,7 +518,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(KoKas) as code,upper(NamKas) as name FROM acc00h02 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(KoKas) as code,upper(NamKas) as name FROM COKAS " +
                 "WHERE stEdit <> '4' AND region_code = @project AND NamKas LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -543,7 +543,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoKas FROM acc00h02 WHERE NamKas = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT KoKas FROM COKAS WHERE NamKas = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -561,7 +561,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT acc00h02.*, acc00h04.KursRun, acc00h04.cur_code FROM acc00h02 CROSS JOIN " +
+            cmd.CommandText = "SELECT COKAS.*, acc00h04.KursRun, acc00h04.cur_code FROM COKAS CROSS JOIN " +
                                 " acc00h04 where acc00h04.tglKurs = (select MAX(acc00h04.tglKurs) from acc00h04) AND NamKas = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
@@ -586,7 +586,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -616,7 +616,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -631,7 +631,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -657,7 +657,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -672,7 +672,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -698,7 +698,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -713,7 +713,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -907,7 +907,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
         #region KoRek
         protected void cb_KoRek_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT [accountno], [accountname] FROM [acc00h10]  WHERE stEdit != '4' AND accountname LIKE @accountname + '%'";
+            string sql = "SELECT [accountno], [accountname] FROM [gl_account]  WHERE stEdit != '4' AND accountname LIKE @accountname + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@accountname", e.Text);
@@ -938,7 +938,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -957,9 +957,9 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT  acc00h10.accountno,acc00h10.accountname,acc00h10.cur_code, acc01h01.kurs, acc01h01.KoTrans " +
-                                    "FROM acc00h10 INNER JOIN " +
-                                    "acc01h01 ON acc00h10.cur_code = acc01h01.cur_code WHERE accountno = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT  gl_account.accountno,gl_account.accountname,gl_account.cur_code, glBank.kurs, glBank.KoTrans " +
+                                    "FROM gl_account INNER JOIN " +
+                                    "glBank ON gl_account.cur_code = glBank.cur_code WHERE accountno = '" + (sender as RadComboBox).SelectedValue + "'";
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -1036,7 +1036,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
         #region Project Detail
         protected void cb_Project_Detail_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT [region_code], [region_name] FROM [inv00h09]  WHERE stEdit != '4' AND region_name LIKE @region_name + '%'";
+            string sql = "SELECT [region_code], [region_name] FROM [ms_jobsite]  WHERE stEdit != '4' AND region_name LIKE @region_name + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@region_name", e.Text);
@@ -1067,7 +1067,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1086,7 +1086,7 @@ namespace TelerikWebApplication.Form.Fico.Cash.CashMutation
                 //SqlCommand cmd = new SqlCommand();
                 //cmd.Connection = con;
                 //cmd.CommandType = CommandType.Text;
-                //cmd.CommandText = "SELECT region_name FROM inv00h09 WHERE region_code = '" + (sender as RadComboBox).SelectedValue + "'";
+                //cmd.CommandText = "SELECT region_name FROM ms_jobsite WHERE region_code = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 //SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 //DataTable dt = new DataTable();

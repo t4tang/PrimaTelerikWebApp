@@ -35,9 +35,9 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select mtc00h23.OrderType, mtc00h23.OrderName, mtc00h23.OrderName,mtc00h23.IsPlan, "+
-                " Case mtc00h23.Dtype_code When 'SM' Then 'Schedule Maintenance' When 'UM' Then 'Unschedule Maintenance' else 'Accident' End as DTypename " +
-                " from mtc00h23 where mtc00h23.stedit != 4";
+            cmd.CommandText = "select PMMSOrderType.OrderType, PMMSOrderType.OrderName, PMMSOrderType.OrderName,PMMSOrderType.IsPlan, "+
+                " Case PMMSOrderType.Dtype_code When 'SM' Then 'Schedule Maintenance' When 'UM' Then 'Unschedule Maintenance' else 'Accident' End as DTypename " +
+                " from PMMSOrderType where PMMSOrderType.stedit != 4";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -62,7 +62,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO mtc00h23(OrderType, IsPlan, OrderName, Dtype_code, Stamp,Usr,Owner,stEdit) VALUES (@OrderType,@IsPlan, @OrderName, @Dtype_code, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO PMMSOrderType(OrderType, IsPlan, OrderName, Dtype_code, Stamp,Usr,Owner,stEdit) VALUES (@OrderType,@IsPlan, @OrderName, @Dtype_code, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@OrderType", (item.FindControl("txt_OrderType") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@IsPlan", (item.FindControl("chk_Plan") as CheckBox).Checked ? 1 : 0);
             cmd.Parameters.AddWithValue("@OrderName", (item.FindControl("txt_OrderName") as RadTextBox).Text);
@@ -81,7 +81,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE mtc00h23 set OrderName = @OrderName, Dtype_code = @Dtype_code, IsPlan= @IsPlan, LastUpdate = getdate(), Usr = @Usr where OrderType = @OrderType";
+            cmd.CommandText = "UPDATE PMMSOrderType set OrderName = @OrderName, Dtype_code = @Dtype_code, IsPlan= @IsPlan, LastUpdate = getdate(), Usr = @Usr where OrderType = @OrderType";
             cmd.Parameters.AddWithValue("@OrderName", (item.FindControl("txt_OrderName") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@OrderType", (item.FindControl("txt_OrderType") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Dtype_code", (item.FindControl("cb_maint") as RadComboBox).SelectedValue);
@@ -99,7 +99,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.OrderType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update mtc00h23 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where OrderType = @OrderType";
+            cmd.CommandText = "update PMMSOrderType set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where OrderType = @OrderType";
             cmd.Parameters.AddWithValue("@OrderType", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();

@@ -46,7 +46,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetTaxGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT TaxGroup, TaxGroupName FROM acc00h25 where stEdit != 4";
+            cmd.CommandText = "SELECT TaxGroup, TaxGroupName FROM ms_asset_tax_group where stEdit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -72,7 +72,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetTaxGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h25 SET stEdit = 4 where TaxGroup = @TaxGroup";
+            cmd.CommandText = "UPDATE ms_asset_tax_group SET stEdit = 4 where TaxGroup = @TaxGroup";
             cmd.Parameters.AddWithValue("@TaxGroup", TaxGroup);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -90,7 +90,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetTaxGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h25 (TaxGroup, TaxGroupName, lastupdate, userid, stEdit) " +
+            cmd.CommandText = "INSERT INTO ms_asset_tax_group (TaxGroup, TaxGroupName, lastupdate, userid, stEdit) " +
                               "VALUES (@TaxGroup, @TaxGroupName, getdate(), @userid, '0')";
             cmd.Parameters.AddWithValue("@TaxGroup", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@TaxGroupName", (item.FindControl("txt_group_name") as RadTextBox).Text);
@@ -106,7 +106,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetTaxGroup
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h25 SET TaxGroupName = @TaxGroupName, lastupdate = getdate(), userid = @userid WHERE TaxGroup = @TaxGroup";
+            cmd.CommandText = "UPDATE ms_asset_tax_group SET TaxGroupName = @TaxGroupName, lastupdate = getdate(), userid = @userid WHERE TaxGroup = @TaxGroup";
             cmd.Parameters.AddWithValue("@TaxGroup", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@TaxGroupName", (item.FindControl("txt_group_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);

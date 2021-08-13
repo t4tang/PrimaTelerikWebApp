@@ -25,9 +25,9 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
 
         }
 
-        private static DataTable Getacc00h10(string text)
+        private static DataTable Getgl_account(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from acc00h10 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' '+ accountname as accountname from gl_account where stEdit != 4 " +
                 " AND accountno +' '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -40,7 +40,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
 
         protected void cb_expense_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = Getacc00h10(e.Text);
+            DataTable data = Getgl_account(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -59,7 +59,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -74,7 +74,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -85,7 +85,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
 
         protected void cb_sales_ItemsRequested(object sender, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
         {
-            DataTable data = Getacc00h10(e.Text);
+            DataTable data = Getgl_account(e.Text);
 
             int itemOffset = e.NumberOfItems;
             int endOffset = Math.Min(itemOffset + ItemsPerRequest, data.Rows.Count);
@@ -104,7 +104,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -119,7 +119,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -149,7 +149,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update acc00h28 SET stEdit = 4 where code_biaya = @code_biaya";
+            cmd.CommandText = "Update ms_biaya SET stEdit = 4 where code_biaya = @code_biaya";
             cmd.Parameters.AddWithValue("@code_biaya", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -161,9 +161,9 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = " SELECT acc00h28.code_biaya, acc00h28.remark, acc00h10.accountno, acc00h10.accountname, acc00h28.sales_income " +
-                                "FROM acc00h28 INNER JOIN " +
-                                "acc00h10 ON acc00h28.accountno = acc00h10.accountno WHERE acc00h28.stEdit !=4";
+            cmd.CommandText = " SELECT ms_biaya.code_biaya, ms_biaya.remark, gl_account.accountno, gl_account.accountname, ms_biaya.sales_income " +
+                                "FROM ms_biaya INNER JOIN " +
+                                "gl_account ON ms_biaya.accountno = gl_account.accountno WHERE ms_biaya.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -192,7 +192,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h28 (code_biaya, remark, accountno, lastupdate, userid, stEdit, sales_income) " +
+            cmd.CommandText = "INSERT INTO ms_biaya (code_biaya, remark, accountno, lastupdate, userid, stEdit, sales_income) " +
                                 "VALUES (@code_biaya,@remark,  @accountno, getdate(),@userid,'0', @sales_income)";
             cmd.Parameters.AddWithValue("@code_biaya", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_nm_biaya") as RadTextBox).Text);
@@ -210,7 +210,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.OtherExpense
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h28 SET remark = @remark, accountno = @accountno, sales_income = @sales_income, LastUpdate = getdate(), userid = @userid WHERE code_biaya = @code_biaya";
+            cmd.CommandText = "UPDATE ms_biaya SET remark = @remark, accountno = @accountno, sales_income = @sales_income, LastUpdate = getdate(), userid = @userid WHERE code_biaya = @code_biaya";
             cmd.Parameters.AddWithValue("@code_biaya", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@remark", (item.FindControl("txt_nm_biaya") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@accountno", (item.FindControl("cb_expense") as RadComboBox).SelectedValue);

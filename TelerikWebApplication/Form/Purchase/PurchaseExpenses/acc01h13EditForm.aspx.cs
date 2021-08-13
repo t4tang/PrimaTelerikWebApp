@@ -143,7 +143,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -172,7 +172,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -189,7 +189,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -207,7 +207,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM ms_cost_center " +
                 "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -231,7 +231,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -246,7 +246,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -261,7 +261,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
         #region Supplier
         private static DataTable GetSupplier(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT supplier_code, supplier_name, cur_code FROM pur00h01 WHERE stEdit != 4 AND supplier_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT supplier_code, supplier_name, cur_code FROM ms_supplier WHERE stEdit != 4 AND supplier_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -291,9 +291,9 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT     a.supplier_code,e.KursRun, e.KursTax, a.cur_code, b.TAX_NAME as ppn, c.TAX_NAME AS Otax, d.TAX_NAME AS pph, a.pay_code, a.JTempo " +
-                               " FROM pur00h01 a LEFT OUTER JOIN acc00h05 AS b ON b.TAX_CODE = a.ppn LEFT OUTER JOIN acc00h05 AS c ON a.OTax = c.TAX_CODE LEFT OUTER JOIN " +
-                               " acc00h05 AS d ON a.pph = d.TAX_CODE inner join acc00h04 e on a.cur_code = e.cur_code WHERE (e.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
-                               " FROM acc00h04)) and a.supplier_name = '" + cb_supplier.Text + "'";
+                               " FROM ms_supplier a LEFT OUTER JOIN MS_TAX AS b ON b.TAX_CODE = a.ppn LEFT OUTER JOIN MS_TAX AS c ON a.OTax = c.TAX_CODE LEFT OUTER JOIN " +
+                               " MS_TAX AS d ON a.pph = d.TAX_CODE inner join ms_kurs e on a.cur_code = e.cur_code WHERE (e.tglKurs = (SELECT     MAX(tglKurs) AS Expr1 " +
+                               " FROM ms_kurs)) and a.supplier_name = '" + cb_supplier.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -320,15 +320,15 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            //SqlDataAdapter adapter = new SqlDataAdapter("SELECT cur_code, JTempo, case pur00h01.pay_code when '01' then 'Cash' when '02' then 'Credit' Else 'COD' end as pay_name  FROM pur00h01 WHERE supplier_code = @supplier_code", con);
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT pur00h01.supplier_name, pur00h01.supplier_code, pur00h01.KoGSup, pur00h01.contact1, pur00h01.contact2, ISNULL(acc00h05.TAX_NAME,'NON') AS tax1, " +
-            "ISNULL(acc00h05_1.TAX_NAME, 'NON') AS tax2, ISNULL(acc00h05_2.TAX_NAME, 'NON') AS tax3, pur00h01.cur_code, pur00h01.pay_code, " +
-            "CASE pur00h01.pay_code WHEN '01' THEN 'Cash' WHEN '02' THEN 'Credit' ELSE 'COD' END AS pay_term, pur00h01.JTempo, acc00h04.KursRun, " +
-            "acc00h04.KursTax, pur00h01.ppn AS tax1_code, pur00h01.OTax AS tax2_code, pur00h01.pph AS tax3_code, " +
-            "ISNULL(acc00h05.TAX_PERC, 0) AS p_tax1, ISNULL(acc00h05_1.TAX_PERC, 0) AS p_tax2, ISNULL(acc00h05_2.TAX_PERC, 0) AS p_tax3 " +
-            "FROM pur00h01 LEFT OUTER JOIN acc00h05 ON pur00h01.ppn = acc00h05.TAX_CODE LEFT OUTER JOIN acc00h05 AS acc00h05_1 ON pur00h01.OTax = acc00h05_1.TAX_CODE LEFT OUTER JOIN " +
-            "acc00h05 AS acc00h05_2 ON pur00h01.pph = acc00h05_2.TAX_CODE LEFT OUTER JOIN acc00h04 ON pur00h01.cur_code = acc00h04.cur_code " +
-            "WHERE(pur00h01.stEdit <> 4) AND(acc00h04.tglKurs = (SELECT MAX(tglKurs) AS Expr1 FROM acc00h04 AS acc00h04_1)) AND pur00h01.supplier_code = @supplier_code", con);
+            //SqlDataAdapter adapter = new SqlDataAdapter("SELECT cur_code, JTempo, case ms_supplier.pay_code when '01' then 'Cash' when '02' then 'Credit' Else 'COD' end as pay_name  FROM ms_supplier WHERE supplier_code = @supplier_code", con);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT ms_supplier.supplier_name, ms_supplier.supplier_code, ms_supplier.KoGSup, ms_supplier.contact1, ms_supplier.contact2, ISNULL(MS_TAX.TAX_NAME,'NON') AS tax1, " +
+            "ISNULL(MS_TAX_1.TAX_NAME, 'NON') AS tax2, ISNULL(MS_TAX_2.TAX_NAME, 'NON') AS tax3, ms_supplier.cur_code, ms_supplier.pay_code, " +
+            "CASE ms_supplier.pay_code WHEN '01' THEN 'Cash' WHEN '02' THEN 'Credit' ELSE 'COD' END AS pay_term, ms_supplier.JTempo, ms_kurs.KursRun, " +
+            "ms_kurs.KursTax, ms_supplier.ppn AS tax1_code, ms_supplier.OTax AS tax2_code, ms_supplier.pph AS tax3_code, " +
+            "ISNULL(MS_TAX.TAX_PERC, 0) AS p_tax1, ISNULL(MS_TAX_1.TAX_PERC, 0) AS p_tax2, ISNULL(MS_TAX_2.TAX_PERC, 0) AS p_tax3 " +
+            "FROM ms_supplier LEFT OUTER JOIN MS_TAX ON ms_supplier.ppn = MS_TAX.TAX_CODE LEFT OUTER JOIN MS_TAX AS MS_TAX_1 ON ms_supplier.OTax = MS_TAX_1.TAX_CODE LEFT OUTER JOIN " +
+            "MS_TAX AS MS_TAX_2 ON ms_supplier.pph = MS_TAX_2.TAX_CODE LEFT OUTER JOIN ms_kurs ON ms_supplier.cur_code = ms_kurs.cur_code " +
+            "WHERE(ms_supplier.stEdit <> 4) AND(ms_kurs.tglKurs = (SELECT MAX(tglKurs) AS Expr1 FROM ms_kurs AS ms_kurs_1)) AND ms_supplier.supplier_code = @supplier_code", con);
             adapter.SelectCommand.Parameters.AddWithValue("@supplier_code", supp_code);
 
             DataTable dt = new DataTable();
@@ -354,7 +354,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
         #region Tax
         private static DataTable GetTax(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT TAX_NAME FROM acc00h05 WHERE stEdit != 4 AND TAX_NAME LIKE @text + '%' UNION SELECT 'NON'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT TAX_NAME FROM MS_TAX WHERE stEdit != 4 AND TAX_NAME LIKE @text + '%' UNION SELECT 'NON'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -369,7 +369,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_PERC FROM  acc00h05 WHERE TAX_CODE = '" + tax_code + "'";
+            cmd.CommandText = "SELECT TAX_PERC FROM  MS_TAX WHERE TAX_CODE = '" + tax_code + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -401,7 +401,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,TAX_PERC FROM  MS_TAX WHERE TAX_NAME = '" + cb_tax1.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -439,7 +439,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax1.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  MS_TAX WHERE TAX_NAME = '" + cb_tax1.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -474,7 +474,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + cb_tax2.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM MS_TAX WHERE TAX_NAME = '" + cb_tax2.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -512,7 +512,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax2.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  MS_TAX WHERE TAX_NAME = '" + cb_tax2.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -547,7 +547,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM acc00h05 WHERE TAX_NAME = '" + cb_tax3.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM MS_TAX WHERE TAX_NAME = '" + cb_tax3.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -586,7 +586,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  acc00h05 WHERE TAX_NAME = '" + cb_tax3.Text + "'";
+            cmd.CommandText = "SELECT TAX_CODE,ISNULL(TAX_PERC,0) AS TAX_PERC FROM  MS_TAX WHERE TAX_NAME = '" + cb_tax3.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -737,7 +737,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -764,7 +764,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_prepare_by.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_prepare_by.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -779,7 +779,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_prepare_by.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_prepare_by.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -803,7 +803,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_checked.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_checked.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -818,7 +818,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_checked.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_checked.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -842,7 +842,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_approved.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -857,7 +857,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approved.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_approved.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -869,7 +869,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
 
         protected void cb_CodeBiaya_ItemsRequested(object sender, RadComboBoxItemsRequestedEventArgs e)
         {
-            string sql = "SELECT  acc00h28.code_biaya , acc00h28.remark , acc00h28.accountno FROM acc00h28 WHERE ( acc00h28.stEdit = '0' ) AND remark LIKE @remark + '%'";
+            string sql = "SELECT  ms_biaya.code_biaya , ms_biaya.remark , ms_biaya.accountno FROM ms_biaya WHERE ( ms_biaya.stEdit = '0' ) AND remark LIKE @remark + '%'";
             SqlDataAdapter adapter = new SqlDataAdapter(sql,
                 ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@remark", e.Text);
@@ -901,7 +901,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT code_biaya FROM acc00h28 WHERE remark = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT code_biaya FROM ms_biaya WHERE remark = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -926,10 +926,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( acc01h13.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM acc01h13 WHERE LEFT(acc01h13.NoBuk, 4) = 'EP01' " +
-                        "AND SUBSTRING(acc01h13.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(acc01h13.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( MUTAP.NoBuk , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM MUTAP WHERE LEFT(MUTAP.NoBuk, 4) = 'EP01' " +
+                        "AND SUBSTRING(MUTAP.NoBuk, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(MUTAP.NoBuk, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -1093,7 +1093,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from acc01h16 where code_biaya = @code_biaya and NoBuk = @NoBuk";
+                cmd.CommandText = "delete from MUTIC_BIAYA where code_biaya = @code_biaya and NoBuk = @NoBuk";
                 cmd.Parameters.AddWithValue("@NoBuk", txt_doc_code.Text);
                 cmd.Parameters.AddWithValue("@code_biaya", BiayaCode);
                 cmd.ExecuteNonQuery();
@@ -1184,7 +1184,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT	code_biaya, remark FROM	acc00h28 WHERE	code_biaya = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT	code_biaya, remark FROM	ms_biaya WHERE	code_biaya = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -1230,7 +1230,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseExpenses
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT	code_biaya, remark FROM	acc00h28 WHERE	code_biaya = '" + (sender as RadComboBox).SelectedValue + "'";
+                cmd.CommandText = "SELECT	code_biaya, remark FROM	ms_biaya WHERE	code_biaya = '" + (sender as RadComboBox).SelectedValue + "'";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();

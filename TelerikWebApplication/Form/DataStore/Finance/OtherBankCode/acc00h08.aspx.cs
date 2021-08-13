@@ -34,7 +34,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherBankCode
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc00h08 SET NamBLain = @NamBLain, lastupdate = getdate(), Usr = @Usr, Owner = @Owner, OwnStamp = getdate(), stEdit = @stEdit " +
+                cmd.CommandText = "UPDATE KOBLAIN SET NamBLain = @NamBLain, lastupdate = getdate(), Usr = @Usr, Owner = @Owner, OwnStamp = getdate(), stEdit = @stEdit " +
                                     "WHERE KoBLain = @KoBLain";
                 cmd.Parameters.AddWithValue("@KoBLain", (item.FindControl("txt_code_bank") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@NamBLain", (item.FindControl("txt_name_bank") as RadTextBox).Text);
@@ -53,7 +53,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherBankCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h08 (KoBLain, NamBLain, lastupdate, Usr, Owner, OwnStamp, stEdit) " +
+            cmd.CommandText = "INSERT INTO KOBLAIN (KoBLain, NamBLain, lastupdate, Usr, Owner, OwnStamp, stEdit) " +
                                 "VALUES (@KoBLain, @NamBLain, getdate(), @Usr, @Owner, getdate(), @stEdit)";
             cmd.Parameters.AddWithValue("@KoBLain", (item.FindControl("txt_code_bank") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@NamBLain", (item.FindControl("txt_name_bank") as RadTextBox).Text);
@@ -70,9 +70,9 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherBankCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT acc00h08.KoBLain, acc00h08.NamBLain " +
-                                "FROM acc00h08 " +
-                                " WHERE acc00h08.stEdit !=4";
+            cmd.CommandText = "SELECT KOBLAIN.KoBLain, KOBLAIN.NamBLain " +
+                                "FROM KOBLAIN " +
+                                " WHERE KOBLAIN.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -114,7 +114,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherBankCode
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update acc00h08 SET stEdit = 4 where KoBLain = @KoBLain";
+            cmd.CommandText = "Update KOBLAIN SET stEdit = 4 where KoBLain = @KoBLain";
             cmd.Parameters.AddWithValue("@KoBLain", productId);
             cmd.ExecuteNonQuery();
             con.Close();

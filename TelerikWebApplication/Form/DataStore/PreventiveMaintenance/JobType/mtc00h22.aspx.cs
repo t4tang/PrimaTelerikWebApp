@@ -31,8 +31,8 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.JobType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT mtc00h22.PMact_type, mtc00h22.PMact_name, CASE status_hist WHEN '1' THEN 'Major Repair/OVH' WHEN '2' THEN 'Replace Component' " +
-                                "WHEN '3' THEN 'Fabrication Job' ELSE 'Other' End AS status_hist FROM mtc00h22 WHERE mtc00h22.stEdit !=4";
+            cmd.CommandText = "SELECT PMWOActType.PMact_type, PMWOActType.PMact_name, CASE status_hist WHEN '1' THEN 'Major Repair/OVH' WHEN '2' THEN 'Replace Component' " +
+                                "WHEN '3' THEN 'Fabrication Job' ELSE 'Other' End AS status_hist FROM PMWOActType WHERE PMWOActType.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -73,7 +73,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.JobType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE mtc00h22 SET PMact_name = @PMact_name, status_hist = CASE @status_hist " +
+            cmd.CommandText = "UPDATE PMWOActType SET PMact_name = @PMact_name, status_hist = CASE @status_hist " +
                                 " WHEN 'Major Repair/OVH' THEN '1' WHEN 'Replace Component' THEN '2' WHEN 'Fabrication Job' THEN '3' "+
                                 "ELSE 'Other' END, LastUpdate = getdate(), userid = @userid WHERE PMact_type = @PMact_type";
             cmd.Parameters.AddWithValue("@PMact_type", (item.FindControl("txt_code") as RadTextBox).Text);
@@ -91,7 +91,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.JobType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO mtc00h22(PMact_type,PMact_name,status_hist,lastupdate,userid,stEdit) " +
+            cmd.CommandText = "INSERT INTO PMWOActType(PMact_type,PMact_name,status_hist,lastupdate,userid,stEdit) " +
                                 "VALUES (@PMact_type,@PMact_name, CASE @status_hist WHEN 'Major Repair/OVH' THEN '1' " +
                                 "WHEN 'Replace Component' THEN '2' WHEN 'Fabrication Job' THEN '3' ELSE 'Other' END, getdate(),@userid,'0')";
             cmd.Parameters.AddWithValue("@PMact_type", (item.FindControl("txt_code") as RadTextBox).Text);
@@ -110,7 +110,7 @@ namespace TelerikWebApplication.Form.DataStore.PreventiveMaintenance.JobType
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update mtc00h22 SET stEdit = 4 where PMact_type = @PMact_type";
+            cmd.CommandText = "Update PMWOActType SET stEdit = 4 where PMact_type = @PMact_type";
             cmd.Parameters.AddWithValue("@PMact_type", productId);
             cmd.ExecuteNonQuery();
             con.Close();

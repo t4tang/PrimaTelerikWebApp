@@ -12,6 +12,8 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
     /// </summary>
     public partial class acc01h20_slip : Telerik.Reporting.Report
     {
+        public static string _tr_code;
+        
         public acc01h20_slip()
         {
             //
@@ -22,6 +24,17 @@ namespace TelerikWebApplication.Form.Fico.Bank.PreBankPayment
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
+            //_tr_code = "PRE-PB21070002";
+            Telerik.Reporting.ReportParameter param = new ReportParameter();
+            param.Name = "slip_no";
+            param.Type = ReportParameterType.String;
+            param.AllowBlank = false;
+            param.AllowNull = false;
+            param.Value = _tr_code;
+            param.Visible = false;
+            this.Report.ReportParameters.Add(param);
+
+            sqlDataSource1.Parameters[0].Value = "=Parameters.slip_no.Value";
         }
     }
 }

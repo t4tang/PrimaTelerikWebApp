@@ -695,7 +695,7 @@
                                 </Columns>
                             </MasterTableView>
                             <ClientSettings >
-                                <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="150px" />  
+                                <Scrolling AllowScroll="true" UseStaticHeaders="false" ScrollHeight="192px" SaveScrollPosition="true" />
                                 <Selecting AllowRowSelect="true"></Selecting>                          
                             </ClientSettings>
                         </telerik:RadGrid>

@@ -39,11 +39,11 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT acc00h31.KoTrans, acc00h31.TransName, CASE (acc00h31.tStatus) WHEN 'R' THEN 'A/R' WHEN 'P' THEN 'A/P' " +
-                              "ELSE 'Both' END AS tStatus, acc00h31.Lvl, acc00h31.Stamp, acc00h31.Usr, acc00h31.Owner, acc00h31.OwnStamp, " +
-                              "acc00h31.status, acc00h31.stEdit, acc00h10.accountname, acc00h10.cur_code, " +
-                              "acc00h10.accountno +' - '+ acc00h10.accountname as accountComb, acc00h10.accountno FROM acc00h31 INNER JOIN " +
-                              "acc00h10 ON acc00h31.korek = acc00h10.accountno WHERE acc00h31.stEdit !='4'";
+            cmd.CommandText = "SELECT ms_other_apar.KoTrans, ms_other_apar.TransName, CASE (ms_other_apar.tStatus) WHEN 'R' THEN 'A/R' WHEN 'P' THEN 'A/P' " +
+                              "ELSE 'Both' END AS tStatus, ms_other_apar.Lvl, ms_other_apar.Stamp, ms_other_apar.Usr, ms_other_apar.Owner, ms_other_apar.OwnStamp, " +
+                              "ms_other_apar.status, ms_other_apar.stEdit, gl_account.accountname, gl_account.cur_code, " +
+                              "gl_account.accountno +' - '+ gl_account.accountname as accountComb, gl_account.accountno FROM ms_other_apar INNER JOIN " +
+                              "gl_account ON ms_other_apar.korek = gl_account.accountno WHERE ms_other_apar.stEdit !='4'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -72,7 +72,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h31 (KoTrans, TransName, korek, tStatus, Lvl, Stamp, Usr, Owner, OwnStamp, stEdit) " +
+            cmd.CommandText = "INSERT INTO ms_other_apar (KoTrans, TransName, korek, tStatus, Lvl, Stamp, Usr, Owner, OwnStamp, stEdit) " +
                               "VALUES (@KoTrans, @TransName, @korek, @tStatus, @Lvl, getdate(), @Usr, @Owner, getdate(), '0')";
             cmd.Parameters.AddWithValue("@KoTrans", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@TransName", (item.FindControl("txt_name") as RadTextBox).Text);
@@ -92,7 +92,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h31 SET TransName = @TransName, korek = @korek, tStatus = @tStatus, Lvl = @Lvl, Stamp = getdate(), " +
+            cmd.CommandText = "UPDATE ms_other_apar SET TransName = @TransName, korek = @korek, tStatus = @tStatus, Lvl = @Lvl, Stamp = getdate(), " +
                               "Usr = @Usr WHERE KoTrans = @KoTrans";
             cmd.Parameters.AddWithValue("@KoTrans", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@TransName", (item.FindControl("txt_name") as RadTextBox).Text);
@@ -112,7 +112,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update acc00h31 set stEdit = '4', Stamp = getdate(), Usr = @Usr where KoTrans = @KoTrans";
+            cmd.CommandText = "update ms_other_apar set stEdit = '4', Stamp = getdate(), Usr = @Usr where KoTrans = @KoTrans";
             cmd.Parameters.AddWithValue("@KoTrans", KoTrans);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -173,7 +173,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
 
         public DataTable Get_acc_no(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' - '+ accountname as accountname from acc00h10 where stEdit != '4' " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountno +' - '+ accountname as accountname from gl_account where stEdit != '4' " +
                                                         "AND accountno +' - '+ accountname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
@@ -205,7 +205,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' - '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' - '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -232,7 +232,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT accountno FROM acc00h10 WHERE accountno +' - '+ accountname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT accountno FROM gl_account WHERE accountno +' - '+ accountname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -253,7 +253,7 @@ namespace TelerikWebApplication.Form.DataStore.Finance.OtherARAP
         //    SqlCommand cmd = new SqlCommand();
         //    cmd.Connection = con;
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText = "SELECT * FROM acc00h10 WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
+        //    cmd.CommandText = "SELECT * FROM gl_account WHERE accountno +' '+ accountname = '" + (sender as RadComboBox).Text + "'";
         //    SqlDataReader dr;
         //    dr = cmd.ExecuteReader();
         //    while (dr.Read())

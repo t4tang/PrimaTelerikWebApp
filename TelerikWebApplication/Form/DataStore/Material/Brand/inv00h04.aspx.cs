@@ -12,7 +12,7 @@ using TelerikWebApplication.Class;
 
 namespace TelerikWebApplication.Form.Master_data.Material.Brand
 {
-    public partial class material_brand : System.Web.UI.Page
+    public partial class inv00h04 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,7 +32,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select * from inv00h04 where stEdit != 4";
+            cmd.CommandText = "select * from ms_brand where stEdit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -63,7 +63,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
                 GridEditFormItem item = (GridEditFormItem)e.Item;
                 try
                 {
-                    cmd = new SqlCommand("update inv00h04 set brand_name = @brand_name, userid = @uid, lastupdate = @lastupdate " +
+                    cmd = new SqlCommand("update ms_brand set brand_name = @brand_name, userid = @uid, lastupdate = @lastupdate " +
                         "where brand_code = @brand_code", con);
                     con.Open();
                     cmd.Parameters.AddWithValue("@brand_code", (item.FindControl("txt_brand_code") as TextBox).Text);
@@ -95,7 +95,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
             GridEditableItem item = (GridEditableItem)e.Item;
             try
             {
-                cmd = new SqlCommand("insert into inv00h04 (brand_code, brand_name, lastupdate, userid, stEdit) values " +
+                cmd = new SqlCommand("insert into ms_brand (brand_code, brand_name, lastupdate, userid, stEdit) values " +
                     "(@brand_code, @brand_name, @lastupdate, @uid, '0')", con);
                 con.Open();
                 cmd.Parameters.AddWithValue("@brand_code", (item.FindControl("txt_brand_code") as TextBox).Text);
@@ -132,7 +132,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Brand
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update inv00h04 set stEdit = 4,userid = @uid, lastupdate = getdate() where brand_code = @brand_code";
+                cmd.CommandText = "update ms_brand set stEdit = 4,userid = @uid, lastupdate = getdate() where brand_code = @brand_code";
                 cmd.Parameters.AddWithValue("@brand_code", RadGrid1.MasterTableView.Items[0].GetDataKeyValue("brand_code").ToString());
                 cmd.Parameters.AddWithValue("@uid", public_str.user_id);
                 cmd.ExecuteNonQuery();

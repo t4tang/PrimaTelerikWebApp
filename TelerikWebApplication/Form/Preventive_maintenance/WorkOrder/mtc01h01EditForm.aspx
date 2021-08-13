@@ -7,6 +7,14 @@
     <title></title>
     <link href="../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../Styles/custom-cs.css" rel="stylesheet" />
+    <style>
+        .tdLabel{
+                    vertical-align:text-top; 
+                    text-align:left;
+                    font-family:Calibri;
+                    color:#0a83b8;    
+                }
+    </style>
     <script type ="text/javascript" >  
         function GetRadWindow()     
         {     
@@ -78,12 +86,12 @@
 
 
 
-        <div style="padding: 10px 5px 3px 15px;" class="lbObject">
-            <table id="Table1" border="0" style="border-collapse: collapse; padding-top:5px; padding-left:15px; 
-                padding-right:15px; padding-bottom:0px; font-size:smaller ">    
+        <div style="padding: 10px 5px 3px 15px;">
+            <table id="Table1" border="0" class="lbObject" style="border-collapse: collapse; padding-top:5px; padding-left:15px;
+                padding-right:15px; padding-bottom:0px; ">    
                 <tr style="vertical-align: top">
                     <td style="vertical-align: top">
-                        <table id="Table2" width="Auto" border="0" class="module">  
+                        <table id="Table2" width="Auto" border="0">  
                             <tr>
                                 <td colspan="2" style="padding-top:0px; text-align:left">
                                     <%--<telerik:RadButton ID="btn_save" runat="server" Text="Save" CssClass="btn-wrapper" ForeColor="White" OnClick="btn_save_Click"
@@ -112,7 +120,7 @@
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Doc. Date " CssClass="lbObject"></telerik:RadLabel>
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator10" ControlToValidate="dtp_doc_date" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                        Text="*"></asp:RequiredFieldValidator><br />
                                 </td>
                                 <td>
                                     <telerik:RadDatePicker ID="dtp_doc_date"  runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
@@ -137,7 +145,7 @@
                                 <td >
                                     <telerik:RadLabel runat="server" Text="Est. Exct " CssClass="lbObject"></telerik:RadLabel>
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator11" ControlToValidate="dtp_estExct" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                        Text="*"></asp:RequiredFieldValidator><br />
                                 </td>
                                 <td>
                                     <telerik:RadDatePicker ID="dtp_estExct" runat="server" MinDate="1/1/1900" Width="150px" RenderMode="Lightweight"
@@ -154,7 +162,7 @@
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Status " CssClass="lbObject"></telerik:RadLabel>
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator12" ControlToValidate="cb_status" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                        Text="*"></asp:RequiredFieldValidator><br />
                                 </td>
                                 <td>
                                     <telerik:RadComboBox RenderMode="Lightweight" ID="cb_status" runat="server" Width="150"
@@ -170,7 +178,7 @@
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Priority " CssClass="lbObject"></telerik:RadLabel>
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator5" ControlToValidate="cb_priority" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                        Text="*"></asp:RequiredFieldValidator><br />
                                 </td>
                                 <td>                              
                                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_priority" runat="server" Width="150px"
@@ -187,7 +195,7 @@
                                 <td >
                                     <telerik:RadLabel runat="server" Text="Project " CssClass="lbObject"></telerik:RadLabel>
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator9" ControlToValidate="cb_project" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                        Text="*"></asp:RequiredFieldValidator><br />
                                 </td>
                                 <td style="vertical-align:top; text-align:left">
                                     <%--<asp:UpdatePanel runat="server">
@@ -310,7 +318,7 @@
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Unit " CssClass="lbObject"></telerik:RadLabel>
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator6" ControlToValidate="cb_unit" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                        Text="*"></asp:RequiredFieldValidator><br />
                                 </td>
                                 <td>
                                     <asp:UpdatePanel runat="server">
@@ -376,10 +384,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width:130px">
+                                <td>
                                     <telerik:RadLabel runat="server" Text="HM reading " CssClass="lbObject"></telerik:RadLabel>
                                     <asp:RequiredFieldValidator runat="server" ID="hmValidator" ControlToValidate="txt_hm" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                        Text="*"></asp:RequiredFieldValidator><br />
                                 </td>
                                 <td>
                                     <asp:UpdatePanel runat="server">
@@ -425,7 +433,7 @@
                                 <td>
                                      <telerik:RadLabel runat="server" Text="Order Type " CssClass="lbObject"></telerik:RadLabel>                                   
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator7" ControlToValidate="cb_orderType" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />                                        
+                                        Text="*"></asp:RequiredFieldValidator><br />                                        
                                 </td>
                                 <td>                                                
                                     <asp:UpdatePanel runat="server">
@@ -452,7 +460,7 @@
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Job Type " CssClass="lbObject"></telerik:RadLabel>
                                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ControlToValidate="cb_jobType" ForeColor="Red" 
-                                        Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                        Text="*"></asp:RequiredFieldValidator><br />
                                 </td>
                                 <td>                                             
                                     <asp:UpdatePanel runat="server">
@@ -594,7 +602,7 @@
 
                             </tr>
                     
-                            <tr>
+<%--                            <tr>
                                 <td>
                                     <telerik:RadLabel runat="server" Text="Order By" CssClass="lbObject"></telerik:RadLabel>
                                 </td>
@@ -745,7 +753,7 @@
                                     </asp:UpdatePanel>
                                 </td>
                                  </tr>
-                 
+                 --%>
                         </table>
                     </td>
                 </tr>    
@@ -789,19 +797,19 @@
             </telerik:RadTabStrip>
             <telerik:RadMultiPage runat="server" ID="RadMultiPage2"  SelectedIndex="0" >
                 <telerik:RadPageView runat="server" ID="RadPageView1" Height="290px" >
-                    <table>
+                    <table class="lbObject">
                         <tr>
                             <td>
                                 <telerik:RadLabel runat="server" Text="Comp. Group " CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                 <asp:RequiredFieldValidator runat="server" ID="projectValidator" ControlToValidate="cb_compGroup" ForeColor="Red" 
-                                Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                Text="*"></asp:RequiredFieldValidator><br />
                             </td>
                             <td>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Silk" 
+                                        <telerik:RadComboBox RenderMode="Lightweight" runat="server" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" 
                                             CausesValidation="false" HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"
-                                            Font-Size="X-Small" 
+                                            
                                             ID="cb_compGroup"
                                             Width="300" 
                                             DropDownWidth="300px"
@@ -821,14 +829,14 @@
                             <td>
                                 <telerik:RadLabel runat="server" Text="Comp. " CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="cb_comp" ForeColor="Red" 
-                                Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                Text="*"></asp:RequiredFieldValidator><br />
                             </td>
                             <td>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <telerik:RadComboBox RenderMode="Lightweight" runat="server" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Silk" 
                                             CausesValidation="false" HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"
-                                            Font-Size="X-Small"
+                                            
                                             ID="cb_comp" 
                                             Width="300"
                                             DropDownWidth="300px"
@@ -848,12 +856,12 @@
                             <td>
                                 <telerik:RadLabel runat="server" Text="Diagnosis " CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="cb_diagnosis" ForeColor="Red" 
-                                Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                Text="*"></asp:RequiredFieldValidator><br />
                             </td>
                             <td>
                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Silk" 
                                     CausesValidation="false" HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"
-                                    Font-Size="X-Small" 
+                                    
                                     ID="cb_diagnosis" 
                                     Width="300" 
                                     DropDownWidth="300px"
@@ -868,12 +876,12 @@
                             <td>
                                 <telerik:RadLabel runat="server" Text="Symptom " CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ControlToValidate="cb_symptom" ForeColor="Red" 
-                                Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                Text="*"></asp:RequiredFieldValidator><br />
                             </td>
                             <td>
                                 <telerik:RadComboBox RenderMode="Lightweight" runat="server" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Silk" 
                                     CausesValidation="false" HighlightTemplatedItems="true" MarkFirstMatch="true" EnableVirtualScrolling="true"
-                                    Font-Size="X-Small"
+                                    
                                     ID="cb_symptom" 
                                     Width="300" DropDownWidth="300px"
                                     AutoPostBack="false"
@@ -884,16 +892,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <telerik:RadLabel runat="server" Text="Job Description " CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
+                            <td class="tdLabel">
+                                <telerik:RadLabel runat="server" Text="Job Description " CssClass="lbObject"></telerik:RadLabel>
                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="txt_jobDesc" ForeColor="Red" 
-                                Font-Size="X-Small" Text="required!"></asp:RequiredFieldValidator><br />
+                                Text="*"></asp:RequiredFieldValidator><br />
                             </td>
                             <td>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <telerik:RadTextBox ID="txt_jobDesc"
-                                            runat="server" TextMode="MultiLine" Font-Size="X-Small"
+                                            runat="server" TextMode="MultiLine"  Height="75px"
                                             Width="450px" Rows="0" TabIndex="5" Resize="Both">
                                         </telerik:RadTextBox>
                                     </ContentTemplate>

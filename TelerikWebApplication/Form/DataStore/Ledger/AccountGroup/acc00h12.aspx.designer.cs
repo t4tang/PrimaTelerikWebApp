@@ -10,7 +10,7 @@
 namespace TelerikWebApplication.Form.DataStore.Ledger.AccountGroup {
     
     
-    public partial class acc00h10 {
+    public partial class acc00h12{
         
         /// <summary>
         /// FolderNavigationControl control.

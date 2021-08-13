@@ -41,10 +41,10 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT pro00h03.Loc_code, pro00h03.loc_name, pro00h03.remark, pro00h03.Stamp, pro00h03.Usr, pro00h03.Owner, " +
-                              "pro00h03.stEdit, pro00h04.loc_cate_code, inv00h09.region_code +' - '+ inv00h09.region_name AS region_code, pro00h04.cat_name, inv00h09.region_name " +
-                              "FROM pro00h03 INNER JOIN pro00h04 ON pro00h03.loc_cate_code = pro00h04.loc_cate_code INNER JOIN " +
-                              "inv00h09 ON pro00h03.region_code = inv00h09.region_code WHERE pro00h03.stEdit != '4'";
+            cmd.CommandText = "SELECT MCC_MS_LOC.Loc_code, MCC_MS_LOC.loc_name, MCC_MS_LOC.remark, MCC_MS_LOC.Stamp, MCC_MS_LOC.Usr, MCC_MS_LOC.Owner, " +
+                              "MCC_MS_LOC.stEdit, MCC_MS_LOC_CAT.loc_cate_code, ms_jobsite.region_code +' - '+ ms_jobsite.region_name AS region_code, MCC_MS_LOC_CAT.cat_name, ms_jobsite.region_name " +
+                              "FROM MCC_MS_LOC INNER JOIN MCC_MS_LOC_CAT ON MCC_MS_LOC.loc_cate_code = MCC_MS_LOC_CAT.loc_cate_code INNER JOIN " +
+                              "ms_jobsite ON MCC_MS_LOC.region_code = ms_jobsite.region_code WHERE MCC_MS_LOC.stEdit != '4'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -75,7 +75,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO pro00h03 (Loc_code, loc_name, region_code, loc_cate_code, remark, Stamp, Usr, Owner, stEdit) " +
+            cmd.CommandText = "INSERT INTO MCC_MS_LOC (Loc_code, loc_name, region_code, loc_cate_code, remark, Stamp, Usr, Owner, stEdit) " +
                               "VALUES (@Loc_code, @loc_name, @region_code, @loc_cate_code, @remark, getdate(), @Usr, @Owner, '0')";
             cmd.Parameters.AddWithValue("@Loc_code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@loc_name", (item.FindControl("txt_location") as RadTextBox).Text);
@@ -95,7 +95,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pro00h03 SET loc_name = @loc_name, region_code = @region_code, loc_cate_code = @loc_cate_code, remark = @remark, " +
+            cmd.CommandText = "UPDATE MCC_MS_LOC SET loc_name = @loc_name, region_code = @region_code, loc_cate_code = @loc_cate_code, remark = @remark, " +
                               "Stamp = getdate(), Usr = @Usr WHERE Loc_code = @Loc_code";
             cmd.Parameters.AddWithValue("@Loc_code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@loc_name", (item.FindControl("txt_location") as RadTextBox).Text);
@@ -115,7 +115,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pro00h03 SET stEdit = 4 where Loc_code = @Loc_code";
+            cmd.CommandText = "UPDATE MCC_MS_LOC SET stEdit = 4 where Loc_code = @Loc_code";
             cmd.Parameters.AddWithValue("@Loc_code", Loc_code);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -140,7 +140,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT loc_cate_code FROM pro00h04 WHERE cat_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT loc_cate_code FROM MCC_MS_LOC_CAT WHERE cat_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -151,7 +151,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
 
         public DataTable GetCategory(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select loc_cate_code, cat_name from pro00h04 where stEdit != 4 AND cat_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select loc_cate_code, cat_name from MCC_MS_LOC_CAT where stEdit != 4 AND cat_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -182,7 +182,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT loc_cate_code FROM pro00h04 WHERE cat_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT loc_cate_code FROM MCC_MS_LOC_CAT WHERE cat_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -197,7 +197,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_code +' - '+ region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_code +' - '+ region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -208,7 +208,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
 
         public DataTable GetArea(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code +' - '+ region_name as region_name from inv00h09 where stEdit != '4' " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code +' - '+ region_name as region_name from ms_jobsite where stEdit != '4' " +
                                                         "AND region_code +' - '+ region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
@@ -240,7 +240,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Location
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_code +' - '+ region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_code +' - '+ region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

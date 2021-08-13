@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv01h05.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.GoodsIssued.inv01h05" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../Styles/mail.css" rel="stylesheet" />
@@ -173,7 +174,10 @@
                 OnNeedDataSource="RadGrid1_NeedDataSource" 
                 OnDeleteCommand="RadGrid1_DeleteCommand" 
                 OnItemCreated="RadGrid1_ItemCreated" 
-                OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged">
+                OnSelectedIndexChanged="RadGrid1_SelectedIndexChanged"
+                OnPreRender="RadGrid1_PreRender" 
+                OnItemCommand="RadGrid1_ItemCommand" 
+                OnItemDataBound="RadGrid1_ItemDataBound">
                 <PagerStyle Mode="NextPrevNumericAndAdvanced" ForeColor="#0099CC" VerticalAlign="Middle"></PagerStyle>               
                 <HeaderStyle CssClass="gridHeader" BackColor="#999999" ForeColor="White" Font-Size="10px" />
                 <ClientSettings EnablePostBackOnRowClick="true" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" />

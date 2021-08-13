@@ -158,7 +158,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE pur01h01 SET userid = @Usr, lastupdate = GETDATE(), status_pur = '4' WHERE (pr_code = @pr_code)";
+                cmd.CommandText = "UPDATE tr_purchase_reqH SET userid = @Usr, lastupdate = GETDATE(), status_pur = '4' WHERE (pr_code = @pr_code)";
                 cmd.Parameters.AddWithValue("@pr_code", doc_code);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
                 cmd.ExecuteNonQuery();
@@ -166,7 +166,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE acc00h22 SET pr_code = NULL WHERE pr_code = @pr_code";
+                cmd.CommandText = "UPDATE AK_Asset SET pr_code = NULL WHERE pr_code = @pr_code";
                 cmd.Parameters.AddWithValue("@pr_code", doc_code);
                 cmd.ExecuteNonQuery();
 
@@ -259,7 +259,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
 
         private static DataTable GetProjectPrm(string text)
         {            
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' UNION SELECT 'ALL','ALL'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -284,7 +284,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
         }
         //private static DataTable GetProject(string text)
         //{
-        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+        //    SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
         //    ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
         //    adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -300,7 +300,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -421,7 +421,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "delete from pur01d01 where prod_code = @part_code and pr_code = @doc_code";
+                cmd.CommandText = "delete from tr_purchase_reqD where prod_code = @part_code and pr_code = @doc_code";
                 cmd.Parameters.AddWithValue("@doc_code", tr_code);
                 cmd.Parameters.AddWithValue("@part_code", partCode);
                 cmd.ExecuteNonQuery();
@@ -500,7 +500,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
         #region Priority 
         private static DataTable GetPriority(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT priority_code , prio_desc FROM pur00h06 WHERE prio_desc LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT priority_code , prio_desc FROM ms_priority WHERE prio_desc LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -531,7 +531,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT priority_code FROM pur00h06 WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT priority_code FROM ms_priority WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -547,7 +547,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT priority_code FROM pur00h06 WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT priority_code FROM ms_priority WHERE prio_desc = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -563,7 +563,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
         #region Project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%' ",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -593,7 +593,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -611,7 +611,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM inv00h11 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(CostCenter) as code,upper(CostCenterName) as name FROM ms_cost_center " +
                 "WHERE stEdit <> '4' AND region_code = @project AND CostCenterName LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -635,7 +635,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -651,7 +651,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT CostCenter FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT CostCenter FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -667,7 +667,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -690,7 +690,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -707,7 +707,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -729,7 +729,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -746,7 +746,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -763,7 +763,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -785,7 +785,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -807,7 +807,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -824,7 +824,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -975,10 +975,10 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( pur01h01.pr_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM pur01h01 WHERE LEFT(pur01h01.pr_code, 4) = 'PR01' " +
-                        "AND SUBSTRING(pur01h01.pr_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(pur01h01.pr_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_purchase_reqH.pr_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM tr_purchase_reqH WHERE LEFT(tr_purchase_reqH.pr_code, 4) = 'PR01' " +
+                        "AND SUBSTRING(tr_purchase_reqH.pr_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(tr_purchase_reqH.pr_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -1054,9 +1054,22 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update acc00h22 set pr_code = '" + run +"' where ur_no =  '" + cb_asset_reg.Text + "' AND pr_code IS NULL";
+                cmd.CommandText = "update AK_Asset set pr_code = '" + run +"' where ur_no =  '" + cb_asset_reg.Text + "' AND pr_code IS NULL";
                 cmd.ExecuteNonQuery();
 
+                if ((sender as Button).Text == "Update")
+                {
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
+                }
+                else
+                {
+                    tr_code = run;
+                    selected_project = cb_project.SelectedValue;
+                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
+                    (sender as Button).Text = "Update";
+                    btnCancel.Text = "Close";
+                }
+                notif.Show("Data saved");
             }
             catch (System.Exception ex)
             {
@@ -1066,22 +1079,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             finally
             {
                 con.Close();
-                //notif.Text = "Data berhasil disimpan";
-                //notif.Title = "Notification";
-                //notif.Show();
-                txt_doc_code.Text = run;
-
-                //if (Session["actionEdit"].ToString() == "edit")
-                if ((sender as Button).Text == "Update")
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind();", true);
-                }
-                else
-                {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "mykey", "CloseAndRebind('navigateToInserted');", true);
-                    (sender as Button).Text = "Update";
-                    btnCancel.Text = "Close";
-                }
+               
                 pur01h01.tr_code = run;
                 pur01h01.selected_project = cb_project.SelectedValue;
                 RadGrid1.MasterTableView.IsItemInserted = false;
@@ -1104,7 +1102,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
         #region Warehouse / Storage 
         private static DataTable GetWarehouse(string text, string project)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM inv00h05 WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wh_code, wh_name FROM ms_warehouse WHERE stEdit != 4 AND PlantCode = @PlantCode AND wh_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@PlantCode", project);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -1134,7 +1132,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1151,7 +1149,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1162,5 +1160,38 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq.Asset
             con.Close();
         }
         #endregion
+
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                //GridDataItem item = (GridDataItem)e.Item;
+                var item = e.Item as GridEditFormItem;
+
+                RadComboBox cb_priority = item.FindControl("cb_priority") as RadComboBox;
+                RadComboBox cb_project = item.FindControl("cb_project") as RadComboBox;
+                RadDatePicker dtp_pr = item.FindControl("dtp_pr") as RadDatePicker;
+
+                RadTextBox txt_uid = item.FindControl("txt_uid") as RadTextBox;
+                RadTextBox txt_lastUpdate = item.FindControl("txt_lastUpdate") as RadTextBox;
+                RadTextBox txt_owner = item.FindControl("txt_owner") as RadTextBox;
+                RadTextBox txt_printed = item.FindControl("txt_printed") as RadTextBox;
+                RadTextBox txt_edited = item.FindControl("txt_edited") as RadTextBox;
+
+                if (e.Item.OwnerTableView.IsItemInserted)
+                {
+                    cb_project.Text = public_str.sitename;
+                    dtp_pr.SelectedDate = DateTime.Now;
+                    cb_priority.Text = "High/Urgent";
+
+                    txt_uid.Text = public_str.uid;
+                    txt_lastUpdate.Text = string.Format("{0:dd-MM-yyyy}", DateTime.Today);
+                    txt_owner.Text = public_str.uid;
+                    txt_printed.Text = "0";
+                    txt_edited.Text = "0";
+                }
+
+            }
+        }
     }
 }

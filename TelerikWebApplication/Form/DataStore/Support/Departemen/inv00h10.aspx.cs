@@ -30,8 +30,8 @@ namespace TelerikWebApplication.Form.DataStore.Support.Departemen
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h10.dept_code, inv00h10.dept_name " +
-                                "FROM inv00h10 WHERE inv00h10.stEdit !=4";
+            cmd.CommandText = "SELECT ms_department.dept_code, ms_department.dept_name " +
+                                "FROM ms_department WHERE ms_department.stEdit !=4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -74,7 +74,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Departemen
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "Update inv00h10 SET stEdit = 4 where dept_code = @dept_code";
+            cmd.CommandText = "Update ms_department SET stEdit = 4 where dept_code = @dept_code";
             cmd.Parameters.AddWithValue("@dept_code", productId);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -89,7 +89,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Departemen
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv00h10 SET dept_name = @dept_name WHERE dept_code = @dept_code";
+                cmd.CommandText = "UPDATE ms_department SET dept_name = @dept_name WHERE dept_code = @dept_code";
                 cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("txt_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@dept_name", (item.FindControl("txt_name") as RadTextBox).Text);                
                 cmd.ExecuteNonQuery();
@@ -104,7 +104,7 @@ namespace TelerikWebApplication.Form.DataStore.Support.Departemen
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h10(dept_code,dept_name,stEdit) VALUES (@dept_code,@dept_name,@stEdit)";
+            cmd.CommandText = "INSERT INTO ms_department(dept_code,dept_name,stEdit) VALUES (@dept_code,@dept_name,@stEdit)";
             cmd.Parameters.AddWithValue("@dept_code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@dept_name", (item.FindControl("txt_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@stEdit", "0");

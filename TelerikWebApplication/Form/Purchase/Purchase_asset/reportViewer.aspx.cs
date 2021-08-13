@@ -40,7 +40,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_asset
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, OrdBy2, AppBy, CONVERT(char(1),overhaul) as overhaul FROM pur01h02 WHERE po_code = '" + tr_code + "'";
+            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, OrdBy2, AppBy, CONVERT(char(1),overhaul) as overhaul FROM tr_purchaseH WHERE po_code = '" + tr_code + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -62,14 +62,14 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_asset
                     btnOk.Enabled = true;
                 }
 
-                if (dr["overhaul"].ToString() == "1")
-                {
-                    chk_overhaul.Checked = true;
-                }
-                else
-                {
-                    chk_overhaul.Checked = false;
-                }
+                //if (dr["overhaul"].ToString() == "1")
+                //{
+                //    chk_overhaul.Checked = true;
+                //}
+                //else
+                //{
+                //    chk_overhaul.Checked = false;
+                //}
             }
             con.Close();
         }

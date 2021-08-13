@@ -42,15 +42,15 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select pur00h01.supplier_code, pur00h01.koref, pur00h01.supplier_name, pur00h08.NmGSup, acc00h07.cust_name, pur00h01.norek, acc00h03.cur_name,pur00h08.cur_code,(select accountname from acc00h10 where acc00h10.accountno = pur00h08.korek) as korekName,"+
-             " (select accountname from acc00h10 where acc00h10.accountno = pur00h08.um) as umName,"+
-             " (select accountname from acc00h10 where acc00h10.accountno = pur00h08.Expense) as expName ," +
-             " (select TAX_NAME from acc00h05 where pur00h01.ppn = acc00h05.TAX_CODE) as TAX1NAME ," +
-             " (select TAX_NAME from acc00h05 where pur00h01.OTax = acc00h05.TAX_CODE) as OTAX1NAME ," +
-             " (select TAX_NAME from acc00h05 where pur00h01.pph = acc00h05.TAX_CODE) as OTAX2NAME ," +
-             " pur00h01.rekname, pur00h01.bankname, pur00h04.ShipModeName, pur00h01.limit_ap, Case pur00h01.pay_code When '01' Then 'Cash' When '02' Then 'Credit' else 'COD' End as pay_code," +
-             " pur00h01.JTempo, pur00h01.korek, pur00h01.um, pur00h01.Expense, pur00h01.address1, pur00h01.cityName, pur00h01.phone,  pur00h01.NPWP, pur00h01.cityName, pur00h01.fax, pur00h01.email, pur00h01.website, pur00h01.contact1, pur00h01.contact2, pur00h01.hp1, pur00h01.hp2 from pur00h01 LEFT JOIN acc00h07 ON acc00h07.cust_code = pur00h01.koref" +
-             " INNER JOIN pur00h08 ON pur00h08.KoGSup = pur00h01.KoGSup INNER JOIN acc00h05 ON pur00h01.ppn = acc00h05.TAX_CODE INNER JOIN pur00h04 ON pur00h04.ShipMode = pur00h01.ShipModeEtd INNER JOIN acc00h03 ON acc00h03.cur_code = pur00h01.cur_code INNER JOIN acc00h10 ON pur00h01.korek = acc00h10.accountno where pur00h01.stedit != '4' ";
+            cmd.CommandText = "select ms_supplier.supplier_code, ms_supplier.koref, ms_supplier.supplier_name, ms_Group_Supplier.NmGSup, ms_customer.cust_name, ms_supplier.norek, ms_currency.cur_name,ms_Group_Supplier.cur_code,(select accountname from gl_account where gl_account.accountno = ms_Group_Supplier.korek) as korekName,"+
+             " (select accountname from gl_account where gl_account.accountno = ms_Group_Supplier.um) as umName,"+
+             " (select accountname from gl_account where gl_account.accountno = ms_Group_Supplier.Expense) as expName ," +
+             " (select TAX_NAME from MS_TAX where ms_supplier.ppn = MS_TAX.TAX_CODE) as TAX1NAME ," +
+             " (select TAX_NAME from MS_TAX where ms_supplier.OTax = MS_TAX.TAX_CODE) as OTAX1NAME ," +
+             " (select TAX_NAME from MS_TAX where ms_supplier.pph = MS_TAX.TAX_CODE) as OTAX2NAME ," +
+             " ms_supplier.rekname, ms_supplier.bankname, ms_kirim.ShipModeName, ms_supplier.limit_ap, Case ms_supplier.pay_code When '01' Then 'Cash' When '02' Then 'Credit' else 'COD' End as pay_code," +
+             " ms_supplier.JTempo, ms_supplier.korek, ms_supplier.um, ms_supplier.Expense, ms_supplier.address1, ms_supplier.cityName, ms_supplier.phone,  ms_supplier.NPWP, ms_supplier.cityName, ms_supplier.fax, ms_supplier.email, ms_supplier.website, ms_supplier.contact1, ms_supplier.contact2, ms_supplier.hp1, ms_supplier.hp2 from ms_supplier LEFT JOIN ms_customer ON ms_customer.cust_code = ms_supplier.koref" +
+             " INNER JOIN ms_Group_Supplier ON ms_Group_Supplier.KoGSup = ms_supplier.KoGSup INNER JOIN MS_TAX ON ms_supplier.ppn = MS_TAX.TAX_CODE INNER JOIN ms_kirim ON ms_kirim.ShipMode = ms_supplier.ShipModeEtd INNER JOIN ms_currency ON ms_currency.cur_code = ms_supplier.cur_code INNER JOIN gl_account ON ms_supplier.korek = gl_account.accountno where ms_supplier.stedit != '4' ";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -69,9 +69,9 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             return DT;
         }
 
-        private static DataTable Getacc00h07(string text)
+        private static DataTable Getms_customer(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select cust_code, acc00h07.cust_code + ' ' + acc00h07.cust_name as cust_name from acc00h07 where cust_code like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select cust_code, ms_customer.cust_code + ' ' + ms_customer.cust_name as cust_name from ms_customer where cust_code like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -82,9 +82,9 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
 
         }
 
-        private static DataTable Getacc00h05(string text)
+        private static DataTable GetMS_TAX(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select TAX_CODE, TAX_NAME from acc00h05 where TAX_CODE like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select TAX_CODE, TAX_NAME from MS_TAX where TAX_CODE like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -95,9 +95,9 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
 
         }
 
-        private static DataTable Getpur00h04(string text)
+        private static DataTable Getms_kirim(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select ShipMode, ShipModeName from pur00h04 where ShipMode like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select ShipMode, ShipModeName from ms_kirim where ShipMode like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -108,9 +108,9 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
 
         }
 
-        private static DataTable Getpur00h08(string text)
+        private static DataTable Getms_Group_Supplier(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select KoGSup, NmGSup from pur00h08 where KoGSup like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select KoGSup, NmGSup from ms_Group_Supplier where KoGSup like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -128,7 +128,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO pur00h01(supplier_code, koref, supplier_name, cur_code, KoGSup, norek," +
+            cmd.CommandText = "INSERT INTO ms_supplier(supplier_code, koref, supplier_name, cur_code, KoGSup, norek," +
             " rekname, bankname, ppn, OTax, pph, ShipModeEtd, limit_ap, pay_code, JTempo, korek, um, Expense, address1, cityName, "+
             " phone, NPWP, fax, email, website, contact1, contact2, hp1, hp2, Stamp,Usr,Owner,stEdit) VALUES (@supplier_code, @koref, @supplier_name, @cur_code, @KoGSup, @norek," +
             " @rekname, @bankname, @ppn, @OTax, @pph, @ShipModeEtd, @limit_ap, @pay_code, @JTempo, @korek, @um, @Expense, @address1, @cityName, " +
@@ -185,7 +185,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pur00h01 set supplier_code = @supplier_code, koref = @koref, supplier_name = @supplier_name, cur_code = @cur_code, KoGSup = @KoGSup, norek = @norek," +
+            cmd.CommandText = "UPDATE ms_supplier set supplier_code = @supplier_code, koref = @koref, supplier_name = @supplier_name, cur_code = @cur_code, KoGSup = @KoGSup, norek = @norek," +
             " rekname = @rekname, bankname = @bankname, ppn = @ppn, OTax = @OTax, pph = @pph,ShipModeEtd = @ShipModeEtd, limit_ap = @limit_ap,pay_code = @pay_code,JTempo = @JTempo,korek = @korek,um = @um,Expense = @Expense,address1 = @address1,cityName = @cityName, " +
             " phone = @phone, NPWP = @NPWP, fax = @fax, email = @email, website = @website, contact1 = @contact1, contact2 = @contact2, hp1 = @hp1, hp2 = @hp2, LastUpdate = getdate(), Usr = UPPER(@Usr) where supplier_code = @supplier_code";
             cmd.Parameters.AddWithValue("@supplier_code", (item.FindControl("txt_supplier_code") as RadTextBox).Text);
@@ -238,7 +238,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update pur00h01 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where supplier_code = @supplier_code";
+            cmd.CommandText = "update ms_supplier set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where supplier_code = @supplier_code";
             cmd.Parameters.AddWithValue("@supplier_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -274,7 +274,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
 
         private static DataTable Getcust_code(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select cust_code +' '+ cust_name as cust_name from acc00h07 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select cust_code +' '+ cust_name as cust_name from ms_customer where stEdit != 4 " +
                 " AND cust_code +' '+ cust_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -291,7 +291,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cust_code from acc00h07 WHERE cust_code +' '+ cust_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cust_code from ms_customer WHERE cust_code +' '+ cust_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -306,7 +306,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cust_code from acc00h07 WHERE cust_code +' '+ cust_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cust_code from ms_customer WHERE cust_code +' '+ cust_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -331,7 +331,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
 
         public static DataTable Getgroup(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select NmGSup as NmGSup from pur00h08 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select NmGSup as NmGSup from ms_Group_Supplier where stEdit != 4 " +
                   " AND NmGSup LIKE @text + '%'",
               ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
@@ -349,10 +349,10 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT pur00h08.* ,(select accountname from acc00h10 where acc00h10.accountno = pur00h08.korek) as korekName," +
-            " (select accountname from acc00h10 where acc00h10.accountno = pur00h08.um) as umName,"+
-            " (select accountname from acc00h10 where acc00h10.accountno = pur00h08.Expense) as expName, acc00h03.cur_name " +
-            " FROM pur00h08 INNER JOIN acc00h03 ON pur00h08.cur_code = acc00h03.cur_code  WHERE NmGSup = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT ms_Group_Supplier.* ,(select accountname from gl_account where gl_account.accountno = ms_Group_Supplier.korek) as korekName," +
+            " (select accountname from gl_account where gl_account.accountno = ms_Group_Supplier.um) as umName,"+
+            " (select accountname from gl_account where gl_account.accountno = ms_Group_Supplier.Expense) as expName, ms_currency.cur_name " +
+            " FROM ms_Group_Supplier INNER JOIN ms_currency ON ms_Group_Supplier.cur_code = ms_currency.cur_code  WHERE NmGSup = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -393,7 +393,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT KoGSup FROM pur00h08 WHERE NmGSup = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT KoGSup FROM ms_Group_Supplier WHERE NmGSup = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -418,7 +418,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
 
         private static DataTable GetTax(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select TAX_CODE, TAX_NAME from acc00h05 where TAX_CODE like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select TAX_CODE, TAX_NAME from MS_TAX where TAX_CODE like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -434,7 +434,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select TAX_CODE from acc00h05 where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select TAX_CODE from MS_TAX where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -449,7 +449,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select TAX_CODE from acc00h05 where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select TAX_CODE from MS_TAX where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -478,7 +478,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select TAX_CODE from acc00h05 where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select TAX_CODE from MS_TAX where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -493,7 +493,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select TAX_CODE from acc00h05 where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select TAX_CODE from MS_TAX where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -522,7 +522,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select TAX_CODE from acc00h05 where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select TAX_CODE from MS_TAX where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -537,7 +537,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select TAX_CODE from acc00h05 where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select TAX_CODE from MS_TAX where TAX_NAME = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -562,7 +562,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
 
         private static DataTable GetShip(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select ShipMode, ShipModeName from pur00h04 where ShipMode like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select ShipMode, ShipModeName from ms_kirim where ShipMode like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -578,7 +578,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select ShipMode from pur00h04 where ShipModeName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select ShipMode from ms_kirim where ShipModeName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -593,7 +593,7 @@ namespace TelerikWebApplication.Form.DataStore.Supplier.MasterSupplier
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select ShipMode from pur00h04 where ShipModeName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select ShipMode from ms_kirim where ShipModeName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

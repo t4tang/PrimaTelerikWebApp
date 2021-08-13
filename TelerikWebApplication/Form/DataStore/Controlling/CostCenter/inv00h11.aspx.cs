@@ -36,10 +36,10 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select inv00h11.CostCenter, inv00h11.CostCenterName, inv00h15.company_name, inv00h19.ProfitCtrName, inv00h09.region_name, " +
-                "inv00h11.PersonIC, inv00h14.DivName, inv00h11.Heirarchy from inv00h11 INNER JOIN inv00h15 ON inv00h11.company_code = inv00h15.company_code " +
-                "INNER JOIN inv00h09 ON inv00h09.region_code = inv00h11.region_code INNER JOIN inv00h14 ON  inv00h14.DivCode = inv00h11.Divisi INNER JOIN inv00h19 " +
-                " ON inv00h11.ProfitCtr = inv00h19.ProfitCtr where inv00h11.stedit != 4";
+            cmd.CommandText = "select ms_cost_center.CostCenter, ms_cost_center.CostCenterName, ms_company.company_name, ms_ProfitCtr.ProfitCtrName, ms_jobsite.region_name, " +
+                "ms_cost_center.PersonIC, ms_cost_Cntr_Cat.DivName, ms_cost_center.Heirarchy from ms_cost_center INNER JOIN ms_company ON ms_cost_center.company_code = ms_company.company_code " +
+                "INNER JOIN ms_jobsite ON ms_jobsite.region_code = ms_cost_center.region_code INNER JOIN ms_cost_Cntr_Cat ON  ms_cost_Cntr_Cat.DivCode = ms_cost_center.Divisi INNER JOIN ms_ProfitCtr " +
+                " ON ms_cost_center.ProfitCtr = ms_ProfitCtr.ProfitCtr where ms_cost_center.stedit != 4";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -58,9 +58,9 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             return DT;
         }
 
-        private static DataTable Getinv00h15(string text)
+        private static DataTable Getms_company(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select company_code, company_name from inv00h15 where company_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select company_code, company_name from ms_company where company_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -71,9 +71,9 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
 
         }
 
-        private static DataTable Getinv00h19(string text)
+        private static DataTable Getms_ProfitCtr(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select ProfitCtr, ProfitCtrName from inv00h19 where ProfitCtrName like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select ProfitCtr, ProfitCtrName from ms_ProfitCtr where ProfitCtrName like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -84,9 +84,9 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
 
         }
 
-        private static DataTable Getinv00h09(string text)
+        private static DataTable Getms_jobsite(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from inv00h09 where region_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from ms_jobsite where region_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -97,9 +97,9 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
 
         }
 
-        private static DataTable Getinv00h14(string text)
+        private static DataTable Getms_cost_Cntr_Cat(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select DivCode, DivName from inv00h14 where DivName like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select DivCode, DivName from ms_cost_Cntr_Cat where DivName like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -118,7 +118,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update inv00h11 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where CostCenter = @CostCenter";
+            cmd.CommandText = "update ms_cost_center set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where CostCenter = @CostCenter";
             cmd.Parameters.AddWithValue("@CostCenter", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -132,7 +132,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h11(CostCenter, CostCenterName, company_code, ProfitCtr, region_code, PersonIC, Divisi, Heirarchy, Stamp,Usr,Owner,stEdit) VALUES (@CostCenter, @CostCenterName, @company_code, @ProfitCtr, @region_code, @PersonIC, @Divisi, @Heirarchy, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO ms_cost_center(CostCenter, CostCenterName, company_code, ProfitCtr, region_code, PersonIC, Divisi, Heirarchy, Stamp,Usr,Owner,stEdit) VALUES (@CostCenter, @CostCenterName, @company_code, @ProfitCtr, @region_code, @PersonIC, @Divisi, @Heirarchy, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@CostCenter", (item.FindControl("txt_CostCenter") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@CostCenterName", (item.FindControl("txt_CostCenterName") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@company_code", (item.FindControl("cb_company") as RadComboBox).SelectedValue);
@@ -156,7 +156,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE inv00h11 set CostCenterName = @CostCenterName, company_code = @company_code, ProfitCtr = @ProfitCtr, region_code = @region_code, PersonIC = @PersonIC, Divisi = @Divisi, Heirarchy =@Heirarchy, LastUpdate = getdate(), Usr = @Usr where CostCenter = @CostCenter";
+                cmd.CommandText = "UPDATE ms_cost_center set CostCenterName = @CostCenterName, company_code = @company_code, ProfitCtr = @ProfitCtr, region_code = @region_code, PersonIC = @PersonIC, Divisi = @Divisi, Heirarchy =@Heirarchy, LastUpdate = getdate(), Usr = @Usr where CostCenter = @CostCenter";
                 cmd.Parameters.AddWithValue("@CostCenterName", (item.FindControl("txt_CostCenterName") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@CostCenter", (item.FindControl("txt_CostCenter") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@company_code", (item.FindControl("cb_company") as RadComboBox).SelectedValue);
@@ -188,7 +188,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
 
         private static DataTable GetCompany(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select company_code, company_name from inv00h15 where company_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select company_code, company_name from ms_company where company_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -205,7 +205,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select company_code from inv00h15 where company_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select company_code from ms_company where company_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -220,7 +220,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select company_code from inv00h15 where company_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select company_code from ms_company where company_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -245,7 +245,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
 
         private static DataTable GetRegion(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from inv00h09 where region_name like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_code, region_name from ms_jobsite where region_name like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -262,7 +262,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select region_code from inv00h09 where region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select region_code from ms_jobsite where region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -277,7 +277,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select region_code from inv00h09 where region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select region_code from ms_jobsite where region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -302,7 +302,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
 
         private static DataTable GetCategory(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select DivCode, DivName from inv00h14 where DivName like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select DivCode, DivName from ms_cost_Cntr_Cat where DivName like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -318,7 +318,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select DivCode from inv00h14 where DivName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select DivCode from ms_cost_Cntr_Cat where DivName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -333,7 +333,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select DivCode from inv00h14 where DivName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select DivCode from ms_cost_Cntr_Cat where DivName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -373,7 +373,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
 
         private static DataTable GetProfitCtr(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select ProfitCtr, ProfitCtrName from inv00h19 where ProfitCtrName like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select ProfitCtr, ProfitCtrName from ms_ProfitCtr where ProfitCtrName like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -389,7 +389,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select ProfitCtr from inv00h19 where ProfitCtrName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select ProfitCtr from ms_ProfitCtr where ProfitCtrName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -404,7 +404,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.CostCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select ProfitCtr from inv00h19 where ProfitCtrName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select ProfitCtr from ms_ProfitCtr where ProfitCtrName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

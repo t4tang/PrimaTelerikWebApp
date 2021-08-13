@@ -34,7 +34,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Syntom
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select pro00h07.problem_code, pro00h07.problem_name from pro00h07 where pro00h07.stedit != 4";
+            cmd.CommandText = "select MCC_MS_PROBLEM.problem_code, MCC_MS_PROBLEM.problem_name from MCC_MS_PROBLEM where MCC_MS_PROBLEM.stedit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -58,7 +58,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Syntom
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO pro00h07(problem_code,problem_name,Stamp,Usr,Owner,stEdit) VALUES (@problem_code, @problem_name, getdate(),@Usr, @Owner,0)";
+            cmd.CommandText = "INSERT INTO MCC_MS_PROBLEM(problem_code,problem_name,Stamp,Usr,Owner,stEdit) VALUES (@problem_code, @problem_name, getdate(),@Usr, @Owner,0)";
             cmd.Parameters.AddWithValue("@problem_code", (item.FindControl("txt_problem_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@problem_name", (item.FindControl("txt_problem_name") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -77,7 +77,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Syntom
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "UPDATE pro00h07 set problem_name = @problem_name, LastUpdate = getdate(), Usr = @Usr where problem_code = @problem_code";
+                cmd.CommandText = "UPDATE MCC_MS_PROBLEM set problem_name = @problem_name, LastUpdate = getdate(), Usr = @Usr where problem_code = @problem_code";
                 cmd.Parameters.AddWithValue("@problem_name", (item.FindControl("txt_problem_name") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@problem_code", (item.FindControl("txt_problem_code") as RadTextBox).Text);
                 cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -94,7 +94,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.Syntom
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update pro00h07 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where problem_code = @problem_code";
+            cmd.CommandText = "update MCC_MS_PROBLEM set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where problem_code = @problem_code";
             cmd.Parameters.AddWithValue("@problem_code", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();

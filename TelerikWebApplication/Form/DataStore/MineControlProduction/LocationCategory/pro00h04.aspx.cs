@@ -41,7 +41,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.LocationCat
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT loc_cate_code, cat_name FROM pro00h04 WHERE stEdit !='4'";
+            cmd.CommandText = "SELECT loc_cate_code, cat_name FROM MCC_MS_LOC_CAT WHERE stEdit !='4'";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -72,7 +72,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.LocationCat
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO pro00h04 (loc_cate_code, cat_name, Stamp, Usr, Owner, stEdit) VALUES " +
+            cmd.CommandText = "INSERT INTO MCC_MS_LOC_CAT (loc_cate_code, cat_name, Stamp, Usr, Owner, stEdit) VALUES " +
                               "(@loc_cate_code, @cat_name, getdate(), @Usr, @Owner, '0')";
             cmd.Parameters.AddWithValue("@loc_cate_code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@cat_name", (item.FindControl("txt_category") as RadTextBox).Text);
@@ -89,7 +89,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.LocationCat
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pro00h04 SET cat_name = @cat_name, Stamp = getdate(), Usr = @Usr WHERE loc_cate_code = @loc_cate_code";
+            cmd.CommandText = "UPDATE MCC_MS_LOC_CAT SET cat_name = @cat_name, Stamp = getdate(), Usr = @Usr WHERE loc_cate_code = @loc_cate_code";
             cmd.Parameters.AddWithValue("@loc_cate_code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@cat_name", (item.FindControl("txt_category") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
@@ -106,7 +106,7 @@ namespace TelerikWebApplication.Form.DataStore.MineControlProduction.LocationCat
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE pro00h04 SET stEdit = 4 where loc_cate_code = @loc_cate_code";
+            cmd.CommandText = "UPDATE MCC_MS_LOC_CAT SET stEdit = 4 where loc_cate_code = @loc_cate_code";
             cmd.Parameters.AddWithValue("@loc_cate_code", loc_cate_code);
             cmd.ExecuteNonQuery();
             con.Close();

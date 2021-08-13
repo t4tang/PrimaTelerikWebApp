@@ -64,7 +64,7 @@ namespace TelerikWebApplication.Form.Purchase.Purchase_order
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT pur01h02.Net, pur01h01.unit_code FROM pur01h02 INNER JOIN pur01h01 ON pur01h02.no_ref = pur01h01.pr_code WHERE pur01h02.po_code = '" + _tr_code + "'";
+            cmd.CommandText = "SELECT tr_purchaseH.Net, tr_purchase_reqH.unit_code FROM tr_purchaseH INNER JOIN tr_purchase_reqH ON tr_purchaseH.no_ref = tr_purchase_reqH.pr_code WHERE tr_purchaseH.po_code = '" + _tr_code + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

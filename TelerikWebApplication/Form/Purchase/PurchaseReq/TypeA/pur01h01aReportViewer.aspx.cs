@@ -41,7 +41,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, AppBy FROM pur01h01 WHERE pr_code = '" + tr_code + "'";
+            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, AppBy FROM tr_purchase_reqH WHERE pr_code = '" + tr_code + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -73,7 +73,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
             cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, AppBy FROM pur01h01 WHERE pr_code = '" + tr_code + "'";
+            cmd.CommandText = "SELECT status_pur, FreBy, OrdBy, AppBy FROM tr_purchase_reqH WHERE pr_code = '" + tr_code + "'";
             SqlDataReader sdr;
             sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -92,7 +92,7 @@ namespace TelerikWebApplication.Form.Purchase.PurchaseReq
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                
-                cmd.CommandText = "UPDATE pur01h01 SET status_pur = '" + status_pur + "' + 1 WHERE pr_code ='" + tr_code + "'";
+                cmd.CommandText = "UPDATE tr_purchase_reqH SET status_pur = '" + status_pur + "' + 1 WHERE pr_code ='" + tr_code + "'";
                
             }
             catch (Exception)

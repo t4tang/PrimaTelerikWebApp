@@ -37,26 +37,26 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT        mtc00h30.wkcencode, mtc00h30.wkcenname, mtc00h34.wkcencat, " +
-                              "mtc00h34.wkcencat + ' - ' + mtc00h34.wkcencatName AS wkcencatComb, mtc00h34.wkcencatName, " +
-                              "mtc00h33.PersonRespon, mtc00h33.PersonRespon + ' - ' + mtc00h33.PersonResponname AS PersonResponComb, mtc00h33.PersonResponname, " +
-                              "mtc00h32.kdusage, mtc00h32.kdusage + ' - ' + mtc00h32.NmUsage AS UsageComb, mtc00h32.NmUsage, " +
-                              "mtc00h35.controlkey, mtc00h35.controlkey + ' - ' + mtc00h35.controlName AS controlComb, mtc00h35.controlName, " +
-                              "mtc00h31.CapCat, mtc00h31.CapCat + ' - ' + mtc00h31.CapCatName AS CapCatComb, mtc00h31.CapCatName, " +
-                              "inv00h11.CostCenter, inv00h11.CostCenter + ' - ' + inv00h11.CostCenterName AS CostCenterComb, inv00h11.CostCenterName, " +
-                              "mtc00h30.DateValidStart, mtc00h30.DateValidEnd, " +
-                              "mtc00h24.Act_type, mtc00h24.Act_type + ' - ' + mtc00h24.Act_typeName AS Act_typeComb, mtc00h24.Act_typeName, " +
-                              "inv00h09.region_code, inv00h09.region_name, mtc00h30.lastupdate, mtc00h30.userid, mtc00h30.stEdit " +
-                              "FROM mtc00h30 INNER JOIN " +
-                              "inv00h09 ON mtc00h30.Region_Code = inv00h09.region_code INNER JOIN " +
-                              "mtc00h24 ON mtc00h30.Act_type = mtc00h24.Act_type INNER JOIN " +
-                              "mtc00h31 ON mtc00h30.CapCat = mtc00h31.CapCat INNER JOIN " +
-                              "mtc00h32 ON mtc00h30.kdusage = mtc00h32.kdusage INNER JOIN " +
-                              "mtc00h33 ON mtc00h30.PersonRespon = mtc00h33.PersonRespon INNER JOIN " +
-                              "mtc00h34 ON mtc00h30.wkcencat = mtc00h34.wkcencat INNER JOIN " +
-                              "mtc00h35 ON mtc00h30.controlkey = mtc00h35.controlkey INNER JOIN " +
-                              "inv00h11 ON mtc00h30.CostCenCode = inv00h11.CostCenter " +
-                              "WHERE(mtc00h30.stEdit <> '4')";
+            cmd.CommandText = "SELECT        PMMSWKCTR.wkcencode, PMMSWKCTR.wkcenname, PMMSWorkCntrCat.wkcencat, " +
+                              "PMMSWorkCntrCat.wkcencat + ' - ' + PMMSWorkCntrCat.wkcencatName AS wkcencatComb, PMMSWorkCntrCat.wkcencatName, " +
+                              "PMMSPersonRespon.PersonRespon, PMMSPersonRespon.PersonRespon + ' - ' + PMMSPersonRespon.PersonResponname AS PersonResponComb, PMMSPersonRespon.PersonResponname, " +
+                              "PMMSUsage.kdusage, PMMSUsage.kdusage + ' - ' + PMMSUsage.NmUsage AS UsageComb, PMMSUsage.NmUsage, " +
+                              "PMMSCapCat.controlkey, PMMSCapCat.controlkey + ' - ' + PMMSCapCat.controlName AS controlComb, PMMSCapCat.controlName, " +
+                              "MSPMControl.CapCat, MSPMControl.CapCat + ' - ' + MSPMControl.CapCatName AS CapCatComb, MSPMControl.CapCatName, " +
+                              "ms_cost_center.CostCenter, ms_cost_center.CostCenter + ' - ' + ms_cost_center.CostCenterName AS CostCenterComb, ms_cost_center.CostCenterName, " +
+                              "PMMSWKCTR.DateValidStart, PMMSWKCTR.DateValidEnd, " +
+                              "PMMSActType.Act_type, PMMSActType.Act_type + ' - ' + PMMSActType.Act_typeName AS Act_typeComb, PMMSActType.Act_typeName, " +
+                              "ms_jobsite.region_code, ms_jobsite.region_name, PMMSWKCTR.lastupdate, PMMSWKCTR.userid, PMMSWKCTR.stEdit " +
+                              "FROM PMMSWKCTR INNER JOIN " +
+                              "ms_jobsite ON PMMSWKCTR.Region_Code = ms_jobsite.region_code INNER JOIN " +
+                              "PMMSActType ON PMMSWKCTR.Act_type = PMMSActType.Act_type INNER JOIN " +
+                              "MSPMControl ON PMMSWKCTR.CapCat = MSPMControl.CapCat INNER JOIN " +
+                              "PMMSUsage ON PMMSWKCTR.kdusage = PMMSUsage.kdusage INNER JOIN " +
+                              "PMMSPersonRespon ON PMMSWKCTR.PersonRespon = PMMSPersonRespon.PersonRespon INNER JOIN " +
+                              "PMMSWorkCntrCat ON PMMSWKCTR.wkcencat = PMMSWorkCntrCat.wkcencat INNER JOIN " +
+                              "PMMSCapCat ON PMMSWKCTR.controlkey = PMMSCapCat.controlkey INNER JOIN " +
+                              "ms_cost_center ON PMMSWKCTR.CostCenCode = ms_cost_center.CostCenter " +
+                              "WHERE(PMMSWKCTR.stEdit <> '4')";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -85,7 +85,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO mtc00h30 (wkcencode, wkcenname, wkcencat, PersonRespon, kdusage, controlkey, CapCat, CostCenCode, " +
+            cmd.CommandText = "INSERT INTO PMMSWKCTR (wkcencode, wkcenname, wkcencat, PersonRespon, kdusage, controlkey, CapCat, CostCenCode, " +
                               "DateValidStart, DateValidEnd, Act_type, Region_Code, lastupdate, userid, stEdit) VALUES " +
                               "(@wkcencode, @wkcenname, @wkcencat, @PersonRespon, @kdusage, @controlkey, @CapCat, @CostCenCode, @DateValidStart, " +
                               "@DateValidEnd, @Act_type, @Region_Code, getdate(), @userid, '0')";
@@ -113,7 +113,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE mtc00h30 SET wkcenname = @wkcenname, wkcencat = @wkcencat, PersonRespon = @PersonRespon, kdusage = @kdusage, " +
+            cmd.CommandText = "UPDATE PMMSWKCTR SET wkcenname = @wkcenname, wkcencat = @wkcencat, PersonRespon = @PersonRespon, kdusage = @kdusage, " +
                               "controlkey = @controlkey, CapCat = @CapCat, CostCenCode = @CostCenCode, DateValidStart = @DateValidStart, " +
                               "DateValidEnd = @DateValidEnd, Act_type = @Act_type, Region_Code = @Region_Code, lastupdate = getdate(), userid = @userid " +
                               "WHERE wkcencode = @wkcencode";
@@ -142,7 +142,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update mtc00h30 set stEdit = '4', lastupdate = getdate(), userid = @userid where wkcencode = @wkcencode";
+            cmd.CommandText = "update PMMSWKCTR set stEdit = '4', lastupdate = getdate(), userid = @userid where wkcencode = @wkcencode";
             cmd.Parameters.AddWithValue("@wkcencode", wkcencode);
             cmd.Parameters.AddWithValue("@userid", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -164,7 +164,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
 
         public DataTable Get_Project(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 where stEdit != '4' AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite where stEdit != '4' AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -195,7 +195,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code, region_name FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code, region_name FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -210,7 +210,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code, region_name FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code, region_name FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -221,7 +221,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
 
         public DataTable Get_Control(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT controlkey, controlName FROM mtc00h35 where stEdit != '4' AND controlName LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT controlkey, controlName FROM PMMSCapCat where stEdit != '4' AND controlName LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -252,7 +252,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h35 WHERE controlName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSCapCat WHERE controlName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -267,7 +267,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h35 WHERE controlName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSCapCat WHERE controlName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -278,7 +278,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
 
         public DataTable Get_Capacity(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CapCat, CapCatName from mtc00h31 where stEdit != '4' AND CapCatName LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CapCat, CapCatName from MSPMControl where stEdit != '4' AND CapCatName LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -309,7 +309,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h31 WHERE CapCatName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM MSPMControl WHERE CapCatName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -324,7 +324,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h31 WHERE CapCatName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM MSPMControl WHERE CapCatName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -335,7 +335,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
 
         public DataTable Get_Category(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wkcencat, wkcencatName from mtc00h34 where stEdit != '4' AND wkcencatName LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT wkcencat, wkcencatName from PMMSWorkCntrCat where stEdit != '4' AND wkcencatName LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -366,7 +366,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h34 WHERE wkcencatName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSWorkCntrCat WHERE wkcencatName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -381,7 +381,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h34 WHERE wkcencatName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSWorkCntrCat WHERE wkcencatName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -392,7 +392,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
 
         public DataTable Get_Respon(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT PersonRespon,PersonResponname from mtc00h33 where stEdit != '4' AND PersonResponname LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT PersonRespon,PersonResponname from PMMSPersonRespon where stEdit != '4' AND PersonResponname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -423,7 +423,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h33 WHERE PersonResponname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSPersonRespon WHERE PersonResponname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -438,7 +438,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h33 WHERE PersonResponname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSPersonRespon WHERE PersonResponname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -449,7 +449,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
 
         public DataTable Get_Usage(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT kdusage, NmUsage from mtc00h32 where stEdit != '4' AND NmUsage LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT kdusage, NmUsage from PMMSUsage where stEdit != '4' AND NmUsage LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
             DataTable data = new DataTable();
@@ -479,7 +479,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h32 WHERE NmUsage = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSUsage WHERE NmUsage = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -494,7 +494,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h32 WHERE NmUsage = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSUsage WHERE NmUsage = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -505,7 +505,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
 
         public DataTable Get_Cost_Center(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenter, CostCenterName FROM inv00h11 where stEdit != '4' AND CostCenterName LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT CostCenter, CostCenterName FROM ms_cost_center where stEdit != '4' AND CostCenterName LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -536,7 +536,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -551,7 +551,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM inv00h11 WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM ms_cost_center WHERE CostCenterName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -562,7 +562,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
 
         public DataTable Get_Act_Type(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Act_type, Act_typeName from mtc00h24 where stEdit != '4' AND Act_typeName LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT Act_type, Act_typeName from PMMSActType where stEdit != '4' AND Act_typeName LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -593,7 +593,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h24 WHERE Act_typeName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSActType WHERE Act_typeName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -608,7 +608,7 @@ namespace TelerikWebApplication.Form.DataStore.Controlling.WorkCenter
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM mtc00h24 WHERE Act_typeName = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT * FROM PMMSActType WHERE Act_typeName = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

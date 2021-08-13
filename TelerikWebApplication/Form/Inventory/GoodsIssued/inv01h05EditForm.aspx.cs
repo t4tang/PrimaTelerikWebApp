@@ -238,10 +238,10 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 {
                     con.Open();
                     SqlDataReader sdr;
-                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( inv01h05.do_code , 4 ) ) , 0 ) + 1 AS maxNo " +
-                        "FROM inv01h05 WHERE LEFT(inv01h05.do_code, 4) = 'GI01' " +
-                        "AND SUBSTRING(inv01h05.do_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
-                        "AND SUBSTRING(inv01h05.do_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
+                    cmd = new SqlCommand("SELECT ISNULL ( MAX ( RIGHT ( tr_doh.do_code , 4 ) ) , 0 ) + 1 AS maxNo " +
+                        "FROM tr_doh WHERE LEFT(tr_doh.do_code, 4) = 'GI01' " +
+                        "AND SUBSTRING(tr_doh.do_code, 5, 2) = SUBSTRING('" + trDate + "', 9, 2) " +
+                        "AND SUBSTRING(tr_doh.do_code, 7, 2) = SUBSTRING('" + trDate + "', 4, 2) ", con);
                     sdr = cmd.ExecuteReader();
                     if (sdr.HasRows == false)
                     {
@@ -340,7 +340,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "DELETE inv01h05 WHERE do_code = '" + run + "'";
+                cmd.CommandText = "DELETE tr_doh WHERE do_code = '" + run + "'";
                 cmd.ExecuteNonQuery();
                 //con.Close();
 
@@ -407,7 +407,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
 
         private static DataTable GetCustSupp(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT cust_code, cust_name FROM acc00h07 WHERE stEdit != 4 AND cust_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT cust_code, cust_name FROM ms_customer WHERE stEdit != 4 AND cust_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -436,7 +436,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT cust_code FROM acc00h07 WHERE cust_name = '" + cb_CustSupp.Text + "'";
+            cmd.CommandText = "SELECT cust_code FROM ms_customer WHERE cust_name = '" + cb_CustSupp.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -452,7 +452,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT cust_code FROM acc00h07 WHERE cust_name = '" + cb_CustSupp.Text + "'";
+            cmd.CommandText = "SELECT cust_code FROM ms_customer WHERE cust_name = '" + cb_CustSupp.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -465,7 +465,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
         #region project
         private static DataTable GetProject(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM inv00h09 WHERE stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT region_code, region_name FROM ms_jobsite WHERE stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -494,7 +494,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_Project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_Project.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -520,7 +520,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + cb_Project.Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + cb_Project.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -595,7 +595,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(wh_code) as code,upper(wh_name) as name FROM inv00h05 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(wh_code) as code,upper(wh_name) as name FROM ms_warehouse " +
                 "WHERE stEdit <> '4' AND PlantCode = @project AND wh_name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -619,7 +619,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + cb_warehouse.Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + cb_warehouse.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -634,7 +634,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT wh_code FROM inv00h05 WHERE wh_name = '" + cb_warehouse.Text + "'";
+            cmd.CommandText = "SELECT wh_code FROM ms_warehouse WHERE wh_name = '" + cb_warehouse.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -797,7 +797,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlConnection con = new SqlConnection(
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
 
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM inv00h26 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT upper(name) as name, nik, upper(jabatan) as jabatan FROM ms_manpower " +
                 "WHERE stedit <> '4' AND region_code = @project AND name LIKE @text + '%'", con);
             adapter.SelectCommand.Parameters.AddWithValue("@project", projectID);
             adapter.SelectCommand.Parameters.AddWithValue("@text", name);
@@ -824,7 +824,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_receipt.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_receipt.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -841,7 +841,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_receipt.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_receipt.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -865,7 +865,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_issued.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_issued.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -880,7 +880,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_issued.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_issued.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -904,7 +904,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approval.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_approval.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -919,7 +919,7 @@ namespace TelerikWebApplication.Form.Inventory.GoodsIssued
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT nik FROM inv00h26 WHERE name = '" + cb_approval.Text + "'";
+            cmd.CommandText = "SELECT nik FROM ms_manpower WHERE name = '" + cb_approval.Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

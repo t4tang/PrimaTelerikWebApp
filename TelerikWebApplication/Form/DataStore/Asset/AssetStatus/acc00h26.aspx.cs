@@ -40,7 +40,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetStatus
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT status_code, Status_name, remark FROM acc00h26 where stEdit != 4";
+            cmd.CommandText = "SELECT status_code, Status_name, remark FROM ms_asset_status where stEdit != 4";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -66,7 +66,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetStatus
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h26 SET stEdit = 4 where status_code = @status_code";
+            cmd.CommandText = "UPDATE ms_asset_status SET stEdit = 4 where status_code = @status_code";
             cmd.Parameters.AddWithValue("@status_code", status_code);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -79,7 +79,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetStatus
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h26 (status_code, Status_name, remark, lastupdate, userid, stEdit) " +
+            cmd.CommandText = "INSERT INTO ms_asset_status (status_code, Status_name, remark, lastupdate, userid, stEdit) " +
                               "VALUES (@status_code, @Status_name, @remark, getdate(), @userid, '0')";
             cmd.Parameters.AddWithValue("@status_code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Status_name", (item.FindControl("txt_status_name") as RadTextBox).Text);
@@ -96,7 +96,7 @@ namespace TelerikWebApplication.Form.DataStore.Asset.AssetStatus
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h26 SET Status_name = @Status_name, remark = @remark, lastupdate = getdate(), userid = @userid " +
+            cmd.CommandText = "UPDATE ms_asset_status SET Status_name = @Status_name, remark = @remark, lastupdate = getdate(), userid = @userid " +
                               "WHERE status_code = @status_code";
             cmd.Parameters.AddWithValue("@status_code", (item.FindControl("txt_code") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Status_name", (item.FindControl("txt_status_name") as RadTextBox).Text);

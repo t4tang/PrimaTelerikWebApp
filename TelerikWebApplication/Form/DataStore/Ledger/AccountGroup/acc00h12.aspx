@@ -1,4 +1,4 @@
-﻿<%@ Page Title="PRIMA SYSTEM" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc00h12.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Ledger.AccountGroup.acc00h10" %>
+﻿<%@ Page Title="PRIMA SYSTEM" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="acc00h12.aspx.cs" Inherits="TelerikWebApplication.Form.DataStore.Ledger.AccountGroup.acc00h12" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../../Styles/mail.css" rel="stylesheet" />

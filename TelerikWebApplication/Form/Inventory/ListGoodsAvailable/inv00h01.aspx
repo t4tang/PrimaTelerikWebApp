@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="inv00h01.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.ListGoodsAvailable.inv00h01" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ms_product.aspx.cs" Inherits="TelerikWebApplication.Form.Inventory.ListGoodsAvailable.ms_product" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../Styles/common.css" rel="stylesheet" />
     <link href="../../../Styles/mail.css" rel="stylesheet" />
@@ -32,7 +32,7 @@
     </telerik:RadAjaxManager>
 
     <telerik:RadAjaxLoadingPanel ID="gridLoadingPanel" runat="server" MinDisplayTime="2500" BackgroundPosition="None">
-        <img alt="Loading..." src="../../../Images/loader.gif" style="border: 0px; width:90px; height:65px; position: absolute; top: 300px; left:600px" />
+        <img alt="Loading..." src="../../../Images/googledots5.gif" style="border: 0px; width:200px; height:155px; position: absolute; top: 200px; left:540px" />
     </telerik:RadAjaxLoadingPanel>
 
     <div class="scroller" runat="server">        
@@ -49,28 +49,31 @@
                 </tr>
             </table>            
         </div> 
-        <div runat="server" style=" padding-left:15px;">
+        <div runat="server" style=" padding-left:15px; color:yellowgreen">
             <table >
                 <tr> 
                     <td >
-                        <telerik:RadLabel runat="server" Text="Date :" CssClass="lbObject" ForeColor="Black"></telerik:RadLabel>
+                        <telerik:RadLabel runat="server" Text="Date :" CssClass="lbObject"></telerik:RadLabel>
                     </td>
-                    <td >
+                    <td style="width:160px" >
                         <telerik:RadDatePicker ID="dtp_date" runat="server" RenderMode="Lightweight" Width="120px"  Skin="Telerik"
                             DateInput-ReadOnly="false" DateInput-DateFormat="dd/MM/yyyy">
                         </telerik:RadDatePicker>
                     </td>
                     <td >
-                        <telerik:RadLabel runat="server" Text="Project:" CssClass="lbObject" ForeColor="#000000"></telerik:RadLabel>
+                        <telerik:RadLabel runat="server" Text="Project:" CssClass="lbObject"></telerik:RadLabel>
                     </td>
                     <td >
-                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="250px" DropDownWidth="250px"
+                        <telerik:RadComboBox RenderMode="Lightweight" ID="cb_project" runat="server" Width="220px" DropDownWidth="250px"
                             AutoPostBack="true" ShowMoreResultsBox="true" EnableLoadOnDemand="True" Skin="Telerik" CausesValidation="false"
                             OnItemsRequested="cb_project_ItemsRequested" OnSelectedIndexChanged="cb_project_SelectedIndexChanged" EmptyMessage="Project"
                             OnPreRender="cb_project_PreRender">
                         </telerik:RadComboBox>
                         <asp:RequiredFieldValidator runat="server" ID="projectValidator" ControlToValidate="cb_project" ForeColor="Red" 
                         Font-Size="X-Small" Text="Required!"></asp:RequiredFieldValidator>
+                    </td>
+                    <td >
+                        <telerik:RadLabel runat="server" Text="Storage:" CssClass="lbObject"></telerik:RadLabel>
                     </td>
                     <td >
                         <telerik:RadComboBox RenderMode="Lightweight" ID="cb_warehouse" runat="server" Width="180" 
@@ -85,6 +88,12 @@
                     </td>
                     <td >
                         <telerik:RadButton ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="OK" Height="25px"
+                            Skin="Material"></telerik:RadButton>
+                    </td>
+                    <td style="width:80px; text-align:right; padding-top:0px">
+                        <%--<asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/Images/excel.png" Width="55px" Height="25px"
+                        OnClick="ImageButton_Click" AlternateText="Xlsx" ImageAlign="Bottom" />--%>
+                        <telerik:RadButton ID="bnt_excel" runat="server" OnClick="bnt_excel_Click" Text="Xlsx" Height="25px"
                             Skin="Material"></telerik:RadButton>
                     </td>
                 </tr>
@@ -131,10 +140,11 @@
                 </ClientSettings>
             </telerik:RadPivotGrid>--%>
 
-            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowSorting="True" AllowMultiRowSelection="True" PageSize="20" 
-                AllowPaging="True" ShowGroupPanel="True" AutoGenerateColumns="False" GridLines="none" AllowFilteringByColumn="true" 
-                Skin="Silk" CssClass="RadGrid_ModernBrowsers" 
-                OnNeedDataSource="RadGrid1_NeedDataSource1">
+            <telerik:RadGrid RenderMode="Lightweight" ID="RadGrid1" runat="server" AllowSorting="True" AllowMultiRowSelection="True" PageSize="5" 
+                AllowPaging="false" ShowGroupPanel="false" AutoGenerateColumns="False" GridLines="none" AllowFilteringByColumn="true" 
+                Skin="Silk" CssClass="RadGrid_ModernBrowsers" Font-Names="Calibri"
+                OnNeedDataSource="RadGrid1_NeedDataSource1"
+                OnPreRender="RadGrid1_PreRender">
             <PagerStyle Mode="NextPrevNumericAndAdvanced"></PagerStyle>
             <HeaderStyle BackColor="#73bbbb" ForeColor="White" Font-Names="Centruy Gothic" Font-Size="11px"/>
             <ClientSettings EnablePostBackOnRowClick="false" EnableRowHoverStyle="true" Selecting-AllowRowSelect="true" AllowGroupExpandCollapse="False" />
@@ -142,14 +152,6 @@
             <SortingSettings EnableSkinSortStyles="false" />
             <MasterTableView Width="100%">
                 <GroupByExpressions>
-                    <%--<telerik:GridGroupByExpression>
-                        <SelectFields>
-                            <telerik:GridGroupByField FieldAlias="Warehouse" FieldName="warehouse"></telerik:GridGroupByField>
-                        </SelectFields>
-                        <GroupByFields>
-                            <telerik:GridGroupByField FieldName="warehouse"></telerik:GridGroupByField>
-                        </GroupByFields>
-                    </telerik:GridGroupByExpression>--%>
                     <telerik:GridGroupByExpression>
                         <SelectFields>
                             <telerik:GridGroupByField FieldAlias="Category" FieldName="category"></telerik:GridGroupByField>
@@ -161,48 +163,53 @@
                 </GroupByExpressions>
                 <Columns>
                     <telerik:GridBoundColumn SortExpression="category" HeaderText="Category" HeaderButtonType="TextButton"
-                        DataField="category" ItemStyle-Width="95px" FilterControlWidth="80px">                        
-                        <HeaderStyle Width="95px" />   
+                        DataField="category" ItemStyle-Width="145px" FilterControlWidth="120px">                        
+                        <HeaderStyle Width="145px" />   
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="material_code" HeaderText="Material Code" HeaderButtonType="TextButton"
-                        DataField="material_code" ItemStyle-Width="135px" FilterControlWidth="120px">                        
+                        DataField="material_code" ItemStyle-Width="135px" FilterControlWidth="110px">                        
                         <HeaderStyle Width="135px" />   
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="Specification" HeaderText="Specification" HeaderButtonType="TextButton"
-                        DataField="Specification" ItemStyle-Width="155px" FilterControlWidth="140px">                        
+                        DataField="Specification" ItemStyle-Width="155px" FilterControlWidth="130px">                        
                         <HeaderStyle Width="155px" />   
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="brand_name" HeaderText="Brand" HeaderButtonType="TextButton"
-                        DataField="brand_name" ItemStyle-Width="125px" FilterControlWidth="110px">                        
+                        DataField="brand_name" ItemStyle-Width="125px" FilterControlWidth="105px">                        
                         <HeaderStyle Width="130px" />   
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="class_code" HeaderText="Class" HeaderButtonType="TextButton"
-                        DataField="class_code" ItemStyle-Width="55px" FilterControlWidth="40px">                        
+                        DataField="class_code" ItemStyle-Width="55px" FilterControlWidth="35px">                        
                         <HeaderStyle Width="65px" />   
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="warehouse" HeaderText="Warehouse" HeaderButtonType="TextButton"
-                        DataField="warehouse" ItemStyle-Width="105px" FilterControlWidth="90px">                        
+                        DataField="warehouse" ItemStyle-Width="110px" FilterControlWidth="85px">                        
                         <HeaderStyle Width="110px" />   
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn SortExpression="KoLok" HeaderText="Location" HeaderButtonType="TextButton"
-                        DataField="KoLok" ItemStyle-Width="45px" AllowFiltering="false">                        
-                        <HeaderStyle Width="75px" />   
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="soh" HeaderText="SOH" HeaderButtonType="None"
                         DataField="soh" ItemStyle-Width="75px" AllowFiltering="false" DataFormatString="{0:#,##0.00}" DataType="System.Double">                        
-                        <HeaderStyle Width="75px" />                                 
+                        <HeaderStyle Width="75px" HorizontalAlign="Right" /> 
+                        <ItemStyle HorizontalAlign="Right" />                                 
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="Qty_GIT" HeaderText="GIT" HeaderButtonType="None"
                         DataField="Qty_GIT" ItemStyle-Width="75px" AllowFiltering="false" DataFormatString="{0:#,##0.00}" DataType="System.Double">                        
-                        <HeaderStyle Width="75px" />                                
+                        <HeaderStyle Width="75px" HorizontalAlign="Right" /> 
+                        <ItemStyle HorizontalAlign="Right" />                                
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="qty_purchase" HeaderText="PO" HeaderButtonType="None"
                         DataField="qty_purchase" ItemStyle-Width="75px" AllowFiltering="false" DataFormatString="{0:#,##0.00}" DataType="System.Double">                        
-                        <HeaderStyle Width="75px" />                                 
+                        <HeaderStyle Width="75px" HorizontalAlign="Right" /> 
+                        <ItemStyle HorizontalAlign="Right" />                                 
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn SortExpression="saldo_akhir" HeaderText="Saldo" HeaderButtonType="None"
                         DataField="saldo_akhir" ItemStyle-Width="75px" AllowFiltering="false" DataFormatString="{0:#,##0.00}" DataType="System.Double">                        
-                        <HeaderStyle Width="75px" />                                
+                        <HeaderStyle Width="75px" HorizontalAlign="Right" /> 
+                        <ItemStyle HorizontalAlign="Right" />                               
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn SortExpression="KoLok" HeaderText="Location" HeaderButtonType="TextButton"
+                        DataField="KoLok" ItemStyle-Width="45px" AllowFiltering="false">                        
+                        <HeaderStyle Width="75px" />    
+                        <ItemStyle HorizontalAlign="Center" />                
                     </telerik:GridBoundColumn>
                 </Columns>
             </MasterTableView>
@@ -210,7 +217,7 @@
                 <Selecting AllowRowSelect="True"></Selecting>
                 <Resizing AllowRowResize="True" AllowColumnResize="True" EnableRealTimeResize="True"
                     ResizeGridOnColumnResize="False"></Resizing>
-                <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="430px" />
+                <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="460px" />
             </ClientSettings>
             <GroupingSettings ShowUnGroupButton="true"></GroupingSettings>
             </telerik:RadGrid>

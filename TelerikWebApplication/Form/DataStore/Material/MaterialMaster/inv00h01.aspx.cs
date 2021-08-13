@@ -42,15 +42,15 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h01.brand_code, inv00h03.group_name, inv00h02.kind_name, "+
-                "inv00h01.prod_code, inv00h01.spec, inv00h04.brand_name, inv00h01.kind_code, inv00h01.unit," +
-                "case inv00h01.stMain when 0 then 'Stock and Value' when 1 then 'Only Stock' else 'Non Stock' end as stMain, inv00h01.tConsig, " +
-                "inv00h01.tActive, isnull (inv00h01.QtyMin,0) as QtyMin, isnull (inv00h01.QtyMinPur,0) as QtyMinPur,  " +
-                "isnull (inv00h01.SalesFore,0) as SalesFore, inv00h01.tWarranty, isnull (inv00h01.price_sale,0) as price_sale, "+
-                "inv00h01.tSN, inv00h01.tMonitor, inv00h01.warranty, inv00h01.group_code FROM inv00h01 INNER JOIN " +
-                "inv00h04 ON inv00h01.brand_code = inv00h04.brand_code INNER JOIN inv00h03 ON inv00h01.group_code = "+
-                "inv00h03.group_code INNER JOIN inv00h02 ON inv00h01.kind_code = inv00h02.kind_code " +
-                "WHERE(inv00h01.stEdit <> '4')";
+            cmd.CommandText = "SELECT ms_product.brand_code, ms_product_group.group_name, ms_product_kind.kind_name, "+
+                "ms_product.prod_code, ms_product.spec, ms_brand.brand_name, ms_product.kind_code, ms_product.unit," +
+                "case ms_product.stMain when 0 then 'Stock and Value' when 1 then 'Only Stock' else 'Non Stock' end as stMain, ms_product.tConsig, " +
+                "ms_product.tActive, isnull (ms_product.QtyMin,0) as QtyMin, isnull (ms_product.QtyMinPur,0) as QtyMinPur,  " +
+                "isnull (ms_product.SalesFore,0) as SalesFore, ms_product.tWarranty, isnull (ms_product.price_sale,0) as price_sale, "+
+                "ms_product.tSN, ms_product.tMonitor, ms_product.warranty, ms_product.group_code FROM ms_product INNER JOIN " +
+                "ms_brand ON ms_product.brand_code = ms_brand.brand_code INNER JOIN ms_product_group ON ms_product.group_code = "+
+                "ms_product_group.group_code INNER JOIN ms_product_kind ON ms_product.kind_code = ms_product_kind.kind_code " +
+                "WHERE(ms_product.stEdit <> '4')";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -83,7 +83,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                         {
                             GridEditFormItem item = (GridEditFormItem)e.Item;
 
-                            cmd = new SqlCommand("update inv00h01 set spec = @spec, unit = @unit, QtyMin = @Qtymin,  " +
+                            cmd = new SqlCommand("update ms_product set spec = @spec, unit = @unit, QtyMin = @Qtymin,  " +
                                 "brand_code = @brand_code, group_code = @group_code, kind_code = @kind_code, " +
                                 "stMain = CASE @stMain WHEN 'Stock and Value' THEN '1' WHEN 'Only Stock' THEN '2' ELSE '0' END , " +
                                 "qtyminpur = @qtyminpur, SalesFore = @SalesFore, price_sale = @price_sale, tSN = @tSN,  " +
@@ -134,7 +134,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             GridEditableItem item = (GridEditableItem)e.Item;
             try
             {
-                cmd = new SqlCommand("insert into inv00h01 (prod_code, spec, unit, QtyMin, brand_code, group_code, kind_code, " +
+                cmd = new SqlCommand("insert into ms_product (prod_code, spec, unit, QtyMin, brand_code, group_code, kind_code, " +
                         "stMain, qtyminpur, SalesFore, price_sale, tSN, tActive, tWarranty, tMonitor, tConsig, stEdit) values " +
                         "(@prod_code, @spec, @unit, @Qtymin, @brand_code, @group_code,@kind_code, " +
                         "CASE @StMain WHEN 'Stock and value' THEN '0' WHEN 'Only Stock' THEN '1' ELSE '2' END, @qtyminpur, " +
@@ -191,7 +191,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
                 cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
-                cmd.CommandText = "update inv00h01 set stEdit = 4 where prod_code = @prod_code";
+                cmd.CommandText = "update ms_product set stEdit = 4 where prod_code = @prod_code";
                 cmd.Parameters.AddWithValue("@prod_code", RadGrid1.MasterTableView.Items[0].GetDataKeyValue("prod_code").ToString());
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -210,7 +210,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
         }
         private static DataTable GetUoM(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, unit_name FROM inv00h08 WHERE stEdit != '4' AND unit_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT unit_code, unit_name FROM ms_uom WHERE stEdit != '4' AND unit_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -236,7 +236,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
         }
         private static DataTable GetBrand(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT brand_code, brand_name FROM inv00h04 WHERE stEdit != '4' AND brand_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT brand_code, brand_name FROM ms_brand WHERE stEdit != '4' AND brand_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -262,7 +262,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
         }
         private static DataTable GetCategory(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT kind_code, kind_name FROM inv00h02 WHERE stEdit != '4' AND kind_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT kind_code, kind_name FROM ms_product_kind WHERE stEdit != '4' AND kind_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -288,7 +288,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
         }
         private static DataTable GetGroup(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT group_code, group_name FROM inv00h03 WHERE stEdit != '4' AND group_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT group_code, group_name FROM ms_product_group WHERE stEdit != '4' AND group_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -340,7 +340,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT unit_code FROM ms_uom WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -354,7 +354,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT unit_code FROM inv00h08 WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT unit_code FROM ms_uom WHERE unit_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -368,7 +368,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT brand_code FROM inv00h04 WHERE brand_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT brand_code FROM ms_brand WHERE brand_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -383,7 +383,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT brand_code FROM inv00h04 WHERE brand_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT brand_code FROM ms_brand WHERE brand_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -398,7 +398,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT kind_code FROM inv00h02 WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT kind_code FROM ms_product_kind WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -412,7 +412,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT kind_code FROM inv00h02 WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT kind_code FROM ms_product_kind WHERE kind_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -426,7 +426,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT group_code FROM inv00h03 WHERE group_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT group_code FROM ms_product_group WHERE group_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -440,7 +440,7 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT group_code FROM inv00h03 WHERE group_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT group_code FROM ms_product_group WHERE group_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -482,8 +482,8 @@ namespace TelerikWebApplication.Form.Master_data.Material.Material_master
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select inv00d01.KoLok, inv00d01.QACT, inv00h05.wh_name, inv00d01.wh_code, inv00d01.prod_code  from inv00d01, inv00h05 " +
-                              "where prod_code = '" + prod_code + "' and inv00d01.wh_code = inv00h05.wh_code";
+            cmd.CommandText = "select ms_product_detail.KoLok, ms_product_detail.QACT, ms_warehouse.wh_name, ms_product_detail.wh_code, ms_product_detail.prod_code  from ms_product_detail, ms_warehouse " +
+                              "where prod_code = '" + prod_code + "' and ms_product_detail.wh_code = ms_warehouse.wh_code";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);

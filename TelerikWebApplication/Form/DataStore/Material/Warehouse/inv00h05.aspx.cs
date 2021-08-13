@@ -39,7 +39,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE inv00h05 SET stEdit = 4 where wh_code = @wh_code";
+            cmd.CommandText = "UPDATE ms_warehouse SET stEdit = 4 where wh_code = @wh_code";
             cmd.Parameters.AddWithValue("@wh_code", wh_code);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -93,7 +93,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
         }
         public static DataTable GetProject(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select region_name, region_code from inv00h09 where stEdit != 4 AND region_name LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select region_name, region_code from ms_jobsite where stEdit != 4 AND region_name LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -108,7 +108,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -139,7 +139,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT region_code FROM inv00h09 WHERE region_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT region_code FROM ms_jobsite WHERE region_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -153,9 +153,9 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "SELECT inv00h05.address, inv00h05.tClass, inv00h05.ref_prod_code, CASE (inv00h05.type_out) WHEN '0' THEN 'General' WHEN '1' THEN 'Fuel' ELSE 'Oil' END AS type_out, " +
-                              "inv00h05.FluitCap, inv00h05.wh_code, inv00h09.region_code, inv00h09.region_name, inv00h05.wh_name, inv00h05.type_out AS Expr1 FROM inv00h05 INNER JOIN " +
-                              "inv00h09 ON inv00h05.PlantCode = inv00h09.region_code WHERE(inv00h05.stEdit <> 4)";
+            cmd.CommandText = "SELECT ms_warehouse.address, ms_warehouse.tClass, ms_warehouse.ref_prod_code, CASE (ms_warehouse.type_out) WHEN '0' THEN 'General' WHEN '1' THEN 'Fuel' ELSE 'Oil' END AS type_out, " +
+                              "ms_warehouse.FluitCap, ms_warehouse.wh_code, ms_jobsite.region_code, ms_jobsite.region_name, ms_warehouse.wh_name, ms_warehouse.type_out AS Expr1 FROM ms_warehouse INNER JOIN " +
+                              "ms_jobsite ON ms_warehouse.PlantCode = ms_jobsite.region_code WHERE(ms_warehouse.stEdit <> 4)";
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
             sda = new SqlDataAdapter(cmd);
@@ -185,7 +185,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE inv00h05 set wh_name = @wh_name, address = @address, lastupdate = getdate(), userid = @userid, PlantCode = @PlantCode, " +
+            cmd.CommandText = "UPDATE ms_warehouse set wh_name = @wh_name, address = @address, lastupdate = getdate(), userid = @userid, PlantCode = @PlantCode, " +
                               "tClass = CASE @tClass WHEN 'General' THEN '0' WHEN 'Fuel' THEN '1' ELSE '2' END, " +
                               "ref_prod_code = @ref_prod_code, type_out = @type_out, FluitCap = @FluitCap where wh_code = @wh_code";
             cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("txt_code") as RadTextBox).Text);
@@ -208,7 +208,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO inv00h05 (wh_code, wh_name, address, lastupdate, userid, stEdit, PlantCode, tClass, ref_prod_code, " +
+            cmd.CommandText = "INSERT INTO ms_warehouse (wh_code, wh_name, address, lastupdate, userid, stEdit, PlantCode, tClass, ref_prod_code, " +
                               "type_out, FluitCap) VALUES(@wh_code, @wh_name, @address, getdate(), @userid, '0', @PlantCode, CASE @tClass " +
                               "WHEN 'General' THEN '0' WHEN 'Fuel' THEN '1' ELSE '2' END, @ref_prod_code, @type_out, @FluitCap)";
             cmd.Parameters.AddWithValue("@wh_code", (item.FindControl("txt_code") as RadTextBox).Text);
@@ -230,7 +230,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT DISTINCT prod_code FROM inv00h01 WHERE spec = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT DISTINCT prod_code FROM ms_product WHERE spec = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -241,7 +241,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
 
         public static DataTable GetMaterial(string Text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select prod_code, spec from inv00h01 where stEdit != 4 AND spec LIKE @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select prod_code, spec from ms_product where stEdit != 4 AND spec LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", Text);
 
@@ -272,7 +272,7 @@ namespace TelerikWebApplication.Form.DataStore.Material.Warehouse
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT prod_code FROM inv00h01 WHERE prod_code = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "SELECT prod_code FROM ms_product WHERE prod_code = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())

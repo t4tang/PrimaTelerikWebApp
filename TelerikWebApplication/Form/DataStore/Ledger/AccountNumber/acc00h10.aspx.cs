@@ -35,8 +35,8 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select acc00h10.accountgroup + ' ' + acc00h12.groupname as groupname, acc00h10.accountno, acc00h10.accountname, acc00h03.cur_name, acc00h10.Budged, case acc00h12.balance when 'D' Then 'Debet' else 'Kredit' End as balance from acc00h10 INNER JOIN acc00h12 ON acc00h12.accountgroup = acc00h10.accountgroup " +
-               " INNER JOIN acc00h03 ON acc00h03.cur_code = acc00h10.cur_code where acc00h10.stedit != 4";
+            cmd.CommandText = "select gl_account.accountgroup + ' ' + gl_account_group.groupname as groupname, gl_account.accountno, gl_account.accountname, ms_currency.cur_name, gl_account.Budged, case gl_account_group.balance when 'D' Then 'Debet' else 'Kredit' End as balance from gl_account INNER JOIN gl_account_group ON gl_account_group.accountgroup = gl_account.accountgroup " +
+               " INNER JOIN ms_currency ON ms_currency.cur_code = gl_account.cur_code where gl_account.stedit != 4";
 
             cmd.CommandTimeout = 0;
             cmd.ExecuteNonQuery();
@@ -55,9 +55,9 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             return DT;
         }
 
-        private static DataTable Getacc00h12(string text)
+        private static DataTable Getgl_account_group(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountgroup, acc00h10.accountgroup + ' ' + acc00h12.groupname as groupname from acc00h12 where accountgroup like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountgroup, gl_account.accountgroup + ' ' + gl_account_group.groupname as groupname from gl_account_group where accountgroup like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -68,9 +68,9 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
 
         }
 
-        private static DataTable Getacc00h03(string text)
+        private static DataTable Getms_currency(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select cur_code, cur_name from acc00h03 where cur_code like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select cur_code, cur_name from ms_currency where cur_code like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -87,7 +87,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "INSERT INTO acc00h10(accountno, accountname, Budged, accountgroup, cur_code, Stamp,Usr,Owner,stEdit) VALUES (@accountno, @accountname, @Budged, @accountgroup, @cur_code, getdate(),UPPER(@Usr),UPPER (@Owner),0)";
+            cmd.CommandText = "INSERT INTO gl_account(accountno, accountname, Budged, accountgroup, cur_code, Stamp,Usr,Owner,stEdit) VALUES (@accountno, @accountname, @Budged, @accountgroup, @cur_code, getdate(),UPPER(@Usr),UPPER (@Owner),0)";
             cmd.Parameters.AddWithValue("@accountno", (item.FindControl("txt_accountno") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@accountname", (item.FindControl("txt_accountname") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Budged", (item.FindControl("txt_Budged") as RadTextBox).Text);
@@ -107,7 +107,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "UPDATE acc00h10 set accountname = @accountname, Budged = @Budged, accountgroup = @accountgroup, cur_code = @cur_code, LastUpdate = getdate(), Usr = UPPER(@Usr) where accountno = @accountno";
+            cmd.CommandText = "UPDATE gl_account set accountname = @accountname, Budged = @Budged, accountgroup = @accountgroup, cur_code = @cur_code, LastUpdate = getdate(), Usr = UPPER(@Usr) where accountno = @accountno";
             cmd.Parameters.AddWithValue("@accountname", (item.FindControl("txt_accountname") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@accountno", (item.FindControl("txt_accountno") as RadTextBox).Text);
             cmd.Parameters.AddWithValue("@Budged", Convert.ToDouble((item.FindControl("txt_Budged") as RadTextBox).Text));
@@ -126,7 +126,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "update acc00h10 set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where accountno = @accountno";
+            cmd.CommandText = "update gl_account set stEdit = 4, LastUpdate = getdate(), Usr = @Usr where accountno = @accountno";
             cmd.Parameters.AddWithValue("@accountno", productId);
             cmd.Parameters.AddWithValue("@Usr", public_str.user_id);
             cmd.ExecuteNonQuery();
@@ -165,7 +165,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
 
         private static DataTable Getaccountgroup(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select accountgroup +' '+ groupname as groupname from acc00h12 where stEdit != 4 " +
+            SqlDataAdapter adapter = new SqlDataAdapter("select accountgroup +' '+ groupname as groupname from gl_account_group where stEdit != 4 " +
                 " AND accountgroup +' '+ groupname LIKE @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
@@ -182,7 +182,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountgroup from acc00h12 WHERE accountgroup +' '+ groupname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountgroup from gl_account_group WHERE accountgroup +' '+ groupname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -197,7 +197,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select accountgroup from acc00h12 WHERE accountgroup +' '+ groupname = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select accountgroup from gl_account_group WHERE accountgroup +' '+ groupname = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -222,7 +222,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
 
         private static DataTable Getaccountcurrency(string text)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("select cur_code, cur_name from acc00h03 where cur_code like @text + '%'",
+            SqlDataAdapter adapter = new SqlDataAdapter("select cur_code, cur_name from ms_currency where cur_code like @text + '%'",
             ConfigurationManager.ConnectionStrings["DbConString"].ConnectionString);
             adapter.SelectCommand.Parameters.AddWithValue("@text", text);
 
@@ -238,7 +238,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cur_code from acc00h03 where cur_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cur_code from ms_currency where cur_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -253,7 +253,7 @@ namespace TelerikWebApplication.Form.DataStore.Ledger.AccountNumber
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.CommandText = "select cur_code from acc00h03 where cur_name = '" + (sender as RadComboBox).Text + "'";
+            cmd.CommandText = "select cur_code from ms_currency where cur_name = '" + (sender as RadComboBox).Text + "'";
             SqlDataReader dr;
             dr = cmd.ExecuteReader();
             while (dr.Read())
